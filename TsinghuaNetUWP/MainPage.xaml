@@ -1,0 +1,100 @@
+﻿<Page
+    x:Class="TsinghuaNetUWP.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:TsinghuaNetUWP"
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
+    Loaded="Refresh">
+    <Page.DataContext>
+        <local:MainViewModel x:Name="Model"/>
+    </Page.DataContext>
+    <Page.Resources>
+        <Storyboard x:Name="FluxStoryboard">
+            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{Binding FreePercent}" Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{Binding FluxPercent}" Duration="0:0:0.5"/>
+        </Storyboard>
+        <local:FluxStringConverter x:Key="FluxStringConverter"/>
+        <local:TimeSpanStringConverter x:Key="TimeSpanStringConverter"/>
+        <local:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
+        <local:InternetStatusStringConverter x:Key="InternetStatusStringConverter"/>
+        <local:NetStateStringConverter x:Key="NetStateStringConverter"/>
+    </Page.Resources>
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
+        <SplitView.Content>
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Viewbox Grid.RowSpan="3">
+                    <Grid Height="300" Width="300" Margin="10">
+                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" PercentValue="100"/>
+                        <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
+                        <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                    </Grid>
+                </Viewbox>
+                <Viewbox Grid.Row="1">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5">用户：</TextBlock>
+                            <TextBlock Margin="5" Text="{Binding OnlineUser}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5">流量：</TextBlock>
+                            <TextBlock Margin="5" Text="{Binding Flux,Converter={StaticResource FluxStringConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5">时长：</TextBlock>
+                            <TextBlock Margin="5" Text="{Binding OnlineTime,Converter={StaticResource TimeSpanStringConverter}}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="5">余额：</TextBlock>
+                            <TextBlock Margin="5" Text="{Binding Balance,Converter={StaticResource CurrencyStringConverter}}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Viewbox>
+            </Grid>
+        </SplitView.Content>
+        <SplitView.Pane>
+            <ScrollViewer>
+                <StackPanel Margin="10" Orientation="Vertical">
+                    <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">当前用户</TextBlock>
+                    <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Username}"/>
+                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">网络</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding NetStatus,Converter={StaticResource InternetStatusStringConverter}}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络名称</TextBlock>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Ssid}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding SuggestState,Converter={StaticResource NetStateStringConverter}}"/>
+                    </StackPanel>
+                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
+                    <StackPanel Margin="10" Orientation="Vertical">
+                        <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked">Auth4 - https://auth4.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - https://auth6.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </SplitView.Pane>
+    </SplitView>
+    <Page.BottomAppBar>
+        <CommandBar Style="{ThemeResource CommandBarRevealStyle}" Background="{ThemeResource SystemControlBaseHighAcrylicElementBrush}">
+            <AppBarButton Icon="Upload" Label="登录" Click="Login"/>
+            <AppBarButton Icon="Download" Label="注销" Click="Logout"/>
+            <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>
+            <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -1,0 +1,9 @@
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass ChangeUserDialog : Windows.UI.Xaml.Controls.ContentDialog
+    {
+        ChangeUserDialog();
+        Windows.UI.Xaml.Controls.TextBox UnBox { get; };
+        Windows.UI.Xaml.Controls.PasswordBox PwBox { get; };
+    }
+} // namespace TsinghuaNetUWP

@@ -1,0 +1,18 @@
+import "MainViewModel.idl";
+import "Arc.idl";
+
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass MainPage : Windows.UI.Xaml.Controls.Page
+    {
+        MainPage();
+        MainViewModel Model { get; };
+        Arc FluxArc { get; };
+        Arc FreeArc { get; };
+        Windows.UI.Xaml.Media.Animation.Storyboard FluxStoryboard { get; };
+        Windows.UI.Xaml.Controls.SplitView Split { get; };
+        Windows.UI.Xaml.Controls.RadioButton Auth4Radio { get; };
+        Windows.UI.Xaml.Controls.RadioButton Auth6Radio { get; };
+        Windows.UI.Xaml.Controls.RadioButton NetRadio { get; };
+    }
+} // namespace TsinghuaNetUWP

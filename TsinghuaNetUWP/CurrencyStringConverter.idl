@@ -1,0 +1,7 @@
+namespace TsinghuaNetUWP
+{
+    runtimeclass CurrencyStringConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        CurrencyStringConverter();
+    }
+} // namespace TsinghuaNetUWP

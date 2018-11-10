@@ -1,0 +1,61 @@
+namespace TsinghuaNetUWP
+{
+    enum NetState
+    {
+        Unknown,
+        Auth4,
+        Auth6,
+        Net
+    };
+
+    enum InternetStatus
+    {
+        Unknown,
+        None,
+        Wwan,
+        Wlan,
+        Lan
+    };
+
+    [bindable][default_interface] runtimeclass MainViewModel : Windows.UI.Xaml.DependencyObject
+    {
+        MainViewModel();
+
+        String OnlineUser;
+        static Windows.UI.Xaml.DependencyProperty OnlineUserProperty { get; };
+
+        UInt64 Flux;
+        static Windows.UI.Xaml.DependencyProperty FluxProperty { get; };
+
+        Windows.Foundation.TimeSpan OnlineTime;
+        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
+
+        Double Balance;
+        static Windows.UI.Xaml.DependencyProperty BalanceProperty { get; };
+
+        Double FluxPercent;
+        static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
+
+        Double FreePercent;
+        static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
+
+        String Username;
+        static Windows.UI.Xaml.DependencyProperty UsernameProperty { get; };
+
+        String Password;
+        static Windows.UI.Xaml.DependencyProperty PasswordProperty { get; };
+
+        InternetStatus NetStatus;
+        static Windows.UI.Xaml.DependencyProperty NetStatusProperty { get; };
+
+        String Ssid;
+        static Windows.UI.Xaml.DependencyProperty SsidProperty { get; };
+
+        NetState SuggestState;
+        static Windows.UI.Xaml.DependencyProperty SuggestStateProperty { get; };
+
+        NetState State;
+        void SyncState(NetState value);
+        event Windows.Foundation.EventHandler<NetState> StateChanged;
+    }
+} // namespace TsinghuaNetUWP

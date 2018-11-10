@@ -1,0 +1,318 @@
+#include "pch.h"
+
+#include "NetHelper.h"
+#include <iomanip>
+#include <pplawait.h>
+#include <regex>
+#include <sf/sformat.hpp>
+#include <sstream>
+#include <winrt/Windows.Security.Cryptography.Core.h>
+#include <winrt/Windows.Storage.Streams.h>
+#include <winrt/Windows.Web.Http.h>
+
+using sf::sprint;
+using std::chrono::seconds;
+using namespace std;
+using namespace concurrency;
+using namespace winrt;
+using namespace Windows::Foundation;
+using namespace Windows::Web::Http;
+using namespace Windows::Security::Cryptography;
+using namespace Windows::Security::Cryptography::Core;
+using namespace Windows::Storage::Streams;
+
+namespace winrt::TsinghuaNetUWP
+{
+    vector<wstring> string_split(wstring_view const& s, wchar_t separator)
+    {
+        vector<wstring> result;
+        size_t offset = 0, index = 0;
+        while ((index = s.find(separator, offset)) != wstring::npos)
+        {
+            if (index > offset)
+            {
+                result.emplace_back(&s[offset], index - offset);
+            }
+            offset = index + 1;
+        }
+        if (offset + 1 < s.length())
+        {
+            result.emplace_back(&s[offset]);
+        }
+        return result;
+    }
+    FluxUser make_FluxUser(wstring_view const& fluxstr)
+    {
+        auto r = string_split(fluxstr, ',');
+        if (!r.empty())
+        {
+            return { r[0],
+                     stoull(r[6]),
+                     seconds(stoll(r[2]) - stoll(r[1])),
+                     stod(r[10]) };
+        }
+        return {};
+    }
+
+    task<hstring> NetHelper_base::GetAsync(Uri const& uri) const
+    {
+        return co_await client.GetStringAsync(uri);
+    }
+    task<hstring> NetHelper_base::PostAsync(Uri const& uri) const
+    {
+        auto message = HttpRequestMessage(HttpMethod::Post(), uri);
+        auto response = co_await client.SendRequestAsync(message, HttpCompletionOption::ResponseContentRead);
+        return co_await response.Content().ReadAsStringAsync();
+    }
+    task<hstring> NetHelper_base::PostAsync(Uri const& uri, param::hstring const& data) const
+    {
+        auto content = HttpStringContent(data, UnicodeEncoding::Utf8,
+                                         L"application/x-www-form-urlencoded");
+        auto response = co_await client.PostAsync(uri, content);
+        return co_await response.Content().ReadAsStringAsync();
+    }
+    task<hstring> NetHelper_base::PostAsync(Uri const& uri, map<hstring, hstring> const& data) const
+    {
+        auto content = HttpFormUrlEncodedContent(data);
+        auto response = co_await client.PostAsync(uri, content);
+        return co_await response.Content().ReadAsStringAsync();
+    }
+
+    wstring GetHexString(IBuffer const& buffer)
+    {
+        wostringstream oss;
+        auto data = buffer.data();
+        auto size = buffer.Length();
+        for (uint32_t i = 0; i < size; i++)
+        {
+            oss << setw(2) << setfill(L'0') << hex << data[i];
+        }
+        return oss.str();
+    }
+    wstring GetHashString(wstring const& input, hstring const& algorithm)
+    {
+        if (input.empty())
+            return {};
+        auto hash = HashAlgorithmProvider::OpenAlgorithm(algorithm);
+        auto data = hash.HashData(CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8));
+        return GetHexString(data);
+    }
+    wstring GetMD5(wstring const& input)
+    {
+        return GetHashString(input, HashAlgorithmNames::Md5());
+    }
+    wstring GetSHA1(wstring const& input)
+    {
+        return GetHashString(input, HashAlgorithmNames::Sha1());
+    }
+
+    task<hstring> NetHelper::LoginAsync() const
+    {
+        auto data = sprint(LoginData, username, GetMD5(password));
+        return PostAsync(Uri(LogUri), data);
+    }
+    task<hstring> NetHelper::LogoutAsync() const
+    {
+        return PostAsync(Uri(LogUri), LogoutData);
+    }
+    task<FluxUser> NetHelper::FluxAsync() const
+    {
+        return make_FluxUser(co_await PostAsync(Uri(FluxUri)));
+    }
+
+    AuthHelper::AuthHelper(int version)
+        : LogUri(sprint(LogUriBase, version)),
+          FluxUri(sprint(FluxUriBase, version)),
+          ChallengeUri(sprint(ChallengeUriBase, version))
+    {
+    }
+    task<hstring> AuthHelper::LoginAsync() const
+    {
+        auto data = co_await LoginDataAsync();
+        auto result = co_await PostAsync(Uri(LogUri), data);
+        return result;
+    }
+    task<hstring> AuthHelper::LogoutAsync() const
+    {
+        return PostAsync(Uri(LogUri), LogoutData);
+    }
+    task<FluxUser> AuthHelper::FluxAsync() const
+    {
+        return make_FluxUser(co_await PostAsync(Uri(FluxUri)));
+    }
+
+    task<wstring> AuthHelper::ChallengeAsync() const
+    {
+        wstring result(co_await GetAsync(Uri(sprint(ChallengeUri, username))));
+        wregex reg(ChallengeRegex);
+        wsmatch match;
+        if (regex_search(result, match, reg))
+        {
+            return match[1].str();
+        }
+        return {};
+    }
+
+    namespace encode_methods
+    {
+        vector<uint32_t> S(wstring const& a, bool b)
+        {
+            uint32_t c = (uint32_t)a.length();
+            uint32_t n = c / 4;
+            n += c % 4 != 0 ? 1 : 0;
+            vector<uint32_t> v;
+            if (b)
+            {
+                v = vector<uint32_t>(n + 1);
+                v[n] = c;
+            }
+            else
+            {
+                v = vector<uint32_t>(n < 4 ? 4 : n);
+            }
+            uint8_t* pb = (uint8_t*)&v.front();
+            for (uint32_t i = 0; i < c; i++)
+            {
+                pb[i] = (uint8_t)a[i];
+            }
+            return v;
+        }
+
+        wstring L(vector<uint32_t> const& a, bool b)
+        {
+            uint32_t d = (uint32_t)a.size();
+            uint32_t c = (d - 1) << 2;
+            if (b)
+            {
+                uint32_t m = a[d - 1];
+                if (m < c - 3 || m > c)
+                {
+                    return {};
+                }
+                c = m;
+            }
+            uint8_t* pb = (uint8_t*)&a.front();
+            uint32_t n = d << 2;
+            wstring aa(n, L'\0');
+            for (uint32_t i = 0; i < n; i++)
+            {
+                aa[i] = pb[i];
+            }
+            if (b)
+                return aa.substr(0, c);
+            else
+                return aa;
+        }
+
+        wstring XEncode(wstring const& str, wstring const& key)
+        {
+            if (str.empty())
+                return {};
+            auto v = S(str, true);
+            auto k = S(key, false);
+            uint32_t n = (uint32_t)v.size() - 1;
+            uint32_t z = v.back();
+            uint32_t y = v.front();
+            uint32_t q = 6 + 52 / (n + 1);
+            uint32_t d = 0;
+            while (q--)
+            {
+                d += 0x9E3779B9;
+                uint32_t e = (d >> 2) & 3;
+                for (uint32_t p = 0; p <= n; p++)
+                {
+                    y = v[p == n ? 0 : p + 1];
+                    uint32_t m = (z >> 5) ^ (y << 2);
+                    m += (y >> 3) ^ (z << 4) ^ (d ^ y);
+                    m += k[(p & 3) ^ e] ^ z;
+                    z = v[p] += m;
+                }
+            }
+            return L(v, false);
+        }
+
+        constexpr wchar_t Base64N[] = L"LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";
+        wstring Base64Encode(wstring const& t)
+        {
+            size_t a = t.length();
+            size_t len = a / 3 * 4;
+            len += a % 3 != 0 ? 4 : 0;
+            wstring u(len, L'\0');
+            wchar_t r = L'=';
+            uint32_t h = 0;
+            uint8_t* p = (uint8_t*)&h;
+            size_t ui = 0;
+            for (size_t o = 0; o < a; o += 3)
+            {
+                p[2] = (uint8_t)t[o];
+                p[1] = (uint8_t)(o + 1 < a ? t[o + 1] : 0);
+                p[0] = (uint8_t)(o + 2 < a ? t[o + 2] : 0);
+                for (size_t i = 0; i < 4; i++)
+                {
+                    if (o * 8 + i * 6 > a * 8)
+                    {
+                        u[ui++] = r;
+                    }
+                    else
+                    {
+                        u[ui++] = Base64N[h >> 6 * (3 - i) & 0x3F];
+                    }
+                }
+            }
+            return u;
+        }
+    } // namespace encode_methods
+
+#define AUTH_LOGIN_PASSWORD_MD5 L"5e543256c480ac577d30f76f9120eb74"
+
+    task<map<hstring, hstring>> AuthHelper::LoginDataAsync() const
+    {
+        using namespace encode_methods;
+        wstring token = co_await ChallengeAsync();
+        auto data = map<hstring, hstring>{
+            { L"action", L"login" },
+            { L"ac_id", L"1" },
+            { L"double_stack", L"1" },
+            { L"n", L"200" },
+            { L"type", L"1" },
+            { L"password", L"{MD5}" AUTH_LOGIN_PASSWORD_MD5 }
+        };
+        wstring info = L"{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, username, password), token));
+        data.emplace(L"info", info);
+        data.emplace(L"username", username);
+        data.emplace(L"chksum", GetSHA1(sprint(ChkSumData, token, username, AUTH_LOGIN_PASSWORD_MD5, info)));
+        return data;
+    }
+
+    task<hstring> UseregHelper::LoginAsync() const
+    {
+        return PostAsync(Uri(LogUri), sprint(LoginData, username, GetMD5(password)));
+    }
+    task<hstring> UseregHelper::LogoutAsync() const
+    {
+        return PostAsync(Uri(LogUri), LogoutData);
+    }
+    task<hstring> UseregHelper::LogoutAsync(wstring const& ip) const
+    {
+        return PostAsync(Uri(InfoUri), sprint(DropData, ip));
+    }
+    task<vector<NetUser>> UseregHelper::UsersAsync() const
+    {
+        vector<NetUser> result;
+        wstring userhtml(co_await GetAsync(Uri(InfoUri)));
+        wsmatch tmatch;
+        if (regex_search(userhtml, tmatch, wregex(TableRegex)))
+        {
+            for (auto& m : tmatch)
+            {
+                wsmatch details;
+                wstring r = m.str();
+                if (regex_search(r, details, wregex(ItemRegex)))
+                {
+                    result.push_back({ details[0].str(), details[1].str(), details[10].str() });
+                }
+            }
+        }
+        return result;
+    }
+} // namespace winrt::TsinghuaNetUWP

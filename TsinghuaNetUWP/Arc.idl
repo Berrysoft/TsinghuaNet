@@ -1,0 +1,18 @@
+namespace TsinghuaNetUWP
+{
+    runtimeclass Arc : Windows.UI.Xaml.Controls.Canvas
+    {
+        Arc();
+
+        Double Radius { get; };
+
+        Double Thickness;
+        static Windows.UI.Xaml.DependencyProperty ThicknessProperty { get; };
+
+        Windows.UI.Xaml.Media.Brush Fill;
+        static Windows.UI.Xaml.DependencyProperty FillProperty { get; };
+
+        Double PercentValue;
+        static Windows.UI.Xaml.DependencyProperty PercentValueProperty { get; };
+    }
+} // namespace TsinghuaNetUWP

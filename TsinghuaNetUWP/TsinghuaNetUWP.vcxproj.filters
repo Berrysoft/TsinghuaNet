@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Page Include="ChangeUserDialog.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="MainPage.xaml">
+      <Filter>Views</Filter>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="App.idl" />
+    <Midl Include="MainPage.idl" />
+    <Midl Include="MainViewModel.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="CurrencyStringConverter.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="FluxStringConverter.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="Arc.idl">
+      <Filter>Views</Filter>
+    </Midl>
+    <Midl Include="TimeSpanStringConverter.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="InternetStatusStringConverter.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="NetStateStringConverter.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="App.cpp" />
+    <ClCompile Include="MainPage.cpp" />
+    <ClCompile Include="Generated Files\module.g.cpp" />
+    <ClCompile Include="Arc.cpp" />
+    <ClCompile Include="MainViewModel.cpp" />
+    <ClCompile Include="FluxStringConverter.cpp" />
+    <ClCompile Include="TimeSpanStringConverter.cpp" />
+    <ClCompile Include="CurrencyStringConverter.cpp" />
+    <ClCompile Include="LanHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="NetHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="InternetStatusStringConverter.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="NetStateStringConverter.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.h" />
+    <ClInclude Include="MainPage.h" />
+    <ClInclude Include="Arc.h" />
+    <ClInclude Include="MainViewModel.h" />
+    <ClInclude Include="FluxStringConverter.h" />
+    <ClInclude Include="TimeSpanStringConverter.h" />
+    <ClInclude Include="CurrencyStringConverter.h" />
+    <ClInclude Include="LanHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="NetHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="DependencyHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="InternetStatusStringConverter.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="NetStateStringConverter.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\Wide310x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\StoreLogo.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square150x150Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\Square44x44Logo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\SplashScreen.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include=".clang-format" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{e48dc53e-40b1-40cb-970a-f89935452892}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views">
+      <UniqueIdentifier>{a8cc31b0-3572-4e7a-b870-3d35b4e2c1ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>{ba0d3a8a-6e4f-4e96-83be-02127306f167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{a50b501d-d733-48c5-83fb-a950648bbd5b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Filter>Views</Filter>
+    </ApplicationDefinition>
+  </ItemGroup>
+</Project>

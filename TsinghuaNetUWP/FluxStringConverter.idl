@@ -1,0 +1,7 @@
+namespace TsinghuaNetUWP
+{
+    runtimeclass FluxStringConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        FluxStringConverter();
+    }
+} // namespace TsinghuaNetUWP
