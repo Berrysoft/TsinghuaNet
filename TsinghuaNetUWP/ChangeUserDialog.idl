@@ -5,5 +5,6 @@ namespace TsinghuaNetUWP
         ChangeUserDialog();
         Windows.UI.Xaml.Controls.TextBox UnBox { get; };
         Windows.UI.Xaml.Controls.PasswordBox PwBox { get; };
+        Windows.UI.Xaml.Controls.CheckBox SaveBox { get; };
     }
 } // namespace TsinghuaNetUWP

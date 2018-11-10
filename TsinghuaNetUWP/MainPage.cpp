@@ -7,15 +7,20 @@
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.Security.Credentials.h>
+#include <winrt/Windows.Storage.h>
 
 using namespace std;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
 using namespace Windows::UI;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
+using namespace Windows::Security::Credentials;
+using namespace Windows::Storage;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -30,6 +35,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().StateChanged({ this, &MainPage::StateChanged });
         RefreshStatusImpl();
         Model().State(Model().SuggestState());
+        hstring un = StoredUsername();
+        if (!un.empty())
+        {
+            Model().Username(un);
+            Model().Password(GetCredential(un));
+            LoginImpl();
+        }
     }
 
     void MainPage::OpenSettings(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -55,12 +67,27 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::ShowChangeUser(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         auto dialog = make<ChangeUserDialog>();
-        dialog.UnBox().Text(Model().Username());
+        hstring oldun = Model().Username();
+        dialog.UnBox().Text(oldun);
+        hstring oldpw = GetCredential(oldun);
+        dialog.PwBox().Password(oldpw);
+		if (!oldpw.empty())
+		{
+            dialog.SaveBox().IsChecked(true);
+		}
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
-            Model().Username(dialog.UnBox().Text());
-            Model().Password(dialog.PwBox().Password());
+            hstring un = dialog.UnBox().Text();
+            hstring pw = dialog.PwBox().Password();
+            RemoveCredential(un);
+            if (dialog.SaveBox().IsChecked().Value())
+            {
+                SaveCredential(un, pw);
+            }
+            StoredUsername(un);
+            Model().Username(un);
+            Model().Password(pw);
             Split().IsPaneOpen(false);
             LoginImpl();
         }
@@ -204,5 +231,56 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().NetStatus(get<0>(status));
         Model().Ssid(get<1>(status));
         Model().SuggestState(state);
+    }
+
+    constexpr wchar_t CredentialResource[] = L"TsinghuaNetUWP";
+    hstring GetCredential(hstring const& username)
+    {
+        PasswordVault vault;
+        auto all = vault.RetrieveAll();
+        for (auto c : all)
+        {
+            if (c.Resource() == CredentialResource && c.UserName() == username)
+            {
+                c.RetrievePassword();
+                return c.Password();
+            }
+        }
+        return {};
+    }
+    void SaveCredential(hstring const& username, hstring const& password)
+    {
+        PasswordVault vault;
+        vault.Add({ CredentialResource, username, password });
+    }
+    void RemoveCredential(hstring const& username)
+    {
+        PasswordVault vault;
+        auto all = vault.RetrieveAll();
+        for (auto c : all)
+        {
+            if (c.Resource() == CredentialResource && c.UserName() == username)
+            {
+                vault.Remove(c);
+            }
+        }
+    }
+
+    constexpr wchar_t StoredUsernameKey[] = L"Username";
+    hstring StoredUsername()
+    {
+        auto settings = ApplicationData::Current().LocalSettings();
+        auto values = settings.Values();
+        if (values.HasKey(StoredUsernameKey))
+        {
+            return unbox_value<hstring>(values.Lookup(StoredUsernameKey));
+        }
+        return {};
+    }
+    void StoredUsername(winrt::hstring const& value)
+    {
+        auto settings = ApplicationData::Current().LocalSettings();
+        auto values = settings.Values();
+        values.Insert(StoredUsernameKey, box_value(value));
     }
 } // namespace winrt::TsinghuaNetUWP::implementation
