@@ -129,7 +129,7 @@ namespace winrt::TsinghuaNetUWP
         static constexpr wchar_t LogoutData[] = L"action=logout";
         static constexpr wchar_t DropData[] = L"action=drop&user_ip={}";
 
-        static constexpr wchar_t TableRegex[] = L"<tr align=\"center\">.+?</tr>";
-        static constexpr wchar_t ItemRegex[] = L"(?<=\\<td class=\"maintd\"\\>)(.*?)(?=\\</td\\>)";
+        static constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";
+        static constexpr wchar_t ItemRegex[] = L"<td class=\"maintd\">(.*?)</td>";
     };
 } // namespace winrt::TsinghuaNetUWP

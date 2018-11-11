@@ -3,11 +3,13 @@
 
 #include "Arc.h"
 #include "CurrencyStringConverter.h"
+#include "DropUserCommand.h"
 #include "FluxStringConverter.h"
 #include "InternetStatusStringConverter.h"
 #include "MainViewModel.h"
 #include "NetHelper.h"
 #include "NetStateStringConverter.h"
+#include "NetUserModel.h"
 #include "TimeSpanStringConverter.h"
 #include <memory>
 
@@ -22,6 +24,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction Logout(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction Refresh(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const& sender, winrt::hstring const& e);
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
@@ -37,6 +40,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
         Windows::Foundation::IAsyncAction RefreshImpl(IConnect const& helper);
+        Windows::Foundation::IAsyncAction DropImpl(std::wstring address);
         std::unique_ptr<IConnect> GetHelper();
 
         void RefreshStatusImpl();

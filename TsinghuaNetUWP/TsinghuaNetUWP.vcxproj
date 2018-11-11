@@ -99,6 +99,9 @@
       <DependentUpon>CurrencyStringConverter.idl</DependentUpon>
     </ClInclude>
     <ClInclude Include="DependencyHelper.h" />
+    <ClInclude Include="DropUserCommand.h">
+      <DependentUpon>DropUserCommand.idl</DependentUpon>
+    </ClInclude>
     <ClInclude Include="FluxStringConverter.h">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
     </ClInclude>
@@ -113,6 +116,9 @@
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetStateStringConverter.h">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="NetUserModel.h">
+      <DependentUpon>NetUserModel.idl</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
@@ -164,6 +170,9 @@
     <ClCompile Include="CurrencyStringConverter.cpp">
       <DependentUpon>CurrencyStringConverter.idl</DependentUpon>
     </ClCompile>
+    <ClCompile Include="DropUserCommand.cpp">
+      <DependentUpon>DropUserCommand.idl</DependentUpon>
+    </ClCompile>
     <ClCompile Include="FluxStringConverter.cpp">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
     </ClCompile>
@@ -179,6 +188,9 @@
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetStateStringConverter.cpp">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="NetUserModel.cpp">
+      <DependentUpon>NetUserModel.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -203,6 +215,7 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="CurrencyStringConverter.idl" />
+    <Midl Include="DropUserCommand.idl" />
     <Midl Include="FluxStringConverter.idl" />
     <Midl Include="InternetStatusStringConverter.idl" />
     <Midl Include="MainPage.idl">
@@ -212,6 +225,7 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NetStateStringConverter.idl" />
+    <Midl Include="NetUserModel.idl" />
     <Midl Include="TimeSpanStringConverter.idl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -32,6 +32,13 @@
     <Midl Include="NetStateStringConverter.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="ChangeUserDialog.idl" />
+    <Midl Include="NetUserModel.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="DropUserCommand.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -53,6 +60,13 @@
       <Filter>ViewModels</Filter>
     </ClCompile>
     <ClCompile Include="NetStateStringConverter.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeUserDialog.cpp" />
+    <ClCompile Include="NetUserModel.cpp">
+      <Filter>ViewModels</Filter>
+    </ClCompile>
+    <ClCompile Include="DropUserCommand.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,6 +92,13 @@
       <Filter>ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="NetStateStringConverter.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeUserDialog.h" />
+    <ClInclude Include="NetUserModel.h">
+      <Filter>ViewModels</Filter>
+    </ClInclude>
+    <ClInclude Include="DropUserCommand.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>

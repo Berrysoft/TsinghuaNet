@@ -55,6 +55,8 @@ namespace TsinghuaNetUWP
         NetState SuggestState;
         static Windows.UI.Xaml.DependencyProperty SuggestStateProperty { get; };
 
+        Windows.Foundation.Collections.IObservableVector<IInspectable> NetUsers { get; };
+
         NetState State;
         void SyncState(NetState value);
         event Windows.Foundation.EventHandler<NetState> StateChanged;

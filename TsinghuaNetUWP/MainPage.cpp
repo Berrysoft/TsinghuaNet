@@ -69,6 +69,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         return RefreshImpl();
     }
 
+    IAsyncAction MainPage::DropUser(IInspectable const& /*sender*/, hstring const& e)
+    {
+        return DropImpl(wstring(e));
+    }
+
     IAsyncAction MainPage::ShowChangeUser(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         auto dialog = make<ChangeUserDialog>();
@@ -143,6 +148,27 @@ namespace winrt::TsinghuaNetUWP::implementation
         catch (hresult_error const&)
         {
         }
+        try
+        {
+            UseregHelper helper;
+            helper.username = Model().Username();
+            helper.password = Model().Password();
+            co_await helper.LoginAsync();
+            auto users = co_await helper.UsersAsync();
+            auto usersmodel = Model().NetUsers();
+            usersmodel.Clear();
+            for (auto& user : users)
+            {
+                auto u = make<NetUserModel>();
+                u.Address(hstring(user.address));
+                u.LoginTime(hstring(user.login_time));
+                u.Client(hstring(user.client));
+                usersmodel.Append(u);
+            }
+        }
+        catch (hresult_error const&)
+        {
+        }
     }
     IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
     {
@@ -155,6 +181,22 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FluxPercent(flux.flux / maxf * 100);
         Model().FreePercent(base_flux / maxf * 100);
         FluxStoryboard().Begin();
+    }
+
+    IAsyncAction MainPage::DropImpl(wstring address)
+    {
+        try
+        {
+            UseregHelper helper;
+            helper.username = Model().Username();
+            helper.password = Model().Password();
+            co_await helper.LoginAsync();
+            co_await helper.LogoutAsync(address);
+            co_await RefreshImpl();
+        }
+        catch (hresult_error const&)
+        {
+        }
     }
 
     template <typename T>

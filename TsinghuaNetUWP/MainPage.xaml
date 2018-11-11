@@ -20,6 +20,7 @@
         <local:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
         <local:InternetStatusStringConverter x:Key="InternetStatusStringConverter"/>
         <local:NetStateStringConverter x:Key="NetStateStringConverter"/>
+        <local:DropUserCommand x:Key="DropUserCommand" DropUser="DropUser"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
         <SplitView.Content>
@@ -85,6 +86,21 @@
                         <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - https://auth6.tsinghua.edu.cn/</RadioButton>
                         <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
                     </StackPanel>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">管理连接</TextBlock>
+                    <ListView Margin="10" ItemsSource="{Binding NetUsers}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="local:NetUserModel">
+                                <StackPanel Width="280" Orientation="Vertical">
+                                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Client}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
+                                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
+                                    </StackPanel>
+                                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" HorizontalAlignment="Right" Width="100" Command="{StaticResource DropUserCommand}" CommandParameter="{Binding Address}">断开连接</Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackPanel>
             </ScrollViewer>
         </SplitView.Pane>

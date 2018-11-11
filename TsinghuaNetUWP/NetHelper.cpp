@@ -299,19 +299,23 @@ namespace winrt::TsinghuaNetUWP
     task<vector<NetUser>> UseregHelper::UsersAsync() const
     {
         vector<NetUser> result;
+        wregex tabler(TableRegex);
+        wregex itemr(ItemRegex);
         wstring userhtml(co_await GetAsync(Uri(InfoUri)));
-        wsmatch tmatch;
-        if (regex_search(userhtml, tmatch, wregex(TableRegex)))
+        wsregex_iterator row_begin(userhtml.begin(), userhtml.end(), tabler);
+        wsregex_iterator row_end;
+        for (; row_begin != row_end; ++row_begin)
         {
-            for (auto& m : tmatch)
+            wstring r = row_begin->str();
+            wsregex_iterator col_begin(r.begin(), r.end(), itemr);
+            wsregex_iterator col_end;
+            vector<wstring> details;
+            for (; col_begin != col_end; ++col_begin)
             {
-                wsmatch details;
-                wstring r = m.str();
-                if (regex_search(r, details, wregex(ItemRegex)))
-                {
-                    result.push_back({ details[0].str(), details[1].str(), details[10].str() });
-                }
+                auto& match = *col_begin;
+                details.push_back(match[1].str());
             }
+            result.push_back({ details[0], details[1], details[10] });
         }
         return result;
     }

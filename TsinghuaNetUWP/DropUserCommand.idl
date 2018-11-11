@@ -1,0 +1,9 @@
+namespace TsinghuaNetUWP
+{
+    runtimeclass DropUserCommand : Windows.UI.Xaml.Input.ICommand
+    {
+        DropUserCommand();
+
+        event Windows.Foundation.EventHandler<String> DropUser;
+    }
+} // namespace TsinghuaNetUWP

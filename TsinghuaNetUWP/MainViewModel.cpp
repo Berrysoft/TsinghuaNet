@@ -9,6 +9,11 @@ using namespace Windows::UI::Xaml;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
+	MainViewModel::MainViewModel()
+	{
+        m_NetUsers = single_threaded_observable_vector<IInspectable>();
+	}
+
     DEPENDENCY_PROPERTY_INIT(OnlineUser, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Flux, uint64_t, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value<uint64_t>(0))
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(TimeSpan()))
