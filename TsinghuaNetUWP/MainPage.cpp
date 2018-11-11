@@ -4,11 +4,11 @@
 
 #include "ChangeUserDialog.h"
 #include "LanHelper.h"
+#include "NotificationHelper.h"
+#include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
-#include <winrt/Windows.Security.Credentials.h>
-#include <winrt/Windows.Storage.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std;
@@ -19,8 +19,6 @@ using namespace Windows::UI;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
-using namespace Windows::Security::Credentials;
-using namespace Windows::Storage;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -181,6 +179,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FluxPercent(flux.flux / maxf * 100);
         Model().FreePercent(base_flux / maxf * 100);
         FluxStoryboard().Begin();
+        UpdateTile(flux);
     }
 
     IAsyncAction MainPage::DropImpl(wstring address)
@@ -280,56 +279,5 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().NetStatus(get<0>(status));
         Model().Ssid(get<1>(status));
         Model().SuggestState(state);
-    }
-
-    constexpr wchar_t CredentialResource[] = L"TsinghuaNetUWP";
-    hstring GetCredential(hstring const& username)
-    {
-        PasswordVault vault;
-        auto all = vault.RetrieveAll();
-        for (auto c : all)
-        {
-            if (c.Resource() == CredentialResource && c.UserName() == username)
-            {
-                c.RetrievePassword();
-                return c.Password();
-            }
-        }
-        return {};
-    }
-    void SaveCredential(hstring const& username, hstring const& password)
-    {
-        PasswordVault vault;
-        vault.Add({ CredentialResource, username, password });
-    }
-    void RemoveCredential(hstring const& username)
-    {
-        PasswordVault vault;
-        auto all = vault.RetrieveAll();
-        for (auto c : all)
-        {
-            if (c.Resource() == CredentialResource && c.UserName() == username)
-            {
-                vault.Remove(c);
-            }
-        }
-    }
-
-    constexpr wchar_t StoredUsernameKey[] = L"Username";
-    hstring StoredUsername()
-    {
-        auto settings = ApplicationData::Current().LocalSettings();
-        auto values = settings.Values();
-        if (values.HasKey(StoredUsernameKey))
-        {
-            return unbox_value<hstring>(values.Lookup(StoredUsernameKey));
-        }
-        return {};
-    }
-    void StoredUsername(winrt::hstring const& value)
-    {
-        auto settings = ApplicationData::Current().LocalSettings();
-        auto values = settings.Values();
-        values.Insert(StoredUsernameKey, box_value(value));
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

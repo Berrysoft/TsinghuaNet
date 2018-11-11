@@ -1,9 +1,8 @@
 ﻿#include "pch.h"
 
 #include "FluxStringConverter.h"
-#include <sf/sformat.hpp>
+#include "NotificationHelper.h"
 
-using sf::sprint;
 using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -13,25 +12,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
     IInspectable FluxStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
-        double flux = (double)unbox_value<uint64_t>(value);
-        wstring result;
-        if (flux < 1000)
-        {
-            result = sprint(L"{} B", flux);
-        }
-        else if ((flux /= 1000) < 1000)
-        {
-            result = sprint(L"{:f2} kB", flux);
-        }
-        else if ((flux /= 1000) < 1000)
-        {
-            result = sprint(L"{:f2} MB", flux);
-        }
-        else
-        {
-            flux /= 1000;
-            result = sprint(L"{:f2} GB", flux);
-        }
+        uint64_t flux = unbox_value<uint64_t>(value);
+        hstring result = GetFluxString(flux);
         return box_value(result);
     }
 

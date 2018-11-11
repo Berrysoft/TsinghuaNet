@@ -69,6 +69,12 @@
     <ClCompile Include="DropUserCommand.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="SettingsHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="NotificationHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -101,6 +107,12 @@
     <ClInclude Include="DropUserCommand.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="SettingsHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="NotificationHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -130,8 +142,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
-    <None Include="packages.config" />
     <None Include=".clang-format" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
