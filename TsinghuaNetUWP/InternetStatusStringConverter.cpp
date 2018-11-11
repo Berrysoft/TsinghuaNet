@@ -10,7 +10,7 @@ using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable InternetStatusStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable InternetStatusStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         InternetStatus status = unbox_value<InternetStatus>(value);
         wstring result;
@@ -35,7 +35,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return box_value(result);
     }
 
-    IInspectable InternetStatusStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable InternetStatusStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         throw hresult_not_implemented();
     }

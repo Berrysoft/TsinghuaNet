@@ -11,7 +11,7 @@ using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable FluxStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable FluxStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         double flux = (double)unbox_value<uint64_t>(value);
         wstring result;
@@ -35,7 +35,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return box_value(result);
     }
 
-    IInspectable FluxStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable FluxStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         throw hresult_not_implemented();
     }

@@ -10,12 +10,12 @@ using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable CurrencyStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable CurrencyStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         return box_value(sprint(L"￥{:f2}", unbox_value<double>(value)));
     }
 
-    IInspectable CurrencyStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable CurrencyStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         throw hresult_not_implemented();
     }

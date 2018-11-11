@@ -10,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         Arc();
 
-        double Radius() { return m_Radius; }
+        double Radius() const { return m_Radius; }
 
         DEPENDENCY_PROPERTY(Thickness, double)
         DEPENDENCY_PROPERTY(Fill, Windows::UI::Xaml::Media::Brush)

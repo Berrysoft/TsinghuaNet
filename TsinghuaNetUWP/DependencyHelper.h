@@ -2,8 +2,8 @@
 
 #define DEPENDENCY_PROPERTY(Name, type)                                                          \
 public:                                                                                          \
-    type Name() { return winrt::unbox_value<type>(GetValue(m_##Name##Property)); }               \
-    void Name(type value) { SetValue(m_##Name##Property, winrt::box_value(value)); }             \
+    type Name() const { return winrt::unbox_value<type>(GetValue(m_##Name##Property)); }         \
+    void Name(type value) const { SetValue(m_##Name##Property, winrt::box_value(value)); }       \
     static Windows::UI::Xaml::DependencyProperty Name##Property() { return m_##Name##Property; } \
                                                                                                  \
 private:                                                                                         \

@@ -29,7 +29,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         EVENT_DECL(StateChanged, NetState)
 
     public:
-        NetState State() { return m_State; }
+        NetState State() const { return m_State; }
         void State(NetState value)
         {
             m_State = value;

@@ -10,7 +10,7 @@ using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable TimeSpanStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable TimeSpanStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         TimeSpan span = unbox_value<TimeSpan>(value);
         int64_t tsec = span.count() / 10000000;
@@ -24,7 +24,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return box_value(sprint(L"{}{:d2}:{:d2}:{:d2}", minus ? L"-" : L"", h, min, tsec));
     }
 
-    IInspectable TimeSpanStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/)
+    IInspectable TimeSpanStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
     {
         throw hresult_not_implemented();
     }

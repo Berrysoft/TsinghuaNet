@@ -5,7 +5,8 @@ namespace TsinghuaNetUWP
         Unknown,
         Auth4,
         Auth6,
-        Net
+        Net,
+        Direct
     };
 
     enum InternetStatus

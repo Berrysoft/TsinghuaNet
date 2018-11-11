@@ -39,7 +39,11 @@ namespace winrt::TsinghuaNetUWP
             { L"Tsinghua", NetState::Net },
             { L"Tsinghua-5G", NetState::Net },
             { L"Tsinghua-IPv4", NetState::Auth4 },
-            { L"Tsinghua-IPv6", NetState::Auth6 }
+            { L"Tsinghua-IPv6", NetState::Auth6 },
+            { L"Wifi.Ö£Ô£Í®½²ÌÃ", NetState::Net },
+            { L"DIVI", NetState::Direct },
+            { L"DIVI-2", NetState::Direct },
+            { L"IVI", NetState::Direct }
         };
 
     NetState GetWlanState(hstring const& ssid)

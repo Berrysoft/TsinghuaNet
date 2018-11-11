@@ -9,12 +9,12 @@
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.Security.Credentials.h>
 #include <winrt/Windows.Storage.h>
+#include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
-using namespace Windows::Foundation::Collections;
 using namespace Windows::UI;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
@@ -34,13 +34,18 @@ namespace winrt::TsinghuaNetUWP::implementation
         viewTitleBar.ExtendViewIntoTitleBar(true);
         Model().StateChanged({ this, &MainPage::StateChanged });
         RefreshStatusImpl();
-        Model().State(Model().SuggestState());
+        NetState state = Model().SuggestState();
+        Model().State(state);
         hstring un = StoredUsername();
         if (!un.empty())
         {
             Model().Username(un);
-            Model().Password(GetCredential(un));
-            LoginImpl();
+            hstring pw = GetCredential(un);
+            Model().Password(pw);
+            if (state != NetState::Unknown && state != NetState::Direct && !pw.empty())
+            {
+                LoginImpl();
+            }
         }
     }
 
@@ -71,10 +76,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         dialog.UnBox().Text(oldun);
         hstring oldpw = GetCredential(oldun);
         dialog.PwBox().Password(oldpw);
-		if (!oldpw.empty())
-		{
+        if (!oldpw.empty())
+        {
             dialog.SaveBox().IsChecked(true);
-		}
+        }
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
@@ -163,14 +168,16 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     unique_ptr<IConnect> MainPage::GetHelper()
     {
+        hstring un = Model().Username();
+        hstring pw = Model().Password();
         switch (Model().State())
         {
         case NetState::Auth4:
-            return MakeHelper<Auth4Helper>(Model().Username(), Model().Password());
+            return MakeHelper<Auth4Helper>(un, pw);
         case NetState::Auth6:
-            return MakeHelper<Auth6Helper>(Model().Username(), Model().Password());
+            return MakeHelper<Auth6Helper>(un, pw);
         case NetState::Net:
-            return MakeHelper<NetHelper>(Model().Username(), Model().Password());
+            return MakeHelper<NetHelper>(un, pw);
         default:
             return nullptr;
         }
