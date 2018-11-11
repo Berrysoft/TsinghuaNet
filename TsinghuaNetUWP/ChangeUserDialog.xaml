@@ -16,6 +16,6 @@
             <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="50">密码：</TextBlock>
             <PasswordBox x:Name="PwBox" Margin="10" Width="200"/>
         </StackPanel>
-        <CheckBox x:Name="SaveBox" Margin="10" HorizontalAlignment="Right">保存密码</CheckBox>
+        <CheckBox x:Name="SaveBox" Margin="10,10,0,0" HorizontalAlignment="Right">保存密码</CheckBox>
     </StackPanel>
 </ContentDialog>

@@ -8,12 +8,12 @@
     mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
     Loaded="Refresh">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model"/>
+        <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{Binding FreePercent}" Duration="0:0:0.5"/>
-            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{Binding FluxPercent}" Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:0.5"/>
         </Storyboard>
         <local:FluxStringConverter x:Key="FluxStringConverter"/>
         <local:TimeSpanStringConverter x:Key="TimeSpanStringConverter"/>
@@ -41,19 +41,19 @@
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5">用户：</TextBlock>
-                            <TextBlock Margin="5" Text="{Binding OnlineUser}"/>
+                            <TextBlock Margin="5" Text="{x:Bind Model.OnlineUser,Mode=OneWay}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5">流量：</TextBlock>
-                            <TextBlock Margin="5" Text="{Binding Flux,Converter={StaticResource FluxStringConverter}}"/>
+                            <TextBlock Margin="5" Text="{x:Bind Model.Flux,Mode=OneWay,Converter={StaticResource FluxStringConverter}}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5">时长：</TextBlock>
-                            <TextBlock Margin="5" Text="{Binding OnlineTime,Converter={StaticResource TimeSpanStringConverter}}"/>
+                            <TextBlock Margin="5" Text="{x:Bind Model.OnlineTime,Mode=OneWay,Converter={StaticResource TimeSpanStringConverter}}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="5">余额：</TextBlock>
-                            <TextBlock Margin="5" Text="{Binding Balance,Converter={StaticResource CurrencyStringConverter}}"/>
+                            <TextBlock Margin="5" Text="{x:Bind Model.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
                         </StackPanel>
                     </StackPanel>
                 </Viewbox>
@@ -64,20 +64,23 @@
                 <StackPanel Margin="10" Orientation="Vertical">
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">当前用户</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Username}"/>
-                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
+                    <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Username,Mode=OneWay}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
+                        <CheckBox Margin="10" IsChecked="{x:Bind Model.AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
+                    </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">网络</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding NetStatus,Converter={StaticResource InternetStatusStringConverter}}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.NetStatus,Mode=OneWay,Converter={StaticResource InternetStatusStringConverter}}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络名称</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Ssid}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Ssid,Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding SuggestState,Converter={StaticResource NetStateStringConverter}}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.SuggestState,Mode=OneWay,Converter={StaticResource NetStateStringConverter}}"/>
                     </StackPanel>
                     <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
@@ -87,7 +90,8 @@
                         <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">管理连接</TextBlock>
-                    <ListView Margin="10" ItemsSource="{Binding NetUsers}">
+                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">使用 https://usereg.tsinghua.edu.cn/ 进行操作</TextBlock>
+                    <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:NetUserModel">
                                 <StackPanel Width="280" Orientation="Vertical">
@@ -96,7 +100,7 @@
                                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
                                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
                                     </StackPanel>
-                                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" HorizontalAlignment="Right" Width="100" Command="{StaticResource DropUserCommand}" CommandParameter="{Binding Address}">断开连接</Button>
+                                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" HorizontalAlignment="Right" Width="100" Command="{StaticResource DropUserCommand}" CommandParameter="{Binding Address}">下线</Button>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

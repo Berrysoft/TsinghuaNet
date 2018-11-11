@@ -35,6 +35,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         void RefreshStatus(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
+        void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
+
     private:
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();

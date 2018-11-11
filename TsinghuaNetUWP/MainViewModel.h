@@ -22,6 +22,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Username, winrt::hstring)
         DEPENDENCY_PROPERTY(Password, winrt::hstring)
 
+        DEPENDENCY_PROPERTY(AutoLogin, winrt::optional<bool>)
+        EVENT_DECL(AutoLoginChanged, winrt::optional<bool>)
+
         DEPENDENCY_PROPERTY(NetStatus, InternetStatus)
         DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
         DEPENDENCY_PROPERTY(SuggestState, NetState)
@@ -42,6 +45,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;
         NetState m_State;
+
+		static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

@@ -46,6 +46,10 @@ namespace TsinghuaNetUWP
         String Password;
         static Windows.UI.Xaml.DependencyProperty PasswordProperty { get; };
 
+        Windows.Foundation.IReference<Boolean> AutoLogin;
+        static Windows.UI.Xaml.DependencyProperty AutoLoginProperty { get; };
+        event Windows.Foundation.EventHandler<Windows.Foundation.IReference<Boolean> > AutoLoginChanged;
+
         InternetStatus NetStatus;
         static Windows.UI.Xaml.DependencyProperty NetStatusProperty { get; };
 

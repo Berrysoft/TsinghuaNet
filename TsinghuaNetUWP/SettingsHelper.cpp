@@ -48,9 +48,10 @@ namespace winrt::TsinghuaNetUWP
     {
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
-        if (values.HasKey(StoredUsernameKey))
+        auto value = values.TryLookup(StoredUsernameKey);
+        if (value != nullptr)
         {
-            return unbox_value<hstring>(values.Lookup(StoredUsernameKey));
+            return unbox_value<hstring>(value);
         }
         return {};
     }
@@ -59,5 +60,24 @@ namespace winrt::TsinghuaNetUWP
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
         values.Insert(StoredUsernameKey, box_value(value));
+    }
+
+    constexpr wchar_t AutoLoginKey[] = L"AutoLogin";
+    bool AutoLogin()
+    {
+        auto settings = ApplicationData::Current().LocalSettings();
+        auto values = settings.Values();
+        auto value = values.TryLookup(AutoLoginKey);
+        if (value != nullptr)
+        {
+            return unbox_value<bool>(value);
+        }
+        return false;
+    }
+    void AutoLogin(bool value)
+    {
+        auto settings = ApplicationData::Current().LocalSettings();
+        auto values = settings.Values();
+        values.Insert(AutoLoginKey, box_value(value));
     }
 } // namespace winrt::TsinghuaNetUWP

@@ -30,17 +30,18 @@ namespace winrt::TsinghuaNetUWP::implementation
         titleBar.ButtonBackgroundColor(Colors::Transparent());
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
-        Model().StateChanged({ this, &MainPage::StateChanged });
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
+        bool al = AutoLogin();
+        Model().AutoLogin(al);
         hstring un = StoredUsername();
         if (!un.empty())
         {
             Model().Username(un);
             hstring pw = GetCredential(un);
             Model().Password(pw);
-            if (state != NetState::Unknown && state != NetState::Direct && !pw.empty())
+            if (al && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
             {
                 LoginImpl();
             }
@@ -258,6 +259,11 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::RefreshStatus(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         RefreshStatusImpl();
+    }
+
+    void MainPage::AutoLoginChanged(IInspectable const& /*sender*/, optional<bool> const& e)
+    {
+        AutoLogin(e.Value());
     }
 
     void MainPage::RefreshStatusImpl()
