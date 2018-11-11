@@ -5,7 +5,7 @@
 
 namespace winrt::TsinghuaNetUWP
 {
-    std::vector<std::wstring> string_split(std::wstring_view const& s, wchar_t separator);
+    std::vector<std::wstring_view> string_split(std::wstring_view const& s, wchar_t separator);
 
     struct FluxUser
     {
@@ -83,11 +83,9 @@ namespace winrt::TsinghuaNetUWP
     protected:
         AuthHelper(int version);
 
-        static constexpr wchar_t ChallengeRegex[] = L"\"challenge\":\"(.*?)\"";
+    private:
         concurrency::task<std::wstring> ChallengeAsync() const;
 
-        static constexpr wchar_t LoginInfoJson[] = L"{{\"ip\": \"\", \"acid\": \"1\", \"enc_ver\": \"srun_bx1\", \"username\": \"{}\", \"password\": \"{}\"}}";
-        static constexpr wchar_t ChkSumData[] = L"{0}{1}{0}{2}{0}1{0}{0}200{0}1{0}{3}";
         concurrency::task<std::map<winrt::hstring, winrt::hstring>> LoginDataAsync() const;
     };
 
@@ -128,8 +126,5 @@ namespace winrt::TsinghuaNetUWP
         static constexpr wchar_t LoginData[] = L"action=login&user_login_name={}&user_password={}";
         static constexpr wchar_t LogoutData[] = L"action=logout";
         static constexpr wchar_t DropData[] = L"action=drop&user_ip={}";
-
-        static constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";
-        static constexpr wchar_t ItemRegex[] = L"<td class=\"maintd\">(.*?)</td>";
     };
 } // namespace winrt::TsinghuaNetUWP

@@ -23,21 +23,21 @@ using namespace Windows::Storage::Streams;
 
 namespace winrt::TsinghuaNetUWP
 {
-    vector<wstring> string_split(wstring_view const& s, wchar_t separator)
+    vector<wstring_view> string_split(wstring_view const& s, wchar_t separator)
     {
-        vector<wstring> result;
+        vector<wstring_view> result;
         size_t offset = 0, index = 0;
-        while ((index = s.find(separator, offset)) != wstring::npos)
+        while ((index = s.find(separator, offset)) != wstring_view::npos)
         {
             if (index > offset)
             {
-                result.emplace_back(&s[offset], index - offset);
+                result.push_back(s.substr(offset, index - offset));
             }
             offset = index + 1;
         }
         if (offset + 1 < s.length())
         {
-            result.emplace_back(&s[offset]);
+            result.push_back(s.substr(offset));
         }
         return result;
     }
@@ -46,10 +46,10 @@ namespace winrt::TsinghuaNetUWP
         auto r = string_split(fluxstr, ',');
         if (!r.empty())
         {
-            return { r[0],
-                     stoull(r[6]),
-                     seconds(stoll(r[2]) - stoll(r[1])),
-                     stod(r[10]) };
+            return { wstring(r[0]),
+                     stoull(wstring(r[6])),
+                     seconds(stoll(wstring(r[2])) - stoll(wstring(r[1]))),
+                     stod(wstring(r[10])) };
         }
         return {};
     }
@@ -141,6 +141,7 @@ namespace winrt::TsinghuaNetUWP
         return make_FluxUser(co_await PostAsync(Uri(FluxUri)));
     }
 
+    constexpr wchar_t ChallengeRegex[] = L"\"challenge\":\"(.*?)\"";
     task<wstring> AuthHelper::ChallengeAsync() const
     {
         wstring result(co_await GetAsync(Uri(sprint(ChallengeUri, username))));
@@ -264,7 +265,8 @@ namespace winrt::TsinghuaNetUWP
     } // namespace encode_methods
 
 #define AUTH_LOGIN_PASSWORD_MD5 L"5e543256c480ac577d30f76f9120eb74"
-
+    constexpr wchar_t LoginInfoJson[] = L"{{\"ip\": \"\", \"acid\": \"1\", \"enc_ver\": \"srun_bx1\", \"username\": \"{}\", \"password\": \"{}\"}}";
+    constexpr wchar_t ChkSumData[] = L"{0}{1}{0}{2}{0}1{0}{0}200{0}1{0}{3}";
     task<map<hstring, hstring>> AuthHelper::LoginDataAsync() const
     {
         using namespace encode_methods;
@@ -296,6 +298,9 @@ namespace winrt::TsinghuaNetUWP
     {
         return PostAsync(Uri(InfoUri), sprint(DropData, ip));
     }
+
+    constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";
+    constexpr wchar_t ItemRegex[] = L"<td class=\"maintd\">(.*?)</td>";
     task<vector<NetUser>> UseregHelper::UsersAsync() const
     {
         vector<NetUser> result;
