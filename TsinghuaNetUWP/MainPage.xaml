@@ -5,15 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}"
-    Loaded="Refresh">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:0.5"/>
-            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:0.5"/>
+            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1">
+                <DoubleAnimation.EasingFunction>
+                    <CubicEase EasingMode="EaseOut"/>
+                </DoubleAnimation.EasingFunction>
+            </DoubleAnimation>
         </Storyboard>
         <local:FluxStringConverter x:Key="FluxStringConverter"/>
         <local:TimeSpanStringConverter x:Key="TimeSpanStringConverter"/>

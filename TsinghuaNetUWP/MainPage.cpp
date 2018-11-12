@@ -45,6 +45,10 @@ namespace winrt::TsinghuaNetUWP::implementation
             {
                 LoginImpl();
             }
+            else
+            {
+                RefreshImpl();
+            }
         }
     }
 
