@@ -12,6 +12,7 @@
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std;
+using namespace concurrency;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
@@ -119,7 +120,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 co_await helper->LoginAsync();
-                co_await RefreshImpl(*helper);
+                auto flux = co_await RefreshImpl(*helper);
+                SendToast(flux, false);
             }
         }
         catch (hresult_error const&)
@@ -134,7 +136,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 co_await helper->LogoutAsync();
-                co_await RefreshImpl(*helper);
+                auto flux = co_await RefreshImpl(*helper);
+                SendToast(flux, true);
             }
         }
         catch (hresult_error const&)
@@ -178,7 +181,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
-    IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
+    task<FluxUser> MainPage::RefreshImpl(IConnect const& helper)
     {
         auto flux = co_await helper.FluxAsync();
         Model().OnlineUser(flux.username);
@@ -190,6 +193,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FreePercent(base_flux / maxf * 100);
         FluxStoryboard().Begin();
         UpdateTile(flux);
+        return flux;
     }
 
     IAsyncAction MainPage::DropImpl(wstring address)
@@ -249,20 +253,17 @@ namespace winrt::TsinghuaNetUWP::implementation
             break;
         }
     }
-    IAsyncAction MainPage::Auth4Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::Auth4Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         Model().SyncState(NetState::Auth4);
-        return RefreshImpl();
     }
-    IAsyncAction MainPage::Auth6Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::Auth6Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         Model().SyncState(NetState::Auth6);
-        return RefreshImpl();
     }
-    IAsyncAction MainPage::NetChecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::NetChecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         Model().SyncState(NetState::Net);
-        return RefreshImpl();
     }
 
     void MainPage::RefreshStatus(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)

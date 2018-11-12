@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         MainPage();
 
-		Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void OpenSettings(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -31,9 +31,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void StateChanged(Windows::Foundation::IInspectable const& sender, NetState const& e);
-        Windows::Foundation::IAsyncAction Auth4Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
-        Windows::Foundation::IAsyncAction Auth6Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
-        Windows::Foundation::IAsyncAction NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void Auth4Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void Auth6Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void RefreshStatus(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
@@ -43,7 +43,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
-        Windows::Foundation::IAsyncAction RefreshImpl(IConnect const& helper);
+        concurrency::task<FluxUser> RefreshImpl(IConnect const& helper);
         Windows::Foundation::IAsyncAction DropImpl(std::wstring address);
         std::unique_ptr<IConnect> GetHelper();
 
