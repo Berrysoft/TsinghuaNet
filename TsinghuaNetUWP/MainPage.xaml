@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}" Loaded="PageLoaded">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
     </Page.DataContext>

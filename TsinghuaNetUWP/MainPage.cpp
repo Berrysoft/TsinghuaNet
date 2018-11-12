@@ -30,6 +30,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         titleBar.ButtonBackgroundColor(Colors::Transparent());
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
+    }
+
+    IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        co_await LoadStates();
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
@@ -43,11 +48,11 @@ namespace winrt::TsinghuaNetUWP::implementation
             Model().Password(pw);
             if (al && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
             {
-                LoginImpl();
+                co_await LoginImpl();
             }
             else
             {
-                RefreshImpl();
+                co_await RefreshImpl();
             }
         }
     }
@@ -277,7 +282,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         switch (get<0>(status))
         {
         case InternetStatus::Lan:
-            state = NetState::Auth4;
+            state = GetLanState();
+            break;
+        case InternetStatus::Wwan:
+            state = GetWwanState();
             break;
         case InternetStatus::Wlan:
             state = GetWlanState(get<1>(status));

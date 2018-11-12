@@ -1,0 +1,14 @@
+﻿{
+  "lan": 1,
+  "wwan": 4,
+  "wlan": {
+    "Tsinghua": 3,
+    "Tsinghua-5G": 3,
+    "Tsinghua-IPv4": 1,
+    "Tsinghua-IPv6": 2,
+    "Wifi.郑裕彤讲堂": 3,
+    "DIVI": 4,
+    "DIVI-2": 4,
+    "IVI": 4
+  }
+}

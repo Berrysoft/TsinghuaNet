@@ -3,11 +3,16 @@
 #include "LanHelper.h"
 #include <map>
 #include <string>
+#include <winrt/Windows.Data.Json.h>
 #include <winrt/Windows.Networking.Connectivity.h>
+#include <winrt/Windows.Storage.h>
 
 using namespace std;
 using namespace winrt;
+using namespace Windows::Foundation;
+using namespace Windows::Data::Json;
 using namespace Windows::Networking::Connectivity;
+using namespace Windows::Storage;
 
 namespace winrt::TsinghuaNetUWP
 {
@@ -34,17 +39,32 @@ namespace winrt::TsinghuaNetUWP
         }
     }
 
-    const map<wstring, NetState> SsidStateMap =
+    NetState LanState;
+    NetState WwanState;
+    map<wstring, NetState> SsidStateMap;
+
+    IAsyncAction LoadStates()
+    {
+        hstring json = co_await FileIO::ReadTextAsync(co_await StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///states.json")));
+        auto obj = JsonObject::Parse(json);
+        LanState = (NetState)(int32_t)(obj.GetNamedNumber(L"lan"));
+        WwanState = (NetState)(int32_t)(obj.GetNamedNumber(L"wwan"));
+        auto arr = obj.GetNamedObject(L"wlan");
+        for (auto pair : arr)
         {
-            { L"Tsinghua", NetState::Net },
-            { L"Tsinghua-5G", NetState::Net },
-            { L"Tsinghua-IPv4", NetState::Auth4 },
-            { L"Tsinghua-IPv6", NetState::Auth6 },
-            { L"Wifi.Ö£Ô£Í®½²ÌÃ", NetState::Net },
-            { L"DIVI", NetState::Direct },
-            { L"DIVI-2", NetState::Direct },
-            { L"IVI", NetState::Direct }
-        };
+            SsidStateMap.emplace(wstring(pair.Key()), (NetState)(int32_t)(pair.Value().GetNumber()));
+        }
+    }
+
+    NetState GetLanState()
+    {
+        return LanState;
+    }
+
+    NetState GetWwanState()
+    {
+        return WwanState;
+    }
 
     NetState GetWlanState(hstring const& ssid)
     {
