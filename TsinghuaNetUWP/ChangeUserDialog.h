@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include "ChangeUserDialog.g.h"
 
 namespace winrt::TsinghuaNetUWP::implementation

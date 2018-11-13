@@ -7,12 +7,6 @@ namespace TsinghuaNetUWP
     {
         MainPage();
         MainViewModel Model { get; };
-        Arc FluxArc { get; };
-        Arc FreeArc { get; };
         Windows.UI.Xaml.Media.Animation.Storyboard FluxStoryboard { get; };
-        Windows.UI.Xaml.Controls.SplitView Split { get; };
-        Windows.UI.Xaml.Controls.RadioButton Auth4Radio { get; };
-        Windows.UI.Xaml.Controls.RadioButton Auth6Radio { get; };
-        Windows.UI.Xaml.Controls.RadioButton NetRadio { get; };
     }
 } // namespace TsinghuaNetUWP

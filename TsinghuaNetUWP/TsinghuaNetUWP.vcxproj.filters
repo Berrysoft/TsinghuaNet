@@ -7,6 +7,9 @@
     <Page Include="MainPage.xaml">
       <Filter>Views</Filter>
     </Page>
+    <Page Include="Arc.xaml">
+      <Filter>Views</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -19,9 +22,6 @@
     </Midl>
     <Midl Include="FluxStringConverter.idl">
       <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="Arc.idl">
-      <Filter>Views</Filter>
     </Midl>
     <Midl Include="TimeSpanStringConverter.idl">
       <Filter>ViewModels</Filter>

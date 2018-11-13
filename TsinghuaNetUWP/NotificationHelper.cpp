@@ -86,38 +86,4 @@ namespace winrt::TsinghuaNetUWP
         notification.ExpirationTime(time);
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
     }
-
-    ToastBindingGeneric GetToast(FluxUser const& user, bool logout)
-    {
-        ToastBindingGeneric result;
-        {
-            AdaptiveText text;
-            text.Text(logout ? L"注销成功" : L"登录成功");
-            result.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            text.Text(L"用户名：" + user.username);
-            result.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            wstring fs(GetFluxString(user.flux));
-            wstring cs(GetCurrencyString(user.balance));
-            text.Text(sprint(L"流量：{}\t余额：{}", fs, cs));
-            result.Children().Append(text);
-        }
-        return result;
-    }
-
-    void SendToast(FluxUser const& user, bool logout)
-    {
-        ToastContent content;
-        content.Launch(L"TsinghuaNetUWP");
-        ToastVisual visual;
-        visual.BindingGeneric(GetToast(user, logout));
-        content.Visual(visual);
-        ToastNotification notification(content.GetXml());
-        ToastNotificationManager::CreateToastNotifier().Show(notification);
-    }
 } // namespace winrt::TsinghuaNetUWP

@@ -89,7 +89,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Arc.h">
-      <DependentUpon>Arc.idl</DependentUpon>
+      <DependentUpon>Arc.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ChangeUserDialog.h">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
@@ -137,6 +138,9 @@
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Arc.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ChangeUserDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -172,7 +176,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Arc.cpp">
-      <DependentUpon>Arc.idl</DependentUpon>
+      <DependentUpon>Arc.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ChangeUserDialog.cpp">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
@@ -222,7 +227,10 @@
     <Midl Include="App.idl">
       <DependentUpon>App.xaml</DependentUpon>
     </Midl>
-    <Midl Include="Arc.idl" />
+    <Midl Include="Arc.idl">
+      <DependentUpon>Arc.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ChangeUserDialog.idl">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>

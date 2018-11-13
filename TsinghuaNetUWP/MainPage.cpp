@@ -4,6 +4,7 @@
 
 #include "ChangeUserDialog.h"
 #include "LanHelper.h"
+#include "NotificationHelper.h"
 #include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
@@ -119,7 +120,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 co_await helper->LoginAsync();
-                auto flux = co_await RefreshImpl(*helper);
+                co_await RefreshImpl(*helper);
             }
         }
         catch (hresult_error const&)
@@ -134,7 +135,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 co_await helper->LogoutAsync();
-                auto flux = co_await RefreshImpl(*helper);
+                co_await RefreshImpl(*helper);
             }
         }
         catch (hresult_error const&)
@@ -150,7 +151,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await RefreshImpl(*helper);
+                UpdateTile(co_await RefreshImpl(*helper));
             }
         }
         catch (hresult_error const&)
@@ -165,8 +166,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().OnlineTime(flux.online_time);
         Model().Balance(flux.balance);
         double maxf = max((double)flux.flux, base_flux) + flux.balance * 2 * 1000 * 1000 * 1000;
-        Model().FluxPercent(flux.flux / maxf * 100);
-        Model().FreePercent(base_flux / maxf * 100);
+        Model().FluxPercent(flux.flux / maxf);
+        Model().FreePercent(base_flux / maxf);
         FluxStoryboard().Begin();
         return flux;
     }

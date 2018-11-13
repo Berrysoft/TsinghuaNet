@@ -11,12 +11,12 @@
     </Page.DataContext>
     <Page.Resources>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="100.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1">
+            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="1.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1">
                 <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
             </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="PercentValue" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1">
+            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1">
                 <DoubleAnimation.EasingFunction>
                     <CubicEase EasingMode="EaseOut"/>
                 </DoubleAnimation.EasingFunction>
@@ -39,7 +39,7 @@
                 </Grid.RowDefinitions>
                 <Viewbox Grid.RowSpan="3">
                     <Grid Height="300" Width="300" Margin="10">
-                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" PercentValue="100"/>
+                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="100"/>
                         <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
                         <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
                     </Grid>
