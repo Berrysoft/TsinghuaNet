@@ -155,7 +155,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    constexpr double base_flux = 25.0 * 1000 * 1000 * 1000;
     IAsyncAction MainPage::RefreshImpl()
     {
         ProgressRingManager ring(Progress());
@@ -178,9 +177,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().Flux(flux.flux);
         Model().OnlineTime(flux.online_time);
         Model().Balance(flux.balance);
-        double maxf = max((double)flux.flux, base_flux) + flux.balance * 2 * 1000 * 1000 * 1000;
+        double maxf = (double)GetMaxFlux(flux);
         Model().FluxPercent(flux.flux / maxf);
-        Model().FreePercent(base_flux / maxf);
+        Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
         return flux;
     }

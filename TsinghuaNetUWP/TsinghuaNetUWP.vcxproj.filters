@@ -39,6 +39,7 @@
     <Midl Include="DropUserCommand.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="Arc.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -134,6 +135,9 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\LockScreenLogo.scale-200.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\LargeTile.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
