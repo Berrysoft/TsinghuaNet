@@ -43,7 +43,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
-        concurrency::task<FluxUser> RefreshImpl(IConnect const& helper);
+        Windows::Foundation::IAsyncAction RefreshImpl(IConnect const& helper);
         Windows::Foundation::IAsyncAction DropImpl(std::wstring address);
         std::unique_ptr<IConnect> GetHelper();
 

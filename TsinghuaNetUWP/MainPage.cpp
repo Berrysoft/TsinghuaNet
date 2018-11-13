@@ -163,16 +163,17 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                UpdateTile(co_await RefreshImpl(*helper));
+                co_await RefreshImpl(*helper);
             }
         }
         catch (hresult_error const&)
         {
         }
     }
-    task<FluxUser> MainPage::RefreshImpl(IConnect const& helper)
+    IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
     {
         auto flux = co_await helper.FluxAsync();
+        UpdateTile(flux);
         Model().OnlineUser(flux.username);
         Model().Flux(flux.flux);
         Model().OnlineTime(flux.online_time);
@@ -181,7 +182,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FluxPercent(flux.flux / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
-        return flux;
     }
 
     IAsyncAction MainPage::DropImpl(wstring address)
