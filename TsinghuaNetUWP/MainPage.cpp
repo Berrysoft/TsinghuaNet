@@ -94,6 +94,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             dialog.SaveBox().IsChecked(true);
         }
+        dialog.UnBox().TextChanged([&dialog](IInspectable const&, TextChangedEventArgs const&) {
+            dialog.PwBox().Password(GetCredential(dialog.UnBox().Text()));
+        });
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
