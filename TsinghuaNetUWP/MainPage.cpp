@@ -4,7 +4,6 @@
 
 #include "ChangeUserDialog.h"
 #include "LanHelper.h"
-#include "NotificationHelper.h"
 #include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
@@ -121,7 +120,6 @@ namespace winrt::TsinghuaNetUWP::implementation
             {
                 co_await helper->LoginAsync();
                 auto flux = co_await RefreshImpl(*helper);
-                SendToast(flux, false);
             }
         }
         catch (hresult_error const&)
@@ -137,7 +135,6 @@ namespace winrt::TsinghuaNetUWP::implementation
             {
                 co_await helper->LogoutAsync();
                 auto flux = co_await RefreshImpl(*helper);
-                SendToast(flux, true);
             }
         }
         catch (hresult_error const&)
@@ -159,27 +156,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         catch (hresult_error const&)
         {
         }
-        try
-        {
-            UseregHelper helper;
-            helper.username = Model().Username();
-            helper.password = Model().Password();
-            co_await helper.LoginAsync();
-            auto users = co_await helper.UsersAsync();
-            auto usersmodel = Model().NetUsers();
-            usersmodel.Clear();
-            for (auto& user : users)
-            {
-                auto u = make<NetUserModel>();
-                u.Address(hstring(user.address));
-                u.LoginTime(hstring(user.login_time));
-                u.Client(hstring(user.client));
-                usersmodel.Append(u);
-            }
-        }
-        catch (hresult_error const&)
-        {
-        }
     }
     task<FluxUser> MainPage::RefreshImpl(IConnect const& helper)
     {
@@ -192,7 +168,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FluxPercent(flux.flux / maxf * 100);
         Model().FreePercent(base_flux / maxf * 100);
         FluxStoryboard().Begin();
-        UpdateTile(flux);
         return flux;
     }
 
@@ -205,7 +180,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             helper.password = Model().Password();
             co_await helper.LoginAsync();
             co_await helper.LogoutAsync(address);
-            co_await RefreshImpl();
+            co_await RefreshNetUsersImpl(helper);
         }
         catch (hresult_error const&)
         {
@@ -271,6 +246,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
     }
 
+    IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        return RefreshNetUsersImpl();
+    }
+
     void MainPage::AutoLoginChanged(IInspectable const& /*sender*/, optional<bool> const& e)
     {
         AutoLogin(e.Value());
@@ -298,5 +278,34 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().NetStatus(get<0>(status));
         Model().Ssid(get<1>(status));
         Model().SuggestState(state);
+    }
+
+    IAsyncAction MainPage::RefreshNetUsersImpl()
+    {
+        try
+        {
+            UseregHelper helper;
+            helper.username = Model().Username();
+            helper.password = Model().Password();
+            co_await RefreshNetUsersImpl(helper);
+        }
+        catch (hresult_error const&)
+        {
+        }
+    }
+    IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const& helper)
+    {
+        co_await helper.LoginAsync();
+        auto users = co_await helper.UsersAsync();
+        auto usersmodel = Model().NetUsers();
+        usersmodel.Clear();
+        for (auto& user : users)
+        {
+            auto u = make<NetUserModel>();
+            u.Address(hstring(user.address));
+            u.LoginTime(hstring(user.login_time));
+            u.Client(hstring(user.client));
+            usersmodel.Append(u);
+        }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

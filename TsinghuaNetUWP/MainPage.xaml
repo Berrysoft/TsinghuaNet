@@ -97,7 +97,7 @@
                         <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">管理连接</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">使用 https://usereg.tsinghua.edu.cn/ 进行操作</TextBlock>
+                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshNetUsers">刷新</Button>
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:NetUserModel">

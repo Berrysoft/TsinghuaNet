@@ -36,7 +36,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void RefreshStatus(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
-
+        Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
 
     private:
@@ -48,6 +48,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         std::unique_ptr<IConnect> GetHelper();
 
         void RefreshStatusImpl();
+        Windows::Foundation::IAsyncAction RefreshNetUsersImpl();
+        Windows::Foundation::IAsyncAction RefreshNetUsersImpl(UseregHelper const& helper);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

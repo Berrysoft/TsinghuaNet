@@ -91,9 +91,6 @@
     <ClInclude Include="NetHelper.h">
       <Filter>Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="DependencyHelper.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="InternetStatusStringConverter.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
@@ -112,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="NotificationHelper.h">
       <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="DependencyHelper.h">
+      <Filter>ViewModels</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,7 +144,6 @@
     <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
     <None Include=".clang-format" />
     <None Include="packages.config" />
-    <None Include="states.json" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -164,5 +163,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Filter>Views</Filter>
     </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="states.json" />
   </ItemGroup>
 </Project>
