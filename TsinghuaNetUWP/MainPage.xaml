@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlAltMediumLowAcrylicWindowMediumBrush}" Loaded="PageLoaded">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
     </Page.DataContext>
@@ -29,7 +29,7 @@
         <local:NetStateStringConverter x:Key="NetStateStringConverter"/>
         <local:DropUserCommand x:Key="DropUserCommand" DropUser="DropUser"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementMediumHighBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -37,13 +37,6 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Viewbox Grid.RowSpan="3">
-                    <Grid Height="300" Width="300" Margin="10">
-                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="100"/>
-                        <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
-                        <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
-                    </Grid>
-                </Viewbox>
                 <Viewbox Grid.Row="1">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
@@ -63,6 +56,14 @@
                             <TextBlock Margin="5" Text="{x:Bind Model.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
                         </StackPanel>
                     </StackPanel>
+                </Viewbox>
+                <Viewbox Grid.RowSpan="3">
+                    <Grid Height="300" Width="300" Margin="10">
+                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="100"/>
+                        <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
+                        <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
+                        <ProgressRing x:Name="Progress" Height="50" Width="50"/>
+                    </Grid>
                 </Viewbox>
             </Grid>
         </SplitView.Content>
@@ -90,7 +91,7 @@
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.SuggestState,Mode=OneWay,Converter={StaticResource NetStateStringConverter}}"/>
                     </StackPanel>
                     <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接连接</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
                         <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked">Auth4 - https://auth4.tsinghua.edu.cn/</RadioButton>
                         <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - https://auth6.tsinghua.edu.cn/</RadioButton>
@@ -112,15 +113,20 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
+                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>
+                    <HyperlinkButton Margin="10" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
                 </StackPanel>
             </ScrollViewer>
         </SplitView.Pane>
     </SplitView>
     <Page.BottomAppBar>
-        <CommandBar Style="{ThemeResource CommandBarRevealStyle}" Background="{ThemeResource SystemControlBaseHighAcrylicElementBrush}">
+        <CommandBar Style="{ThemeResource CommandBarRevealStyle}" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
             <AppBarButton Icon="Upload" Label="登录" Click="Login"/>
             <AppBarButton Icon="Download" Label="注销" Click="Logout"/>
             <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>
+            <AppBarSeparator/>
             <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
         </CommandBar>
     </Page.BottomAppBar>

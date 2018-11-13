@@ -112,8 +112,19 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    class ProgressRingManager
+    {
+    private:
+        ProgressRing ring;
+
+    public:
+        ProgressRingManager(ProgressRing ring) : ring(ring) { ring.IsActive(true); }
+        ~ProgressRingManager() { ring.IsActive(false); }
+    };
+
     IAsyncAction MainPage::LoginImpl()
     {
+        ProgressRingManager ring(Progress());
         try
         {
             auto helper = GetHelper();
@@ -129,6 +140,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
     IAsyncAction MainPage::LogoutImpl()
     {
+        ProgressRingManager ring(Progress());
         try
         {
             auto helper = GetHelper();
@@ -146,6 +158,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     constexpr double base_flux = 25.0 * 1000 * 1000 * 1000;
     IAsyncAction MainPage::RefreshImpl()
     {
+        ProgressRingManager ring(Progress());
         try
         {
             auto helper = GetHelper();

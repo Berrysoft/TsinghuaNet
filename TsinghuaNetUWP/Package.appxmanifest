@@ -4,7 +4,7 @@
   <mp:PhoneIdentity PhoneProductId="091ffa12-1933-4f1b-96a5-4a169e4ab5f5" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>TsinghuaNetUWP</DisplayName>
-    <PublisherDisplayName>Straw</PublisherDisplayName>
+    <PublisherDisplayName>Berrysoft</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
