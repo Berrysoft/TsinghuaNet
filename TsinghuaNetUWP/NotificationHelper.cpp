@@ -2,17 +2,18 @@
 
 #include "NotificationHelper.h"
 
-#include "winrt/Microsoft.Toolkit.Uwp.Notifications.h"
 #include <cmath>
 #include <sf/sformat.hpp>
+#include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 
 using namespace std;
-using namespace sf;
+using sf::sprint;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Notifications;
-using namespace Microsoft::Toolkit::Uwp::Notifications;
+using namespace Windows::Data::Xml::Dom;
+using namespace Windows::Storage;
 
 namespace winrt::TsinghuaNetUWP
 {
@@ -63,86 +64,22 @@ namespace winrt::TsinghuaNetUWP
         return max(user.flux, BaseFlux) + (uint64_t)(user.balance * 2 * 1000 * 1000 * 1000);
     }
 
-    TileBinding GetTile(FluxUser const& user, bool large)
+    wstring xmlt;
+    IAsyncAction LoadTileTemplate()
     {
-        TileBinding result;
-        TileBindingContentAdaptive content;
-        {
-            AdaptiveText text;
-            text.Text(user.username);
-            text.HintStyle(large ? AdaptiveTextStyle::Subtitle : AdaptiveTextStyle::Base);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            hstring fs = GetFluxString(user.flux);
-            text.Text(large ? L"流量：" + fs : fs);
-            text.HintStyle(AdaptiveTextStyle::BodySubtle);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            hstring cs = GetCurrencyString(user.balance);
-            text.Text(large ? L"余额：" + cs : cs);
-            text.HintStyle(AdaptiveTextStyle::BodySubtle);
-            content.Children().Append(text);
-        }
-        result.Content(content);
-        return result;
-    }
-
-    TileBinding GetLargeTile(FluxUser const& user)
-    {
-        TileBinding result;
-        TileBindingContentAdaptive content;
-        {
-            AdaptiveText text;
-            text.Text(user.username);
-            text.HintStyle(AdaptiveTextStyle::Title);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            hstring fs = GetFluxString(user.flux);
-            text.Text(L"流量：" + fs);
-            text.HintStyle(AdaptiveTextStyle::SubtitleSubtle);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            hstring fs = GetTimeSpanString(user.online_time);
-            text.Text(L"时长：" + fs);
-            text.HintStyle(AdaptiveTextStyle::SubtitleSubtle);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            hstring cs = GetCurrencyString(user.balance);
-            text.Text(L"余额：" + cs);
-            text.HintStyle(AdaptiveTextStyle::SubtitleSubtle);
-            content.Children().Append(text);
-        }
-        {
-            AdaptiveText text;
-            uint64_t maxf = GetMaxFlux(user);
-            text.Text(L"剩余：" + GetFluxString(maxf - user.flux));
-            text.HintStyle(AdaptiveTextStyle::SubtitleSubtle);
-            content.Children().Append(text);
-        }
-        result.Content(content);
-        return result;
+        xmlt = co_await FileIO::ReadTextAsync(co_await StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///tile.xml")));
     }
 
     void UpdateTile(FluxUser const& user)
     {
-        TileContent content;
-        TileVisual visual;
-        visual.Branding(TileBranding::NameAndLogo);
-        visual.TileMedium(GetTile(user, false));
-        visual.TileWide(GetTile(user, true));
-        visual.TileLarge(GetLargeTile(user));
-        content.Visual(visual);
-        TileNotification notification(content.GetXml());
+        XmlDocument dom;
+        dom.LoadXml(sprint(xmlt,
+                           user.username,
+                           wstring_view(GetFluxString(user.flux)),
+                           wstring_view(GetTimeSpanString(user.online_time)),
+                           wstring_view(GetCurrencyString(user.balance)),
+                           wstring_view(GetFluxString(GetMaxFlux(user) - user.flux))));
+        TileNotification notification(dom);
         auto time = clock::now();
         time += 10min;
         notification.ExpirationTime(time);

@@ -29,6 +29,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
         titleBar.BackgroundColor(Colors::Transparent());
         titleBar.ButtonBackgroundColor(Colors::Transparent());
+        titleBar.ButtonInactiveBackgroundColor(Colors::Transparent());
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
     }
@@ -36,6 +37,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         co_await LoadStates();
+        co_await LoadTileTemplate();
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);

@@ -8,5 +8,6 @@ namespace winrt::TsinghuaNetUWP
     winrt::hstring GetCurrencyString(double currency);
     constexpr std::uint64_t BaseFlux = 25000000000;
     std::uint64_t GetMaxFlux(FluxUser const& user);
+    Windows::Foundation::IAsyncAction LoadTileTemplate();
     void UpdateTile(FluxUser const& user);
 } // namespace winrt::TsinghuaNetUWP

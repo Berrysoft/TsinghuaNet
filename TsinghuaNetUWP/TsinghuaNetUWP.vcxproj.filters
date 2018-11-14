@@ -170,5 +170,6 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="states.json" />
+    <CopyFileToFolders Include="tile.xml" />
   </ItemGroup>
 </Project>
