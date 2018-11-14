@@ -3,6 +3,7 @@
 #include "MainPage.h"
 
 #include "ChangeUserDialog.h"
+#include "EditSuggestionDialog.h"
 #include "LanHelper.h"
 #include "NotificationHelper.h"
 #include "SettingsHelper.h"
@@ -262,6 +263,15 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::RefreshStatus(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         RefreshStatusImpl();
+    }
+
+    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    {
+        auto dialog = make<EditSuggestionDialog>();
+        auto result = co_await dialog.ShowAsync();
+        if (result == ContentDialogResult::Primary)
+        {
+        }
     }
 
     IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)

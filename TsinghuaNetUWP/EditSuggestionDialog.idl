@@ -1,0 +1,7 @@
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass EditSuggestionDialog : Windows.UI.Xaml.Controls.ContentDialog
+    {
+        EditSuggestionDialog();
+    }
+} // namespace TsinghuaNetUWP

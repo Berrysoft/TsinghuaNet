@@ -36,6 +36,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         void NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void RefreshStatus(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+
         Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
 

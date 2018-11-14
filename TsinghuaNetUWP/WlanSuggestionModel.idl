@@ -1,0 +1,15 @@
+import "MainviewModel.idl";
+
+namespace TsinghuaNetUWP
+{
+    [bindable] runtimeclass WlanSuggestionModel : Windows.UI.Xaml.DependencyObject
+    {
+        WlanSuggestionModel();
+
+        String Ssid;
+        static Windows.UI.Xaml.DependencyProperty SsidProperty { get; };
+
+        NetState State;
+        static Windows.UI.Xaml.DependencyProperty StateProperty { get; };
+    }
+} // namespace TsinghuaNetUWP
