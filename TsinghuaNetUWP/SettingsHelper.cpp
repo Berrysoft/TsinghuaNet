@@ -2,7 +2,6 @@
 
 #include "SettingsHelper.h"
 #include <winrt/Windows.Security.Credentials.h>
-#include <winrt/Windows.Storage.h>
 
 using namespace winrt;
 using namespace Windows::Security::Credentials;

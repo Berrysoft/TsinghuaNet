@@ -3,13 +3,13 @@
 #include "MainPage.h"
 
 #include "ChangeUserDialog.h"
-#include "EditSuggestionDialog.h"
 #include "LanHelper.h"
 #include "NotificationHelper.h"
 #include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.System.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std;
@@ -21,6 +21,8 @@ using namespace Windows::UI;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
+using namespace Windows::Storage;
+using namespace Windows::System;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -267,11 +269,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
-        auto dialog = make<EditSuggestionDialog>();
-        auto result = co_await dialog.ShowAsync();
-        if (result == ContentDialogResult::Primary)
-        {
-        }
+        co_await Launcher::LaunchFileAsync(co_await StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///states.json")));
     }
 
     IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)

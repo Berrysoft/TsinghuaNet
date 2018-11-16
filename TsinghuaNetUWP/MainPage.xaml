@@ -10,26 +10,19 @@
         <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
     </Page.DataContext>
     <Page.Resources>
+        <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="1.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1">
-                <DoubleAnimation.EasingFunction>
-                    <CubicEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
-            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1">
-                <DoubleAnimation.EasingFunction>
-                    <CubicEase EasingMode="EaseOut"/>
-                </DoubleAnimation.EasingFunction>
-            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="1.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
         </Storyboard>
         <local:FluxStringConverter x:Key="FluxStringConverter"/>
         <local:TimeSpanStringConverter x:Key="TimeSpanStringConverter"/>
         <local:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
         <local:InternetStatusStringConverter x:Key="InternetStatusStringConverter"/>
         <local:NetStateStringConverter x:Key="NetStateStringConverter"/>
-        <local:DropUserCommand x:Key="DropUserCommand" DropUser="DropUser"/>
+        <local:DropUserCommand x:Key="DropUser" DropUser="DropUser"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="400" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -92,7 +85,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowEditSuggestion">编辑建议</Button>
+                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowEditSuggestion">建议文件</Button>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
@@ -105,14 +98,16 @@
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:NetUserModel">
-                                <StackPanel Width="280" Orientation="Vertical">
-                                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Client}"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
-                                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
+                                <Grid Width="330">
+                                    <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
+                                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Client}"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
+                                            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" HorizontalAlignment="Right" Width="100" Command="{StaticResource DropUserCommand}" CommandParameter="{Binding Address}">下线</Button>
-                                </StackPanel>
+                                    <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{Binding Address}"/>
+                                </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

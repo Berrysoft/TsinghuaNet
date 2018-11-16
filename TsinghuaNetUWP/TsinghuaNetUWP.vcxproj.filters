@@ -10,9 +10,6 @@
     <Page Include="Arc.xaml">
       <Filter>Views</Filter>
     </Page>
-    <Page Include="EditSuggestionDialog.xaml">
-      <Filter>Views</Filter>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />
@@ -43,9 +40,7 @@
       <Filter>ViewModels</Filter>
     </Midl>
     <Midl Include="Arc.idl" />
-    <Midl Include="WlanSuggestionModel.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
+    <Midl Include="EditSuggestionDialog.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -85,6 +80,7 @@
     <ClCompile Include="WlanSuggestionModel.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="EditSuggestionDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -126,6 +122,7 @@
     <ClInclude Include="WlanSuggestionModel.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="EditSuggestionDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

@@ -5,7 +5,6 @@
 #include <string>
 #include <winrt/Windows.Data.Json.h>
 #include <winrt/Windows.Networking.Connectivity.h>
-#include <winrt/Windows.Storage.h>
 
 using namespace std;
 using namespace winrt;

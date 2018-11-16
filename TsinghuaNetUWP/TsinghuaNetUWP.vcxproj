@@ -109,10 +109,6 @@
     <ClInclude Include="DropUserCommand.h">
       <DependentUpon>DropUserCommand.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="EditSuggestionDialog.h">
-      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="FluxStringConverter.h">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
     </ClInclude>
@@ -143,9 +139,6 @@
     <ClInclude Include="TimeSpanStringConverter.h">
       <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="WlanSuggestionModel.h">
-      <DependentUpon>WlanSuggestionModel.idl</DependentUpon>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -155,9 +148,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ChangeUserDialog.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="EditSuggestionDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -206,10 +196,6 @@
     <ClCompile Include="DropUserCommand.cpp">
       <DependentUpon>DropUserCommand.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="EditSuggestionDialog.cpp">
-      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="FluxStringConverter.cpp">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
     </ClCompile>
@@ -243,9 +229,6 @@
     <ClCompile Include="TimeSpanStringConverter.cpp">
       <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="WlanSuggestionModel.cpp">
-      <DependentUpon>WlanSuggestionModel.idl</DependentUpon>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl">
@@ -261,10 +244,6 @@
     </Midl>
     <Midl Include="CurrencyStringConverter.idl" />
     <Midl Include="DropUserCommand.idl" />
-    <Midl Include="EditSuggestionDialog.idl">
-      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
     <Midl Include="FluxStringConverter.idl" />
     <Midl Include="InternetStatusStringConverter.idl" />
     <Midl Include="MainPage.idl">
@@ -276,7 +255,6 @@
     <Midl Include="NetStateStringConverter.idl" />
     <Midl Include="NetUserModel.idl" />
     <Midl Include="TimeSpanStringConverter.idl" />
-    <Midl Include="WlanSuggestionModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="tile.xml" />
