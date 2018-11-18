@@ -21,6 +21,14 @@ using namespace Windows::Security::Cryptography;
 using namespace Windows::Security::Cryptography::Core;
 using namespace Windows::Storage::Streams;
 
+namespace winrt
+{
+    wostream& operator<<(wostream& os, hstring const& s)
+    {
+        return os << wstring_view(s);
+    }
+} // namespace winrt
+
 namespace winrt::TsinghuaNetUWP
 {
     vector<wstring_view> string_split(wstring_view const& s, wchar_t separator)
@@ -89,7 +97,7 @@ namespace winrt::TsinghuaNetUWP
         }
         return oss.str();
     }
-    wstring GetHashString(wstring const& input, hstring const& algorithm)
+    wstring GetHashString(hstring const& input, hstring const& algorithm)
     {
         if (input.empty())
             return {};
@@ -97,11 +105,11 @@ namespace winrt::TsinghuaNetUWP
         auto data = hash.HashData(CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8));
         return GetHexString(data);
     }
-    wstring GetMD5(wstring const& input)
+    wstring GetMD5(hstring const& input)
     {
         return GetHashString(input, HashAlgorithmNames::Md5());
     }
-    wstring GetSHA1(wstring const& input)
+    wstring GetSHA1(hstring const& input)
     {
         return GetHashString(input, HashAlgorithmNames::Sha1());
     }
@@ -282,7 +290,7 @@ namespace winrt::TsinghuaNetUWP
         wstring info = L"{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, username, password), token));
         data.emplace(L"info", info);
         data.emplace(L"username", username);
-        data.emplace(L"chksum", GetSHA1(sprint(ChkSumData, token, username, AUTH_LOGIN_PASSWORD_MD5, info)));
+        data.emplace(L"chksum", GetSHA1(hstring(sprint(ChkSumData, token, username, AUTH_LOGIN_PASSWORD_MD5, info))));
         return data;
     }
 

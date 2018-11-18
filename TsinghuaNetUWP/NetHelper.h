@@ -30,10 +30,16 @@ namespace winrt::TsinghuaNetUWP
     private:
         Windows::Web::Http::HttpClient client;
 
+    protected:
+        winrt::hstring username;
+        winrt::hstring password;
+
     public:
         virtual ~NetHelper_base() {}
-        std::wstring username;
-        std::wstring password;
+        winrt::hstring Username() const { return username; }
+        void Username(winrt::hstring const& s) { username = s; }
+        winrt::hstring Password() const { return password; }
+        void Password(winrt::hstring const& s) { password = s; }
 
     protected:
         concurrency::task<winrt::hstring> GetAsync(Windows::Foundation::Uri const& uri) const;

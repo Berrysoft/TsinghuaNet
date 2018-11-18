@@ -197,8 +197,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         try
         {
             UseregHelper helper;
-            helper.username = Model().Username();
-            helper.password = Model().Password();
+            helper.Username(Model().Username());
+            helper.Password(Model().Password());
             co_await helper.LoginAsync();
             co_await helper.LogoutAsync(address);
             co_await RefreshNetUsersImpl(helper);
@@ -212,8 +212,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     unique_ptr<T> MakeHelper(hstring username, hstring password)
     {
         unique_ptr<T> result = make_unique<T>();
-        result->username = username;
-        result->password = password;
+        result->Username(username);
+        result->Password(password);
         return result;
     }
 
@@ -311,8 +311,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         try
         {
             UseregHelper helper;
-            helper.username = Model().Username();
-            helper.password = Model().Password();
+            helper.Username(Model().Username());
+            helper.Password(Model().Password());
             co_await RefreshNetUsersImpl(helper);
         }
         catch (hresult_error const&)
