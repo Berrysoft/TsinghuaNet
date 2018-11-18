@@ -43,6 +43,7 @@ namespace winrt::TsinghuaNetUWP
 
     protected:
         concurrency::task<winrt::hstring> GetAsync(Windows::Foundation::Uri const& uri) const;
+        concurrency::task<Windows::Storage::Streams::IBuffer> GetBytesAsync(Windows::Foundation::Uri const& uri) const;
         concurrency::task<winrt::hstring> PostAsync(Windows::Foundation::Uri const& uri) const;
         concurrency::task<winrt::hstring> PostAsync(Windows::Foundation::Uri const& uri, winrt::param::hstring const& data) const;
         concurrency::task<winrt::hstring> PostAsync(Windows::Foundation::Uri const& uri, std::map<winrt::hstring, winrt::hstring> const& data) const;
@@ -90,7 +91,7 @@ namespace winrt::TsinghuaNetUWP
         AuthHelper(int version);
 
     private:
-        concurrency::task<std::wstring> ChallengeAsync() const;
+        concurrency::task<std::string> ChallengeAsync() const;
 
         concurrency::task<std::map<winrt::hstring, winrt::hstring>> LoginDataAsync() const;
     };

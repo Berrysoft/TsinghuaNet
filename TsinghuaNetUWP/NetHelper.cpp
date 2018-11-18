@@ -27,6 +27,10 @@ namespace winrt
     {
         return os << wstring_view(s);
     }
+    ostream& operator<<(ostream& os, hstring const& s)
+    {
+        return os << to_string(s);
+    }
 } // namespace winrt
 
 namespace winrt::TsinghuaNetUWP
@@ -65,6 +69,10 @@ namespace winrt::TsinghuaNetUWP
     task<hstring> NetHelper_base::GetAsync(Uri const& uri) const
     {
         return co_await client.GetStringAsync(uri);
+    }
+    task<IBuffer> NetHelper_base::GetBytesAsync(Uri const& uri) const
+    {
+        return co_await client.GetBufferAsync(uri);
     }
     task<hstring> NetHelper_base::PostAsync(Uri const& uri) const
     {
@@ -149,12 +157,13 @@ namespace winrt::TsinghuaNetUWP
         return make_FluxUser(co_await PostAsync(Uri(FluxUri)));
     }
 
-    constexpr wchar_t ChallengeRegex[] = L"\"challenge\":\"(.*?)\"";
-    task<wstring> AuthHelper::ChallengeAsync() const
+    constexpr char ChallengeRegex[] = "\"challenge\":\"(.*?)\"";
+    task<string> AuthHelper::ChallengeAsync() const
     {
-        wstring result(co_await GetAsync(Uri(sprint(ChallengeUri, username))));
-        wregex reg(ChallengeRegex);
-        wsmatch match;
+        auto bytes = co_await GetBytesAsync(Uri(sprint(ChallengeUri, username)));
+        string result((const char*)bytes.data(), bytes.Length());
+        regex reg(ChallengeRegex);
+        smatch match;
         if (regex_search(result, match, reg))
         {
             return match[1].str();
@@ -164,7 +173,7 @@ namespace winrt::TsinghuaNetUWP
 
     namespace encode_methods
     {
-        vector<uint32_t> S(wstring const& a, bool b)
+        vector<uint32_t> S(string const& a, bool b)
         {
             uint32_t c = (uint32_t)a.length();
             uint32_t n = c / 4;
@@ -179,15 +188,15 @@ namespace winrt::TsinghuaNetUWP
             {
                 v = vector<uint32_t>(n < 4 ? 4 : n);
             }
-            uint8_t* pb = (uint8_t*)&v.front();
+            char* pb = (char*)&v.front();
             for (uint32_t i = 0; i < c; i++)
             {
-                pb[i] = (uint8_t)a[i];
+                pb[i] = a[i];
             }
             return v;
         }
 
-        wstring L(vector<uint32_t> const& a, bool b)
+        string L(vector<uint32_t> const& a, bool b)
         {
             uint32_t d = (uint32_t)a.size();
             uint32_t c = (d - 1) << 2;
@@ -200,9 +209,9 @@ namespace winrt::TsinghuaNetUWP
                 }
                 c = m;
             }
-            uint8_t* pb = (uint8_t*)&a.front();
+            char* pb = (char*)&a.front();
             uint32_t n = d << 2;
-            wstring aa(n, L'\0');
+            string aa(n, '\0');
             for (uint32_t i = 0; i < n; i++)
             {
                 aa[i] = pb[i];
@@ -213,7 +222,7 @@ namespace winrt::TsinghuaNetUWP
                 return aa;
         }
 
-        wstring XEncode(wstring const& str, wstring const& key)
+        string XEncode(string const& str, string const& key)
         {
             if (str.empty())
                 return {};
@@ -240,22 +249,22 @@ namespace winrt::TsinghuaNetUWP
             return L(v, false);
         }
 
-        constexpr wchar_t Base64N[] = L"LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";
-        wstring Base64Encode(wstring const& t)
+        constexpr char Base64N[] = "LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";
+        string Base64Encode(string const& t)
         {
             size_t a = t.length();
             size_t len = a / 3 * 4;
             len += a % 3 != 0 ? 4 : 0;
-            wstring u(len, L'\0');
-            wchar_t r = L'=';
+            string u(len, L'\0');
+            char r = '=';
             uint32_t h = 0;
-            uint8_t* p = (uint8_t*)&h;
+            char* p = (char*)&h;
             size_t ui = 0;
             for (size_t o = 0; o < a; o += 3)
             {
-                p[2] = (uint8_t)t[o];
-                p[1] = (uint8_t)(o + 1 < a ? t[o + 1] : 0);
-                p[0] = (uint8_t)(o + 2 < a ? t[o + 2] : 0);
+                p[2] = t[o];
+                p[1] = o + 1 < a ? t[o + 1] : 0;
+                p[0] = o + 2 < a ? t[o + 2] : 0;
                 for (size_t i = 0; i < 4; i++)
                 {
                     if (o * 8 + i * 6 > a * 8)
@@ -272,13 +281,13 @@ namespace winrt::TsinghuaNetUWP
         }
     } // namespace encode_methods
 
-#define AUTH_LOGIN_PASSWORD_MD5 L"5e543256c480ac577d30f76f9120eb74"
-    constexpr wchar_t LoginInfoJson[] = L"{{\"ip\": \"\", \"acid\": \"1\", \"enc_ver\": \"srun_bx1\", \"username\": \"{}\", \"password\": \"{}\"}}";
-    constexpr wchar_t ChkSumData[] = L"{0}{1}{0}{2}{0}1{0}{0}200{0}1{0}{3}";
+#define AUTH_LOGIN_PASSWORD_MD5 "5e543256c480ac577d30f76f9120eb74"
+    constexpr char LoginInfoJson[] = "{{\"ip\": \"\", \"acid\": \"1\", \"enc_ver\": \"srun_bx1\", \"username\": \"{}\", \"password\": \"{}\"}}";
+    constexpr char ChkSumData[] = "{0}{1}{0}{2}{0}1{0}{0}200{0}1{0}{3}";
     task<map<hstring, hstring>> AuthHelper::LoginDataAsync() const
     {
         using namespace encode_methods;
-        wstring token = co_await ChallengeAsync();
+        string token = co_await ChallengeAsync();
         auto data = map<hstring, hstring>{
             { L"action", L"login" },
             { L"ac_id", L"1" },
@@ -287,10 +296,10 @@ namespace winrt::TsinghuaNetUWP
             { L"type", L"1" },
             { L"password", L"{MD5}" AUTH_LOGIN_PASSWORD_MD5 }
         };
-        wstring info = L"{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, username, password), token));
-        data.emplace(L"info", info);
+        string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, username, password), token));
+        data.emplace(L"info", to_hstring(info));
         data.emplace(L"username", username);
-        data.emplace(L"chksum", GetSHA1(hstring(sprint(ChkSumData, token, username, AUTH_LOGIN_PASSWORD_MD5, info))));
+        data.emplace(L"chksum", GetSHA1(to_hstring(sprint(ChkSumData, token, username, AUTH_LOGIN_PASSWORD_MD5, info))));
         return data;
     }
 
