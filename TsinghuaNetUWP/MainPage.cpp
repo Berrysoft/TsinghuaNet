@@ -269,7 +269,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
-        co_await Launcher::LaunchFileAsync(co_await StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///states.json")));
+        StorageFolder folder = ApplicationData::Current().RoamingFolder();
+        co_await Launcher::LaunchFileAsync(co_await folder.GetFileAsync(L"states.json"));
     }
 
     IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)

@@ -44,7 +44,23 @@ namespace winrt::TsinghuaNetUWP
 
     IAsyncAction LoadStates()
     {
-        hstring json = co_await FileIO::ReadTextAsync(co_await StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///states.json")));
+        StorageFolder folder = ApplicationData::Current().RoamingFolder();
+        bool create = false;
+        StorageFile file(nullptr);
+        try
+        {
+            file = co_await folder.GetFileAsync(L"states.json");
+            create = false;
+        }
+        catch (hresult_error const&)
+        {
+            create = true;
+        }
+        hstring json;
+        if (file)
+            json = co_await FileIO::ReadTextAsync(file);
+        else
+            json = co_await FileIO::ReadTextAsync(co_await StorageFile::StorageFile::GetFileFromApplicationUriAsync(Uri(L"ms-appx:///states.json")));
         auto obj = JsonObject::Parse(json);
         LanState = (NetState)(int32_t)(obj.GetNamedNumber(L"lan"));
         WwanState = (NetState)(int32_t)(obj.GetNamedNumber(L"wwan"));
@@ -52,6 +68,11 @@ namespace winrt::TsinghuaNetUWP
         for (auto pair : arr)
         {
             SsidStateMap.emplace(wstring(pair.Key()), (NetState)(int32_t)(pair.Value().GetNumber()));
+        }
+        if (create)
+        {
+            file = co_await folder.CreateFileAsync(L"states.json");
+            co_await FileIO::WriteTextAsync(file, json);
         }
     }
 
