@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="NetHelper.cpp" />
+    <ClCompile Include="Auth4Helper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="Auth6Helper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="AuthHelper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="FluxUser.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="NetHelper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="NetHelperBase.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="NetUser.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="NetHelper.h" />
+    <ClInclude Include="Auth4Helper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Auth6Helper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthHelper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="FluxUser.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="NetHelper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="NetHelperBase.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="NetUser.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TsinghuaNetHelper.def" />
+    <None Include="packages.config" />
+    <None Include=".clang-format" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="NetHelper">
+      <UniqueIdentifier>{d9d90c3b-9622-4d36-972c-16e387486235}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="NetHelper.idl">
+      <Filter>NetHelper</Filter>
+    </Midl>
+  </ItemGroup>
+</Project>

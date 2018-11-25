@@ -1,0 +1,78 @@
+namespace TsinghuaNetHelper
+{
+    runtimeclass FluxUser
+    {
+        FluxUser();
+
+        String Username;
+        UInt64 Flux;
+        Windows.Foundation.TimeSpan OnlineTime;
+        Double Balance;
+
+        static FluxUser Parse(String fluxstr);
+    }
+
+    interface IConnect
+    {
+        Windows.Foundation.IAsyncOperation<String> LoginAsync();
+        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
+    }
+
+    unsealed runtimeclass NetHelperBase
+    {
+        String Username;
+        String Password;
+
+    protected
+        Windows.Foundation.IAsyncOperation<String> GetAsync(Windows.Foundation.Uri uri);
+    protected
+        Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IBuffer> GetBytesAsync(Windows.Foundation.Uri uri);
+    protected
+        Windows.Foundation.IAsyncOperation<String> PostAsync(Windows.Foundation.Uri uri);
+    protected
+        Windows.Foundation.IAsyncOperation<String> PostStringAsync(Windows.Foundation.Uri uri, String data);
+    protected
+        Windows.Foundation.IAsyncOperation<String> PostMapAsync(Windows.Foundation.Uri uri, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<String, String> > data);
+    }
+
+    [default_interface] runtimeclass NetHelper : NetHelperBase, IConnect
+    {
+        NetHelper();
+    }
+
+    unsealed runtimeclass AuthHelper : NetHelperBase, IConnect
+    {
+    protected
+        AuthHelper(Int32 ver);
+    }
+
+    [default_interface] runtimeclass Auth4Helper : AuthHelper
+    {
+        Auth4Helper();
+    }
+
+    [default_interface] runtimeclass Auth6Helper : AuthHelper
+    {
+        Auth6Helper();
+    }
+
+    runtimeclass NetUser
+    {
+        NetUser();
+
+        String Address;
+        String LoginTime;
+        String Client;
+    }
+
+    [default_interface] runtimeclass UseregHelper : NetHelperBase
+    {
+        UseregHelper();
+
+        Windows.Foundation.IAsyncOperation<String> LoginAsync();
+        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<String> LogoutAsync(String ip);
+        Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IIterable<NetUser> > UsersAsync();
+    }
+} // namespace TsinghuaNetHelper

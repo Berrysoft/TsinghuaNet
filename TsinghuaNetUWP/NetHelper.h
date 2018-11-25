@@ -5,8 +5,6 @@
 
 namespace winrt::TsinghuaNetUWP
 {
-    std::vector<std::wstring_view> string_split(std::wstring_view const& s, wchar_t separator);
-
     struct FluxUser
     {
         std::wstring username;
@@ -48,9 +46,6 @@ namespace winrt::TsinghuaNetUWP
         concurrency::task<winrt::hstring> PostAsync(Windows::Foundation::Uri const& uri, winrt::param::hstring const& data) const;
         concurrency::task<winrt::hstring> PostAsync(Windows::Foundation::Uri const& uri, std::map<winrt::hstring, winrt::hstring> const& data) const;
     };
-
-    std::wstring GetMD5(std::wstring const& input);
-    std::wstring GetSHA1(std::wstring const& input);
 
     class NetHelper : public NetHelper_base, public IConnect
     {
