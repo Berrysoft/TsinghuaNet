@@ -115,7 +115,6 @@
     <ClInclude Include="InternetStatusStringConverter.h">
       <DependentUpon>InternetStatusStringConverter.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="LanHelper.h" />
     <ClInclude Include="MainViewModel.h">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -156,15 +155,6 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include=".clang-format" />
-    <CopyFileToFolders Include="states.json">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </CopyFileToFolders>
     <None Include="packages.config" />
     <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
   </ItemGroup>
@@ -201,7 +191,6 @@
     <ClCompile Include="InternetStatusStringConverter.cpp">
       <DependentUpon>InternetStatusStringConverter.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="LanHelper.cpp" />
     <ClCompile Include="MainViewModel.cpp">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>

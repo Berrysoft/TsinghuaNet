@@ -51,9 +51,6 @@
     <ClCompile Include="FluxStringConverter.cpp" />
     <ClCompile Include="TimeSpanStringConverter.cpp" />
     <ClCompile Include="CurrencyStringConverter.cpp" />
-    <ClCompile Include="LanHelper.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="InternetStatusStringConverter.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
@@ -77,9 +74,6 @@
     <ClInclude Include="FluxStringConverter.h" />
     <ClInclude Include="TimeSpanStringConverter.h" />
     <ClInclude Include="CurrencyStringConverter.h" />
-    <ClInclude Include="LanHelper.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="InternetStatusStringConverter.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
@@ -144,16 +138,10 @@
     <Filter Include="ViewModels">
       <UniqueIdentifier>{ba0d3a8a-6e4f-4e96-83be-02127306f167}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Helpers">
-      <UniqueIdentifier>{a50b501d-d733-48c5-83fb-a950648bbd5b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Filter>Views</Filter>
     </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="states.json" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,32 @@
+namespace TsinghuaNetHelper
+{
+    enum NetState
+    {
+        Unknown,
+        Auth4,
+        Auth6,
+        Net,
+        Direct
+    };
+
+    enum InternetStatus
+    {
+        Unknown,
+        None,
+        Wwan,
+        Wlan,
+        Lan
+    };
+
+    runtimeclass LanHelper
+    {
+        LanHelper();
+
+        NetState LanState();
+        NetState WwanState();
+        NetState WlanState(String ssid);
+
+		static Windows.Foundation.IAsyncOperation<LanHelper> LoadAsync();
+        static InternetStatus GetCurrentInternetStatus(out String ssid);
+    }
+} // namespace TsinghuaNetHelper

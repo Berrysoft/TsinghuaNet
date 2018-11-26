@@ -44,6 +44,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     private:
         TsinghuaNetHelper::NotificationHelper notification;
         TsinghuaNetHelper::SettingsHelper settings;
+        TsinghuaNetHelper::LanHelper lan;
 
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();

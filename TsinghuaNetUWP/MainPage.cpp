@@ -3,7 +3,6 @@
 #include "MainPage.h"
 
 #include "ChangeUserDialog.h"
-#include "LanHelper.h"
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
@@ -39,7 +38,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
         notification = co_await NotificationHelper::LoadAsync();
-        co_await LoadStates();
+        lan = co_await LanHelper::LoadAsync();
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
@@ -285,26 +284,27 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::RefreshStatusImpl()
     {
-        NetState state;
-        auto status = GetCurrentInternetStatus();
-        switch (get<0>(status))
+        TsinghuaNetHelper::NetState state;
+        hstring ssid;
+        auto status = (InternetStatus)lan.GetCurrentInternetStatus(ssid);
+        switch (status)
         {
         case InternetStatus::Lan:
-            state = GetLanState();
+            state = lan.LanState();
             break;
         case InternetStatus::Wwan:
-            state = GetWwanState();
+            state = lan.WwanState();
             break;
         case InternetStatus::Wlan:
-            state = GetWlanState(get<1>(status));
+            state = lan.WlanState(ssid);
             break;
         default:
-            state = NetState::Unknown;
+            state = TsinghuaNetHelper::NetState::Unknown;
             break;
         }
-        Model().NetStatus(get<0>(status));
-        Model().Ssid(get<1>(status));
-        Model().SuggestState(state);
+        Model().NetStatus(status);
+        Model().Ssid(ssid);
+        Model().SuggestState((NetState)state);
     }
 
     IAsyncAction MainPage::RefreshNetUsersImpl()
