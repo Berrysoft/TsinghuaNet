@@ -4,7 +4,6 @@
 
 #include "ChangeUserDialog.h"
 #include "LanHelper.h"
-#include "NotificationHelper.h"
 #include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
@@ -40,8 +39,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
+        notification = co_await NotificationHelper::LoadAsync();
         co_await LoadStates();
-        co_await LoadTileTemplate();
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
@@ -179,15 +178,16 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
+    constexpr uint64_t BaseFlux = 25000000000;
     IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
     {
         auto flux = co_await helper.FluxAsync();
-        UpdateTile(flux);
+        notification.UpdateTile(flux);
         Model().OnlineUser(flux.Username());
         Model().Flux(flux.Flux());
         Model().OnlineTime(flux.OnlineTime());
         Model().Balance(flux.Balance());
-        double maxf = (double)GetMaxFlux(flux);
+        double maxf = (double)UserHelper::GetMaxFlux(flux);
         Model().FluxPercent(flux.Flux() / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();

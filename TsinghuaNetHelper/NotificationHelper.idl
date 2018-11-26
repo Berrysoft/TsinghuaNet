@@ -1,0 +1,22 @@
+import "NetHelper.idl";
+
+namespace TsinghuaNetHelper
+{
+    runtimeclass UserHelper
+    {
+        static String GetFluxString(UInt64 flux);
+        static String GetTimeSpanString(Windows.Foundation.TimeSpan time);
+        static String GetCurrencyString(Double currency);
+        static UInt64 GetMaxFlux(FluxUser user);
+    }
+
+    runtimeclass NotificationHelper
+    {
+        NotificationHelper();
+
+        void UpdateTile(FluxUser user);
+        void SendToast(FluxUser user);
+
+        static Windows.Foundation.IAsyncOperation<NotificationHelper> LoadAsync();
+    }
+} // namespace TsinghuaNetHelper

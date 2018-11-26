@@ -70,9 +70,6 @@
     <ClCompile Include="SettingsHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="NotificationHelper.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -100,9 +97,6 @@
       <Filter>ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="SettingsHelper.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="NotificationHelper.h">
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="DependencyHelper.h">
@@ -167,6 +161,5 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="states.json" />
-    <CopyFileToFolders Include="tile.xml" />
   </ItemGroup>
 </Project>

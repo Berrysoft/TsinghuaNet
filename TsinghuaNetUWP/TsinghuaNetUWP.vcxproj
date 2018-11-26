@@ -73,24 +73,6 @@
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
-  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -144,7 +126,6 @@
     <ClInclude Include="NetUserModel.h">
       <DependentUpon>NetUserModel.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="NotificationHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -232,7 +213,6 @@
     <ClCompile Include="NetUserModel.cpp">
       <DependentUpon>NetUserModel.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="NotificationHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -272,9 +252,6 @@
     <Midl Include="NetStateStringConverter.idl" />
     <Midl Include="NetUserModel.idl" />
     <Midl Include="TimeSpanStringConverter.idl" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="tile.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNetHelper\TsinghuaNetHelper.vcxproj">

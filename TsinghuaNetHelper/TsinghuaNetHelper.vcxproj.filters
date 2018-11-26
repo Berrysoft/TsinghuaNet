@@ -21,6 +21,12 @@
     <ClCompile Include="UseregHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
+    <ClCompile Include="NotificationHelper.cpp">
+      <Filter>NotificationHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="UserHelper.cpp">
+      <Filter>NotificationHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -52,6 +58,12 @@
     <ClInclude Include="UseregHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
+    <ClInclude Include="NotificationHelper.h">
+      <Filter>NotificationHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="UserHelper.h">
+      <Filter>NotificationHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />
@@ -62,10 +74,24 @@
     <Filter Include="NetHelper">
       <UniqueIdentifier>{d9d90c3b-9622-4d36-972c-16e387486235}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NotificationHelper">
+      <UniqueIdentifier>{c1e0acdf-607c-4a46-aee0-99f8c1082448}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="NetHelper.idl">
       <Filter>NetHelper</Filter>
     </Midl>
+    <Midl Include="NotificationHelper.idl">
+      <Filter>NotificationHelper</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="tile.xml">
+      <Filter>NotificationHelper</Filter>
+    </Xml>
+    <Xml Include="toast.xml">
+      <Filter>NotificationHelper</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

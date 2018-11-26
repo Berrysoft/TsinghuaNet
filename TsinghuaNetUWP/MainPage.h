@@ -42,6 +42,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
 
     private:
+        TsinghuaNetHelper::NotificationHelper notification;
+
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();

@@ -102,8 +102,10 @@
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetHelperBase.h" />
     <ClInclude Include="NetUser.h" />
+    <ClInclude Include="NotificationHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="UseregHelper.h" />
+    <ClInclude Include="UserHelper.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
@@ -111,19 +113,28 @@
     <ClCompile Include="FluxUser.cpp" />
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
+    <ClCompile Include="NotificationHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="UseregHelper.cpp" />
+    <ClCompile Include="UserHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="NetHelper.idl" />
+    <Midl Include="NotificationHelper.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
     <None Include="packages.config" />
     <None Include="TsinghuaNetHelper.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="tile.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="toast.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
