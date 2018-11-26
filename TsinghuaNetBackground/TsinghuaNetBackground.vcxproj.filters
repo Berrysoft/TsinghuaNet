@@ -15,9 +15,6 @@
     <None Include=".clang-format" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Midl Include="LiveTileTask.idl" />
   </ItemGroup>
 </Project>

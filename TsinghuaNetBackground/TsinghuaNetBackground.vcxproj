@@ -118,11 +118,6 @@
     <None Include="TsinghuaNetBackground.def" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="readme.txt">
-      <DeploymentContent>false</DeploymentContent>
-    </Text>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TsinghuaNetHelper\TsinghuaNetHelper.vcxproj">
       <Project>{78b24652-e38f-41c0-979e-43bcc370a79d}</Project>
     </ProjectReference>
