@@ -7,10 +7,10 @@
 #include "FluxStringConverter.h"
 #include "InternetStatusStringConverter.h"
 #include "MainViewModel.h"
-#include "NetHelper.h"
 #include "NetStateStringConverter.h"
 #include "NetUserModel.h"
 #include "TimeSpanStringConverter.h"
+#include "winrt/TsinghuaNetHelper.h"
 #include <memory>
 
 namespace winrt::TsinghuaNetUWP::implementation
@@ -45,13 +45,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
-        Windows::Foundation::IAsyncAction RefreshImpl(IConnect const& helper);
+        Windows::Foundation::IAsyncAction RefreshImpl(TsinghuaNetHelper::IConnect const& helper);
         Windows::Foundation::IAsyncAction DropImpl(std::wstring address);
-        std::unique_ptr<IConnect> GetHelper();
+        TsinghuaNetHelper::IConnect GetHelper();
 
         void RefreshStatusImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl();
-        Windows::Foundation::IAsyncAction RefreshNetUsersImpl(UseregHelper const& helper);
+        Windows::Foundation::IAsyncAction RefreshNetUsersImpl(TsinghuaNetHelper::UseregHelper const& helper);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

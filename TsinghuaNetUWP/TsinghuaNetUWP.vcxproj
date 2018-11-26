@@ -73,6 +73,24 @@
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>..\TsinghuaNetHelper\;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -120,7 +138,6 @@
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetStateStringConverter.h">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClInclude>
@@ -209,7 +226,6 @@
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetStateStringConverter.cpp">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClCompile>
@@ -259,6 +275,11 @@
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="tile.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TsinghuaNetHelper\TsinghuaNetHelper.vcxproj">
+      <Project>{78b24652-e38f-41c0-979e-43bcc370a79d}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

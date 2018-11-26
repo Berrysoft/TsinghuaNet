@@ -54,9 +54,6 @@
     <ClCompile Include="LanHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="NetHelper.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="InternetStatusStringConverter.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
     <ClInclude Include="TimeSpanStringConverter.h" />
     <ClInclude Include="CurrencyStringConverter.h" />
     <ClInclude Include="LanHelper.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="NetHelper.h">
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="InternetStatusStringConverter.h">

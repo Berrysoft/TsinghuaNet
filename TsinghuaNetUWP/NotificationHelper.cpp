@@ -14,6 +14,7 @@ using namespace Windows::Foundation;
 using namespace Windows::UI::Notifications;
 using namespace Windows::Data::Xml::Dom;
 using namespace Windows::Storage;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP
 {
@@ -61,7 +62,7 @@ namespace winrt::TsinghuaNetUWP
 
     uint64_t GetMaxFlux(FluxUser const& user)
     {
-        return max(user.flux, BaseFlux) + (uint64_t)(user.balance * 2 * 1000 * 1000 * 1000);
+        return max(user.Flux(), BaseFlux) + (uint64_t)(user.Balance() * 2 * 1000 * 1000 * 1000);
     }
 
     wstring xmlt;
@@ -74,11 +75,11 @@ namespace winrt::TsinghuaNetUWP
     {
         XmlDocument dom;
         dom.LoadXml(sprint(xmlt,
-                           user.username,
-                           wstring_view(GetFluxString(user.flux)),
-                           wstring_view(GetTimeSpanString(user.online_time)),
-                           wstring_view(GetCurrencyString(user.balance)),
-                           wstring_view(GetFluxString(GetMaxFlux(user) - user.flux))));
+                           wstring_view(user.Username()),
+                           wstring_view(GetFluxString(user.Flux())),
+                           wstring_view(GetTimeSpanString(user.OnlineTime())),
+                           wstring_view(GetCurrencyString(user.Balance())),
+                           wstring_view(GetFluxString(GetMaxFlux(user) - user.Flux()))));
         TileNotification notification(dom);
         auto time = clock::now();
         time += 10min;

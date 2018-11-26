@@ -36,7 +36,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto result = make<FluxUser>();
         if (!r.empty())
         {
-            result.Username(r[0]);
+            result.Username(hstring(r[0]));
             result.Flux(stoull(wstring(r[6])));
             result.OnlineTime(seconds(stoll(wstring(r[2])) - stoll(wstring(r[1]))));
             result.Balance(stod(wstring(r[10])));

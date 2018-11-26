@@ -23,6 +23,7 @@ using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
 using namespace Windows::Storage;
 using namespace Windows::System;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -138,8 +139,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper->LoginAsync();
-                co_await RefreshImpl(*helper);
+                co_await helper.LoginAsync();
+                co_await RefreshImpl(helper);
             }
         }
         catch (hresult_error const&)
@@ -154,8 +155,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper->LogoutAsync();
-                co_await RefreshImpl(*helper);
+                co_await helper.LogoutAsync();
+                co_await RefreshImpl(helper);
             }
         }
         catch (hresult_error const&)
@@ -171,7 +172,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await RefreshImpl(*helper);
+                co_await RefreshImpl(helper);
             }
         }
         catch (hresult_error const&)
@@ -182,12 +183,12 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         auto flux = co_await helper.FluxAsync();
         UpdateTile(flux);
-        Model().OnlineUser(flux.username);
-        Model().Flux(flux.flux);
-        Model().OnlineTime(flux.online_time);
-        Model().Balance(flux.balance);
+        Model().OnlineUser(flux.Username());
+        Model().Flux(flux.Flux());
+        Model().OnlineTime(flux.OnlineTime());
+        Model().Balance(flux.Balance());
         double maxf = (double)GetMaxFlux(flux);
-        Model().FluxPercent(flux.flux / maxf);
+        Model().FluxPercent(flux.Flux() / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
     }
@@ -209,15 +210,15 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     template <typename T>
-    unique_ptr<T> MakeHelper(hstring username, hstring password)
+    T MakeHelper(hstring username, hstring password)
     {
-        unique_ptr<T> result = make_unique<T>();
-        result->Username(username);
-        result->Password(password);
+        T result;
+        result.Username(username);
+        result.Password(password);
         return result;
     }
 
-    unique_ptr<IConnect> MainPage::GetHelper()
+    IConnect MainPage::GetHelper()
     {
         hstring un = Model().Username();
         hstring pw = Model().Password();
@@ -326,12 +327,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         auto users = co_await helper.UsersAsync();
         auto usersmodel = Model().NetUsers();
         usersmodel.Clear();
-        for (auto& user : users)
+        for (auto user : users)
         {
             auto u = make<NetUserModel>();
-            u.Address(hstring(user.address));
-            u.LoginTime(hstring(user.login_time));
-            u.Client(hstring(user.client));
+            u.Address(hstring(user.Address()));
+            u.LoginTime(hstring(user.LoginTime()));
+            u.Client(hstring(user.Client()));
             usersmodel.Append(u);
         }
     }
