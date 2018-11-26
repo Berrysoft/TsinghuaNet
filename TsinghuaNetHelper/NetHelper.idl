@@ -25,6 +25,9 @@ namespace TsinghuaNetHelper
         String Password;
 
     protected
+        NetHelperBase();
+
+    protected
         Windows.Foundation.IAsyncOperation<String> GetAsync(Windows.Foundation.Uri uri);
     protected
         Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IBuffer> GetBytesAsync(Windows.Foundation.Uri uri);
@@ -73,6 +76,6 @@ namespace TsinghuaNetHelper
         Windows.Foundation.IAsyncOperation<String> LoginAsync();
         Windows.Foundation.IAsyncOperation<String> LogoutAsync();
         Windows.Foundation.IAsyncOperation<String> LogoutAsync(String ip);
-        Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IIterable<NetUser> > UsersAsync();
+        Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVector<NetUser> > UsersAsync();
     }
 } // namespace TsinghuaNetHelper

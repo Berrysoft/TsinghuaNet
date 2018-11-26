@@ -1,50 +1,83 @@
 ﻿#include "pch.h"
+
 #include "NetHelperBase.h"
+#include <iomanip>
+#include <winrt/Windows.Security.Cryptography.Core.h>
+
+using namespace std;
+using namespace winrt;
+using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
+using namespace Windows::Security::Cryptography;
+using namespace Windows::Security::Cryptography::Core;
+using namespace Windows::Storage::Streams;
+using namespace Windows::Web::Http;
+
+namespace winrt::TsinghuaNetHelper
+{
+    wstring GetHexString(IBuffer const& buffer)
+    {
+        wostringstream oss;
+        auto data = buffer.data();
+        auto size = buffer.Length();
+        for (uint32_t i = 0; i < size; i++)
+        {
+            oss << setw(2) << setfill(L'0') << hex << data[i];
+        }
+        return oss.str();
+    }
+
+    wstring GetHashString(hstring const& input, hstring const& algorithm)
+    {
+        if (input.empty())
+            return {};
+        auto hash = HashAlgorithmProvider::OpenAlgorithm(algorithm);
+        auto data = hash.HashData(CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8));
+        return GetHexString(data);
+    }
+
+    wstring GetMD5(hstring const& input)
+    {
+        return GetHashString(input, HashAlgorithmNames::Md5());
+    }
+
+    wstring GetSHA1(hstring const& input)
+    {
+        return GetHashString(input, HashAlgorithmNames::Sha1());
+    }
+} // namespace winrt::TsinghuaNetHelper
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    hstring NetHelperBase::Username()
+    IAsyncOperation<hstring> NetHelperBase::GetAsync(Uri const uri)
     {
-        throw hresult_not_implemented();
+        return co_await client.GetStringAsync(uri);
     }
 
-    void NetHelperBase::Username(hstring const& value)
+    IAsyncOperation<IBuffer> NetHelperBase::GetBytesAsync(Uri const uri)
     {
-        throw hresult_not_implemented();
+        return co_await client.GetBufferAsync(uri);
     }
 
-    hstring NetHelperBase::Password()
+    IAsyncOperation<hstring> NetHelperBase::PostAsync(Uri const uri)
     {
-        throw hresult_not_implemented();
+        auto message = HttpRequestMessage(HttpMethod::Post(), uri);
+        auto response = co_await client.SendRequestAsync(message, HttpCompletionOption::ResponseContentRead);
+        return co_await response.Content().ReadAsStringAsync();
     }
 
-    void NetHelperBase::Password(hstring const& value)
+    IAsyncOperation<hstring> NetHelperBase::PostStringAsync(Uri const uri, hstring const data)
     {
-        throw hresult_not_implemented();
+        auto content = HttpStringContent(data, UnicodeEncoding::Utf8,
+                                         L"application/x-www-form-urlencoded");
+        auto response = co_await client.PostAsync(uri, content);
+        return co_await response.Content().ReadAsStringAsync();
     }
 
-    Windows::Foundation::IAsyncOperation<hstring> NetHelperBase::GetAsync(Windows::Foundation::Uri const uri)
+    IAsyncOperation<hstring> NetHelperBase::PostMapAsync(Uri const uri, IIterable<IKeyValuePair<hstring, hstring>> const data)
     {
-        throw hresult_not_implemented();
+        auto content = HttpFormUrlEncodedContent(data);
+        auto response = co_await client.PostAsync(uri, content);
+        return co_await response.Content().ReadAsStringAsync();
     }
-
-    Windows::Foundation::IAsyncOperation<Windows::Storage::Streams::IBuffer> NetHelperBase::GetBytesAsync(Windows::Foundation::Uri const uri)
-    {
-        throw hresult_not_implemented();
-    }
-
-    Windows::Foundation::IAsyncOperation<hstring> NetHelperBase::PostAsync(Windows::Foundation::Uri const uri)
-    {
-        throw hresult_not_implemented();
-    }
-
-    Windows::Foundation::IAsyncOperation<hstring> NetHelperBase::PostStringAsync(Windows::Foundation::Uri const uri, hstring const data)
-    {
-        throw hresult_not_implemented();
-    }
-
-    Windows::Foundation::IAsyncOperation<hstring> NetHelperBase::PostMapAsync(Windows::Foundation::Uri const uri, Windows::Foundation::Collections::IIterable<Windows::Foundation::Collections::IKeyValuePair<hstring, hstring>> const data)
-    {
-        throw hresult_not_implemented();
-    }
-}
+} // namespace winrt::TsinghuaNetHelper::implementation

@@ -3,13 +3,6 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
-    <ClCompile Include="NetHelper.cpp" />
-    <ClCompile Include="Auth4Helper.cpp">
-      <Filter>NetHelper</Filter>
-    </ClCompile>
-    <ClCompile Include="Auth6Helper.cpp">
-      <Filter>NetHelper</Filter>
-    </ClCompile>
     <ClCompile Include="AuthHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
@@ -22,13 +15,15 @@
     <ClCompile Include="NetHelperBase.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
-    <ClCompile Include="NetUser.cpp">
+    <ClCompile Include="NetHelper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="UseregHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="NetHelper.h" />
     <ClInclude Include="Auth4Helper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
@@ -48,6 +43,13 @@
       <Filter>NetHelper</Filter>
     </ClInclude>
     <ClInclude Include="NetUser.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="NetHelper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h" />
+    <ClInclude Include="UseregHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
   </ItemGroup>
