@@ -98,18 +98,21 @@
     <ClInclude Include="Auth4Helper.h" />
     <ClInclude Include="Auth6Helper.h" />
     <ClInclude Include="AuthHelper.h" />
+    <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="FluxUser.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetHelperBase.h" />
     <ClInclude Include="NetUser.h" />
     <ClInclude Include="NotificationHelper.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SettingsHelper.h" />
     <ClInclude Include="UseregHelper.h" />
     <ClInclude Include="UserHelper.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AuthHelper.cpp" />
+    <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="FluxUser.cpp" />
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
@@ -118,12 +121,14 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="SettingsHelper.cpp" />
     <ClCompile Include="UseregHelper.cpp" />
     <ClCompile Include="UserHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="NetHelper.idl" />
     <Midl Include="NotificationHelper.idl" />
+    <Midl Include="SettingsHelper.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />

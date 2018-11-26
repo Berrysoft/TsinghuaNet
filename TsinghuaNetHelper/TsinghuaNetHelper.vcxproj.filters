@@ -27,6 +27,12 @@
     <ClCompile Include="UserHelper.cpp">
       <Filter>NotificationHelper</Filter>
     </ClCompile>
+    <ClCompile Include="CredentialHelper.cpp">
+      <Filter>SettingsHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsHelper.cpp">
+      <Filter>SettingsHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -64,6 +70,12 @@
     <ClInclude Include="UserHelper.h">
       <Filter>NotificationHelper</Filter>
     </ClInclude>
+    <ClInclude Include="CredentialHelper.h">
+      <Filter>SettingsHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsHelper.h">
+      <Filter>SettingsHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />
@@ -77,6 +89,9 @@
     <Filter Include="NotificationHelper">
       <UniqueIdentifier>{c1e0acdf-607c-4a46-aee0-99f8c1082448}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SettingsHelper">
+      <UniqueIdentifier>{170bc0cb-ec4f-4147-860f-51fac4540710}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="NetHelper.idl">
@@ -84,6 +99,9 @@
     </Midl>
     <Midl Include="NotificationHelper.idl">
       <Filter>NotificationHelper</Filter>
+    </Midl>
+    <Midl Include="SettingsHelper.idl">
+      <Filter>SettingsHelper</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>

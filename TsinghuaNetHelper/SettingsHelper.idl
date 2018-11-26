@@ -1,0 +1,17 @@
+namespace TsinghuaNetHelper
+{
+    runtimeclass CredentialHelper
+    {
+        static String GetCredential(String username);
+        static void SaveCredential(String username, String password);
+        static void RemoveCredential(String username);
+    }
+
+    runtimeclass SettingsHelper
+    {
+        SettingsHelper();
+
+        String StoredUsername;
+        Boolean AutoLogin;
+    }
+} // namespace TsinghuaNetHelper

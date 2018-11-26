@@ -4,7 +4,6 @@
 
 #include "ChangeUserDialog.h"
 #include "LanHelper.h"
-#include "SettingsHelper.h"
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
@@ -44,13 +43,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
-        bool al = AutoLogin();
+        bool al = settings.AutoLogin();
         Model().AutoLogin(al);
-        hstring un = StoredUsername();
+        hstring un = settings.StoredUsername();
         if (!un.empty())
         {
             Model().Username(un);
-            hstring pw = GetCredential(un);
+            hstring pw = CredentialHelper::GetCredential(un);
             Model().Password(pw);
             if (al && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
             {
@@ -93,26 +92,26 @@ namespace winrt::TsinghuaNetUWP::implementation
         auto dialog = make<ChangeUserDialog>();
         hstring oldun = Model().Username();
         dialog.UnBox().Text(oldun);
-        hstring oldpw = GetCredential(oldun);
+        hstring oldpw = CredentialHelper::GetCredential(oldun);
         dialog.PwBox().Password(oldpw);
         if (!oldpw.empty())
         {
             dialog.SaveBox().IsChecked(true);
         }
         dialog.UnBox().TextChanged([&dialog](IInspectable const&, TextChangedEventArgs const&) {
-            dialog.PwBox().Password(GetCredential(dialog.UnBox().Text()));
+            dialog.PwBox().Password(CredentialHelper::GetCredential(dialog.UnBox().Text()));
         });
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
             hstring un = dialog.UnBox().Text();
             hstring pw = dialog.PwBox().Password();
-            RemoveCredential(un);
+            CredentialHelper::RemoveCredential(un);
             if (dialog.SaveBox().IsChecked().Value())
             {
-                SaveCredential(un, pw);
+                CredentialHelper::SaveCredential(un, pw);
             }
-            StoredUsername(un);
+            settings.StoredUsername(un);
             Model().Username(un);
             Model().Password(pw);
             Split().IsPaneOpen(false);
@@ -281,7 +280,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::AutoLoginChanged(IInspectable const& /*sender*/, optional<bool> const& e)
     {
-        AutoLogin(e.Value());
+        settings.AutoLogin(e.Value());
     }
 
     void MainPage::RefreshStatusImpl()

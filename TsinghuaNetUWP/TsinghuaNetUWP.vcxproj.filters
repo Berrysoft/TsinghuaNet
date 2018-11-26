@@ -67,9 +67,6 @@
     <ClCompile Include="DropUserCommand.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
-    <ClCompile Include="SettingsHelper.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -95,9 +92,6 @@
     </ClInclude>
     <ClInclude Include="DropUserCommand.h">
       <Filter>ViewModels</Filter>
-    </ClInclude>
-    <ClInclude Include="SettingsHelper.h">
-      <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="DependencyHelper.h">
       <Filter>ViewModels</Filter>

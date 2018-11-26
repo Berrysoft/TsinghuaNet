@@ -133,7 +133,6 @@
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="SettingsHelper.h" />
     <ClInclude Include="TimeSpanStringConverter.h">
       <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClInclude>
@@ -222,7 +221,6 @@
     <ClCompile Include="MainPage.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="SettingsHelper.cpp" />
     <ClCompile Include="TimeSpanStringConverter.cpp">
       <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClCompile>
