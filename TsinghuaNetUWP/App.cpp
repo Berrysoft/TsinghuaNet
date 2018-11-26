@@ -3,15 +3,19 @@
 #include "App.h"
 
 #include "MainPage.h"
+#include "winrt/TsinghuaNetBackground.h"
+#include <winrt/Windows.ApplicationModel.Background.h>
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
+using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace TsinghuaNetUWP;
+using namespace TsinghuaNetBackground;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -34,6 +38,31 @@ namespace winrt::TsinghuaNetUWP::implementation
             }
         });
 #endif
+    }
+
+    constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
+    IAsyncAction RegisterLiveTileTask()
+    {
+        auto status = co_await BackgroundExecutionManager::RequestAccessAsync();
+        if (status == BackgroundAccessStatus::Unspecified ||
+            status == BackgroundAccessStatus::DeniedByUser ||
+            status == BackgroundAccessStatus::DeniedBySystemPolicy)
+        {
+            return;
+        }
+        for (auto t : BackgroundTaskRegistration::AllTasks())
+        {
+            if (t.Value().Name() == LIVETILETASK)
+            {
+                t.Value().Unregister(true);
+            }
+        }
+
+        BackgroundTaskBuilder builder;
+        builder.Name(LIVETILETASK);
+        builder.TaskEntryPoint(xaml_typename<LiveTileTask>().Name);
+        builder.SetTrigger(TimeTrigger(15, false));
+        builder.Register();
     }
 
     /// <summary>
@@ -96,6 +125,8 @@ namespace winrt::TsinghuaNetUWP::implementation
                 Window::Current().Activate();
             }
         }
+
+        RegisterLiveTileTask();
     }
 
     /// <summary>

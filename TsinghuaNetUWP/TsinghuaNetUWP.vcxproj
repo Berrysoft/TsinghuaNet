@@ -241,8 +241,8 @@
     <Midl Include="TimeSpanStringConverter.idl" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TsinghuaNetHelper\TsinghuaNetHelper.vcxproj">
-      <Project>{78b24652-e38f-41c0-979e-43bcc370a79d}</Project>
+    <ProjectReference Include="..\TsinghuaNetBackground\TsinghuaNetBackground.vcxproj">
+      <Project>{091d9ec3-076c-4e08-8373-41f327a4f4c1}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

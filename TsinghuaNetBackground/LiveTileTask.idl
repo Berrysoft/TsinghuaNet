@@ -1,0 +1,7 @@
+namespace TsinghuaNetBackground
+{
+    [default_interface] runtimeclass LiveTileTask : Windows.ApplicationModel.Background.IBackgroundTask
+    {
+        LiveTileTask();
+    }
+} // namespace TsinghuaNetBackground
