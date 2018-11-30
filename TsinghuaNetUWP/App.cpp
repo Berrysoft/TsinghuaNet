@@ -69,7 +69,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 		BackgroundTaskBuilder login;
         login.Name(LOGINTASK);
         login.TaskEntryPoint(xaml_typename<LoginTask>().Name);
-        login.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, true));
+        login.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
+        login.AddCondition(SystemCondition(SystemConditionType::InternetNotAvailable));
         login.Register();
     }
 
