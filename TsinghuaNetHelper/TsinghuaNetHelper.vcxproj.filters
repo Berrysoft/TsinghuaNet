@@ -69,7 +69,6 @@
     <ClInclude Include="NetHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h" />
     <ClInclude Include="UseregHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
@@ -94,11 +93,14 @@
     <ClInclude Include="LoginTask.h">
       <Filter>Background</Filter>
     </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />
-    <None Include="packages.config" />
     <None Include=".clang-format" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NetHelper">
