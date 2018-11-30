@@ -33,6 +33,15 @@
     <ClCompile Include="SettingsHelper.cpp">
       <Filter>SettingsHelper</Filter>
     </ClCompile>
+    <ClCompile Include="ConnectHelper.cpp">
+      <Filter>Background</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveTileTask.cpp">
+      <Filter>Background</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginTask.cpp">
+      <Filter>Background</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -76,6 +85,15 @@
     <ClInclude Include="SettingsHelper.h">
       <Filter>SettingsHelper</Filter>
     </ClInclude>
+    <ClInclude Include="ConnectHelper.h">
+      <Filter>Background</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveTileTask.h">
+      <Filter>Background</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginTask.h">
+      <Filter>Background</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />
@@ -92,6 +110,9 @@
     <Filter Include="SettingsHelper">
       <UniqueIdentifier>{170bc0cb-ec4f-4147-860f-51fac4540710}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Background">
+      <UniqueIdentifier>{a0adc2b2-35b9-427a-934b-bef7db6c7c08}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="NetHelper.idl">
@@ -102,6 +123,12 @@
     </Midl>
     <Midl Include="SettingsHelper.idl">
       <Filter>SettingsHelper</Filter>
+    </Midl>
+    <Midl Include="LiveTileTask.idl">
+      <Filter>Background</Filter>
+    </Midl>
+    <Midl Include="LoginTask.idl">
+      <Filter>Background</Filter>
     </Midl>
   </ItemGroup>
 </Project>

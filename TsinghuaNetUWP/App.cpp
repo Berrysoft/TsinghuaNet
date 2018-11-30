@@ -3,7 +3,6 @@
 #include "App.h"
 
 #include "MainPage.h"
-#include "winrt/TsinghuaNetBackground.h"
 #include <winrt/Windows.ApplicationModel.Background.h>
 
 using namespace winrt;
@@ -15,7 +14,7 @@ using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace TsinghuaNetUWP;
-using namespace TsinghuaNetBackground;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -66,7 +65,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         livetile.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
         livetile.Register();
 
-		BackgroundTaskBuilder login;
+        BackgroundTaskBuilder login;
         login.Name(LOGINTASK);
         login.TaskEntryPoint(xaml_typename<LoginTask>().Name);
         login.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));

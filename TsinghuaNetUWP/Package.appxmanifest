@@ -21,12 +21,12 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="TsinghuaNetBackground.LiveTileTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="TsinghuaNetHelper.LiveTileTask">
           <BackgroundTasks>
             <Task Type="timer" />
           </BackgroundTasks>
         </Extension>
-        <Extension Category="windows.backgroundTasks" EntryPoint="TsinghuaNetBackground.LoginTask">
+        <Extension Category="windows.backgroundTasks" EntryPoint="TsinghuaNetHelper.LoginTask">
           <BackgroundTasks>
             <Task Type="systemEvent" />
           </BackgroundTasks>

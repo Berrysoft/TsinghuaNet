@@ -3,9 +3,8 @@
 #include "ConnectHelper.h"
 
 using namespace winrt;
-using namespace TsinghuaNetHelper;
 
-namespace winrt::TsinghuaNetBackground
+namespace winrt::TsinghuaNetHelper
 {
     NetState GetSuggestNetState(SettingsHelper const& lan)
     {
@@ -61,4 +60,4 @@ namespace winrt::TsinghuaNetBackground
             return nullptr;
         }
     }
-} // namespace winrt::TsinghuaNetBackground
+} // namespace winrt::TsinghuaNetHelper

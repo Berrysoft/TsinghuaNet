@@ -7,8 +7,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TsinghuaNetUWP", "TsinghuaN
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TsinghuaNetHelper", "TsinghuaNetHelper\TsinghuaNetHelper.vcxproj", "{78B24652-E38F-41C0-979E-43BCC370A79D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TsinghuaNetBackground", "TsinghuaNetBackground\TsinghuaNetBackground.vcxproj", "{091D9EC3-076C-4E08-8373-41F327A4F4C1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|ARM = Debug|ARM
@@ -49,18 +47,6 @@ Global
 		{78B24652-E38F-41C0-979E-43BCC370A79D}.Release|x64.Build.0 = Release|x64
 		{78B24652-E38F-41C0-979E-43BCC370A79D}.Release|x86.ActiveCfg = Release|Win32
 		{78B24652-E38F-41C0-979E-43BCC370A79D}.Release|x86.Build.0 = Release|Win32
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|ARM.ActiveCfg = Debug|ARM
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|ARM.Build.0 = Debug|ARM
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|x64.ActiveCfg = Debug|x64
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|x64.Build.0 = Debug|x64
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|x86.ActiveCfg = Debug|Win32
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Debug|x86.Build.0 = Debug|Win32
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|ARM.ActiveCfg = Release|ARM
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|ARM.Build.0 = Release|ARM
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|x64.ActiveCfg = Release|x64
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|x64.Build.0 = Release|x64
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|x86.ActiveCfg = Release|Win32
-		{091D9EC3-076C-4E08-8373-41F327A4F4C1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

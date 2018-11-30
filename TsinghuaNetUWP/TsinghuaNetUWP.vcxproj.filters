@@ -43,6 +43,7 @@
       <Filter>ViewModels</Filter>
     </Midl>
     <Midl Include="Arc.idl" />
+    <Midl Include="EditSuggestionDialog.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -67,6 +68,7 @@
     <ClCompile Include="DropUserCommand.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
+    <ClCompile Include="EditSuggestionDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -93,6 +95,7 @@
     <ClInclude Include="DependencyHelper.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
+    <ClInclude Include="EditSuggestionDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

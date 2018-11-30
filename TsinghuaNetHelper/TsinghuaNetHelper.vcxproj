@@ -98,8 +98,15 @@
     <ClInclude Include="Auth4Helper.h" />
     <ClInclude Include="Auth6Helper.h" />
     <ClInclude Include="AuthHelper.h" />
+    <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="FluxUser.h" />
+    <ClInclude Include="LiveTileTask.h">
+      <DependentUpon>LiveTileTask.idl</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LoginTask.h">
+      <DependentUpon>LoginTask.idl</DependentUpon>
+    </ClInclude>
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetHelperBase.h" />
     <ClInclude Include="NetUser.h" />
@@ -112,8 +119,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AuthHelper.cpp" />
+    <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="FluxUser.cpp" />
+    <ClCompile Include="LiveTileTask.cpp">
+      <DependentUpon>LiveTileTask.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LoginTask.cpp" >
+      <DependentUpon>LoginTask.idl</DependentUpon>
+    </ClCompile>
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
     <ClCompile Include="NotificationHelper.cpp" />
@@ -126,6 +140,8 @@
     <ClCompile Include="UserHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <Midl Include="LiveTileTask.idl" />
+    <Midl Include="LoginTask.idl" />
     <Midl Include="NetHelper.idl" />
     <Midl Include="NotificationHelper.idl" />
     <Midl Include="SettingsHelper.idl" />

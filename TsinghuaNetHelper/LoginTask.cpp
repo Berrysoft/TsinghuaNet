@@ -7,9 +7,8 @@
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
-using namespace TsinghuaNetHelper;
 
-namespace winrt::TsinghuaNetBackground::implementation
+namespace winrt::TsinghuaNetHelper::implementation
 {
     IAsyncAction LoginTask::Run(IBackgroundTaskInstance const& taskInstance)
     {
@@ -36,4 +35,4 @@ namespace winrt::TsinghuaNetBackground::implementation
         }
         deferral.Complete();
     }
-} // namespace winrt::TsinghuaNetBackground::implementation
+} // namespace winrt::TsinghuaNetHelper::implementation

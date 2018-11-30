@@ -3,7 +3,7 @@
 
 #include "winrt/TsinghuaNetHelper.h"
 
-namespace winrt::TsinghuaNetBackground::implementation
+namespace winrt::TsinghuaNetHelper::implementation
 {
     struct LiveTileTask : LiveTileTaskT<LiveTileTask>
     {
@@ -12,14 +12,14 @@ namespace winrt::TsinghuaNetBackground::implementation
         Windows::Foundation::IAsyncAction Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const& taskInstance);
 
     private:
-        TsinghuaNetHelper::NotificationHelper notification;
-        TsinghuaNetHelper::SettingsHelper settings;
+        NotificationHelper notification;
+        SettingsHelper settings;
     };
-} // namespace winrt::TsinghuaNetBackground::implementation
+} // namespace winrt::TsinghuaNetHelper::implementation
 
-namespace winrt::TsinghuaNetBackground::factory_implementation
+namespace winrt::TsinghuaNetHelper::factory_implementation
 {
     struct LiveTileTask : LiveTileTaskT<LiveTileTask, implementation::LiveTileTask>
     {
     };
-} // namespace winrt::TsinghuaNetBackground::factory_implementation
+} // namespace winrt::TsinghuaNetHelper::factory_implementation
