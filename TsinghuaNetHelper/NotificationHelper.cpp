@@ -38,7 +38,17 @@ namespace winrt::TsinghuaNetHelper::implementation
 </tile>
 )";
 
-    constexpr wchar_t toast_t[] = LR"()";
+    constexpr wchar_t toast_t[] = LR"(<?xml version="1.0" encoding="utf-8"?>
+<toast>
+  <visual>
+    <binding template="ToastGeneric">
+      <text hint-maxLines="1">登录成功：{0}</text>
+      <text>流量：{1}</text>
+      <text>余额：{2}</text>
+    </binding>
+  </visual>
+</toast>
+)";
 
     void NotificationHelper::UpdateTile(TsinghuaNetHelper::FluxUser const& user)
     {
@@ -58,6 +68,12 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     void NotificationHelper::SendToast(TsinghuaNetHelper::FluxUser const& user)
     {
-        throw hresult_not_implemented();
+        XmlDocument dom;
+        dom.LoadXml(sprint(toast_t,
+                           wstring_view(user.Username()),
+                           wstring_view(UserHelper::GetFluxString(user.Flux())),
+                           wstring_view(UserHelper::GetCurrencyString(user.Balance()))));
+        ToastNotification notification(dom);
+        ToastNotificationManager::CreateToastNotifier().Show(notification);
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

@@ -4,10 +4,14 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="LiveTileTask.cpp" />
+    <ClCompile Include="ConnectHelper.cpp" />
+    <ClCompile Include="LoginTask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="LiveTileTask.h" />
+    <ClInclude Include="ConnectHelper.h" />
+    <ClInclude Include="LoginTask.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetBackground.def" />
@@ -16,5 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="LiveTileTask.idl" />
+    <Midl Include="LoginTask.idl" />
   </ItemGroup>
 </Project>

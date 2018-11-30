@@ -41,7 +41,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
-    IAsyncAction RegisterLiveTileTask()
+    constexpr wchar_t LOGINTASK[] = L"LOGINTASK";
+    IAsyncAction RegisterTask()
     {
         auto status = co_await BackgroundExecutionManager::RequestAccessAsync();
         if (status == BackgroundAccessStatus::Unspecified ||
@@ -52,17 +53,24 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         for (auto t : BackgroundTaskRegistration::AllTasks())
         {
-            if (t.Value().Name() == LIVETILETASK)
+            if (t.Value().Name() == LIVETILETASK || t.Value().Name() == LOGINTASK)
             {
                 t.Value().Unregister(true);
             }
         }
 
-        BackgroundTaskBuilder builder;
-        builder.Name(LIVETILETASK);
-        builder.TaskEntryPoint(xaml_typename<LiveTileTask>().Name);
-        builder.SetTrigger(TimeTrigger(15, false));
-        builder.Register();
+        BackgroundTaskBuilder livetile;
+        livetile.Name(LIVETILETASK);
+        livetile.TaskEntryPoint(xaml_typename<LiveTileTask>().Name);
+        livetile.SetTrigger(TimeTrigger(15, false));
+        livetile.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
+        livetile.Register();
+
+		BackgroundTaskBuilder login;
+        login.Name(LOGINTASK);
+        login.TaskEntryPoint(xaml_typename<LoginTask>().Name);
+        login.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, true));
+        login.Register();
     }
 
     /// <summary>
@@ -126,7 +134,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             }
         }
 
-        co_await RegisterLiveTileTask();
+        co_await RegisterTask();
     }
 
     /// <summary>

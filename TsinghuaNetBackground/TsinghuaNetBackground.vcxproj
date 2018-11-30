@@ -95,12 +95,20 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ConnectHelper.h" />
+    <ClInclude Include="LoginTask.h">
+      <DependentUpon>LoginTask.idl</DependentUpon>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="LiveTileTask.h">
       <DependentUpon>LiveTileTask.idl</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ConnectHelper.cpp" />
+    <ClCompile Include="LoginTask.cpp">
+      <DependentUpon>LoginTask.idl</DependentUpon>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -111,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="LiveTileTask.idl" />
+    <Midl Include="LoginTask.idl" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".clang-format" />
