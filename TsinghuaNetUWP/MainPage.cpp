@@ -3,6 +3,7 @@
 #include "MainPage.h"
 
 #include "ChangeUserDialog.h"
+#include "EditSuggestionDialog.h"
 #include <cmath>
 #include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
@@ -266,8 +267,16 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
-        StorageFolder folder = ApplicationData::Current().RoamingFolder();
-        co_await Launcher::LaunchFileAsync(co_await folder.GetFileAsync(L"states.json"));
+        auto dialog = make<EditSuggestionDialog>();
+        dialog.LanCombo().SelectedIndex((int)settings.LanState());
+        dialog.WwanCombo().SelectedIndex((int)settings.WwanState());
+        auto result = co_await dialog.ShowAsync();
+		if (result == ContentDialogResult::Primary)
+		{
+            settings.LanState((NetState)dialog.LanCombo().SelectedIndex());
+            settings.WwanState((NetState)dialog.WwanCombo().SelectedIndex());
+            RefreshStatusImpl();
+		}
     }
 
     IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -282,9 +291,9 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::RefreshStatusImpl()
     {
-        TsinghuaNetHelper::NetState state;
+        NetState state;
         hstring ssid;
-        auto status = (InternetStatus)settings.GetCurrentInternetStatus(ssid);
+        auto status = settings.GetCurrentInternetStatus(ssid);
         switch (status)
         {
         case InternetStatus::Lan:
@@ -297,12 +306,12 @@ namespace winrt::TsinghuaNetUWP::implementation
             state = settings.WlanState(ssid);
             break;
         default:
-            state = TsinghuaNetHelper::NetState::Unknown;
+            state = NetState::Unknown;
             break;
         }
         Model().NetStatus(status);
         Model().Ssid(ssid);
-        Model().SuggestState((NetState)state);
+        Model().SuggestState(state);
     }
 
     IAsyncAction MainPage::RefreshNetUsersImpl()

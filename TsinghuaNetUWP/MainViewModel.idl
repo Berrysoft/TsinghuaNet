@@ -1,23 +1,5 @@
 namespace TsinghuaNetUWP
 {
-    enum NetState
-    {
-        Unknown,
-        Auth4,
-        Auth6,
-        Net,
-        Direct
-    };
-
-    enum InternetStatus
-    {
-        Unknown,
-        None,
-        Wwan,
-        Wlan,
-        Lan
-    };
-
     [bindable][default_interface] runtimeclass MainViewModel : Windows.UI.Xaml.DependencyObject
     {
         MainViewModel();
@@ -50,19 +32,19 @@ namespace TsinghuaNetUWP
         static Windows.UI.Xaml.DependencyProperty AutoLoginProperty { get; };
         event Windows.Foundation.EventHandler<Windows.Foundation.IReference<Boolean> > AutoLoginChanged;
 
-        InternetStatus NetStatus;
+        TsinghuaNetHelper.InternetStatus NetStatus;
         static Windows.UI.Xaml.DependencyProperty NetStatusProperty { get; };
 
         String Ssid;
         static Windows.UI.Xaml.DependencyProperty SsidProperty { get; };
 
-        NetState SuggestState;
+        TsinghuaNetHelper.NetState SuggestState;
         static Windows.UI.Xaml.DependencyProperty SuggestStateProperty { get; };
 
         Windows.Foundation.Collections.IObservableVector<IInspectable> NetUsers { get; };
 
-        NetState State;
-        void SyncState(NetState value);
-        event Windows.Foundation.EventHandler<NetState> StateChanged;
+        TsinghuaNetHelper.NetState State;
+        void SyncState(TsinghuaNetHelper.NetState value);
+        event Windows.Foundation.EventHandler<TsinghuaNetHelper.NetState> StateChanged;
     }
 } // namespace TsinghuaNetUWP

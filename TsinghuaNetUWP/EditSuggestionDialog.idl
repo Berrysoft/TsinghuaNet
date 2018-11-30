@@ -1,0 +1,10 @@
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass EditSuggestionDialog : Windows.UI.Xaml.Controls.ContentDialog
+    {
+        EditSuggestionDialog();
+        Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
+        Windows.UI.Xaml.Controls.ComboBox LanCombo;
+        Windows.UI.Xaml.Controls.ComboBox WwanCombo;
+    }
+} // namespace TsinghuaNetUWP

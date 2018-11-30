@@ -6,6 +6,7 @@ using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -16,11 +17,11 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainViewModel::OnAutoLoginPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
     {
-		if (TsinghuaNetUWP::MainViewModel model{ d.try_as<TsinghuaNetUWP::MainViewModel>() })
-		{
+        if (TsinghuaNetUWP::MainViewModel model{ d.try_as<TsinghuaNetUWP::MainViewModel>() })
+        {
             MainViewModel* pm(get_self<MainViewModel>(model));
             pm->m_AutoLoginChangedEvent(model, unbox_value<optional<bool>>(e.NewValue()));
-		}
+        }
     }
 
     DEPENDENCY_PROPERTY_INIT(OnlineUser, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))

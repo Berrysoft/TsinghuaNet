@@ -10,6 +10,9 @@
     <Page Include="Arc.xaml">
       <Filter>Views</Filter>
     </Page>
+    <Page Include="EditSuggestionDialog.xaml">
+      <Filter>Views</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="App.idl" />

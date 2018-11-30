@@ -11,7 +11,6 @@
 #include "NetUserModel.h"
 #include "TimeSpanStringConverter.h"
 #include "winrt/TsinghuaNetHelper.h"
-#include <memory>
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -30,7 +29,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
-        void StateChanged(Windows::Foundation::IInspectable const& sender, NetState const& e);
+        void StateChanged(Windows::Foundation::IInspectable const& sender, TsinghuaNetHelper::NetState const& e);
         void Auth4Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void Auth6Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);

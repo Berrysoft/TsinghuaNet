@@ -109,6 +109,10 @@
     <ClInclude Include="DropUserCommand.h">
       <DependentUpon>DropUserCommand.idl</DependentUpon>
     </ClInclude>
+    <ClInclude Include="EditSuggestionDialog.h">
+      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="FluxStringConverter.h">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
     </ClInclude>
@@ -144,6 +148,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ChangeUserDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="EditSuggestionDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -183,6 +190,10 @@
     </ClCompile>
     <ClCompile Include="DropUserCommand.cpp">
       <DependentUpon>DropUserCommand.idl</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="EditSuggestionDialog.cpp">
+      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="FluxStringConverter.cpp">
       <DependentUpon>FluxStringConverter.idl</DependentUpon>
@@ -228,6 +239,10 @@
     </Midl>
     <Midl Include="CurrencyStringConverter.idl" />
     <Midl Include="DropUserCommand.idl" />
+    <Midl Include="EditSuggestionDialog.idl">
+      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="FluxStringConverter.idl" />
     <Midl Include="InternetStatusStringConverter.idl" />
     <Midl Include="MainPage.idl">

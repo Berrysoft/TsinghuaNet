@@ -25,28 +25,28 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(AutoLogin, winrt::optional<bool>)
         EVENT_DECL(AutoLoginChanged, winrt::optional<bool>)
 
-        DEPENDENCY_PROPERTY(NetStatus, InternetStatus)
+        DEPENDENCY_PROPERTY(NetStatus, TsinghuaNetHelper::InternetStatus)
         DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
-        DEPENDENCY_PROPERTY(SuggestState, NetState)
+        DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
-        EVENT_DECL(StateChanged, NetState)
+        EVENT_DECL(StateChanged, TsinghuaNetHelper::NetState)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
 
-        NetState State() const { return m_State; }
-        void State(NetState value)
+        TsinghuaNetHelper::NetState State() const { return m_State; }
+        void State(TsinghuaNetHelper::NetState value)
         {
             m_State = value;
             m_StateChangedEvent(*this, value);
         }
-        void SyncState(NetState value) { m_State = value; }
+        void SyncState(TsinghuaNetHelper::NetState value) { m_State = value; }
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;
-        NetState m_State;
+        TsinghuaNetHelper::NetState m_State;
 
-		static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 
