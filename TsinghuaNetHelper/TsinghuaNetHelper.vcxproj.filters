@@ -33,9 +33,6 @@
     <ClCompile Include="SettingsHelper.cpp">
       <Filter>SettingsHelper</Filter>
     </ClCompile>
-    <ClCompile Include="LanHelper.cpp">
-      <Filter>LanHelper</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -79,17 +76,11 @@
     <ClInclude Include="SettingsHelper.h">
       <Filter>SettingsHelper</Filter>
     </ClInclude>
-    <ClInclude Include="LanHelper.h">
-      <Filter>LanHelper</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />
     <None Include="packages.config" />
     <None Include=".clang-format" />
-    <None Include="states.json">
-      <Filter>LanHelper</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="NetHelper">
@@ -100,9 +91,6 @@
     </Filter>
     <Filter Include="SettingsHelper">
       <UniqueIdentifier>{170bc0cb-ec4f-4147-860f-51fac4540710}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="LanHelper">
-      <UniqueIdentifier>{4525814f-bf21-4b27-822f-620c0a730466}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -115,16 +103,5 @@
     <Midl Include="SettingsHelper.idl">
       <Filter>SettingsHelper</Filter>
     </Midl>
-    <Midl Include="LanHelper.idl">
-      <Filter>LanHelper</Filter>
-    </Midl>
-  </ItemGroup>
-  <ItemGroup>
-    <Xml Include="tile.xml">
-      <Filter>NotificationHelper</Filter>
-    </Xml>
-    <Xml Include="toast.xml">
-      <Filter>NotificationHelper</Filter>
-    </Xml>
   </ItemGroup>
 </Project>

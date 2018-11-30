@@ -16,7 +16,5 @@ namespace TsinghuaNetHelper
 
         void UpdateTile(FluxUser user);
         void SendToast(FluxUser user);
-
-        static Windows.Foundation.IAsyncOperation<NotificationHelper> LoadAsync();
     }
 } // namespace TsinghuaNetHelper

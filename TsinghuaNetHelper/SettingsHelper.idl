@@ -1,5 +1,23 @@
 namespace TsinghuaNetHelper
 {
+    enum NetState
+    {
+        Unknown,
+        Auth4,
+        Auth6,
+        Net,
+        Direct
+    };
+
+    enum InternetStatus
+    {
+        Unknown,
+        None,
+        Wwan,
+        Wlan,
+        Lan
+    };
+
     runtimeclass CredentialHelper
     {
         static String GetCredential(String username);
@@ -13,5 +31,11 @@ namespace TsinghuaNetHelper
 
         String StoredUsername;
         Boolean AutoLogin;
+        NetState LanState;
+        NetState WwanState;
+        NetState WlanState(String ssid);
+        void WlanState(String ssid, NetState state);
+
+        InternetStatus GetCurrentInternetStatus(out String ssid);
     }
 } // namespace TsinghuaNetHelper

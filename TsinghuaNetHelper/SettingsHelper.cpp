@@ -1,14 +1,17 @@
 ﻿#include "pch.h"
 
 #include "SettingsHelper.h"
+#include <winrt/Windows.Networking.Connectivity.h>
 
 using namespace winrt;
+using namespace Windows::Data::Json;
+using namespace Windows::Networking::Connectivity;
 using namespace Windows::Storage;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
     template <typename T>
-    T GetValue(hstring const& key)
+    T GetValue(hstring const& key, T def)
     {
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
@@ -17,7 +20,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             return unbox_value<T>(value);
         }
-        return {};
+        return def;
     }
 
     template <typename T>
@@ -28,27 +31,79 @@ namespace winrt::TsinghuaNetHelper::implementation
         values.Insert(key, box_value(value));
     }
 
-    constexpr wchar_t StoredUsernameKey[] = L"Username";
+    constexpr wchar_t WlanStateKey[] = L"WlanState";
+    constexpr wchar_t DefWlanState[] = LR"({
+	"Tsinghua": 3,
+	"Tsinghua-5G": 3,
+	"Tsinghua-IPv4": 1,
+	"Tsinghua-IPv6": 2,
+	"Wifi.郑裕彤讲堂": 3,
+	"DIVI": 4,
+	"DIVI-2": 4,
+	"IVI": 4
+})";
 
-    hstring SettingsHelper::StoredUsername()
+    SettingsHelper::SettingsHelper()
     {
-        return GetValue<hstring>(StoredUsernameKey);
+        hstring json = GetValue<hstring>(WlanStateKey, DefWlanState);
+        wlanMap = JsonObject::Parse(json);
     }
 
-    void SettingsHelper::StoredUsername(hstring const& value)
+    SettingsHelper::~SettingsHelper()
     {
-        SetValue(StoredUsernameKey, value);
+        SetValue(WlanStateKey, wlanMap.ToString());
     }
 
-    constexpr wchar_t AutoLoginKey[] = L"AutoLogin";
+#define SETTINGS_PROP_IMPL(name, key, type, def)                           \
+    constexpr wchar_t name##Key[] = key;                                   \
+    type SettingsHelper::name() { return GetValue<type>(name##Key, def); } \
+    void SettingsHelper::name(type value) { SetValue(name##Key, value); }
 
-    bool SettingsHelper::AutoLogin()
+#define SETTINGS_PROP_REF_IMPL(name, key, type, def)                       \
+    constexpr wchar_t name##Key[] = key;                                   \
+    type SettingsHelper::name() { return GetValue<type>(name##Key, def); } \
+    void SettingsHelper::name(type const& value) { SetValue(name##Key, value); }
+
+    SETTINGS_PROP_REF_IMPL(StoredUsername, L"Username", hstring, {})
+    SETTINGS_PROP_IMPL(AutoLogin, L"AutoLogin", bool, true)
+    SETTINGS_PROP_IMPL(LanState, L"LanState", NetState, NetState::Auth4)
+    SETTINGS_PROP_IMPL(WwanState, L"WwanState", NetState, NetState::Direct)
+
+    NetState SettingsHelper::WlanState(hstring const& ssid)
     {
-        return GetValue<bool>(AutoLoginKey);
+        if (wlanMap.HasKey(ssid))
+        {
+            return (NetState)(int)wlanMap.GetNamedNumber(ssid);
+        }
+        return NetState::Unknown;
     }
 
-    void SettingsHelper::AutoLogin(bool value)
+    void SettingsHelper::WlanState(hstring const& ssid, NetState value)
     {
-        SetValue(AutoLoginKey, value);
+        wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
+    }
+
+    InternetStatus SettingsHelper::GetCurrentInternetStatus(hstring& ssid)
+    {
+        auto profile = NetworkInformation::GetInternetConnectionProfile();
+        if (profile == nullptr)
+            return InternetStatus::Unknown;
+        auto cl = profile.GetNetworkConnectivityLevel();
+        if (cl == NetworkConnectivityLevel::None)
+            return InternetStatus::None;
+        if (profile.IsWwanConnectionProfile())
+        {
+            return InternetStatus::Wwan;
+        }
+        else if (profile.IsWlanConnectionProfile())
+        {
+            auto details = profile.WlanConnectionProfileDetails();
+            ssid = details.GetConnectedSsid();
+            return InternetStatus::Wlan;
+        }
+        else
+        {
+            return InternetStatus::Lan;
+        }
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

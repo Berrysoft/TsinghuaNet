@@ -9,13 +9,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetBackground::implementation
 {
-    void LiveTileTask::Run(IBackgroundTaskInstance const& taskInstance)
-    {
-        auto deferral = taskInstance.GetDeferral();
-        RunAsync().Completed([&deferral](IAsyncAction const&, AsyncStatus) { deferral.Complete(); });
-    }
-
-    NetState GetSuggestNetState(LanHelper const& lan)
+    NetState GetSuggestNetState(SettingsHelper const& lan)
     {
         hstring ssid;
         auto status = lan.GetCurrentInternetStatus(ssid);
@@ -47,13 +41,12 @@ namespace winrt::TsinghuaNetBackground::implementation
         }
     }
 
-    IAsyncAction LiveTileTask::RunAsync()
+    IAsyncAction LiveTileTask::Run(IBackgroundTaskInstance const& taskInstance)
     {
+        auto deferral = taskInstance.GetDeferral();
         try
         {
-            auto lan = co_await LanHelper::LoadAsync();
-            auto notification = co_await NotificationHelper::LoadAsync();
-            NetState state = GetSuggestNetState(lan);
+            NetState state = GetSuggestNetState(settings);
             IConnect helper = GetHelper(state);
             if (helper)
             {
@@ -64,5 +57,6 @@ namespace winrt::TsinghuaNetBackground::implementation
         catch (hresult_error const&)
         {
         }
+        deferral.Complete();
     }
 } // namespace winrt::TsinghuaNetBackground::implementation

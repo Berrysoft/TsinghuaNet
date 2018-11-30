@@ -37,8 +37,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
     {
-        notification = co_await NotificationHelper::LoadAsync();
-        lan = co_await LanHelper::LoadAsync();
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
@@ -286,17 +284,17 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         TsinghuaNetHelper::NetState state;
         hstring ssid;
-        auto status = (InternetStatus)lan.GetCurrentInternetStatus(ssid);
+        auto status = (InternetStatus)settings.GetCurrentInternetStatus(ssid);
         switch (status)
         {
         case InternetStatus::Lan:
-            state = lan.LanState();
+            state = settings.LanState();
             break;
         case InternetStatus::Wwan:
-            state = lan.WwanState();
+            state = settings.WwanState();
             break;
         case InternetStatus::Wlan:
-            state = lan.WlanState(ssid);
+            state = settings.WlanState(ssid);
             break;
         default:
             state = TsinghuaNetHelper::NetState::Unknown;

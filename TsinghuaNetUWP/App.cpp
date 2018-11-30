@@ -70,7 +70,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// will be used such as when the application is launched to open a specific file.
     /// </summary>
     /// <param name="e">Details about the launch request and process.</param>
-    void App::OnLaunched(LaunchActivatedEventArgs const& e)
+    IAsyncAction App::OnLaunched(LaunchActivatedEventArgs const& e)
     {
         Frame rootFrame{ nullptr };
         auto content = Window::Current().Content();
@@ -126,7 +126,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             }
         }
 
-        RegisterLiveTileTask();
+        co_await RegisterLiveTileTask();
     }
 
     /// <summary>

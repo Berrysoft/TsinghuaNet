@@ -9,12 +9,6 @@ namespace winrt::TsinghuaNetHelper::implementation
 
         void UpdateTile(TsinghuaNetHelper::FluxUser const& user);
         void SendToast(TsinghuaNetHelper::FluxUser const& user);
-
-        static Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::NotificationHelper> LoadAsync();
-
-    private:
-        std::wstring tile_t;
-        std::wstring toast_t;
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

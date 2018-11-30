@@ -9,10 +9,11 @@ namespace winrt::TsinghuaNetBackground::implementation
     {
         LiveTileTask() = default;
 
-        void Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const& taskInstance);
+        Windows::Foundation::IAsyncAction Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const& taskInstance);
 
     private:
-        Windows::Foundation::IAsyncAction RunAsync();
+        TsinghuaNetHelper::NotificationHelper notification;
+        TsinghuaNetHelper::SettingsHelper settings;
     };
 } // namespace winrt::TsinghuaNetBackground::implementation
 

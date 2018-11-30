@@ -100,7 +100,6 @@
     <ClInclude Include="AuthHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="FluxUser.h" />
-    <ClInclude Include="LanHelper.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetHelperBase.h" />
     <ClInclude Include="NetUser.h" />
@@ -115,7 +114,6 @@
     <ClCompile Include="AuthHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="FluxUser.cpp" />
-    <ClCompile Include="LanHelper.cpp" />
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
     <ClCompile Include="NotificationHelper.cpp" />
@@ -128,7 +126,6 @@
     <ClCompile Include="UserHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="LanHelper.idl" />
     <Midl Include="NetHelper.idl" />
     <Midl Include="NotificationHelper.idl" />
     <Midl Include="SettingsHelper.idl" />
@@ -136,22 +133,7 @@
   <ItemGroup>
     <None Include=".clang-format" />
     <None Include="packages.config" />
-    <CopyFileToFolders Include="states.json">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-      <FileType>Document</FileType>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </CopyFileToFolders>
     <None Include="TsinghuaNetHelper.def" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="tile.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="toast.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
