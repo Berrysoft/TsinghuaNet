@@ -19,12 +19,11 @@ namespace TsinghuaNetHelper
         Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
     }
 
-    unsealed runtimeclass NetHelperBase
+    [default_interface] unsealed runtimeclass NetHelperBase
     {
         String Username;
         String Password;
 
-    protected
         NetHelperBase();
 
     protected
@@ -44,9 +43,8 @@ namespace TsinghuaNetHelper
         NetHelper();
     }
 
-    unsealed runtimeclass AuthHelper : NetHelperBase, IConnect
+    [default_interface] unsealed runtimeclass AuthHelper : NetHelperBase, IConnect
     {
-    protected
         AuthHelper(Int32 ver);
     }
 
