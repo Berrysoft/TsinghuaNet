@@ -60,9 +60,7 @@ namespace winrt::TsinghuaNetHelper::implementation
                            wstring_view(UserHelper::GetCurrencyString(user.Balance())),
                            wstring_view(UserHelper::GetFluxString(UserHelper::GetMaxFlux(user) - user.Flux()))));
         TileNotification notification(dom);
-        auto time = clock::now();
-        time += 15min;
-        notification.ExpirationTime(time);
+        notification.ExpirationTime(clock::now() + 15min);
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
     }
 
@@ -74,6 +72,7 @@ namespace winrt::TsinghuaNetHelper::implementation
                            wstring_view(UserHelper::GetFluxString(user.Flux())),
                            wstring_view(UserHelper::GetCurrencyString(user.Balance()))));
         ToastNotification notification(dom);
+        notification.ExpirationTime(clock::now() + 1min);
         ToastNotificationManager::CreateToastNotifier().Show(notification);
     }
 } // namespace winrt::TsinghuaNetHelper::implementation
