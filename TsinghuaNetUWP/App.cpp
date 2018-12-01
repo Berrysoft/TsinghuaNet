@@ -20,8 +20,9 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
 
     /// <summary>
-    /// Initializes the singleton application object.  This is the first line of authored code
-    /// executed, and as such is the logical equivalent of main() or WinMain().
+    /// 初始化单一实例应用程序对象。
+    /// 这是执行的创作代码的第一行，
+    /// 逻辑上等同于 main() 或 WinMain()。
     /// </summary>
     App::App()
     {
@@ -41,8 +42,12 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
     constexpr wchar_t LOGINTASK[] = L"LOGINTASK";
+    /// <summary>
+    /// 注册后台任务
+    /// </summary>
     IAsyncAction RegisterTask()
     {
+        // 获取权限
         auto status = co_await BackgroundExecutionManager::RequestAccessAsync();
         if (status == BackgroundAccessStatus::Unspecified ||
             status == BackgroundAccessStatus::DeniedByUser ||
@@ -50,6 +55,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             return;
         }
+        //注销已经注册的后台任务
         for (auto t : BackgroundTaskRegistration::AllTasks())
         {
             if (t.Value().Name() == LIVETILETASK || t.Value().Name() == LOGINTASK)
@@ -58,6 +64,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             }
         }
 
+        //注册两个任务
         BackgroundTaskBuilder livetile;
         livetile.Name(LIVETILETASK);
         livetile.TaskEntryPoint(xaml_typename<LiveTileTask>().Name);
@@ -74,10 +81,10 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     /// <summary>
-    /// Invoked when the application is launched normally by the end user.  Other entry points
-    /// will be used such as when the application is launched to open a specific file.
+    /// 在应用程序由最终用户正常启动时进行调用。
+    /// 其它入口点将在启动应用程序以打开特定文件等情况下使用。
     /// </summary>
-    /// <param name="e">Details about the launch request and process.</param>
+    /// <param name="e">有关启动请求和过程的详细信息。</param>
     IAsyncAction App::OnLaunched(LaunchActivatedEventArgs const& e)
     {
         Frame rootFrame{ nullptr };
@@ -87,73 +94,58 @@ namespace winrt::TsinghuaNetUWP::implementation
             rootFrame = content.try_as<Frame>();
         }
 
-        // Do not repeat app initialization when the Window already has content,
-        // just ensure that the window is active
-        if (rootFrame == nullptr)
+        // 不要在窗口已包含内容时重复应用程序初始化，
+        // 只需确保窗口处于活动状态
+        if (!rootFrame)
         {
-            // Create a Frame to act as the navigation context and associate it with
-            // a SuspensionManager key
+            // 创建要充当导航上下文的框架，并导航到第一页
             rootFrame = Frame();
 
             rootFrame.NavigationFailed({ this, &App::OnNavigationFailed });
 
             if (e.PreviousExecutionState() == ApplicationExecutionState::Terminated)
             {
-                // Restore the saved session state only when appropriate, scheduling the
-                // final launch steps after the restore is complete
+                //TODO: 从之前挂起的应用程序加载状态
             }
 
-            if (e.PrelaunchActivated() == false)
-            {
-                if (rootFrame.Content() == nullptr)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Arguments()));
-                }
-                // Place the frame in the current Window
-                Window::Current().Content(rootFrame);
-                // Ensure the current window is active
-                Window::Current().Activate();
-            }
+            // 将框架放在当前窗口中
+            Window::Current().Content(rootFrame);
         }
-        else
+
+        if (!e.PrelaunchActivated())
         {
-            if (e.PrelaunchActivated() == false)
+            if (!rootFrame.Content())
             {
-                if (rootFrame.Content() == nullptr)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Arguments()));
-                }
-                // Ensure the current window is active
-                Window::Current().Activate();
+                // 当导航堆栈尚未还原时，导航到第一页，
+                // 并通过将所需信息作为导航参数传入来配置参数
+                rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Arguments()));
             }
+            // 确保当前窗口处于活动状态
+            Window::Current().Activate();
         }
 
         co_await RegisterTask();
     }
 
     /// <summary>
-    /// Invoked when application execution is being suspended.  Application state is saved
-    /// without knowing whether the application will be terminated or resumed with the contents
-    /// of memory still intact.
+    /// 在将要挂起应用程序执行时调用。
+    /// 保存应用状态，无需知道应用程序会被终止还是会恢复，
+    /// 并让内存内容保持不变。
     /// </summary>
-    /// <param name="sender">The source of the suspend request.</param>
-    /// <param name="e">Details about the suspend request.</param>
-    void App::OnSuspending(IInspectable const& /*sender*/, SuspendingEventArgs const& /*e*/)
+    /// <param name="sender">挂起的请求的源。</param>
+    /// <param name="e">有关挂起请求的详细信息。</param>
+    void App::OnSuspending(IInspectable const& /*sender*/, SuspendingEventArgs const& e)
     {
-        // Save application state and stop any background activity
+        auto deferral = e.SuspendingOperation().GetDeferral();
+        // TODO: 保存应用程序状态并停止任何后台活动
+        deferral.Complete();
     }
 
     /// <summary>
-    /// Invoked when Navigation to a certain page fails
+    /// 导航到特定页失败时调用
     /// </summary>
-    /// <param name="sender">The Frame which failed navigation</param>
-    /// <param name="e">Details about the navigation failure</param>
+    /// <param name="sender">导航失败的框架</param>
+    /// <param name="e">有关导航失败的详细信息</param>
     void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs const& e)
     {
         throw hresult_error(E_FAIL, hstring(L"Failed to load Page ") + e.SourcePageType().Name);
