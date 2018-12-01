@@ -128,6 +128,33 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     /// <summary>
+    /// 在应用程序通过正常启动之外的其他方法激活时调用。
+    /// </summary>
+    /// <param name="e">事件的事件数据。</param>
+    void App::OnActivated(IActivatedEventArgs const& e)
+    {
+        Frame rootFrame = Window::Current().Content().try_as<Frame>();
+        if (!rootFrame)
+        {
+            rootFrame = Frame();
+            Window::Current().Content(rootFrame);
+        }
+
+        rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Kind()));
+        TsinghuaNetUWP::MainPage mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
+        if (mainPage)
+        {
+            MainPage* pmain = get_self<MainPage>(mainPage);
+            if (e.Kind() == ActivationKind::ToastNotification)
+            {
+                pmain->ToastLogined(true);
+            }
+        }
+
+        Window::Current().Activate();
+    }
+
+    /// <summary>
     /// 在将要挂起应用程序执行时调用。
     /// 保存应用状态，无需知道应用程序会被终止还是会恢复，
     /// 并让内存内容保持不变。

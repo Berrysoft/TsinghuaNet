@@ -19,6 +19,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         MainPage();
 
+        bool ToastLogined() { return m_ToastLogined; }
+        void ToastLogined(bool value) { m_ToastLogined = value; }
+
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void OpenSettings(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -41,6 +44,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
 
     private:
+        bool m_ToastLogined;
         TsinghuaNetHelper::NotificationHelper notification;
         TsinghuaNetHelper::SettingsHelper settings;
 
@@ -48,7 +52,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
         Windows::Foundation::IAsyncAction RefreshImpl(TsinghuaNetHelper::IConnect const& helper);
-        Windows::Foundation::IAsyncAction DropImpl(std::wstring address);
+        Windows::Foundation::IAsyncAction DropImpl(winrt::hstring const address);
         TsinghuaNetHelper::IConnect GetHelper();
 
         void RefreshStatusImpl();

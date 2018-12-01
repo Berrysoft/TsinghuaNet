@@ -4,14 +4,10 @@
 
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
-#include <cmath>
-#include <pplawait.h>
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
-using namespace std;
-using namespace concurrency;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
@@ -19,8 +15,6 @@ using namespace Windows::UI;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
-using namespace Windows::Storage;
-using namespace Windows::System;
 using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
@@ -41,7 +35,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
-        bool al = settings.AutoLogin();
+        bool al = settings.AutoLogin() && !m_ToastLogined;
         Model().AutoLogin(al);
         hstring un = settings.StoredUsername();
         if (!un.empty())
@@ -57,6 +51,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             {
                 co_await RefreshImpl();
             }
+            co_await RefreshNetUsersImpl();
         }
     }
 
@@ -82,7 +77,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     IAsyncAction MainPage::DropUser(IInspectable const& /*sender*/, hstring const& e)
     {
-        return DropImpl(wstring(e));
+        return DropImpl(e);
     }
 
     IAsyncAction MainPage::ShowChangeUser(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
@@ -190,7 +185,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         FluxStoryboard().Begin();
     }
 
-    IAsyncAction MainPage::DropImpl(wstring address)
+    IAsyncAction MainPage::DropImpl(hstring const address)
     {
         try
         {
@@ -271,12 +266,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         dialog.LanCombo().SelectedIndex((int)settings.LanState());
         dialog.WwanCombo().SelectedIndex((int)settings.WwanState());
         auto result = co_await dialog.ShowAsync();
-		if (result == ContentDialogResult::Primary)
-		{
+        if (result == ContentDialogResult::Primary)
+        {
             settings.LanState((NetState)dialog.LanCombo().SelectedIndex());
             settings.WwanState((NetState)dialog.WwanCombo().SelectedIndex());
             RefreshStatusImpl();
-		}
+        }
     }
 
     IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
