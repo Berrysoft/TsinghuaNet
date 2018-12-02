@@ -16,7 +16,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
         auto value = values.TryLookup(key);
-        if (value != nullptr)
+        if (value)
         {
             return unbox_value<T>(value);
         }
@@ -64,10 +64,15 @@ namespace winrt::TsinghuaNetHelper::implementation
     type SettingsHelper::name() { return GetValue<type>(name##Key, def); } \
     void SettingsHelper::name(type const& value) { SetValue(name##Key, value); }
 
+#define SETTINGS_PROP_CONV_IMPL(name, key, type, ctype, def)                      \
+    constexpr wchar_t name##Key[] = key;                                          \
+    type SettingsHelper::name() { return (type)GetValue<ctype>(name##Key, def); } \
+    void SettingsHelper::name(type value) { SetValue<ctype>(name##Key, (ctype)value); }
+
     SETTINGS_PROP_REF_IMPL(StoredUsername, L"Username", hstring, {})
     SETTINGS_PROP_IMPL(AutoLogin, L"AutoLogin", bool, true)
-    SETTINGS_PROP_IMPL(LanState, L"LanState", NetState, NetState::Auth4)
-    SETTINGS_PROP_IMPL(WwanState, L"WwanState", NetState, NetState::Direct)
+    SETTINGS_PROP_CONV_IMPL(LanState, L"LanState", NetState, int, (int)NetState::Auth4)
+    SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Direct)
 
     NetState SettingsHelper::WlanState(hstring const& ssid)
     {
@@ -86,7 +91,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     InternetStatus SettingsHelper::GetCurrentInternetStatus(hstring& ssid)
     {
         auto profile = NetworkInformation::GetInternetConnectionProfile();
-        if (profile == nullptr)
+        if (!profile)
             return InternetStatus::Unknown;
         auto cl = profile.GetNetworkConnectivityLevel();
         if (cl == NetworkConnectivityLevel::None)
