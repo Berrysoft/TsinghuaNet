@@ -37,6 +37,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().State(state);
         bool al = settings.AutoLogin();
         Model().AutoLogin(al);
+        Model().BackgroundAutoLogin(settings.BackgroundAutoLogin());
+        Model().BackgroundLiveTile(settings.BackgroundLiveTile());
         hstring un = settings.StoredUsername();
         if (!un.empty())
         {
@@ -298,9 +300,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         return RefreshNetUsersImpl();
     }
 
-    void MainPage::AutoLoginChanged(IInspectable const&, optional<bool> const& e)
+    void MainPage::AutoLoginChanged(IInspectable const&, bool const& e)
     {
-        settings.AutoLogin(e.Value());
+        settings.AutoLogin(e);
     }
 
     void MainPage::RefreshStatusImpl()

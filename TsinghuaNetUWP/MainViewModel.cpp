@@ -20,7 +20,25 @@ namespace winrt::TsinghuaNetUWP::implementation
         if (TsinghuaNetUWP::MainViewModel model{ d.try_as<TsinghuaNetUWP::MainViewModel>() })
         {
             MainViewModel* pm(get_self<MainViewModel>(model));
-            pm->m_AutoLoginChangedEvent(model, unbox_value<optional<bool>>(e.NewValue()));
+            pm->m_AutoLoginChangedEvent(model, unbox_value<bool>(e.NewValue()));
+        }
+    }
+
+    void MainViewModel::OnBackgroundAutoLoginPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+    {
+        if (TsinghuaNetUWP::MainViewModel model{ d.try_as<TsinghuaNetUWP::MainViewModel>() })
+        {
+            MainViewModel* pm(get_self<MainViewModel>(model));
+            pm->m_BackgroundAutoLoginChangedEvent(model, unbox_value<bool>(e.NewValue()));
+        }
+    }
+
+    void MainViewModel::OnBackgroundLiveTilePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+    {
+        if (TsinghuaNetUWP::MainViewModel model{ d.try_as<TsinghuaNetUWP::MainViewModel>() })
+        {
+            MainViewModel* pm(get_self<MainViewModel>(model));
+            pm->m_BackgroundLiveTileChangedEvent(model, unbox_value<bool>(e.NewValue()));
         }
     }
 
@@ -35,7 +53,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))
 
-    DEPENDENCY_PROPERTY_INIT(AutoLogin, optional<bool>, MainViewModel, TsinghuaNetUWP::MainViewModel, optional<bool>(true), &MainViewModel::OnAutoLoginPropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(AutoLogin, bool, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(true), &MainViewModel::OnAutoLoginPropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(BackgroundAutoLogin, bool, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(true), &MainViewModel::OnBackgroundAutoLoginPropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(BackgroundLiveTile, bool, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(true), &MainViewModel::OnBackgroundLiveTilePropertyChanged)
 
     DEPENDENCY_PROPERTY_INIT(NetStatus, InternetStatus, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(InternetStatus::Unknown))
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))

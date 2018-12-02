@@ -14,6 +14,10 @@ namespace winrt::TsinghuaNetHelper::implementation
         void StoredUsername(hstring const& value);
         bool AutoLogin();
         void AutoLogin(bool value);
+        bool BackgroundAutoLogin();
+        void BackgroundAutoLogin(bool value);
+        bool BackgroundLiveTile();
+        void BackgroundLiveTile(bool value);
         NetState LanState();
         void LanState(NetState value);
         NetState WwanState();
@@ -21,7 +25,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         NetState WlanState(hstring const& ssid);
         void WlanState(hstring const& ssid, NetState value);
 
-		InternetStatus GetCurrentInternetStatus(hstring& ssid);
+        InternetStatus GetCurrentInternetStatus(hstring& ssid);
 
     private:
         Windows::Data::Json::JsonObject wlanMap;

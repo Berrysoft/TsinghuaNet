@@ -66,11 +66,18 @@
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">当前用户</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Username,Mode=OneWay}"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
-                        <CheckBox Margin="10" IsChecked="{x:Bind Model.AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
-                    </StackPanel>
+                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
+                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
+                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台自动登录</TextBlock>
+                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.BackgroundAutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
+                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">网络</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
+                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowEditSuggestion">编辑建议</Button>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.NetStatus,Mode=OneWay,Converter={StaticResource InternetStatusStringConverter}}"/>
@@ -82,10 +89,6 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.SuggestState,Mode=OneWay,Converter={StaticResource NetStateStringConverter}}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowEditSuggestion">编辑建议</Button>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">

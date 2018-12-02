@@ -42,7 +42,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
-        void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, winrt::optional<bool> const& e);
+        void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, bool const& e);
 
     private:
         bool m_ToastLogined;

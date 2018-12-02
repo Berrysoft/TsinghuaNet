@@ -31,6 +31,8 @@ namespace TsinghuaNetHelper
 
         String StoredUsername;
         Boolean AutoLogin;
+        Boolean BackgroundAutoLogin;
+        Boolean BackgroundLiveTile;
         NetState LanState;
         NetState WwanState;
         NetState WlanState(String ssid);

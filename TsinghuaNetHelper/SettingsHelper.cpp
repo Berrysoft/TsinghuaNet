@@ -71,6 +71,8 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     SETTINGS_PROP_REF_IMPL(StoredUsername, L"Username", hstring, {})
     SETTINGS_PROP_IMPL(AutoLogin, L"AutoLogin", bool, true)
+    SETTINGS_PROP_IMPL(BackgroundAutoLogin, L"BackgroundAutoLogin", bool, true)
+    SETTINGS_PROP_IMPL(BackgroundLiveTile, L"BackgroundLiveTile", bool, true)
     SETTINGS_PROP_CONV_IMPL(LanState, L"LanState", NetState, int, (int)NetState::Auth4)
     SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Direct)
 

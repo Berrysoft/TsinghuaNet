@@ -22,8 +22,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Username, winrt::hstring)
         DEPENDENCY_PROPERTY(Password, winrt::hstring)
 
-        DEPENDENCY_PROPERTY(AutoLogin, winrt::optional<bool>)
-        EVENT_DECL(AutoLoginChanged, winrt::optional<bool>)
+        DEPENDENCY_PROPERTY(AutoLogin, bool)
+        EVENT_DECL(AutoLoginChanged, bool)
+        DEPENDENCY_PROPERTY(BackgroundAutoLogin, bool)
+        EVENT_DECL(BackgroundAutoLoginChanged, bool)
+        DEPENDENCY_PROPERTY(BackgroundLiveTile, bool)
+        EVENT_DECL(BackgroundLiveTileChanged, bool)
 
         DEPENDENCY_PROPERTY(NetStatus, TsinghuaNetHelper::InternetStatus)
         DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
@@ -47,6 +51,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         TsinghuaNetHelper::NetState m_State;
 
         static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void OnBackgroundAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void OnBackgroundLiveTilePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 
