@@ -35,7 +35,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))
 
-    DEPENDENCY_PROPERTY_INIT(AutoLogin, optional<bool>, MainViewModel, TsinghuaNetUWP::MainViewModel, optional<bool>(false), &MainViewModel::OnAutoLoginPropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(AutoLogin, optional<bool>, MainViewModel, TsinghuaNetUWP::MainViewModel, optional<bool>(true), &MainViewModel::OnAutoLoginPropertyChanged)
 
     DEPENDENCY_PROPERTY_INIT(NetStatus, InternetStatus, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(InternetStatus::Unknown))
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, TsinghuaNetUWP::MainViewModel, box_value(hstring()))

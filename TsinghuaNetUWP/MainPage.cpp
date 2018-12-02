@@ -5,7 +5,6 @@
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
-#include <winrt/Windows.System.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace winrt;
@@ -35,7 +34,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
         Model().State(state);
-        bool al = settings.AutoLogin() && !m_ToastLogined;
+        bool al = settings.AutoLogin();
         Model().AutoLogin(al);
         hstring un = settings.StoredUsername();
         if (!un.empty())
@@ -43,7 +42,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             Model().Username(un);
             hstring pw = CredentialHelper::GetCredential(un);
             Model().Password(pw);
-            if (al && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
+            if (al && !m_ToastLogined && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
             {
                 co_await LoginImpl();
             }
