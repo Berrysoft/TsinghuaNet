@@ -161,7 +161,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     /// <param name="sender">挂起的请求的源。</param>
     /// <param name="e">有关挂起请求的详细信息。</param>
-    void App::OnSuspending(IInspectable const& /*sender*/, SuspendingEventArgs const& e)
+    void App::OnSuspending(IInspectable const&, SuspendingEventArgs const& e)
     {
         auto deferral = e.SuspendingOperation().GetDeferral();
         // TODO: 保存应用程序状态并停止任何后台活动

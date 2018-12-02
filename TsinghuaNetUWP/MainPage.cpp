@@ -25,11 +25,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         titleBar.BackgroundColor(Colors::Transparent());
         titleBar.ButtonBackgroundColor(Colors::Transparent());
         titleBar.ButtonInactiveBackgroundColor(Colors::Transparent());
+        ThemeChangedImpl();
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
     }
 
-    IAsyncAction MainPage::PageLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::PageLoaded(IInspectable const&, RoutedEventArgs const&)
     {
         RefreshStatusImpl();
         NetState state = Model().SuggestState();
@@ -54,32 +55,37 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    void MainPage::OpenSettings(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::ThemeChanged(IFrameworkElement const&, IInspectable const&)
+    {
+        ThemeChangedImpl();
+    }
+
+    void MainPage::OpenSettings(IInspectable const&, RoutedEventArgs const&)
     {
         Split().IsPaneOpen(true);
     }
 
-    IAsyncAction MainPage::Login(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::Login(IInspectable const&, RoutedEventArgs const&)
     {
         return LoginImpl();
     }
 
-    IAsyncAction MainPage::Logout(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::Logout(IInspectable const&, RoutedEventArgs const&)
     {
         return LogoutImpl();
     }
 
-    IAsyncAction MainPage::Refresh(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::Refresh(IInspectable const&, RoutedEventArgs const&)
     {
         return RefreshImpl();
     }
 
-    IAsyncAction MainPage::DropUser(IInspectable const& /*sender*/, hstring const& e)
+    IAsyncAction MainPage::DropUser(IInspectable const&, hstring const& e)
     {
         return DropImpl(e);
     }
 
-    IAsyncAction MainPage::ShowChangeUser(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::ShowChangeUser(IInspectable const&, RoutedEventArgs const&)
     {
         auto dialog = make<ChangeUserDialog>();
         hstring oldun = Model().Username();
@@ -108,6 +114,20 @@ namespace winrt::TsinghuaNetUWP::implementation
             Model().Password(pw);
             Split().IsPaneOpen(false);
             LoginImpl();
+        }
+    }
+
+    void MainPage::ThemeChangedImpl()
+    {
+        auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
+        switch (ActualTheme())
+        {
+        case ElementTheme::Light:
+            titleBar.ButtonForegroundColor(Colors::Black());
+            break;
+        case ElementTheme::Dark:
+            titleBar.ButtonForegroundColor(Colors::White());
+            break;
         }
     }
 
@@ -226,7 +246,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    void MainPage::StateChanged(IInspectable const& /*sender*/, NetState const& e)
+    void MainPage::StateChanged(IInspectable const&, NetState const& e)
     {
         switch (e)
         {
@@ -241,25 +261,25 @@ namespace winrt::TsinghuaNetUWP::implementation
             break;
         }
     }
-    void MainPage::Auth4Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().SyncState(NetState::Auth4);
     }
-    void MainPage::Auth6Checked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::Auth6Checked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().SyncState(NetState::Auth6);
     }
-    void MainPage::NetChecked(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().SyncState(NetState::Net);
     }
 
-    void MainPage::RefreshStatus(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    void MainPage::RefreshStatus(IInspectable const&, RoutedEventArgs const&)
     {
         RefreshStatusImpl();
     }
 
-    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const&, RoutedEventArgs const&)
     {
         auto dialog = make<EditSuggestionDialog>();
         dialog.LanCombo().SelectedIndex((int)settings.LanState());
@@ -273,12 +293,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    IAsyncAction MainPage::RefreshNetUsers(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
+    IAsyncAction MainPage::RefreshNetUsers(IInspectable const&, RoutedEventArgs const&)
     {
         return RefreshNetUsersImpl();
     }
 
-    void MainPage::AutoLoginChanged(IInspectable const& /*sender*/, optional<bool> const& e)
+    void MainPage::AutoLoginChanged(IInspectable const&, optional<bool> const& e)
     {
         settings.AutoLogin(e.Value());
     }

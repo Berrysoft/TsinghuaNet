@@ -11,7 +11,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable NetStateStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
+    IInspectable NetStateStringConverter::Convert(IInspectable const& value, TypeName const&, IInspectable const&, hstring const&) const
     {
         NetState state = unbox_value<NetState>(value);
         wstring result;
@@ -36,7 +36,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return box_value(result);
     }
 
-    IInspectable NetStateStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
+    IInspectable NetStateStringConverter::ConvertBack(IInspectable const&, TypeName const&, IInspectable const&, hstring const&) const
     {
         throw hresult_not_implemented();
     }

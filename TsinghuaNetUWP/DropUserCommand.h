@@ -10,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         DropUserCommand() = default;
 
-        bool CanExecute(Windows::Foundation::IInspectable const& /*parameter*/) { return true; }
+        bool CanExecute(Windows::Foundation::IInspectable const&) { return true; }
         void Execute(Windows::Foundation::IInspectable const& parameter);
 
         EVENT_DECL(CanExecuteChanged, Windows::Foundation::IInspectable)

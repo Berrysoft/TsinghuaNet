@@ -23,6 +23,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void ToastLogined(bool value) { m_ToastLogined = value; }
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const& sender, Windows::Foundation::IInspectable const& e);
 
         void OpenSettings(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
@@ -47,6 +48,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         bool m_ToastLogined;
         TsinghuaNetHelper::NotificationHelper notification;
         TsinghuaNetHelper::SettingsHelper settings;
+
+        void ThemeChangedImpl();
 
         Windows::Foundation::IAsyncAction LoginImpl();
         Windows::Foundation::IAsyncAction LogoutImpl();

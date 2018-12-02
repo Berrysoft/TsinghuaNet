@@ -11,12 +11,12 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    IInspectable CurrencyStringConverter::Convert(IInspectable const& value, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
+    IInspectable CurrencyStringConverter::Convert(IInspectable const& value, TypeName const&, IInspectable const&, hstring const&) const
     {
         return box_value(UserHelper::GetCurrencyString(unbox_value<double>(value)));
     }
 
-    IInspectable CurrencyStringConverter::ConvertBack(IInspectable const& /*value*/, TypeName const& /*targetType*/, IInspectable const& /*parameter*/, hstring const& /*language*/) const
+    IInspectable CurrencyStringConverter::ConvertBack(IInspectable const&, TypeName const&, IInspectable const&, hstring const&) const
     {
         throw hresult_not_implemented();
     }

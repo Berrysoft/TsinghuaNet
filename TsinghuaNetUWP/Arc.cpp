@@ -22,22 +22,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         InitializeComponent();
     }
 
-    void Arc::OnLoaded(IInspectable const& /*sender*/, RoutedEventArgs const& /*e*/)
-    {
-        Draw();
-    }
-
-    void Arc::OnSizeChanged(IInspectable const& /*sender*/, SizeChangedEventArgs const& /*e*/)
-    {
-        Draw();
-    }
-
-    void Arc::OnSizePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& /*e*/)
+    void Arc::OnSizePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const&)
     {
         if (TsinghuaNetUWP::Arc tarc{ d.try_as<TsinghuaNetUWP::Arc>() })
         {
             Arc* parc(get_self<Arc>(tarc));
-            parc->Draw();
+            parc->DrawArc();
         }
     }
 
@@ -57,7 +47,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return { (float)(origin.X - sin(RADIANS * angle) * radius), (float)(origin.Y + cos(RADIANS * angle) * radius) };
     }
 
-    void Arc::Draw()
+    void Arc::DrawArc()
     {
         Size size = RenderSize();
         double length = min(size.Width, size.Height);
