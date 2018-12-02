@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include "NetHelperBase.g.h"
-
 #include "Utility.h"
 
 namespace winrt
@@ -13,17 +11,14 @@ namespace winrt
     {
         return os << to_string(s);
     }
-
-    namespace TsinghuaNetHelper
-    {
-        std::wstring GetMD5(hstring const& input);
-        std::wstring GetSHA1(hstring const& input);
-    } // namespace TsinghuaNetHelper
 } // namespace winrt
 
-namespace winrt::TsinghuaNetHelper::implementation
+namespace winrt::TsinghuaNetHelper
 {
-    struct NetHelperBase : NetHelperBaseT<NetHelperBase>
+    std::wstring GetMD5(hstring const& input);
+    std::wstring GetSHA1(hstring const& input);
+
+    struct NetHelperBase
     {
         NetHelperBase() = default;
 
@@ -39,11 +34,4 @@ namespace winrt::TsinghuaNetHelper::implementation
     private:
         Windows::Web::Http::HttpClient client;
     };
-} // namespace winrt::TsinghuaNetHelper::implementation
-
-namespace winrt::TsinghuaNetHelper::factory_implementation
-{
-    struct NetHelperBase : NetHelperBaseT<NetHelperBase, implementation::NetHelperBase>
-    {
-    };
-} // namespace winrt::TsinghuaNetHelper::factory_implementation
+} // namespace winrt::TsinghuaNetHelper

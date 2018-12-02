@@ -45,10 +45,7 @@ namespace winrt::TsinghuaNetHelper
     {
         return GetHashString(input, HashAlgorithmNames::Sha1());
     }
-} // namespace winrt::TsinghuaNetHelper
 
-namespace winrt::TsinghuaNetHelper::implementation
-{
     IAsyncOperation<hstring> NetHelperBase::GetAsync(Uri const uri)
     {
         return co_await client.GetStringAsync(uri);
@@ -80,4 +77,4 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto response = co_await client.PostAsync(uri, content);
         return co_await response.Content().ReadAsStringAsync();
     }
-} // namespace winrt::TsinghuaNetHelper::implementation
+} // namespace winrt::TsinghuaNetHelper

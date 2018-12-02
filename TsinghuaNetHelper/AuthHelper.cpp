@@ -11,7 +11,7 @@ using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
 
-namespace winrt::TsinghuaNetHelper::implementation
+namespace winrt::TsinghuaNetHelper
 {
     constexpr wchar_t LogUriBase[] = L"https://auth{}.tsinghua.edu.cn/cgi-bin/srun_portal";
     constexpr wchar_t FluxUriBase[] = L"https://auth{}.tsinghua.edu.cn/rad_user_info.php";
@@ -186,4 +186,4 @@ namespace winrt::TsinghuaNetHelper::implementation
         data.Insert(L"chksum", GetSHA1(to_hstring(sprint(ChkSumData, token, Username(), AUTH_LOGIN_PASSWORD_MD5, info))));
         return data;
     }
-} // namespace winrt::TsinghuaNetHelper::implementation
+} // namespace winrt::TsinghuaNetHelper

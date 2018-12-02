@@ -19,17 +19,17 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<hstring> UseregHelper::LoginAsync()
     {
-        return PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password()))));
+        return base.PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, base.Username(), GetMD5(base.Password()))));
     }
 
     IAsyncOperation<hstring> UseregHelper::LogoutAsync()
     {
-        return PostStringAsync(Uri(LogUri), LogoutData);
+        return base.PostStringAsync(Uri(LogUri), LogoutData);
     }
 
     IAsyncOperation<hstring> UseregHelper::LogoutAsync(hstring const ip)
     {
-        return PostStringAsync(Uri(InfoUri), hstring(sprint(DropData, ip)));
+        return base.PostStringAsync(Uri(InfoUri), hstring(sprint(DropData, ip)));
     }
 
     constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";
@@ -39,7 +39,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto result = single_threaded_vector<TsinghuaNetHelper::NetUser>();
         wregex tabler(TableRegex);
         wregex itemr(ItemRegex);
-        wstring userhtml(co_await GetAsync(Uri(InfoUri)));
+        wstring userhtml(co_await base.GetAsync(Uri(InfoUri)));
         wsregex_iterator row_begin(userhtml.begin(), userhtml.end(), tabler);
         wsregex_iterator row_end;
         for (; row_begin != row_end; ++row_begin)

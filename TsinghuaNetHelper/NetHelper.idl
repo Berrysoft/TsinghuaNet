@@ -12,6 +12,12 @@ namespace TsinghuaNetHelper
         static FluxUser Parse(String fluxstr);
     }
 
+    interface ICredential
+    {
+        String Username;
+        String Password;
+    }
+
     interface IConnect
     {
         Windows.Foundation.IAsyncOperation<String> LoginAsync();
@@ -19,41 +25,17 @@ namespace TsinghuaNetHelper
         Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
     }
 
-    [default_interface] unsealed runtimeclass NetHelperBase
-    {
-        String Username;
-        String Password;
-
-        NetHelperBase();
-
-    protected
-        Windows.Foundation.IAsyncOperation<String> GetAsync(Windows.Foundation.Uri uri);
-    protected
-        Windows.Foundation.IAsyncOperation<Windows.Storage.Streams.IBuffer> GetBytesAsync(Windows.Foundation.Uri uri);
-    protected
-        Windows.Foundation.IAsyncOperation<String> PostAsync(Windows.Foundation.Uri uri);
-    protected
-        Windows.Foundation.IAsyncOperation<String> PostStringAsync(Windows.Foundation.Uri uri, String data);
-    protected
-        Windows.Foundation.IAsyncOperation<String> PostMapAsync(Windows.Foundation.Uri uri, Windows.Foundation.Collections.IIterable<Windows.Foundation.Collections.IKeyValuePair<String, String> > data);
-    }
-
-    [default_interface] runtimeclass NetHelper : NetHelperBase, IConnect
+    [default_interface] runtimeclass NetHelper : ICredential, IConnect
     {
         NetHelper();
     }
 
-    [default_interface] unsealed runtimeclass AuthHelper : NetHelperBase, IConnect
-    {
-        AuthHelper(Int32 ver);
-    }
-
-    [default_interface] runtimeclass Auth4Helper : AuthHelper
+    [default_interface] runtimeclass Auth4Helper : ICredential, IConnect
     {
         Auth4Helper();
     }
 
-    [default_interface] runtimeclass Auth6Helper : AuthHelper
+    [default_interface] runtimeclass Auth6Helper : ICredential, IConnect
     {
         Auth6Helper();
     }
@@ -67,7 +49,7 @@ namespace TsinghuaNetHelper
         String Client;
     }
 
-    [default_interface] runtimeclass UseregHelper : NetHelperBase
+    [default_interface] runtimeclass UseregHelper : ICredential
     {
         UseregHelper();
 

@@ -15,17 +15,17 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<hstring> NetHelper::LoginAsync()
     {
-        auto data = sprint(LoginData, Username(), GetMD5(Password()));
-        return PostStringAsync(Uri(LogUri), hstring(data));
+        auto data = sprint(LoginData, base.Username(), GetMD5(base.Password()));
+        return base.PostStringAsync(Uri(LogUri), hstring(data));
     }
 
     IAsyncOperation<hstring> NetHelper::LogoutAsync()
     {
-        return PostStringAsync(Uri(LogUri), LogoutData);
+        return base.PostStringAsync(Uri(LogUri), LogoutData);
     }
 
     IAsyncOperation<TsinghuaNetHelper::FluxUser> NetHelper::FluxAsync()
     {
-        return TsinghuaNetHelper::FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
+        return TsinghuaNetHelper::FluxUser::Parse(co_await base.PostAsync(Uri(FluxUri)));
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

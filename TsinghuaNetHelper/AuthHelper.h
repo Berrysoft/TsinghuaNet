@@ -1,12 +1,11 @@
 ﻿#pragma once
-#include "AuthHelper.g.h"
-
 #include "NetHelperBase.h"
+#include "winrt/TsinghuaNetHelper.h"
 #include <ppltasks.h>
 
-namespace winrt::TsinghuaNetHelper::implementation
+namespace winrt::TsinghuaNetHelper
 {
-    struct AuthHelper : AuthHelperT<AuthHelper, TsinghuaNetHelper::implementation::NetHelperBase>
+    struct AuthHelper : NetHelperBase, winrt::implements<AuthHelper, IConnect>
     {
         AuthHelper() = delete;
         AuthHelper(int ver);
@@ -23,11 +22,4 @@ namespace winrt::TsinghuaNetHelper::implementation
         concurrency::task<std::string> ChallengeAsync();
         Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LoginDataAsync();
     };
-} // namespace winrt::TsinghuaNetHelper::implementation
-
-namespace winrt::TsinghuaNetHelper::factory_implementation
-{
-    struct AuthHelper : AuthHelperT<AuthHelper, implementation::AuthHelper>
-    {
-    };
-} // namespace winrt::TsinghuaNetHelper::factory_implementation
+} // namespace winrt::TsinghuaNetHelper
