@@ -43,6 +43,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void AutoLoginChanged(Windows::Foundation::IInspectable const& sender, bool const& e);
+        Windows::Foundation::IAsyncAction BackgroundAutoLoginChanged(Windows::Foundation::IInspectable const& sender, bool const& e);
+        Windows::Foundation::IAsyncAction BackgroundLiveTileChanged(Windows::Foundation::IInspectable const& sender, bool const& e);
 
     private:
         bool m_ToastLogined;
@@ -60,6 +62,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         void RefreshStatusImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl(TsinghuaNetHelper::UseregHelper const& helper);
+
+        void RegisterBackgroundAutoLogin(bool reg);
+        void RegisterBackgroundLiveTile(bool reg);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

@@ -7,7 +7,7 @@
     xmlns:local="using:TsinghuaNetUWP"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged"/>
+        <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>

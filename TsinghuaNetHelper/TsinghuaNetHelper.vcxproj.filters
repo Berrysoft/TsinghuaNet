@@ -132,5 +132,8 @@
     <Midl Include="LoginTask.idl">
       <Filter>Background</Filter>
     </Midl>
+    <Midl Include="BackgroundHelper.idl">
+      <Filter>Background</Filter>
+    </Midl>
   </ItemGroup>
 </Project>

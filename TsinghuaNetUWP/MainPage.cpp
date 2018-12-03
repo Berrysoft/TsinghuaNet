@@ -37,8 +37,15 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().State(state);
         bool al = settings.AutoLogin();
         Model().AutoLogin(al);
-        Model().BackgroundAutoLogin(settings.BackgroundAutoLogin());
-        Model().BackgroundLiveTile(settings.BackgroundLiveTile());
+        bool bal = settings.BackgroundAutoLogin();
+        Model().BackgroundAutoLogin(bal);
+        bool blt = settings.BackgroundLiveTile();
+        Model().BackgroundLiveTile(blt);
+        if (co_await BackgroundHelper::RequestAccessAsync())
+        {
+            RegisterBackgroundAutoLogin(bal);
+            RegisterBackgroundLiveTile(blt);
+        }
         hstring un = settings.StoredUsername();
         if (!un.empty())
         {
@@ -305,6 +312,24 @@ namespace winrt::TsinghuaNetUWP::implementation
         settings.AutoLogin(e);
     }
 
+    IAsyncAction MainPage::BackgroundAutoLoginChanged(IInspectable const&, bool const& e)
+    {
+        settings.BackgroundAutoLogin(e);
+        if (co_await BackgroundHelper::RequestAccessAsync())
+        {
+            RegisterBackgroundAutoLogin(e);
+        }
+    }
+
+    IAsyncAction MainPage::BackgroundLiveTileChanged(IInspectable const&, bool const& e)
+    {
+        settings.BackgroundLiveTile(e);
+        if (co_await BackgroundHelper::RequestAccessAsync())
+        {
+            RegisterBackgroundLiveTile(e);
+        }
+    }
+
     void MainPage::RefreshStatusImpl()
     {
         NetState state;
@@ -356,6 +381,28 @@ namespace winrt::TsinghuaNetUWP::implementation
             u.LoginTime(hstring(user.LoginTime()));
             u.Client(hstring(user.Client()));
             usersmodel.Append(u);
+        }
+    }
+    void MainPage::RegisterBackgroundAutoLogin(bool reg)
+    {
+        if (reg)
+        {
+            BackgroundHelper::RegisterLogin();
+        }
+        else
+        {
+            BackgroundHelper::UnregisterLogin();
+        }
+    }
+    void MainPage::RegisterBackgroundLiveTile(bool reg)
+    {
+        if (reg)
+        {
+            BackgroundHelper::RegisterLiveTile();
+        }
+        else
+        {
+            BackgroundHelper::UnregisterLiveTile();
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

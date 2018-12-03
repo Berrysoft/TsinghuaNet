@@ -3,12 +3,10 @@
 #include "App.h"
 
 #include "MainPage.h"
-#include <winrt/Windows.ApplicationModel.Background.h>
 
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
-using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
@@ -40,52 +38,12 @@ namespace winrt::TsinghuaNetUWP::implementation
 #endif
     }
 
-    constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
-    constexpr wchar_t LOGINTASK[] = L"LOGINTASK";
-    /// <summary>
-    /// 注册后台任务
-    /// </summary>
-    IAsyncAction RegisterTask()
-    {
-        // 获取权限
-        auto status = co_await BackgroundExecutionManager::RequestAccessAsync();
-        if (status == BackgroundAccessStatus::Unspecified ||
-            status == BackgroundAccessStatus::DeniedByUser ||
-            status == BackgroundAccessStatus::DeniedBySystemPolicy)
-        {
-            return;
-        }
-        //注销已经注册的后台任务
-        for (auto t : BackgroundTaskRegistration::AllTasks())
-        {
-            if (t.Value().Name() == LIVETILETASK || t.Value().Name() == LOGINTASK)
-            {
-                t.Value().Unregister(true);
-            }
-        }
-
-        //注册两个任务
-        BackgroundTaskBuilder livetile;
-        livetile.Name(LIVETILETASK);
-        livetile.TaskEntryPoint(xaml_typename<LiveTileTask>().Name);
-        livetile.SetTrigger(TimeTrigger(15, false));
-        livetile.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
-        livetile.Register();
-
-        BackgroundTaskBuilder login;
-        login.Name(LOGINTASK);
-        login.TaskEntryPoint(xaml_typename<LoginTask>().Name);
-        login.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
-        login.AddCondition(SystemCondition(SystemConditionType::InternetNotAvailable));
-        login.Register();
-    }
-
     /// <summary>
     /// 在应用程序由最终用户正常启动时进行调用。
     /// 其它入口点将在启动应用程序以打开特定文件等情况下使用。
     /// </summary>
     /// <param name="e">有关启动请求和过程的详细信息。</param>
-    IAsyncAction App::OnLaunched(LaunchActivatedEventArgs const& e)
+    void App::OnLaunched(LaunchActivatedEventArgs const& e)
     {
         Frame rootFrame{ nullptr };
         auto content = Window::Current().Content();
@@ -123,8 +81,6 @@ namespace winrt::TsinghuaNetUWP::implementation
             // 确保当前窗口处于活动状态
             Window::Current().Activate();
         }
-
-        co_await RegisterTask();
     }
 
     /// <summary>

@@ -1,0 +1,12 @@
+namespace TsinghuaNetHelper
+{
+    runtimeclass BackgroundHelper
+    {
+        static Windows.Foundation.IAsyncOperation<Boolean> RequestAccessAsync();
+
+        static void UnregisterLiveTile();
+        static void UnregisterLogin();
+        static void RegisterLiveTile();
+        static void RegisterLogin();
+    }
+} // namespace TsinghuaNetHelper
