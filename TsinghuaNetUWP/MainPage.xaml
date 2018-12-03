@@ -22,7 +22,7 @@
         <local:NetStateStringConverter x:Key="NetStateStringConverter"/>
         <local:DropUserCommand x:Key="DropUser" DropUser="DropUser"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="400" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
@@ -101,15 +101,13 @@
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:NetUserModel">
-                                <Grid Width="330">
+                                <Grid Width="280">
                                     <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
-                                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Client}"/>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
-                                            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
-                                        </StackPanel>
+                                        <TextBlock Margin="10,10,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{Binding Client}"/>
+                                        <TextBlock Margin="10,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
+                                        <TextBlock Margin="10,0,0,10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
                                     </StackPanel>
-                                    <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{Binding Address}"/>
+                                    <AppBarButton Background="{ThemeResource SystemControlTransparentRevealBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{Binding Address}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
