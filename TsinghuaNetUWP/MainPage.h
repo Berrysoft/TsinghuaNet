@@ -46,7 +46,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     private:
         bool m_ToastLogined;
-        TsinghuaNetHelper::NotificationHelper notification;
         TsinghuaNetHelper::SettingsHelper settings;
 
         void ThemeChangedImpl();

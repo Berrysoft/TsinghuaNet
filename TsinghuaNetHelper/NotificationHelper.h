@@ -3,12 +3,12 @@
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    struct NotificationHelper : NotificationHelperT<NotificationHelper>
+    struct NotificationHelper
     {
-        NotificationHelper() = default;
+        NotificationHelper() = delete;
 
-        void UpdateTile(TsinghuaNetHelper::FluxUser const& user);
-        void SendToast(TsinghuaNetHelper::FluxUser const& user);
+        static void UpdateTile(TsinghuaNetHelper::FluxUser const& user);
+        static void SendToast(TsinghuaNetHelper::FluxUser const& user);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

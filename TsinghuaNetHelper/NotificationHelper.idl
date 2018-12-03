@@ -12,9 +12,7 @@ namespace TsinghuaNetHelper
 
     runtimeclass NotificationHelper
     {
-        NotificationHelper();
-
-        void UpdateTile(FluxUser user);
-        void SendToast(FluxUser user);
+        static void UpdateTile(FluxUser user);
+        static void SendToast(FluxUser user);
     }
 } // namespace TsinghuaNetHelper

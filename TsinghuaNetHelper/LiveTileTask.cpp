@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             if (helper)
             {
                 FluxUser user = co_await helper.FluxAsync();
-                notification.UpdateTile(user);
+                NotificationHelper::UpdateTile(user);
             }
         }
         catch (hresult_error const&)

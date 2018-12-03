@@ -25,8 +25,8 @@ namespace winrt::TsinghuaNetHelper::implementation
                 {
                     co_await helper.LoginAsync();
                     FluxUser user = co_await helper.FluxAsync();
-                    notification.UpdateTile(user);
-                    notification.SendToast(user);
+                    NotificationHelper::UpdateTile(user);
+                    NotificationHelper::SendToast(user);
                 }
             }
             catch (hresult_error const&)

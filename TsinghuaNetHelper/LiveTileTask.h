@@ -12,7 +12,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         Windows::Foundation::IAsyncAction Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const& taskInstance);
 
     private:
-        NotificationHelper notification;
         SettingsHelper settings;
     };
 } // namespace winrt::TsinghuaNetHelper::implementation

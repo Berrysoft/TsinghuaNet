@@ -13,7 +13,6 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     private:
         SettingsHelper settings;
-        NotificationHelper notification;
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

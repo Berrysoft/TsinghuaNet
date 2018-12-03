@@ -195,7 +195,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
     {
         auto flux = co_await helper.FluxAsync();
-        notification.UpdateTile(flux);
+        NotificationHelper::UpdateTile(flux);
         Model().OnlineUser(flux.Username());
         Model().Flux(flux.Flux());
         Model().OnlineTime(flux.OnlineTime());
