@@ -67,12 +67,18 @@
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">当前用户</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Username,Mode=OneWay}"/>
                     <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
-                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
-                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台自动登录</TextBlock>
-                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.BackgroundAutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
-                    <ToggleSwitch Margin="10" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
+                        <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台自动登录</TextBlock>
+                        <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.BackgroundAutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
+                        <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">网络</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
