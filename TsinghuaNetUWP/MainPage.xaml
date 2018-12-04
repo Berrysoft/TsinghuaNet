@@ -64,9 +64,11 @@
             <ScrollViewer>
                 <StackPanel Margin="10" Orientation="Vertical">
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">当前用户</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Username,Mode=OneWay}"/>
-                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowChangeUser">更改</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
+                        <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Username,Mode=OneWay}"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
                         <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
@@ -79,10 +81,10 @@
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
                         <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                     </StackPanel>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">网络</TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshStatus">刷新</Button>
-                        <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="ShowEditSuggestion">编辑建议</Button>
+                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
+                        <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshStatus"/>
+                        <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Edit" ToolTipService.ToolTip="编辑建议" Click="ShowEditSuggestion"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
@@ -102,8 +104,10 @@
                         <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - https://auth6.tsinghua.edu.cn/</RadioButton>
                         <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
                     </StackPanel>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">管理连接</TextBlock>
-                    <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="RefreshNetUsers">刷新</Button>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
+                        <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
+                    </StackPanel>
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="local:NetUserModel">
@@ -113,7 +117,7 @@
                                         <TextBlock Margin="10,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding Address}"/>
                                         <TextBlock Margin="10,0,0,10" Style="{ThemeResource BodyTextBlockStyle}" Text="{Binding LoginTime}"/>
                                     </StackPanel>
-                                    <AppBarButton Background="{ThemeResource SystemControlTransparentRevealBackgroundBrush}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{Binding Address}"/>
+                                    <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{Binding Address}"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
