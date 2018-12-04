@@ -146,7 +146,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         ProgressRing ring;
 
     public:
-        ProgressRingManager(ProgressRing ring) : ring(ring) { ring.IsActive(true); }
+        ProgressRingManager(ProgressRing const& ring) : ring(ring) { ring.IsActive(true); }
         ~ProgressRingManager() { ring.IsActive(false); }
     };
 

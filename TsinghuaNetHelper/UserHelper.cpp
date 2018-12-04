@@ -54,6 +54,6 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr uint64_t BaseFlux = 25000000000;
     uint64_t UserHelper::GetMaxFlux(TsinghuaNetHelper::FluxUser const& user)
     {
-        return max(user.Flux(), BaseFlux) + (uint64_t)(user.Balance() * 2 * 1000 * 1000 * 1000);
+        return max(user.Flux(), BaseFlux) + (uint64_t)(user.Balance() / 2 * 1000 * 1000 * 1000);
     }
 } // namespace winrt::TsinghuaNetHelper::implementation
