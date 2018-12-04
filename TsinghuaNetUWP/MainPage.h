@@ -8,7 +8,6 @@
 #include "InternetStatusStringConverter.h"
 #include "MainViewModel.h"
 #include "NetStateStringConverter.h"
-#include "NetUserModel.h"
 #include "TimeSpanStringConverter.h"
 #include "winrt/TsinghuaNetHelper.h"
 

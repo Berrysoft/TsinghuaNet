@@ -40,13 +40,18 @@ namespace TsinghuaNetHelper
         Auth6Helper();
     }
 
-    runtimeclass NetUser
+    [bindable] runtimeclass NetUser : Windows.UI.Xaml.DependencyObject
     {
         NetUser();
 
         String Address;
+        static Windows.UI.Xaml.DependencyProperty AddressProperty { get; };
+
         String LoginTime;
+        static Windows.UI.Xaml.DependencyProperty LoginTimeProperty { get; };
+
         String Client;
+        static Windows.UI.Xaml.DependencyProperty ClientProperty { get; };
     }
 
     [default_interface] runtimeclass UseregHelper : ICredential

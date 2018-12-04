@@ -134,9 +134,6 @@
     <ClInclude Include="NetStateStringConverter.h">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClInclude>
-    <ClInclude Include="NetUserModel.h">
-      <DependentUpon>NetUserModel.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -217,9 +214,6 @@
     <ClCompile Include="NetStateStringConverter.cpp">
       <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClCompile>
-    <ClCompile Include="NetUserModel.cpp">
-      <DependentUpon>NetUserModel.idl</DependentUpon>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -260,7 +254,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NetStateStringConverter.idl" />
-    <Midl Include="NetUserModel.idl" />
     <Midl Include="TimeSpanStringConverter.idl" />
   </ItemGroup>
   <ItemGroup>

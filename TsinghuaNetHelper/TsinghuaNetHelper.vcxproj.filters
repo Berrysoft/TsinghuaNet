@@ -43,6 +43,9 @@
       <Filter>Background</Filter>
     </ClCompile>
     <ClCompile Include="BackgroundHelper.cpp" />
+    <ClCompile Include="NetUser.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

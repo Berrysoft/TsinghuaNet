@@ -9,12 +9,13 @@ public:                                                                         
 private:                                                                                         \
     static Windows::UI::Xaml::DependencyProperty m_##Name##Property;
 
-#define DEPENDENCY_PROPERTY_INIT(Name, type, base, rt_base, ...)                                                      \
-    Windows::UI::Xaml::DependencyProperty base::m_##Name##Property = Windows::UI::Xaml::DependencyProperty::Register( \
-        L#Name,                                                                                                       \
-        winrt::xaml_typename<type>(),                                                                                 \
-        winrt::xaml_typename<rt_base>(),                                                                              \
-        Windows::UI::Xaml::PropertyMetadata(__VA_ARGS__));
+#define DEPENDENCY_PROPERTY_INIT(Name, type, base, ns, ...)          \
+    Windows::UI::Xaml::DependencyProperty base::m_##Name##Property = \
+        Windows::UI::Xaml::DependencyProperty::Register(             \
+            L#Name,                                                  \
+            winrt::xaml_typename<type>(),                            \
+            winrt::xaml_typename<ns::base>(),                        \
+            Windows::UI::Xaml::PropertyMetadata(__VA_ARGS__));
 
 #define EVENT_DECL(Name, type)                                                                                               \
 public:                                                                                                                      \

@@ -36,9 +36,6 @@
       <Filter>ViewModels</Filter>
     </Midl>
     <Midl Include="ChangeUserDialog.idl" />
-    <Midl Include="NetUserModel.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
     <Midl Include="DropUserCommand.idl">
       <Filter>ViewModels</Filter>
     </Midl>

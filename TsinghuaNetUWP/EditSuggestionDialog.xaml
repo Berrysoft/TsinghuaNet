@@ -23,8 +23,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <TextBlock Grid.Column="0" Grid.Row="0" Margin="10" Style="{ThemeResource BaseTextBlockStyle}">有线网</TextBlock>
-        <ComboBox x:Name="LanCombo" Grid.Column="1" Grid.Row="0" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+        <ComboBox x:Name="LanCombo" Grid.Column="1" Grid.Row="0" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States,Mode=OneTime}" ItemTemplate="{StaticResource NetStateTemplate}"/>
         <TextBlock Grid.Column="0" Grid.Row="1" Margin="10" Style="{ThemeResource BaseTextBlockStyle}">移动流量</TextBlock>
-        <ComboBox x:Name="WwanCombo" Grid.Column="1" Grid.Row="1" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+        <ComboBox x:Name="WwanCombo" Grid.Column="1" Grid.Row="1" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States,Mode=OneTime}" ItemTemplate="{StaticResource NetStateTemplate}"/>
     </Grid>
 </ContentDialog>

@@ -146,6 +146,7 @@
     </ClCompile>
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
+    <ClCompile Include="NetUser.cpp" />
     <ClCompile Include="NotificationHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>

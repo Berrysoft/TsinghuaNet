@@ -52,7 +52,6 @@ namespace TsinghuaNetUWP
         Windows.Foundation.Collections.IObservableVector<IInspectable> NetUsers { get; };
 
         TsinghuaNetHelper.NetState State;
-        void SyncState(TsinghuaNetHelper.NetState value);
         event Windows.Foundation.EventHandler<TsinghuaNetHelper.NetState> StateChanged;
     }
 } // namespace TsinghuaNetUWP

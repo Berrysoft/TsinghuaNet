@@ -9,9 +9,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         NetUser() = default;
 
-        PROP_DECL_REF(Address, winrt::hstring)
-        PROP_DECL_REF(LoginTime, winrt::hstring)
-        PROP_DECL_REF(Client, winrt::hstring)
+        DEPENDENCY_PROPERTY(Address, winrt::hstring)
+        DEPENDENCY_PROPERTY(LoginTime, winrt::hstring)
+        DEPENDENCY_PROPERTY(Client, winrt::hstring)
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

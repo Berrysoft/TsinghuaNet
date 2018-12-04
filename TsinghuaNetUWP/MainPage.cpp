@@ -230,7 +230,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     template <typename T>
-    T MakeHelper(hstring username, hstring password)
+    inline T MakeHelper(hstring username, hstring password)
     {
         T result;
         result.Username(username);
@@ -272,15 +272,15 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
     void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
     {
-        Model().SyncState(NetState::Auth4);
+        Model().State(NetState::Auth4);
     }
     void MainPage::Auth6Checked(IInspectable const&, RoutedEventArgs const&)
     {
-        Model().SyncState(NetState::Auth6);
+        Model().State(NetState::Auth6);
     }
     void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
     {
-        Model().SyncState(NetState::Net);
+        Model().State(NetState::Net);
     }
 
     void MainPage::RefreshStatus(IInspectable const&, RoutedEventArgs const&)
@@ -376,11 +376,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         usersmodel.Clear();
         for (auto user : users)
         {
-            auto u = make<NetUserModel>();
-            u.Address(user.Address());
-            u.LoginTime(user.LoginTime());
-            u.Client(user.Client());
-            usersmodel.Append(u);
+            usersmodel.Append(user);
         }
     }
     void MainPage::RegisterBackgroundAutoLogin(bool reg)

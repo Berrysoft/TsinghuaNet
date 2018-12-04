@@ -44,7 +44,6 @@ namespace winrt::TsinghuaNetUWP::implementation
             m_State = value;
             m_StateChangedEvent(*this, value);
         }
-        void SyncState(TsinghuaNetHelper::NetState value) { m_State = value; }
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;
