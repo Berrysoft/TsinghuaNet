@@ -48,19 +48,19 @@ namespace winrt::TsinghuaNetHelper
 
     IAsyncOperation<hstring> NetHelperBase::GetAsync(Uri const uri)
     {
-        return co_await client.GetStringAsync(uri);
+        co_return co_await client.GetStringAsync(uri);
     }
 
     IAsyncOperation<IBuffer> NetHelperBase::GetBytesAsync(Uri const uri)
     {
-        return co_await client.GetBufferAsync(uri);
+        co_return co_await client.GetBufferAsync(uri);
     }
 
     IAsyncOperation<hstring> NetHelperBase::PostAsync(Uri const uri)
     {
         auto message = HttpRequestMessage(HttpMethod::Post(), uri);
         auto response = co_await client.SendRequestAsync(message, HttpCompletionOption::ResponseContentRead);
-        return co_await response.Content().ReadAsStringAsync();
+        co_return co_await response.Content().ReadAsStringAsync();
     }
 
     IAsyncOperation<hstring> NetHelperBase::PostStringAsync(Uri const uri, hstring const data)
@@ -68,13 +68,13 @@ namespace winrt::TsinghuaNetHelper
         auto content = HttpStringContent(data, UnicodeEncoding::Utf8,
                                          L"application/x-www-form-urlencoded");
         auto response = co_await client.PostAsync(uri, content);
-        return co_await response.Content().ReadAsStringAsync();
+        co_return co_await response.Content().ReadAsStringAsync();
     }
 
     IAsyncOperation<hstring> NetHelperBase::PostMapAsync(Uri const uri, IIterable<IKeyValuePair<hstring, hstring>> const data)
     {
         auto content = HttpFormUrlEncodedContent(data);
         auto response = co_await client.PostAsync(uri, content);
-        return co_await response.Content().ReadAsStringAsync();
+        co_return co_await response.Content().ReadAsStringAsync();
     }
 } // namespace winrt::TsinghuaNetHelper

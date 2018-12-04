@@ -23,11 +23,21 @@ namespace winrt::TsinghuaNetHelper::implementation
             }
             offset = index + 1;
         }
-        if (offset + 1 < s.length())
+        if (offset < s.length())
         {
             result.push_back(s.substr(offset));
         }
         return result;
+    }
+
+    unsigned long long stoull(wstring_view str)
+    {
+        return wcstoull(str.data(), nullptr, 10);
+    }
+
+    double stod(wstring_view str)
+    {
+        return wcstod(str.data(), nullptr);
     }
 
     TsinghuaNetHelper::FluxUser FluxUser::Parse(hstring const& fluxstr)
@@ -37,9 +47,9 @@ namespace winrt::TsinghuaNetHelper::implementation
         if (!r.empty())
         {
             result.Username(hstring(r[0]));
-            result.Flux(stoull(wstring(r[6])));
-            result.OnlineTime(seconds(stoll(wstring(r[2])) - stoll(wstring(r[1]))));
-            result.Balance(stod(wstring(r[10])));
+            result.Flux(stoull(r[6]));
+            result.OnlineTime(seconds(stoull(r[2]) - stoull(r[1])));
+            result.Balance(stod(r[10]));
         }
         return result;
     }

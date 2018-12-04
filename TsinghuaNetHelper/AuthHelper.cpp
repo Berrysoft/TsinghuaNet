@@ -29,7 +29,7 @@ namespace winrt::TsinghuaNetHelper
     {
         auto data = co_await LoginDataAsync();
         auto result = co_await PostMapAsync(Uri(LogUri), data);
-        return result;
+        co_return result;
     }
 
     IAsyncOperation<hstring> AuthHelper::LogoutAsync()
@@ -51,9 +51,9 @@ namespace winrt::TsinghuaNetHelper
         smatch match;
         if (regex_search(result, match, reg))
         {
-            return match[1].str();
+            co_return match[1].str();
         }
-        return {};
+        co_return{};
     }
 
     namespace encode_methods
@@ -184,6 +184,6 @@ namespace winrt::TsinghuaNetHelper
         data.Insert(L"info", to_hstring(info));
         data.Insert(L"username", Username());
         data.Insert(L"chksum", GetSHA1(to_hstring(sprint(ChkSumData, token, Username(), AUTH_LOGIN_PASSWORD_MD5, info))));
-        return data;
+        co_return data;
     }
 } // namespace winrt::TsinghuaNetHelper

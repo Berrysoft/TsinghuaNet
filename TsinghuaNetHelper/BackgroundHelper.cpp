@@ -18,9 +18,9 @@ namespace winrt::TsinghuaNetHelper::implementation
             status == BackgroundAccessStatus::DeniedByUser ||
             status == BackgroundAccessStatus::DeniedBySystemPolicy)
         {
-            return false;
+            co_return false;
         }
-        return true;
+        co_return true;
     }
 
     void UnregisterTask(hstring const& name)
