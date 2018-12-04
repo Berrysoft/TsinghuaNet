@@ -15,3 +15,15 @@ public:                                                \
                                                        \
 private:                                               \
     type m_##Name;
+
+namespace winrt
+{
+    inline std::wostream& operator<<(std::wostream& os, hstring const& s)
+    {
+        return os << std::wstring_view(s);
+    }
+    inline std::ostream& operator<<(std::ostream& os, hstring const& s)
+    {
+        return os << to_string(s);
+    }
+} // namespace winrt

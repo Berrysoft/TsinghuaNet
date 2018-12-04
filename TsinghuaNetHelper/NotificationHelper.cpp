@@ -2,6 +2,7 @@
 
 #include "NotificationHelper.h"
 #include "UserHelper.h"
+#include "Utility.h"
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 
@@ -30,9 +31,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     <binding template="TileLarge">
       <text hint-style="title">{0}</text>
       <text hint-style="subtitleSubtle">流量：{1}</text>
+      <text hint-style="subtitleSubtle">剩余：{4}</text>
       <text hint-style="subtitleSubtle">时长：{2}</text>
       <text hint-style="subtitleSubtle">余额：{3}</text>
-      <text hint-style="subtitleSubtle">剩余：{4}</text>
     </binding>
   </visual>
 </tile>
@@ -54,11 +55,11 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         XmlDocument dom;
         dom.LoadXml(sprint(tile_t,
-                           wstring_view(user.Username()),
-                           wstring_view(UserHelper::GetFluxString(user.Flux())),
-                           wstring_view(UserHelper::GetTimeSpanString(user.OnlineTime())),
-                           wstring_view(UserHelper::GetCurrencyString(user.Balance())),
-                           wstring_view(UserHelper::GetFluxString(UserHelper::GetMaxFlux(user) - user.Flux()))));
+                           user.Username(),
+                           UserHelper::GetFluxString(user.Flux()),
+                           UserHelper::GetTimeSpanString(user.OnlineTime()),
+                           UserHelper::GetCurrencyString(user.Balance()),
+                           UserHelper::GetFluxString(UserHelper::GetMaxFlux(user) - user.Flux())));
         TileNotification notification(dom);
         notification.ExpirationTime(clock::now() + 15min);
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
@@ -68,9 +69,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         XmlDocument dom;
         dom.LoadXml(sprint(toast_t,
-                           wstring_view(user.Username()),
-                           wstring_view(UserHelper::GetFluxString(user.Flux())),
-                           wstring_view(UserHelper::GetCurrencyString(user.Balance()))));
+                           user.Username(),
+                           UserHelper::GetFluxString(user.Flux()),
+                           UserHelper::GetCurrencyString(user.Balance())));
         ToastNotification notification(dom);
         notification.ExpirationTime(clock::now() + 1min);
         ToastNotificationManager::CreateToastNotifier().Show(notification);

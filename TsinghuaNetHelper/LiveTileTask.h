@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "LiveTileTask.g.h"
 
-#include "winrt/TsinghuaNetHelper.h"
-
 namespace winrt::TsinghuaNetHelper::implementation
 {
     struct LiveTileTask : LiveTileTaskT<LiveTileTask>

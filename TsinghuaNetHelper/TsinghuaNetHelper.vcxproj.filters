@@ -42,6 +42,7 @@
     <ClCompile Include="LoginTask.cpp">
       <Filter>Background</Filter>
     </ClCompile>
+    <ClCompile Include="BackgroundHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -93,9 +94,8 @@
     <ClInclude Include="LoginTask.h">
       <Filter>Background</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
+    <ClInclude Include="BackgroundHelper.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />

@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "LoginTask.g.h"
 
-#include "winrt/TsinghuaNetHelper.h"
-
 namespace winrt::TsinghuaNetHelper::implementation
 {
     struct LoginTask : LoginTaskT<LoginTask>
