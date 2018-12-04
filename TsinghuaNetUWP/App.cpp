@@ -96,15 +96,16 @@ namespace winrt::TsinghuaNetUWP::implementation
             Window::Current().Content(rootFrame);
         }
 
-        rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Kind()));
-        TsinghuaNetUWP::MainPage mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
-        if (mainPage)
+        if (!rootFrame.Content())
         {
-            MainPage* pmain = get_self<MainPage>(mainPage);
-            if (e.Kind() == ActivationKind::ToastNotification)
-            {
-                pmain->ToastLogined(true);
-            }
+            rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Kind()));
+        }
+        TsinghuaNetUWP::MainPage mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
+
+        MainPage* pmain = get_self<MainPage>(mainPage);
+        if (e.Kind() == ActivationKind::ToastNotification)
+        {
+            pmain->ToastLogined(true);
         }
 
         Window::Current().Activate();
