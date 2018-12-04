@@ -377,9 +377,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         for (auto user : users)
         {
             auto u = make<NetUserModel>();
-            u.Address(hstring(user.Address()));
-            u.LoginTime(hstring(user.LoginTime()));
-            u.Client(hstring(user.Client()));
+            u.Address(user.Address());
+            u.LoginTime(user.LoginTime());
+            u.Client(user.Client());
             usersmodel.Append(u);
         }
     }
