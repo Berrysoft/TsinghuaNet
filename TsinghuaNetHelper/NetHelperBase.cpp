@@ -3,6 +3,7 @@
 #include "NetHelperBase.h"
 #include <iomanip>
 #include <winrt/Windows.Security.Cryptography.Core.h>
+#include <winrt/Windows.Web.Http.Headers.h>
 
 using namespace std;
 using namespace winrt;
@@ -44,6 +45,13 @@ namespace winrt::TsinghuaNetHelper
     wstring GetSHA1(hstring const& input)
     {
         return GetHashString(input, HashAlgorithmNames::Sha1());
+    }
+
+    constexpr wchar_t UserAgent[] = L"TsinghuaNetUWP";
+    NetHelperBase::NetHelperBase()
+    {
+        auto headers = client.DefaultRequestHeaders();
+        headers.UserAgent().TryParseAdd(UserAgent);
     }
 
     IAsyncOperation<hstring> NetHelperBase::GetAsync(Uri const uri)

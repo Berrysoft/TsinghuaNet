@@ -40,6 +40,16 @@ namespace TsinghuaNetHelper
         Auth6Helper();
     }
 
+    [default_interface] runtimeclass Auth4Helper25 : ICredential, IConnect
+    {
+        Auth4Helper25();
+    }
+
+    [default_interface] runtimeclass Auth6Helper25 : ICredential, IConnect
+    {
+        Auth6Helper25();
+    }
+
     [bindable] runtimeclass NetUser : Windows.UI.Xaml.DependencyObject
     {
         NetUser();

@@ -1,3 +1,6 @@
+import "NetHelper.idl";
+import "SettingsHelper.idl";
+
 namespace TsinghuaNetHelper
 {
     runtimeclass BackgroundHelper
@@ -8,5 +11,12 @@ namespace TsinghuaNetHelper
         static void UnregisterLogin();
         static void RegisterLiveTile();
         static void RegisterLogin();
+    }
+
+    runtimeclass ConnectHelper
+    {
+        static NetState GetSuggestNetState(SettingsHelper settings);
+        static IConnect GetHelper(NetState state);
+        static IConnect GetHelper(NetState state, String username, String password);
     }
 } // namespace TsinghuaNetHelper

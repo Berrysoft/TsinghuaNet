@@ -6,6 +6,8 @@ namespace TsinghuaNetHelper
         Auth4,
         Auth6,
         Net,
+		Auth4_25,
+		Auth6_25,
         Direct
     };
 

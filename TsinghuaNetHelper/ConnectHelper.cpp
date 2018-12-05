@@ -1,12 +1,12 @@
-#include "pch.h"
+﻿#include "pch.h"
 
 #include "ConnectHelper.h"
 
 using namespace winrt;
 
-namespace winrt::TsinghuaNetHelper
+namespace winrt::TsinghuaNetHelper::implementation
 {
-    NetState GetSuggestNetState(SettingsHelper const& lan)
+    NetState ConnectHelper::GetSuggestNetState(SettingsHelper const& lan)
     {
         hstring ssid;
         auto status = lan.GetCurrentInternetStatus(ssid);
@@ -23,7 +23,7 @@ namespace winrt::TsinghuaNetHelper
         }
     }
 
-    IConnect GetHelper(NetState state)
+    IConnect ConnectHelper::GetHelper(NetState const& state)
     {
         switch (state)
         {
@@ -33,6 +33,10 @@ namespace winrt::TsinghuaNetHelper
             return Auth6Helper();
         case NetState::Net:
             return NetHelper();
+        case NetState::Auth4_25:
+            return Auth4Helper25();
+        case NetState::Auth6_25:
+            return Auth6Helper25();
         default:
             return nullptr;
         }
@@ -46,7 +50,7 @@ namespace winrt::TsinghuaNetHelper
         result.Password(password);
         return result;
     }
-    IConnect GetHelper(NetState state, hstring const& username, hstring const& password)
+    IConnect ConnectHelper::GetHelper(NetState const& state, hstring const& username, hstring const& password)
     {
         switch (state)
         {
@@ -56,8 +60,12 @@ namespace winrt::TsinghuaNetHelper
             return MakeHelper<Auth6Helper>(username, password);
         case NetState::Net:
             return MakeHelper<NetHelper>(username, password);
+        case NetState::Auth4_25:
+            return MakeHelper<Auth4Helper25>(username, password);
+        case NetState::Auth6_25:
+            return MakeHelper<Auth6Helper25>(username, password);
         default:
             return nullptr;
         }
     }
-} // namespace winrt::TsinghuaNetHelper
+} // namespace winrt::TsinghuaNetHelper::implementation

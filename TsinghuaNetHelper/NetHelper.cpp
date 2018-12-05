@@ -15,8 +15,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<hstring> NetHelper::LoginAsync()
     {
-        auto data = sprint(LoginData, base.Username(), GetMD5(base.Password()));
-        return base.PostStringAsync(Uri(LogUri), hstring(data));
+        return base.PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, base.Username(), GetMD5(base.Password()))));
     }
 
     IAsyncOperation<hstring> NetHelper::LogoutAsync()

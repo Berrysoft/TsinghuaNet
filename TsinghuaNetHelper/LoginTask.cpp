@@ -2,8 +2,6 @@
 
 #include "LoginTask.h"
 
-#include "ConnectHelper.h"
-
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
@@ -17,10 +15,10 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             try
             {
-                NetState state = GetSuggestNetState(settings);
+                NetState state = ConnectHelper::GetSuggestNetState(settings);
                 hstring un = settings.StoredUsername();
                 hstring pw = CredentialHelper::GetCredential(un);
-                IConnect helper = GetHelper(state, un, pw);
+                IConnect helper = ConnectHelper::GetHelper(state, un, pw);
                 if (helper)
                 {
                     co_await helper.LoginAsync();

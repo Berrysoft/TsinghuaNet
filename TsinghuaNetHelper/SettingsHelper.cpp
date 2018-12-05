@@ -35,8 +35,8 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t DefWlanState[] = LR"({
 	"Tsinghua": 3,
 	"Tsinghua-5G": 3,
-	"Tsinghua-IPv4": 1,
-	"Tsinghua-IPv6": 2,
+	"Tsinghua-IPv4": 4,
+	"Tsinghua-IPv6": 5,
 	"Wifi.郑裕彤讲堂": 3,
 	"DIVI": 4,
 	"DIVI-2": 4,

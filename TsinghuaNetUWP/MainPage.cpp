@@ -18,7 +18,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    MainPage::MainPage()
+    MainPage::MainPage() : m_ToastLogined(false)
     {
         InitializeComponent();
         auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
@@ -229,30 +229,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    template <typename T>
-    inline T MakeHelper(hstring username, hstring password)
-    {
-        T result;
-        result.Username(username);
-        result.Password(password);
-        return result;
-    }
-
     IConnect MainPage::GetHelper()
     {
-        hstring un = Model().Username();
-        hstring pw = Model().Password();
-        switch (Model().State())
-        {
-        case NetState::Auth4:
-            return MakeHelper<Auth4Helper>(un, pw);
-        case NetState::Auth6:
-            return MakeHelper<Auth6Helper>(un, pw);
-        case NetState::Net:
-            return MakeHelper<NetHelper>(un, pw);
-        default:
-            return nullptr;
-        }
+        return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
     }
 
     void MainPage::StateChanged(IInspectable const&, NetState const& e)
@@ -268,6 +247,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         case NetState::Net:
             NetRadio().IsChecked(true);
             break;
+        case NetState::Auth4_25:
+            Auth425Radio().IsChecked(true);
+            break;
+        case NetState::Auth6_25:
+            Auth625Radio().IsChecked(true);
+            break;
         }
     }
     void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
@@ -281,6 +266,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().State(NetState::Net);
+    }
+    void MainPage::Auth425Checked(IInspectable const&, RoutedEventArgs const&)
+    {
+        Model().State(NetState::Auth4_25);
+    }
+    void MainPage::Auth625Checked(IInspectable const&, RoutedEventArgs const&)
+    {
+        Model().State(NetState::Auth6_25);
     }
 
     void MainPage::RefreshStatus(IInspectable const&, RoutedEventArgs const&)

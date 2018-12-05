@@ -101,9 +101,11 @@
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
-                        <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked">Auth4 - https://auth4.tsinghua.edu.cn/</RadioButton>
-                        <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - https://auth6.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked">Auth4 - http://auth4.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked">Auth6 - http://auth6.tsinghua.edu.cn/</RadioButton>
                         <RadioButton x:Name="NetRadio" Checked="NetChecked">Net - http://net.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="Auth425Radio" Checked="Auth425Checked">IPv4 - http://auth4.tsinghua.edu.cn/</RadioButton>
+                        <RadioButton x:Name="Auth625Radio" Checked="Auth625Checked">IPv6 - http://auth6.tsinghua.edu.cn/</RadioButton>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>

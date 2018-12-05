@@ -18,13 +18,19 @@ namespace winrt::TsinghuaNetUWP::implementation
         switch (state)
         {
         case NetState::Auth4:
-            result = L"Auth4 - https://auth4.tsinghua.edu.cn/";
+            result = L"Auth4 - http://auth4.tsinghua.edu.cn/";
             break;
         case NetState::Auth6:
-            result = L"Auth6 - https://auth6.tsinghua.edu.cn/";
+            result = L"Auth6 - http://auth6.tsinghua.edu.cn/";
             break;
         case NetState::Net:
             result = L"Net - http://net.tsinghua.edu.cn/";
+            break;
+        case NetState::Auth4_25:
+            result = L"IPv4 - http://auth4.tsinghua.edu.cn/";
+            break;
+        case NetState::Auth6_25:
+            result = L"IPv6 - http://auth4.tsinghua.edu.cn/";
             break;
         case NetState::Direct:
             result = L"不需要登录";

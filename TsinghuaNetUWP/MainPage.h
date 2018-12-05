@@ -9,7 +9,6 @@
 #include "MainViewModel.h"
 #include "NetStateStringConverter.h"
 #include "TimeSpanStringConverter.h"
-#include "winrt/TsinghuaNetHelper.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -36,6 +35,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         void Auth4Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void Auth6Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         void NetChecked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void Auth425Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
+        void Auth625Checked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
 
         void RefreshStatus(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);
         Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& e);

@@ -15,8 +15,8 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto deferral = taskInstance.GetDeferral();
         try
         {
-            NetState state = GetSuggestNetState(settings);
-            IConnect helper = GetHelper(state);
+            NetState state = ConnectHelper::GetSuggestNetState(settings);
+            IConnect helper = ConnectHelper::GetHelper(state);
             if (helper)
             {
                 FluxUser user = co_await helper.FluxAsync();

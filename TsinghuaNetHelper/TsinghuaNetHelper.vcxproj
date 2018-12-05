@@ -104,12 +104,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Auth4Helper.h" />
+    <ClInclude Include="Auth4Helper25.h" />
     <ClInclude Include="Auth6Helper.h" />
+    <ClInclude Include="Auth6Helper25.h" />
     <ClInclude Include="AuthHelper.h" />
-    <ClInclude Include="BackgroundHelper.h">
-      <DependentUpon>BackgroundHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
+    <ClInclude Include="BackgroundHelper.h"/>
     <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="FluxUser.h" />
@@ -131,10 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AuthHelper.cpp" />
-    <ClCompile Include="BackgroundHelper.cpp">
-      <DependentUpon>BackgroundHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
+    <ClCompile Include="BackgroundHelper.cpp"/>
     <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="FluxUser.cpp" />
@@ -157,9 +153,7 @@
     <ClCompile Include="UserHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="BackgroundHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
+    <Midl Include="BackgroundHelper.idl"/>
     <Midl Include="LiveTileTask.idl" />
     <Midl Include="LoginTask.idl" />
     <Midl Include="NetHelper.idl" />

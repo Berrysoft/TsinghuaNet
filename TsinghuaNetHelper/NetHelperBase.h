@@ -8,7 +8,7 @@ namespace winrt::TsinghuaNetHelper
 
     struct NetHelperBase
     {
-        NetHelperBase() = default;
+        NetHelperBase();
 
         Windows::Foundation::IAsyncOperation<hstring> GetAsync(Windows::Foundation::Uri const uri);
         Windows::Foundation::IAsyncOperation<Windows::Storage::Streams::IBuffer> GetBytesAsync(Windows::Foundation::Uri const uri);
