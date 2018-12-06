@@ -8,10 +8,8 @@ namespace winrt::TsinghuaNetHelper::implementation
         BackgroundHelper() = delete;
 
         static Windows::Foundation::IAsyncOperation<bool> RequestAccessAsync();
-        static void UnregisterLiveTile();
-        static void UnregisterLogin();
-        static void RegisterLiveTile();
-        static void RegisterLogin();
+        static void RegisterLiveTile(bool reg);
+        static void RegisterLogin(bool reg);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

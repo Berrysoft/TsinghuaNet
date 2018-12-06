@@ -7,10 +7,8 @@ namespace TsinghuaNetHelper
     {
         static Windows.Foundation.IAsyncOperation<Boolean> RequestAccessAsync();
 
-        static void UnregisterLiveTile();
-        static void UnregisterLogin();
-        static void RegisterLiveTile();
-        static void RegisterLogin();
+        static void RegisterLiveTile(Boolean reg);
+        static void RegisterLogin(Boolean reg);
     }
 
     runtimeclass ConnectHelper

@@ -46,31 +46,27 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
     constexpr wchar_t LOGINTASK[] = L"LOGINTASK";
 
-    void BackgroundHelper::UnregisterLiveTile()
+    void BackgroundHelper::RegisterLiveTile(bool reg)
     {
         UnregisterTask(LIVETILETASK);
+        if (reg)
+        {
+            auto task = NewTask(LIVETILETASK, xaml_typename<LiveTileTask>());
+            task.SetTrigger(TimeTrigger(15, false));
+            task.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
+            task.Register();
+        }
     }
 
-    void BackgroundHelper::UnregisterLogin()
+    void BackgroundHelper::RegisterLogin(bool reg)
     {
         UnregisterTask(LOGINTASK);
-    }
-
-    void BackgroundHelper::RegisterLiveTile()
-    {
-        UnregisterLiveTile();
-        auto task = NewTask(LIVETILETASK, xaml_typename<LiveTileTask>());
-        task.SetTrigger(TimeTrigger(15, false));
-        task.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
-        task.Register();
-    }
-
-    void BackgroundHelper::RegisterLogin()
-    {
-        UnregisterLogin();
-        auto task = NewTask(LOGINTASK, xaml_typename<LoginTask>());
-        task.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
-        task.AddCondition(SystemCondition(SystemConditionType::InternetNotAvailable));
-        task.Register();
+        if (reg)
+        {
+            auto task = NewTask(LOGINTASK, xaml_typename<LoginTask>());
+            task.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
+            task.AddCondition(SystemCondition(SystemConditionType::InternetNotAvailable));
+            task.Register();
+        }
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

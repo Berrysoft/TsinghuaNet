@@ -43,8 +43,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().BackgroundLiveTile(blt);
         if (co_await BackgroundHelper::RequestAccessAsync())
         {
-            RegisterBackgroundAutoLogin(bal);
-            RegisterBackgroundLiveTile(blt);
+            BackgroundHelper::RegisterLogin(bal);
+            BackgroundHelper::RegisterLiveTile(blt);
         }
         hstring un = settings.StoredUsername();
         if (!un.empty())
@@ -310,7 +310,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         settings.BackgroundAutoLogin(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
         {
-            RegisterBackgroundAutoLogin(e);
+            BackgroundHelper::RegisterLogin(e);
         }
     }
 
@@ -319,7 +319,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         settings.BackgroundLiveTile(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
         {
-            RegisterBackgroundLiveTile(e);
+            BackgroundHelper::RegisterLiveTile(e);
         }
     }
 
@@ -370,28 +370,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         for (auto user : users)
         {
             usersmodel.Append(user);
-        }
-    }
-    void MainPage::RegisterBackgroundAutoLogin(bool reg)
-    {
-        if (reg)
-        {
-            BackgroundHelper::RegisterLogin();
-        }
-        else
-        {
-            BackgroundHelper::UnregisterLogin();
-        }
-    }
-    void MainPage::RegisterBackgroundLiveTile(bool reg)
-    {
-        if (reg)
-        {
-            BackgroundHelper::RegisterLiveTile();
-        }
-        else
-        {
-            BackgroundHelper::UnregisterLiveTile();
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

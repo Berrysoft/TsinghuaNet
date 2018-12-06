@@ -62,9 +62,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         void RefreshStatusImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl(TsinghuaNetHelper::UseregHelper const& helper);
-
-        void RegisterBackgroundAutoLogin(bool reg);
-        void RegisterBackgroundLiveTile(bool reg);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

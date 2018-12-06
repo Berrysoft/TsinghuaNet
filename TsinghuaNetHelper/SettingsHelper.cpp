@@ -38,9 +38,9 @@ namespace winrt::TsinghuaNetHelper::implementation
 	"Tsinghua-IPv4": 4,
 	"Tsinghua-IPv6": 5,
 	"Wifi.郑裕彤讲堂": 3,
-	"DIVI": 4,
-	"DIVI-2": 4,
-	"IVI": 4
+	"DIVI": 6,
+	"DIVI-2": 6,
+	"IVI": 6
 })";
 
     SettingsHelper::SettingsHelper()
