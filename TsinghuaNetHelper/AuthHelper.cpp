@@ -37,9 +37,9 @@ namespace winrt::TsinghuaNetHelper
         co_return co_await PostMapAsync(Uri(LogUri), data);
     }
 
-    IAsyncOperation<TsinghuaNetHelper::FluxUser> AuthHelper::FluxAsync()
+    IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
     {
-        return TsinghuaNetHelper::FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
+        return FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
     }
 
     constexpr char ChallengeRegex[] = "\"(.*?)\":\"(.*?)\"";

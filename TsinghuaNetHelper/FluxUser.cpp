@@ -43,7 +43,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     TsinghuaNetHelper::FluxUser FluxUser::Parse(hstring const& fluxstr)
     {
         auto r = string_split(fluxstr, L',');
-        auto result = make<FluxUser>();
+        TsinghuaNetHelper::FluxUser result;
         if (!r.empty())
         {
             result.Username(hstring(r[0]));

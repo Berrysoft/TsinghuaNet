@@ -23,8 +23,8 @@ namespace winrt::TsinghuaNetHelper::implementation
         return base.PostStringAsync(Uri(LogUri), LogoutData);
     }
 
-    IAsyncOperation<TsinghuaNetHelper::FluxUser> NetHelper::FluxAsync()
+    IAsyncOperation<FluxUser> NetHelper::FluxAsync()
     {
-        return TsinghuaNetHelper::FluxUser::Parse(co_await base.PostAsync(Uri(FluxUri)));
+        return FluxUser::Parse(co_await base.PostAsync(Uri(FluxUri)));
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

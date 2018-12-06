@@ -59,9 +59,6 @@
       <Filter>ViewModels</Filter>
     </ClCompile>
     <ClCompile Include="ChangeUserDialog.cpp" />
-    <ClCompile Include="NetUserModel.cpp">
-      <Filter>ViewModels</Filter>
-    </ClCompile>
     <ClCompile Include="DropUserCommand.cpp">
       <Filter>ViewModels</Filter>
     </ClCompile>
@@ -83,9 +80,6 @@
       <Filter>ViewModels</Filter>
     </ClInclude>
     <ClInclude Include="ChangeUserDialog.h" />
-    <ClInclude Include="NetUserModel.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="DropUserCommand.h">
       <Filter>ViewModels</Filter>
     </ClInclude>

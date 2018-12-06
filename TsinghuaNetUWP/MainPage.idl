@@ -1,5 +1,4 @@
 import "MainViewModel.idl";
-import "Arc.idl";
 
 namespace TsinghuaNetUWP
 {

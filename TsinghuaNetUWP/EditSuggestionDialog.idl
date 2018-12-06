@@ -4,7 +4,7 @@ namespace TsinghuaNetUWP
     {
         EditSuggestionDialog();
         Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
-        Windows.UI.Xaml.Controls.ComboBox LanCombo;
-        Windows.UI.Xaml.Controls.ComboBox WwanCombo;
+        Windows.UI.Xaml.Controls.ComboBox LanCombo { get; };
+        Windows.UI.Xaml.Controls.ComboBox WwanCombo { get; };
     }
 } // namespace TsinghuaNetUWP

@@ -228,9 +228,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="App.idl">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Midl>
     <Midl Include="Arc.idl">
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
