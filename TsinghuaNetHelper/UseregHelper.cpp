@@ -34,9 +34,9 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";
     constexpr wchar_t ItemRegex[] = L"<td class=\"maintd\">(.*?)</td>";
-    IAsyncOperation<IVector<TsinghuaNetHelper::NetUser>> UseregHelper::UsersAsync()
+    IAsyncOperation<IVector<NetUser>> UseregHelper::UsersAsync()
     {
-        auto result = single_threaded_vector<TsinghuaNetHelper::NetUser>();
+        auto result = single_threaded_vector<NetUser>();
         wregex tabler(TableRegex);
         wregex itemr(ItemRegex);
         wstring userhtml(co_await base.GetAsync(Uri(InfoUri)));

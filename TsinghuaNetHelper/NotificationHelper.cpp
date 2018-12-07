@@ -51,7 +51,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 </toast>
 )";
 
-    void NotificationHelper::UpdateTile(TsinghuaNetHelper::FluxUser const& user)
+    void NotificationHelper::UpdateTile(FluxUser const& user)
     {
         XmlDocument dom;
         dom.LoadXml(sprint(tile_t,
@@ -65,7 +65,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
     }
 
-    void NotificationHelper::SendToast(TsinghuaNetHelper::FluxUser const& user)
+    void NotificationHelper::SendToast(FluxUser const& user)
     {
         XmlDocument dom;
         dom.LoadXml(sprint(toast_t,

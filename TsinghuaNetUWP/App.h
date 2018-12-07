@@ -7,9 +7,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         App();
 
-        void OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs const&);
+        void OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs const& e);
         void OnActivated(Windows::ApplicationModel::Activation::IActivatedEventArgs const& e);
-        void OnSuspending(IInspectable const&, Windows::ApplicationModel::SuspendingEventArgs const&);
-        void OnNavigationFailed(IInspectable const&, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs const&);
+        void OnSuspending(IInspectable const& sender, Windows::ApplicationModel::SuspendingEventArgs const& e);
+        void OnNavigationFailed(IInspectable const& sender, Windows::UI::Xaml::Navigation::NavigationFailedEventArgs const& e);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation

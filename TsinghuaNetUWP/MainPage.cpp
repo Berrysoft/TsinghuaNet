@@ -18,7 +18,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    MainPage::MainPage() : m_ToastLogined(false)
+    MainPage::MainPage()
     {
         InitializeComponent();
         auto titleBar = ApplicationView::GetForCurrentView().TitleBar();

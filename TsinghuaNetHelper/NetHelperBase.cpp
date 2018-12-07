@@ -3,6 +3,7 @@
 #include "NetHelperBase.h"
 #include <iomanip>
 #include <winrt/Windows.Security.Cryptography.Core.h>
+#include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Web.Http.Headers.h>
 
 using namespace std;

@@ -47,7 +47,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction BackgroundLiveTileChanged(Windows::Foundation::IInspectable const& sender, bool const& e);
 
     private:
-        bool m_ToastLogined;
+        bool m_ToastLogined{ false };
         TsinghuaNetHelper::SettingsHelper settings;
 
         void ThemeChangedImpl();

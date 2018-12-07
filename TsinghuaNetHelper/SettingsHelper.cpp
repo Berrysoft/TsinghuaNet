@@ -2,6 +2,7 @@
 
 #include "SettingsHelper.h"
 #include <winrt/Windows.Networking.Connectivity.h>
+#include <winrt/Windows.Storage.h>
 
 using namespace winrt;
 using namespace Windows::Data::Json;
