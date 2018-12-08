@@ -25,7 +25,8 @@ namespace winrt::TsinghuaNetHelper::implementation
         NetState WlanState(hstring const& ssid);
         void WlanState(hstring const& ssid, NetState value);
 
-        InternetStatus GetCurrentInternetStatus(hstring& ssid);
+        bool InternetAvailable();
+        InternetStatus InternetStatus(hstring& ssid);
 
     private:
         Windows::Data::Json::JsonObject wlanMap;

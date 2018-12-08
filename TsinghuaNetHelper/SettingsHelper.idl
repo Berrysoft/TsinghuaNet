@@ -6,8 +6,8 @@ namespace TsinghuaNetHelper
         Auth4,
         Auth6,
         Net,
-		Auth4_25,
-		Auth6_25,
+        Auth4_25,
+        Auth6_25,
         Direct
     };
 
@@ -40,6 +40,7 @@ namespace TsinghuaNetHelper
         NetState WlanState(String ssid);
         void WlanState(String ssid, NetState state);
 
-        InternetStatus GetCurrentInternetStatus(out String ssid);
+        Boolean InternetAvailable();
+        InternetStatus InternetStatus(out String ssid);
     }
 } // namespace TsinghuaNetHelper

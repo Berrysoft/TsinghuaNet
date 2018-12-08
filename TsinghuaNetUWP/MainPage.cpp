@@ -52,7 +52,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             Model().Username(un);
             hstring pw = CredentialHelper::GetCredential(un);
             Model().Password(pw);
-            if (al && !m_ToastLogined && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
+            if (al && !m_ToastLogined && settings.InternetAvailable() && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
             {
                 co_await LoginImpl();
             }
@@ -327,7 +327,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         NetState state;
         hstring ssid;
-        auto status = settings.GetCurrentInternetStatus(ssid);
+        auto status = settings.InternetStatus(ssid);
         switch (status)
         {
         case InternetStatus::Lan:

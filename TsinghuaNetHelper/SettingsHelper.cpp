@@ -91,7 +91,15 @@ namespace winrt::TsinghuaNetHelper::implementation
         wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
     }
 
-    InternetStatus SettingsHelper::GetCurrentInternetStatus(hstring& ssid)
+    bool SettingsHelper::InternetAvailable()
+    {
+        auto profile = NetworkInformation::GetInternetConnectionProfile();
+        if (!profile)
+            return false;
+        return profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel::InternetAccess;
+    }
+
+    InternetStatus SettingsHelper::InternetStatus(hstring& ssid)
     {
         auto profile = NetworkInformation::GetInternetConnectionProfile();
         if (!profile)
