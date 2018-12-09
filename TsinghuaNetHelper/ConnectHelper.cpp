@@ -43,7 +43,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     }
 
     template <typename T>
-    T MakeHelper(hstring const& username, hstring const& password)
+    inline T MakeHelper(hstring const& username, hstring const& password)
     {
         T result;
         result.Username(username);

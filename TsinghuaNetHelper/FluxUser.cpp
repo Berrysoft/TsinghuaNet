@@ -30,12 +30,12 @@ namespace winrt::TsinghuaNetHelper::implementation
         return result;
     }
 
-    unsigned long long stoull(wstring_view str)
+    inline unsigned long long stoull(wstring_view str)
     {
         return wcstoull(str.data(), nullptr, 10);
     }
 
-    double stod(wstring_view str)
+    inline double stod(wstring_view str)
     {
         return wcstod(str.data(), nullptr);
     }

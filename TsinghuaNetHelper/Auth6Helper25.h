@@ -5,21 +5,9 @@
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    struct Auth6Helper25 : Auth6Helper25T<Auth6Helper25>
+    struct Auth6Helper25 : Auth6Helper25T<Auth6Helper25>, AuthHelper
     {
-        Auth6Helper25() : base(6, 25) {}
-
-        winrt::hstring Username() { return base.Username(); }
-        void Username(winrt::hstring const& value) { base.Username(value); }
-        winrt::hstring Password() { return base.Password(); }
-        void Password(winrt::hstring const& value) { base.Password(value); }
-
-        Windows::Foundation::IAsyncOperation<hstring> LoginAsync() { return base.LoginAsync(); }
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync() { return base.LogoutAsync(); }
-        Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::FluxUser> FluxAsync() { return base.FluxAsync(); }
-
-    private:
-        AuthHelper base;
+        Auth6Helper25() : AuthHelper(6, 25) {}
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

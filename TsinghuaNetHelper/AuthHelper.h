@@ -5,9 +5,8 @@
 
 namespace winrt::TsinghuaNetHelper
 {
-    struct AuthHelper : NetHelperBase, winrt::implements<AuthHelper, IConnect>
+    struct AuthHelper : NetHelperBase
     {
-        AuthHelper() = delete;
         AuthHelper(int ver, int ac_id = 1);
 
         Windows::Foundation::IAsyncOperation<hstring> LoginAsync();
