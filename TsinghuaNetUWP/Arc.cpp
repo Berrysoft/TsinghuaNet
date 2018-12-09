@@ -13,9 +13,9 @@ using namespace Windows::UI::Xaml::Media;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    DEPENDENCY_PROPERTY_INIT(Thickness, double, Arc, TsinghuaNetUWP, box_value(30.0), &Arc::OnSizePropertyChanged)
-    DEPENDENCY_PROPERTY_INIT(Fill, Brush, Arc, TsinghuaNetUWP, Brush(nullptr))
-    DEPENDENCY_PROPERTY_INIT(Value, double, Arc, TsinghuaNetUWP, box_value(0.0), &Arc::OnSizePropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(Thickness, double, Arc, box_value(30.0), &Arc::OnSizePropertyChanged)
+    DEPENDENCY_PROPERTY_INIT(Fill, Brush, Arc, Brush(nullptr))
+    DEPENDENCY_PROPERTY_INIT(Value, double, Arc, box_value(0.0), &Arc::OnSizePropertyChanged)
 
     Arc::Arc()
     {
@@ -24,7 +24,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void Arc::OnSizePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const&)
     {
-        if (TsinghuaNetUWP::Arc tarc{ d.try_as<TsinghuaNetUWP::Arc>() })
+        if (auto tarc{ d.try_as<class_type>() })
         {
             Arc* parc(get_self<Arc>(tarc));
             parc->DrawArc();

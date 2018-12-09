@@ -15,7 +15,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="App.idl" />
     <Midl Include="MainPage.idl" />
     <Midl Include="MainViewModel.idl">
       <Filter>ViewModels</Filter>
@@ -83,10 +82,8 @@
     <ClInclude Include="DropUserCommand.h">
       <Filter>ViewModels</Filter>
     </ClInclude>
-    <ClInclude Include="DependencyHelper.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="EditSuggestionDialog.h" />
+    <ClInclude Include="DependencyHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

@@ -1,19 +1,19 @@
 #pragma once
 
-#define PROP_DECL(Name, type)                   \
-public:                                         \
-    type Name() { return m_##Name; }            \
-    void Name(type value) { m_##Name = value; } \
-                                                \
-private:                                        \
+#define PROP_DECL(Name, type)                            \
+public:                                                  \
+    type Name() const noexcept { return m_##Name; }      \
+    void Name(type value) noexcept { m_##Name = value; } \
+                                                         \
+private:                                                 \
     type m_##Name;
 
-#define PROP_DECL_REF(Name, type)                      \
-public:                                                \
-    type Name() { return m_##Name; }                   \
-    void Name(type const& value) { m_##Name = value; } \
-                                                       \
-private:                                               \
+#define PROP_DECL_REF(Name, type)                               \
+public:                                                         \
+    type Name() const noexcept { return m_##Name; }             \
+    void Name(type const& value) noexcept { m_##Name = value; } \
+                                                                \
+private:                                                        \
     type m_##Name;
 
 #define DEPENDENCY_PROPERTY(Name, type)                                                          \
@@ -25,12 +25,12 @@ public:                                                                         
 private:                                                                                         \
     static Windows::UI::Xaml::DependencyProperty m_##Name##Property;
 
-#define DEPENDENCY_PROPERTY_INIT(Name, type, base, ns, ...)          \
+#define DEPENDENCY_PROPERTY_INIT(Name, type, base, ...)              \
     Windows::UI::Xaml::DependencyProperty base::m_##Name##Property = \
         Windows::UI::Xaml::DependencyProperty::Register(             \
             L#Name,                                                  \
             winrt::xaml_typename<type>(),                            \
-            winrt::xaml_typename<ns::base>(),                        \
+            winrt::xaml_typename<class_type>(),                      \
             Windows::UI::Xaml::PropertyMetadata(__VA_ARGS__));
 
 namespace winrt
