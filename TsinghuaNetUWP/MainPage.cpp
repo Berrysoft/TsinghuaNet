@@ -21,38 +21,57 @@ namespace winrt::TsinghuaNetUWP::implementation
     MainPage::MainPage()
     {
         InitializeComponent();
+        // 调整标题栏的颜色为透明
+        // 按钮的背景色为透明
         auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
         titleBar.BackgroundColor(Colors::Transparent());
         titleBar.ButtonBackgroundColor(Colors::Transparent());
         titleBar.ButtonInactiveBackgroundColor(Colors::Transparent());
+        // 按钮的前景色根据主题调节
         ThemeChangedImpl();
+        // 将用户区拓展到全窗口
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
     }
 
-    IAsyncAction MainPage::PageLoaded(IInspectable const&, RoutedEventArgs const&)
+    /// <summary>
+    /// 页面装载时触发
+    /// </summary>
+    IAsyncAction MainPage::PageLoaded(IInspectable const, RoutedEventArgs const)
     {
+        // 先刷新状态
         RefreshStatusImpl();
+        // 设置当前类型为建议类型
         NetState state = Model().SuggestState();
         Model().State(state);
+        // 自动登录
         bool al = settings.AutoLogin();
         Model().AutoLogin(al);
+        // 后台任务
         bool bal = settings.BackgroundAutoLogin();
         Model().BackgroundAutoLogin(bal);
         bool blt = settings.BackgroundLiveTile();
         Model().BackgroundLiveTile(blt);
+        // 调整后台任务
         if (co_await BackgroundHelper::RequestAccessAsync())
         {
             BackgroundHelper::RegisterLogin(bal);
             BackgroundHelper::RegisterLiveTile(blt);
         }
+        // 上一次登录的用户名
         hstring un = settings.StoredUsername();
         if (!un.empty())
         {
+            // 设置为当前用户名并获取密码
             Model().Username(un);
             hstring pw = CredentialHelper::GetCredential(un);
             Model().Password(pw);
-            if (al && !m_ToastLogined && settings.InternetAvailable() && state != NetState::Unknown && state != NetState::Direct && !pw.empty())
+            // 自动登录的条件为：
+            // 打开了自动登录
+            // 不知道后台任务成功登录
+            // 无Internet访问
+            // 密码不为空
+            if (al && !m_ToastLogined && !settings.InternetAvailable() && !pw.empty())
             {
                 co_await LoginImpl();
             }
@@ -60,6 +79,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             {
                 co_await RefreshImpl();
             }
+            // 刷新当前用户所有连接状态
             co_await RefreshNetUsersImpl();
         }
     }
@@ -74,27 +94,27 @@ namespace winrt::TsinghuaNetUWP::implementation
         Split().IsPaneOpen(true);
     }
 
-    IAsyncAction MainPage::Login(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::Login(IInspectable const, RoutedEventArgs const)
     {
         return LoginImpl();
     }
 
-    IAsyncAction MainPage::Logout(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::Logout(IInspectable const, RoutedEventArgs const)
     {
         return LogoutImpl();
     }
 
-    IAsyncAction MainPage::Refresh(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::Refresh(IInspectable const, RoutedEventArgs const)
     {
         return RefreshImpl();
     }
 
-    IAsyncAction MainPage::DropUser(IInspectable const&, hstring const& e)
+    IAsyncAction MainPage::DropUser(IInspectable const, hstring const e)
     {
         return DropImpl(e);
     }
 
-    IAsyncAction MainPage::ShowChangeUser(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<ChangeUserDialog>();
         hstring oldun = Model().Username();
@@ -126,6 +146,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 根据主题调节标题栏按钮前景色
+    /// </summary>
     void MainPage::ThemeChangedImpl()
     {
         auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
@@ -140,6 +163,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 一个帮助类，管理<see cref="Windows.UI.Xaml.Controls.ProgressRing"/>的活动状态
+    /// </summary>
     class ProgressRingManager
     {
     private:
@@ -150,6 +176,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         ~ProgressRingManager() { ring.IsActive(false); }
     };
 
+    /// <summary>
+    /// 登录当前用户并刷新
+    /// </summary>
     IAsyncAction MainPage::LoginImpl()
     {
         ProgressRingManager ring(Progress());
@@ -166,6 +195,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
+
+    /// <summary>
+    /// 注销当前用户并刷新
+    /// </summary>
     IAsyncAction MainPage::LogoutImpl()
     {
         ProgressRingManager ring(Progress());
@@ -183,6 +216,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 刷新
+    /// </summary>
     IAsyncAction MainPage::RefreshImpl()
     {
         ProgressRingManager ring(Progress());
@@ -198,8 +234,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
+
     constexpr uint64_t BaseFlux = 25000000000;
-    IAsyncAction MainPage::RefreshImpl(IConnect const& helper)
+    /// <summary>
+    /// 具体的刷新操作
+    /// </summary>
+    /// <param name="helper">网络连接辅助类，用于执行刷新任务</param>
+    IAsyncAction MainPage::RefreshImpl(IConnect const helper)
     {
         auto flux = co_await helper.FluxAsync();
         NotificationHelper::UpdateTile(flux);
@@ -213,6 +254,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         FluxStoryboard().Begin();
     }
 
+    /// <summary>
+    /// 根据IP强制下线某个连接
+    /// </summary>
+    /// <param name="address">连接的IP地址</param>
     IAsyncAction MainPage::DropImpl(hstring const address)
     {
         try
@@ -229,6 +274,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 根据当前类型、用户名与密码实例化辅助类
+    /// </summary>
     IConnect MainPage::GetHelper()
     {
         return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
@@ -281,7 +329,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
     }
 
-    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<EditSuggestionDialog>();
         dialog.LanCombo().SelectedIndex((int)settings.LanState());
@@ -295,7 +343,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    IAsyncAction MainPage::RefreshNetUsers(IInspectable const&, RoutedEventArgs const&)
+    IAsyncAction MainPage::RefreshNetUsers(IInspectable const, RoutedEventArgs const)
     {
         return RefreshNetUsersImpl();
     }
@@ -305,7 +353,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         settings.AutoLogin(e);
     }
 
-    IAsyncAction MainPage::BackgroundAutoLoginChanged(IInspectable const&, bool const& e)
+    IAsyncAction MainPage::BackgroundAutoLoginChanged(IInspectable const, bool const e)
     {
         settings.BackgroundAutoLogin(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
@@ -314,7 +362,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    IAsyncAction MainPage::BackgroundLiveTileChanged(IInspectable const&, bool const& e)
+    IAsyncAction MainPage::BackgroundLiveTileChanged(IInspectable const, bool const e)
     {
         settings.BackgroundLiveTile(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
@@ -323,6 +371,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 根据网络类型与SSID判断建议网络类型
+    /// </summary>
     void MainPage::RefreshStatusImpl()
     {
         NetState state;
@@ -361,7 +412,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
-    IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const& helper)
+    IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const helper)
     {
         co_await helper.LoginAsync();
         auto users = co_await helper.UsersAsync();

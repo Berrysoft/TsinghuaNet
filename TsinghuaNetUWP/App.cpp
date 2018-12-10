@@ -96,11 +96,13 @@ namespace winrt::TsinghuaNetUWP::implementation
             Window::Current().Content(rootFrame);
         }
 
+        // 不要在窗口已包含内容时重复应用程序初始化，
+        // 否则会因为初始化错误而崩溃
         if (!rootFrame.Content())
         {
             rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Kind()));
         }
-        TsinghuaNetUWP::MainPage mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
+        auto mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
 
         MainPage* pmain = get_self<MainPage>(mainPage);
         if (e.Kind() == ActivationKind::ToastNotification)
