@@ -2,8 +2,6 @@
 
 #include "CurrencyStringConverter.h"
 
-#include "winrt/TsinghuaNetHelper.h"
-
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml::Interop;

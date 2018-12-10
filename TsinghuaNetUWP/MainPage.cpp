@@ -114,33 +114,30 @@ namespace winrt::TsinghuaNetUWP::implementation
         return DropImpl(e);
     }
 
+    /// <summary>
+    /// 打开“更改用户”对话框
+    /// </summary>
     IAsyncAction MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
     {
-        auto dialog = make<ChangeUserDialog>();
-        hstring oldun = Model().Username();
-        dialog.UnBox().Text(oldun);
-        hstring oldpw = CredentialHelper::GetCredential(oldun);
-        dialog.PwBox().Password(oldpw);
-        if (!oldpw.empty())
-        {
-            dialog.SaveBox().IsChecked(true);
-        }
-        dialog.UnBox().TextChanged([&dialog](IInspectable const&, TextChangedEventArgs const&) {
-            dialog.PwBox().Password(CredentialHelper::GetCredential(dialog.UnBox().Text()));
-        });
+        auto dialog = make<ChangeUserDialog>(Model().Username());
+        // 显示对话框
         auto result = co_await dialog.ShowAsync();
+        // 确定
         if (result == ContentDialogResult::Primary)
         {
             hstring un = dialog.UnBox().Text();
             hstring pw = dialog.PwBox().Password();
+            // 不管是否保存，都需要先删除
             CredentialHelper::RemoveCredential(un);
             if (dialog.SaveBox().IsChecked().Value())
             {
                 CredentialHelper::SaveCredential(un, pw);
             }
+            // 同步
             settings.StoredUsername(un);
             Model().Username(un);
             Model().Password(pw);
+            // 关闭设置栏并登录
             Split().IsPaneOpen(false);
             LoginImpl();
         }
@@ -235,6 +232,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 免费流量25G
+    /// </summary>
     constexpr uint64_t BaseFlux = 25000000000;
     /// <summary>
     /// 具体的刷新操作
@@ -243,11 +243,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::RefreshImpl(IConnect const helper)
     {
         auto flux = co_await helper.FluxAsync();
+        // 更新磁贴
         NotificationHelper::UpdateTile(flux);
+        // 更新窗口信息
         Model().OnlineUser(flux.Username());
         Model().Flux(flux.Flux());
         Model().OnlineTime(flux.OnlineTime());
         Model().Balance(flux.Balance());
+        // 动画
         double maxf = (double)UserHelper::GetMaxFlux(flux);
         Model().FluxPercent(flux.Flux() / maxf);
         Model().FreePercent(BaseFlux / maxf);
@@ -329,6 +332,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         RefreshStatusImpl();
     }
 
+    /// <summary>
+    /// 打开“编辑建议”对话框
+    /// </summary>
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<EditSuggestionDialog>();
@@ -406,6 +412,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             UseregHelper helper;
             helper.Username(Model().Username());
             helper.Password(Model().Password());
+            co_await helper.LoginAsync();
             co_await RefreshNetUsersImpl(helper);
         }
         catch (hresult_error const&)
@@ -414,7 +421,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
     IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const helper)
     {
-        co_await helper.LoginAsync();
         auto users = co_await helper.UsersAsync();
         auto usersmodel = Model().NetUsers();
         usersmodel.Clear();

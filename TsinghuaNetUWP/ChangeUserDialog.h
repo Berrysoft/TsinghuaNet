@@ -5,7 +5,12 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
     struct ChangeUserDialog : ChangeUserDialogT<ChangeUserDialog>
     {
-        ChangeUserDialog();
+        ChangeUserDialog(winrt::hstring const& username = {});
+
+        void UsernameChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::Controls::TextChangedEventArgs const&);
+
+    private:
+        void UsernameChangedImpl();
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

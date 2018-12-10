@@ -2,8 +2,6 @@
 
 #include "FluxStringConverter.h"
 
-#include "winrt/TsinghuaNetHelper.h"
-
 using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
