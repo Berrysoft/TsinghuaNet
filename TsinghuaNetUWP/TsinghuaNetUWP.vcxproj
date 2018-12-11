@@ -119,6 +119,10 @@
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NetStateBox.h">
+      <DependentUpon>NetStateBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -208,6 +212,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>
     <Midl Include="MainViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NetStateBox.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

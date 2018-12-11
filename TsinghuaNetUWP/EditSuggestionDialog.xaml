@@ -9,8 +9,8 @@
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <ContentDialog.Resources>
-        <DataTemplate x:Key="NetStateTemplate" x:DataType="helper:NetState">
-            <TextBlock Text="{x:Bind}"/>
+        <DataTemplate x:Key="NetStateTemplate" x:DataType="local:NetStateBox">
+            <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
         </DataTemplate>
     </ContentDialog.Resources>
     <Grid>

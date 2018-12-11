@@ -22,6 +22,9 @@
     <Midl Include="ChangeUserDialog.idl" />
     <Midl Include="Arc.idl" />
     <Midl Include="EditSuggestionDialog.idl" />
+    <Midl Include="NetStateBox.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -30,19 +33,7 @@
     <ClCompile Include="Generated Files\module.g.cpp" />
     <ClCompile Include="Arc.cpp" />
     <ClCompile Include="MainViewModel.cpp" />
-    <ClCompile Include="FluxStringConverter.cpp" />
-    <ClCompile Include="TimeSpanStringConverter.cpp" />
-    <ClCompile Include="CurrencyStringConverter.cpp" />
-    <ClCompile Include="InternetStatusStringConverter.cpp">
-      <Filter>ViewModels</Filter>
-    </ClCompile>
-    <ClCompile Include="NetStateStringConverter.cpp">
-      <Filter>ViewModels</Filter>
-    </ClCompile>
     <ClCompile Include="ChangeUserDialog.cpp" />
-    <ClCompile Include="DropUserCommand.cpp">
-      <Filter>ViewModels</Filter>
-    </ClCompile>
     <ClCompile Include="EditSuggestionDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -51,19 +42,7 @@
     <ClInclude Include="MainPage.h" />
     <ClInclude Include="Arc.h" />
     <ClInclude Include="MainViewModel.h" />
-    <ClInclude Include="FluxStringConverter.h" />
-    <ClInclude Include="TimeSpanStringConverter.h" />
-    <ClInclude Include="CurrencyStringConverter.h" />
-    <ClInclude Include="InternetStatusStringConverter.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
-    <ClInclude Include="NetStateStringConverter.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="ChangeUserDialog.h" />
-    <ClInclude Include="DropUserCommand.h">
-      <Filter>ViewModels</Filter>
-    </ClInclude>
     <ClInclude Include="EditSuggestionDialog.h" />
     <ClInclude Include="DependencyHelper.h" />
   </ItemGroup>

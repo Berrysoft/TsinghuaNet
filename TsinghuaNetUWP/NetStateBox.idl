@@ -1,0 +1,10 @@
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass NetStateBox
+	{
+        NetStateBox();
+        NetStateBox(TsinghuaNetHelper.NetState state);
+
+        TsinghuaNetHelper.NetState Value;
+    }
+} // namespace TsinghuaNetUWP

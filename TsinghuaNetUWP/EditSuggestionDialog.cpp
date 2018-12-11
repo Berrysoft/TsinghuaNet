@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 
 #include "EditSuggestionDialog.h"
+#include "NetStateBox.h"
 
 using namespace winrt;
 using namespace Windows::UI::Xaml;
@@ -12,12 +13,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         InitializeComponent();
         m_States = single_threaded_observable_vector<IInspectable>();
-        m_States.Append(box_value(NetState::Unknown));
-        m_States.Append(box_value(NetState::Auth4));
-        m_States.Append(box_value(NetState::Auth6));
-        m_States.Append(box_value(NetState::Net));
-        m_States.Append(box_value(NetState::Auth4_25));
-        m_States.Append(box_value(NetState::Auth6_25));
-        m_States.Append(box_value(NetState::Direct));
+        for (int s = (int)NetState::Unknown; s <= (int)NetState::Direct; s++)
+        {
+            m_States.Append(make<NetStateBox>((NetState)s));
+        }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation
