@@ -12,6 +12,11 @@ namespace winrt::TsinghuaNetHelper::implementation
         DEPENDENCY_PROPERTY(Address, winrt::hstring)
         DEPENDENCY_PROPERTY(LoginTime, winrt::hstring)
         DEPENDENCY_PROPERTY(Client, winrt::hstring)
+
+        EVENT_DECL(DropUser, winrt::hstring)
+
+    public:
+        void Drop() { m_DropUserEvent(*this, Address()); }
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

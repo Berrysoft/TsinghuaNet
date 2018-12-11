@@ -11,9 +11,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Arc();
 
         double Radius() const { return m_Radius; }
-
-        void OnLoaded(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { DrawArc(); }
-        void OnSizeChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::SizeChangedEventArgs const&) { DrawArc(); }
+        void DrawArc();
 
         DEPENDENCY_PROPERTY(Thickness, double)
         DEPENDENCY_PROPERTY(Fill, Windows::UI::Xaml::Media::Brush)
@@ -22,10 +20,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     private:
         double m_Radius;
 
-        static void OnSizePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void OnSizePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const&);
 
         double GetAngle();
-        void DrawArc();
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

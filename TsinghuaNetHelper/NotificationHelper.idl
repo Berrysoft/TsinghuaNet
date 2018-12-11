@@ -1,4 +1,5 @@
 import "NetHelper.idl";
+import "SettingsHelper.idl";
 
 namespace TsinghuaNetHelper
 {
@@ -7,6 +8,8 @@ namespace TsinghuaNetHelper
         static String GetFluxString(UInt64 flux);
         static String GetTimeSpanString(Windows.Foundation.TimeSpan time);
         static String GetCurrencyString(Double currency);
+        static String GetNetStateString(NetState state);
+        static String GetInternetStatusString(InternetStatus status);
         static UInt64 GetMaxFlux(FluxUser user);
     }
 

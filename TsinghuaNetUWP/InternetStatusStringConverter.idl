@@ -1,7 +1,0 @@
-namespace TsinghuaNetUWP
-{
-    runtimeclass InternetStatusStringConverter : Windows.UI.Xaml.Data.IValueConverter
-    {
-        InternetStatusStringConverter();
-    }
-} // namespace TsinghuaNetUWP

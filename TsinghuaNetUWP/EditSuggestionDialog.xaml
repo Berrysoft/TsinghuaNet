@@ -2,15 +2,15 @@
     x:Class="TsinghuaNetUWP.EditSuggestionDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TsinghuaNetUWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="using:TsinghuaNetUWP"
+    xmlns:helper="using:TsinghuaNetHelper"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <ContentDialog.Resources>
-        <local:NetStateStringConverter x:Key="NetStateString"/>
-        <DataTemplate x:Key="NetStateTemplate">
-            <TextBlock Text="{Binding Converter={StaticResource NetStateString}}"/>
+        <DataTemplate x:Key="NetStateTemplate" x:DataType="helper:NetState">
+            <TextBlock Text="{x:Bind}"/>
         </DataTemplate>
     </ContentDialog.Resources>
     <Grid>

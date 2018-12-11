@@ -19,25 +19,7 @@
     <Midl Include="MainViewModel.idl">
       <Filter>ViewModels</Filter>
     </Midl>
-    <Midl Include="CurrencyStringConverter.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="FluxStringConverter.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="TimeSpanStringConverter.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="InternetStatusStringConverter.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="NetStateStringConverter.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
     <Midl Include="ChangeUserDialog.idl" />
-    <Midl Include="DropUserCommand.idl">
-      <Filter>ViewModels</Filter>
-    </Midl>
     <Midl Include="Arc.idl" />
     <Midl Include="EditSuggestionDialog.idl" />
   </ItemGroup>

@@ -1,7 +1,0 @@
-namespace TsinghuaNetUWP
-{
-    runtimeclass NetStateStringConverter : Windows.UI.Xaml.Data.IValueConverter
-    {
-        NetStateStringConverter();
-    }
-} // namespace TsinghuaNetUWP

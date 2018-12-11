@@ -10,6 +10,8 @@ namespace winrt::TsinghuaNetHelper::implementation
         static hstring GetFluxString(uint64_t flux);
         static hstring GetTimeSpanString(Windows::Foundation::TimeSpan const& time);
         static hstring GetCurrencyString(double currency);
+        static hstring GetNetStateString(NetState state);
+        static hstring GetInternetStatusString(InternetStatus status);
         static uint64_t GetMaxFlux(TsinghuaNetHelper::FluxUser const& user);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation

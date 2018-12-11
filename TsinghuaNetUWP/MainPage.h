@@ -1,14 +1,7 @@
 ﻿#pragma once
 #include "MainPage.g.h"
 
-#include "Arc.h"
-#include "CurrencyStringConverter.h"
-#include "DropUserCommand.h"
-#include "FluxStringConverter.h"
-#include "InternetStatusStringConverter.h"
 #include "MainViewModel.h"
-#include "NetStateStringConverter.h"
-#include "TimeSpanStringConverter.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {

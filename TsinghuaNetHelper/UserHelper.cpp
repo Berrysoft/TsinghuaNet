@@ -51,6 +51,44 @@ namespace winrt::TsinghuaNetHelper::implementation
         return hstring(sprint(L"￥{:f2}", currency));
     }
 
+    hstring UserHelper::GetNetStateString(NetState state)
+    {
+        switch (state)
+        {
+        case NetState::Auth4:
+            return L"Auth4 - http://auth4.tsinghua.edu.cn/";
+        case NetState::Auth6:
+            return L"Auth6 - http://auth6.tsinghua.edu.cn/";
+        case NetState::Net:
+            return L"Net - http://net.tsinghua.edu.cn/";
+        case NetState::Auth4_25:
+            return L"IPv4 - http://auth4.tsinghua.edu.cn/";
+        case NetState::Auth6_25:
+            return L"IPv6 - http://auth4.tsinghua.edu.cn/";
+        case NetState::Direct:
+            return L"不需要登录";
+        default:
+            return L"未知";
+        }
+    }
+
+    hstring UserHelper::GetInternetStatusString(InternetStatus status)
+    {
+        switch (status)
+        {
+        case InternetStatus::None:
+            return L"未连接";
+        case InternetStatus::Wwan:
+            return L"蜂窝移动网络";
+        case InternetStatus::Wlan:
+            return L"无线网络";
+        case InternetStatus::Lan:
+            return L"有线网络";
+        default:
+            return L"未知";
+        }
+    }
+
     constexpr uint64_t BaseFlux = 25000000000;
     uint64_t UserHelper::GetMaxFlux(TsinghuaNetHelper::FluxUser const& user)
     {

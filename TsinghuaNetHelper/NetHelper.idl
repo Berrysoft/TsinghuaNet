@@ -62,6 +62,9 @@ namespace TsinghuaNetHelper
 
         String Client;
         static Windows.UI.Xaml.DependencyProperty ClientProperty { get; };
+
+        void Drop();
+        event Windows.Foundation.EventHandler<String> DropUser;
     }
 
     [default_interface] runtimeclass UseregHelper : ICredential

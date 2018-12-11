@@ -1,7 +1,0 @@
-namespace TsinghuaNetUWP
-{
-    runtimeclass TimeSpanStringConverter : Windows.UI.Xaml.Data.IValueConverter
-    {
-        TimeSpanStringConverter();
-    }
-} // namespace TsinghuaNetUWP

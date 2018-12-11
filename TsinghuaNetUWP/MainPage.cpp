@@ -426,6 +426,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         usersmodel.Clear();
         for (auto user : users)
         {
+            user.DropUser({ this, &MainPage::DropUser });
             usersmodel.Append(user);
         }
     }

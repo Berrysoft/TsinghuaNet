@@ -110,29 +110,14 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="CurrencyStringConverter.h">
-      <DependentUpon>CurrencyStringConverter.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="DependencyHelper.h" />
-    <ClInclude Include="DropUserCommand.h">
-      <DependentUpon>DropUserCommand.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="EditSuggestionDialog.h">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="FluxStringConverter.h">
-      <DependentUpon>FluxStringConverter.idl</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="InternetStatusStringConverter.h">
-      <DependentUpon>InternetStatusStringConverter.idl</DependentUpon>
-    </ClInclude>
     <ClInclude Include="MainViewModel.h">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="NetStateStringConverter.h">
-      <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
@@ -140,9 +125,6 @@
     </ClInclude>
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="TimeSpanStringConverter.h">
-      <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -190,29 +172,14 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="CurrencyStringConverter.cpp">
-      <DependentUpon>CurrencyStringConverter.idl</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="DropUserCommand.cpp">
-      <DependentUpon>DropUserCommand.idl</DependentUpon>
-    </ClCompile>
     <ClCompile Include="EditSuggestionDialog.cpp">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="FluxStringConverter.cpp">
-      <DependentUpon>FluxStringConverter.idl</DependentUpon>
-    </ClCompile>
     <ClCompile Include="Generated Files\module.g.cpp" />
-    <ClCompile Include="InternetStatusStringConverter.cpp">
-      <DependentUpon>InternetStatusStringConverter.idl</DependentUpon>
-    </ClCompile>
     <ClCompile Include="MainViewModel.cpp">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="NetStateStringConverter.cpp">
-      <DependentUpon>NetStateStringConverter.idl</DependentUpon>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
@@ -222,9 +189,6 @@
     </ClCompile>
     <ClCompile Include="MainPage.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="TimeSpanStringConverter.cpp">
-      <DependentUpon>TimeSpanStringConverter.idl</DependentUpon>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -236,22 +200,16 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="CurrencyStringConverter.idl" />
-    <Midl Include="DropUserCommand.idl" />
     <Midl Include="EditSuggestionDialog.idl">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
-    <Midl Include="FluxStringConverter.idl" />
-    <Midl Include="InternetStatusStringConverter.idl" />
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>
     <Midl Include="MainViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="NetStateStringConverter.idl" />
-    <Midl Include="TimeSpanStringConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNetHelper\TsinghuaNetHelper.vcxproj">

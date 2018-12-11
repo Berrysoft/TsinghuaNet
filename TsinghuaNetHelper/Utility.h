@@ -33,6 +33,14 @@ private:                                                                        
             winrt::xaml_typename<class_type>(),                      \
             Windows::UI::Xaml::PropertyMetadata(__VA_ARGS__));
 
+#define EVENT_DECL(Name, type)                                                                                               \
+public:                                                                                                                      \
+    winrt::event_token Name(Windows::Foundation::EventHandler<type> const& handler) { return m_##Name##Event.add(handler); } \
+    void Name(winrt::event_token const& token) noexcept { m_##Name##Event.remove(token); }                                   \
+                                                                                                                             \
+private:                                                                                                                     \
+    winrt::event<Windows::Foundation::EventHandler<type>> m_##Name##Event;
+
 namespace winrt
 {
     inline std::wostream& operator<<(std::wostream& os, hstring const& s)

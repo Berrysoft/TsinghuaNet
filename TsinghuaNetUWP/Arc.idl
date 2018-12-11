@@ -4,6 +4,8 @@ namespace TsinghuaNetUWP
     {
         Arc();
 
+        void DrawArc();
+
         Double Thickness;
         static Windows.UI.Xaml.DependencyProperty ThicknessProperty { get; };
 
