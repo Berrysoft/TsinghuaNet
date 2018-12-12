@@ -3,8 +3,9 @@
 
 namespace winrt::TsinghuaNetHelper
 {
-    std::wstring GetMD5(hstring const& input);
-    std::wstring GetSHA1(hstring const& input);
+    hstring GetMD5(hstring const& input);
+    hstring GetHMacMD5(hstring const& key, hstring const& input);
+    hstring GetSHA1(hstring const& input);
 
     struct NetHelperBase
     {

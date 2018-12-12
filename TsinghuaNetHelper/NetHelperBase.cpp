@@ -7,6 +7,7 @@
 #include <winrt/Windows.Web.Http.Headers.h>
 
 using namespace std;
+using sf::sscan;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
@@ -17,33 +18,38 @@ using namespace Windows::Web::Http;
 
 namespace winrt::TsinghuaNetHelper
 {
-    wstring GetHexString(IBuffer const& buffer)
-    {
-        wostringstream oss;
-        auto data = buffer.data();
-        auto size = buffer.Length();
-        for (uint32_t i = 0; i < size; i++)
-        {
-            oss << setw(2) << setfill(L'0') << hex << data[i];
-        }
-        return oss.str();
-    }
-
-    wstring GetHashString(hstring const& input, hstring const& algorithm)
+    hstring GetHashString(hstring const& input, hstring const& algorithm)
     {
         if (input.empty())
             return {};
         auto hash = HashAlgorithmProvider::OpenAlgorithm(algorithm);
         auto data = hash.HashData(CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8));
-        return GetHexString(data);
+        return CryptographicBuffer::EncodeToHexString(data);
     }
 
-    wstring GetMD5(hstring const& input)
+    hstring GetMD5(hstring const& input)
     {
         return GetHashString(input, HashAlgorithmNames::Md5());
     }
 
-    wstring GetSHA1(hstring const& input)
+    hstring GetHMacMD5(hstring const& key, hstring const& input)
+    {
+        if (input.empty())
+            return {};
+        auto mac = MacAlgorithmProvider::OpenAlgorithm(MacAlgorithmNames::HmacMd5());
+        Buffer keybuff(key.size() / 2);
+        for (size_t i = 0; i < key.size(); i += 2)
+        {
+            uint16_t u;
+            sscan(wstring(key.begin() + i, key.begin() + i + 2), L"{:x2}", u);
+            keybuff.data()[i / 2] = (uint8_t)u;
+        }
+        auto mackey = mac.CreateKey(keybuff);
+        auto data = CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8);
+        return CryptographicBuffer::EncodeToHexString(CryptographicEngine::Sign(mackey, data));
+    }
+
+    hstring GetSHA1(hstring const& input)
     {
         return GetHashString(input, HashAlgorithmNames::Sha1());
     }

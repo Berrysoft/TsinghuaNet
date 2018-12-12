@@ -3,6 +3,7 @@
 #include "AuthHelper.h"
 #include <pplawait.h>
 #include <regex>
+#include <winrt/Windows.Storage.Streams.h>
 
 using namespace std;
 using namespace concurrency;
@@ -169,7 +170,7 @@ namespace winrt::TsinghuaNetHelper
         }
     } // namespace encode_methods
 
-    constexpr char LoginInfoJson[] = "{{\"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\", \"username\": \"{}\", \"password\": \"{}\"}}";
+    constexpr char LoginInfoJson[] = "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}";
     constexpr char LoginChkSumData[] = "{0}{1}{0}{2}{0}{4}{0}{0}200{0}1{0}{3}";
     IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LoginDataAsync()
     {
@@ -179,7 +180,7 @@ namespace winrt::TsinghuaNetHelper
         string pwd = challenge["password"];
         if (pwd.empty())
             pwd = "undefined";
-        hstring md5(GetMD5(to_hstring(pwd)));
+        hstring md5 = GetHMacMD5(to_hstring(token), to_hstring(pwd));
         auto data = single_threaded_map(map<hstring, hstring>{
             { L"action", L"login" },
             { L"ac_id", to_hstring(ac_id) },
@@ -188,7 +189,7 @@ namespace winrt::TsinghuaNetHelper
             { L"type", L"1" },
             { L"username", Username() },
             { L"password", L"{MD5}" + md5 } });
-        string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, ac_id, Username(), Password()), token));
+        string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, Username(), Password(), ac_id), token));
         data.Insert(L"info", to_hstring(info));
         data.Insert(L"chksum", GetSHA1(to_hstring(sprint(LoginChkSumData, token, Username(), md5, info, ac_id))));
         co_return data;
