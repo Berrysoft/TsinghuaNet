@@ -37,14 +37,7 @@ namespace winrt::TsinghuaNetHelper
         if (input.empty())
             return {};
         auto mac = MacAlgorithmProvider::OpenAlgorithm(MacAlgorithmNames::HmacMd5());
-        Buffer keybuff(key.size() / 2);
-        for (size_t i = 0; i < key.size(); i += 2)
-        {
-            uint16_t u;
-            sscan(wstring(key.begin() + i, key.begin() + i + 2), L"{:x2}", u);
-            keybuff.data()[i / 2] = (uint8_t)u;
-        }
-        auto mackey = mac.CreateKey(keybuff);
+        auto mackey = mac.CreateKey(CryptographicBuffer::ConvertStringToBinary(key, BinaryStringEncoding::Utf8));
         auto data = CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8);
         return CryptographicBuffer::EncodeToHexString(CryptographicEngine::Sign(mackey, data));
     }
