@@ -14,13 +14,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         void ToastLogined(bool value) { m_ToastLogined = value; }
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
-        void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const&, Windows::Foundation::IInspectable const&);
+        void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const&, Windows::Foundation::IInspectable const&) { ThemeChangedImpl(); }
 
-        void OpenSettings(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
-        Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
-        Windows::Foundation::IAsyncAction Logout(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
-        Windows::Foundation::IAsyncAction Refresh(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
-        Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, winrt::hstring const e);
+        void OpenSettings(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { Split().IsPaneOpen(true); }
+        Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LoginImpl(); }
+        Windows::Foundation::IAsyncAction Logout(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LogoutImpl(); }
+        Windows::Foundation::IAsyncAction Refresh(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return RefreshImpl(); }
+        Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, winrt::hstring const e) { return DropImpl(e); }
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
 
@@ -31,10 +31,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         void Auth425Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
         void Auth625Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
 
-        void RefreshStatus(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
+        void RefreshStatus(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { RefreshStatusImpl(); }
         Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
 
-        Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
+        Windows::Foundation::IAsyncAction RefreshNetUsers(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return RefreshNetUsersImpl(); }
         void AutoLoginChanged(Windows::Foundation::IInspectable const&, bool const& e);
         Windows::Foundation::IAsyncAction BackgroundAutoLoginChanged(Windows::Foundation::IInspectable const, bool const e);
         Windows::Foundation::IAsyncAction BackgroundLiveTileChanged(Windows::Foundation::IInspectable const, bool const e);

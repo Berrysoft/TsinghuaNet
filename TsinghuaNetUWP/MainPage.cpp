@@ -84,36 +84,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    void MainPage::ThemeChanged(IFrameworkElement const&, IInspectable const&)
-    {
-        ThemeChangedImpl();
-    }
-
-    void MainPage::OpenSettings(IInspectable const&, RoutedEventArgs const&)
-    {
-        Split().IsPaneOpen(true);
-    }
-
-    IAsyncAction MainPage::Login(IInspectable const, RoutedEventArgs const)
-    {
-        return LoginImpl();
-    }
-
-    IAsyncAction MainPage::Logout(IInspectable const, RoutedEventArgs const)
-    {
-        return LogoutImpl();
-    }
-
-    IAsyncAction MainPage::Refresh(IInspectable const, RoutedEventArgs const)
-    {
-        return RefreshImpl();
-    }
-
-    IAsyncAction MainPage::DropUser(IInspectable const, hstring const e)
-    {
-        return DropImpl(e);
-    }
-
     /// <summary>
     /// 打开“更改用户”对话框
     /// </summary>
@@ -327,11 +297,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().State(NetState::Auth6_25);
     }
 
-    void MainPage::RefreshStatus(IInspectable const&, RoutedEventArgs const&)
-    {
-        RefreshStatusImpl();
-    }
-
     /// <summary>
     /// 打开“编辑建议”对话框
     /// </summary>
@@ -347,11 +312,6 @@ namespace winrt::TsinghuaNetUWP::implementation
             settings.WwanState((NetState)dialog.WwanCombo().SelectedIndex());
             RefreshStatusImpl();
         }
-    }
-
-    IAsyncAction MainPage::RefreshNetUsers(IInspectable const, RoutedEventArgs const)
-    {
-        return RefreshNetUsersImpl();
     }
 
     void MainPage::AutoLoginChanged(IInspectable const&, bool const& e)

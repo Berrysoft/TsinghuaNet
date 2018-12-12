@@ -45,6 +45,7 @@
     <ClInclude Include="ChangeUserDialog.h" />
     <ClInclude Include="EditSuggestionDialog.h" />
     <ClInclude Include="DependencyHelper.h" />
+    <ClInclude Include="NetStateBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

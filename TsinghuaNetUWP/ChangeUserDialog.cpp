@@ -16,11 +16,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         UsernameChangedImpl();
     }
 
-    void ChangeUserDialog::UsernameChanged(IInspectable const&, TextChangedEventArgs const&)
-    {
-        UsernameChangedImpl();
-    }
-
     void ChangeUserDialog::UsernameChangedImpl()
     {
         hstring pw = CredentialHelper::GetCredential(UnBox().Text());
