@@ -11,12 +11,7 @@ using namespace Windows::Web::Http;
 
 namespace winrt::TsinghuaNetHelper
 {
-    constexpr wchar_t UserAgent[] = L"TsinghuaNetUWP";
-    NetHelperBase::NetHelperBase()
-    {
-        auto headers = client.DefaultRequestHeaders();
-        headers.UserAgent().TryParseAdd(UserAgent);
-    }
+    HttpClient NetHelperBase::client = HttpClient();
 
     IAsyncOperation<hstring> NetHelperBase::GetAsync(Uri const uri)
     {

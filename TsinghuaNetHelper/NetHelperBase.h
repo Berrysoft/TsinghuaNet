@@ -5,7 +5,7 @@ namespace winrt::TsinghuaNetHelper
 {
     struct NetHelperBase
     {
-        NetHelperBase();
+        NetHelperBase() = default;
 
         Windows::Foundation::IAsyncOperation<hstring> GetAsync(Windows::Foundation::Uri const uri);
         Windows::Foundation::IAsyncOperation<Windows::Storage::Streams::IBuffer> GetBytesAsync(Windows::Foundation::Uri const uri);
@@ -17,6 +17,6 @@ namespace winrt::TsinghuaNetHelper
         PROP_DECL_REF(Password, winrt::hstring)
 
     private:
-        Windows::Web::Http::HttpClient client;
+        static Windows::Web::Http::HttpClient client;
     };
 } // namespace winrt::TsinghuaNetHelper
