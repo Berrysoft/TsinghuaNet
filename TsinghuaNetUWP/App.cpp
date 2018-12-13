@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 
 #include "App.h"
-
 #include "MainPage.h"
 
 using namespace winrt;

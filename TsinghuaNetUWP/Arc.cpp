@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 
 #include "Arc.h"
-
 #include <cmath>
 #include <corecrt_math_defines.h>
 

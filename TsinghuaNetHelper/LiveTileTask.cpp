@@ -1,8 +1,7 @@
 ﻿#include "pch.h"
 
-#include "LiveTileTask.h"
-
 #include "ConnectHelper.h"
+#include "LiveTileTask.h"
 
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;

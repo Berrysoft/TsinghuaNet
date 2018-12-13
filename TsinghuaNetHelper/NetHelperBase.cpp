@@ -1,52 +1,16 @@
 ﻿#include "pch.h"
 
 #include "NetHelperBase.h"
-#include <iomanip>
-#include <winrt/Windows.Security.Cryptography.Core.h>
-#include <winrt/Windows.Storage.Streams.h>
 #include <winrt/Windows.Web.Http.Headers.h>
 
-using namespace std;
-using sf::sscan;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
-using namespace Windows::Security::Cryptography;
-using namespace Windows::Security::Cryptography::Core;
 using namespace Windows::Storage::Streams;
 using namespace Windows::Web::Http;
 
 namespace winrt::TsinghuaNetHelper
 {
-    hstring GetHashString(hstring const& input, hstring const& algorithm)
-    {
-        if (input.empty())
-            return {};
-        auto hash = HashAlgorithmProvider::OpenAlgorithm(algorithm);
-        auto data = hash.HashData(CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8));
-        return CryptographicBuffer::EncodeToHexString(data);
-    }
-
-    hstring GetMD5(hstring const& input)
-    {
-        return GetHashString(input, HashAlgorithmNames::Md5());
-    }
-
-    hstring GetHMacMD5(hstring const& key, hstring const& input)
-    {
-        if (input.empty())
-            return {};
-        auto mac = MacAlgorithmProvider::OpenAlgorithm(MacAlgorithmNames::HmacMd5());
-        auto mackey = mac.CreateKey(CryptographicBuffer::ConvertStringToBinary(key, BinaryStringEncoding::Utf8));
-        auto data = CryptographicBuffer::ConvertStringToBinary(input, BinaryStringEncoding::Utf8);
-        return CryptographicBuffer::EncodeToHexString(CryptographicEngine::Sign(mackey, data));
-    }
-
-    hstring GetSHA1(hstring const& input)
-    {
-        return GetHashString(input, HashAlgorithmNames::Sha1());
-    }
-
     constexpr wchar_t UserAgent[] = L"TsinghuaNetUWP";
     NetHelperBase::NetHelperBase()
     {

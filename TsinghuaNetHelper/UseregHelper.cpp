@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 
+#include "CryptographyHelper.h"
 #include "UseregHelper.h"
 #include <regex>
 

@@ -1,9 +1,8 @@
 ﻿#include "pch.h"
 
-#include "MainPage.h"
-
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
+#include "MainPage.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 

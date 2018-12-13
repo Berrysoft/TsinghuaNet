@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 
+#include "CryptographyHelper.h"
 #include "NetHelper.h"
 
 using namespace sf;

@@ -48,6 +48,9 @@
     <ClCompile Include="BackgroundHelper.cpp">
       <Filter>Background</Filter>
     </ClCompile>
+    <ClCompile Include="CryptographyHelper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -108,6 +111,9 @@
     </ClInclude>
     <ClInclude Include="BackgroundHelper.h">
       <Filter>Background</Filter>
+    </ClInclude>
+    <ClInclude Include="CryptographyHelper.h">
+      <Filter>NetHelper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
