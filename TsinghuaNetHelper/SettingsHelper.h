@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include "SettingsHelper.g.h"
 
-#include <winrt/Windows.Data.Json.h>
-
 namespace winrt::TsinghuaNetHelper::implementation
 {
     struct SettingsHelper : SettingsHelperT<SettingsHelper>

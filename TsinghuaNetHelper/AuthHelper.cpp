@@ -62,7 +62,7 @@ namespace winrt::TsinghuaNetHelper
     IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LoginDataAsync()
     {
         string token = co_await ChallengeAsync();
-        hstring md5 = GetHMACMD5(token);
+        hstring md5 = GetHMACMD5(to_hstring(token));
         auto data = single_threaded_map(map<hstring, hstring>{
             { L"action", L"login" },
             { L"ac_id", to_hstring(ac_id) },
