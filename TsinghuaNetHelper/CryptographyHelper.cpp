@@ -65,7 +65,7 @@ namespace winrt::TsinghuaNetHelper
         }
         uint32_t n = d << 2;
         string aa(n, '\0');
-        copy((char*)addressof(a.front()), (char*)addressof(a.back()) + 1, aa.begin());
+        copy((char*)addressof(a.front()), (char*)addressof(a.back()) + 4, aa.begin());
         if (b)
             return aa.substr(0, c);
         else
@@ -142,7 +142,7 @@ namespace winrt::TsinghuaNetHelper
     {
         size_t l = input.size() * 4;
         string result(l, '\0');
-        copy((char*)addressof(input.front()), (char*)addressof(input.back()) + 1, result.begin());
+        copy((char*)addressof(input.front()), (char*)addressof(input.back()) + 4, result.begin());
         return result;
     }
 
@@ -277,6 +277,6 @@ namespace winrt::TsinghuaNetHelper
         }
         vector<uint32_t> hash = Binl(concat(ipad, RStr2Binl(str)), 512 + str.length() * 8);
         string result = Binl2RStr(Binl(concat(opad, hash), 512 + 128));
-        return CryptographicBuffer::EncodeToHexString(CryptographicBuffer::CreateFromByteArray(array_view<const uint8_t>((uint8_t*)addressof(result.front()), (uint8_t*)addressof(result.back()))));
+        return CryptographicBuffer::EncodeToHexString(CryptographicBuffer::CreateFromByteArray(array_view<const uint8_t>((uint8_t*)addressof(result.front()), (uint8_t*)addressof(result.back()) + 1)));
     }
 } // namespace winrt::TsinghuaNetHelper
