@@ -141,11 +141,11 @@ namespace winrt::TsinghuaNetHelper
     vector<uint32_t> RStr2Binl(string const& input)
     {
         size_t len = input.length();
-        vector<uint32_t> output((len % 4) ? (len / 4 + 1) : (len / 4), 0);
+        vector<uint32_t> output((len + 3) >> 2, 0);
         size_t l = len * 8;
         for (size_t i = 0; i < l; i += 8)
         {
-            output[i >> 5] |= (input[i / 8] * 0xFF) << (i % 32);
+            output[i >> 5] |= (input[i / 8] & 0xFF) << (i % 32);
         }
         return output;
     }
@@ -153,35 +153,39 @@ namespace winrt::TsinghuaNetHelper
     string Binl2RStr(vector<uint32_t> const& input)
     {
         size_t l = input.size() * 32;
-        ostringstream oss;
+        string result(l / 8, '\0');
+        int j = 0;
         for (size_t i = 0; i < l; i += 8)
         {
-            oss << (char)((input[i >> 5] >> (i % 32)) & 0xFF);
+            result[j++] = (char)((input[i >> 5] >> (i % 32)) & 0xFF);
         }
-        return oss.str();
+        return result;
     }
 
     vector<uint32_t> Binl(vector<uint32_t> x, size_t len)
     {
-        uint32_t a = (uint32_t)1732584193, b = (uint32_t)-271733879, c = (uint32_t)-1732584194, d = (uint32_t)271733878;
-        x.push_back(0x80 << (len % 32));
-        size_t index = (((len + 64) >> 9) << 4) + 14;
+        int32_t a = 1732584193, b = -271733879, c = -1732584194, d = 271733878;
+        size_t index = len >> 5;
+        while (x.size() <= index)
+            x.push_back(0);
+        x[index] |= 0x80 << (len % 32);
+        index = (((len + 64) >> 9) << 4) + 14;
         while (x.size() < index)
             x.push_back(0);
         x.push_back((uint32_t)len);
         while (x.size() % 16)
             x.push_back(0);
 
-        auto bit_rol = [](uint32_t num, uint32_t cnt) { return (num << cnt) | (num >> (32 - cnt)); };
-        auto md5_cmn = [&bit_rol](uint32_t q, uint32_t a, uint32_t b, uint32_t x, uint32_t s, uint32_t t) { return bit_rol(a + q + x + t, s) + b; };
-        auto md5_ff = [&md5_cmn](uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t x, uint32_t s, int32_t t) { return md5_cmn((b & c) | ((~b) & d), a, b, x, s, (uint32_t)t); };
-        auto md5_gg = [&md5_cmn](uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t x, uint32_t s, int32_t t) { return md5_cmn((b & d) | (c & (~d)), a, b, x, s, (uint32_t)t); };
-        auto md5_hh = [&md5_cmn](uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t x, uint32_t s, int32_t t) { return md5_cmn(b ^ c ^ d, a, b, x, s, (uint32_t)t); };
-        auto md5_ii = [&md5_cmn](uint32_t a, uint32_t b, uint32_t c, uint32_t d, uint32_t x, uint32_t s, int32_t t) { return md5_cmn(c ^ (b | (~d)), a, b, x, s, (uint32_t)t); };
+        auto bit_rol = [](uint32_t num, int32_t cnt) { return (int32_t)((num << cnt) | (num >> (32 - cnt))); };
+        auto md5_cmn = [&bit_rol](int32_t q, int32_t a, int32_t b, int32_t x, int32_t s, int32_t t) { return bit_rol((uint32_t)(a + q + x + t), s) + b; };
+        auto md5_ff = [&md5_cmn](int32_t a, int32_t b, int32_t c, int32_t d, uint32_t x, int32_t s, int32_t t) { return md5_cmn((b & c) | ((~b) & d), a, b, (int32_t)x, s, t); };
+        auto md5_gg = [&md5_cmn](int32_t a, int32_t b, int32_t c, int32_t d, uint32_t x, int32_t s, int32_t t) { return md5_cmn((b & d) | (c & (~d)), a, b, (int32_t)x, s, t); };
+        auto md5_hh = [&md5_cmn](int32_t a, int32_t b, int32_t c, int32_t d, uint32_t x, int32_t s, int32_t t) { return md5_cmn(b ^ c ^ d, a, b, (int32_t)x, s, t); };
+        auto md5_ii = [&md5_cmn](int32_t a, int32_t b, int32_t c, int32_t d, uint32_t x, int32_t s, int32_t t) { return md5_cmn(c ^ (b | (~d)), a, b, (int32_t)x, s, t); };
 
         for (size_t i = 0; i < x.size(); i += 16)
         {
-            uint32_t olda = a, oldb = b, oldc = c, oldd = d;
+            int32_t olda = a, oldb = b, oldc = c, oldd = d;
 
             a = md5_ff(a, b, c, d, x[i + 0], 7, -680876936);
             d = md5_ff(d, a, b, c, x[i + 1], 12, -389564586);
@@ -256,7 +260,7 @@ namespace winrt::TsinghuaNetHelper
             c += oldc;
             d += oldd;
         }
-        return { a, b, c, d };
+        return { (uint32_t)a, (uint32_t)b, (uint32_t)c, (uint32_t)d };
     }
 
     vector<uint32_t>& concat(vector<uint32_t>& v1, vector<uint32_t> const& v2)
@@ -271,6 +275,8 @@ namespace winrt::TsinghuaNetHelper
     hstring GetHMACMD5(string const& key, string const& str)
     {
         auto bkey = RStr2Binl(key);
+        if (bkey.size() > 16)
+            bkey = Binl(bkey, key.length() * 8);
         vector<uint32_t> ipad(16, 0);
         vector<uint32_t> opad(16, 0);
         for (int i = 0; i < 16; i++)
@@ -280,8 +286,6 @@ namespace winrt::TsinghuaNetHelper
         }
         vector<uint32_t> hash = Binl(concat(ipad, RStr2Binl(str)), 512 + str.length() * 8);
         string result = Binl2RStr(Binl(concat(opad, hash), 512 + 128));
-        DataWriter writer;
-        writer.WriteBytes(vector<uint8_t>(result.begin(), result.end()));
-        return CryptographicBuffer::EncodeToHexString(writer.DetachBuffer());
+        return CryptographicBuffer::EncodeToHexString(CryptographicBuffer::CreateFromByteArray(vector<uint8_t>(result.begin(), result.end())));
     }
 } // namespace winrt::TsinghuaNetHelper
