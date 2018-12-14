@@ -19,7 +19,7 @@ namespace winrt::TsinghuaNetHelper
         std::wstring const ChallengeUri;
         int ac_id;
 
-        concurrency::task<std::map<std::string, std::string>> ChallengeAsync();
+        concurrency::task<std::string> ChallengeAsync();
         Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LoginDataAsync();
         Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LogoutDataAsync();
     };

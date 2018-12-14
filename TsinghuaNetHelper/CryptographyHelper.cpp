@@ -256,18 +256,9 @@ namespace winrt::TsinghuaNetHelper
         return v1;
     }
 
-    hstring GetHMACMD5(string const& key, string const& str)
+    hstring GetHMACMD5(string const& key)
     {
         auto bkey = RStr2Binl(key);
-        if (bkey.size() > 16)
-        {
-            bkey = Binl(bkey, key.length() * 8);
-        }
-        else
-        {
-            while (bkey.size() < 16)
-                bkey.push_back(0);
-        }
         vector<uint32_t> ipad(16, 0);
         vector<uint32_t> opad(16, 0);
         for (int i = 0; i < 16; i++)
@@ -275,7 +266,7 @@ namespace winrt::TsinghuaNetHelper
             ipad[i] = bkey[i] ^ 0x36363636;
             opad[i] = bkey[i] ^ 0x5C5C5C5C;
         }
-        vector<uint32_t> hash = Binl(concat(ipad, RStr2Binl(str)), 512 + str.length() * 8);
+        vector<uint32_t> hash = Binl(ipad, 512);
         string result = Binl2RStr(Binl(concat(opad, hash), 512 + 128));
         return CryptographicBuffer::EncodeToHexString(CryptographicBuffer::CreateFromByteArray(array_view<const uint8_t>((uint8_t*)addressof(result.front()), (uint8_t*)addressof(result.back()) + 1)));
     }
