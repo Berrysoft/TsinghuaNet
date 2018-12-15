@@ -34,21 +34,22 @@ namespace winrt::TsinghuaNetHelper::implementation
     }
 
     constexpr wchar_t WlanStateKey[] = L"WlanState";
-    constexpr wchar_t DefWlanState[] = LR"({
-	"Tsinghua": 1,
-	"Tsinghua-5G": 1,
-	"Tsinghua-IPv4": 4,
-	"Tsinghua-IPv6": 5,
-	"Wifi.郑裕彤讲堂": 1,
-	"DIVI": 0,
-	"DIVI-2": 0,
-	"IVI": 0
-})";
 
     SettingsHelper::SettingsHelper()
     {
-        hstring json = GetValue<hstring>(WlanStateKey, DefWlanState);
-        wlanMap = JsonObject::Parse(json);
+        hstring json = GetValue<hstring>(WlanStateKey, {});
+        if (json.empty())
+        {
+            wlanMap.Insert(L"Tsinghua", JsonValue::CreateNumberValue((int)NetState::Net));
+            wlanMap.Insert(L"Tsinghua-5G", JsonValue::CreateNumberValue((int)NetState::Net));
+            wlanMap.Insert(L"Tsinghua-IPv4", JsonValue::CreateNumberValue((int)NetState::Auth4_25));
+            wlanMap.Insert(L"Tsinghua-IPv6", JsonValue::CreateNumberValue((int)NetState::Auth6_25));
+            wlanMap.Insert(L"Wifi.郑裕彤讲堂", JsonValue::CreateNumberValue((int)NetState::Net));
+        }
+        else
+        {
+            wlanMap = JsonObject::Parse(json);
+        }
     }
 
     SettingsHelper::~SettingsHelper()
@@ -100,6 +101,15 @@ namespace winrt::TsinghuaNetHelper::implementation
             result.Insert(pair.Key(), (NetState)(int)pair.Value().GetNumber());
         }
         return result;
+    }
+
+    void SettingsHelper::WlanStates(IMap<hstring, NetState> const& states)
+    {
+        wlanMap.Clear();
+        for (auto pair : states)
+        {
+            wlanMap.Insert(pair.Key(), JsonValue::CreateNumberValue((int)pair.Value()));
+        }
     }
 
     bool SettingsHelper::InternetAvailable()

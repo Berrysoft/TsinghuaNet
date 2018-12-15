@@ -12,6 +12,9 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> WlanList() { return m_WlanList; }
 
+		Windows::Foundation::IAsyncAction AddSelection(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
+		void DeleteSelection(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
+
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_WlanList;
     };

@@ -38,7 +38,7 @@ namespace TsinghuaNetHelper
         NetState WwanState;
         NetState WlanState(String ssid);
         void WlanState(String ssid, NetState state);
-        Windows.Foundation.Collections.IMap<String, NetState> WlanStates { get; };
+        Windows.Foundation.Collections.IMap<String, NetState> WlanStates;
 
         Boolean InternetAvailable();
         InternetStatus InternetStatus(out String ssid);

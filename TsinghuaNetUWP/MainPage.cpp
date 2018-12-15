@@ -322,6 +322,16 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             settings.LanState((NetState)dialog.LanCombo().Value());
             settings.WwanState((NetState)dialog.WwanCombo().Value());
+            s.Clear();
+            for (auto pair : v)
+            {
+                auto item = pair.try_as<TsinghuaNetUWP::NetStateSsidBox>();
+                if (item)
+                {
+                    s.Insert(item.Ssid(), (NetState)item.Value());
+                }
+            }
+            settings.WlanStates(s);
             RefreshStatusImpl();
         }
     }
