@@ -5,26 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
-    xmlns:helper="using:TsinghuaNetHelper"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
-    <ContentDialog.Resources>
-        <DataTemplate x:Key="NetStateTemplate" x:DataType="local:NetStateBox">
-            <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
-        </DataTemplate>
-    </ContentDialog.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Column="0" Grid.Row="0" Margin="10" Style="{ThemeResource BaseTextBlockStyle}">有线网</TextBlock>
-        <ComboBox x:Name="LanCombo" Grid.Column="1" Grid.Row="0" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States,Mode=OneTime}" ItemTemplate="{StaticResource NetStateTemplate}"/>
-        <TextBlock Grid.Column="0" Grid.Row="1" Margin="10" Style="{ThemeResource BaseTextBlockStyle}">移动流量</TextBlock>
-        <ComboBox x:Name="WwanCombo" Grid.Column="1" Grid.Row="1" Width="290" VerticalAlignment="Center" ItemsSource="{x:Bind States,Mode=OneTime}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+        <local:SsidSuggestion x:Name="LanCombo" Grid.Row="0" Margin="10" Width="400" Ssid="有线网"/>
+        <local:SsidSuggestion x:Name="WwanCombo" Grid.Row="1" Margin="10" Width="400" Ssid="移动流量"/>
     </Grid>
 </ContentDialog>

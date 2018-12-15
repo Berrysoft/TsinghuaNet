@@ -1,17 +1,15 @@
 ﻿#pragma once
 #include "NetStateBox.g.h"
 
+#include "DependencyHelper.h"
+
 namespace winrt::TsinghuaNetUWP::implementation
 {
     struct NetStateBox : NetStateBoxT<NetStateBox>
     {
         NetStateBox(TsinghuaNetHelper::NetState state = TsinghuaNetHelper::NetState::Unknown) : m_Value(state) {}
 
-        TsinghuaNetHelper::NetState Value() const noexcept { return m_Value; }
-        void Value(TsinghuaNetHelper::NetState value) noexcept { m_Value = value; }
-
-    private:
-        TsinghuaNetHelper::NetState m_Value;
+        PROP_DECL(Value, TsinghuaNetHelper::NetState)
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

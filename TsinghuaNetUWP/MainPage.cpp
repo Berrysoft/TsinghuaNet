@@ -302,13 +302,13 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<EditSuggestionDialog>();
-        dialog.LanCombo().SelectedIndex((int)settings.LanState());
-        dialog.WwanCombo().SelectedIndex((int)settings.WwanState());
+        dialog.LanCombo().Value((int)settings.LanState());
+        dialog.WwanCombo().Value((int)settings.WwanState());
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
-            settings.LanState((NetState)dialog.LanCombo().SelectedIndex());
-            settings.WwanState((NetState)dialog.WwanCombo().SelectedIndex());
+            settings.LanState((NetState)dialog.LanCombo().Value());
+            settings.WwanState((NetState)dialog.WwanCombo().Value());
             RefreshStatusImpl();
         }
     }

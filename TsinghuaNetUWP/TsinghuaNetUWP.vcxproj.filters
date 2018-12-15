@@ -13,6 +13,9 @@
     <Page Include="EditSuggestionDialog.xaml">
       <Filter>Views</Filter>
     </Page>
+    <Page Include="SsidSuggestion.xaml">
+      <Filter>Views</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />
@@ -23,6 +26,9 @@
     <Midl Include="Arc.idl" />
     <Midl Include="EditSuggestionDialog.idl" />
     <Midl Include="NetStateBox.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="NetStateSsidBox.idl">
       <Filter>ViewModels</Filter>
     </Midl>
   </ItemGroup>

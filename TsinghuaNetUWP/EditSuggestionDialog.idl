@@ -1,10 +1,11 @@
+import "SsidSuggestion.idl";
+
 namespace TsinghuaNetUWP
 {
     [default_interface] runtimeclass EditSuggestionDialog : Windows.UI.Xaml.Controls.ContentDialog
     {
         EditSuggestionDialog();
-        Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
-        Windows.UI.Xaml.Controls.ComboBox LanCombo { get; };
-        Windows.UI.Xaml.Controls.ComboBox WwanCombo { get; };
+        SsidSuggestion LanCombo { get; };
+        SsidSuggestion WwanCombo { get; };
     }
 } // namespace TsinghuaNetUWP

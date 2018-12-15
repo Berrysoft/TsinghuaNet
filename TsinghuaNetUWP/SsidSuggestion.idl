@@ -1,0 +1,12 @@
+import "NetStateSsidBox.idl";
+
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass SsidSuggestion : Windows.UI.Xaml.Controls.Grid
+    {
+        SsidSuggestion();
+        String Ssid;
+        Int32 Value;
+        Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
+    }
+} // namespace TsinghuaNetUWP

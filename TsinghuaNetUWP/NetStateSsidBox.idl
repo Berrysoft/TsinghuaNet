@@ -1,0 +1,11 @@
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass NetStateSsidBox
+	{
+        NetStateSsidBox();
+        NetStateSsidBox(String ssid, Int32 state);
+
+        String Ssid;
+        Int32 Value;
+    }
+} // namespace TsinghuaNetUWP

@@ -124,12 +124,20 @@
       <DependentUpon>NetStateBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NetStateSsidBox.h">
+      <DependentUpon>NetStateSsidBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SsidSuggestion.h">
+      <DependentUpon>SsidSuggestion.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +154,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SsidSuggestion.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -195,6 +206,10 @@
     <ClCompile Include="MainPage.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="SsidSuggestion.cpp">
+      <DependentUpon>SsidSuggestion.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Arc.idl">
@@ -217,6 +232,13 @@
     </Midl>
     <Midl Include="NetStateBox.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="NetStateSsidBox.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="SsidSuggestion.idl">
+      <DependentUpon>SsidSuggestion.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
   <ItemGroup>

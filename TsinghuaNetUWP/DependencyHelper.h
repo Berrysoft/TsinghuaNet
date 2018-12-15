@@ -1,5 +1,21 @@
 #pragma once
 
+#define PROP_DECL(Name, type)                            \
+public:                                                  \
+    type Name() const noexcept { return m_##Name; }      \
+    void Name(type value) noexcept { m_##Name = value; } \
+                                                         \
+private:                                                 \
+    type m_##Name;
+
+#define PROP_DECL_REF(Name, type)                               \
+public:                                                         \
+    type Name() const noexcept { return m_##Name; }             \
+    void Name(type const& value) noexcept { m_##Name = value; } \
+                                                                \
+private:                                                        \
+    type m_##Name;
+
 #define DEPENDENCY_PROPERTY(Name, type)                                                          \
 public:                                                                                          \
     type Name() const { return winrt::unbox_value<type>(GetValue(m_##Name##Property)); }         \
