@@ -27,12 +27,12 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         switch (state)
         {
+        case NetState::Net:
+            return NetHelper();
         case NetState::Auth4:
             return Auth4Helper();
         case NetState::Auth6:
             return Auth6Helper();
-        case NetState::Net:
-            return NetHelper();
         case NetState::Auth4_25:
             return Auth4Helper25();
         case NetState::Auth6_25:
@@ -54,12 +54,12 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         switch (state)
         {
+        case NetState::Net:
+            return MakeHelper<NetHelper>(username, password);
         case NetState::Auth4:
             return MakeHelper<Auth4Helper>(username, password);
         case NetState::Auth6:
             return MakeHelper<Auth6Helper>(username, password);
-        case NetState::Net:
-            return MakeHelper<NetHelper>(username, password);
         case NetState::Auth4_25:
             return MakeHelper<Auth4Helper25>(username, password);
         case NetState::Auth6_25:

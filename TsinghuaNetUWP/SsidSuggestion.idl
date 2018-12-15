@@ -5,8 +5,13 @@ namespace TsinghuaNetUWP
     [default_interface] runtimeclass SsidSuggestion : Windows.UI.Xaml.Controls.Grid
     {
         SsidSuggestion();
+
         String Ssid;
+        static Windows.UI.Xaml.DependencyProperty SsidProperty { get; };
+
         Int32 Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty { get; };
+
         Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
     }
 } // namespace TsinghuaNetUWP

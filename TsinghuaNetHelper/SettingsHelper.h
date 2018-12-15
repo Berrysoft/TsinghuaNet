@@ -22,6 +22,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         void WwanState(NetState value);
         NetState WlanState(hstring const& ssid);
         void WlanState(hstring const& ssid, NetState value);
+        Windows::Foundation::Collections::IMap<hstring, NetState> WlanStates();
 
         bool InternetAvailable();
         InternetStatus InternetStatus(hstring& ssid);

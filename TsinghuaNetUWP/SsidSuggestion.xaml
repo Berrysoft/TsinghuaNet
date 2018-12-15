@@ -13,9 +13,9 @@
         </DataTemplate>
     </Grid.Resources>
     <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="1*"/>
-        <ColumnDefinition Width="3*"/>
+        <ColumnDefinition Width="Auto"/>
+        <ColumnDefinition Width="Auto"/>
     </Grid.ColumnDefinitions>
-    <TextBlock Grid.Column="0" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Ssid}"/>
-    <ComboBox Grid.Column="1" Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+    <TextBlock Grid.Column="0" Width="120" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Ssid,Mode=OneWay}"/>
+    <ComboBox Grid.Column="1" Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
 </Grid>

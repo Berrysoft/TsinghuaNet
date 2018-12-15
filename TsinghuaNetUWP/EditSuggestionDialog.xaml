@@ -7,12 +7,21 @@
     xmlns:local="using:TsinghuaNetUWP"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
+    <ContentDialog.Resources>
+        <DataTemplate x:Key="SsidSuggestionTemplate" x:DataType="local:NetStateSsidBox">
+            <local:SsidSuggestion Ssid="{x:Bind Ssid,Mode=TwoWay}" Value="{x:Bind Value,Mode=TwoWay}"/>
+        </DataTemplate>
+    </ContentDialog.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <local:SsidSuggestion x:Name="LanCombo" Grid.Row="0" Margin="10" Width="400" Ssid="有线网"/>
         <local:SsidSuggestion x:Name="WwanCombo" Grid.Row="1" Margin="10" Width="400" Ssid="移动流量"/>
+        <TextBlock Grid.Row="2" Margin="10" Style="{ThemeResource BaseTextBlockStyle}">无线网</TextBlock>
+        <ListView Grid.Row="3" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
     </Grid>
 </ContentDialog>

@@ -3,12 +3,11 @@ namespace TsinghuaNetHelper
     enum NetState
     {
         Unknown,
+        Net,
         Auth4,
         Auth6,
-        Net,
         Auth4_25,
-        Auth6_25,
-        Direct
+        Auth6_25
     };
 
     enum InternetStatus
@@ -39,6 +38,7 @@ namespace TsinghuaNetHelper
         NetState WwanState;
         NetState WlanState(String ssid);
         void WlanState(String ssid, NetState state);
+        Windows.Foundation.Collections.IMap<String, NetState> WlanStates { get; };
 
         Boolean InternetAvailable();
         InternetStatus InternetStatus(out String ssid);

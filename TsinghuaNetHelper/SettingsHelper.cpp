@@ -6,6 +6,7 @@
 
 using namespace winrt;
 using namespace Windows::Data::Json;
+using namespace Windows::Foundation::Collections;
 using namespace Windows::Networking::Connectivity;
 using namespace Windows::Storage;
 
@@ -34,14 +35,14 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     constexpr wchar_t WlanStateKey[] = L"WlanState";
     constexpr wchar_t DefWlanState[] = LR"({
-	"Tsinghua": 3,
-	"Tsinghua-5G": 3,
+	"Tsinghua": 1,
+	"Tsinghua-5G": 1,
 	"Tsinghua-IPv4": 4,
 	"Tsinghua-IPv6": 5,
-	"Wifi.郑裕彤讲堂": 3,
-	"DIVI": 6,
-	"DIVI-2": 6,
-	"IVI": 6
+	"Wifi.郑裕彤讲堂": 1,
+	"DIVI": 0,
+	"DIVI-2": 0,
+	"IVI": 0
 })";
 
     SettingsHelper::SettingsHelper()
@@ -75,7 +76,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     SETTINGS_PROP_IMPL(BackgroundAutoLogin, L"BackgroundAutoLogin", bool, true)
     SETTINGS_PROP_IMPL(BackgroundLiveTile, L"BackgroundLiveTile", bool, true)
     SETTINGS_PROP_CONV_IMPL(LanState, L"LanState", NetState, int, (int)NetState::Auth4)
-    SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Direct)
+    SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Unknown)
 
     NetState SettingsHelper::WlanState(hstring const& ssid)
     {
@@ -89,6 +90,16 @@ namespace winrt::TsinghuaNetHelper::implementation
     void SettingsHelper::WlanState(hstring const& ssid, NetState value)
     {
         wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
+    }
+
+    IMap<hstring, NetState> SettingsHelper::WlanStates()
+    {
+        auto result = single_threaded_map<hstring, NetState>();
+        for (auto pair : wlanMap)
+        {
+            result.Insert(pair.Key(), (NetState)(int)pair.Value().GetNumber());
+        }
+        return result;
     }
 
     bool SettingsHelper::InternetAvailable()

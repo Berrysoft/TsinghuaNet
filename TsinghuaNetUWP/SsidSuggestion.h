@@ -9,8 +9,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         SsidSuggestion();
 
-        PROP_DECL_REF(Ssid, winrt::hstring)
-        PROP_DECL(Value, int)
+        DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
+        DEPENDENCY_PROPERTY(Value, int)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> States() { return m_States; }

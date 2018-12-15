@@ -3,6 +3,7 @@
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include "MainPage.h"
+#include "NetStateSsidBox.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
@@ -79,7 +80,10 @@ namespace winrt::TsinghuaNetUWP::implementation
                 co_await RefreshImpl();
             }
             // 刷新当前用户所有连接状态
-            co_await RefreshNetUsersImpl();
+            if (settings.InternetAvailable())
+            {
+                co_await RefreshNetUsersImpl();
+            }
         }
     }
 
@@ -304,6 +308,15 @@ namespace winrt::TsinghuaNetUWP::implementation
         auto dialog = make<EditSuggestionDialog>();
         dialog.LanCombo().Value((int)settings.LanState());
         dialog.WwanCombo().Value((int)settings.WwanState());
+        auto s = settings.WlanStates();
+        auto v = dialog.WlanList();
+        for (auto pair : s)
+        {
+            auto item = make<NetStateSsidBox>();
+            item.Ssid(pair.Key());
+            item.Value((int)pair.Value());
+            v.Append(item);
+        }
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {

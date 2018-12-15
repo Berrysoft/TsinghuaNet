@@ -7,7 +7,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
     struct NetStateSsidBox : NetStateSsidBoxT<NetStateSsidBox>
     {
-        NetStateSsidBox(winrt::hstring const& ssid = {}, int value = {}) : m_Ssid(ssid), m_Value(value) {}
+        NetStateSsidBox() = default;
 
         PROP_DECL_REF(Ssid, winrt::hstring)
         PROP_DECL(Value, int)
