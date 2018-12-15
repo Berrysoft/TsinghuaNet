@@ -6,6 +6,5 @@ namespace TsinghuaNetUWP
     {
         MainPage();
         MainViewModel Model { get; };
-        Windows.UI.Xaml.Media.Animation.Storyboard FluxStoryboard { get; };
     }
 } // namespace TsinghuaNetUWP

@@ -11,6 +11,12 @@
         <DataTemplate x:Key="SsidSuggestionTemplate" x:DataType="local:NetStateSsidBox">
             <local:SsidSuggestion Margin="0,10" Ssid="{x:Bind Ssid,Mode=TwoWay}" Value="{x:Bind Value,Mode=TwoWay}"/>
         </DataTemplate>
+        <Flyout x:Name="AddFlyout">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="AddFlyoutText" Margin="10" Width="150"/>
+                <Button Margin="10" Width="100" Click="AddButtonClick">添加</Button>
+            </StackPanel>
+        </Flyout>
     </ContentDialog.Resources>
     <ScrollViewer>
         <Grid>
@@ -24,7 +30,7 @@
             <local:SsidSuggestion x:Name="WwanCombo" Grid.Row="1" Margin="10" Width="400" Ssid="移动流量"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
                 <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">无线网</TextBlock>
-                <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection"/>
+                <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
             </StackPanel>
             <ListView x:Name="WlanListView" Grid.Row="3" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>

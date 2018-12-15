@@ -5,6 +5,7 @@ namespace TsinghuaNetUWP
     [default_interface] runtimeclass EditSuggestionDialog : Windows.UI.Xaml.Controls.ContentDialog
     {
         EditSuggestionDialog();
+
         SsidSuggestion LanCombo { get; };
         SsidSuggestion WwanCombo { get; };
         Windows.Foundation.Collections.IObservableVector<IInspectable> WlanList { get; };
