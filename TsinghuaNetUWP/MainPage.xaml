@@ -105,9 +105,9 @@
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
+                        <RadioButton x:Name="NetRadio" Checked="NetChecked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
                         <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>
                         <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}"/>
-                        <RadioButton x:Name="NetRadio" Checked="NetChecked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
                         <RadioButton x:Name="Auth425Radio" Checked="Auth425Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}"/>
                         <RadioButton x:Name="Auth625Radio" Checked="Auth625Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6_25)}"/>
                     </StackPanel>

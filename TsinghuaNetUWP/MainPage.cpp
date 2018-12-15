@@ -258,18 +258,22 @@ namespace winrt::TsinghuaNetUWP::implementation
         return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
     }
 
+    /// <summary>
+    /// 根据当前类型的变化改变选中的单选框
+    /// </summary>
+    /// <param name="e">当前类型</param>
     void MainPage::StateChanged(IInspectable const&, NetState const& e)
     {
         switch (e)
         {
+        case NetState::Net:
+            NetRadio().IsChecked(true);
+            break;
         case NetState::Auth4:
             Auth4Radio().IsChecked(true);
             break;
         case NetState::Auth6:
             Auth6Radio().IsChecked(true);
-            break;
-        case NetState::Net:
-            NetRadio().IsChecked(true);
             break;
         case NetState::Auth4_25:
             Auth425Radio().IsChecked(true);
@@ -279,6 +283,10 @@ namespace winrt::TsinghuaNetUWP::implementation
             break;
         }
     }
+    void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
+    {
+        Model().State(NetState::Net);
+    }
     void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().State(NetState::Auth4);
@@ -286,10 +294,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::Auth6Checked(IInspectable const&, RoutedEventArgs const&)
     {
         Model().State(NetState::Auth6);
-    }
-    void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Net);
     }
     void MainPage::Auth425Checked(IInspectable const&, RoutedEventArgs const&)
     {
@@ -387,6 +391,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().SuggestState(state);
     }
 
+    /// <summary>
+    /// 刷新所有连接情况
+    /// </summary>
     IAsyncAction MainPage::RefreshNetUsersImpl()
     {
         try
@@ -401,6 +408,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
         }
     }
+
+    /// <summary>
+    /// 使用给定的帮助类刷新所有连接情况。
+    /// 在调用这个方法前要调用<see cref="UseregHelper.LoginAsync"/>。
+    /// </summary>
+    /// <param name="helper">帮助类实例</param>
     IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const helper)
     {
         auto users = co_await helper.UsersAsync();
