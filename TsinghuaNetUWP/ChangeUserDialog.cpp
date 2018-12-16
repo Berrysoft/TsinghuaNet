@@ -34,4 +34,12 @@ namespace winrt::TsinghuaNetUWP::implementation
             SaveBox().IsChecked(true);
         }
     }
+
+    /// <summary>
+    /// 填写密码后应该允许确认
+    /// </summary>
+    void ChangeUserDialog::PasswordChangedImpl()
+    {
+        IsPrimaryButtonEnabled(!(UnBox().Text().empty() || PwBox().Password().empty()));
+    }
 } // namespace winrt::TsinghuaNetUWP::implementation
