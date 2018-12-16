@@ -32,6 +32,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         // 将用户区拓展到全窗口
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
+        // 设置主窗格为标题栏
+        Window::Current().SetTitleBar(MainGrid());
     }
 
     /// <summary>
