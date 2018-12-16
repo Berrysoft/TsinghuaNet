@@ -16,6 +16,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         UsernameChangedImpl();
     }
 
+    /// <summary>
+    /// 如果已保存密码，默认勾选“保存密码”
+    /// </summary>
     void ChangeUserDialog::UsernameChangedImpl()
     {
         hstring pw = CredentialHelper::GetCredential(UnBox().Text());

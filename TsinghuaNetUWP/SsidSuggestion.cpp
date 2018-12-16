@@ -12,6 +12,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     SsidSuggestion::SsidSuggestion()
     {
         InitializeComponent();
+        // 向列表中添加可选项
         m_States = single_threaded_observable_vector<IInspectable>();
         for (int s = (int)NetState::Unknown; s <= (int)NetState::Auth6_25; s++)
         {

@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#define NOMINMAX
 #include <unknwn.h>
 
 #include <hstring.h>

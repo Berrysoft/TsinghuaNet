@@ -24,7 +24,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         static void OnSizePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const&);
 
-        double GetAngle();
         void DrawArc();
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
