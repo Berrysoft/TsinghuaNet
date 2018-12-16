@@ -10,11 +10,11 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="50">用户名：</TextBlock>
-            <TextBox x:Name="UnBox" InputScope="Password" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" Margin="10" Width="200" TextChanged="UsernameChanged"/>
+            <TextBox x:Name="UnBox" InputScope="Password" Margin="10" Width="200" TextChanged="UsernameChanged"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="50">密码：</TextBlock>
-            <PasswordBox x:Name="PwBox" BorderBrush="{ThemeResource SystemControlBackgroundListMediumRevealBorderBrush}" Margin="10" Width="200"/>
+            <PasswordBox x:Name="PwBox" Margin="10" Width="200"/>
         </StackPanel>
         <CheckBox x:Name="SaveBox" Margin="10,10,0,0" HorizontalAlignment="Right">保存密码</CheckBox>
     </StackPanel>

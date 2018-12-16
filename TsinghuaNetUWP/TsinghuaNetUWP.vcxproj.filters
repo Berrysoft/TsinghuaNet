@@ -31,6 +31,7 @@
     <Midl Include="NetStateSsidBox.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="SsidSuggestion.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -41,6 +42,7 @@
     <ClCompile Include="MainViewModel.cpp" />
     <ClCompile Include="ChangeUserDialog.cpp" />
     <ClCompile Include="EditSuggestionDialog.cpp" />
+    <ClCompile Include="SsidSuggestion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -52,6 +54,8 @@
     <ClInclude Include="EditSuggestionDialog.h" />
     <ClInclude Include="DependencyHelper.h" />
     <ClInclude Include="NetStateBox.h" />
+    <ClInclude Include="NetStateSsidBox.h" />
+    <ClInclude Include="SsidSuggestion.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

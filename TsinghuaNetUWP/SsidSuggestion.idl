@@ -2,7 +2,7 @@ import "NetStateSsidBox.idl";
 
 namespace TsinghuaNetUWP
 {
-    [bindable][default_interface] runtimeclass SsidSuggestion : Windows.UI.Xaml.Controls.Grid
+    [bindable][default_interface] runtimeclass SsidSuggestion : Windows.UI.Xaml.Controls.StackPanel
     {
         SsidSuggestion();
 

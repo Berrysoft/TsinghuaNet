@@ -9,7 +9,7 @@ using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LiveTileTask::Run(IBackgroundTaskInstance const& taskInstance)
+    IAsyncAction LiveTileTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         try

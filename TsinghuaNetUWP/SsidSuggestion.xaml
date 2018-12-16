@@ -1,4 +1,4 @@
-﻿<Grid
+﻿<StackPanel
     x:Class="TsinghuaNetUWP.SsidSuggestion"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,16 +6,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetHelper"
-    mc:Ignorable="d">
-    <Grid.Resources>
+    mc:Ignorable="d" Orientation="Horizontal">
+    <StackPanel.Resources>
         <DataTemplate x:Key="NetStateTemplate" x:DataType="local:NetStateBox">
             <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
         </DataTemplate>
-    </Grid.Resources>
-    <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="Auto"/>
-    </Grid.ColumnDefinitions>
-    <TextBlock Grid.Column="0" Width="120" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Ssid,Mode=OneWay}"/>
-    <ComboBox Grid.Column="1" Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
-</Grid>
+    </StackPanel.Resources>
+    <TextBlock Width="120" VerticalAlignment="Center" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Ssid,Mode=OneWay}"/>
+    <ComboBox Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+</StackPanel>

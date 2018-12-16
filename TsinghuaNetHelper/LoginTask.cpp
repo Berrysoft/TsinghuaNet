@@ -8,7 +8,7 @@ using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LoginTask::Run(IBackgroundTaskInstance const& taskInstance)
+    IAsyncAction LoginTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         if (settings.AutoLogin())

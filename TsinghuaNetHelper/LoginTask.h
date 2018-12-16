@@ -7,7 +7,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         LoginTask() = default;
 
-        Windows::Foundation::IAsyncAction Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const& taskInstance);
+        Windows::Foundation::IAsyncAction Run(Windows::ApplicationModel::Background::IBackgroundTaskInstance const taskInstance);
 
     private:
         SettingsHelper settings;
