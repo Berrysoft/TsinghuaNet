@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LoginImpl(); }
         Windows::Foundation::IAsyncAction Logout(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LogoutImpl(); }
         Windows::Foundation::IAsyncAction Refresh(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return RefreshImpl(); }
-        Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, winrt::hstring const e) { return DropImpl(e); }
+        Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, hstring const e) { return DropImpl(e); }
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
 
@@ -49,8 +49,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction LogoutImpl();
         Windows::Foundation::IAsyncAction RefreshImpl();
         Windows::Foundation::IAsyncAction RefreshImpl(TsinghuaNetHelper::IConnect const helper);
-        Windows::Foundation::IAsyncAction DropImpl(winrt::hstring const address);
+        Windows::Foundation::IAsyncAction DropImpl(hstring const address);
         TsinghuaNetHelper::IConnect GetHelper();
+        void ShowResponse(TsinghuaNetHelper::LogResponse const& response);
 
         void RefreshStatusImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl();

@@ -11,7 +11,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         MainViewModel();
 
-        DEPENDENCY_PROPERTY(OnlineUser, winrt::hstring)
+        DEPENDENCY_PROPERTY(OnlineUser, hstring)
         DEPENDENCY_PROPERTY(Flux, std::uint64_t)
         DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
         DEPENDENCY_PROPERTY(Balance, double)
@@ -19,8 +19,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(FluxPercent, double)
         DEPENDENCY_PROPERTY(FreePercent, double)
 
-        DEPENDENCY_PROPERTY(Username, winrt::hstring)
-        DEPENDENCY_PROPERTY(Password, winrt::hstring)
+        DEPENDENCY_PROPERTY(Response, TsinghuaNetHelper::LogResponse)
+
+        DEPENDENCY_PROPERTY(Username, hstring)
+        DEPENDENCY_PROPERTY(Password, hstring)
 
         DEPENDENCY_PROPERTY(AutoLogin, bool)
         EVENT_DECL(AutoLoginChanged, bool)
@@ -30,7 +32,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         EVENT_DECL(BackgroundLiveTileChanged, bool)
 
         DEPENDENCY_PROPERTY(NetStatus, TsinghuaNetHelper::InternetStatus)
-        DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
+        DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
         EVENT_DECL(StateChanged, TsinghuaNetHelper::NetState)

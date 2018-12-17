@@ -26,6 +26,9 @@
                 <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Click="{x:Bind Drop}"/>
             </Grid>
         </DataTemplate>
+        <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
+            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
+        </Flyout>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
@@ -125,7 +128,7 @@
         </SplitView.Pane>
     </SplitView>
     <Page.BottomAppBar>
-        <CommandBar Style="{ThemeResource CommandBarRevealStyle}" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
+        <CommandBar x:Name="MainBar" Style="{ThemeResource CommandBarRevealStyle}" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
             <AppBarButton Icon="Upload" Label="登录" Click="Login"/>
             <AppBarButton Icon="Download" Label="注销" Click="Logout"/>
             <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>

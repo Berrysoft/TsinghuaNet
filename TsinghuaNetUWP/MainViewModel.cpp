@@ -50,6 +50,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(FluxPercent, double, MainViewModel, box_value(0.0))
     DEPENDENCY_PROPERTY_INIT(FreePercent, double, MainViewModel, box_value(100.0))
 
+    DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse{}))
+
     DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, box_value(hstring()))
 

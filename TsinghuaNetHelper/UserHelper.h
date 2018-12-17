@@ -13,8 +13,10 @@ namespace winrt::TsinghuaNetHelper::implementation
         static hstring GetNetStateString(NetState state);
         static hstring GetInternetStatusString(InternetStatus status);
         static uint64_t GetMaxFlux(FluxUser const& user);
-        static FluxUser GetFluxUser(winrt::hstring const& str);
-        static LogResponse GetLogResponse(winrt::hstring const& str);
+        static FluxUser GetFluxUser(hstring const& str);
+        static LogResponse GetLogResponse(hstring const& str);
+        static LogResponse GetAuthLogResponse(hstring const& str);
+        static hstring GetResponseString(LogResponse const& response);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

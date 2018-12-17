@@ -9,7 +9,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         SsidSuggestion();
 
-        DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
+        DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(Value, int)
 
     public:

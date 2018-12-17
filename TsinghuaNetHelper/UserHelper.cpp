@@ -1,11 +1,13 @@
 ﻿#include "pch.h"
 
 #include "UserHelper.h"
+#include "Utility.h"
 
 using namespace std;
 using namespace std::chrono;
 using sf::sprint;
 using namespace winrt;
+using namespace Windows::Data::Json;
 using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
@@ -126,7 +128,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     FluxUser UserHelper::GetFluxUser(hstring const& str)
     {
         auto r = string_split(str, L',');
-        FluxUser result;
+        FluxUser result = {};
         if (!r.empty())
         {
             result.Username = r[0];
@@ -139,6 +141,25 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     LogResponse UserHelper::GetLogResponse(hstring const& str)
     {
-        return {};
+        return { str };
+    }
+
+    LogResponse UserHelper::GetAuthLogResponse(hstring const& str)
+    {
+        // callback(...)
+        auto json = JsonObject::Parse(wstring(str.begin() + 9, str.end() - 1));
+        return { json.GetNamedString(L"error"), json.GetNamedString(L"error_msg") };
+    }
+
+    hstring UserHelper::GetResponseString(LogResponse const& response)
+    {
+        if (response.Message.empty())
+        {
+            return response.Code;
+        }
+        else
+        {
+            return hstring(sprint(L"{}：{}", response.Code, response.Message));
+        }
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

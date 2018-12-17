@@ -30,7 +30,7 @@ private:                                                                        
         Windows::UI::Xaml::DependencyProperty::Register(             \
             L#Name,                                                  \
             winrt::xaml_typename<type>(),                            \
-            winrt::xaml_typename<class_type>(),                      \
+            winrt::xaml_typename<base::class_type>(),                \
             Windows::UI::Xaml::PropertyMetadata(__VA_ARGS__));
 
 #define EVENT_DECL(Name, type)                                                                                               \

@@ -22,6 +22,9 @@ namespace TsinghuaNetUWP
         Double FreePercent;
         static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
 
+        TsinghuaNetHelper.LogResponse Response;
+        static Windows.UI.Xaml.DependencyProperty ResponseProperty { get; };
+
         String Username;
         static Windows.UI.Xaml.DependencyProperty UsernameProperty { get; };
 

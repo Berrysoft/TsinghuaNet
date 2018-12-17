@@ -29,13 +29,13 @@ namespace winrt::TsinghuaNetHelper
     IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
         auto data = co_await LoginDataAsync();
-        co_return UserHelper::GetLogResponse(co_await PostMapAsync(Uri(LogUri), data));
+        co_return UserHelper::GetAuthLogResponse(co_await PostMapAsync(Uri(LogUri), data));
     }
 
     IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
         auto data = co_await LogoutDataAsync();
-        co_return UserHelper::GetLogResponse(co_await PostMapAsync(Uri(LogUri), data));
+        co_return UserHelper::GetAuthLogResponse(co_await PostMapAsync(Uri(LogUri), data));
     }
 
     IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
@@ -70,7 +70,8 @@ namespace winrt::TsinghuaNetHelper
             { L"n", L"200" },
             { L"type", L"1" },
             { L"username", Username() },
-            { L"password", L"{MD5}" + md5 } });
+            { L"password", L"{MD5}" + md5 },
+            { L"callback", L"callback" } });
         string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, Username(), Password(), ac_id), token));
         data.Insert(L"info", to_hstring(info));
         data.Insert(L"chksum", GetSHA1(to_hstring(sprint(LoginChkSumData, token, Username(), md5, info, ac_id))));
@@ -88,7 +89,8 @@ namespace winrt::TsinghuaNetHelper
             { L"double_stack", L"1" },
             { L"n", L"200" },
             { L"type", L"1" },
-            { L"username", Username() } });
+            { L"username", Username() },
+            { L"callback", L"callback" } });
         string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LogoutInfoJson, Username(), ac_id), token));
         data.Insert(L"info", to_hstring(info));
         data.Insert(L"chksum", GetSHA1(to_hstring(sprint(LogoutChkSumData, token, Username(), info, ac_id))));

@@ -9,11 +9,11 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         NetUser() = default;
 
-        DEPENDENCY_PROPERTY(Address, winrt::hstring)
-        DEPENDENCY_PROPERTY(LoginTime, winrt::hstring)
-        DEPENDENCY_PROPERTY(Client, winrt::hstring)
+        DEPENDENCY_PROPERTY(Address, hstring)
+        DEPENDENCY_PROPERTY(LoginTime, hstring)
+        DEPENDENCY_PROPERTY(Client, hstring)
 
-        EVENT_DECL(DropUser, winrt::hstring)
+        EVENT_DECL(DropUser, hstring)
 
     public:
         void Drop() { m_DropUserEvent(*this, Address()); }

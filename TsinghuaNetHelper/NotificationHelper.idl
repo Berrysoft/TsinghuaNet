@@ -13,6 +13,8 @@ namespace TsinghuaNetHelper
         static UInt64 GetMaxFlux(FluxUser user);
         static FluxUser GetFluxUser(String str);
         static LogResponse GetLogResponse(String str);
+        static LogResponse GetAuthLogResponse(String str);
+        static String GetResponseString(LogResponse response);
     }
 
     runtimeclass NotificationHelper

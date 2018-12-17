@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetHelper
         int ac_id;
 
         concurrency::task<std::string> ChallengeAsync();
-        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LoginDataAsync();
-        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LogoutDataAsync();
+        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<hstring, hstring>> LoginDataAsync();
+        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<hstring, hstring>> LogoutDataAsync();
     };
 } // namespace winrt::TsinghuaNetHelper

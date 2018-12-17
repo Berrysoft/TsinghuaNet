@@ -7,6 +7,7 @@
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
+using namespace std::chrono;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
@@ -159,7 +160,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper.LoginAsync();
+                ShowResponse(co_await helper.LoginAsync());
                 co_await RefreshImpl(helper);
             }
         }
@@ -179,7 +180,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper.LogoutAsync();
+                ShowResponse(co_await helper.LogoutAsync());
                 co_await RefreshImpl(helper);
             }
         }
@@ -258,6 +259,12 @@ namespace winrt::TsinghuaNetUWP::implementation
     IConnect MainPage::GetHelper()
     {
         return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
+    }
+
+    void MainPage::ShowResponse(LogResponse const& response)
+    {
+        Model().Response(response);
+        ResponseFlyout().ShowAt(MainBar());
     }
 
     /// <summary>
