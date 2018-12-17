@@ -13,9 +13,16 @@
         </DataTemplate>
         <Flyout x:Name="AddFlyout">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center">SSID：</TextBlock>
-                <TextBox x:Name="AddFlyoutText" Margin="10" Width="150"/>
-                <Button Margin="10" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
+                <TextBlock Margin="0,0,10,0" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center">SSID：</TextBlock>
+                <TextBox x:Name="AddFlyoutText" Width="150"/>
+                <Button Margin="10,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
+            </StackPanel>
+        </Flyout>
+        <Flyout x:Name="HelpFlyout">
+            <StackPanel Orientation="Vertical">
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">Net：一般的无线网，以及未改造的有线网连接方式。</TextBlock>
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">Auth4/6：改造后的有线网连接方式（一般为Auth4）。</TextBlock>
+                <TextBlock Style="{ThemeResource BodyTextBlockStyle}">IPv4/6：无线网“Tsinghua-IPv4/6”的连接方式。</TextBlock>
             </StackPanel>
         </Flyout>
     </ContentDialog.Resources>
@@ -33,6 +40,7 @@
                 <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">无线网</TextBlock>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
+                <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
             </StackPanel>
             <ListView x:Name="WlanListView" Grid.Row="3" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
         </Grid>

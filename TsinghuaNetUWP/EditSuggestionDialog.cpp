@@ -58,4 +58,13 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         m_WlanList.RemoveAt(WlanListView().SelectedIndex());
     }
+
+    /// <summary>
+    /// 点击问号弹出对话框
+    /// </summary>
+    /// <param name="e"></param>
+    void EditSuggestionDialog::HelpSelection(IInspectable const&, RoutedEventArgs const& e)
+    {
+        HelpFlyout().ShowAt(e.OriginalSource().as<FrameworkElement>());
+    }
 } // namespace winrt::TsinghuaNetUWP::implementation

@@ -15,6 +15,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void AddSelection(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const& e);
         void AddButtonClick(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
         void DeleteSelection(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
+        void HelpSelection(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const& e);
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_WlanList;
