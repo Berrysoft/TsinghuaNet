@@ -338,8 +338,7 @@ namespace winrt::TsinghuaNetUWP::implementation
             s.Clear();
             for (auto pair : v)
             {
-                auto item = pair.try_as<TsinghuaNetUWP::NetStateSsidBox>();
-                if (item)
+                if (auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() })
                 {
                     s.Insert(item.Ssid(), (NetState)item.Value());
                 }
@@ -427,7 +426,27 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         auto users = co_await helper.UsersAsync();
         auto usersmodel = Model().NetUsers();
-        usersmodel.Clear();
+        for (uint32_t i = 0; i < usersmodel.Size(); i++)
+        {
+            if (auto olduser{ usersmodel.GetAt(i).try_as<NetUser>() })
+            {
+                // 循环判断旧元素是否存在于新集合中
+                for (uint32_t j = 0; j < users.Size(); j++)
+                {
+                    // 如果存在则移除新元素
+                    if (users.GetAt(j).Equals(olduser))
+                    {
+                        users.RemoveAt(j);
+                        goto continue_outer;
+                    }
+                }
+                // 反之移除旧元素
+                usersmodel.RemoveAt(i);
+                i--;
+            }
+        continue_outer:;
+        }
+        // 最后添加新增元素
         for (auto user : users)
         {
             user.DropUser({ this, &MainPage::DropUser });

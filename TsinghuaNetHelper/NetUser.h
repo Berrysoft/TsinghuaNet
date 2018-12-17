@@ -9,14 +9,14 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         NetUser() = default;
 
+        void Drop() { m_DropUserEvent(*this, Address()); }
+        bool Equals(TsinghuaNetHelper::NetUser const& user);
+
         DEPENDENCY_PROPERTY(Address, hstring)
         DEPENDENCY_PROPERTY(LoginTime, hstring)
         DEPENDENCY_PROPERTY(Client, hstring)
 
         EVENT_DECL(DropUser, hstring)
-
-    public:
-        void Drop() { m_DropUserEvent(*this, Address()); }
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

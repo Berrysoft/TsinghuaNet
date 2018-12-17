@@ -67,6 +67,8 @@ namespace TsinghuaNetHelper
 
         void Drop();
         event Windows.Foundation.EventHandler<String> DropUser;
+
+        Boolean Equals(NetUser user);
     }
 
     [default_interface] runtimeclass UseregHelper : ICredential
