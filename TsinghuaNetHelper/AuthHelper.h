@@ -9,9 +9,9 @@ namespace winrt::TsinghuaNetHelper
     {
         AuthHelper(int ver, int ac_id = 1);
 
-        Windows::Foundation::IAsyncOperation<hstring> LoginAsync();
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync();
-        Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::FluxUser> FluxAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
+        Windows::Foundation::IAsyncOperation<FluxUser> FluxAsync();
 
     private:
         std::wstring const LogUri;

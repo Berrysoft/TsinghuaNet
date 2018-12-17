@@ -6,9 +6,6 @@
     <ClCompile Include="AuthHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
-    <ClCompile Include="FluxUser.cpp">
-      <Filter>NetHelper</Filter>
-    </ClCompile>
     <ClCompile Include="NetHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
@@ -61,9 +58,6 @@
       <Filter>NetHelper</Filter>
     </ClInclude>
     <ClInclude Include="AuthHelper.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="FluxUser.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
     <ClInclude Include="NetHelper.h">

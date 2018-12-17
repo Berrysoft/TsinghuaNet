@@ -26,21 +26,21 @@ namespace winrt::TsinghuaNetHelper
     {
     }
 
-    IAsyncOperation<hstring> AuthHelper::LoginAsync()
+    IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
         auto data = co_await LoginDataAsync();
-        co_return co_await PostMapAsync(Uri(LogUri), data);
+        co_return UserHelper::GetLogResponse(co_await PostMapAsync(Uri(LogUri), data));
     }
 
-    IAsyncOperation<hstring> AuthHelper::LogoutAsync()
+    IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
         auto data = co_await LogoutDataAsync();
-        co_return co_await PostMapAsync(Uri(LogUri), data);
+        co_return UserHelper::GetLogResponse(co_await PostMapAsync(Uri(LogUri), data));
     }
 
     IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
     {
-        return FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
+        co_return UserHelper::GetFluxUser(co_await PostAsync(Uri(FluxUri)));
     }
 
     constexpr char ChallengeRegex[] = "\"challenge\":\"(.*?)\"";

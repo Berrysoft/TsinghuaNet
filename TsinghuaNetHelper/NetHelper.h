@@ -9,9 +9,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         NetHelper() {}
 
-        Windows::Foundation::IAsyncOperation<hstring> LoginAsync();
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync();
-        Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::FluxUser> FluxAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
+        Windows::Foundation::IAsyncOperation<FluxUser> FluxAsync();
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

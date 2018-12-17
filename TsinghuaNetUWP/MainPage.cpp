@@ -221,13 +221,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
         // 更新窗口信息
-        Model().OnlineUser(flux.Username());
-        Model().Flux(flux.Flux());
-        Model().OnlineTime(flux.OnlineTime());
-        Model().Balance(flux.Balance());
+        Model().OnlineUser(flux.Username);
+        Model().Flux(flux.Flux);
+        Model().OnlineTime(flux.OnlineTime);
+        Model().Balance(flux.Balance);
         // 动画
         double maxf = (double)UserHelper::GetMaxFlux(flux);
-        Model().FluxPercent(flux.Flux() / maxf);
+        Model().FluxPercent(flux.Flux / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
     }

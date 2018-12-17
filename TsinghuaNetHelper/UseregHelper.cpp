@@ -18,19 +18,19 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t LogoutData[] = L"action=logout";
     constexpr wchar_t DropData[] = L"action=drop&user_ip={}";
 
-    IAsyncOperation<hstring> UseregHelper::LoginAsync()
+    IAsyncOperation<LogResponse> UseregHelper::LoginAsync()
     {
-        return PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password()))));
+        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
     }
 
-    IAsyncOperation<hstring> UseregHelper::LogoutAsync()
+    IAsyncOperation<LogResponse> UseregHelper::LogoutAsync()
     {
-        return PostStringAsync(Uri(LogUri), LogoutData);
+        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), LogoutData));
     }
 
-    IAsyncOperation<hstring> UseregHelper::LogoutAsync(hstring const ip)
+    IAsyncOperation<LogResponse> UseregHelper::LogoutAsync(hstring const ip)
     {
-        return PostStringAsync(Uri(InfoUri), hstring(sprint(DropData, ip)));
+        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(InfoUri), hstring(sprint(DropData, ip))));
     }
 
     constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";

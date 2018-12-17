@@ -11,6 +11,8 @@ namespace TsinghuaNetHelper
         static String GetNetStateString(NetState state);
         static String GetInternetStatusString(InternetStatus status);
         static UInt64 GetMaxFlux(FluxUser user);
+        static FluxUser GetFluxUser(String str);
+        static LogResponse GetLogResponse(String str);
     }
 
     runtimeclass NotificationHelper

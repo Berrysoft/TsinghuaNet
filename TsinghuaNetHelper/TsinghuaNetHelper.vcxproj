@@ -120,7 +120,6 @@
     <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="CryptographyHelper.h" />
-    <ClInclude Include="FluxUser.h" />
     <ClInclude Include="LiveTileTask.h">
       <DependentUpon>LiveTileTask.idl</DependentUpon>
     </ClInclude>
@@ -143,7 +142,6 @@
     <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="CryptographyHelper.cpp" />
-    <ClCompile Include="FluxUser.cpp" />
     <ClCompile Include="LiveTileTask.cpp">
       <DependentUpon>LiveTileTask.idl</DependentUpon>
     </ClCompile>

@@ -1,16 +1,18 @@
 namespace TsinghuaNetHelper
 {
-    runtimeclass FluxUser
+    struct FluxUser
     {
-        FluxUser();
-
         String Username;
         UInt64 Flux;
         Windows.Foundation.TimeSpan OnlineTime;
         Double Balance;
+    };
 
-        static FluxUser Parse(String fluxstr);
-    }
+    struct LogResponse
+    {
+        String Code;
+        String Message;
+    };
 
     interface ICredential
     {
@@ -20,8 +22,8 @@ namespace TsinghuaNetHelper
 
     interface IConnect
     {
-        Windows.Foundation.IAsyncOperation<String> LoginAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
         Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
     }
 
@@ -71,9 +73,9 @@ namespace TsinghuaNetHelper
     {
         UseregHelper();
 
-        Windows.Foundation.IAsyncOperation<String> LoginAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync(String ip);
+        Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync(String ip);
         Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVector<NetUser> > UsersAsync();
     }
 } // namespace TsinghuaNetHelper
