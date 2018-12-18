@@ -34,24 +34,9 @@ namespace winrt::TsinghuaNetHelper::implementation
         values.Insert(key, box_value(value));
     }
 
-    constexpr wchar_t WlanStateKey[] = L"WlanState";
-
     SettingsHelper::SettingsHelper()
     {
-        hstring json = GetValue<hstring>(WlanStateKey, {});
-        if (json.empty())
-        {
-            WlanStates(DefWlanStates());
-        }
-        else
-        {
-            wlanMap = JsonObject::Parse(json);
-        }
-    }
-
-    SettingsHelper::~SettingsHelper()
-    {
-        SetValue(WlanStateKey, wlanMap.ToString());
+        wlanMap = WlanStateInternal();
     }
 
 #define SETTINGS_PROP_IMPL(name, key, type, def)                           \
@@ -88,25 +73,38 @@ namespace winrt::TsinghuaNetHelper::implementation
     void SettingsHelper::WlanState(hstring const& ssid, NetState value)
     {
         wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
+        WlanStateInternal(wlanMap);
     }
 
-    IMap<hstring, NetState> SettingsHelper::WlanStates()
+    IMap<hstring, NetState> GetMapFromJson(JsonObject const& json)
     {
         auto result = single_threaded_map<hstring, NetState>();
-        for (auto pair : wlanMap)
+        for (auto pair : json)
         {
             result.Insert(pair.Key(), (NetState)(int)pair.Value().GetNumber());
         }
         return result;
     }
 
+    JsonObject GetJsonFromMap(IMap<hstring, NetState> const& map)
+    {
+        JsonObject result;
+        for (auto pair : map)
+        {
+            result.Insert(pair.Key(), JsonValue::CreateNumberValue((int)pair.Value()));
+        }
+        return result;
+    }
+
+    IMap<hstring, NetState> SettingsHelper::WlanStates()
+    {
+        return GetMapFromJson(wlanMap);
+    }
+
     void SettingsHelper::WlanStates(IMap<hstring, NetState> const& states)
     {
-        wlanMap.Clear();
-        for (auto pair : states)
-        {
-            wlanMap.Insert(pair.Key(), JsonValue::CreateNumberValue((int)pair.Value()));
-        }
+        wlanMap = GetJsonFromMap(states);
+        WlanStateInternal(wlanMap);
     }
 
     IMap<hstring, NetState> SettingsHelper::DefWlanStates()
@@ -117,6 +115,26 @@ namespace winrt::TsinghuaNetHelper::implementation
             { L"Tsinghua-IPv4", NetState::Auth4_25 },
             { L"Tsinghua-IPv6", NetState::Auth6_25 },
             { L"Wifi.郑裕彤讲堂", NetState::Net } });
+    }
+
+    constexpr wchar_t WlanStateKey[] = L"WlanState";
+
+    JsonObject SettingsHelper::WlanStateInternal()
+    {
+        hstring json = GetValue<hstring>(WlanStateKey, {});
+        if (json.empty())
+        {
+            return GetJsonFromMap(DefWlanStates());
+        }
+        else
+        {
+            return JsonObject::Parse(json);
+        }
+    }
+
+    void SettingsHelper::WlanStateInternal(JsonObject const& value)
+    {
+        SetValue(WlanStateKey, value.ToString());
     }
 
     bool SettingsHelper::InternetAvailable()
