@@ -70,11 +70,18 @@ namespace winrt::TsinghuaNetUWP::implementation
         HelpFlyout().ShowAt(e.OriginalSource().as<FrameworkElement>());
     }
 
+    /// <summary>
+    /// 点击恢复使用默认建议
+    /// </summary>
     void EditSuggestionDialog::RestoreSelection(IInspectable const&, RoutedEventArgs const&)
     {
         RefreshWlanList(SettingsHelper::DefWlanStates());
     }
 
+    /// <summary>
+    /// 使用一个已有的表填充建议列表
+    /// </summary>
+    /// <param name="list"></param>
     void EditSuggestionDialog::RefreshWlanList(IMap<hstring, NetState> const& list)
     {
         m_WlanList.Clear();

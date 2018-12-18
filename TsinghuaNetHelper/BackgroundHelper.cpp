@@ -65,7 +65,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             auto task = NewTask(LOGINTASK, xaml_typename<LoginTask>());
             task.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
-            task.AddCondition(SystemCondition(SystemConditionType::InternetNotAvailable));
             task.Register();
         }
     }
