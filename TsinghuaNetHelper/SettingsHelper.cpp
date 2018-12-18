@@ -4,6 +4,7 @@
 #include <winrt/Windows.Networking.Connectivity.h>
 #include <winrt/Windows.Storage.h>
 
+using namespace std;
 using namespace winrt;
 using namespace Windows::Data::Json;
 using namespace Windows::Foundation::Collections;
@@ -40,11 +41,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         hstring json = GetValue<hstring>(WlanStateKey, {});
         if (json.empty())
         {
-            wlanMap.Insert(L"Tsinghua", JsonValue::CreateNumberValue((int)NetState::Net));
-            wlanMap.Insert(L"Tsinghua-5G", JsonValue::CreateNumberValue((int)NetState::Net));
-            wlanMap.Insert(L"Tsinghua-IPv4", JsonValue::CreateNumberValue((int)NetState::Auth4_25));
-            wlanMap.Insert(L"Tsinghua-IPv6", JsonValue::CreateNumberValue((int)NetState::Auth6_25));
-            wlanMap.Insert(L"Wifi.郑裕彤讲堂", JsonValue::CreateNumberValue((int)NetState::Net));
+            WlanStates(DefWlanStates());
         }
         else
         {
@@ -110,6 +107,16 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             wlanMap.Insert(pair.Key(), JsonValue::CreateNumberValue((int)pair.Value()));
         }
+    }
+
+    IMap<hstring, NetState> SettingsHelper::DefWlanStates()
+    {
+        return single_threaded_map(map<hstring, NetState>{
+            { L"Tsinghua", NetState::Net },
+            { L"Tsinghua-5G", NetState::Net },
+            { L"Tsinghua-IPv4", NetState::Auth4_25 },
+            { L"Tsinghua-IPv6", NetState::Auth6_25 },
+            { L"Wifi.郑裕彤讲堂", NetState::Net } });
     }
 
     bool SettingsHelper::InternetAvailable()

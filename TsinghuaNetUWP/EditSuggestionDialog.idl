@@ -9,5 +9,7 @@ namespace TsinghuaNetUWP
         SsidSuggestion LanCombo { get; };
         SsidSuggestion WwanCombo { get; };
         Windows.Foundation.Collections.IObservableVector<IInspectable> WlanList { get; };
+
+        void RefreshWlanList(Windows.Foundation.Collections.IMap<String, TsinghuaNetHelper.NetState> list);
     }
 } // namespace TsinghuaNetUWP

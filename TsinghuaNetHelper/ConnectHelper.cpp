@@ -9,7 +9,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     NetState ConnectHelper::GetSuggestNetState(SettingsHelper const& lan)
     {
         hstring ssid;
-        auto status = lan.InternetStatus(ssid);
+        auto status = SettingsHelper::InternetStatus(ssid);
         switch (status)
         {
         case InternetStatus::Lan:

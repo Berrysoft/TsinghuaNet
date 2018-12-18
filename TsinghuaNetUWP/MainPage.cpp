@@ -322,21 +322,14 @@ namespace winrt::TsinghuaNetUWP::implementation
         dialog.LanCombo().Value((int)settings.LanState());
         dialog.WwanCombo().Value((int)settings.WwanState());
         auto s = settings.WlanStates();
-        auto v = dialog.WlanList();
-        for (auto pair : s)
-        {
-            auto item = make<NetStateSsidBox>();
-            item.Ssid(pair.Key());
-            item.Value((int)pair.Value());
-            v.Append(item);
-        }
+        dialog.RefreshWlanList(s);
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
             settings.LanState((NetState)dialog.LanCombo().Value());
             settings.WwanState((NetState)dialog.WwanCombo().Value());
             s.Clear();
-            for (auto pair : v)
+            for (auto pair : dialog.WlanList())
             {
                 if (auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() })
                 {
@@ -378,7 +371,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         NetState state;
         hstring ssid;
-        auto status = settings.InternetStatus(ssid);
+        auto status = SettingsHelper::InternetStatus(ssid);
         switch (status)
         {
         case InternetStatus::Lan:

@@ -4,7 +4,9 @@
 
 using namespace winrt;
 using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
 using namespace Windows::UI::Xaml;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -66,5 +68,22 @@ namespace winrt::TsinghuaNetUWP::implementation
     void EditSuggestionDialog::HelpSelection(IInspectable const&, RoutedEventArgs const& e)
     {
         HelpFlyout().ShowAt(e.OriginalSource().as<FrameworkElement>());
+    }
+
+    void EditSuggestionDialog::RestoreSelection(IInspectable const&, RoutedEventArgs const&)
+    {
+        RefreshWlanList(SettingsHelper::DefWlanStates());
+    }
+
+    void EditSuggestionDialog::RefreshWlanList(IMap<hstring, NetState> const& list)
+    {
+        m_WlanList.Clear();
+        for (auto pair : list)
+        {
+            auto item = make<NetStateSsidBox>();
+            item.Ssid(pair.Key());
+            item.Value((int)pair.Value());
+            m_WlanList.Append(item);
+        }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

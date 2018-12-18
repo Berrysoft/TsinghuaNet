@@ -25,8 +25,10 @@ namespace winrt::TsinghuaNetHelper::implementation
         Windows::Foundation::Collections::IMap<hstring, NetState> WlanStates();
         void WlanStates(Windows::Foundation::Collections::IMap<hstring, NetState> const& states);
 
-        bool InternetAvailable();
-        InternetStatus InternetStatus(hstring& ssid);
+        static Windows::Foundation::Collections::IMap<hstring, NetState> DefWlanStates();
+
+        static bool InternetAvailable();
+        static InternetStatus InternetStatus(hstring& ssid);
 
     private:
         Windows::Data::Json::JsonObject wlanMap;
