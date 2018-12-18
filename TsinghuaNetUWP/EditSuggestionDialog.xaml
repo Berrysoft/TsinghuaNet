@@ -5,11 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
+    xmlns:helper="using:TsinghuaNetHelper"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <ContentDialog.Resources>
         <DataTemplate x:Key="SsidSuggestionTemplate" x:DataType="local:NetStateSsidBox">
-            <local:SsidSuggestion Margin="0,10" Ssid="{x:Bind Ssid,Mode=TwoWay}" Value="{x:Bind Value,Mode=TwoWay}"/>
+            <local:SsidSuggestion Margin="0,10" SsidStyle="{ThemeResource BaseTextBlockStyle}" Ssid="{x:Bind Ssid,Mode=TwoWay}" Value="{x:Bind Value,Mode=TwoWay}"/>
         </DataTemplate>
         <Flyout x:Name="AddFlyout">
             <StackPanel Orientation="Horizontal">
@@ -34,10 +35,10 @@
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <local:SsidSuggestion x:Name="LanCombo" Grid.Row="0" Margin="10" Width="400" Ssid="有线网"/>
-            <local:SsidSuggestion x:Name="WwanCombo" Grid.Row="1" Margin="10" Width="400" Ssid="移动流量"/>
+            <local:SsidSuggestion x:Name="LanCombo" Grid.Row="0" Margin="10" Width="400" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
+            <local:SsidSuggestion x:Name="WwanCombo" Grid.Row="1" Margin="10" Width="400" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal">
-                <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">无线网</TextBlock>
+                <TextBlock Margin="10" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>

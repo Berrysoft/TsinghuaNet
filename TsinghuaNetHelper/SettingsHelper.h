@@ -20,7 +20,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         NetState WwanState();
         void WwanState(NetState value);
         NetState WlanState(hstring const& ssid);
-        void WlanState(hstring const& ssid, NetState value);
         Windows::Foundation::Collections::IMap<hstring, NetState> WlanStates();
         void WlanStates(Windows::Foundation::Collections::IMap<hstring, NetState> const& states);
 

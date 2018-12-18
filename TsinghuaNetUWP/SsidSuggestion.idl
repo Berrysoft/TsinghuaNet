@@ -12,6 +12,9 @@ namespace TsinghuaNetUWP
         Int32 Value;
         static Windows.UI.Xaml.DependencyProperty ValueProperty { get; };
 
+        Windows.UI.Xaml.Style SsidStyle;
+        static Windows.UI.Xaml.DependencyProperty SsidStyleProperty { get; };
+
         Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
     }
 } // namespace TsinghuaNetUWP

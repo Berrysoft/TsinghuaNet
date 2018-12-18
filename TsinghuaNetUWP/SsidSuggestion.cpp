@@ -22,4 +22,5 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, SsidSuggestion, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Value, int, SsidSuggestion, box_value(0))
+    DEPENDENCY_PROPERTY_INIT(SsidStyle, Windows::UI::Xaml::Style, SsidSuggestion, nullptr)
 } // namespace winrt::TsinghuaNetUWP::implementation

@@ -12,6 +12,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(Value, int)
 
+        DEPENDENCY_PROPERTY(SsidStyle, Windows::UI::Xaml::Style)
+
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> States() { return m_States; }
 

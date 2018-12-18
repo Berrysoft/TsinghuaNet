@@ -70,12 +70,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         return NetState::Unknown;
     }
 
-    void SettingsHelper::WlanState(hstring const& ssid, NetState value)
-    {
-        wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
-        WlanStateInternal(wlanMap);
-    }
-
     IMap<hstring, NetState> GetMapFromJson(JsonObject const& json)
     {
         auto result = single_threaded_map<hstring, NetState>();
@@ -152,7 +146,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             return InternetStatus::Unknown;
         auto cl = profile.GetNetworkConnectivityLevel();
         if (cl == NetworkConnectivityLevel::None)
-            return InternetStatus::None;
+            return InternetStatus::Unknown;
         if (profile.IsWwanConnectionProfile())
         {
             return InternetStatus::Wwan;

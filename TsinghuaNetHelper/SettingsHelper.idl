@@ -13,7 +13,6 @@ namespace TsinghuaNetHelper
     enum InternetStatus
     {
         Unknown,
-        None,
         Wwan,
         Wlan,
         Lan
@@ -37,7 +36,6 @@ namespace TsinghuaNetHelper
         NetState LanState;
         NetState WwanState;
         NetState WlanState(String ssid);
-        void WlanState(String ssid, NetState state);
         Windows.Foundation.Collections.IMap<String, NetState> WlanStates;
 
         static Windows.Foundation.Collections.IMap<String, NetState> DefWlanStates { get; };

@@ -77,16 +77,14 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         switch (status)
         {
-        case InternetStatus::None:
-            return L"未连接";
         case InternetStatus::Wwan:
-            return L"蜂窝移动网络";
+            return L"移动流量";
         case InternetStatus::Wlan:
             return L"无线网络";
         case InternetStatus::Lan:
             return L"有线网络";
         default:
-            return L"未知";
+            return L"未连接";
         }
     }
 
