@@ -6,7 +6,6 @@ namespace winrt::TsinghuaNetHelper::implementation
     struct SettingsHelper : SettingsHelperT<SettingsHelper>
     {
         SettingsHelper();
-        virtual ~SettingsHelper();
 
         hstring StoredUsername();
         void StoredUsername(hstring const& value);
@@ -30,6 +29,9 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     private:
         Windows::Data::Json::JsonObject wlanMap;
+
+        Windows::Data::Json::JsonObject WlanStateInternal();
+        void WlanStateInternal(Windows::Data::Json::JsonObject const& value);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

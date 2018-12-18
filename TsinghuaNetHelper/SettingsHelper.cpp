@@ -33,28 +33,9 @@ namespace winrt::TsinghuaNetHelper::implementation
         values.Insert(key, box_value(value));
     }
 
-    constexpr wchar_t WlanStateKey[] = L"WlanState";
-
     SettingsHelper::SettingsHelper()
     {
-        hstring json = GetValue<hstring>(WlanStateKey, {});
-        if (json.empty())
-        {
-            wlanMap.Insert(L"Tsinghua", JsonValue::CreateNumberValue((int)NetState::Net));
-            wlanMap.Insert(L"Tsinghua-5G", JsonValue::CreateNumberValue((int)NetState::Net));
-            wlanMap.Insert(L"Tsinghua-IPv4", JsonValue::CreateNumberValue((int)NetState::Auth4_25));
-            wlanMap.Insert(L"Tsinghua-IPv6", JsonValue::CreateNumberValue((int)NetState::Auth6_25));
-            wlanMap.Insert(L"Wifi.郑裕彤讲堂", JsonValue::CreateNumberValue((int)NetState::Net));
-        }
-        else
-        {
-            wlanMap = JsonObject::Parse(json);
-        }
-    }
-
-    SettingsHelper::~SettingsHelper()
-    {
-        SetValue(WlanStateKey, wlanMap.ToString());
+        wlanMap = WlanStateInternal();
     }
 
 #define SETTINGS_PROP_IMPL(name, key, type, def)                           \
@@ -79,6 +60,32 @@ namespace winrt::TsinghuaNetHelper::implementation
     SETTINGS_PROP_CONV_IMPL(LanState, L"LanState", NetState, int, (int)NetState::Auth4)
     SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Unknown)
 
+    constexpr wchar_t WlanStateKey[] = L"WlanState";
+
+    JsonObject SettingsHelper::WlanStateInternal()
+    {
+        hstring json = GetValue<hstring>(WlanStateKey, {});
+        if (json.empty())
+        {
+            JsonObject map;
+            map.Insert(L"Tsinghua", JsonValue::CreateNumberValue((int)NetState::Net));
+            map.Insert(L"Tsinghua-5G", JsonValue::CreateNumberValue((int)NetState::Net));
+            map.Insert(L"Tsinghua-IPv4", JsonValue::CreateNumberValue((int)NetState::Auth4_25));
+            map.Insert(L"Tsinghua-IPv6", JsonValue::CreateNumberValue((int)NetState::Auth6_25));
+            map.Insert(L"Wifi.郑裕彤讲堂", JsonValue::CreateNumberValue((int)NetState::Net));
+            return map;
+        }
+        else
+        {
+            return JsonObject::Parse(json);
+        }
+    }
+
+    void SettingsHelper::WlanStateInternal(JsonObject const& value)
+    {
+        SetValue(WlanStateKey, value.ToString());
+    }
+
     NetState SettingsHelper::WlanState(hstring const& ssid)
     {
         if (wlanMap.HasKey(ssid))
@@ -91,6 +98,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     void SettingsHelper::WlanState(hstring const& ssid, NetState value)
     {
         wlanMap.Insert(ssid, JsonValue::CreateNumberValue((int)value));
+        WlanStateInternal(wlanMap);
     }
 
     IMap<hstring, NetState> SettingsHelper::WlanStates()
@@ -110,6 +118,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             wlanMap.Insert(pair.Key(), JsonValue::CreateNumberValue((int)pair.Value()));
         }
+        WlanStateInternal(wlanMap);
     }
 
     bool SettingsHelper::InternetAvailable()
