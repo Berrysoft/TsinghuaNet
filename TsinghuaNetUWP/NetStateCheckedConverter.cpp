@@ -1,9 +1,7 @@
 ﻿#include "pch.h"
 
 #include "NetStateCheckedConverter.h"
-#include <map>
 
-using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;

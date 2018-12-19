@@ -50,7 +50,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(FluxPercent, double, MainViewModel, box_value(0.0))
     DEPENDENCY_PROPERTY_INIT(FreePercent, double, MainViewModel, box_value(100.0))
 
-    DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse{}))
+    DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse()))
 
     DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, box_value(hstring()))
@@ -64,4 +64,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(NetStatus, InternetStatus, MainViewModel, box_value(InternetStatus::Unknown))
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(SuggestState, NetState, MainViewModel, box_value(NetState::Unknown))
+
+    DEPENDENCY_PROPERTY_INIT(Theme, ElementTheme, MainViewModel, box_value(ElementTheme::Default))
 } // namespace winrt::TsinghuaNetUWP::implementation

@@ -37,6 +37,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
+        DEPENDENCY_PROPERTY(Theme, Windows::UI::Xaml::ElementTheme)
+
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
 

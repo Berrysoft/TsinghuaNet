@@ -49,6 +49,9 @@
     <ClCompile Include="NetStateCheckedConverter.cpp">
       <Filter>Converters</Filter>
     </ClCompile>
+    <ClCompile Include="ThemeCheckedConverter.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -63,6 +66,9 @@
     <ClInclude Include="NetStateSsidBox.h" />
     <ClInclude Include="SsidSuggestion.h" />
     <ClInclude Include="NetStateCheckedConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeCheckedConverter.h">
       <Filter>Converters</Filter>
     </ClInclude>
   </ItemGroup>

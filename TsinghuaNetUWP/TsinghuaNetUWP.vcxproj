@@ -148,6 +148,7 @@
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ThemeCheckedConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -220,6 +221,7 @@
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ThemeCheckedConverter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Arc.idl">

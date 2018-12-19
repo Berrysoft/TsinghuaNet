@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetHelper"
-    mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" ActualThemeChanged="ThemeChanged">
+    mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
     </Page.DataContext>
@@ -30,6 +30,7 @@
             <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
         </Flyout>
         <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
+        <local:ThemeCheckedConverter x:Key="ThemeCheckedConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
@@ -162,9 +163,33 @@
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}"/>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
-                        <RadioButton>默认</RadioButton>
-                        <RadioButton>亮</RadioButton>
-                        <RadioButton>暗</RadioButton>
+                        <RadioButton Content="默认">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Default</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="亮">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Light</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="暗">
+                            <RadioButton.IsChecked>
+                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <ElementTheme>Dark</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>

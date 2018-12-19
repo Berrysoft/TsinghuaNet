@@ -3,6 +3,7 @@
 
 #include "MainViewModel.h"
 #include "NetStateCheckedConverter.h"
+#include "ThemeCheckedConverter.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
