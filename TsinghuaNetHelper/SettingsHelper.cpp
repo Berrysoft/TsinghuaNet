@@ -10,6 +10,7 @@ using namespace Windows::Data::Json;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Networking::Connectivity;
 using namespace Windows::Storage;
+using namespace Windows::UI::Xaml;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
@@ -61,6 +62,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t LanStateKey[] = L"LanState";
     constexpr wchar_t WwanStateKey[] = L"WwanState";
     constexpr wchar_t WlanStateKey[] = L"WlanState";
+    constexpr wchar_t ThemeKey[] = L"Theme";
 
     SettingsHelper::SettingsHelper()
     {
@@ -70,6 +72,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         m_BackgroundLiveTile = GetValue<bool>(BackgroundLiveTileKey, true);
         m_LanState = (NetState)GetValue<int>(LanStateKey, (int)NetState::Auth4);
         m_WwanState = (NetState)GetValue<int>(WwanStateKey, (int)NetState::Unknown);
+        m_Theme = (ElementTheme)GetValue<int>(ThemeKey, (int)ElementTheme::Default);
         hstring json = GetValue<hstring>(WlanStateKey);
         if (json.empty())
         {
@@ -89,6 +92,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         SetValue(BackgroundLiveTileKey, m_BackgroundLiveTile);
         SetValue(LanStateKey, (int)m_LanState);
         SetValue(WwanStateKey, (int)m_WwanState);
+        SetValue(ThemeKey, (int)m_Theme);
         SetValue(WlanStateKey, wlanMap.ToString());
     }
 

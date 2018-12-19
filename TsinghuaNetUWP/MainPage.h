@@ -15,7 +15,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         bool ToastLogined() { return m_ToastLogined; }
         void ToastLogined(bool value) { m_ToastLogined = value; }
 
-        void SaveSettings() { settings.SaveSettings(); }
+        void SaveSettings();
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
         void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const&, Windows::Foundation::IInspectable const&) { ThemeChangedImpl(); }

@@ -35,6 +35,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         viewTitleBar.ExtendViewIntoTitleBar(true);
         // 设置主窗格为标题栏
         Window::Current().SetTitleBar(MainGrid());
+        Model().Theme(settings.Theme());
+    }
+
+    void MainPage::SaveSettings()
+    {
+        settings.Theme(Model().Theme());
+        settings.SaveSettings();
     }
 
     /// <summary>
@@ -96,6 +103,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<ChangeUserDialog>(Model().Username());
+        dialog.RequestedTheme(Model().Theme());
         // 显示对话框
         auto result = co_await dialog.ShowAsync();
         // 确定
@@ -273,6 +281,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<EditSuggestionDialog>();
+        dialog.RequestedTheme(Model().Theme());
         dialog.LanCombo().Value((int)settings.LanState());
         dialog.WwanCombo().Value((int)settings.WwanState());
         auto s = settings.WlanStates();
