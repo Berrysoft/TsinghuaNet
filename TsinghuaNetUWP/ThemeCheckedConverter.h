@@ -1,14 +1,13 @@
 ﻿#pragma once
 #include "ThemeCheckedConverter.g.h"
 
+#include "EnumCheckedConverter.h"
+
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    struct ThemeCheckedConverter : ThemeCheckedConverterT<ThemeCheckedConverter>
+    struct ThemeCheckedConverter : ThemeCheckedConverterT<ThemeCheckedConverter>, EnumCheckedConverter<Windows::UI::Xaml::ElementTheme>
     {
         ThemeCheckedConverter() = default;
-
-        Windows::Foundation::IInspectable Convert(Windows::Foundation::IInspectable const& value, Windows::UI::Xaml::Interop::TypeName const&, Windows::Foundation::IInspectable const& parameter, hstring const&);
-        Windows::Foundation::IInspectable ConvertBack(Windows::Foundation::IInspectable const& value, Windows::UI::Xaml::Interop::TypeName const&, Windows::Foundation::IInspectable const& parameter, hstring const&);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

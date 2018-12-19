@@ -46,12 +46,6 @@
     <ClCompile Include="ChangeUserDialog.cpp" />
     <ClCompile Include="EditSuggestionDialog.cpp" />
     <ClCompile Include="SsidSuggestion.cpp" />
-    <ClCompile Include="NetStateCheckedConverter.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="ThemeCheckedConverter.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -69,6 +63,9 @@
       <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="ThemeCheckedConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumCheckedConverter.h">
       <Filter>Converters</Filter>
     </ClInclude>
   </ItemGroup>
