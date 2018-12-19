@@ -132,6 +132,7 @@
       <DependentUpon>NetStateBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NetStateCheckedConverter.h" />
     <ClInclude Include="NetStateSsidBox.h">
       <DependentUpon>NetStateSsidBox.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -205,6 +206,7 @@
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NetStateCheckedConverter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -228,6 +230,7 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Converters.idl" />
     <Midl Include="EditSuggestionDialog.idl">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>

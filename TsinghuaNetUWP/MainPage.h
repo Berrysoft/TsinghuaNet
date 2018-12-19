@@ -2,6 +2,7 @@
 #include "MainPage.g.h"
 
 #include "MainViewModel.h"
+#include "NetStateCheckedConverter.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -25,13 +26,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, hstring const e) { return DropImpl(e); }
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
-
-        void StateChanged(Windows::Foundation::IInspectable const&, TsinghuaNetHelper::NetState const&);
-        void NetChecked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
-        void Auth4Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
-        void Auth6Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
-        void Auth425Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
-        void Auth625Checked(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);
 
         void RefreshStatus(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { RefreshStatusImpl(); }
         Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);

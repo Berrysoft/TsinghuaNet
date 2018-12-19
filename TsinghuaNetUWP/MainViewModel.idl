@@ -31,6 +31,9 @@ namespace TsinghuaNetUWP
         String Password;
         static Windows.UI.Xaml.DependencyProperty PasswordProperty { get; };
 
+        TsinghuaNetHelper.NetState State;
+        static Windows.UI.Xaml.DependencyProperty StateProperty { get; };
+
         Boolean AutoLogin;
         static Windows.UI.Xaml.DependencyProperty AutoLoginProperty { get; };
         event Windows.Foundation.EventHandler<Boolean> AutoLoginChanged;
@@ -53,8 +56,5 @@ namespace TsinghuaNetUWP
         static Windows.UI.Xaml.DependencyProperty SuggestStateProperty { get; };
 
         Windows.Foundation.Collections.IObservableVector<IInspectable> NetUsers { get; };
-
-        TsinghuaNetHelper.NetState State;
-        event Windows.Foundation.EventHandler<TsinghuaNetHelper.NetState> StateChanged;
     }
 } // namespace TsinghuaNetUWP

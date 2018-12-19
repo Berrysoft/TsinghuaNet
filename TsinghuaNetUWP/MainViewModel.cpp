@@ -55,6 +55,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, box_value(hstring()))
     DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, box_value(hstring()))
 
+    DEPENDENCY_PROPERTY_INIT(State, NetState, MainViewModel, box_value(NetState::Unknown))
+
     DEPENDENCY_PROPERTY_INIT(AutoLogin, bool, MainViewModel, box_value(true), &MainViewModel::OnAutoLoginPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(BackgroundAutoLogin, bool, MainViewModel, box_value(true), &MainViewModel::OnBackgroundAutoLoginPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(BackgroundLiveTile, bool, MainViewModel, box_value(true), &MainViewModel::OnBackgroundLiveTilePropertyChanged)

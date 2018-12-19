@@ -268,52 +268,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     /// <summary>
-    /// 根据当前类型的变化改变选中的单选框
-    /// </summary>
-    /// <param name="e">当前类型</param>
-    void MainPage::StateChanged(IInspectable const&, NetState const& e)
-    {
-        switch (e)
-        {
-        case NetState::Net:
-            NetRadio().IsChecked(true);
-            break;
-        case NetState::Auth4:
-            Auth4Radio().IsChecked(true);
-            break;
-        case NetState::Auth6:
-            Auth6Radio().IsChecked(true);
-            break;
-        case NetState::Auth4_25:
-            Auth425Radio().IsChecked(true);
-            break;
-        case NetState::Auth6_25:
-            Auth625Radio().IsChecked(true);
-            break;
-        }
-    }
-    void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Net);
-    }
-    void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth4);
-    }
-    void MainPage::Auth6Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth6);
-    }
-    void MainPage::Auth425Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth4_25);
-    }
-    void MainPage::Auth625Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth6_25);
-    }
-
-    /// <summary>
     /// 打开“编辑建议”对话框
     /// </summary>
     IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)

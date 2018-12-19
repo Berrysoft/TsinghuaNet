@@ -8,7 +8,7 @@
     xmlns:helper="using:TsinghuaNetHelper"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model" StateChanged="StateChanged" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
+        <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
@@ -29,6 +29,7 @@
         <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
             <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
         </Flyout>
+        <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
@@ -108,17 +109,63 @@
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
-                        <RadioButton x:Name="NetRadio" Checked="NetChecked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
-                        <RadioButton x:Name="Auth4Radio" Checked="Auth4Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>
-                        <RadioButton x:Name="Auth6Radio" Checked="Auth6Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}"/>
-                        <RadioButton x:Name="Auth425Radio" Checked="Auth425Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}"/>
-                        <RadioButton x:Name="Auth625Radio" Checked="Auth625Checked" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6_25)}"/>
+                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}">
+                            <RadioButton.IsChecked>
+                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:NetState>Net</helper:NetState>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}">
+                            <RadioButton.IsChecked>
+                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:NetState>Auth4</helper:NetState>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}">
+                            <RadioButton.IsChecked>
+                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:NetState>Auth6</helper:NetState>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}">
+                            <RadioButton.IsChecked>
+                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:NetState>Auth4_25</helper:NetState>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6_25)}">
+                            <RadioButton.IsChecked>
+                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:NetState>Auth6_25</helper:NetState>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
                     </StackPanel>
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}"/>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
+                    <StackPanel Margin="10" Orientation="Vertical">
+                        <RadioButton>默认</RadioButton>
+                        <RadioButton>亮</RadioButton>
+                        <RadioButton>暗</RadioButton>
+                    </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>

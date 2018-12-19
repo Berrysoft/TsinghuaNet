@@ -24,6 +24,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Username, hstring)
         DEPENDENCY_PROPERTY(Password, hstring)
 
+        DEPENDENCY_PROPERTY(State, TsinghuaNetHelper::NetState)
+
         DEPENDENCY_PROPERTY(AutoLogin, bool)
         EVENT_DECL(AutoLoginChanged, bool)
         DEPENDENCY_PROPERTY(BackgroundAutoLogin, bool)
@@ -35,21 +37,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
-        EVENT_DECL(StateChanged, TsinghuaNetHelper::NetState)
-
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
 
-        TsinghuaNetHelper::NetState State() const { return m_State; }
-        void State(TsinghuaNetHelper::NetState value)
-        {
-            m_State = value;
-            m_StateChangedEvent(*this, value);
-        }
-
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;
-        TsinghuaNetHelper::NetState m_State;
 
         static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void OnBackgroundAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
