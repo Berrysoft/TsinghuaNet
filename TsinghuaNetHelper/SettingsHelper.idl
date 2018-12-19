@@ -29,6 +29,8 @@ namespace TsinghuaNetHelper
     {
         SettingsHelper();
 
+        void SaveSettings();
+
         String StoredUsername;
         Boolean AutoLogin;
         Boolean BackgroundAutoLogin;

@@ -14,7 +14,7 @@ using namespace Windows::Storage;
 namespace winrt::TsinghuaNetHelper::implementation
 {
     template <typename T>
-    T GetValue(hstring const& key, T def)
+    T GetValue(hstring const& key, T def = {})
     {
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
@@ -32,42 +32,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto settings = ApplicationData::Current().LocalSettings();
         auto values = settings.Values();
         values.Insert(key, box_value(value));
-    }
-
-    SettingsHelper::SettingsHelper()
-    {
-        wlanMap = WlanStateInternal();
-    }
-
-#define SETTINGS_PROP_IMPL(name, key, type, def)                           \
-    constexpr wchar_t name##Key[] = key;                                   \
-    type SettingsHelper::name() { return GetValue<type>(name##Key, def); } \
-    void SettingsHelper::name(type value) { SetValue(name##Key, value); }
-
-#define SETTINGS_PROP_REF_IMPL(name, key, type, def)                       \
-    constexpr wchar_t name##Key[] = key;                                   \
-    type SettingsHelper::name() { return GetValue<type>(name##Key, def); } \
-    void SettingsHelper::name(type const& value) { SetValue(name##Key, value); }
-
-#define SETTINGS_PROP_CONV_IMPL(name, key, type, ctype, def)                      \
-    constexpr wchar_t name##Key[] = key;                                          \
-    type SettingsHelper::name() { return (type)GetValue<ctype>(name##Key, def); } \
-    void SettingsHelper::name(type value) { SetValue<ctype>(name##Key, (ctype)value); }
-
-    SETTINGS_PROP_REF_IMPL(StoredUsername, L"Username", hstring, {})
-    SETTINGS_PROP_IMPL(AutoLogin, L"AutoLogin", bool, true)
-    SETTINGS_PROP_IMPL(BackgroundAutoLogin, L"BackgroundAutoLogin", bool, true)
-    SETTINGS_PROP_IMPL(BackgroundLiveTile, L"BackgroundLiveTile", bool, true)
-    SETTINGS_PROP_CONV_IMPL(LanState, L"LanState", NetState, int, (int)NetState::Auth4)
-    SETTINGS_PROP_CONV_IMPL(WwanState, L"WwanState", NetState, int, (int)NetState::Unknown)
-
-    NetState SettingsHelper::WlanState(hstring const& ssid)
-    {
-        if (wlanMap.HasKey(ssid))
-        {
-            return (NetState)(int)wlanMap.GetNamedNumber(ssid);
-        }
-        return NetState::Unknown;
     }
 
     IMap<hstring, NetState> GetMapFromJson(JsonObject const& json)
@@ -90,6 +54,53 @@ namespace winrt::TsinghuaNetHelper::implementation
         return result;
     }
 
+    constexpr wchar_t StoredUsernameKey[] = L"Username";
+    constexpr wchar_t AutoLoginKey[] = L"AutoLogin";
+    constexpr wchar_t BackgroundAutoLoginKey[] = L"BackgroundAutoLogin";
+    constexpr wchar_t BackgroundLiveTileKey[] = L"BackgroundLiveTile";
+    constexpr wchar_t LanStateKey[] = L"LanState";
+    constexpr wchar_t WwanStateKey[] = L"WwanState";
+    constexpr wchar_t WlanStateKey[] = L"WlanState";
+
+    SettingsHelper::SettingsHelper()
+    {
+        m_StoredUsername = GetValue<hstring>(StoredUsernameKey);
+        m_AutoLogin = GetValue<bool>(AutoLoginKey, true);
+        m_BackgroundAutoLogin = GetValue<bool>(BackgroundAutoLoginKey, true);
+        m_BackgroundLiveTile = GetValue<bool>(BackgroundLiveTileKey, true);
+        m_LanState = (NetState)GetValue<int>(LanStateKey, (int)NetState::Auth4);
+        m_WwanState = (NetState)GetValue<int>(WwanStateKey, (int)NetState::Unknown);
+        hstring json = GetValue<hstring>(WlanStateKey);
+        if (json.empty())
+        {
+            wlanMap = GetJsonFromMap(DefWlanStates());
+        }
+        else
+        {
+            wlanMap = JsonObject::Parse(json);
+        }
+    }
+
+    void SettingsHelper::SaveSettings()
+    {
+        SetValue(StoredUsernameKey, m_StoredUsername);
+        SetValue(AutoLoginKey, m_AutoLogin);
+        SetValue(BackgroundAutoLoginKey, m_BackgroundAutoLogin);
+        SetValue(BackgroundLiveTileKey, m_BackgroundLiveTile);
+        SetValue(LanStateKey, (int)m_LanState);
+        SetValue(WwanStateKey, (int)m_WwanState);
+        SetValue(WlanStateKey, wlanMap.ToString());
+    }
+
+    NetState SettingsHelper::WlanState(hstring const& ssid)
+    {
+        if (wlanMap.HasKey(ssid))
+        {
+            return (NetState)(int)wlanMap.GetNamedNumber(ssid);
+        }
+        return NetState::Unknown;
+    }
+
     IMap<hstring, NetState> SettingsHelper::WlanStates()
     {
         return GetMapFromJson(wlanMap);
@@ -98,7 +109,6 @@ namespace winrt::TsinghuaNetHelper::implementation
     void SettingsHelper::WlanStates(IMap<hstring, NetState> const& states)
     {
         wlanMap = GetJsonFromMap(states);
-        WlanStateInternal(wlanMap);
     }
 
     IMap<hstring, NetState> SettingsHelper::DefWlanStates()
@@ -109,26 +119,6 @@ namespace winrt::TsinghuaNetHelper::implementation
             { L"Tsinghua-IPv4", NetState::Auth4_25 },
             { L"Tsinghua-IPv6", NetState::Auth6_25 },
             { L"Wifi.郑裕彤讲堂", NetState::Net } });
-    }
-
-    constexpr wchar_t WlanStateKey[] = L"WlanState";
-
-    JsonObject SettingsHelper::WlanStateInternal()
-    {
-        hstring json = GetValue<hstring>(WlanStateKey, {});
-        if (json.empty())
-        {
-            return GetJsonFromMap(DefWlanStates());
-        }
-        else
-        {
-            return JsonObject::Parse(json);
-        }
-    }
-
-    void SettingsHelper::WlanStateInternal(JsonObject const& value)
-    {
-        SetValue(WlanStateKey, value.ToString());
     }
 
     bool SettingsHelper::InternetAvailable()
