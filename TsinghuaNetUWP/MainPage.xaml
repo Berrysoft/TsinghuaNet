@@ -163,7 +163,7 @@
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}"/>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
                     <StackPanel Margin="10" Orientation="Horizontal">
-                        <RadioButton Content="默认">
+                        <RadioButton Content="系统">
                             <RadioButton.IsChecked>
                                 <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
                                     <Binding.ConverterParameter>

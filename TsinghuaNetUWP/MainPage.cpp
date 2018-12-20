@@ -5,13 +5,17 @@
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.Networking.Connectivity.h>
+#include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std::chrono;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
+using namespace Windows::Networking::Connectivity;
 using namespace Windows::UI;
+using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
@@ -35,7 +39,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         viewTitleBar.ExtendViewIntoTitleBar(true);
         // 设置主窗格为标题栏
         Window::Current().SetTitleBar(MainGrid());
+        // 获取用户设置的主题
         Model().Theme(settings.Theme());
+        // 监视网络情况变化
+        NetworkInformation::NetworkStatusChanged({ this, &MainPage::NetworkChanged });
     }
 
     void MainPage::SaveSettings()
@@ -51,9 +58,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         // 先刷新状态
         RefreshStatusImpl();
-        // 设置当前类型为建议类型
-        NetState state = Model().SuggestState();
-        Model().State(state);
         // 自动登录
         bool al = settings.AutoLogin();
         Model().AutoLogin(al);
@@ -79,9 +83,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             // 自动登录的条件为：
             // 打开了自动登录
             // 不知道后台任务成功登录
-            // 无Internet访问
             // 密码不为空
-            if (al && !m_ToastLogined && !settings.InternetAvailable() && !pw.empty())
+            if (al && !m_ToastLogined && !pw.empty())
             {
                 co_await LoginImpl();
             }
@@ -90,10 +93,7 @@ namespace winrt::TsinghuaNetUWP::implementation
                 co_await RefreshImpl();
             }
             // 刷新当前用户所有连接状态
-            if (settings.InternetAvailable())
-            {
-                co_await RefreshNetUsersImpl();
-            }
+            co_await RefreshNetUsersImpl();
         }
     }
 
@@ -142,6 +142,23 @@ namespace winrt::TsinghuaNetUWP::implementation
             titleBar.ButtonForegroundColor(Colors::White());
             break;
         }
+    }
+
+    IAsyncAction MainPage::NetworkChangedImpl()
+    {
+        return Dispatcher().RunAsync(
+            CoreDispatcherPriority::Normal,
+            [this]() -> IAsyncAction {
+                RefreshStatusImpl();
+                if (Model().AutoLogin() && !Model().Password().empty())
+                {
+                    return LoginImpl();
+                }
+                else
+                {
+                    return RefreshImpl();
+                }
+            });
     }
 
     /// <summary>
@@ -353,6 +370,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().NetStatus(status);
         Model().Ssid(ssid);
         Model().SuggestState(state);
+        Model().State(state);
     }
 
     /// <summary>
