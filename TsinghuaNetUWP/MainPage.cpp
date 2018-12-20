@@ -207,7 +207,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         catch (hresult_error const& e)
         {
-            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
+            ShowHresultError(e);
         }
     }
 
@@ -228,7 +228,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         catch (hresult_error const& e)
         {
-            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
+            ShowHresultError(e);
         }
     }
 
@@ -245,7 +245,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         catch (hresult_error const& e)
         {
-            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
+            ShowHresultError(e);
         }
     }
 
@@ -299,7 +299,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         catch (hresult_error const& e)
         {
-            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
+            ShowHresultError(e);
         }
     }
 
@@ -315,6 +315,11 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         Model().Response(response);
         ResponseFlyout().ShowAt(MainBar());
+    }
+
+    void MainPage::ShowHresultError(hresult_error const& e)
+    {
+        ShowResponse({ hstring(sprint(L"异常 0x{:x8,u}", e.code())), e.message() });
     }
 
     void MainPage::MainTimerTickImpl()
@@ -423,7 +428,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         catch (hresult_error const& e)
         {
-            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
+            ShowHresultError(e);
         }
     }
 

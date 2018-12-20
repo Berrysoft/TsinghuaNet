@@ -51,6 +51,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction DropImpl(hstring const address);
         TsinghuaNetHelper::IConnect GetHelper();
         void ShowResponse(TsinghuaNetHelper::LogResponse const& response);
+        void ShowHresultError(hresult_error const& e);
 
         void MainTimerTickImpl();
 
