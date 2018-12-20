@@ -44,6 +44,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         NetworkInformation::NetworkStatusChanged({ this, &MainPage::NetworkChanged });
     }
 
+    /// <summary>
+    /// 保存设置
+    /// </summary>
     void MainPage::SaveSettings()
     {
         settings.Theme(Model().Theme());
@@ -97,6 +100,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     /// <summary>
+    /// 调用Dispatcher刷新网络状态
+    /// </summary>
+    IAsyncAction MainPage::NetworkChanged(IInspectable const&)
+    {
+        return Dispatcher().RunAsync(CoreDispatcherPriority::Normal, { this, &MainPage::NetworkChangedImpl });
+    }
+
+    /// <summary>
     /// 打开“更改用户”对话框
     /// </summary>
     IAsyncAction MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
@@ -143,21 +154,21 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    /// <summary>
+    /// 刷新网络状态
+    /// </summary>
     IAsyncAction MainPage::NetworkChangedImpl()
     {
-        return Dispatcher().RunAsync(
-            CoreDispatcherPriority::Normal,
-            [this]() -> IAsyncAction {
-                RefreshStatusImpl();
-                if (Model().AutoLogin() && !Model().Password().empty())
-                {
-                    return LoginImpl();
-                }
-                else
-                {
-                    return RefreshImpl();
-                }
-            });
+        RefreshStatusImpl();
+        if (Model().AutoLogin() && !Model().Password().empty())
+        {
+            co_await LoginImpl();
+        }
+        else
+        {
+            co_await RefreshImpl();
+        }
+        co_await RefreshNetUsersImpl();
     }
 
     /// <summary>

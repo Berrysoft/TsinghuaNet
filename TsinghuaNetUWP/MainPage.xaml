@@ -27,7 +27,7 @@
             </Grid>
         </DataTemplate>
         <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
-            <TextBlock HorizontalTextAlignment="Center" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
+            <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
         </Flyout>
         <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
         <local:ThemeCheckedConverter x:Key="ThemeCheckedConverter"/>

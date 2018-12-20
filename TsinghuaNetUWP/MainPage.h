@@ -15,7 +15,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
         void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const&, Windows::Foundation::IInspectable const&) { ThemeChangedImpl(); }
-        Windows::Foundation::IAsyncAction NetworkChanged(Windows::Foundation::IInspectable const&) { return NetworkChangedImpl(); }
+        Windows::Foundation::IAsyncAction NetworkChanged(Windows::Foundation::IInspectable const&);
 
         void OpenSettings(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { Split().IsPaneOpen(true); }
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LoginImpl(); }
