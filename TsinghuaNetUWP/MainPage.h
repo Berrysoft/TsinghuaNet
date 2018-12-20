@@ -15,7 +15,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
         void ThemeChanged(Windows::UI::Xaml::IFrameworkElement const&, Windows::Foundation::IInspectable const&) { ThemeChangedImpl(); }
-        Windows::Foundation::IAsyncAction NetworkChanged(Windows::Foundation::IInspectable const&);
+        Windows::Foundation::IAsyncAction NetworkChanged(Windows::Foundation::IInspectable const);
 
         void OpenSettings(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { Split().IsPaneOpen(true); }
         Windows::Foundation::IAsyncAction Login(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const) { return LoginImpl(); }
@@ -24,6 +24,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction DropUser(Windows::Foundation::IInspectable const, hstring const e) { return DropImpl(e); }
 
         Windows::Foundation::IAsyncAction ShowChangeUser(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
+
+        void MainTimerTick(Windows::Foundation::IInspectable const&, Windows::Foundation::IInspectable const&) { MainTimerTickImpl(); }
 
         void RefreshStatus(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { RefreshStatusImpl(); }
         Windows::Foundation::IAsyncAction ShowEditSuggestion(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
@@ -37,6 +39,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     private:
         TsinghuaNetHelper::SettingsHelper settings;
+        Windows::UI::Xaml::DispatcherTimer mainTimer;
 
         void ThemeChangedImpl();
         Windows::Foundation::IAsyncAction NetworkChangedImpl();
@@ -48,6 +51,8 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction DropImpl(hstring const address);
         TsinghuaNetHelper::IConnect GetHelper();
         void ShowResponse(TsinghuaNetHelper::LogResponse const& response);
+
+        void MainTimerTickImpl();
 
         void RefreshStatusImpl();
         Windows::Foundation::IAsyncAction RefreshNetUsersImpl();

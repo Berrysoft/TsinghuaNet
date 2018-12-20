@@ -4,11 +4,14 @@
 #include "EditSuggestionDialog.h"
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
+#include <sf/sformat.hpp>
 #include <winrt/Windows.ApplicationModel.Core.h>
 #include <winrt/Windows.Networking.Connectivity.h>
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
+using namespace std::chrono_literals;
+using sf::sprint;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
@@ -40,6 +43,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Window::Current().SetTitleBar(MainGrid());
         // 获取用户设置的主题
         Model().Theme(settings.Theme());
+        // 设置计时器
+        mainTimer.Interval(1s);
+        mainTimer.Tick({ this, &MainPage::MainTimerTick });
         // 监视网络情况变化
         NetworkInformation::NetworkStatusChanged({ this, &MainPage::NetworkChanged });
     }
@@ -102,7 +108,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <summary>
     /// 调用Dispatcher刷新网络状态
     /// </summary>
-    IAsyncAction MainPage::NetworkChanged(IInspectable const&)
+    IAsyncAction MainPage::NetworkChanged(IInspectable const)
     {
         return Dispatcher().RunAsync(CoreDispatcherPriority::Normal, { this, &MainPage::NetworkChangedImpl });
     }
@@ -196,11 +202,12 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 ShowResponse(co_await helper.LoginAsync());
-                co_await RefreshImpl(helper);
             }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
         }
     }
 
@@ -216,11 +223,12 @@ namespace winrt::TsinghuaNetUWP::implementation
             if (helper)
             {
                 ShowResponse(co_await helper.LogoutAsync());
-                co_await RefreshImpl(helper);
             }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
         }
     }
 
@@ -233,13 +241,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         try
         {
             auto helper = GetHelper();
-            if (helper)
-            {
-                co_await RefreshImpl(helper);
-            }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
         }
     }
 
@@ -253,7 +259,11 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <param name="helper">网络连接辅助类，用于执行刷新任务</param>
     IAsyncAction MainPage::RefreshImpl(IConnect const helper)
     {
-        auto flux = co_await helper.FluxAsync();
+        FluxUser flux = {};
+        if (helper)
+        {
+            flux = co_await helper.FluxAsync();
+        }
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
         // 更新窗口信息
@@ -266,6 +276,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         Model().FluxPercent(flux.Flux / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
+        if (flux.Username.empty())
+            mainTimer.Stop();
+        else
+            mainTimer.Start();
     }
 
     /// <summary>
@@ -283,8 +297,9 @@ namespace winrt::TsinghuaNetUWP::implementation
             co_await helper.LogoutAsync(address);
             co_await RefreshNetUsersImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
         }
     }
 
@@ -300,6 +315,13 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         Model().Response(response);
         ResponseFlyout().ShowAt(MainBar());
+    }
+
+    void MainPage::MainTimerTickImpl()
+    {
+        if (Model().OnlineUser().empty())
+            mainTimer.Stop();
+        Model().OnlineTime(Model().OnlineTime() + 1s);
     }
 
     /// <summary>
@@ -390,14 +412,18 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         try
         {
-            UseregHelper helper;
-            helper.Username(Model().Username());
-            helper.Password(Model().Password());
-            co_await helper.LoginAsync();
-            co_await RefreshNetUsersImpl(helper);
+            if ((int)Model().State())
+            {
+                UseregHelper helper;
+                helper.Username(Model().Username());
+                helper.Password(Model().Password());
+                co_await helper.LoginAsync();
+                co_await RefreshNetUsersImpl(helper);
+            }
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowResponse({ hstring(sprint(L"异常0x{:x8,u}", e.code())), e.message() });
         }
     }
 
