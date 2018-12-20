@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SettingsHelper.g.h"
 
-#include "Utility.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetHelper::implementation
 {

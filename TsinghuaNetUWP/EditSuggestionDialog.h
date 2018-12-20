@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "EditSuggestionDialog.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 #include "NetStateSsidBox.h"
 
 namespace winrt::TsinghuaNetUWP::implementation

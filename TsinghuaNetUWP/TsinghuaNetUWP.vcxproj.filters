@@ -55,7 +55,6 @@
     <ClInclude Include="MainViewModel.h" />
     <ClInclude Include="ChangeUserDialog.h" />
     <ClInclude Include="EditSuggestionDialog.h" />
-    <ClInclude Include="DependencyHelper.h" />
     <ClInclude Include="NetStateBox.h" />
     <ClInclude Include="NetStateSsidBox.h" />
     <ClInclude Include="SsidSuggestion.h" />
@@ -68,6 +67,7 @@
     <ClInclude Include="EnumCheckedConverter.h">
       <Filter>Converters</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shared\Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

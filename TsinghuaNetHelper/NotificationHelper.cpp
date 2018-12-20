@@ -2,7 +2,7 @@
 
 #include "NotificationHelper.h"
 #include "UserHelper.h"
-#include "Utility.h"
+#include "../Shared/Utility.h"
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 

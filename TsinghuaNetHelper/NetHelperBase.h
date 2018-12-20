@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Utility.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetHelper
 {

@@ -9,7 +9,6 @@
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
-using namespace std::chrono;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
@@ -23,7 +22,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    MainPage::MainPage()
+    MainPage::MainPage() : m_ToastLogined(false)
     {
         InitializeComponent();
         // 调整标题栏的颜色为透明

@@ -1,8 +1,7 @@
 ﻿#pragma once
-
 #include "MainViewModel.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {

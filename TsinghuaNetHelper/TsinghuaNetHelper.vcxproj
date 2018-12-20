@@ -111,6 +111,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Auth4Helper.h" />
     <ClInclude Include="Auth4Helper25.h" />
     <ClInclude Include="Auth6Helper.h" />
@@ -134,7 +135,6 @@
     <ClInclude Include="SettingsHelper.h" />
     <ClInclude Include="UseregHelper.h" />
     <ClInclude Include="UserHelper.h" />
-    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AuthHelper.cpp" />

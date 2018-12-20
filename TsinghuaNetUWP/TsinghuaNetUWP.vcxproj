@@ -111,6 +111,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Arc.h">
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,7 +120,6 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="DependencyHelper.h" />
     <ClInclude Include="EditSuggestionDialog.h">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>

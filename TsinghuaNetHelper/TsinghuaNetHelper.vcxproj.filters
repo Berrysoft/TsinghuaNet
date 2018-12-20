@@ -96,7 +96,6 @@
     <ClInclude Include="LoginTask.h">
       <Filter>BackgroundHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h" />
     <ClInclude Include="Auth4Helper25.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
@@ -109,6 +108,7 @@
     <ClInclude Include="CryptographyHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
+    <ClInclude Include="..\Shared\Utility.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />

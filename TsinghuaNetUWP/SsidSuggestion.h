@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SsidSuggestion.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {

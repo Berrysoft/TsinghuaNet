@@ -11,10 +11,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
     public:
         MainPage();
-
-        bool ToastLogined() { return m_ToastLogined; }
-        void ToastLogined(bool value) { m_ToastLogined = value; }
-
         void SaveSettings();
 
         Windows::Foundation::IAsyncAction PageLoaded(Windows::Foundation::IInspectable const, Windows::UI::Xaml::RoutedEventArgs const);
@@ -37,8 +33,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         Windows::Foundation::IAsyncAction BackgroundAutoLoginChanged(Windows::Foundation::IInspectable const, bool const e);
         Windows::Foundation::IAsyncAction BackgroundLiveTileChanged(Windows::Foundation::IInspectable const, bool const e);
 
+        PROP_DECL(ToastLogined, bool)
+
     private:
-        bool m_ToastLogined{ false };
         TsinghuaNetHelper::SettingsHelper settings;
 
         void ThemeChangedImpl();
