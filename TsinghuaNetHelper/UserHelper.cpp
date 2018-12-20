@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 
-#include "UserHelper.h"
 #include "../Shared/Utility.h"
+#include "UserHelper.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -139,7 +139,26 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     LogResponse UserHelper::GetLogResponse(hstring const& str)
     {
-        return { str };
+        if (str == L"Login is successful.")
+        {
+            return { L"登录成功" };
+        }
+        else if (str == L"IP has been online, please logout.")
+        {
+            return { L"已登录" };
+        }
+        else if (str == L"Logout is successful.")
+        {
+            return { L"注销成功" };
+        }
+        else if (str == L"You are not online.")
+        {
+            return { L"未登录" };
+        }
+        else
+        {
+            return { str };
+        }
     }
 
     LogResponse UserHelper::GetAuthLogResponse(hstring const& str)
