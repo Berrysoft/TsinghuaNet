@@ -16,12 +16,12 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<LogResponse> NetHelper::LoginAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
     }
 
     IAsyncOperation<LogResponse> NetHelper::LogoutAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), LogoutData));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), LogoutData));
     }
 
     IAsyncOperation<FluxUser> NetHelper::FluxAsync()

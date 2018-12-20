@@ -18,3 +18,6 @@
 #include <winrt/Windows.UI.Xaml.Navigation.h>
 #include <winrt/Windows.UI.Xaml.Shapes.h>
 #include <winrt/Windows.UI.Xaml.h>
+
+#include <pplawait.h>
+#include <sf/sformat.hpp>

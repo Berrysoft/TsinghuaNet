@@ -2,7 +2,6 @@
 
 #include "AuthHelper.h"
 #include "CryptographyHelper.h"
-#include <pplawait.h>
 #include <regex>
 
 using namespace std;
@@ -29,13 +28,13 @@ namespace winrt::TsinghuaNetHelper
     IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
         auto data = co_await LoginDataAsync();
-        co_return UserHelper::GetAuthLogResponse(co_await PostMapAsync(Uri(LogUri), data));
+        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data));
     }
 
     IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
         auto data = co_await LogoutDataAsync();
-        co_return UserHelper::GetAuthLogResponse(co_await PostMapAsync(Uri(LogUri), data));
+        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data));
     }
 
     IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
@@ -46,8 +45,7 @@ namespace winrt::TsinghuaNetHelper
     constexpr char ChallengeRegex[] = "\"challenge\":\"(.*?)\"";
     task<string> AuthHelper::ChallengeAsync()
     {
-        auto bytes = co_await GetBytesAsync(Uri(sprint(ChallengeUri, Username())));
-        string result((const char*)bytes.data(), bytes.Length());
+        auto result = co_await GetBytesAsync(Uri(sprint(ChallengeUri, Username())));
         regex reg(ChallengeRegex);
         smatch match;
         if (regex_search(result, match, reg))
@@ -59,7 +57,7 @@ namespace winrt::TsinghuaNetHelper
 
     constexpr char LoginInfoJson[] = "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}";
     constexpr char LoginChkSumData[] = "{0}{1}{0}{2}{0}{4}{0}{0}200{0}1{0}{3}";
-    IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LoginDataAsync()
+    task<IMap<hstring, hstring>> AuthHelper::LoginDataAsync()
     {
         string token = co_await ChallengeAsync();
         hstring md5 = GetHMACMD5(to_hstring(token));
@@ -80,7 +78,7 @@ namespace winrt::TsinghuaNetHelper
 
     constexpr char LogoutInfoJson[] = "{{\"username\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}";
     constexpr char LogoutChkSumData[] = "{0}{1}{0}{3}{0}{0}200{0}1{0}{2}";
-    IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LogoutDataAsync()
+    task<IMap<hstring, hstring>> AuthHelper::LogoutDataAsync()
     {
         string token = co_await ChallengeAsync();
         auto data = single_threaded_map(map<hstring, hstring>{

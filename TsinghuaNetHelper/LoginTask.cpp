@@ -4,11 +4,10 @@
 
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
-using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LoginTask::Run(IBackgroundTaskInstance const taskInstance)
+    fire_and_forget LoginTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         if (settings.AutoLogin())

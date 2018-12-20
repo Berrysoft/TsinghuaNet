@@ -20,17 +20,17 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<LogResponse> UseregHelper::LoginAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
     }
 
     IAsyncOperation<LogResponse> UseregHelper::LogoutAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(LogUri), LogoutData));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), LogoutData));
     }
 
     IAsyncOperation<LogResponse> UseregHelper::LogoutAsync(hstring const ip)
     {
-        co_return UserHelper::GetLogResponse(co_await PostStringAsync(Uri(InfoUri), hstring(sprint(DropData, ip))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(InfoUri), hstring(sprint(DropData, ip))));
     }
 
     constexpr wchar_t TableRegex[] = L"<tr align=\"center\">[\\s\\S]+?</tr>";

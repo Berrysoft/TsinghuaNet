@@ -5,11 +5,10 @@
 
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
-using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LiveTileTask::Run(IBackgroundTaskInstance const taskInstance)
+    fire_and_forget LiveTileTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         try

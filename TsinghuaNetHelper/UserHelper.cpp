@@ -164,8 +164,40 @@ namespace winrt::TsinghuaNetHelper::implementation
     LogResponse UserHelper::GetAuthLogResponse(hstring const& str)
     {
         // callback(...)
-        auto json = JsonObject::Parse(wstring(str.begin() + 9, str.end() - 1));
-        return { json.GetNamedString(L"error"), json.GetNamedString(L"error_msg") };
+        JsonObject json = nullptr;
+        if (JsonObject::TryParse(wstring(str.begin() + 9, str.end() - 1), json))
+        {
+            hstring code = json.GetNamedString(L"error");
+            hstring msg = json.GetNamedString(L"error_msg");
+            if (code == L"ok")
+            {
+                return { L"操作成功" };
+            }
+            else
+            {
+                auto s = string_split(msg, L':');
+                if (!s.empty())
+                {
+                    if (s.size() == 1)
+                    {
+                        return { msg };
+                    }
+                    else
+                    {
+                        if (s[0] == L"E2616")
+                        {
+                            s[1] = L"已欠费";
+                        }
+                        else if (s[0] == L"E2833")
+                        {
+                            s[1] = L"IP地址异常，请重新拿地址";
+                        }
+                        return { hstring(s[0]), hstring(s[1]) };
+                    }
+                }
+            }
+        }
+        return { L"操作失败" };
     }
 
     hstring UserHelper::GetResponseString(LogResponse const& response)
