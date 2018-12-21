@@ -51,8 +51,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         Size size = RenderSize();
         float length = min(size.Width, size.Height);
-        m_Radius = (length - Thickness()) / 2;
-        float fr = (float)m_Radius;
+        radius = (length - Thickness()) / 2;
+        float fr = (float)radius;
         Point centerPoint = (float2)size / 2;
         float angle = GetAngle(Value());
         Point circleStart = { centerPoint.X, centerPoint.Y + fr };

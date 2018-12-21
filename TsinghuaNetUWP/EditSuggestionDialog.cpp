@@ -58,7 +58,11 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void EditSuggestionDialog::DeleteSelection(IInspectable const&, RoutedEventArgs const&)
     {
-        m_WlanList.RemoveAt(WlanListView().SelectedIndex());
+        int index = WlanListView().SelectedIndex();
+        if (index >= 0)
+        {
+            m_WlanList.RemoveAt(index);
+        }
     }
 
     /// <summary>
