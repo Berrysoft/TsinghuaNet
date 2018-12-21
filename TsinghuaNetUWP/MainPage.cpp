@@ -5,7 +5,6 @@
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
-#include <winrt/Windows.Networking.Connectivity.h>
 #include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
@@ -47,7 +46,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         mainTimer.Interval(1s);
         mainTimer.Tick({ this, &MainPage::MainTimerTick });
         // 监视网络情况变化
-        NetworkInformation::NetworkStatusChanged({ this, &MainPage::NetworkChanged });
+        networkListener.NetworkStatusChanged({ this, &MainPage::NetworkChanged });
     }
 
     /// <summary>
@@ -176,19 +175,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         co_await RefreshNetUsersImpl();
     }
-
-    /// <summary>
-    /// 一个帮助类，管理<see cref="Windows.UI.Xaml.Controls.ProgressRing"/>的活动状态
-    /// </summary>
-    class ProgressRingManager
-    {
-    private:
-        ProgressRing ring;
-
-    public:
-        ProgressRingManager(ProgressRing const& ring) : ring(ring) { ring.IsActive(true); }
-        ~ProgressRingManager() { ring.IsActive(false); }
-    };
 
     /// <summary>
     /// 登录当前用户并刷新

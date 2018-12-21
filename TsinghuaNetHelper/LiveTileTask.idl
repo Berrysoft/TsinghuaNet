@@ -1,7 +1,0 @@
-namespace TsinghuaNetHelper
-{
-    [default_interface] runtimeclass LiveTileTask : Windows.ApplicationModel.Background.IBackgroundTask
-    {
-        LiveTileTask();
-    }
-} // namespace TsinghuaNetHelper

@@ -68,6 +68,7 @@
       <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\Utility.h" />
+    <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

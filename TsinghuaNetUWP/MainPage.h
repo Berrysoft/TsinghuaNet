@@ -4,6 +4,7 @@
 #include "MainViewModel.h"
 #include "NetStateCheckedConverter.h"
 #include "ThemeCheckedConverter.h"
+#include "WinRTHelpers.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -40,6 +41,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     private:
         TsinghuaNetHelper::SettingsHelper settings;
         Windows::UI::Xaml::DispatcherTimer mainTimer;
+        Windows::Networking::Connectivity::NetworkListener networkListener;
 
         void ThemeChangedImpl();
         concurrency::task<void> NetworkChangedImpl();

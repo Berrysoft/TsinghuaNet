@@ -1,3 +1,5 @@
+import "SettingsHelper.idl";
+
 namespace TsinghuaNetHelper
 {
     struct FluxUser
@@ -25,6 +27,12 @@ namespace TsinghuaNetHelper
         Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
         Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
         Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
+    }
+
+    runtimeclass ConnectHelper
+    {
+        static IConnect GetHelper(NetState state);
+        static IConnect GetHelper(NetState state, String username, String password);
     }
 
     [default_interface] runtimeclass NetHelper : ICredential, IConnect

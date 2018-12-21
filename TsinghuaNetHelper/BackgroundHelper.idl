@@ -1,6 +1,3 @@
-import "NetHelper.idl";
-import "SettingsHelper.idl";
-
 namespace TsinghuaNetHelper
 {
     runtimeclass BackgroundHelper
@@ -11,9 +8,13 @@ namespace TsinghuaNetHelper
         static void RegisterLogin(Boolean reg);
     }
 
-    runtimeclass ConnectHelper
+    runtimeclass LiveTileTask : Windows.ApplicationModel.Background.IBackgroundTask
     {
-        static IConnect GetHelper(NetState state);
-        static IConnect GetHelper(NetState state, String username, String password);
+        LiveTileTask();
+    }
+
+    runtimeclass LoginTask : Windows.ApplicationModel.Background.IBackgroundTask
+    {
+        LoginTask();
     }
 } // namespace TsinghuaNetHelper

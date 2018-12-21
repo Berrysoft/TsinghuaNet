@@ -121,12 +121,8 @@
     <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="CryptographyHelper.h" />
-    <ClInclude Include="LiveTileTask.h">
-      <DependentUpon>LiveTileTask.idl</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="LoginTask.h">
-      <DependentUpon>LoginTask.idl</DependentUpon>
-    </ClInclude>
+    <ClInclude Include="LiveTileTask.h" />
+    <ClInclude Include="LoginTask.h" />
     <ClInclude Include="NetHelper.h" />
     <ClInclude Include="NetHelperBase.h" />
     <ClInclude Include="NetUser.h" />
@@ -142,12 +138,8 @@
     <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="CryptographyHelper.cpp" />
-    <ClCompile Include="LiveTileTask.cpp">
-      <DependentUpon>LiveTileTask.idl</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="LoginTask.cpp">
-      <DependentUpon>LoginTask.idl</DependentUpon>
-    </ClCompile>
+    <ClCompile Include="LiveTileTask.cpp" />
+    <ClCompile Include="LoginTask.cpp" />
     <ClCompile Include="NetHelper.cpp" />
     <ClCompile Include="NetHelperBase.cpp" />
     <ClCompile Include="NetUser.cpp" />
@@ -162,8 +154,6 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="BackgroundHelper.idl" />
-    <Midl Include="LiveTileTask.idl" />
-    <Midl Include="LoginTask.idl" />
     <Midl Include="NetHelper.idl" />
     <Midl Include="NotificationHelper.idl" />
     <Midl Include="SettingsHelper.idl" />

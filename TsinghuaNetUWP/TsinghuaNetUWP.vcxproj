@@ -150,6 +150,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ThemeCheckedConverter.h" />
+    <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
