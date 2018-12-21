@@ -386,24 +386,9 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void MainPage::RefreshStatusImpl()
     {
-        NetState state;
         hstring ssid;
         auto status = SettingsHelper::InternetStatus(ssid);
-        switch (status)
-        {
-        case InternetStatus::Lan:
-            state = settings.LanState();
-            break;
-        case InternetStatus::Wwan:
-            state = settings.WwanState();
-            break;
-        case InternetStatus::Wlan:
-            state = settings.WlanState(ssid);
-            break;
-        default:
-            state = NetState::Unknown;
-            break;
-        }
+        NetState state = settings.SuggestNetState(status, ssid);
         Model().NetStatus(status);
         Model().Ssid(ssid);
         Model().SuggestState(state);

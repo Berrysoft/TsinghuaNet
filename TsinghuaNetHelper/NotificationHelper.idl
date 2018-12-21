@@ -13,7 +13,7 @@ namespace TsinghuaNetHelper
         static UInt64 GetMaxFlux(FluxUser user);
         static FluxUser GetFluxUser(String str);
         static LogResponse GetLogResponse(String str);
-        static LogResponse GetAuthLogResponse(String str);
+        static LogResponse GetAuthLogResponse(String str, Boolean login);
         static String GetResponseString(LogResponse response);
     }
 

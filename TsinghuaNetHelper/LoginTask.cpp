@@ -14,7 +14,9 @@ namespace winrt::TsinghuaNetHelper::implementation
         {
             try
             {
-                NetState state = ConnectHelper::GetSuggestNetState(settings);
+                hstring ssid;
+                auto status = SettingsHelper::InternetStatus(ssid);
+                NetState state = settings.SuggestNetState(status, ssid);
                 hstring un = settings.StoredUsername();
                 hstring pw = CredentialHelper::GetCredential(un);
                 IConnect helper = ConnectHelper::GetHelper(state, un, pw);

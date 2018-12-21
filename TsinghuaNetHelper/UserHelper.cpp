@@ -161,7 +161,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
     }
 
-    LogResponse UserHelper::GetAuthLogResponse(hstring const& str)
+    LogResponse UserHelper::GetAuthLogResponse(hstring const& str, bool login)
     {
         // callback(...)
         JsonObject json = nullptr;
@@ -171,7 +171,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             hstring msg = json.GetNamedString(L"error_msg");
             if (code == L"ok")
             {
-                return { L"操作成功" };
+                return { login ? L"登录成功" : L"注销成功" };
             }
             else
             {
@@ -197,7 +197,7 @@ namespace winrt::TsinghuaNetHelper::implementation
                 }
             }
         }
-        return { L"操作失败" };
+        return { login ? L"登录失败" : L"注销失败" };
     }
 
     hstring UserHelper::GetResponseString(LogResponse const& response)

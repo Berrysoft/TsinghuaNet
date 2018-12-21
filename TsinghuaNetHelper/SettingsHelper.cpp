@@ -133,6 +133,21 @@ namespace winrt::TsinghuaNetHelper::implementation
         return profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel::InternetAccess;
     }
 
+    NetState SettingsHelper::SuggestNetState(TsinghuaNetHelper::InternetStatus status, hstring const& ssid)
+    {
+        switch (status)
+        {
+        case InternetStatus::Lan:
+            return LanState();
+        case InternetStatus::Wwan:
+            return WwanState();
+        case InternetStatus::Wlan:
+            return WlanState(ssid);
+        default:
+            return NetState::Unknown;
+        }
+    }
+
     InternetStatus SettingsHelper::InternetStatus(hstring& ssid)
     {
         auto profile = NetworkInformation::GetInternetConnectionProfile();

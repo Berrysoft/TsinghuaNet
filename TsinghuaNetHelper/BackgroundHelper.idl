@@ -13,7 +13,6 @@ namespace TsinghuaNetHelper
 
     runtimeclass ConnectHelper
     {
-        static NetState GetSuggestNetState(SettingsHelper settings);
         static IConnect GetHelper(NetState state);
         static IConnect GetHelper(NetState state, String username, String password);
     }

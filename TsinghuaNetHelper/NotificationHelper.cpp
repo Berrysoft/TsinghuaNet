@@ -1,8 +1,7 @@
 ﻿#include "pch.h"
 
-#include "NotificationHelper.h"
-#include "UserHelper.h"
 #include "../Shared/Utility.h"
+#include "NotificationHelper.h"
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 

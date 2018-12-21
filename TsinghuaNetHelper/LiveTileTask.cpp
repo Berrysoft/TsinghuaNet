@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "ConnectHelper.h"
 #include "LiveTileTask.h"
 
 using namespace winrt;
@@ -13,7 +12,9 @@ namespace winrt::TsinghuaNetHelper::implementation
         auto deferral = taskInstance.GetDeferral();
         try
         {
-            NetState state = ConnectHelper::GetSuggestNetState(settings);
+            hstring ssid;
+            auto status = SettingsHelper::InternetStatus(ssid);
+            NetState state = settings.SuggestNetState(status, ssid);
             IConnect helper = ConnectHelper::GetHelper(state);
             if (helper)
             {
