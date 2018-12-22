@@ -1,5 +1,3 @@
-import "NetStateSsidBox.idl";
-
 namespace TsinghuaNetUWP
 {
     [bindable][default_interface] runtimeclass SsidSuggestion : Windows.UI.Xaml.Controls.StackPanel
@@ -15,6 +13,6 @@ namespace TsinghuaNetUWP
         Windows.UI.Xaml.Style SsidStyle;
         static Windows.UI.Xaml.DependencyProperty SsidStyleProperty { get; };
 
-        Windows.Foundation.Collections.IObservableVector<IInspectable> States { get; };
+        Windows.Foundation.Collections.IObservableVector<Object> States { get; };
     }
 } // namespace TsinghuaNetUWP

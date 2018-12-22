@@ -35,27 +35,27 @@ namespace TsinghuaNetHelper
         static IConnect GetHelper(NetState state, String username, String password);
     }
 
-    [default_interface] runtimeclass NetHelper : ICredential, IConnect
+    runtimeclass NetHelper : ICredential, IConnect
     {
         NetHelper();
     }
 
-    [default_interface] runtimeclass Auth4Helper : ICredential, IConnect
+    runtimeclass Auth4Helper : ICredential, IConnect
     {
         Auth4Helper();
     }
 
-    [default_interface] runtimeclass Auth6Helper : ICredential, IConnect
+    runtimeclass Auth6Helper : ICredential, IConnect
     {
         Auth6Helper();
     }
 
-    [default_interface] runtimeclass Auth4Helper25 : ICredential, IConnect
+    runtimeclass Auth4Helper25 : ICredential, IConnect
     {
         Auth4Helper25();
     }
 
-    [default_interface] runtimeclass Auth6Helper25 : ICredential, IConnect
+    runtimeclass Auth6Helper25 : ICredential, IConnect
     {
         Auth6Helper25();
     }
@@ -79,7 +79,7 @@ namespace TsinghuaNetHelper
         Boolean Equals(NetUser user);
     }
 
-    [default_interface] runtimeclass UseregHelper : ICredential
+    runtimeclass UseregHelper : ICredential
     {
         UseregHelper();
 

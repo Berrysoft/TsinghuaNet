@@ -1,6 +1,6 @@
 namespace TsinghuaNetUWP
 {
-    [default_interface] runtimeclass Arc : Windows.UI.Xaml.Controls.Canvas
+    [bindable][default_interface] runtimeclass Arc : Windows.UI.Xaml.Controls.Canvas
     {
         Arc();
 

@@ -55,7 +55,7 @@ namespace TsinghuaNetUWP
         TsinghuaNetHelper.NetState SuggestState;
         static Windows.UI.Xaml.DependencyProperty SuggestStateProperty { get; };
 
-        Windows.Foundation.Collections.IObservableVector<IInspectable> NetUsers { get; };
+        Windows.Foundation.Collections.IObservableVector<Object> NetUsers { get; };
 
         Windows.UI.Xaml.ElementTheme Theme;
         static Windows.UI.Xaml.DependencyProperty ThemeProperty { get; };
