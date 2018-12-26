@@ -13,12 +13,13 @@
 * 使用Windows凭据管理用户名与密码。
 * 在网络状态改变时会自动判断，后台连接。
 * 后台刷新流量。
-* 第一个支持Tsinghua-IPv4与Tsinghua-IPv6无线网。
+* 第一个支持Tsinghua-IPv4无线网。
 
 ## 注意事项
 * 如果使用“管理连接”注销一个Auth连接，可能需要在主界面再注销一次才能再次登录。
 * Auth连接的流量显示要慢一点，可能在登录后需要手动刷新一下。
-* 上面的两个问题，详情请咨询[深澜软件](http://www.srun.com/)。
+* 比起来Tsinghua-IPv6，建议使用Tsinghua-Secure。
+* 上面的几个问题，详情请咨询[深澜软件](http://www.srun.com/)。
 
 ## 编译
 源代码编译需要已经为Visual Studio安装“通用 Windows 平台开发”以及其中的“C++ 通用 Windows 平台工具”，并需要Windows SDK 10.0.17763。

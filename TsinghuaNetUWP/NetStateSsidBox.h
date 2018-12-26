@@ -10,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         NetStateSsidBox() = default;
 
         PROP_DECL_REF(Ssid, hstring)
-        PROP_DECL(Value, int)
+        PROP_DECL(Value, TsinghuaNetHelper::NetState)
     };
 } // namespace winrt::TsinghuaNetUWP::implementation
 

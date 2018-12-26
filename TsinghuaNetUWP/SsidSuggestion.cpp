@@ -14,10 +14,28 @@ namespace winrt::TsinghuaNetUWP::implementation
         InitializeComponent();
         // 向列表中添加可选项
         m_States = single_threaded_observable_vector<IInspectable>();
-        for (int s = (int)NetState::Unknown; s <= (int)NetState::Auth6_25; s++)
+        m_States.Append(make<NetStateBox>(NetState::Unknown));
+        m_States.Append(make<NetStateBox>(NetState::Net));
+        m_States.Append(make<NetStateBox>(NetState::Auth4));
+        m_States.Append(make<NetStateBox>(NetState::Auth4_25));
+    }
+
+    int SsidSuggestion::ValueToIndex(NetState value)
+    {
+        int size = (int)m_States.Size();
+        for (int i = 0; i < size; i++)
         {
-            m_States.Append(make<NetStateBox>((NetState)s));
+            if (m_States.GetAt(i).try_as<TsinghuaNetUWP::NetStateBox>().Value() == value)
+            {
+                return i;
+            }
         }
+        return 0;
+    }
+
+    NetState SsidSuggestion::IndexToValue(int index)
+    {
+        return m_States.GetAt(index).try_as<TsinghuaNetUWP::NetStateBox>().Value();
     }
 
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, SsidSuggestion, box_value(hstring()))

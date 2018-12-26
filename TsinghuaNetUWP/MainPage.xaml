@@ -128,29 +128,11 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}">
-                            <RadioButton.IsChecked>
-                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:NetState>Auth6</helper:NetState>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
                         <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}">
                             <RadioButton.IsChecked>
                                 <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
                                     <Binding.ConverterParameter>
                                         <helper:NetState>Auth4_25</helper:NetState>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6_25)}">
-                            <RadioButton.IsChecked>
-                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:NetState>Auth6_25</helper:NetState>
                                     </Binding.ConverterParameter>
                                 </Binding>
                             </RadioButton.IsChecked>
@@ -193,8 +175,10 @@
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>
-                    <HyperlinkButton Margin="10" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>
+                        <HyperlinkButton NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </SplitView.Pane>

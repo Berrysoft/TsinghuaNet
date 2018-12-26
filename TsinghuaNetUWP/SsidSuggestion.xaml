@@ -13,5 +13,5 @@
         </DataTemplate>
     </StackPanel.Resources>
     <TextBlock Width="120" VerticalAlignment="Center" Style="{x:Bind SsidStyle,Mode=OneWay}" Text="{x:Bind Ssid,Mode=OneWay}"/>
-    <ComboBox Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+    <ComboBox Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind ValueToIndex(Value),BindBack=IndexToValue,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
 </StackPanel>

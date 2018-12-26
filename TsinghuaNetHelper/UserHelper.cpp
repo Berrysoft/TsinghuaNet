@@ -67,7 +67,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         case NetState::Auth4_25:
             return L"IPv4 - http://auth4.tsinghua.edu.cn/";
         case NetState::Auth6_25:
-            return L"IPv6 - http://auth4.tsinghua.edu.cn/";
+            return L"IPv6 - http://auth6.tsinghua.edu.cn/";
         default:
             return L"不需要登录";
         }

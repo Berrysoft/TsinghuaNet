@@ -7,12 +7,15 @@ namespace TsinghuaNetUWP
         String Ssid;
         static Windows.UI.Xaml.DependencyProperty SsidProperty { get; };
 
-        Int32 Value;
+        TsinghuaNetHelper.NetState Value;
         static Windows.UI.Xaml.DependencyProperty ValueProperty { get; };
 
         Windows.UI.Xaml.Style SsidStyle;
         static Windows.UI.Xaml.DependencyProperty SsidStyleProperty { get; };
 
         Windows.Foundation.Collections.IObservableVector<Object> States { get; };
+
+        Int32 ValueToIndex(TsinghuaNetHelper.NetState value);
+        TsinghuaNetHelper.NetState IndexToValue(Int32 index);
     }
 } // namespace TsinghuaNetUWP

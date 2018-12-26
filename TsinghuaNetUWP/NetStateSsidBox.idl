@@ -5,6 +5,6 @@ namespace TsinghuaNetUWP
         NetStateSsidBox();
 
         String Ssid;
-        Int32 Value;
+        TsinghuaNetHelper.NetState Value;
     }
 } // namespace TsinghuaNetUWP

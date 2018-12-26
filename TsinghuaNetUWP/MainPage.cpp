@@ -322,21 +322,21 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         auto dialog = make<EditSuggestionDialog>();
         dialog.RequestedTheme(Model().Theme());
-        dialog.LanCombo().Value((int)settings.LanState());
-        dialog.WwanCombo().Value((int)settings.WwanState());
+        dialog.LanCombo().Value(settings.LanState());
+        dialog.WwanCombo().Value(settings.WwanState());
         auto s = settings.WlanStates();
         dialog.RefreshWlanList(s);
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
-            settings.LanState((NetState)dialog.LanCombo().Value());
-            settings.WwanState((NetState)dialog.WwanCombo().Value());
+            settings.LanState(dialog.LanCombo().Value());
+            settings.WwanState(dialog.WwanCombo().Value());
             s.Clear();
             for (auto pair : dialog.WlanList())
             {
                 if (auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() })
                 {
-                    s.Insert(item.Ssid(), (NetState)item.Value());
+                    s.Insert(item.Ssid(), item.Value());
                 }
             }
             settings.WlanStates(s);

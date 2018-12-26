@@ -93,7 +93,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             auto item = make<NetStateSsidBox>();
             item.Ssid(pair.Key());
-            item.Value((int)pair.Value());
+            item.Value(pair.Value());
             m_WlanList.Append(item);
         }
     }

@@ -121,7 +121,6 @@ namespace winrt::TsinghuaNetHelper::implementation
             { L"Tsinghua", NetState::Net },
             { L"Tsinghua-5G", NetState::Net },
             { L"Tsinghua-IPv4", NetState::Auth4_25 },
-            { L"Tsinghua-IPv6", NetState::Auth6_25 },
             { L"Wifi.郑裕彤讲堂", NetState::Net } });
     }
 
