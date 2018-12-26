@@ -1,12 +1,22 @@
 # TsinghuaNetUWP
 清华大学校园网客户端，UWP架构，使用C++/WinRT编写。
 
-其内核与我的另一个使用WPF编写的[客户端](https://github.com/Berrysoft/Tsinghua_Auth4_Net)相似，不过使用了WinRT重写，而且支持的功能更多。
+其内核与我的另一个使用WPF编写的[客户端](https://github.com/Berrysoft/Tsinghua_Auth4_Net)相似，不过支持的功能更多。
 
 ## 程序截图
-|![主界面](./Screenshots/MainPage.png)|![设置栏](./Screenshots/Settings.png)|![适应主题](./Screenshots/Theme.png)|
-|:-:|:-:|:-:|
-|主界面|设置栏|适应主题|
+
+<table>
+    <tbody>
+        <tr>
+            <th><img alt="主界面" src="./Screenshots/MainPage.png"/></th>
+            <th><img alt="设置栏" src="./Screenshots/Settings.png"/></th>
+        </tr>
+        <tr>
+            <th><img alt="适应主题" src="./Screenshots/Theme.png"/></th>
+            <th><img alt="编辑建议" src="./Screenshots/Suggestions.png"/></th>
+        </tr>
+    </tbody>
+</table>
 
 ## 功能特点
 * 针对不同的网络类型给出建议。
