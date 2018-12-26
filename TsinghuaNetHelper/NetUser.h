@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "NetUser.g.h"
 
-#include "Utility.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
@@ -9,14 +9,14 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         NetUser() = default;
 
-        DEPENDENCY_PROPERTY(Address, winrt::hstring)
-        DEPENDENCY_PROPERTY(LoginTime, winrt::hstring)
-        DEPENDENCY_PROPERTY(Client, winrt::hstring)
-
-        EVENT_DECL(DropUser, winrt::hstring)
-
-    public:
         void Drop() { m_DropUserEvent(*this, Address()); }
+        bool Equals(TsinghuaNetHelper::NetUser const& user);
+
+        DEPENDENCY_PROPERTY(Address, hstring)
+        DEPENDENCY_PROPERTY(LoginTime, hstring)
+        DEPENDENCY_PROPERTY(Client, hstring)
+
+        EVENT_DECL(DropUser, hstring)
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

@@ -4,7 +4,9 @@
 
 using namespace winrt;
 using namespace Windows::Foundation;
+using namespace Windows::Foundation::Collections;
 using namespace Windows::UI::Xaml;
+using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -56,6 +58,43 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void EditSuggestionDialog::DeleteSelection(IInspectable const&, RoutedEventArgs const&)
     {
-        m_WlanList.RemoveAt(WlanListView().SelectedIndex());
+        int index = WlanListView().SelectedIndex();
+        if (index >= 0)
+        {
+            m_WlanList.RemoveAt(index);
+        }
+    }
+
+    /// <summary>
+    /// 点击问号弹出对话框
+    /// </summary>
+    /// <param name="e"></param>
+    void EditSuggestionDialog::HelpSelection(IInspectable const&, RoutedEventArgs const& e)
+    {
+        HelpFlyout().ShowAt(e.OriginalSource().as<FrameworkElement>());
+    }
+
+    /// <summary>
+    /// 点击恢复使用默认建议
+    /// </summary>
+    void EditSuggestionDialog::RestoreSelection(IInspectable const&, RoutedEventArgs const&)
+    {
+        RefreshWlanList(SettingsHelper::DefWlanStates());
+    }
+
+    /// <summary>
+    /// 使用一个已有的表填充建议列表
+    /// </summary>
+    /// <param name="list"></param>
+    void EditSuggestionDialog::RefreshWlanList(IMap<hstring, NetState> const& list)
+    {
+        m_WlanList.Clear();
+        for (auto pair : list)
+        {
+            auto item = make<NetStateSsidBox>();
+            item.Ssid(pair.Key());
+            item.Value((int)pair.Value());
+            m_WlanList.Append(item);
+        }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

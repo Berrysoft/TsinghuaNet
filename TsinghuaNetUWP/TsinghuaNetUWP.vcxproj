@@ -111,6 +111,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Arc.h">
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -119,11 +120,11 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="DependencyHelper.h" />
     <ClInclude Include="EditSuggestionDialog.h">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="EnumCheckedConverter.h" />
     <ClInclude Include="MainViewModel.h">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -132,6 +133,7 @@
       <DependentUpon>NetStateBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="NetStateCheckedConverter.h" />
     <ClInclude Include="NetStateSsidBox.h">
       <DependentUpon>NetStateSsidBox.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -147,6 +149,8 @@
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ThemeCheckedConverter.h" />
+    <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -228,6 +232,7 @@
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Converters.idl" />
     <Midl Include="EditSuggestionDialog.idl">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,37 +1,39 @@
 ﻿#pragma once
 #include "SettingsHelper.g.h"
 
+#include "../Shared/Utility.h"
+
 namespace winrt::TsinghuaNetHelper::implementation
 {
     struct SettingsHelper : SettingsHelperT<SettingsHelper>
     {
         SettingsHelper();
 
-        hstring StoredUsername();
-        void StoredUsername(hstring const& value);
-        bool AutoLogin();
-        void AutoLogin(bool value);
-        bool BackgroundAutoLogin();
-        void BackgroundAutoLogin(bool value);
-        bool BackgroundLiveTile();
-        void BackgroundLiveTile(bool value);
-        NetState LanState();
-        void LanState(NetState value);
-        NetState WwanState();
-        void WwanState(NetState value);
+        void SaveSettings();
+
+        PROP_DECL_REF(StoredUsername, hstring)
+        PROP_DECL(AutoLogin, bool)
+        PROP_DECL(BackgroundAutoLogin, bool)
+        PROP_DECL(BackgroundLiveTile, bool)
+        PROP_DECL_REF(LanState, NetState)
+        PROP_DECL_REF(WwanState, NetState)
+
+        PROP_DECL_REF(Theme, Windows::UI::Xaml::ElementTheme)
+
+    public:
         NetState WlanState(hstring const& ssid);
-        void WlanState(hstring const& ssid, NetState value);
         Windows::Foundation::Collections::IMap<hstring, NetState> WlanStates();
         void WlanStates(Windows::Foundation::Collections::IMap<hstring, NetState> const& states);
 
-        bool InternetAvailable();
-        InternetStatus InternetStatus(hstring& ssid);
+        NetState SuggestNetState(InternetStatus status, hstring const& ssid);
+
+        static Windows::Foundation::Collections::IMap<hstring, NetState> DefWlanStates();
+
+        static bool InternetAvailable();
+        static InternetStatus InternetStatus(hstring& ssid);
 
     private:
         Windows::Data::Json::JsonObject wlanMap;
-
-        Windows::Data::Json::JsonObject WlanStateInternal();
-        void WlanStateInternal(Windows::Data::Json::JsonObject const& value);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

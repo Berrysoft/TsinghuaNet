@@ -1,8 +1,7 @@
 ﻿#include "pch.h"
 
+#include "../Shared/Utility.h"
 #include "NotificationHelper.h"
-#include "UserHelper.h"
-#include "Utility.h"
 #include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Notifications.h>
 
@@ -55,11 +54,11 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         XmlDocument dom;
         dom.LoadXml(sprint(tile_t,
-                           user.Username(),
-                           UserHelper::GetFluxString(user.Flux()),
-                           UserHelper::GetTimeSpanString(user.OnlineTime()),
-                           UserHelper::GetCurrencyString(user.Balance()),
-                           UserHelper::GetFluxString(UserHelper::GetMaxFlux(user) - user.Flux())));
+                           user.Username,
+                           UserHelper::GetFluxString(user.Flux),
+                           UserHelper::GetTimeSpanString(user.OnlineTime),
+                           UserHelper::GetCurrencyString(user.Balance),
+                           UserHelper::GetFluxString(UserHelper::GetMaxFlux(user) - user.Flux)));
         TileNotification notification(dom);
         notification.ExpirationTime(clock::now() + 15min);
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
@@ -69,9 +68,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         XmlDocument dom;
         dom.LoadXml(sprint(toast_t,
-                           user.Username(),
-                           UserHelper::GetFluxString(user.Flux()),
-                           UserHelper::GetCurrencyString(user.Balance())));
+                           user.Username,
+                           UserHelper::GetFluxString(user.Flux),
+                           UserHelper::GetCurrencyString(user.Balance)));
         ToastNotification notification(dom);
         notification.ExpirationTime(clock::now() + 1min);
         ToastNotificationManager::CreateToastNotifier().Show(notification);

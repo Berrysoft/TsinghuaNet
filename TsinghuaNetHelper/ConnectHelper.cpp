@@ -6,23 +6,6 @@ using namespace winrt;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    NetState ConnectHelper::GetSuggestNetState(SettingsHelper const& lan)
-    {
-        hstring ssid;
-        auto status = lan.InternetStatus(ssid);
-        switch (status)
-        {
-        case InternetStatus::Lan:
-            return lan.LanState();
-        case InternetStatus::Wwan:
-            return lan.WwanState();
-        case InternetStatus::Wlan:
-            return lan.WlanState(ssid);
-        default:
-            return NetState::Unknown;
-        }
-    }
-
     IConnect ConnectHelper::GetHelper(NetState const& state)
     {
         switch (state)

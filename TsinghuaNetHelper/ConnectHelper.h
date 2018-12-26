@@ -7,9 +7,8 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         ConnectHelper() = delete;
 
-        static TsinghuaNetHelper::NetState GetSuggestNetState(TsinghuaNetHelper::SettingsHelper const& settings);
-        static TsinghuaNetHelper::IConnect GetHelper(TsinghuaNetHelper::NetState const& state);
-        static TsinghuaNetHelper::IConnect GetHelper(TsinghuaNetHelper::NetState const& state, hstring const& username, hstring const& password);
+        static IConnect GetHelper(NetState const& state);
+        static IConnect GetHelper(NetState const& state, hstring const& username, hstring const& password);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

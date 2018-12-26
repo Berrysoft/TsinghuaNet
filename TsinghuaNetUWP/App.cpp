@@ -122,7 +122,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     void App::OnSuspending(IInspectable const&, SuspendingEventArgs const& e)
     {
         auto deferral = e.SuspendingOperation().GetDeferral();
-        // TODO: 保存应用程序状态并停止任何后台活动
+        if (Frame rootFrame{ Window::Current().Content().try_as<Frame>() })
+        {
+            if (auto mainPage{ rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>() })
+            {
+                MainPage* pmain = get_self<MainPage>(mainPage);
+                pmain->SaveSettings();
+            }
+        }
         deferral.Complete();
     }
 

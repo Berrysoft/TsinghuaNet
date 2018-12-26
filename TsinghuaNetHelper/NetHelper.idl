@@ -1,16 +1,20 @@
+import "SettingsHelper.idl";
+
 namespace TsinghuaNetHelper
 {
-    runtimeclass FluxUser
+    struct FluxUser
     {
-        FluxUser();
-
         String Username;
         UInt64 Flux;
         Windows.Foundation.TimeSpan OnlineTime;
         Double Balance;
+    };
 
-        static FluxUser Parse(String fluxstr);
-    }
+    struct LogResponse
+    {
+        String Code;
+        String Message;
+    };
 
     interface ICredential
     {
@@ -20,32 +24,38 @@ namespace TsinghuaNetHelper
 
     interface IConnect
     {
-        Windows.Foundation.IAsyncOperation<String> LoginAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
         Windows.Foundation.IAsyncOperation<FluxUser> FluxAsync();
     }
 
-    [default_interface] runtimeclass NetHelper : ICredential, IConnect
+    runtimeclass ConnectHelper
+    {
+        static IConnect GetHelper(NetState state);
+        static IConnect GetHelper(NetState state, String username, String password);
+    }
+
+    runtimeclass NetHelper : ICredential, IConnect
     {
         NetHelper();
     }
 
-    [default_interface] runtimeclass Auth4Helper : ICredential, IConnect
+    runtimeclass Auth4Helper : ICredential, IConnect
     {
         Auth4Helper();
     }
 
-    [default_interface] runtimeclass Auth6Helper : ICredential, IConnect
+    runtimeclass Auth6Helper : ICredential, IConnect
     {
         Auth6Helper();
     }
 
-    [default_interface] runtimeclass Auth4Helper25 : ICredential, IConnect
+    runtimeclass Auth4Helper25 : ICredential, IConnect
     {
         Auth4Helper25();
     }
 
-    [default_interface] runtimeclass Auth6Helper25 : ICredential, IConnect
+    runtimeclass Auth6Helper25 : ICredential, IConnect
     {
         Auth6Helper25();
     }
@@ -65,15 +75,17 @@ namespace TsinghuaNetHelper
 
         void Drop();
         event Windows.Foundation.EventHandler<String> DropUser;
+
+        Boolean Equals(NetUser user);
     }
 
-    [default_interface] runtimeclass UseregHelper : ICredential
+    runtimeclass UseregHelper : ICredential
     {
         UseregHelper();
 
-        Windows.Foundation.IAsyncOperation<String> LoginAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync();
-        Windows.Foundation.IAsyncOperation<String> LogoutAsync(String ip);
+        Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
+        Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync(String ip);
         Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVector<NetUser> > UsersAsync();
     }
 } // namespace TsinghuaNetHelper

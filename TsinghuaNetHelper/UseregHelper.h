@@ -9,9 +9,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         UseregHelper() = default;
 
-        Windows::Foundation::IAsyncOperation<hstring> LoginAsync();
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync();
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync(hstring const ip);
+        Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync(hstring const ip);
         Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVector<TsinghuaNetHelper::NetUser>> UsersAsync();
     };
 } // namespace winrt::TsinghuaNetHelper::implementation

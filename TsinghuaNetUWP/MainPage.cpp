@@ -5,12 +5,18 @@
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
 #include <winrt/Windows.ApplicationModel.Core.h>
+#include <winrt/Windows.UI.Core.h>
 #include <winrt/Windows.UI.ViewManagement.h>
 
+using namespace std::chrono_literals;
+using sf::sprint;
+using namespace concurrency;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
 using namespace Windows::Foundation;
+using namespace Windows::Networking::Connectivity;
 using namespace Windows::UI;
+using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::ViewManagement;
@@ -18,7 +24,7 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    MainPage::MainPage()
+    MainPage::MainPage() : m_ToastLogined(false)
     {
         InitializeComponent();
         // 调整标题栏的颜色为透明
@@ -34,18 +40,31 @@ namespace winrt::TsinghuaNetUWP::implementation
         viewTitleBar.ExtendViewIntoTitleBar(true);
         // 设置主窗格为标题栏
         Window::Current().SetTitleBar(MainGrid());
+        // 获取用户设置的主题
+        Model().Theme(settings.Theme());
+        // 设置计时器
+        mainTimer.Interval(1s);
+        mainTimer.Tick({ this, &MainPage::MainTimerTick });
+        // 监视网络情况变化
+        networkListener.NetworkStatusChanged({ this, &MainPage::NetworkChanged });
+    }
+
+    /// <summary>
+    /// 保存设置
+    /// </summary>
+    void MainPage::SaveSettings()
+    {
+        settings.Theme(Model().Theme());
+        settings.SaveSettings();
     }
 
     /// <summary>
     /// 页面装载时触发
     /// </summary>
-    IAsyncAction MainPage::PageLoaded(IInspectable const, RoutedEventArgs const)
+    fire_and_forget MainPage::PageLoaded(IInspectable const, RoutedEventArgs const)
     {
         // 先刷新状态
         RefreshStatusImpl();
-        // 设置当前类型为建议类型
-        NetState state = Model().SuggestState();
-        Model().State(state);
         // 自动登录
         bool al = settings.AutoLogin();
         Model().AutoLogin(al);
@@ -71,9 +90,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             // 自动登录的条件为：
             // 打开了自动登录
             // 不知道后台任务成功登录
-            // 无Internet访问
             // 密码不为空
-            if (al && !m_ToastLogined && !settings.InternetAvailable() && !pw.empty())
+            if (al && !m_ToastLogined && !pw.empty())
             {
                 co_await LoginImpl();
             }
@@ -82,19 +100,25 @@ namespace winrt::TsinghuaNetUWP::implementation
                 co_await RefreshImpl();
             }
             // 刷新当前用户所有连接状态
-            if (settings.InternetAvailable())
-            {
-                co_await RefreshNetUsersImpl();
-            }
+            co_await RefreshNetUsersImpl();
         }
+    }
+
+    /// <summary>
+    /// 调用Dispatcher刷新网络状态
+    /// </summary>
+    fire_and_forget MainPage::NetworkChanged(IInspectable const)
+    {
+        co_await Dispatcher().RunAsync(CoreDispatcherPriority::Normal, { this, &MainPage::NetworkChangedImpl });
     }
 
     /// <summary>
     /// 打开“更改用户”对话框
     /// </summary>
-    IAsyncAction MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
+    fire_and_forget MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<ChangeUserDialog>(Model().Username());
+        dialog.RequestedTheme(Model().Theme());
         // 显示对话框
         auto result = co_await dialog.ShowAsync();
         // 确定
@@ -136,22 +160,26 @@ namespace winrt::TsinghuaNetUWP::implementation
     }
 
     /// <summary>
-    /// 一个帮助类，管理<see cref="Windows.UI.Xaml.Controls.ProgressRing"/>的活动状态
+    /// 刷新网络状态
     /// </summary>
-    class ProgressRingManager
+    task<void> MainPage::NetworkChangedImpl()
     {
-    private:
-        ProgressRing ring;
-
-    public:
-        ProgressRingManager(ProgressRing const& ring) : ring(ring) { ring.IsActive(true); }
-        ~ProgressRingManager() { ring.IsActive(false); }
-    };
+        RefreshStatusImpl();
+        if (Model().AutoLogin() && !Model().Password().empty())
+        {
+            co_await LoginImpl();
+        }
+        else
+        {
+            co_await RefreshImpl();
+        }
+        co_await RefreshNetUsersImpl();
+    }
 
     /// <summary>
     /// 登录当前用户并刷新
     /// </summary>
-    IAsyncAction MainPage::LoginImpl()
+    task<void> MainPage::LoginImpl()
     {
         ProgressRingManager ring(Progress());
         try
@@ -159,19 +187,20 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper.LoginAsync();
-                co_await RefreshImpl(helper);
+                ShowResponse(co_await helper.LoginAsync());
             }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowHresultError(e);
         }
     }
 
     /// <summary>
     /// 注销当前用户并刷新
     /// </summary>
-    IAsyncAction MainPage::LogoutImpl()
+    task<void> MainPage::LogoutImpl()
     {
         ProgressRingManager ring(Progress());
         try
@@ -179,31 +208,30 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto helper = GetHelper();
             if (helper)
             {
-                co_await helper.LogoutAsync();
-                co_await RefreshImpl(helper);
+                ShowResponse(co_await helper.LogoutAsync());
             }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowHresultError(e);
         }
     }
 
     /// <summary>
     /// 刷新
     /// </summary>
-    IAsyncAction MainPage::RefreshImpl()
+    task<void> MainPage::RefreshImpl()
     {
         ProgressRingManager ring(Progress());
         try
         {
             auto helper = GetHelper();
-            if (helper)
-            {
-                co_await RefreshImpl(helper);
-            }
+            co_await RefreshImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowHresultError(e);
         }
     }
 
@@ -215,28 +243,36 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// 具体的刷新操作
     /// </summary>
     /// <param name="helper">网络连接辅助类，用于执行刷新任务</param>
-    IAsyncAction MainPage::RefreshImpl(IConnect const helper)
+    task<void> MainPage::RefreshImpl(IConnect const helper)
     {
-        auto flux = co_await helper.FluxAsync();
+        FluxUser flux = {};
+        if (helper)
+        {
+            flux = co_await helper.FluxAsync();
+        }
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
         // 更新窗口信息
-        Model().OnlineUser(flux.Username());
-        Model().Flux(flux.Flux());
-        Model().OnlineTime(flux.OnlineTime());
-        Model().Balance(flux.Balance());
+        Model().OnlineUser(flux.Username);
+        Model().Flux(flux.Flux);
+        Model().OnlineTime(flux.OnlineTime);
+        Model().Balance(flux.Balance);
         // 动画
         double maxf = (double)UserHelper::GetMaxFlux(flux);
-        Model().FluxPercent(flux.Flux() / maxf);
+        Model().FluxPercent(flux.Flux / maxf);
         Model().FreePercent(BaseFlux / maxf);
         FluxStoryboard().Begin();
+        if (flux.Username.empty())
+            mainTimer.Stop();
+        else
+            mainTimer.Start();
     }
 
     /// <summary>
     /// 根据IP强制下线某个连接
     /// </summary>
     /// <param name="address">连接的IP地址</param>
-    IAsyncAction MainPage::DropImpl(hstring const address)
+    task<void> MainPage::DropImpl(hstring const address)
     {
         try
         {
@@ -247,8 +283,9 @@ namespace winrt::TsinghuaNetUWP::implementation
             co_await helper.LogoutAsync(address);
             co_await RefreshNetUsersImpl(helper);
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowHresultError(e);
         }
     }
 
@@ -260,79 +297,44 @@ namespace winrt::TsinghuaNetUWP::implementation
         return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
     }
 
-    /// <summary>
-    /// 根据当前类型的变化改变选中的单选框
-    /// </summary>
-    /// <param name="e">当前类型</param>
-    void MainPage::StateChanged(IInspectable const&, NetState const& e)
+    void MainPage::ShowResponse(LogResponse const& response)
     {
-        switch (e)
-        {
-        case NetState::Net:
-            NetRadio().IsChecked(true);
-            break;
-        case NetState::Auth4:
-            Auth4Radio().IsChecked(true);
-            break;
-        case NetState::Auth6:
-            Auth6Radio().IsChecked(true);
-            break;
-        case NetState::Auth4_25:
-            Auth425Radio().IsChecked(true);
-            break;
-        case NetState::Auth6_25:
-            Auth625Radio().IsChecked(true);
-            break;
-        }
+        Model().Response(response);
+        ResponseFlyout().ShowAt(MainBar());
     }
-    void MainPage::NetChecked(IInspectable const&, RoutedEventArgs const&)
+
+    void MainPage::ShowHresultError(hresult_error const& e)
     {
-        Model().State(NetState::Net);
+        ShowResponse({ hstring(sprint(L"异常 0x{:x8,u}", e.code())), e.message() });
     }
-    void MainPage::Auth4Checked(IInspectable const&, RoutedEventArgs const&)
+
+    void MainPage::MainTimerTickImpl()
     {
-        Model().State(NetState::Auth4);
-    }
-    void MainPage::Auth6Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth6);
-    }
-    void MainPage::Auth425Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth4_25);
-    }
-    void MainPage::Auth625Checked(IInspectable const&, RoutedEventArgs const&)
-    {
-        Model().State(NetState::Auth6_25);
+        if (Model().OnlineUser().empty())
+            mainTimer.Stop();
+        Model().OnlineTime(Model().OnlineTime() + 1s);
     }
 
     /// <summary>
     /// 打开“编辑建议”对话框
     /// </summary>
-    IAsyncAction MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
+    fire_and_forget MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
         auto dialog = make<EditSuggestionDialog>();
+        dialog.RequestedTheme(Model().Theme());
         dialog.LanCombo().Value((int)settings.LanState());
         dialog.WwanCombo().Value((int)settings.WwanState());
         auto s = settings.WlanStates();
-        auto v = dialog.WlanList();
-        for (auto pair : s)
-        {
-            auto item = make<NetStateSsidBox>();
-            item.Ssid(pair.Key());
-            item.Value((int)pair.Value());
-            v.Append(item);
-        }
+        dialog.RefreshWlanList(s);
         auto result = co_await dialog.ShowAsync();
         if (result == ContentDialogResult::Primary)
         {
             settings.LanState((NetState)dialog.LanCombo().Value());
             settings.WwanState((NetState)dialog.WwanCombo().Value());
             s.Clear();
-            for (auto pair : v)
+            for (auto pair : dialog.WlanList())
             {
-                auto item = pair.try_as<TsinghuaNetUWP::NetStateSsidBox>();
-                if (item)
+                if (auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() })
                 {
                     s.Insert(item.Ssid(), (NetState)item.Value());
                 }
@@ -347,7 +349,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         settings.AutoLogin(e);
     }
 
-    IAsyncAction MainPage::BackgroundAutoLoginChanged(IInspectable const, bool const e)
+    fire_and_forget MainPage::BackgroundAutoLoginChanged(IInspectable const, bool const e)
     {
         settings.BackgroundAutoLogin(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
@@ -356,7 +358,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    IAsyncAction MainPage::BackgroundLiveTileChanged(IInspectable const, bool const e)
+    fire_and_forget MainPage::BackgroundLiveTileChanged(IInspectable const, bool const e)
     {
         settings.BackgroundLiveTile(e);
         if (co_await BackgroundHelper::RequestAccessAsync())
@@ -370,44 +372,34 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void MainPage::RefreshStatusImpl()
     {
-        NetState state;
         hstring ssid;
-        auto status = settings.InternetStatus(ssid);
-        switch (status)
-        {
-        case InternetStatus::Lan:
-            state = settings.LanState();
-            break;
-        case InternetStatus::Wwan:
-            state = settings.WwanState();
-            break;
-        case InternetStatus::Wlan:
-            state = settings.WlanState(ssid);
-            break;
-        default:
-            state = NetState::Unknown;
-            break;
-        }
+        auto status = SettingsHelper::InternetStatus(ssid);
+        NetState state = settings.SuggestNetState(status, ssid);
         Model().NetStatus(status);
         Model().Ssid(ssid);
         Model().SuggestState(state);
+        Model().State(state);
     }
 
     /// <summary>
     /// 刷新所有连接情况
     /// </summary>
-    IAsyncAction MainPage::RefreshNetUsersImpl()
+    task<void> MainPage::RefreshNetUsersImpl()
     {
         try
         {
-            UseregHelper helper;
-            helper.Username(Model().Username());
-            helper.Password(Model().Password());
-            co_await helper.LoginAsync();
-            co_await RefreshNetUsersImpl(helper);
+            if ((int)Model().State())
+            {
+                UseregHelper helper;
+                helper.Username(Model().Username());
+                helper.Password(Model().Password());
+                co_await helper.LoginAsync();
+                co_await RefreshNetUsersImpl(helper);
+            }
         }
-        catch (hresult_error const&)
+        catch (hresult_error const& e)
         {
+            ShowHresultError(e);
         }
     }
 
@@ -416,11 +408,31 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// 在调用这个方法前要调用<see cref="UseregHelper.LoginAsync"/>。
     /// </summary>
     /// <param name="helper">帮助类实例</param>
-    IAsyncAction MainPage::RefreshNetUsersImpl(UseregHelper const helper)
+    task<void> MainPage::RefreshNetUsersImpl(UseregHelper const helper)
     {
         auto users = co_await helper.UsersAsync();
         auto usersmodel = Model().NetUsers();
-        usersmodel.Clear();
+        for (uint32_t i = 0; i < usersmodel.Size(); i++)
+        {
+            if (auto olduser{ usersmodel.GetAt(i).try_as<NetUser>() })
+            {
+                // 循环判断旧元素是否存在于新集合中
+                for (uint32_t j = 0; j < users.Size(); j++)
+                {
+                    // 如果存在则移除新元素
+                    if (users.GetAt(j).Equals(olduser))
+                    {
+                        users.RemoveAt(j);
+                        goto continue_outer;
+                    }
+                }
+                // 反之移除旧元素
+                usersmodel.RemoveAt(i);
+                i--;
+            }
+        continue_outer:;
+        }
+        // 最后添加新增元素
         for (auto user : users)
         {
             user.DropUser({ this, &MainPage::DropUser });

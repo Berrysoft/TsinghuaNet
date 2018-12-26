@@ -4,18 +4,19 @@
 
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
-using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LoginTask::Run(IBackgroundTaskInstance const taskInstance)
+    fire_and_forget LoginTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         if (settings.AutoLogin())
         {
             try
             {
-                NetState state = ConnectHelper::GetSuggestNetState(settings);
+                hstring ssid;
+                auto status = SettingsHelper::InternetStatus(ssid);
+                NetState state = settings.SuggestNetState(status, ssid);
                 hstring un = settings.StoredUsername();
                 hstring pw = CredentialHelper::GetCredential(un);
                 IConnect helper = ConnectHelper::GetHelper(state, un, pw);

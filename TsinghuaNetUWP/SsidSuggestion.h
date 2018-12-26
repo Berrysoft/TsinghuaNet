@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SsidSuggestion.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -9,8 +9,10 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         SsidSuggestion();
 
-        DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
+        DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(Value, int)
+
+        DEPENDENCY_PROPERTY(SsidStyle, Windows::UI::Xaml::Style)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> States() { return m_States; }

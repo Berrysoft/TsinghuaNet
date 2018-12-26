@@ -1,7 +1,0 @@
-namespace TsinghuaNetHelper
-{
-    [default_interface] runtimeclass LoginTask : Windows.ApplicationModel.Background.IBackgroundTask
-    {
-        LoginTask();
-    }
-} // namespace TsinghuaNetHelper

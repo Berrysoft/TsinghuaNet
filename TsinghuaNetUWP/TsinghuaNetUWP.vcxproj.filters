@@ -32,6 +32,9 @@
       <Filter>ViewModels</Filter>
     </Midl>
     <Midl Include="SsidSuggestion.idl" />
+    <Midl Include="Converters.idl">
+      <Filter>Converters</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -52,10 +55,20 @@
     <ClInclude Include="MainViewModel.h" />
     <ClInclude Include="ChangeUserDialog.h" />
     <ClInclude Include="EditSuggestionDialog.h" />
-    <ClInclude Include="DependencyHelper.h" />
     <ClInclude Include="NetStateBox.h" />
     <ClInclude Include="NetStateSsidBox.h" />
     <ClInclude Include="SsidSuggestion.h" />
+    <ClInclude Include="NetStateCheckedConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="ThemeCheckedConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumCheckedConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\Utility.h" />
+    <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -103,6 +116,9 @@
     </Filter>
     <Filter Include="ViewModels">
       <UniqueIdentifier>{ba0d3a8a-6e4f-4e96-83be-02127306f167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{c2592250-f7f6-4b5a-8a6d-c4f67f4157e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

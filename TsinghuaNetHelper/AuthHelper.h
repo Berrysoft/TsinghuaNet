@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "NetHelperBase.h"
 #include "winrt/TsinghuaNetHelper.h"
-#include <ppltasks.h>
 
 namespace winrt::TsinghuaNetHelper
 {
@@ -9,9 +8,9 @@ namespace winrt::TsinghuaNetHelper
     {
         AuthHelper(int ver, int ac_id = 1);
 
-        Windows::Foundation::IAsyncOperation<hstring> LoginAsync();
-        Windows::Foundation::IAsyncOperation<hstring> LogoutAsync();
-        Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::FluxUser> FluxAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
+        Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
+        Windows::Foundation::IAsyncOperation<FluxUser> FluxAsync();
 
     private:
         std::wstring const LogUri;
@@ -20,7 +19,7 @@ namespace winrt::TsinghuaNetHelper
         int ac_id;
 
         concurrency::task<std::string> ChallengeAsync();
-        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LoginDataAsync();
-        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IMap<winrt::hstring, winrt::hstring>> LogoutDataAsync();
+        concurrency::task<std::map<hstring, hstring>> LoginDataAsync();
+        concurrency::task<std::map<hstring, hstring>> LogoutDataAsync();
     };
 } // namespace winrt::TsinghuaNetHelper

@@ -1,0 +1,12 @@
+namespace TsinghuaNetUWP
+{
+    runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        NetStateCheckedConverter();
+    }
+
+    runtimeclass ThemeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        ThemeCheckedConverter();
+    }
+} // namespace TsinghuaNetUWP

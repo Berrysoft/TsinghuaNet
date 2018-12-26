@@ -1,8 +1,7 @@
 ﻿#pragma once
-
 #include "MainViewModel.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -11,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         MainViewModel();
 
-        DEPENDENCY_PROPERTY(OnlineUser, winrt::hstring)
+        DEPENDENCY_PROPERTY(OnlineUser, hstring)
         DEPENDENCY_PROPERTY(Flux, std::uint64_t)
         DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
         DEPENDENCY_PROPERTY(Balance, double)
@@ -19,8 +18,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(FluxPercent, double)
         DEPENDENCY_PROPERTY(FreePercent, double)
 
-        DEPENDENCY_PROPERTY(Username, winrt::hstring)
-        DEPENDENCY_PROPERTY(Password, winrt::hstring)
+        DEPENDENCY_PROPERTY(Response, TsinghuaNetHelper::LogResponse)
+
+        DEPENDENCY_PROPERTY(Username, hstring)
+        DEPENDENCY_PROPERTY(Password, hstring)
+
+        DEPENDENCY_PROPERTY(State, TsinghuaNetHelper::NetState)
 
         DEPENDENCY_PROPERTY(AutoLogin, bool)
         EVENT_DECL(AutoLoginChanged, bool)
@@ -30,24 +33,16 @@ namespace winrt::TsinghuaNetUWP::implementation
         EVENT_DECL(BackgroundLiveTileChanged, bool)
 
         DEPENDENCY_PROPERTY(NetStatus, TsinghuaNetHelper::InternetStatus)
-        DEPENDENCY_PROPERTY(Ssid, winrt::hstring)
+        DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
-        EVENT_DECL(StateChanged, TsinghuaNetHelper::NetState)
+        DEPENDENCY_PROPERTY(Theme, Windows::UI::Xaml::ElementTheme)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
 
-        TsinghuaNetHelper::NetState State() const { return m_State; }
-        void State(TsinghuaNetHelper::NetState value)
-        {
-            m_State = value;
-            m_StateChangedEvent(*this, value);
-        }
-
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;
-        TsinghuaNetHelper::NetState m_State;
 
         static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void OnBackgroundAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);

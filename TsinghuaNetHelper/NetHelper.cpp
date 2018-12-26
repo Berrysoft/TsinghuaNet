@@ -14,18 +14,18 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t LoginData[] = L"action=login&ac_id=1&username={}&password={{MD5_HEX}}{}";
     constexpr wchar_t LogoutData[] = L"action=logout";
 
-    IAsyncOperation<hstring> NetHelper::LoginAsync()
+    IAsyncOperation<LogResponse> NetHelper::LoginAsync()
     {
-        return PostStringAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password()))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), hstring(sprint(LoginData, Username(), GetMD5(Password())))));
     }
 
-    IAsyncOperation<hstring> NetHelper::LogoutAsync()
+    IAsyncOperation<LogResponse> NetHelper::LogoutAsync()
     {
-        return PostStringAsync(Uri(LogUri), LogoutData);
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), LogoutData));
     }
 
     IAsyncOperation<FluxUser> NetHelper::FluxAsync()
     {
-        return FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
+        co_return UserHelper::GetFluxUser(co_await PostAsync(Uri(FluxUri)));
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

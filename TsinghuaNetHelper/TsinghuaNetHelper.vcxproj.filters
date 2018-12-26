@@ -6,9 +6,6 @@
     <ClCompile Include="AuthHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
-    <ClCompile Include="FluxUser.cpp">
-      <Filter>NetHelper</Filter>
-    </ClCompile>
     <ClCompile Include="NetHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
@@ -33,9 +30,6 @@
     <ClCompile Include="SettingsHelper.cpp">
       <Filter>SettingsHelper</Filter>
     </ClCompile>
-    <ClCompile Include="ConnectHelper.cpp">
-      <Filter>BackgroundHelper</Filter>
-    </ClCompile>
     <ClCompile Include="LiveTileTask.cpp">
       <Filter>BackgroundHelper</Filter>
     </ClCompile>
@@ -51,6 +45,9 @@
     <ClCompile Include="CryptographyHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
+    <ClCompile Include="ConnectHelper.cpp">
+      <Filter>NetHelper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -61,9 +58,6 @@
       <Filter>NetHelper</Filter>
     </ClInclude>
     <ClInclude Include="AuthHelper.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="FluxUser.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
     <ClInclude Include="NetHelper.h">
@@ -93,16 +87,12 @@
     <ClInclude Include="SettingsHelper.h">
       <Filter>SettingsHelper</Filter>
     </ClInclude>
-    <ClInclude Include="ConnectHelper.h">
-      <Filter>BackgroundHelper</Filter>
-    </ClInclude>
     <ClInclude Include="LiveTileTask.h">
       <Filter>BackgroundHelper</Filter>
     </ClInclude>
     <ClInclude Include="LoginTask.h">
       <Filter>BackgroundHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Utility.h" />
     <ClInclude Include="Auth4Helper25.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
@@ -113,6 +103,10 @@
       <Filter>BackgroundHelper</Filter>
     </ClInclude>
     <ClInclude Include="CryptographyHelper.h">
+      <Filter>NetHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Shared\Utility.h" />
+    <ClInclude Include="ConnectHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,12 +138,6 @@
     </Midl>
     <Midl Include="SettingsHelper.idl">
       <Filter>SettingsHelper</Filter>
-    </Midl>
-    <Midl Include="LiveTileTask.idl">
-      <Filter>BackgroundHelper</Filter>
-    </Midl>
-    <Midl Include="LoginTask.idl">
-      <Filter>BackgroundHelper</Filter>
     </Midl>
     <Midl Include="BackgroundHelper.idl">
       <Filter>BackgroundHelper</Filter>

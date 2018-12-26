@@ -2,7 +2,6 @@
 
 #include "AuthHelper.h"
 #include "CryptographyHelper.h"
-#include <pplawait.h>
 #include <regex>
 
 using namespace std;
@@ -26,28 +25,27 @@ namespace winrt::TsinghuaNetHelper
     {
     }
 
-    IAsyncOperation<hstring> AuthHelper::LoginAsync()
+    IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
-        auto data = co_await LoginDataAsync();
-        co_return co_await PostMapAsync(Uri(LogUri), data);
+        auto data = single_threaded_map(co_await LoginDataAsync());
+        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), true);
     }
 
-    IAsyncOperation<hstring> AuthHelper::LogoutAsync()
+    IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
-        auto data = co_await LogoutDataAsync();
-        co_return co_await PostMapAsync(Uri(LogUri), data);
+        auto data = single_threaded_map(co_await LogoutDataAsync());
+        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), false);
     }
 
     IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
     {
-        return FluxUser::Parse(co_await PostAsync(Uri(FluxUri)));
+        co_return UserHelper::GetFluxUser(co_await PostAsync(Uri(FluxUri)));
     }
 
     constexpr char ChallengeRegex[] = "\"challenge\":\"(.*?)\"";
     task<string> AuthHelper::ChallengeAsync()
     {
-        auto bytes = co_await GetBytesAsync(Uri(sprint(ChallengeUri, Username())));
-        string result((const char*)bytes.data(), bytes.Length());
+        auto result = co_await GetBytesAsync(Uri(sprint(ChallengeUri, Username())));
         regex reg(ChallengeRegex);
         smatch match;
         if (regex_search(result, match, reg))
@@ -59,39 +57,43 @@ namespace winrt::TsinghuaNetHelper
 
     constexpr char LoginInfoJson[] = "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}";
     constexpr char LoginChkSumData[] = "{0}{1}{0}{2}{0}{4}{0}{0}200{0}1{0}{3}";
-    IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LoginDataAsync()
+    task<map<hstring, hstring>> AuthHelper::LoginDataAsync()
     {
         string token = co_await ChallengeAsync();
         hstring md5 = GetHMACMD5(to_hstring(token));
-        auto data = single_threaded_map(map<hstring, hstring>{
+        auto data = map<hstring, hstring>{
             { L"action", L"login" },
             { L"ac_id", to_hstring(ac_id) },
             { L"double_stack", L"1" },
             { L"n", L"200" },
             { L"type", L"1" },
             { L"username", Username() },
-            { L"password", L"{MD5}" + md5 } });
+            { L"password", L"{MD5}" + md5 },
+            { L"callback", L"callback" }
+        };
         string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LoginInfoJson, Username(), Password(), ac_id), token));
-        data.Insert(L"info", to_hstring(info));
-        data.Insert(L"chksum", GetSHA1(to_hstring(sprint(LoginChkSumData, token, Username(), md5, info, ac_id))));
+        data.emplace(L"info", to_hstring(info));
+        data.emplace(L"chksum", GetSHA1(to_hstring(sprint(LoginChkSumData, token, Username(), md5, info, ac_id))));
         co_return data;
     }
 
     constexpr char LogoutInfoJson[] = "{{\"username\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}";
     constexpr char LogoutChkSumData[] = "{0}{1}{0}{3}{0}{0}200{0}1{0}{2}";
-    IAsyncOperation<IMap<hstring, hstring>> AuthHelper::LogoutDataAsync()
+    task<map<hstring, hstring>> AuthHelper::LogoutDataAsync()
     {
         string token = co_await ChallengeAsync();
-        auto data = single_threaded_map(map<hstring, hstring>{
+        auto data = map<hstring, hstring>{
             { L"action", L"logout" },
             { L"ac_id", to_hstring(ac_id) },
             { L"double_stack", L"1" },
             { L"n", L"200" },
             { L"type", L"1" },
-            { L"username", Username() } });
+            { L"username", Username() },
+            { L"callback", L"callback" }
+        };
         string info = "{SRBX1}" + Base64Encode(XEncode(sprint(LogoutInfoJson, Username(), ac_id), token));
-        data.Insert(L"info", to_hstring(info));
-        data.Insert(L"chksum", GetSHA1(to_hstring(sprint(LogoutChkSumData, token, Username(), info, ac_id))));
+        data.emplace(L"info", to_hstring(info));
+        data.emplace(L"chksum", GetSHA1(to_hstring(sprint(LogoutChkSumData, token, Username(), info, ac_id))));
         co_return data;
     }
 } // namespace winrt::TsinghuaNetHelper

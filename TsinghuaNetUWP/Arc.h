@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Arc.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -9,8 +9,6 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
     public:
         Arc();
-
-        double Radius() const { return m_Radius; }
 
         void OnLoaded(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { DrawArc(); }
         void OnSizeChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::SizeChangedEventArgs const&) { DrawArc(); }
@@ -20,7 +18,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Value, double)
 
     private:
-        double m_Radius;
+        double radius;
 
         static void OnSizePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const&);
 

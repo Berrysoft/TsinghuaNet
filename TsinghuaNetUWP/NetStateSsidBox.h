@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "NetStateSsidBox.g.h"
 
-#include "DependencyHelper.h"
+#include "../Shared/Utility.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
@@ -9,7 +9,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         NetStateSsidBox() = default;
 
-        PROP_DECL_REF(Ssid, winrt::hstring)
+        PROP_DECL_REF(Ssid, hstring)
         PROP_DECL(Value, int)
     };
 } // namespace winrt::TsinghuaNetUWP::implementation

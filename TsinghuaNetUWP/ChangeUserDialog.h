@@ -5,7 +5,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
     struct ChangeUserDialog : ChangeUserDialogT<ChangeUserDialog>
     {
-        ChangeUserDialog(winrt::hstring const& username = {});
+        ChangeUserDialog(hstring const& username = {});
 
         void UsernameChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::Controls::TextChangedEventArgs const&) { UsernameChangedImpl(); }
         void PasswordChanged(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&) { PasswordChangedImpl(); }

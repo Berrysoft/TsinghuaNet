@@ -1,20 +1,20 @@
 ﻿#include "pch.h"
 
-#include "ConnectHelper.h"
 #include "LiveTileTask.h"
 
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
-using namespace Windows::Foundation;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IAsyncAction LiveTileTask::Run(IBackgroundTaskInstance const taskInstance)
+    fire_and_forget LiveTileTask::Run(IBackgroundTaskInstance const taskInstance)
     {
         auto deferral = taskInstance.GetDeferral();
         try
         {
-            NetState state = ConnectHelper::GetSuggestNetState(settings);
+            hstring ssid;
+            auto status = SettingsHelper::InternetStatus(ssid);
+            NetState state = settings.SuggestNetState(status, ssid);
             IConnect helper = ConnectHelper::GetHelper(state);
             if (helper)
             {

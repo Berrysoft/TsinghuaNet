@@ -14,7 +14,7 @@ using namespace Windows::UI::Xaml::Media;
 namespace winrt::TsinghuaNetUWP::implementation
 {
     DEPENDENCY_PROPERTY_INIT(Thickness, double, Arc, box_value(30.0), &Arc::OnSizePropertyChanged)
-    DEPENDENCY_PROPERTY_INIT(Fill, Brush, Arc, Brush(nullptr))
+    DEPENDENCY_PROPERTY_INIT(Fill, Brush, Arc, nullptr)
     DEPENDENCY_PROPERTY_INIT(Value, double, Arc, box_value(0.0), &Arc::OnSizePropertyChanged)
 
     Arc::Arc()
@@ -51,8 +51,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         Size size = RenderSize();
         float length = min(size.Width, size.Height);
-        m_Radius = (length - Thickness()) / 2;
-        float fr = (float)m_Radius;
+        radius = (length - Thickness()) / 2;
+        float fr = (float)radius;
         Point centerPoint = (float2)size / 2;
         float angle = GetAngle(Value());
         Point circleStart = { centerPoint.X, centerPoint.Y + fr };
