@@ -1,0 +1,20 @@
+import "IUserContent.idl";
+
+namespace TsinghuaNetUWP
+{
+    [default_interface] runtimeclass ArcUserContent : Windows.UI.Xaml.Controls.UserControl, IUserContent
+    {
+        ArcUserContent();
+
+        static Windows.UI.Xaml.DependencyProperty UserProperty { get; };
+
+        Windows.Foundation.TimeSpan OnlineTime;
+        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
+
+        Double FreePercent;
+        static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
+
+        Double FluxPercent;
+        static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
+    }
+} // namespace TsinghuaNetUWP

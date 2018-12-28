@@ -11,7 +11,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
         Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
         Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
-        Windows::Foundation::IAsyncOperation<FluxUser> FluxAsync();
+        Windows::Foundation::IAsyncOperation<TsinghuaNetHelper::FluxUser> FluxAsync();
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

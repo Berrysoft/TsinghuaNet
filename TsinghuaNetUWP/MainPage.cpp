@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 
+#include "ArcUserContent.h"
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include "MainPage.h"
@@ -39,7 +40,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
         viewTitleBar.ExtendViewIntoTitleBar(true);
         // 设置主窗格为标题栏
-        Window::Current().SetTitleBar(MainGrid());
+        Window::Current().SetTitleBar(MainFrame());
         // 获取用户设置的主题
         Model().Theme(settings.Theme());
         // 设置计时器
@@ -47,6 +48,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         mainTimer.Tick({ this, &MainPage::MainTimerTick });
         // 监视网络情况变化
         networkListener.NetworkStatusChanged({ this, &MainPage::NetworkChanged });
+        Model().UserContent(make<ArcUserContent>());
     }
 
     /// <summary>
@@ -181,7 +183,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     task<void> MainPage::LoginImpl()
     {
-        ProgressRingManager ring(Progress());
+        UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
             auto helper = GetHelper();
@@ -202,7 +204,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     task<void> MainPage::LogoutImpl()
     {
-        ProgressRingManager ring(Progress());
+        UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
             auto helper = GetHelper();
@@ -223,7 +225,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     task<void> MainPage::RefreshImpl()
     {
-        ProgressRingManager ring(Progress());
+        UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
             auto helper = GetHelper();
@@ -235,10 +237,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    /// <summary>
-    /// 免费流量25G
-    /// </summary>
-    constexpr uint64_t BaseFlux = 25000000000;
     /// <summary>
     /// 具体的刷新操作
     /// </summary>
@@ -252,20 +250,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
-        // 更新窗口信息
-        Model().OnlineUser(flux.Username);
-        Model().Flux(flux.Flux);
-        Model().OnlineTime(flux.OnlineTime);
-        Model().Balance(flux.Balance);
-        // 动画
-        double maxf = (double)UserHelper::GetMaxFlux(flux);
-        Model().FluxPercent(flux.Flux / maxf);
-        Model().FreePercent(BaseFlux / maxf);
-        FluxStoryboard().Begin();
-        if (flux.Username.empty())
-            mainTimer.Stop();
-        else
-            mainTimer.Start();
+
+        auto content = Model().UserContent().try_as<IUserContent>();
+        content.User(flux);
+        content.BeginAnimation();
+        mainTimer.Start();
     }
 
     /// <summary>
@@ -310,9 +299,9 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::MainTimerTickImpl()
     {
-        if (Model().OnlineUser().empty())
+        auto content = Model().UserContent().try_as<IUserContent>();
+        if (!content.AddOneSecond())
             mainTimer.Stop();
-        Model().OnlineTime(Model().OnlineTime() + 1s);
     }
 
     /// <summary>

@@ -7,14 +7,17 @@
     <Page Include="MainPage.xaml">
       <Filter>Views</Filter>
     </Page>
-    <Page Include="Arc.xaml">
-      <Filter>Views</Filter>
-    </Page>
     <Page Include="EditSuggestionDialog.xaml">
       <Filter>Views</Filter>
     </Page>
     <Page Include="SsidSuggestion.xaml">
       <Filter>Views</Filter>
+    </Page>
+    <Page Include="Arc.xaml">
+      <Filter>Contents</Filter>
+    </Page>
+    <Page Include="ArcUserContent.xaml">
+      <Filter>Contents</Filter>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -34,6 +37,9 @@
     <Midl Include="SsidSuggestion.idl" />
     <Midl Include="Converters.idl">
       <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="IUserContent.idl">
+      <Filter>Contents</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -119,6 +125,9 @@
     </Filter>
     <Filter Include="Converters">
       <UniqueIdentifier>{c2592250-f7f6-4b5a-8a6d-c4f67f4157e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Contents">
+      <UniqueIdentifier>{958c85f0-77b2-4b92-89d0-f7fdaa5fae12}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

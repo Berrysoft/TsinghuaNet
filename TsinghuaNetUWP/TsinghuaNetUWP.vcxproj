@@ -116,6 +116,10 @@
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="ArcUserContent.h">
+      <DependentUpon>ArcUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ChangeUserDialog.h">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -159,6 +163,9 @@
     <Page Include="Arc.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ArcUserContent.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ChangeUserDialog.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -196,6 +203,10 @@
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ArcUserContent.cpp">
+      <DependentUpon>ArcUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ChangeUserDialog.cpp">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -228,6 +239,10 @@
       <DependentUpon>Arc.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="ArcUserContent.idl">
+      <DependentUpon>ArcUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="ChangeUserDialog.idl">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -237,6 +252,7 @@
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="IUserContent.idl" />
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>

@@ -91,7 +91,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr uint64_t BaseFlux = 25000000000;
     uint64_t UserHelper::GetMaxFlux(FluxUser const& user)
     {
-        return max(user.Flux, BaseFlux) + (uint64_t)(user.Balance / 2 * 1000 * 1000 * 1000);
+        return max(user.Flux(), BaseFlux) + (uint64_t)(user.Balance() / 2 * 1000 * 1000 * 1000);
     }
 
     vector<wstring_view> string_split(wstring_view const& s, wchar_t separator)
@@ -126,13 +126,13 @@ namespace winrt::TsinghuaNetHelper::implementation
     FluxUser UserHelper::GetFluxUser(hstring const& str)
     {
         auto r = string_split(str, L',');
-        FluxUser result = {};
+        FluxUser result;
         if (!r.empty())
         {
-            result.Username = r[0];
-            result.Flux = stoull(r[6]);
-            result.OnlineTime = seconds(stoull(r[2]) - stoull(r[1]));
-            result.Balance = stod(r[10]);
+            result.Username(hstring(r[0]));
+            result.Flux(stoull(r[6]));
+            result.OnlineTime(seconds(stoull(r[2]) - stoull(r[1])));
+            result.Balance(stod(r[10]));
         }
         return result;
     }

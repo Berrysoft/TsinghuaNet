@@ -10,13 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     public:
         MainViewModel();
 
-        DEPENDENCY_PROPERTY(OnlineUser, hstring)
-        DEPENDENCY_PROPERTY(Flux, std::uint64_t)
-        DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
-        DEPENDENCY_PROPERTY(Balance, double)
-
-        DEPENDENCY_PROPERTY(FluxPercent, double)
-        DEPENDENCY_PROPERTY(FreePercent, double)
+        DEPENDENCY_PROPERTY(UserContent, Windows::UI::Xaml::UIElement)
 
         DEPENDENCY_PROPERTY(Response, TsinghuaNetHelper::LogResponse)
 

@@ -1,7 +1,6 @@
 ﻿#include "pch.h"
 
 #include "NetUser.h"
-#include <winrt/Windows.UI.Xaml.Interop.h>
 
 using namespace winrt;
 

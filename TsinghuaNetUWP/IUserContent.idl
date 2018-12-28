@@ -1,0 +1,10 @@
+namespace TsinghuaNetUWP
+{
+    interface IUserContent
+    {
+        TsinghuaNetHelper.FluxUser User;
+        Boolean IsProgressActive;
+        void BeginAnimation();
+        Boolean AddOneSecond();
+    }
+} // namespace TsinghuaNetUWP

@@ -121,6 +121,7 @@
     <ClInclude Include="ConnectHelper.h" />
     <ClInclude Include="CredentialHelper.h" />
     <ClInclude Include="CryptographyHelper.h" />
+    <ClInclude Include="FluxUser.h" />
     <ClInclude Include="LiveTileTask.h" />
     <ClInclude Include="LoginTask.h" />
     <ClInclude Include="NetHelper.h" />
@@ -138,6 +139,7 @@
     <ClCompile Include="ConnectHelper.cpp" />
     <ClCompile Include="CredentialHelper.cpp" />
     <ClCompile Include="CryptographyHelper.cpp" />
+    <ClCompile Include="FluxUser.cpp" />
     <ClCompile Include="LiveTileTask.cpp" />
     <ClCompile Include="LoginTask.cpp" />
     <ClCompile Include="NetHelper.cpp" />

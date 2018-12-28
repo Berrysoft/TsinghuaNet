@@ -42,13 +42,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    DEPENDENCY_PROPERTY_INIT(OnlineUser, hstring, MainViewModel, box_value(hstring()))
-    DEPENDENCY_PROPERTY_INIT(Flux, uint64_t, MainViewModel, box_value<uint64_t>(0))
-    DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, MainViewModel, box_value(TimeSpan()))
-    DEPENDENCY_PROPERTY_INIT(Balance, double, MainViewModel, box_value(0.0))
-
-    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, MainViewModel, box_value(0.0))
-    DEPENDENCY_PROPERTY_INIT(FreePercent, double, MainViewModel, box_value(100.0))
+    DEPENDENCY_PROPERTY_INIT(UserContent, UIElement, MainViewModel, nullptr)
 
     DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse()))
 

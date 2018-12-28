@@ -2,12 +2,21 @@ import "SettingsHelper.idl";
 
 namespace TsinghuaNetHelper
 {
-    struct FluxUser
+    [bindable] runtimeclass FluxUser : Windows.UI.Xaml.DependencyObject
     {
+        FluxUser();
+
         String Username;
+        static Windows.UI.Xaml.DependencyProperty UsernameProperty { get; };
+
         UInt64 Flux;
+        static Windows.UI.Xaml.DependencyProperty FluxProperty { get; };
+
         Windows.Foundation.TimeSpan OnlineTime;
+        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
+
         Double Balance;
+        static Windows.UI.Xaml.DependencyProperty BalanceProperty { get; };
     };
 
     struct LogResponse

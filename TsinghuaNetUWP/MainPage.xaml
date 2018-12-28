@@ -11,11 +11,6 @@
         <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
     </Page.DataContext>
     <Page.Resources>
-        <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
-        <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="1.0" To="{x:Bind Model.FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
-            <DoubleAnimation Storyboard.TargetName="FluxArc" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="0.0" To="{x:Bind Model.FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
-        </Storyboard>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="helper:NetUser">
             <Grid Width="280">
                 <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
@@ -34,41 +29,7 @@
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
-            <Grid x:Name="MainGrid" Grid.Row="0" Background="Transparent">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Viewbox Grid.Row="1">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5">用户：</TextBlock>
-                            <TextBlock Margin="5" Text="{x:Bind Model.OnlineUser,Mode=OneWay}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5">流量：</TextBlock>
-                            <TextBlock Margin="5" Text="{x:Bind helper:UserHelper.GetFluxString(Model.Flux),Mode=OneWay}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5">时长：</TextBlock>
-                            <TextBlock Margin="5" Text="{x:Bind helper:UserHelper.GetTimeSpanString(Model.OnlineTime),Mode=OneWay}"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="5">余额：</TextBlock>
-                            <TextBlock Margin="5" Text="{x:Bind helper:UserHelper.GetCurrencyString(Model.Balance),Mode=OneWay}"/>
-                        </StackPanel>
-                    </StackPanel>
-                </Viewbox>
-                <Viewbox Grid.RowSpan="3">
-                    <Grid Height="300" Width="300" Margin="10">
-                        <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="100"/>
-                        <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
-                        <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
-                        <ProgressRing x:Name="Progress" Height="50" Width="50"/>
-                    </Grid>
-                </Viewbox>
-            </Grid>
+            <Frame x:Name="MainFrame" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
         </SplitView.Content>
         <SplitView.Pane>
             <ScrollViewer>

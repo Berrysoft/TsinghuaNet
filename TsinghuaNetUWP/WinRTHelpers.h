@@ -20,18 +20,14 @@ namespace winrt
         };
     } // namespace Windows::Networking::Connectivity
 
-    namespace Windows::UI::Xaml::Controls
+    namespace TsinghuaNetUWP
     {
-        /// <summary>
-        /// 一个帮助类，管理<see cref="Windows.UI.Xaml.Controls.ProgressRing"/>的活动状态
-        /// </summary>
-        struct ProgressRingManager
+        struct UserContentManager
         {
-            ProgressRingManager(ProgressRing const& ring) : ring(ring) { ring.IsActive(true); }
-            ~ProgressRingManager() { ring.IsActive(false); }
-
+            UserContentManager(IUserContent const& content) : content(content) { content.IsProgressActive(true); }
+            ~UserContentManager() { content.IsProgressActive(false); }
         private:
-            ProgressRing ring;
+            IUserContent content;
         };
-    } // namespace Windows::UI::Xaml::Controls
+    } // namespace TsinghuaNetUWP
 } // namespace winrt

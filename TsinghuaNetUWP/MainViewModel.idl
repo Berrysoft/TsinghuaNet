@@ -4,23 +4,8 @@ namespace TsinghuaNetUWP
     {
         MainViewModel();
 
-        String OnlineUser;
-        static Windows.UI.Xaml.DependencyProperty OnlineUserProperty { get; };
-
-        UInt64 Flux;
-        static Windows.UI.Xaml.DependencyProperty FluxProperty { get; };
-
-        Windows.Foundation.TimeSpan OnlineTime;
-        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
-
-        Double Balance;
-        static Windows.UI.Xaml.DependencyProperty BalanceProperty { get; };
-
-        Double FluxPercent;
-        static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
-
-        Double FreePercent;
-        static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
+        Windows.UI.Xaml.UIElement UserContent;
+        static Windows.UI.Xaml.DependencyProperty UserContentProperty { get; };
 
         TsinghuaNetHelper.LogResponse Response;
         static Windows.UI.Xaml.DependencyProperty ResponseProperty { get; };
