@@ -36,6 +36,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void AutoLoginChanged(Windows::Foundation::IInspectable const&, bool const& e);
         fire_and_forget BackgroundAutoLoginChanged(Windows::Foundation::IInspectable const, bool const e);
         fire_and_forget BackgroundLiveTileChanged(Windows::Foundation::IInspectable const, bool const e);
+        fire_and_forget ContentTypeChanged(Windows::Foundation::IInspectable const, TsinghuaNetHelper::UserContentType const);
 
         PROP_DECL(ToastLogined, bool)
 

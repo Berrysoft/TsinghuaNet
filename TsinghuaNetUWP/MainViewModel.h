@@ -32,6 +32,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         DEPENDENCY_PROPERTY(Theme, Windows::UI::Xaml::ElementTheme)
         DEPENDENCY_PROPERTY(ContentType, TsinghuaNetHelper::UserContentType)
+        EVENT_DECL(ContentTypeChanged, TsinghuaNetHelper::UserContentType)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }

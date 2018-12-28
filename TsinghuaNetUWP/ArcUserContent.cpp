@@ -32,7 +32,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void ArcUserContent::OnUserPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
     {
-        if (auto content{ d.try_as<TsinghuaNetUWP::ArcUserContent>() })
+        if (auto content{ d.try_as<class_type>() })
         {
             ArcUserContent* pc = get_self<ArcUserContent>(content);
             auto flux = e.NewValue().try_as<FluxUser>();

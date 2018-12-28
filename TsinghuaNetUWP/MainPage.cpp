@@ -356,6 +356,11 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    fire_and_forget MainPage::ContentTypeChanged(IInspectable const, UserContentType const)
+    {
+        co_await RefreshImpl();
+    }
+
     /// <summary>
     /// 根据网络类型与SSID判断建议网络类型
     /// </summary>

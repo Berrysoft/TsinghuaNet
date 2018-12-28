@@ -8,7 +8,7 @@
     xmlns:helper="using:TsinghuaNetHelper"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged"/>
+        <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged" ContentTypeChanged="ContentTypeChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="helper:NetUser">

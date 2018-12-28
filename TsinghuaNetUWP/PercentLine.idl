@@ -1,0 +1,19 @@
+namespace TsinghuaNetUWP
+{
+    [bindable][default_interface] runtimeclass PercentLine : Windows.UI.Xaml.Controls.Canvas
+    {
+        PercentLine();
+
+        Double Thickness;
+        static Windows.UI.Xaml.DependencyProperty ThicknessProperty { get; };
+
+        Windows.UI.Xaml.Media.Brush Fill;
+        static Windows.UI.Xaml.DependencyProperty FillProperty { get; };
+
+        Double Value;
+        static Windows.UI.Xaml.DependencyProperty ValueProperty { get; };
+
+        Double ValueToWidth(Double value);
+        Windows.UI.Xaml.CornerRadius ThicknessToRadius(Double thickness);
+    }
+} // namespace TsinghuaNetUWP

@@ -25,6 +25,9 @@
     <Page Include="WaterUserContent.xaml">
       <Filter>Contents</Filter>
     </Page>
+    <Page Include="PercentLine.xaml">
+      <Filter>Contents</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />

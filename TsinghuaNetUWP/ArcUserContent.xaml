@@ -42,7 +42,7 @@
         </Viewbox>
         <Viewbox Grid.RowSpan="3">
             <Grid Height="300" Width="300" Margin="10">
-                <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="100"/>
+                <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="1"/>
                 <local:Arc x:Name="FreeArc" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
                 <local:Arc x:Name="FluxArc" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>

@@ -68,6 +68,9 @@ namespace winrt::TsinghuaNetUWP::implementation
                 newc.User(oldc.User());
             }
             model.UserContent(newc.try_as<UIElement>());
+
+            MainViewModel* pm(get_self<MainViewModel>(model));
+            pm->m_ContentTypeChangedEvent(model, unbox_value<UserContentType>(e.NewValue()));
         }
     }
 

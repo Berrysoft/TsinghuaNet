@@ -32,7 +32,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void WaterUserContent::OnUserPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
     {
-        if (auto content{ d.try_as<TsinghuaNetUWP::WaterUserContent>() })
+        if (auto content{ d.try_as<class_type>() })
         {
             WaterUserContent* pc = get_self<WaterUserContent>(content);
             auto flux = e.NewValue().try_as<FluxUser>();
