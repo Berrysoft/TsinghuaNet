@@ -47,6 +47,10 @@
     <Midl Include="IUserContent.idl">
       <Filter>Contents</Filter>
     </Midl>
+    <Midl Include="ArcUserContent.idl" />
+    <Midl Include="LineUserContent.idl" />
+    <Midl Include="ProgressWave.idl" />
+    <Midl Include="WaterUserContent.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -58,6 +62,10 @@
     <ClCompile Include="ChangeUserDialog.cpp" />
     <ClCompile Include="EditSuggestionDialog.cpp" />
     <ClCompile Include="SsidSuggestion.cpp" />
+    <ClCompile Include="ArcUserContent.cpp" />
+    <ClCompile Include="LineUserContent.cpp" />
+    <ClCompile Include="ProgressWave.cpp" />
+    <ClCompile Include="WaterUserContent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -84,6 +92,10 @@
     <ClInclude Include="UserContentTypeCheckedConverter.h">
       <Filter>Converters</Filter>
     </ClInclude>
+    <ClInclude Include="ArcUserContent.h" />
+    <ClInclude Include="LineUserContent.h" />
+    <ClInclude Include="ProgressWave.h" />
+    <ClInclude Include="WaterUserContent.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

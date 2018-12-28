@@ -155,7 +155,7 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                        <RadioButton Content="水波">
+                        <RadioButton Content="图标">
                             <RadioButton.IsChecked>
                                 <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
                                     <Binding.ConverterParameter>

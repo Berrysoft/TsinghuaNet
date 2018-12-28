@@ -11,12 +11,13 @@ namespace winrt::TsinghuaNetUWP::implementation
 
         DEPENDENCY_PROPERTY(User, TsinghuaNetHelper::FluxUser)
         DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
+        DEPENDENCY_PROPERTY(FreePercent, double)
         DEPENDENCY_PROPERTY(FluxPercent, double)
 
     public:
-        bool IsProgressActive() { return false; }
-        void IsProgressActive(bool value) {}
-        void BeginAnimation() {}
+        bool IsProgressActive() { return Progress().IsActive(); }
+        void IsProgressActive(bool value) { Progress().IsActive(value); }
+        void BeginAnimation() { FluxStoryboard().Begin(); }
         bool AddOneSecond();
 
     private:

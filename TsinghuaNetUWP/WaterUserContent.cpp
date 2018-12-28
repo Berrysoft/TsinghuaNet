@@ -2,7 +2,7 @@
 
 #include "WaterUserContent.h"
 
-using namespace std::chrono_literals;
+using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
@@ -17,7 +17,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(User, FluxUser, WaterUserContent, nullptr, &WaterUserContent::OnUserPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, WaterUserContent, box_value(TimeSpan()))
-    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, WaterUserContent, box_value(100.0))
+    DEPENDENCY_PROPERTY_INIT(FreePercent, double, WaterUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, WaterUserContent, box_value(0.0))
 
     bool WaterUserContent::AddOneSecond()
     {
@@ -37,7 +38,10 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto flux = e.NewValue().try_as<FluxUser>();
             pc->OnlineTime(flux.OnlineTime());
             double maxf = (double)UserHelper::GetMaxFlux(flux);
-            pc->FluxPercent(flux.Flux() / maxf);
+            double fp = flux.Flux() / maxf;
+            pc->FluxPercent(fp);
+            double free = BaseFlux / maxf;
+            pc->FreePercent(max(free, fp));
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

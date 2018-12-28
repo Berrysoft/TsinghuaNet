@@ -7,11 +7,36 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <UserControl.Resources>
+        <LinearGradientBrush x:Key="WaterBrush" StartPoint="0.5,1" EndPoint="0.5,0">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="{ThemeResource SystemAccentColor}"/>
+                <GradientStop x:Name="FluxStop" Color="{ThemeResource SystemAccentColor}"/>
+                <GradientStop x:Name="FluxStop2" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop x:Name="FreeStop" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop x:Name="FreeStop2" Color="{ThemeResource SystemAccentColorDark2}"/>
+                <GradientStop Offset="1" Color="{ThemeResource SystemAccentColorDark2}"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+        <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
+        <Storyboard x:Name="FluxStoryboard">
+            <DoubleAnimation Storyboard.TargetName="FreeStop" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FreeStop2" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FluxStop" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FluxStop2" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
+        <Viewbox Grid.Row="0">
+            <Grid>
+                <TextBlock Margin="10" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xEC27;" Foreground="{StaticResource WaterBrush}"/>
+                <ProgressRing x:Name="Progress" Height="50" Width="50"/>
+            </Grid>
+        </Viewbox>
         <Viewbox Margin="10" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>

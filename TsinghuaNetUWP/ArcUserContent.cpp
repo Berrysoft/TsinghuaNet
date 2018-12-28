@@ -17,8 +17,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(User, FluxUser, ArcUserContent, nullptr, &ArcUserContent::OnUserPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, ArcUserContent, box_value(TimeSpan()))
-    DEPENDENCY_PROPERTY_INIT(FreePercent, double, ArcUserContent, box_value(0.0))
-    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, ArcUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FreePercent, double, ArcUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, ArcUserContent, box_value(0.0))
 
     bool ArcUserContent::AddOneSecond()
     {
