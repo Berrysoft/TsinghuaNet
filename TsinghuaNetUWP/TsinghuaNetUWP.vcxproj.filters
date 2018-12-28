@@ -19,6 +19,9 @@
     <Page Include="ArcUserContent.xaml">
       <Filter>Contents</Filter>
     </Page>
+    <Page Include="LineUserContent.xaml">
+      <Filter>Contents</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />

@@ -18,6 +18,13 @@ namespace TsinghuaNetHelper
         Lan
     };
 
+    enum UserContentType
+    {
+        Line,
+        Ring,
+        Water
+    };
+
     runtimeclass CredentialHelper
     {
         static String GetCredential(String username);
@@ -41,6 +48,7 @@ namespace TsinghuaNetHelper
         Windows.Foundation.Collections.IMap<String, NetState> WlanStates;
 
         Windows.UI.Xaml.ElementTheme Theme;
+        UserContentType ContentType;
 
         NetState SuggestNetState(InternetStatus status, String ssid);
 

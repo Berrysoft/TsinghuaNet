@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 
 #include "ArcUserContent.h"
+#include "LineUserContent.h"
 #include "MainViewModel.h"
 
 using namespace std;
@@ -47,13 +48,22 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto model{ d.try_as<class_type>() })
         {
+            auto oldc = model.UserContent().try_as<IUserContent>();
+            IUserContent newc;
             switch (unbox_value<UserContentType>(e.NewValue()))
             {
             case UserContentType::Line:
+                newc = make<LineUserContent>();
+                break;
             case UserContentType::Ring:
-                model.UserContent(make<ArcUserContent>());
+                newc = make<ArcUserContent>();
                 break;
             }
+            if (oldc)
+            {
+                newc.User(oldc.User());
+            }
+            model.UserContent(newc.try_as<UIElement>());
         }
     }
 

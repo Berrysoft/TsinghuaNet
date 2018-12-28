@@ -1,5 +1,3 @@
-import "IUserContent.idl";
-
 namespace TsinghuaNetUWP
 {
     [bindable][default_interface] runtimeclass MainViewModel : Windows.UI.Xaml.DependencyObject
@@ -47,7 +45,7 @@ namespace TsinghuaNetUWP
         Windows.UI.Xaml.ElementTheme Theme;
         static Windows.UI.Xaml.DependencyProperty ThemeProperty { get; };
 
-        UserContentType ContentType;
+        TsinghuaNetHelper.UserContentType ContentType;
         static Windows.UI.Xaml.DependencyProperty ContentTypeProperty { get; };
     }
 } // namespace TsinghuaNetUWP

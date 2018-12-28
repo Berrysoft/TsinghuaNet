@@ -4,6 +4,7 @@
 #include "MainViewModel.h"
 #include "NetStateCheckedConverter.h"
 #include "ThemeCheckedConverter.h"
+#include "UserContentTypeCheckedConverter.h"
 #include "WinRTHelpers.h"
 
 namespace winrt::TsinghuaNetUWP::implementation

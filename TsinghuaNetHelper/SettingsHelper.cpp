@@ -63,6 +63,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t WwanStateKey[] = L"WwanState";
     constexpr wchar_t WlanStateKey[] = L"WlanState";
     constexpr wchar_t ThemeKey[] = L"Theme";
+    constexpr wchar_t ContentTypeKey[] = L"UserContentType";
 
     SettingsHelper::SettingsHelper()
     {
@@ -73,6 +74,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         m_LanState = (NetState)GetValue<int>(LanStateKey, (int)NetState::Auth4);
         m_WwanState = (NetState)GetValue<int>(WwanStateKey, (int)NetState::Unknown);
         m_Theme = (ElementTheme)GetValue<int>(ThemeKey, (int)ElementTheme::Default);
+        m_ContentType = (UserContentType)GetValue<int>(ContentTypeKey, (int)UserContentType::Ring);
         hstring json = GetValue<hstring>(WlanStateKey);
         if (json.empty())
         {
@@ -93,6 +95,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         SetValue(LanStateKey, (int)m_LanState);
         SetValue(WwanStateKey, (int)m_WwanState);
         SetValue(ThemeKey, (int)m_Theme);
+        SetValue(ContentTypeKey, (int)m_ContentType);
         SetValue(WlanStateKey, wlanMap.ToString());
     }
 

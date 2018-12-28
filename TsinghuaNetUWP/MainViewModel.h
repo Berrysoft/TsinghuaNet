@@ -31,7 +31,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
         DEPENDENCY_PROPERTY(Theme, Windows::UI::Xaml::ElementTheme)
-        DEPENDENCY_PROPERTY(ContentType, UserContentType)
+        DEPENDENCY_PROPERTY(ContentType, TsinghuaNetHelper::UserContentType)
 
     public:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }

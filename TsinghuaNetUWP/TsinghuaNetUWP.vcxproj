@@ -129,6 +129,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="EnumCheckedConverter.h" />
+    <ClInclude Include="LineUserContent.h">
+      <DependentUpon>LineUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="MainViewModel.h">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -171,6 +175,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EditSuggestionDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LineUserContent.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="MainPage.xaml">
@@ -217,6 +224,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Generated Files\module.g.cpp" />
+    <ClCompile Include="LineUserContent.cpp">
+      <DependentUpon>LineUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="MainViewModel.cpp">
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -254,6 +265,10 @@
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="IUserContent.idl" />
+    <Midl Include="LineUserContent.idl">
+      <DependentUpon>LineUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="MainPage.idl">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Midl>

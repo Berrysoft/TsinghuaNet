@@ -5,7 +5,7 @@
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    struct UserContentTypeCheckedConverter : UserContentTypeCheckedConverterT<UserContentTypeCheckedConverter>, EnumCheckedConverter<UserContentType>
+    struct UserContentTypeCheckedConverter : UserContentTypeCheckedConverterT<UserContentTypeCheckedConverter>, EnumCheckedConverter<TsinghuaNetHelper::UserContentType>
     {
         UserContentTypeCheckedConverter() = default;
     };

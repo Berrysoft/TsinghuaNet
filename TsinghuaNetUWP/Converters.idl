@@ -1,5 +1,3 @@
-import "IUserContent.idl";
-
 namespace TsinghuaNetUWP
 {
     runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter

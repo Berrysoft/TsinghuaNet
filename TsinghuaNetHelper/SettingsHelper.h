@@ -19,6 +19,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         PROP_DECL_REF(WwanState, NetState)
 
         PROP_DECL_REF(Theme, Windows::UI::Xaml::ElementTheme)
+        PROP_DECL_REF(ContentType, UserContentType)
 
     public:
         NetState WlanState(hstring const& ssid);

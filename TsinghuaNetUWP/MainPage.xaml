@@ -26,6 +26,7 @@
         </Flyout>
         <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
         <local:ThemeCheckedConverter x:Key="ThemeCheckedConverter"/>
+        <local:UserContentTypeCheckedConverter x:Key="UserContentTypeCheckedConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
@@ -129,6 +130,36 @@
                                 <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
                                     <Binding.ConverterParameter>
                                         <ElementTheme>Dark</ElementTheme>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                    </StackPanel>
+                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">样式主题</TextBlock>
+                    <StackPanel Margin="10" Orientation="Horizontal">
+                        <RadioButton Content="直线">
+                            <RadioButton.IsChecked>
+                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:UserContentType>Line</helper:UserContentType>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="圆圈">
+                            <RadioButton.IsChecked>
+                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:UserContentType>Ring</helper:UserContentType>
+                                    </Binding.ConverterParameter>
+                                </Binding>
+                            </RadioButton.IsChecked>
+                        </RadioButton>
+                        <RadioButton Content="水波">
+                            <RadioButton.IsChecked>
+                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                    <Binding.ConverterParameter>
+                                        <helper:UserContentType>Water</helper:UserContentType>
                                     </Binding.ConverterParameter>
                                 </Binding>
                             </RadioButton.IsChecked>

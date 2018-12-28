@@ -42,6 +42,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         Window::Current().SetTitleBar(MainFrame());
         // 获取用户设置的主题
         Model().Theme(settings.Theme());
+        Model().ContentType(settings.ContentType());
         // 设置计时器
         mainTimer.Interval(1s);
         mainTimer.Tick({ this, &MainPage::MainTimerTick });
@@ -55,6 +56,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::SaveSettings()
     {
         settings.Theme(Model().Theme());
+        settings.ContentType(Model().ContentType());
         settings.SaveSettings();
     }
 

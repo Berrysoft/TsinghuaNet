@@ -1,11 +1,5 @@
 namespace TsinghuaNetUWP
 {
-    enum UserContentType
-    {
-		Line,
-		Ring
-    };
-
     interface IUserContent
     {
         TsinghuaNetHelper.FluxUser User;
