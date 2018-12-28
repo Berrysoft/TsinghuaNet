@@ -2,6 +2,7 @@
 
 #include "ArcUserContent.h"
 
+using namespace std::chrono_literals;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
@@ -14,10 +15,18 @@ namespace winrt::TsinghuaNetUWP::implementation
         InitializeComponent();
     }
 
-    DEPENDENCY_PROPERTY_INIT(User, FluxUser, ArcUserContent, nullptr, PropertyChangedCallback(&ArcUserContent::OnUserPropertyChanged))
+    DEPENDENCY_PROPERTY_INIT(User, FluxUser, ArcUserContent, nullptr, &ArcUserContent::OnUserPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, ArcUserContent, box_value(TimeSpan()))
     DEPENDENCY_PROPERTY_INIT(FreePercent, double, ArcUserContent, box_value(0.0))
     DEPENDENCY_PROPERTY_INIT(FluxPercent, double, ArcUserContent, box_value(100.0))
+
+    bool ArcUserContent::AddOneSecond()
+    {
+        if (User().Username().empty())
+            return false;
+        OnlineTime(OnlineTime() + 1s);
+        return true;
+    }
 
     /// <summary>
     /// 免费流量25G

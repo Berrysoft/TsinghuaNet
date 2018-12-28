@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 
+#include "ArcUserContent.h"
 #include "MainViewModel.h"
 
 using namespace std;
@@ -42,6 +43,20 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    void MainViewModel::OnContentTypePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+    {
+        if (auto model{ d.try_as<class_type>() })
+        {
+            switch (unbox_value<UserContentType>(e.NewValue()))
+            {
+            case UserContentType::Line:
+            case UserContentType::Ring:
+                model.UserContent(make<ArcUserContent>());
+                break;
+            }
+        }
+    }
+
     DEPENDENCY_PROPERTY_INIT(UserContent, UIElement, MainViewModel, nullptr)
 
     DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse()))
@@ -60,4 +75,5 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(SuggestState, NetState, MainViewModel, box_value(NetState::Unknown))
 
     DEPENDENCY_PROPERTY_INIT(Theme, ElementTheme, MainViewModel, box_value(ElementTheme::Default))
+    DEPENDENCY_PROPERTY_INIT(ContentType, UserContentType, MainViewModel, box_value(UserContentType::Ring), &MainViewModel::OnContentTypePropertyChanged)
 } // namespace winrt::TsinghuaNetUWP::implementation

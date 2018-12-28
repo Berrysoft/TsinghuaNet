@@ -18,7 +18,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         bool IsProgressActive() { return Progress().IsActive(); }
         void IsProgressActive(bool value) { Progress().IsActive(value); }
         void BeginAnimation() { FluxStoryboard().Begin(); }
-        bool AddOneSecond() { return false; }
+        bool AddOneSecond();
 
     private:
         static void OnUserPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);

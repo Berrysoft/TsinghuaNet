@@ -154,6 +154,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ThemeCheckedConverter.h" />
+    <ClInclude Include="UserContentTypeCheckedConverter.h" />
     <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>

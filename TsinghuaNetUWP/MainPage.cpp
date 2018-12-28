@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "ArcUserContent.h"
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include "MainPage.h"
@@ -48,7 +47,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         mainTimer.Tick({ this, &MainPage::MainTimerTick });
         // 监视网络情况变化
         networkListener.NetworkStatusChanged({ this, &MainPage::NetworkChanged });
-        Model().UserContent(make<ArcUserContent>());
     }
 
     /// <summary>

@@ -1,3 +1,5 @@
+import "IUserContent.idl";
+
 namespace TsinghuaNetUWP
 {
     runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
@@ -8,5 +10,10 @@ namespace TsinghuaNetUWP
     runtimeclass ThemeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
     {
         ThemeCheckedConverter();
+    }
+
+    runtimeclass UserContentTypeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        UserContentTypeCheckedConverter();
     }
 } // namespace TsinghuaNetUWP

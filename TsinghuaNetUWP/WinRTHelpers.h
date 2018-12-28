@@ -24,8 +24,17 @@ namespace winrt
     {
         struct UserContentManager
         {
-            UserContentManager(IUserContent const& content) : content(content) { content.IsProgressActive(true); }
-            ~UserContentManager() { content.IsProgressActive(false); }
+            UserContentManager(IUserContent const& content) : content(content)
+            {
+                if (content)
+                    content.IsProgressActive(true);
+            }
+            ~UserContentManager()
+            {
+                if (content)
+                    content.IsProgressActive(false);
+            }
+
         private:
             IUserContent content;
         };
