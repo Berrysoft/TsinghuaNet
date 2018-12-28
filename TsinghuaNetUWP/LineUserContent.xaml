@@ -8,10 +8,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
+        <LinearGradientBrush x:Key="LineBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+            <LinearGradientBrush.GradientStops>
+                <GradientStop Offset="0" Color="{ThemeResource SystemAccentColor}"/>
+                <GradientStop x:Name="FluxStop" Color="{ThemeResource SystemAccentColor}"/>
+                <GradientStop x:Name="FluxStop2" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop x:Name="FreeStop" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop x:Name="FreeStop2" Color="{ThemeResource SystemAccentColorDark2}"/>
+                <GradientStop Offset="1" Color="{ThemeResource SystemAccentColorDark2}"/>
+            </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="FreeLine" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
-            <DoubleAnimation Storyboard.TargetName="FluxLine" Storyboard.TargetProperty="Value" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FreeStop" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FreeStop2" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FluxStop" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="FluxStop2" Storyboard.TargetProperty="Offset" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
         </Storyboard>
     </UserControl.Resources>
     <Grid>
@@ -22,11 +34,9 @@
             <RowDefinition Height="0.8*"/>
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="1">
-            <Grid Margin="10" Width="300">
-                <local:PercentLine x:Name="BaseLine" Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="1"/>
-                <local:PercentLine x:Name="FreeLine" Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}"/>
-                <local:PercentLine x:Name="FluxLine" Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}"/>
-                <ProgressBar x:Name="Progress" Grid.Row="1" Margin="10" VerticalAlignment="Center" Visibility="Collapsed"/>
+            <Grid Margin="10" Width="400">
+                <Border x:Name="MainRect" Height="30" CornerRadius="15" BorderThickness="0" Background="{StaticResource LineBrush}"/>
+                <ProgressBar x:Name="Progress" VerticalAlignment="Center" Visibility="Collapsed"/>
             </Grid>
         </Viewbox>
         <Viewbox Grid.Row="2">

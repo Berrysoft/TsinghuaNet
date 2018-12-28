@@ -2,7 +2,7 @@
 
 #include "LineUserContent.h"
 
-using namespace std::chrono_literals;
+using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
@@ -24,10 +24,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         Progress().IsIndeterminate(value);
         Progress().Visibility(value ? Visibility::Visible : Visibility::Collapsed);
-        auto linevis = value ? Visibility::Collapsed : Visibility::Visible;
-        BaseLine().Visibility(linevis);
-        FreeLine().Visibility(linevis);
-        FluxLine().Visibility(linevis);
+        MainRect().Visibility(value ? Visibility::Collapsed : Visibility::Visible);
     }
 
     bool LineUserContent::AddOneSecond()
@@ -48,8 +45,10 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto flux = e.NewValue().try_as<FluxUser>();
             pc->OnlineTime(flux.OnlineTime());
             double maxf = (double)UserHelper::GetMaxFlux(flux);
-            pc->FluxPercent(flux.Flux() / maxf);
-            pc->FreePercent(BaseFlux / maxf);
+            double fp = flux.Flux() / maxf;
+            pc->FluxPercent(fp);
+            double free = BaseFlux / maxf;
+            pc->FreePercent(max(free, fp));
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation
