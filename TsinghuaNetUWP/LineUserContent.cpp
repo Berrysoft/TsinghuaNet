@@ -27,9 +27,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         return true;
     }
 
-    /// <summary>
-    /// 免费流量25G
-    /// </summary>
     constexpr uint64_t BaseFlux = 25000000000;
 
     void LineUserContent::OnUserPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)

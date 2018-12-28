@@ -3,6 +3,7 @@
 #include "ArcUserContent.h"
 #include "LineUserContent.h"
 #include "MainViewModel.h"
+#include "WaterUserContent.h"
 
 using namespace std;
 using namespace winrt;
@@ -57,6 +58,9 @@ namespace winrt::TsinghuaNetUWP::implementation
                 break;
             case UserContentType::Ring:
                 newc = make<ArcUserContent>();
+                break;
+            case UserContentType::Water:
+                newc = make<WaterUserContent>();
                 break;
             }
             if (oldc)

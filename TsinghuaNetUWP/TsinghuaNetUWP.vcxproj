@@ -159,6 +159,10 @@
     </ClInclude>
     <ClInclude Include="ThemeCheckedConverter.h" />
     <ClInclude Include="UserContentTypeCheckedConverter.h" />
+    <ClInclude Include="WaterUserContent.h">
+      <DependentUpon>WaterUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +188,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SsidSuggestion.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WaterUserContent.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -245,6 +252,10 @@
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="WaterUserContent.cpp">
+      <DependentUpon>WaterUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Arc.idl">
@@ -283,6 +294,10 @@
     </Midl>
     <Midl Include="SsidSuggestion.idl">
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="WaterUserContent.idl">
+      <DependentUpon>WaterUserContent.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
   </ItemGroup>
