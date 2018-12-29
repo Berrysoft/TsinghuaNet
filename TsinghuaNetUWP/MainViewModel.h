@@ -34,8 +34,15 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(ContentType, TsinghuaNetHelper::UserContentType)
         EVENT_DECL(ContentTypeChanged, TsinghuaNetHelper::UserContentType)
 
+        DEPENDENCY_PROPERTY(Version, Windows::ApplicationModel::PackageVersion)
+
     public:
-        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
+        hstring GetVersionString(Windows::ApplicationModel::PackageVersion const& ver);
+
+        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const
+        {
+            return m_NetUsers;
+        }
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;

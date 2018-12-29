@@ -172,7 +172,10 @@
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Bottom" Text="{x:Bind Model.GetVersionString(Model.Version),Mode=OneWay}"/>
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>
                         <HyperlinkButton NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>

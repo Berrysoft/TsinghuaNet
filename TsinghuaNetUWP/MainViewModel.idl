@@ -48,5 +48,9 @@ namespace TsinghuaNetUWP
         TsinghuaNetHelper.UserContentType ContentType;
         static Windows.UI.Xaml.DependencyProperty ContentTypeProperty { get; };
         event Windows.Foundation.EventHandler<TsinghuaNetHelper.UserContentType> ContentTypeChanged;
+
+        Windows.ApplicationModel.PackageVersion Version;
+        static Windows.UI.Xaml.DependencyProperty VersionProperty { get; };
+        String GetVersionString(Windows.ApplicationModel.PackageVersion ver);
     }
 } // namespace TsinghuaNetUWP

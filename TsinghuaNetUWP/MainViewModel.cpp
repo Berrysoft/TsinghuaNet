@@ -6,7 +6,9 @@
 #include "WaterUserContent.h"
 
 using namespace std;
+using sf::sprint;
 using namespace winrt;
+using namespace Windows::ApplicationModel;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace TsinghuaNetHelper;
@@ -16,6 +18,11 @@ namespace winrt::TsinghuaNetUWP::implementation
     MainViewModel::MainViewModel()
     {
         m_NetUsers = single_threaded_observable_vector<IInspectable>();
+    }
+
+    hstring MainViewModel::GetVersionString(PackageVersion const& ver)
+    {
+        return hstring(sprint(L"{}.{}.{}.{}", ver.Major, ver.Minor, ver.Build, ver.Revision));
     }
 
     void MainViewModel::OnAutoLoginPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
@@ -93,4 +100,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(Theme, ElementTheme, MainViewModel, box_value(ElementTheme::Default))
     DEPENDENCY_PROPERTY_INIT(ContentType, UserContentType, MainViewModel, box_value(UserContentType::Ring), &MainViewModel::OnContentTypePropertyChanged)
+
+    DEPENDENCY_PROPERTY_INIT(Version, PackageVersion, MainViewModel, box_value(Package::Current().Id().Version()))
 } // namespace winrt::TsinghuaNetUWP::implementation
