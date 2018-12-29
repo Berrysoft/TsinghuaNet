@@ -6,23 +6,11 @@ namespace TsinghuaNetUWP
     {
         WaterUserContent();
 
-        static Windows.UI.Xaml.DependencyProperty UserProperty { get; };
-
-        Windows.Foundation.TimeSpan OnlineTime;
-        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
-
-        Double FreePercent;
-        static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
-
-        Double FluxPercent;
-        static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
-
-        Double FreeOffset;
-        static Windows.UI.Xaml.DependencyProperty FreeOffsetProperty { get; };
-
-        Double FluxOffset;
-        static Windows.UI.Xaml.DependencyProperty FluxOffsetProperty { get; };
-
         Double Max(Double d1, Double d2);
+
+        static Windows.UI.Xaml.DependencyProperty UserProperty { get; };
+        static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
+        static Windows.UI.Xaml.DependencyProperty FreeOffsetProperty { get; };
+        static Windows.UI.Xaml.DependencyProperty FluxOffsetProperty { get; };
     }
 } // namespace TsinghuaNetUWP

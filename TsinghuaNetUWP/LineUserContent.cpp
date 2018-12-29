@@ -17,8 +17,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(User, FluxUser, LineUserContent, nullptr, &LineUserContent::OnUserPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, LineUserContent, box_value(TimeSpan()))
-    DEPENDENCY_PROPERTY_INIT(FreePercent, double, LineUserContent, box_value(1.0))
-    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, LineUserContent, box_value(0.0))
     DEPENDENCY_PROPERTY_INIT(FreeOffset, double, LineUserContent, box_value(1.0))
     DEPENDENCY_PROPERTY_INIT(FluxOffset, double, LineUserContent, box_value(0.0))
 
@@ -27,28 +25,5 @@ namespace winrt::TsinghuaNetUWP::implementation
         Progress().IsIndeterminate(value);
         Progress().Visibility(value ? Visibility::Visible : Visibility::Collapsed);
         MainRect().Visibility(value ? Visibility::Collapsed : Visibility::Visible);
-    }
-
-    bool LineUserContent::AddOneSecond()
-    {
-        if (User().Username().empty())
-            return false;
-        OnlineTime(OnlineTime() + 1s);
-        return true;
-    }
-
-    constexpr uint64_t BaseFlux = 25000000000;
-
-    void LineUserContent::OnUserPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
-    {
-        if (auto content{ d.try_as<class_type>() })
-        {
-            LineUserContent* pc = get_self<LineUserContent>(content);
-            auto flux = e.NewValue().try_as<FluxUser>();
-            pc->OnlineTime(flux.OnlineTime());
-            double maxf = (double)UserHelper::GetMaxFlux(flux);
-            pc->FluxPercent(flux.Flux() / maxf);
-            pc->FreePercent(BaseFlux / maxf);
-        }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

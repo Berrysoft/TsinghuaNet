@@ -17,29 +17,6 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(User, FluxUser, ArcUserContent, nullptr, &ArcUserContent::OnUserPropertyChanged)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, ArcUserContent, box_value(TimeSpan()))
-    DEPENDENCY_PROPERTY_INIT(FreePercent, double, ArcUserContent, box_value(1.0))
-    DEPENDENCY_PROPERTY_INIT(FluxPercent, double, ArcUserContent, box_value(0.0))
-
-    bool ArcUserContent::AddOneSecond()
-    {
-        if (User().Username().empty())
-            return false;
-        OnlineTime(OnlineTime() + 1s);
-        return true;
-    }
-
-    constexpr uint64_t BaseFlux = 25000000000;
-
-    void ArcUserContent::OnUserPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
-    {
-        if (auto content{ d.try_as<class_type>() })
-        {
-            ArcUserContent* pc = get_self<ArcUserContent>(content);
-            auto flux = e.NewValue().try_as<FluxUser>();
-            pc->OnlineTime(flux.OnlineTime());
-            double maxf = (double)UserHelper::GetMaxFlux(flux);
-            pc->FluxPercent(flux.Flux() / maxf);
-            pc->FreePercent(BaseFlux / maxf);
-        }
-    }
+    DEPENDENCY_PROPERTY_INIT(FreeOffset, double, ArcUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FluxOffset, double, ArcUserContent, box_value(0.0))
 } // namespace winrt::TsinghuaNetUWP::implementation

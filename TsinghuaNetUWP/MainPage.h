@@ -5,7 +5,24 @@
 #include "NetStateCheckedConverter.h"
 #include "ThemeCheckedConverter.h"
 #include "UserContentTypeCheckedConverter.h"
-#include "WinRTHelpers.h"
+
+namespace winrt::Windows::Networking::Connectivity
+{
+    struct NetworkListener
+    {
+        NetworkListener() { m_Token = NetworkInformation::NetworkStatusChanged({ this, &NetworkListener::OnNetworkStatusChanged }); }
+        ~NetworkListener() { NetworkInformation::NetworkStatusChanged(m_Token); }
+
+        event_token NetworkStatusChanged(NetworkStatusChangedEventHandler const& handler) { return m_NetworkStatusChanged.add(handler); }
+        void NetworkStatusChanged(event_token const& token) { m_NetworkStatusChanged.remove(token); }
+
+    private:
+        event_token m_Token;
+        event<NetworkStatusChangedEventHandler> m_NetworkStatusChanged;
+
+        void OnNetworkStatusChanged(Windows::Foundation::IInspectable const& sender) { m_NetworkStatusChanged(sender); }
+    };
+} // namespace winrt::Windows::Networking::Connectivity
 
 namespace winrt::TsinghuaNetUWP::implementation
 {

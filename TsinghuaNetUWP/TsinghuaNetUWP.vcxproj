@@ -158,12 +158,12 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ThemeCheckedConverter.h" />
+    <ClInclude Include="UserContentHelper.h" />
     <ClInclude Include="UserContentTypeCheckedConverter.h" />
     <ClInclude Include="WaterUserContent.h">
       <DependentUpon>WaterUserContent.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="WinRTHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">

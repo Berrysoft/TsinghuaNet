@@ -86,13 +86,15 @@
       <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="..\Shared\Utility.h" />
-    <ClInclude Include="WinRTHelpers.h" />
     <ClInclude Include="UserContentTypeCheckedConverter.h">
       <Filter>Converters</Filter>
     </ClInclude>
     <ClInclude Include="ArcUserContent.h" />
     <ClInclude Include="LineUserContent.h" />
     <ClInclude Include="WaterUserContent.h" />
+    <ClInclude Include="UserContentHelper.h">
+      <Filter>Contents</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

@@ -11,18 +11,16 @@
     <UserControl.Resources>
         <LinearGradientBrush x:Key="LineBrush" StartPoint="0,0.5" EndPoint="1,0.5">
             <LinearGradientBrush.GradientStops>
-                <GradientStop Offset="0" Color="{ThemeResource SystemAccentColor}"/>
-                <GradientStop x:Name="FluxStop" Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
-                <GradientStop x:Name="FluxStop2" Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                <GradientStop x:Name="FreeStop" Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                <GradientStop x:Name="FreeStop2" Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
-                <GradientStop Offset="1" Color="{ThemeResource SystemAccentColorDark2}"/>
+                <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
             </LinearGradientBrush.GradientStops>
         </LinearGradientBrush>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" To="{x:Bind FreePercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
-            <DoubleAnimation Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" To="{x:Bind FluxPercent,Mode=OneWay}" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+            <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
         </Storyboard>
     </UserControl.Resources>
     <Grid>

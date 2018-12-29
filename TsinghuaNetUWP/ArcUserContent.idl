@@ -7,14 +7,8 @@ namespace TsinghuaNetUWP
         ArcUserContent();
 
         static Windows.UI.Xaml.DependencyProperty UserProperty { get; };
-
-        Windows.Foundation.TimeSpan OnlineTime;
         static Windows.UI.Xaml.DependencyProperty OnlineTimeProperty { get; };
-
-        Double FreePercent;
-        static Windows.UI.Xaml.DependencyProperty FreePercentProperty { get; };
-
-        Double FluxPercent;
-        static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
+        static Windows.UI.Xaml.DependencyProperty FreeOffsetProperty { get; };
+        static Windows.UI.Xaml.DependencyProperty FluxOffsetProperty { get; };
     }
 } // namespace TsinghuaNetUWP
