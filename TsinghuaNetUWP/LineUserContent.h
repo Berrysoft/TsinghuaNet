@@ -9,10 +9,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         LineUserContent();
 
+        double Max(double d1, double d2) { return std::max(d1, d2); }
+
         DEPENDENCY_PROPERTY(User, TsinghuaNetHelper::FluxUser)
         DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
         DEPENDENCY_PROPERTY(FreePercent, double)
         DEPENDENCY_PROPERTY(FluxPercent, double)
+        DEPENDENCY_PROPERTY(FreeOffset, double)
+        DEPENDENCY_PROPERTY(FluxOffset, double)
 
     public:
         bool IsProgressActive() { return Progress().IsIndeterminate(); }

@@ -19,6 +19,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, WaterUserContent, box_value(TimeSpan()))
     DEPENDENCY_PROPERTY_INIT(FreePercent, double, WaterUserContent, box_value(1.0))
     DEPENDENCY_PROPERTY_INIT(FluxPercent, double, WaterUserContent, box_value(0.0))
+    DEPENDENCY_PROPERTY_INIT(FreeOffset, double, WaterUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FluxOffset, double, WaterUserContent, box_value(0.0))
 
     bool WaterUserContent::AddOneSecond()
     {
@@ -38,10 +40,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto flux = e.NewValue().try_as<FluxUser>();
             pc->OnlineTime(flux.OnlineTime());
             double maxf = (double)UserHelper::GetMaxFlux(flux);
-            double fp = flux.Flux() / maxf;
-            pc->FluxPercent(fp);
-            double free = BaseFlux / maxf;
-            pc->FreePercent(max(free, fp));
+            pc->FluxPercent(flux.Flux() / maxf);
+            pc->FreePercent(BaseFlux / maxf);
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation

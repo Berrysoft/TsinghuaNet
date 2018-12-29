@@ -30,7 +30,7 @@
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
-            <Frame x:Name="MainFrame" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
+            <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
         </SplitView.Content>
         <SplitView.Pane>
             <ScrollViewer>
@@ -72,7 +72,7 @@
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <StackPanel Margin="10" Orientation="Vertical">
-                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}">
+                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}">
                             <RadioButton.IsChecked>
                                 <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
                                     <Binding.ConverterParameter>
@@ -81,7 +81,7 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}">
+                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}">
                             <RadioButton.IsChecked>
                                 <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
                                     <Binding.ConverterParameter>
@@ -90,7 +90,7 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                        <RadioButton Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}">
+                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}">
                             <RadioButton.IsChecked>
                                 <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
                                     <Binding.ConverterParameter>
@@ -105,65 +105,71 @@
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
                     </StackPanel>
                     <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}"/>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
-                    <StackPanel Margin="10" Orientation="Horizontal">
-                        <RadioButton Content="系统">
-                            <RadioButton.IsChecked>
-                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <ElementTheme>Default</ElementTheme>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton Content="亮">
-                            <RadioButton.IsChecked>
-                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <ElementTheme>Light</ElementTheme>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton Content="暗">
-                            <RadioButton.IsChecked>
-                                <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <ElementTheme>Dark</ElementTheme>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                    </StackPanel>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">样式主题</TextBlock>
-                    <StackPanel Margin="10" Orientation="Horizontal">
-                        <RadioButton Content="直线">
-                            <RadioButton.IsChecked>
-                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:UserContentType>Line</helper:UserContentType>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton Content="圆圈">
-                            <RadioButton.IsChecked>
-                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:UserContentType>Ring</helper:UserContentType>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton Content="图标">
-                            <RadioButton.IsChecked>
-                                <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:UserContentType>Water</helper:UserContentType>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
+                            <StackPanel Margin="10" Orientation="Vertical">
+                                <RadioButton GroupName="Theme" Content="系统">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <ElementTheme>Default</ElementTheme>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                                <RadioButton GroupName="Theme" Content="亮">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <ElementTheme>Light</ElementTheme>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                                <RadioButton GroupName="Theme" Content="暗">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="Theme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <ElementTheme>Dark</ElementTheme>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">样式主题</TextBlock>
+                            <StackPanel Margin="10" Orientation="Vertical">
+                                <RadioButton GroupName="Type" Content="直线">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <helper:UserContentType>Line</helper:UserContentType>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                                <RadioButton GroupName="Type" Content="圆圈">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <helper:UserContentType>Ring</helper:UserContentType>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                                <RadioButton GroupName="Type" Content="图标">
+                                    <RadioButton.IsChecked>
+                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
+                                            <Binding.ConverterParameter>
+                                                <helper:UserContentType>Water</helper:UserContentType>
+                                            </Binding.ConverterParameter>
+                                        </Binding>
+                                    </RadioButton.IsChecked>
+                                </RadioButton>
+                            </StackPanel>
+                        </StackPanel>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>

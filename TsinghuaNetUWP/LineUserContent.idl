@@ -16,5 +16,13 @@ namespace TsinghuaNetUWP
 
         Double FluxPercent;
         static Windows.UI.Xaml.DependencyProperty FluxPercentProperty { get; };
+
+        Double FreeOffset;
+        static Windows.UI.Xaml.DependencyProperty FreeOffsetProperty { get; };
+
+        Double FluxOffset;
+        static Windows.UI.Xaml.DependencyProperty FluxOffsetProperty { get; };
+
+        Double Max(Double d1, Double d2);
     }
 } // namespace TsinghuaNetUWP

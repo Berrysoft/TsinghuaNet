@@ -49,7 +49,6 @@
     </Midl>
     <Midl Include="ArcUserContent.idl" />
     <Midl Include="LineUserContent.idl" />
-    <Midl Include="ProgressWave.idl" />
     <Midl Include="WaterUserContent.idl" />
   </ItemGroup>
   <ItemGroup>
@@ -64,7 +63,6 @@
     <ClCompile Include="SsidSuggestion.cpp" />
     <ClCompile Include="ArcUserContent.cpp" />
     <ClCompile Include="LineUserContent.cpp" />
-    <ClCompile Include="ProgressWave.cpp" />
     <ClCompile Include="WaterUserContent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +92,6 @@
     </ClInclude>
     <ClInclude Include="ArcUserContent.h" />
     <ClInclude Include="LineUserContent.h" />
-    <ClInclude Include="ProgressWave.h" />
     <ClInclude Include="WaterUserContent.h" />
   </ItemGroup>
   <ItemGroup>

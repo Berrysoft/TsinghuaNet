@@ -19,6 +19,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, LineUserContent, box_value(TimeSpan()))
     DEPENDENCY_PROPERTY_INIT(FreePercent, double, LineUserContent, box_value(1.0))
     DEPENDENCY_PROPERTY_INIT(FluxPercent, double, LineUserContent, box_value(0.0))
+    DEPENDENCY_PROPERTY_INIT(FreeOffset, double, LineUserContent, box_value(1.0))
+    DEPENDENCY_PROPERTY_INIT(FluxOffset, double, LineUserContent, box_value(0.0))
 
     void LineUserContent::IsProgressActive(bool value)
     {
@@ -45,10 +47,8 @@ namespace winrt::TsinghuaNetUWP::implementation
             auto flux = e.NewValue().try_as<FluxUser>();
             pc->OnlineTime(flux.OnlineTime());
             double maxf = (double)UserHelper::GetMaxFlux(flux);
-            double fp = flux.Flux() / maxf;
-            pc->FluxPercent(fp);
-            double free = BaseFlux / maxf;
-            pc->FreePercent(max(free, fp));
+            pc->FluxPercent(flux.Flux() / maxf);
+            pc->FreePercent(BaseFlux / maxf);
         }
     }
 } // namespace winrt::TsinghuaNetUWP::implementation
