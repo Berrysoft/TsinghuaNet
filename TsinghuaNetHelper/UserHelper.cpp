@@ -173,6 +173,21 @@ namespace winrt::TsinghuaNetHelper::implementation
             {
                 return { login ? L"登录成功" : L"注销成功" };
             }
+            else if (code == L"ip_already_online_error")
+            {
+                return { L"已登录" };
+            }
+            else if (code == L"login_error")
+            {
+                if (msg == L"You are not online.")
+                {
+                    return { L"未登录" };
+                }
+                else
+                {
+                    return { msg };
+                }
+            }
             else
             {
                 auto s = string_split(msg, L':');
