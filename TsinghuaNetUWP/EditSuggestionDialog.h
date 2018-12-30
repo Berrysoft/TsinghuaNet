@@ -10,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         EditSuggestionDialog();
 
-        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> WlanList() { return m_WlanList; }
+        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> WlanList() const { return m_WlanList; }
 
         void AddSelection(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const& e);
         void AddButtonClick(Windows::Foundation::IInspectable const&, Windows::UI::Xaml::RoutedEventArgs const&);

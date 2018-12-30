@@ -31,7 +31,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
-    float GetAngle(double value)
+    constexpr float GetAngle(double value)
     {
         double angle = value * 2 * M_PI;
         if (angle >= 2 * M_PI) // 要比2π稍微小一点
@@ -41,7 +41,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return (float)angle;
     }
 
-    Point ScaleUnitCirclePoint(Point origin, float radius, float angle)
+    inline Point ScaleUnitCirclePoint(Point origin, float radius, float angle)
     {
         float2 dir = { -sin(angle), cos(angle) };
         return dir * radius + origin;

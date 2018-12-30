@@ -37,12 +37,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Version, Windows::ApplicationModel::PackageVersion)
 
     public:
-        hstring GetVersionString(Windows::ApplicationModel::PackageVersion const& ver);
+        hstring GetVersionString(Windows::ApplicationModel::PackageVersion const& ver) const;
 
-        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const
-        {
-            return m_NetUsers;
-        }
+        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> NetUsers() const { return m_NetUsers; }
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_NetUsers;

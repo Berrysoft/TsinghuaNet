@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         m_States.Append(make<NetStateBox>(NetState::Auth4_25));
     }
 
-    int SsidSuggestion::ValueToIndex(NetState value)
+    int SsidSuggestion::ValueToIndex(NetState value) const
     {
         int size = (int)m_States.Size();
         for (int i = 0; i < size; i++)
@@ -33,7 +33,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return 0;
     }
 
-    NetState SsidSuggestion::IndexToValue(int index)
+    NetState SsidSuggestion::IndexToValue(int index) const
     {
         return m_States.GetAt(index).try_as<TsinghuaNetUWP::NetStateBox>().Value();
     }

@@ -20,7 +20,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         m_NetUsers = single_threaded_observable_vector<IInspectable>();
     }
 
-    hstring MainViewModel::GetVersionString(PackageVersion const& ver)
+    hstring MainViewModel::GetVersionString(PackageVersion const& ver) const
     {
         return hstring(sprint(L"{}.{}.{}.{}", ver.Major, ver.Minor, ver.Build, ver.Revision));
     }

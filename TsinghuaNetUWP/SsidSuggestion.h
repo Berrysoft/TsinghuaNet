@@ -15,10 +15,10 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(SsidStyle, Windows::UI::Xaml::Style)
 
     public:
-        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> States() { return m_States; }
+        Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> States() const { return m_States; }
 
-        int ValueToIndex(TsinghuaNetHelper::NetState value);
-        TsinghuaNetHelper::NetState IndexToValue(int index);
+        int ValueToIndex(TsinghuaNetHelper::NetState value) const;
+        TsinghuaNetHelper::NetState IndexToValue(int index) const;
 
     private:
         Windows::Foundation::Collections::IObservableVector<Windows::Foundation::IInspectable> m_States;
