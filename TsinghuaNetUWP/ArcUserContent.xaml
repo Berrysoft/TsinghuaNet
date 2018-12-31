@@ -14,6 +14,9 @@
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
         </Storyboard>
+        <SolidColorBrush x:Key="SystemAccentColorBrush" Color="{ThemeResource SystemAccentColor}"/>
+        <SolidColorBrush x:Key="SystemAccentDark1ColorBrush" Color="{ThemeResource SystemAccentColorDark1}"/>
+        <SolidColorBrush x:Key="SystemAccentDark2ColorBrush" Color="{ThemeResource SystemAccentColorDark2}"/>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -43,9 +46,9 @@
         </Viewbox>
         <Viewbox Grid.RowSpan="3">
             <Grid Height="300" Width="300" Margin="10">
-                <local:Arc Fill="{ThemeResource SystemControlAccentDark2AcrylicElementAccentDark2MediumHighBrush}" Value="1"/>
-                <local:Arc Fill="{ThemeResource SystemControlAccentDark1AcrylicElementAccentDark1Brush}" Value="{x:Bind FreeOffset,Mode=OneWay}"/>
-                <local:Arc Fill="{ThemeResource SystemControlAccentAcrylicElementAccentMediumHighBrush}" Value="{x:Bind FluxOffset,Mode=OneWay}"/>
+                <local:Arc Fill="{StaticResource SystemAccentDark2ColorBrush}" Value="1"/>
+                <local:Arc Fill="{StaticResource SystemAccentDark1ColorBrush}" Value="{x:Bind FreeOffset,Mode=OneWay}"/>
+                <local:Arc Fill="{StaticResource SystemAccentColorBrush}" Value="{x:Bind FluxOffset,Mode=OneWay}"/>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
             </Grid>
         </Viewbox>
