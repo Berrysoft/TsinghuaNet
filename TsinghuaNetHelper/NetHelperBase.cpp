@@ -13,7 +13,7 @@ using namespace Windows::Web::Http;
 
 namespace winrt::TsinghuaNetHelper
 {
-    HttpClient NetHelperBase::client = HttpClient();
+    HttpClient NetHelperBase::client = HttpClient{};
 
     /// <summary>
     /// 从指定的URI获取字符串
@@ -50,7 +50,7 @@ namespace winrt::TsinghuaNetHelper
     /// </summary>
     /// <param name="uri">指定的URI</param>
     /// <param name="data">要发送的数据</param>
-    task<hstring> NetHelperBase::PostAsync(Uri const uri, hstring const data)
+    task<hstring> NetHelperBase::PostAsync(Uri const uri, wstring_view const data)
     {
         auto content = HttpStringContent(data, UnicodeEncoding::Utf8,
                                          L"application/x-www-form-urlencoded");

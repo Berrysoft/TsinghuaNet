@@ -14,7 +14,7 @@ using namespace Windows::UI::Notifications;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    constexpr wchar_t tile_t[] = LR"(<?xml version="1.0" encoding="utf-8"?>
+    constexpr wstring_view tile_t{ LR"(<?xml version="1.0" encoding="utf-8"?>
 <tile>
   <visual branding="nameAndLogo">
     <binding template="TileMedium">
@@ -36,9 +36,9 @@ namespace winrt::TsinghuaNetHelper::implementation
     </binding>
   </visual>
 </tile>
-)";
+)" };
 
-    constexpr wchar_t toast_t[] = LR"(<?xml version="1.0" encoding="utf-8"?>
+    constexpr wstring_view toast_t{ LR"(<?xml version="1.0" encoding="utf-8"?>
 <toast>
   <visual>
     <binding template="ToastGeneric">
@@ -48,7 +48,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     </binding>
   </visual>
 </toast>
-)";
+)" };
 
     void NotificationHelper::UpdateTile(FluxUser const& user)
     {

@@ -15,11 +15,11 @@ using namespace Windows::UI::Xaml;
 namespace winrt::TsinghuaNetHelper::implementation
 {
     template <typename T>
-    T GetValue(hstring const& key, T def = {})
+    T GetValue(wstring_view const& key, T def = {})
     {
-        auto settings = ApplicationData::Current().LocalSettings();
-        auto values = settings.Values();
-        auto value = values.TryLookup(key);
+        auto settings{ ApplicationData::Current().LocalSettings() };
+        auto values{ settings.Values() };
+        auto value{ values.TryLookup(key) };
         if (value)
         {
             return unbox_value<T>(value);
@@ -28,16 +28,16 @@ namespace winrt::TsinghuaNetHelper::implementation
     }
 
     template <typename T>
-    void SetValue(hstring const& key, T value)
+    void SetValue(wstring_view const& key, T value)
     {
-        auto settings = ApplicationData::Current().LocalSettings();
-        auto values = settings.Values();
+        auto settings{ ApplicationData::Current().LocalSettings() };
+        auto values{ settings.Values() };
         values.Insert(key, box_value(value));
     }
 
     IMap<hstring, NetState> GetMapFromJson(JsonObject const& json)
     {
-        auto result = single_threaded_map<hstring, NetState>();
+        auto result{ single_threaded_map<hstring, NetState>() };
         for (auto pair : json)
         {
             result.Insert(pair.Key(), (NetState)(int)pair.Value().GetNumber());
@@ -55,15 +55,15 @@ namespace winrt::TsinghuaNetHelper::implementation
         return result;
     }
 
-    constexpr wchar_t StoredUsernameKey[] = L"Username";
-    constexpr wchar_t AutoLoginKey[] = L"AutoLogin";
-    constexpr wchar_t BackgroundAutoLoginKey[] = L"BackgroundAutoLogin";
-    constexpr wchar_t BackgroundLiveTileKey[] = L"BackgroundLiveTile";
-    constexpr wchar_t LanStateKey[] = L"LanState";
-    constexpr wchar_t WwanStateKey[] = L"WwanState";
-    constexpr wchar_t WlanStateKey[] = L"WlanState";
-    constexpr wchar_t ThemeKey[] = L"Theme";
-    constexpr wchar_t ContentTypeKey[] = L"UserContentType";
+    constexpr wstring_view StoredUsernameKey{ L"Username" };
+    constexpr wstring_view AutoLoginKey{ L"AutoLogin" };
+    constexpr wstring_view BackgroundAutoLoginKey{ L"BackgroundAutoLogin" };
+    constexpr wstring_view BackgroundLiveTileKey{ L"BackgroundLiveTile" };
+    constexpr wstring_view LanStateKey{ L"LanState" };
+    constexpr wstring_view WwanStateKey{ L"WwanState" };
+    constexpr wstring_view WlanStateKey{ L"WlanState" };
+    constexpr wstring_view ThemeKey{ L"Theme" };
+    constexpr wstring_view ContentTypeKey{ L"UserContentType" };
 
     SettingsHelper::SettingsHelper()
     {
@@ -75,7 +75,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         m_WwanState = (NetState)GetValue<int>(WwanStateKey, (int)NetState::Unknown);
         m_Theme = (ElementTheme)GetValue<int>(ThemeKey, (int)ElementTheme::Default);
         m_ContentType = (UserContentType)GetValue<int>(ContentTypeKey, (int)UserContentType::Ring);
-        hstring json = GetValue<hstring>(WlanStateKey);
+        hstring json{ GetValue<hstring>(WlanStateKey) };
         if (json.empty())
         {
             wlanMap = GetJsonFromMap(DefWlanStates());
@@ -129,7 +129,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     bool SettingsHelper::InternetAvailable()
     {
-        auto profile = NetworkInformation::GetInternetConnectionProfile();
+        auto profile{ NetworkInformation::GetInternetConnectionProfile() };
         if (!profile)
             return false;
         return profile.GetNetworkConnectivityLevel() == NetworkConnectivityLevel::InternetAccess;
@@ -152,10 +152,10 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     InternetStatus SettingsHelper::InternetStatus(hstring& ssid)
     {
-        auto profile = NetworkInformation::GetInternetConnectionProfile();
+        auto profile{ NetworkInformation::GetInternetConnectionProfile() };
         if (!profile)
             return InternetStatus::Unknown;
-        auto cl = profile.GetNetworkConnectivityLevel();
+        auto cl{ profile.GetNetworkConnectivityLevel() };
         if (cl == NetworkConnectivityLevel::None)
             return InternetStatus::Unknown;
         if (profile.IsWwanConnectionProfile())
@@ -164,7 +164,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
         else if (profile.IsWlanConnectionProfile())
         {
-            auto details = profile.WlanConnectionProfileDetails();
+            auto details{ profile.WlanConnectionProfileDetails() };
             ssid = details.GetConnectedSsid();
             return InternetStatus::Wlan;
         }

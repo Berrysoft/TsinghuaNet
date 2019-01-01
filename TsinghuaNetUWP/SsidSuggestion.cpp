@@ -22,8 +22,8 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     int SsidSuggestion::ValueToIndex(NetState value) const
     {
-        int size = (int)m_States.Size();
-        for (int i = 0; i < size; i++)
+        int size{ (int)m_States.Size() };
+        for (int i{ 0 }; i < size; i++)
         {
             if (m_States.GetAt(i).try_as<TsinghuaNetUWP::NetStateBox>().Value() == value)
             {
@@ -38,7 +38,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         return m_States.GetAt(index).try_as<TsinghuaNetUWP::NetStateBox>().Value();
     }
 
-    DEPENDENCY_PROPERTY_INIT(Ssid, hstring, SsidSuggestion, box_value(hstring()))
+    DEPENDENCY_PROPERTY_INIT(Ssid, hstring, SsidSuggestion, box_value(hstring{}))
     DEPENDENCY_PROPERTY_INIT(Value, int, SsidSuggestion, box_value(0))
     DEPENDENCY_PROPERTY_INIT(SsidStyle, Windows::UI::Xaml::Style, SsidSuggestion, nullptr)
 } // namespace winrt::TsinghuaNetUWP::implementation

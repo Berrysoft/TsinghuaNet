@@ -21,8 +21,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void ChangeUserDialog::UsernameChangedImpl()
     {
-        hstring un = UnBox().Text();
-        hstring pw = CredentialHelper::GetCredential(un);
+        hstring un{ UnBox().Text() };
+        hstring pw{ CredentialHelper::GetCredential(un) };
         IsPrimaryButtonEnabled(!(un.empty() || pw.empty()));
         PwBox().Password(pw);
         if (pw.empty())

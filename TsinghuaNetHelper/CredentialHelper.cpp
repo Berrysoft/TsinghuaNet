@@ -3,17 +3,18 @@
 #include "CredentialHelper.h"
 #include <winrt/Windows.Security.Credentials.h>
 
+using namespace std;
 using namespace winrt;
 using namespace Windows::Security::Credentials;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    constexpr wchar_t CredentialResource[] = L"TsinghuaNetUWP";
+    constexpr wstring_view CredentialResource{ L"TsinghuaNetUWP" };
 
     hstring CredentialHelper::GetCredential(hstring const& username)
     {
         PasswordVault vault;
-        auto all = vault.RetrieveAll();
+        auto all{ vault.RetrieveAll() };
         for (auto c : all)
         {
             if (c.Resource() == CredentialResource && c.UserName() == username)
@@ -34,7 +35,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     void CredentialHelper::RemoveCredential(hstring const& username)
     {
         PasswordVault vault;
-        auto all = vault.RetrieveAll();
+        auto all{ vault.RetrieveAll() };
         for (auto c : all)
         {
             if (c.Resource() == CredentialResource && c.UserName() == username)

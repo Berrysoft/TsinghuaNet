@@ -14,7 +14,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 {
     hstring UserHelper::GetFluxString(uint64_t f)
     {
-        double flux = (double)f;
+        double flux{ (double)f };
         wstring result;
         if (flux < 1000)
         {
@@ -38,13 +38,13 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     hstring UserHelper::GetTimeSpanString(TimeSpan const& time)
     {
-        int64_t tsec = time.count() / 10000000;
-        bool minus = tsec < 0;
+        int64_t tsec{ time.count() / 10000000 };
+        bool minus{ tsec < 0 };
         if (minus)
             tsec = -tsec;
-        int64_t h = tsec / 3600;
+        int64_t h{ tsec / 3600 };
         tsec -= h * 3600;
-        int64_t min = tsec / 60;
+        int64_t min{ tsec / 60 };
         tsec -= min * 60;
         return hstring(sprint(L"{}{:d2}:{:d2}:{:d2}", minus ? L"-" : L"", h, min, tsec));
     }
@@ -88,7 +88,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
     }
 
-    constexpr uint64_t BaseFlux = 25000000000;
+    constexpr uint64_t BaseFlux{ 25000000000 };
     uint64_t UserHelper::GetMaxFlux(FluxUser const& user)
     {
         return max(user.Flux(), BaseFlux) + (uint64_t)(user.Balance() / 2 * 1000 * 1000 * 1000);
@@ -97,7 +97,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     vector<wstring_view> string_split(wstring_view const& s, wchar_t separator)
     {
         vector<wstring_view> result;
-        size_t offset = 0, index = 0;
+        size_t offset{ 0 }, index{ 0 };
         while ((index = s.find(separator, offset)) != wstring_view::npos)
         {
             if (index > offset)
@@ -125,7 +125,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     FluxUser UserHelper::GetFluxUser(hstring const& str)
     {
-        auto r = string_split(str, L',');
+        auto r{ string_split(str, L',') };
         FluxUser result;
         if (!r.empty())
         {
@@ -164,11 +164,11 @@ namespace winrt::TsinghuaNetHelper::implementation
     LogResponse UserHelper::GetAuthLogResponse(hstring const& str, bool login)
     {
         // callback(...)
-        JsonObject json = nullptr;
+        JsonObject json{ nullptr };
         if (JsonObject::TryParse(wstring(str.begin() + 9, str.end() - 1), json))
         {
-            hstring code = json.GetNamedString(L"error");
-            hstring msg = json.GetNamedString(L"error_msg");
+            hstring code{ json.GetNamedString(L"error") };
+            hstring msg{ json.GetNamedString(L"error_msg") };
             if (code == L"ok")
             {
                 return { login ? L"登录成功" : L"注销成功" };
@@ -190,7 +190,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             }
             else
             {
-                auto s = string_split(msg, L':');
+                auto s{ string_split(msg, L':') };
                 if (!s.empty())
                 {
                     if (s.size() == 1)

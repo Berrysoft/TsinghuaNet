@@ -1,6 +1,6 @@
 namespace TsinghuaNetUWP
 {
-    runtimeclass NetStateSsidBox : Windows.UI.Xaml.DependencyObject
+    runtimeclass NetStateSsidBox
     {
         NetStateSsidBox();
 

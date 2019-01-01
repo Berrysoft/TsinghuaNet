@@ -30,14 +30,14 @@ namespace winrt::TsinghuaNetUWP::implementation
         InitializeComponent();
         // 调整标题栏的颜色为透明
         // 按钮的背景色为透明
-        auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
+        auto titleBar{ ApplicationView::GetForCurrentView().TitleBar() };
         titleBar.BackgroundColor(Colors::Transparent());
         titleBar.ButtonBackgroundColor(Colors::Transparent());
         titleBar.ButtonInactiveBackgroundColor(Colors::Transparent());
         // 按钮的前景色根据主题调节
         ThemeChangedImpl();
         // 将用户区拓展到全窗口
-        auto viewTitleBar = CoreApplication::GetCurrentView().TitleBar();
+        auto viewTitleBar{ CoreApplication::GetCurrentView().TitleBar() };
         viewTitleBar.ExtendViewIntoTitleBar(true);
         // 设置主窗格为标题栏
         Window::Current().SetTitleBar(MainFrame());
@@ -69,12 +69,12 @@ namespace winrt::TsinghuaNetUWP::implementation
         // 先刷新状态
         RefreshStatusImpl();
         // 自动登录
-        bool al = settings.AutoLogin();
+        bool al{ settings.AutoLogin() };
         Model().AutoLogin(al);
         // 后台任务
-        bool bal = settings.BackgroundAutoLogin();
+        bool bal{ settings.BackgroundAutoLogin() };
         Model().BackgroundAutoLogin(bal);
-        bool blt = settings.BackgroundLiveTile();
+        bool blt{ settings.BackgroundLiveTile() };
         Model().BackgroundLiveTile(blt);
         // 调整后台任务
         if (co_await BackgroundHelper::RequestAccessAsync())
@@ -83,12 +83,12 @@ namespace winrt::TsinghuaNetUWP::implementation
             BackgroundHelper::RegisterLiveTile(blt);
         }
         // 上一次登录的用户名
-        hstring un = settings.StoredUsername();
+        hstring un{ settings.StoredUsername() };
         if (!un.empty())
         {
             // 设置为当前用户名并获取密码
             Model().Username(un);
-            hstring pw = CredentialHelper::GetCredential(un);
+            hstring pw{ CredentialHelper::GetCredential(un) };
             Model().Password(pw);
             // 自动登录的条件为：
             // 打开了自动登录
@@ -120,15 +120,15 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     fire_and_forget MainPage::ShowChangeUser(IInspectable const, RoutedEventArgs const)
     {
-        auto dialog = make<ChangeUserDialog>(Model().Username());
+        auto dialog{ make<ChangeUserDialog>(Model().Username()) };
         dialog.RequestedTheme(Model().Theme());
         // 显示对话框
-        auto result = co_await dialog.ShowAsync();
+        auto result{ co_await dialog.ShowAsync() };
         // 确定
         if (result == ContentDialogResult::Primary)
         {
-            hstring un = dialog.UnBox().Text();
-            hstring pw = dialog.PwBox().Password();
+            hstring un{ dialog.UnBox().Text() };
+            hstring pw{ dialog.PwBox().Password() };
             // 不管是否保存，都需要先删除
             CredentialHelper::RemoveCredential(un);
             if (dialog.SaveBox().IsChecked().Value())
@@ -150,7 +150,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void MainPage::ThemeChangedImpl()
     {
-        auto titleBar = ApplicationView::GetForCurrentView().TitleBar();
+        auto titleBar{ ApplicationView::GetForCurrentView().TitleBar() };
         switch (ActualTheme())
         {
         case ElementTheme::Light:
@@ -187,7 +187,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
-            auto helper = GetHelper();
+            auto helper{ GetHelper() };
             if (helper)
             {
                 ShowResponse(co_await helper.LoginAsync());
@@ -208,7 +208,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
-            auto helper = GetHelper();
+            auto helper{ GetHelper() };
             if (helper)
             {
                 ShowResponse(co_await helper.LogoutAsync());
@@ -229,7 +229,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         UserContentManager ring(Model().UserContent().try_as<IUserContent>());
         try
         {
-            auto helper = GetHelper();
+            auto helper{ GetHelper() };
             co_await RefreshImpl(helper);
         }
         catch (hresult_error const& e)
@@ -244,7 +244,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <param name="helper">网络连接辅助类，用于执行刷新任务</param>
     task<void> MainPage::RefreshImpl(IConnect const helper)
     {
-        FluxUser flux = {};
+        FluxUser flux{};
         if (helper)
         {
             flux = co_await helper.FluxAsync();
@@ -252,7 +252,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
 
-        auto content = Model().UserContent().try_as<IUserContent>();
+        auto content{ Model().UserContent().try_as<IUserContent>() };
         content.User(flux);
         content.BeginAnimation();
         mainTimer.Start();
@@ -300,7 +300,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::MainTimerTickImpl()
     {
-        auto content = Model().UserContent().try_as<IUserContent>();
+        auto content{ Model().UserContent().try_as<IUserContent>() };
         if (!content.AddOneSecond())
             mainTimer.Stop();
     }
@@ -310,13 +310,13 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     fire_and_forget MainPage::ShowEditSuggestion(IInspectable const, RoutedEventArgs const)
     {
-        auto dialog = make<EditSuggestionDialog>();
+        auto dialog{ make<EditSuggestionDialog>() };
         dialog.RequestedTheme(Model().Theme());
         dialog.LanCombo().Value(settings.LanState());
         dialog.WwanCombo().Value(settings.WwanState());
-        auto s = settings.WlanStates();
+        auto s{ settings.WlanStates() };
         dialog.RefreshWlanList(s);
-        auto result = co_await dialog.ShowAsync();
+        auto result{ co_await dialog.ShowAsync() };
         if (result == ContentDialogResult::Primary)
         {
             settings.LanState(dialog.LanCombo().Value());
@@ -368,8 +368,8 @@ namespace winrt::TsinghuaNetUWP::implementation
     void MainPage::RefreshStatusImpl()
     {
         hstring ssid;
-        auto status = SettingsHelper::InternetStatus(ssid);
-        NetState state = settings.SuggestNetState(status, ssid);
+        auto status{ SettingsHelper::InternetStatus(ssid) };
+        NetState state{ settings.SuggestNetState(status, ssid) };
         Model().NetStatus(status);
         Model().Ssid(ssid);
         Model().SuggestState(state);
@@ -405,14 +405,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <param name="helper">帮助类实例</param>
     task<void> MainPage::RefreshNetUsersImpl(UseregHelper const helper)
     {
-        auto users = co_await helper.UsersAsync();
-        auto usersmodel = Model().NetUsers();
-        for (uint32_t i = 0; i < usersmodel.Size(); i++)
+        auto users{ co_await helper.UsersAsync() };
+        auto usersmodel{ Model().NetUsers() };
+        for (uint32_t i{ 0 }; i < usersmodel.Size(); i++)
         {
             if (auto olduser{ usersmodel.GetAt(i).try_as<NetUser>() })
             {
                 // 循环判断旧元素是否存在于新集合中
-                for (uint32_t j = 0; j < users.Size(); j++)
+                for (uint32_t j{ 0 }; j < users.Size(); j++)
                 {
                     // 如果存在则移除新元素
                     if (users.GetAt(j).Equals(olduser))

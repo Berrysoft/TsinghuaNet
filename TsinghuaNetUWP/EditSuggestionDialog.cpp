@@ -32,7 +32,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void EditSuggestionDialog::AddButtonClick(IInspectable const&, RoutedEventArgs const&)
     {
-        hstring ssid = AddFlyoutText().Text();
+        hstring ssid{ AddFlyoutText().Text() };
         if (!ssid.empty()) // SSID不能为空
         {
             AddFlyout().Hide();
@@ -41,13 +41,13 @@ namespace winrt::TsinghuaNetUWP::implementation
             // 如果列表中已存在，不添加
             for (auto pair : m_WlanList)
             {
-                auto item = pair.try_as<TsinghuaNetUWP::NetStateSsidBox>();
+                auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() };
                 if (item && item.Ssid() == ssid)
                 {
                     return;
                 }
             }
-            auto item = make<NetStateSsidBox>();
+            auto item{ make<NetStateSsidBox>() };
             item.Ssid(ssid);
             m_WlanList.Append(item);
         }
@@ -58,7 +58,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void EditSuggestionDialog::DeleteSelection(IInspectable const&, RoutedEventArgs const&)
     {
-        int index = WlanListView().SelectedIndex();
+        int index{ WlanListView().SelectedIndex() };
         if (index >= 0)
         {
             m_WlanList.RemoveAt(index);
@@ -91,7 +91,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         m_WlanList.Clear();
         for (auto pair : list)
         {
-            auto item = make<NetStateSsidBox>();
+            auto item{ make<NetStateSsidBox>() };
             item.Ssid(pair.Key());
             item.Value(pair.Value());
             m_WlanList.Append(item);

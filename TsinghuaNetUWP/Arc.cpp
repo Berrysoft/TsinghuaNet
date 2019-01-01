@@ -26,14 +26,14 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto tarc{ d.try_as<class_type>() })
         {
-            Arc* parc(get_self<Arc>(tarc));
+            Arc* parc{ get_self<Arc>(tarc) };
             parc->DrawArc();
         }
     }
 
     constexpr float GetAngle(double value)
     {
-        double angle = value * 2 * M_PI;
+        double angle{ value * 2 * M_PI };
         if (angle >= 2 * M_PI) // 要比2π稍微小一点
         {
             angle = 2 * M_PI - 0.000001;
@@ -43,19 +43,19 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     inline Point ScaleUnitCirclePoint(Point origin, float radius, float angle)
     {
-        float2 dir = { -sin(angle), cos(angle) };
+        float2 dir{ -sin(angle), cos(angle) };
         return dir * radius + origin;
     }
 
     void Arc::DrawArc()
     {
-        Size size = RenderSize();
-        float length = min(size.Width, size.Height);
+        Size size{ RenderSize() };
+        float length{ min(size.Width, size.Height) };
         radius = (length - Thickness()) / 2;
-        float fr = (float)radius;
-        Point centerPoint = (float2)size / 2;
-        float angle = GetAngle(Value());
-        Point circleStart = { centerPoint.X, centerPoint.Y + fr };
+        float fr{ (float)radius };
+        Point centerPoint{ (float2)size / 2 };
+        float angle{ GetAngle(Value()) };
+        Point circleStart{ centerPoint.X, centerPoint.Y + fr };
         ArcFigureSegment().IsLargeArc(angle > M_PI);
         ArcFigureSegment().Point(ScaleUnitCirclePoint(centerPoint, fr, angle));
         ArcFigureSegment().Size({ fr, fr });

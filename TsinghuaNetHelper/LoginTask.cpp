@@ -9,21 +9,21 @@ namespace winrt::TsinghuaNetHelper::implementation
 {
     fire_and_forget LoginTask::Run(IBackgroundTaskInstance const taskInstance)
     {
-        auto deferral = taskInstance.GetDeferral();
+        auto deferral{ taskInstance.GetDeferral() };
         if (settings.AutoLogin())
         {
             try
             {
                 hstring ssid;
-                auto status = SettingsHelper::InternetStatus(ssid);
-                NetState state = settings.SuggestNetState(status, ssid);
-                hstring un = settings.StoredUsername();
-                hstring pw = CredentialHelper::GetCredential(un);
-                IConnect helper = ConnectHelper::GetHelper(state, un, pw);
+                auto status{ SettingsHelper::InternetStatus(ssid) };
+                NetState state{ settings.SuggestNetState(status, ssid) };
+                hstring un{ settings.StoredUsername() };
+                hstring pw{ CredentialHelper::GetCredential(un) };
+                IConnect helper{ ConnectHelper::GetHelper(state, un, pw) };
                 if (helper)
                 {
                     co_await helper.LoginAsync();
-                    FluxUser user = co_await helper.FluxAsync();
+                    FluxUser user{ co_await helper.FluxAsync() };
                     NotificationHelper::UpdateTile(user);
                     NotificationHelper::SendToast(user);
                 }

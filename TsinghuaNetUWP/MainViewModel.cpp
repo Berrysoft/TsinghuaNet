@@ -29,7 +29,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto model{ d.try_as<class_type>() })
         {
-            MainViewModel* pm(get_self<MainViewModel>(model));
+            MainViewModel* pm{ get_self<MainViewModel>(model) };
             pm->m_AutoLoginChangedEvent(model, unbox_value<bool>(e.NewValue()));
         }
     }
@@ -38,7 +38,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto model{ d.try_as<class_type>() })
         {
-            MainViewModel* pm(get_self<MainViewModel>(model));
+            MainViewModel* pm{ get_self<MainViewModel>(model) };
             pm->m_BackgroundAutoLoginChangedEvent(model, unbox_value<bool>(e.NewValue()));
         }
     }
@@ -47,7 +47,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto model{ d.try_as<class_type>() })
         {
-            MainViewModel* pm(get_self<MainViewModel>(model));
+            MainViewModel* pm{ get_self<MainViewModel>(model) };
             pm->m_BackgroundLiveTileChangedEvent(model, unbox_value<bool>(e.NewValue()));
         }
     }
@@ -56,7 +56,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         if (auto model{ d.try_as<class_type>() })
         {
-            auto oldc = model.UserContent().try_as<IUserContent>();
+            auto oldc{ model.UserContent().try_as<IUserContent>() };
             IUserContent newc;
             switch (unbox_value<UserContentType>(e.NewValue()))
             {
@@ -83,10 +83,10 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     DEPENDENCY_PROPERTY_INIT(UserContent, UIElement, MainViewModel, nullptr)
 
-    DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse()))
+    DEPENDENCY_PROPERTY_INIT(Response, LogResponse, MainViewModel, box_value(LogResponse{}))
 
-    DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, box_value(hstring()))
-    DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, box_value(hstring()))
+    DEPENDENCY_PROPERTY_INIT(Username, hstring, MainViewModel, box_value(hstring{}))
+    DEPENDENCY_PROPERTY_INIT(Password, hstring, MainViewModel, box_value(hstring{}))
 
     DEPENDENCY_PROPERTY_INIT(State, NetState, MainViewModel, box_value(NetState::Unknown))
 
@@ -95,7 +95,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(BackgroundLiveTile, bool, MainViewModel, box_value(true), &MainViewModel::OnBackgroundLiveTilePropertyChanged)
 
     DEPENDENCY_PROPERTY_INIT(NetStatus, InternetStatus, MainViewModel, box_value(InternetStatus::Unknown))
-    DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, box_value(hstring()))
+    DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, box_value(hstring{}))
     DEPENDENCY_PROPERTY_INIT(SuggestState, NetState, MainViewModel, box_value(NetState::Unknown))
 
     DEPENDENCY_PROPERTY_INIT(Theme, ElementTheme, MainViewModel, box_value(ElementTheme::Default))

@@ -4,6 +4,7 @@
 #include <winrt/Windows.ApplicationModel.Background.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 
+using namespace std;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
@@ -13,7 +14,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 {
     IAsyncOperation<bool> BackgroundHelper::RequestAccessAsync()
     {
-        auto status = co_await BackgroundExecutionManager::RequestAccessAsync();
+        auto status{ co_await BackgroundExecutionManager::RequestAccessAsync() };
         if (status == BackgroundAccessStatus::Unspecified ||
             status == BackgroundAccessStatus::DeniedByUser ||
             status == BackgroundAccessStatus::DeniedBySystemPolicy)
@@ -23,11 +24,11 @@ namespace winrt::TsinghuaNetHelper::implementation
         co_return true;
     }
 
-    void UnregisterTask(hstring const& name)
+    void UnregisterTask(wstring_view const& name)
     {
         for (auto t : BackgroundTaskRegistration::AllTasks())
         {
-            auto registration = t.Value();
+            auto registration{ t.Value() };
             if (registration.Name() == name)
             {
                 registration.Unregister(true);
@@ -35,7 +36,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
     }
 
-    BackgroundTaskBuilder NewTask(hstring const& name, TypeName const& type)
+    BackgroundTaskBuilder NewTask(wstring_view const& name, TypeName const& type)
     {
         BackgroundTaskBuilder task;
         task.Name(name);
@@ -43,15 +44,15 @@ namespace winrt::TsinghuaNetHelper::implementation
         return task;
     }
 
-    constexpr wchar_t LIVETILETASK[] = L"LIVETILETASK";
-    constexpr wchar_t LOGINTASK[] = L"LOGINTASK";
+    constexpr wstring_view LIVETILETASK{ L"LIVETILETASK" };
+    constexpr wstring_view LOGINTASK{ L"LOGINTASK" };
 
     void BackgroundHelper::RegisterLiveTile(bool reg)
     {
         UnregisterTask(LIVETILETASK);
         if (reg)
         {
-            auto task = NewTask(LIVETILETASK, xaml_typename<LiveTileTask>());
+            auto task{ NewTask(LIVETILETASK, xaml_typename<LiveTileTask>()) };
             task.SetTrigger(TimeTrigger(15, false));
             task.AddCondition(SystemCondition(SystemConditionType::InternetAvailable));
             task.Register();
@@ -63,7 +64,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         UnregisterTask(LOGINTASK);
         if (reg)
         {
-            auto task = NewTask(LOGINTASK, xaml_typename<LoginTask>());
+            auto task{ NewTask(LOGINTASK, xaml_typename<LoginTask>()) };
             task.SetTrigger(SystemTrigger(SystemTriggerType::NetworkStateChange, false));
             task.Register();
         }

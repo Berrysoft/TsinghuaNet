@@ -16,13 +16,13 @@ namespace winrt::TsinghuaNetUWP
     template <typename D>
     void OnUserPropertyChangedH(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e)
     {
-        constexpr std::uint64_t BaseFlux = 25000000000;
+        constexpr std::uint64_t BaseFlux{ 25000000000 };
         if (auto content{ d.try_as<typename D::class_type>() })
         {
-            D* pc = get_self<D>(content);
-            auto flux = e.NewValue().try_as<TsinghuaNetHelper::FluxUser>();
+            D* pc{ get_self<D>(content) };
+            auto flux{ e.NewValue().try_as<TsinghuaNetHelper::FluxUser>() };
             pc->OnlineTime(flux.OnlineTime());
-            double maxf = (double)TsinghuaNetHelper::UserHelper::GetMaxFlux(flux);
+            double maxf{ (double)TsinghuaNetHelper::UserHelper::GetMaxFlux(flux) };
             pc->FluxAnimation().To(flux.Flux() / maxf);
             pc->FreeAnimation().To(BaseFlux / maxf);
         }

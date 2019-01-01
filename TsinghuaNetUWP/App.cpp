@@ -45,7 +45,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     void App::OnLaunched(LaunchActivatedEventArgs const& e)
     {
         Frame rootFrame{ nullptr };
-        auto content = Window::Current().Content();
+        auto content{ Window::Current().Content() };
         if (content)
         {
             rootFrame = content.try_as<Frame>();
@@ -88,7 +88,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <param name="e">事件的事件数据。</param>
     void App::OnActivated(IActivatedEventArgs const& e)
     {
-        Frame rootFrame = Window::Current().Content().try_as<Frame>();
+        Frame rootFrame{ Window::Current().Content().try_as<Frame>() };
         if (!rootFrame)
         {
             rootFrame = Frame();
@@ -101,9 +101,9 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             rootFrame.Navigate(xaml_typename<TsinghuaNetUWP::MainPage>(), box_value(e.Kind()));
         }
-        auto mainPage = rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>();
+        auto mainPage{ rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>() };
 
-        MainPage* pmain = get_self<MainPage>(mainPage);
+        MainPage* pmain{ get_self<MainPage>(mainPage) };
         if (e.Kind() == ActivationKind::ToastNotification)
         {
             pmain->ToastLogined(true);
@@ -121,12 +121,12 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// <param name="e">有关挂起请求的详细信息。</param>
     void App::OnSuspending(IInspectable const&, SuspendingEventArgs const& e)
     {
-        auto deferral = e.SuspendingOperation().GetDeferral();
+        auto deferral{ e.SuspendingOperation().GetDeferral() };
         if (Frame rootFrame{ Window::Current().Content().try_as<Frame>() })
         {
             if (auto mainPage{ rootFrame.Content().try_as<TsinghuaNetUWP::MainPage>() })
             {
-                MainPage* pmain = get_self<MainPage>(mainPage);
+                MainPage* pmain{ get_self<MainPage>(mainPage) };
                 pmain->SaveSettings();
             }
         }
