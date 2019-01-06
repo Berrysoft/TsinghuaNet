@@ -15,7 +15,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         InitializeComponent();
     }
 
-    DEPENDENCY_PROPERTY_INIT(User, FluxUser, LineUserContent, nullptr, OnUserPropertyChangedH<LineUserContent>)
+    DEPENDENCY_PROPERTY_INIT(User, TsinghuaNetUWP::FluxUserBox, LineUserContent, nullptr, OnUserPropertyChangedH<LineUserContent>)
     DEPENDENCY_PROPERTY_INIT(OnlineTime, TimeSpan, LineUserContent, box_value(TimeSpan{}))
     DEPENDENCY_PROPERTY_INIT(FreeOffset, double, LineUserContent, box_value(1.0))
     DEPENDENCY_PROPERTY_INIT(FluxOffset, double, LineUserContent, box_value(0.0))

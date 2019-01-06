@@ -20,9 +20,9 @@ namespace winrt::TsinghuaNetUWP
         if (auto content{ d.try_as<typename D::class_type>() })
         {
             D* pc{ get_self<D>(content) };
-            auto flux{ e.NewValue().try_as<TsinghuaNetHelper::FluxUser>() };
+            auto flux{ e.NewValue().try_as<FluxUserBox>() };
             pc->OnlineTime(flux.OnlineTime());
-            double maxf{ (double)TsinghuaNetHelper::UserHelper::GetMaxFlux(flux) };
+            double maxf{ (double)TsinghuaNetHelper::UserHelper::GetMaxFlux(flux.Flux(), flux.Balance()) };
             pc->FluxAnimation().To(flux.Flux() / maxf);
             pc->FreeAnimation().To(BaseFlux / maxf);
         }

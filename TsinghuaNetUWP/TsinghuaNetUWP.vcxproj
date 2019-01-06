@@ -137,6 +137,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="EnumCheckedConverter.h" />
+    <ClInclude Include="FluxUserBox.h">
+      <DependentUpon>FluxUserBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="LineUserContent.h">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -238,6 +242,10 @@
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="FluxUserBox.cpp">
+      <DependentUpon>FluxUserBox.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Generated Files\module.g.cpp" />
     <ClCompile Include="LineUserContent.cpp">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
@@ -282,6 +290,9 @@
     <Midl Include="EditSuggestionDialog.idl">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="FluxUserBox.idl">
+      <SubType>Designer</SubType>
     </Midl>
     <Midl Include="IUserContent.idl" />
     <Midl Include="LineUserContent.idl">

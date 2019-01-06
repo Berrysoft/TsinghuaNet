@@ -2,6 +2,7 @@
 #include "ArcUserContent.g.h"
 
 #include "../Shared/Utility.h"
+#include "FluxUserBox.h"
 #include "UserContentHelper.h"
 
 namespace winrt::TsinghuaNetUWP::implementation
@@ -15,7 +16,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         void BeginAnimation() { FluxStoryboard().Begin(); }
         bool AddOneSecond() { return AddOneSecondH(*this); }
 
-        DEPENDENCY_PROPERTY(User, TsinghuaNetHelper::FluxUser)
+        DEPENDENCY_PROPERTY(User, TsinghuaNetUWP::FluxUserBox)
         DEPENDENCY_PROPERTY(OnlineTime, Windows::Foundation::TimeSpan)
         DEPENDENCY_PROPERTY(FreeOffset, double)
         DEPENDENCY_PROPERTY(FluxOffset, double)

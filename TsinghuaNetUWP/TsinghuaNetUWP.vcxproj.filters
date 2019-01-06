@@ -50,6 +50,9 @@
     <Midl Include="ArcUserContent.idl" />
     <Midl Include="LineUserContent.idl" />
     <Midl Include="WaterUserContent.idl" />
+    <Midl Include="FluxUserBox.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -48,9 +48,6 @@
     <ClCompile Include="ConnectHelper.cpp">
       <Filter>NetHelper</Filter>
     </ClCompile>
-    <ClCompile Include="FluxUser.cpp">
-      <Filter>NetHelper</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -110,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="ConnectHelper.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="FluxUser.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
   </ItemGroup>

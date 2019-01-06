@@ -1,8 +1,10 @@
+import "FluxUserBox.idl";
+
 namespace TsinghuaNetUWP
 {
     interface IUserContent
     {
-        TsinghuaNetHelper.FluxUser User;
+        FluxUserBox User;
         Windows.Foundation.TimeSpan OnlineTime;
         Double FreeOffset;
         Double FluxOffset;

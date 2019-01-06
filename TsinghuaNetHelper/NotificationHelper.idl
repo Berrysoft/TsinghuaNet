@@ -10,7 +10,7 @@ namespace TsinghuaNetHelper
         static String GetCurrencyString(Double currency);
         static String GetNetStateString(NetState state);
         static String GetInternetStatusString(InternetStatus status);
-        static UInt64 GetMaxFlux(FluxUser user);
+        static UInt64 GetMaxFlux(UInt64 flux, Double balance);
         static FluxUser GetFluxUser(String str);
         static LogResponse GetLogResponse(String str);
         static LogResponse GetAuthLogResponse(String str, Boolean login);

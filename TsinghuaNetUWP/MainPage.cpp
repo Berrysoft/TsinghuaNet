@@ -2,6 +2,7 @@
 
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
+#include "FluxUserBox.h"
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
 #include "UserContentHelper.h"
@@ -253,7 +254,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         NotificationHelper::UpdateTile(flux);
 
         auto content{ Model().UserContent().try_as<IUserContent>() };
-        content.User(flux);
+        content.User(make<FluxUserBox>(flux));
         content.BeginAnimation();
         mainTimer.Start();
     }
