@@ -1,10 +1,12 @@
 ﻿#include "pch.h"
 
+#include "../Shared/LinqHelper.h"
 #include "BackgroundHelper.h"
 #include <winrt/Windows.ApplicationModel.Background.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 
 using namespace std;
+using namespace linq;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
@@ -26,13 +28,14 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     void UnregisterTask(wstring_view const& name)
     {
-        for (auto t : BackgroundTaskRegistration::AllTasks())
+        auto ts{ BackgroundTaskRegistration::AllTasks() };
+        auto f{ ts.First() };
+
+        for (auto r : BackgroundTaskRegistration::AllTasks() >>
+                          select([](auto t) { return t.Value(); }) >>
+                          where([&](auto r) { return r.Name() == name; }))
         {
-            auto registration{ t.Value() };
-            if (registration.Name() == name)
-            {
-                registration.Unregister(true);
-            }
+            r.Unregister(true);
         }
     }
 

@@ -36,19 +36,19 @@ private:                                                                        
 #define EVENT_DECL(Name, type)                                                                                               \
 public:                                                                                                                      \
     winrt::event_token Name(Windows::Foundation::EventHandler<type> const& handler) { return m_##Name##Event.add(handler); } \
-    void Name(winrt::event_token const& token) { m_##Name##Event.remove(token); }                                   \
+    void Name(winrt::event_token const& token) { m_##Name##Event.remove(token); }                                            \
                                                                                                                              \
 private:                                                                                                                     \
     winrt::event<Windows::Foundation::EventHandler<type>> m_##Name##Event;
 
 namespace winrt
 {
-	inline std::wostream& operator<<(std::wostream& os, hstring const& s)
-	{
-		return os << std::wstring_view(s);
-	}
-	inline std::ostream& operator<<(std::ostream& os, hstring const& s)
-	{
-		return os << to_string(s);
-	}
+    inline std::wostream& operator<<(std::wostream& os, hstring const& s)
+    {
+        return os << std::wstring_view(s);
+    }
+    inline std::ostream& operator<<(std::ostream& os, hstring const& s)
+    {
+        return os << to_string(s);
+    }
 } // namespace winrt

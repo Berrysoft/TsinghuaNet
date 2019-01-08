@@ -1,7 +1,10 @@
 ﻿#include "pch.h"
 
+#include "../Shared/LinqHelper.h"
 #include "EditSuggestionDialog.h"
+#include <linq/aggregate.hpp>
 
+using namespace linq;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
@@ -39,17 +42,14 @@ namespace winrt::TsinghuaNetUWP::implementation
             // 清空文本框
             AddFlyoutText().Text(hstring());
             // 如果列表中已存在，不添加
-            for (auto pair : m_WlanList)
+            if (!(m_WlanList >>
+                  select([](auto pair) { return pair.try_as<TsinghuaNetUWP::NetStateSsidBox>(); }) >>
+                  any([&ssid](auto item) { return item && item.Ssid() == ssid; })))
             {
-                auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() };
-                if (item && item.Ssid() == ssid)
-                {
-                    return;
-                }
+                auto item{ make<NetStateSsidBox>() };
+                item.Ssid(ssid);
+                m_WlanList.Append(item);
             }
-            auto item{ make<NetStateSsidBox>() };
-            item.Ssid(ssid);
-            m_WlanList.Append(item);
         }
     }
 

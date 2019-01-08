@@ -119,6 +119,7 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Shared\LinqHelper.h" />
     <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Arc.h">
       <DependentUpon>Arc.xaml</DependentUpon>
@@ -210,7 +211,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include=".clang-format" />
     <None Include="packages.config" />
     <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
   </ItemGroup>

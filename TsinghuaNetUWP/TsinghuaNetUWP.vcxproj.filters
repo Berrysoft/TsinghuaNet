@@ -67,6 +67,7 @@
     <ClCompile Include="ArcUserContent.cpp" />
     <ClCompile Include="LineUserContent.cpp" />
     <ClCompile Include="WaterUserContent.cpp" />
+    <ClCompile Include="FluxUserBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -98,6 +99,8 @@
     <ClInclude Include="UserContentHelper.h">
       <Filter>Contents</Filter>
     </ClInclude>
+    <ClInclude Include="FluxUserBox.h" />
+    <ClInclude Include="..\Shared\LinqHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -133,7 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetUWP_TemporaryKey.pfx" />
-    <None Include=".clang-format" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

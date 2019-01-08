@@ -1,9 +1,11 @@
 ﻿#include "pch.h"
 
+#include "../Shared/LinqHelper.h"
 #include "CredentialHelper.h"
 #include <winrt/Windows.Security.Credentials.h>
 
 using namespace std;
+using namespace linq;
 using namespace winrt;
 using namespace Windows::Security::Credentials;
 
@@ -14,14 +16,11 @@ namespace winrt::TsinghuaNetHelper::implementation
     hstring CredentialHelper::GetCredential(hstring const& username)
     {
         PasswordVault vault;
-        auto all{ vault.RetrieveAll() };
-        for (auto c : all)
+        for (auto c : vault.RetrieveAll() >>
+                          where([&](PasswordCredential c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
         {
-            if (c.Resource() == CredentialResource && c.UserName() == username)
-            {
-                c.RetrievePassword();
-                return c.Password();
-            }
+            c.RetrievePassword();
+            return c.Password();
         }
         return {};
     }
@@ -35,13 +34,10 @@ namespace winrt::TsinghuaNetHelper::implementation
     void CredentialHelper::RemoveCredential(hstring const& username)
     {
         PasswordVault vault;
-        auto all{ vault.RetrieveAll() };
-        for (auto c : all)
+        for (auto c : vault.RetrieveAll() >>
+                          where([&](auto c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
         {
-            if (c.Resource() == CredentialResource && c.UserName() == username)
-            {
-                vault.Remove(c);
-            }
+            vault.Remove(c);
         }
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

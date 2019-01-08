@@ -1,5 +1,6 @@
 ﻿#include "pch.h"
 
+#include "../Shared/LinqHelper.h"
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include "FluxUserBox.h"
@@ -12,6 +13,7 @@
 
 using namespace std::chrono_literals;
 using sf::sprint;
+using namespace linq;
 using namespace concurrency;
 using namespace winrt;
 using namespace Windows::ApplicationModel::Core;
@@ -323,12 +325,11 @@ namespace winrt::TsinghuaNetUWP::implementation
             settings.LanState(dialog.LanCombo().Value());
             settings.WwanState(dialog.WwanCombo().Value());
             s.Clear();
-            for (auto pair : dialog.WlanList())
+            for (auto item :
+                 dialog.WlanList() >>
+                     select([](auto pair) { return pair.try_as<TsinghuaNetUWP::NetStateSsidBox>(); }))
             {
-                if (auto item{ pair.try_as<TsinghuaNetUWP::NetStateSsidBox>() })
-                {
-                    s.Insert(item.Ssid(), item.Value());
-                }
+                s.Insert(item.Ssid(), item.Value());
             }
             settings.WlanStates(s);
             RefreshStatusImpl();

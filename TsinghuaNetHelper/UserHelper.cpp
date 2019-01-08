@@ -2,10 +2,13 @@
 
 #include "../Shared/Utility.h"
 #include "UserHelper.h"
+#include <linq/string.hpp>
+#include <linq/to_container.hpp>
 
 using namespace std;
 using namespace std::chrono;
 using sf::sprint;
+using namespace linq;
 using namespace winrt;
 using namespace Windows::Data::Json;
 using namespace Windows::Foundation;
@@ -94,25 +97,6 @@ namespace winrt::TsinghuaNetHelper::implementation
         return max(flux, BaseFlux) + (uint64_t)(balance / 2 * 1000 * 1000 * 1000);
     }
 
-    vector<wstring_view> string_split(wstring_view const& s, wchar_t separator)
-    {
-        vector<wstring_view> result;
-        size_t offset{ 0 }, index{ 0 };
-        while ((index = s.find(separator, offset)) != wstring_view::npos)
-        {
-            if (index > offset)
-            {
-                result.push_back(s.substr(offset, index - offset));
-            }
-            offset = index + 1;
-        }
-        if (offset < s.length())
-        {
-            result.push_back(s.substr(offset));
-        }
-        return result;
-    }
-
     inline unsigned long long stoull(wstring_view str)
     {
         return wcstoull(str.data(), nullptr, 10);
@@ -125,14 +109,14 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     FluxUser UserHelper::GetFluxUser(hstring const& str)
     {
-        auto r{ string_split(str, L',') };
+        auto r{ str >> split(L',') >> to_vector<wstring_view>() };
         FluxUser result{};
         if (!r.empty())
         {
             result.Username = r[0];
             result.Flux = stoull(r[6]);
             result.OnlineTime = seconds(stoull(r[2]) - stoull(r[1]));
-            result.Balance = stod(r[10]);
+            result.Balance = stod(r[11]);
         }
         return result;
     }
@@ -190,7 +174,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             }
             else
             {
-                auto s{ string_split(msg, L':') };
+                auto s{ msg >> split(L':') >> to_vector<wstring_view>() };
                 if (!s.empty())
                 {
                     if (s.size() == 1)
