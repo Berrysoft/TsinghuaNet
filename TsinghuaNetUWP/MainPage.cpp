@@ -254,7 +254,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
         // 更新磁贴
         NotificationHelper::UpdateTile(flux);
-
+        // 设置内容
         auto content{ Model().UserContent().try_as<IUserContent>() };
         content.User(make<FluxUserBox>(flux));
         content.BeginAnimation();
@@ -290,10 +290,13 @@ namespace winrt::TsinghuaNetUWP::implementation
         return ConnectHelper::GetHelper(Model().State(), Model().Username(), Model().Password());
     }
 
-    void MainPage::ShowResponse(LogResponse const& response)
+    fire_and_forget MainPage::ShowResponse(LogResponse const& response)
     {
         Model().Response(response);
         ResponseFlyout().ShowAt(MainBar());
+        co_await 3s;
+        Dispatcher().RunAsync(CoreDispatcherPriority::Normal,
+                              [this]() { ResponseFlyout().Hide(); });
     }
 
     void MainPage::ShowHresultError(hresult_error const& e)

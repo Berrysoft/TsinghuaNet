@@ -71,7 +71,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         concurrency::task<void> RefreshImpl(TsinghuaNetHelper::IConnect const helper);
         concurrency::task<void> DropImpl(hstring const address);
         TsinghuaNetHelper::IConnect GetHelper();
-        void ShowResponse(TsinghuaNetHelper::LogResponse const& response);
+        fire_and_forget ShowResponse(TsinghuaNetHelper::LogResponse const& response);
         void ShowHresultError(hresult_error const& e);
 
         void MainTimerTickImpl();

@@ -50,9 +50,9 @@ namespace winrt::TsinghuaNetHelper
         smatch match;
         if (regex_search(result, match, reg))
         {
-            return match[1].str();
+            co_return match[1].str();
         }
-        return {};
+        co_return{};
     }
 
     constexpr char LoginInfoJson[]{ "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}" };

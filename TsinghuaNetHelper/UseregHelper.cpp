@@ -2,10 +2,12 @@
 
 #include "CryptographyHelper.h"
 #include "UseregHelper.h"
+#include <linq/to_container.hpp>
 #include <regex>
 
 using namespace std;
 using sf::sprint;
+using namespace linq;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
@@ -37,30 +39,28 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wchar_t ItemRegex[]{ L"<td class=\"maintd\">(.*?)</td>" };
     IAsyncOperation<IVector<NetUser>> UseregHelper::UsersAsync()
     {
-        auto result{ single_threaded_vector<NetUser>() };
         wregex tabler{ TableRegex };
         wregex itemr{ ItemRegex };
         wstring userhtml(co_await GetAsync(Uri(InfoUri)));
-        wsregex_iterator row_begin{ userhtml.begin(), userhtml.end(), tabler };
-        wsregex_iterator row_end{};
-        for (; row_begin != row_end; ++row_begin)
-        {
-            wstring r{ row_begin->str() };
-            wsregex_iterator col_begin{ r.begin(), r.end(), itemr };
-            wsregex_iterator col_end{};
-            vector<wstring_view> details;
-            for (; col_begin != col_end; ++col_begin)
-            {
-                auto& match{ *col_begin };
-                auto& range{ match[1] };
-                details.emplace_back(addressof(*range.first), range.length());
-            }
-            NetUser t;
-            t.Address(hstring(details[0]));
-            t.LoginTime(hstring(details[1]));
-            t.Client(hstring(details[10]));
-            result.Append(t);
-        }
-        return result;
+        auto result{
+            get_enumerable(wsregex_iterator{ userhtml.begin(), userhtml.end(), tabler }, wsregex_iterator{}) >>
+            select([&itemr](auto& m) {
+                auto r{ m.str() };
+                auto details{
+                    get_enumerable(wsregex_iterator{ r.begin(), r.end(), itemr }, wsregex_iterator{}) >>
+                    select([](auto& m) {
+                        auto& range{ m[1] };
+                        return wstring_view(addressof(*range.first), range.length());
+                    }) >>
+                    to_vector<wstring_view>()
+                };
+                NetUser t;
+                t.Address(hstring(details[0]));
+                t.LoginTime(hstring(details[1]));
+                t.Client(hstring(details[10]));
+                return t;
+            })
+        };
+        co_return single_threaded_vector(result >> to_vector<NetUser>());
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

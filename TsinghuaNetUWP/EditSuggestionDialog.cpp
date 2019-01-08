@@ -2,7 +2,6 @@
 
 #include "../Shared/LinqHelper.h"
 #include "EditSuggestionDialog.h"
-#include <linq/aggregate.hpp>
 
 using namespace linq;
 using namespace winrt;

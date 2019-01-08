@@ -20,6 +20,7 @@
 #include <winrt/Windows.UI.Xaml.Shapes.h>
 #include <winrt/Windows.UI.Xaml.h>
 
+#include <linq/aggregate.hpp>
 #include <linq/query.hpp>
 #include <pplawait.h>
 #include <sf/sformat.hpp>

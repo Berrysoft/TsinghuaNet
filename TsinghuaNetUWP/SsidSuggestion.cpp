@@ -1,8 +1,10 @@
 ﻿#include "pch.h"
 
+#include "../Shared/LinqHelper.h"
 #include "NetStateBox.h"
 #include "SsidSuggestion.h"
 
+using namespace linq;
 using namespace winrt;
 using namespace Windows::UI::Xaml;
 using namespace TsinghuaNetHelper;
@@ -22,15 +24,10 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     int SsidSuggestion::ValueToIndex(NetState value) const
     {
-        int size{ (int)m_States.Size() };
-        for (int i{ 0 }; i < size; i++)
-        {
-            if (m_States.GetAt(i).try_as<TsinghuaNetUWP::NetStateBox>().Value() == value)
-            {
-                return i;
-            }
-        }
-        return 0;
+        auto i{ m_States >>
+                select([](auto s) { return s.try_as<TsinghuaNetUWP::NetStateBox>(); }) >>
+                index_of([=](auto box) { return box.Value() == value; }) };
+        return i != size_t(-1) ? (int)i : 0;
     }
 
     NetState SsidSuggestion::IndexToValue(int index) const
