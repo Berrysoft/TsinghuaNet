@@ -53,6 +53,9 @@
     <Midl Include="FluxUserBox.idl">
       <Filter>ViewModels</Filter>
     </Midl>
+    <Midl Include="RadialGradientBrush.idl">
+      <Filter>Contents</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

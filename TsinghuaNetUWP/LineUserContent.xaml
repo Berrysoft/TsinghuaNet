@@ -10,12 +10,10 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <LinearGradientBrush x:Key="LineBrush" StartPoint="0,0.5" EndPoint="1,0.5">
-            <LinearGradientBrush.GradientStops>
-                <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
-                <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
-            </LinearGradientBrush.GradientStops>
+            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+            <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+            <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
         </LinearGradientBrush>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="FluxStoryboard">

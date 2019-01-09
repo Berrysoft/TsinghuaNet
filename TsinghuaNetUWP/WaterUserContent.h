@@ -3,6 +3,7 @@
 
 #include "../Shared/Utility.h"
 #include "FluxUserBox.h"
+#include "RadialGradientBrush.h"
 #include "UserContentHelper.h"
 
 namespace winrt::TsinghuaNetUWP::implementation

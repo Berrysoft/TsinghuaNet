@@ -1,0 +1,32 @@
+namespace TsinghuaNetUWP
+{
+    [Windows.UI.Xaml.Markup.ContentPropertyAttribute("GradientStops")]
+        [bindable][default_interface] runtimeclass RadialGradientBrush : Windows.UI.Xaml.Media.XamlCompositionBrushBase
+    {
+        RadialGradientBrush();
+
+        Microsoft.Graphics.Canvas.CanvasAlphaMode AlphaMode;
+        static Windows.UI.Xaml.DependencyProperty AlphaModeProperty { get; };
+
+        Windows.UI.Xaml.Media.ColorInterpolationMode ColorInterpolationMode;
+        static Windows.UI.Xaml.DependencyProperty ColorInterpolationModeProperty { get; };
+
+        Windows.Foundation.Collections.IObservableVector<Windows.UI.Xaml.Media.GradientStop> GradientStops;
+        static Windows.UI.Xaml.DependencyProperty GradientStopsProperty { get; };
+
+        Windows.Foundation.Point Center;
+        static Windows.UI.Xaml.DependencyProperty CenterProperty { get; };
+
+        Windows.Foundation.Point GradientOrigin;
+        static Windows.UI.Xaml.DependencyProperty GradientOriginProperty { get; };
+
+        Double RadiusX;
+        static Windows.UI.Xaml.DependencyProperty RadiusXProperty { get; };
+
+        Double RadiusY;
+        static Windows.UI.Xaml.DependencyProperty RadiusYProperty { get; };
+
+        Windows.UI.Xaml.Media.GradientSpreadMethod SpreadMethod;
+        static Windows.UI.Xaml.DependencyProperty SpreadMethodProperty { get; };
+    }
+} // namespace TsinghuaNetUWP
