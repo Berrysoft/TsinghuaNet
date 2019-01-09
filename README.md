@@ -15,6 +15,10 @@
             <th><img alt="适应主题" src="./Screenshots/Theme.png"/></th>
             <th><img alt="编辑建议" src="./Screenshots/Suggestions.png"/></th>
         </tr>
+        <tr>
+            <th><img alt="直线" src="./Screenshots/Line.png"/></th>
+            <th><img alt="图标" src="./Screenshots/Circle.png"/></th>
+        </tr>
     </tbody>
 </table>
 
@@ -34,6 +38,6 @@
 ## 编译
 源代码编译需要已经为Visual Studio安装“通用 Windows 平台开发”以及其中的“C++ 通用 Windows 平台工具”，并需要Windows SDK 10.0.17763。
 
-此外，还需要我自己的格式化库[StreamFormat](https://github.com/Berrysoft/StreamFormat)。复制头文件即可。
+此外，还需要我自己的库[StreamFormat](https://github.com/Berrysoft/StreamFormat)与[CppLinq](https://github.com/Berrysoft/CppLinq)。复制头文件即可。
 
 最后，面对C++的编译速度，请保持耐心。
