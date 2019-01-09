@@ -71,6 +71,7 @@
     <ClCompile Include="LineUserContent.cpp" />
     <ClCompile Include="WaterUserContent.cpp" />
     <ClCompile Include="FluxUserBox.cpp" />
+    <ClCompile Include="RadialGradientBrush.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -104,6 +105,7 @@
     </ClInclude>
     <ClInclude Include="FluxUserBox.h" />
     <ClInclude Include="..\Shared\LinqHelper.h" />
+    <ClInclude Include="RadialGradientBrush.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
