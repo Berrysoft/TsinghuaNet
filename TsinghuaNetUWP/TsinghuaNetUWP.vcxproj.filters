@@ -104,7 +104,6 @@
       <Filter>Contents</Filter>
     </ClInclude>
     <ClInclude Include="FluxUserBox.h" />
-    <ClInclude Include="..\Shared\LinqHelper.h" />
     <ClInclude Include="RadialGradientBrush.h" />
   </ItemGroup>
   <ItemGroup>

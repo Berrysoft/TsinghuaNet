@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "NetStateBox.h"
 #include "SsidSuggestion.h"
 

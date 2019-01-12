@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "RadialGradientBrush.h"
 #include "winrt/Microsoft.Graphics.Canvas.Brushes.h"
 #include "winrt/Microsoft.Graphics.Canvas.UI.Composition.h"

@@ -109,7 +109,6 @@
     <ClInclude Include="ConnectHelper.h">
       <Filter>NetHelper</Filter>
     </ClInclude>
-    <ClInclude Include="..\Shared\LinqHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TsinghuaNetHelper.def" />

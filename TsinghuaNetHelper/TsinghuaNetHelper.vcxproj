@@ -127,7 +127,6 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Shared\LinqHelper.h" />
     <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Auth4Helper.h" />
     <ClInclude Include="Auth4Helper25.h" />

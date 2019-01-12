@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "BackgroundHelper.h"
 #include <winrt/Windows.ApplicationModel.Background.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>

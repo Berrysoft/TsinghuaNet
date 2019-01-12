@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "ChangeUserDialog.h"
 #include "EditSuggestionDialog.h"
 #include "FluxUserBox.h"

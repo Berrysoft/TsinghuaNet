@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "EditSuggestionDialog.h"
 
 using namespace linq;

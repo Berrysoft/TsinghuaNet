@@ -1,6 +1,5 @@
 ﻿#include "pch.h"
 
-#include "../Shared/LinqHelper.h"
 #include "CredentialHelper.h"
 #include <winrt/Windows.Security.Credentials.h>
 

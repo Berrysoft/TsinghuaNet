@@ -7,6 +7,8 @@
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Web.Http.h>
 
+#include <linq/winrt.hpp>
+
 #include <linq/query.hpp>
 #include <pplawait.h>
 #include <sf/sformat.hpp>
