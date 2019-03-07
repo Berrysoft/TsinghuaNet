@@ -7,6 +7,7 @@
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Web.Http.h>
 
+#define LINQ_USE_WINRT
 #include <linq/winrt.hpp>
 
 #include <linq/query.hpp>

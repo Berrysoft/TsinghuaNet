@@ -6,7 +6,7 @@
 
 using namespace std;
 using namespace concurrency;
-using sf::sprint;
+using namespace sf;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
@@ -18,9 +18,9 @@ namespace winrt::TsinghuaNetHelper
     constexpr wstring_view ChallengeUriBase{ L"http://auth{}.tsinghua.edu.cn/cgi-bin/get_challenge?username={{}}&double_stack=1&ip&callback=callback" };
 
     AuthHelper::AuthHelper(int ver, int ac_id)
-        : LogUri(sprint(LogUriBase, ver)),
-          FluxUri(sprint(FluxUriBase, ver)),
-          ChallengeUri(sprint(ChallengeUriBase, ver)),
+        : LogUri(wsprint(LogUriBase, ver)),
+          FluxUri(wsprint(FluxUriBase, ver)),
+          ChallengeUri(wsprint(ChallengeUriBase, ver)),
           ac_id(ac_id)
     {
     }
@@ -45,7 +45,7 @@ namespace winrt::TsinghuaNetHelper
     constexpr char ChallengeRegex[]{ "\"challenge\":\"(.*?)\"" };
     task<string> AuthHelper::ChallengeAsync()
     {
-        auto result{ co_await GetBytesAsync(Uri(sprint(ChallengeUri, Username()))) };
+        auto result{ co_await GetBytesAsync(Uri(wsprint(ChallengeUri, Username()))) };
         regex reg{ ChallengeRegex };
         smatch match;
         if (regex_search(result, match, reg))

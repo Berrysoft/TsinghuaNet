@@ -11,7 +11,7 @@
 #include <winrt/Windows.UI.ViewManagement.h>
 
 using namespace std::chrono_literals;
-using sf::sprint;
+using namespace sf;
 using namespace linq;
 using namespace concurrency;
 using namespace winrt;
@@ -300,7 +300,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     void MainPage::ShowHresultError(hresult_error const& e)
     {
-        ShowResponse({ hstring(sprint(L"异常 0x{:x8,u}", e.code())), e.message() });
+        ShowResponse({ hstring(wsprint(L"异常 0x{:x8,u}", e.code())), e.message() });
     }
 
     void MainPage::MainTimerTickImpl()

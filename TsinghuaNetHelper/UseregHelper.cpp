@@ -6,7 +6,7 @@
 #include <regex>
 
 using namespace std;
-using sf::sprint;
+using namespace sf;
 using namespace linq;
 using namespace winrt;
 using namespace Windows::Foundation;
@@ -22,7 +22,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<LogResponse> UseregHelper::LoginAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), sprint(LoginData, Username(), GetMD5(Password()))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), wsprint(LoginData, Username(), GetMD5(Password()))));
     }
 
     IAsyncOperation<LogResponse> UseregHelper::LogoutAsync()
@@ -32,7 +32,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<LogResponse> UseregHelper::LogoutAsync(hstring const ip)
     {
-        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(InfoUri), sprint(DropData, ip)));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(InfoUri), wsprint(DropData, ip)));
     }
 
     constexpr wchar_t TableRegex[]{ L"<tr align=\"center\">[\\s\\S]+?</tr>" };

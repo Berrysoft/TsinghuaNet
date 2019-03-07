@@ -6,7 +6,7 @@
 #include <winrt/Windows.UI.Notifications.h>
 
 using namespace std;
-using sf::sprint;
+using namespace sf;
 using namespace winrt;
 using namespace Windows::Data::Xml::Dom;
 using namespace Windows::Foundation;
@@ -53,12 +53,12 @@ namespace winrt::TsinghuaNetHelper::implementation
     void NotificationHelper::UpdateTile(FluxUser const& user)
     {
         XmlDocument dom;
-        dom.LoadXml(sprint(tile_t,
-                           user.Username,
-                           UserHelper::GetFluxString(user.Flux),
-                           UserHelper::GetTimeSpanString(user.OnlineTime),
-                           UserHelper::GetCurrencyString(user.Balance),
-                           UserHelper::GetFluxString(UserHelper::GetMaxFlux(user.Flux, user.Balance) - user.Flux)));
+        dom.LoadXml(wsprint(tile_t,
+                            user.Username,
+                            UserHelper::GetFluxString(user.Flux),
+                            UserHelper::GetTimeSpanString(user.OnlineTime),
+                            UserHelper::GetCurrencyString(user.Balance),
+                            UserHelper::GetFluxString(UserHelper::GetMaxFlux(user.Flux, user.Balance) - user.Flux)));
         TileNotification notification(dom);
         notification.ExpirationTime(clock::now() + 15min);
         TileUpdateManager::CreateTileUpdaterForApplication().Update(notification);
@@ -67,10 +67,10 @@ namespace winrt::TsinghuaNetHelper::implementation
     void NotificationHelper::SendToast(FluxUser const& user)
     {
         XmlDocument dom;
-        dom.LoadXml(sprint(toast_t,
-                           user.Username,
-                           UserHelper::GetFluxString(user.Flux),
-                           UserHelper::GetCurrencyString(user.Balance)));
+        dom.LoadXml(wsprint(toast_t,
+                            user.Username,
+                            UserHelper::GetFluxString(user.Flux),
+                            UserHelper::GetCurrencyString(user.Balance)));
         ToastNotification notification(dom);
         notification.ExpirationTime(clock::now() + 1min);
         ToastNotificationManager::CreateToastNotifier().Show(notification);

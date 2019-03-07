@@ -20,6 +20,7 @@
 #include <winrt/Windows.UI.Xaml.Shapes.h>
 #include <winrt/Windows.UI.Xaml.h>
 
+#define LINQ_USE_WINRT
 #include <linq/winrt.hpp>
 
 #include <linq/aggregate.hpp>

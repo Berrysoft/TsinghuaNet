@@ -4,7 +4,7 @@
 #include "NetHelper.h"
 
 using namespace std;
-using sf::sprint;
+using namespace sf;
 using namespace winrt;
 using namespace Windows::Foundation;
 
@@ -17,7 +17,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     IAsyncOperation<LogResponse> NetHelper::LoginAsync()
     {
-        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), sprint(LoginData, Username(), GetMD5(Password()))));
+        co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(LogUri), wsprint(LoginData, Username(), GetMD5(Password()))));
     }
 
     IAsyncOperation<LogResponse> NetHelper::LogoutAsync()

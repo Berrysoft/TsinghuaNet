@@ -6,7 +6,7 @@
 #include "WaterUserContent.h"
 
 using namespace std;
-using sf::sprint;
+using namespace sf;
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::Foundation;
@@ -22,7 +22,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
     hstring MainViewModel::GetVersionString(PackageVersion const& ver) const
     {
-        return hstring(sprint(L"{}.{}.{}.{}", ver.Major, ver.Minor, ver.Build, ver.Revision));
+        return hstring(wsprint(L"{}.{}.{}.{}", ver.Major, ver.Minor, ver.Build, ver.Revision));
     }
 
     void MainViewModel::OnAutoLoginPropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)

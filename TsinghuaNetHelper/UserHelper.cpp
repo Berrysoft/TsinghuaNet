@@ -7,7 +7,7 @@
 
 using namespace std;
 using namespace std::chrono;
-using sf::sprint;
+using namespace sf;
 using namespace linq;
 using namespace winrt;
 using namespace Windows::Data::Json;
@@ -21,20 +21,20 @@ namespace winrt::TsinghuaNetHelper::implementation
         wstring result;
         if (flux < 1000)
         {
-            result = sprint(L"{} B", flux);
+            result = wsprint(L"{} B", flux);
         }
         else if ((flux /= 1000) < 1000)
         {
-            result = sprint(L"{:f2} kB", flux);
+            result = wsprint(L"{:f2} kB", flux);
         }
         else if ((flux /= 1000) < 1000)
         {
-            result = sprint(L"{:f2} MB", flux);
+            result = wsprint(L"{:f2} MB", flux);
         }
         else
         {
             flux /= 1000;
-            result = sprint(L"{:f2} GB", flux);
+            result = wsprint(L"{:f2} GB", flux);
         }
         return hstring(result);
     }
@@ -49,12 +49,12 @@ namespace winrt::TsinghuaNetHelper::implementation
         tsec -= h * 3600;
         int64_t min{ tsec / 60 };
         tsec -= min * 60;
-        return hstring(sprint(L"{}{:d2}:{:d2}:{:d2}", minus ? L"-" : L"", h, min, tsec));
+        return hstring(wsprint(L"{}{:d2}:{:d2}:{:d2}", minus ? L"-" : L"", h, min, tsec));
     }
 
     hstring UserHelper::GetCurrencyString(double currency)
     {
-        return hstring(sprint(L"￥{:f2}", currency));
+        return hstring(wsprint(L"￥{:f2}", currency));
     }
 
     hstring UserHelper::GetNetStateString(NetState state)
@@ -207,7 +207,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
         else
         {
-            return hstring(sprint(L"{}：{}", response.Code, response.Message));
+            return hstring(wsprint(L"{}：{}", response.Code, response.Message));
         }
     }
 } // namespace winrt::TsinghuaNetHelper::implementation
