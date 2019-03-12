@@ -104,7 +104,13 @@
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
                     </StackPanel>
-                    <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}"/>
+                    <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}">
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.ItemContainerTransitions>
+                    </ListView>
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>

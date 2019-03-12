@@ -42,8 +42,9 @@ namespace winrt::TsinghuaNetUWP::implementation
             return CanvasColorSpace::ScRgb;
         case ColorInterpolationMode::SRgbLinearInterpolation:
             return CanvasColorSpace::Srgb;
+        default:
+            return CanvasColorSpace::Custom;
         }
-        return CanvasColorSpace::Custom;
     }
 
     RadialGradientBrush::RadialGradientBrush()
@@ -102,9 +103,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             auto stops{
                 GradientStops() >>
-                select([](GradientStop stop) {
-                    return CanvasGradientStop{ (float)stop.Offset(), stop.Color() };
-                }) >>
+                select([](GradientStop stop) { return CanvasGradientStop{ (float)stop.Offset(), stop.Color() }; }) >>
                 to_vector<CanvasGradientStop>()
             };
 

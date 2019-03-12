@@ -25,28 +25,20 @@ namespace winrt::TsinghuaNetHelper::implementation
         }
     }
 
-    template <typename T>
-    inline T MakeHelper(hstring const& username, hstring const& password)
-    {
-        T result;
-        result.Username(username);
-        result.Password(password);
-        return result;
-    }
     IConnect ConnectHelper::GetHelper(NetState const& state, hstring const& username, hstring const& password)
     {
         switch (state)
         {
         case NetState::Net:
-            return MakeHelper<NetHelper>(username, password);
+            return NetHelper(username, password);
         case NetState::Auth4:
-            return MakeHelper<Auth4Helper>(username, password);
+            return Auth4Helper(username, password);
         case NetState::Auth6:
-            return MakeHelper<Auth6Helper>(username, password);
+            return Auth6Helper(username, password);
         case NetState::Auth4_25:
-            return MakeHelper<Auth4Helper25>(username, password);
+            return Auth4Helper25(username, password);
         case NetState::Auth6_25:
-            return MakeHelper<Auth6Helper25>(username, password);
+            return Auth6Helper25(username, password);
         default:
             return nullptr;
         }

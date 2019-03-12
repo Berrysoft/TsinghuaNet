@@ -17,8 +17,9 @@ namespace winrt::TsinghuaNetHelper
     constexpr wstring_view FluxUriBase{ L"http://auth{}.tsinghua.edu.cn/rad_user_info.php" };
     constexpr wstring_view ChallengeUriBase{ L"http://auth{}.tsinghua.edu.cn/cgi-bin/get_challenge?username={{}}&double_stack=1&ip&callback=callback" };
 
-    AuthHelper::AuthHelper(int ver, int ac_id)
-        : LogUri(wsprint(LogUriBase, ver)),
+    AuthHelper::AuthHelper(int ver, int ac_id, hstring const& username, hstring const& password)
+        : NetHelperBase(username, password),
+          LogUri(wsprint(LogUriBase, ver)),
           FluxUri(wsprint(FluxUriBase, ver)),
           ChallengeUri(wsprint(ChallengeUriBase, ver)),
           ac_id(ac_id)
@@ -52,7 +53,7 @@ namespace winrt::TsinghuaNetHelper
         {
             co_return match[1].str();
         }
-        co_return{};
+        co_return {};
     }
 
     constexpr char LoginInfoJson[]{ "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}" };

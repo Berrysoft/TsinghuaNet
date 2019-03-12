@@ -268,9 +268,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     {
         try
         {
-            UseregHelper helper;
-            helper.Username(Model().Username());
-            helper.Password(Model().Password());
+            UseregHelper helper{ Model().Username(), Model().Password() };
             co_await helper.LoginAsync();
             co_await helper.LogoutAsync(address);
             co_await RefreshNetUsersImpl(helper);
@@ -389,9 +387,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         {
             if ((int)Model().State())
             {
-                UseregHelper helper;
-                helper.Username(Model().Username());
-                helper.Password(Model().Password());
+                UseregHelper helper{ Model().Username(), Model().Password() };
                 co_await helper.LoginAsync();
                 co_await RefreshNetUsersImpl(helper);
             }

@@ -35,29 +35,34 @@ namespace TsinghuaNetHelper
         static IConnect GetHelper(NetState state, String username, String password);
     }
 
-    runtimeclass NetHelper : ICredential, IConnect
+    [default_interface] runtimeclass NetHelper : ICredential, IConnect
     {
         NetHelper();
+        NetHelper(String username, String password);
     }
 
-    runtimeclass Auth4Helper : ICredential, IConnect
+    [default_interface] runtimeclass Auth4Helper : ICredential, IConnect
     {
         Auth4Helper();
+        Auth4Helper(String username, String password);
     }
 
-    runtimeclass Auth6Helper : ICredential, IConnect
+    [default_interface] runtimeclass Auth6Helper : ICredential, IConnect
     {
         Auth6Helper();
+        Auth6Helper(String username, String password);
     }
 
-    runtimeclass Auth4Helper25 : ICredential, IConnect
+    [default_interface] runtimeclass Auth4Helper25 : ICredential, IConnect
     {
         Auth4Helper25();
+        Auth4Helper25(String username, String password);
     }
 
-    runtimeclass Auth6Helper25 : ICredential, IConnect
+    [default_interface] runtimeclass Auth6Helper25 : ICredential, IConnect
     {
         Auth6Helper25();
+        Auth6Helper25(String username, String password);
     }
 
     [bindable] runtimeclass NetUser : Windows.UI.Xaml.DependencyObject
@@ -79,9 +84,10 @@ namespace TsinghuaNetHelper
         Boolean Equals(NetUser user);
     }
 
-    runtimeclass UseregHelper : ICredential
+    [default_interface] runtimeclass UseregHelper : ICredential
     {
         UseregHelper();
+        UseregHelper(String username, String password);
 
         Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
         Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();

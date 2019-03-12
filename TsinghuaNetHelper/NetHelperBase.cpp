@@ -52,8 +52,7 @@ namespace winrt::TsinghuaNetHelper
     /// <param name="data">要发送的数据</param>
     task<hstring> NetHelperBase::PostAsync(Uri const uri, wstring_view const data)
     {
-        auto content = HttpStringContent(data, UnicodeEncoding::Utf8,
-                                         L"application/x-www-form-urlencoded");
+        auto content = HttpStringContent(data, UnicodeEncoding::Utf8, L"application/x-www-form-urlencoded");
         auto response = co_await client.PostAsync(uri, content);
         co_return co_await response.Content().ReadAsStringAsync();
     }

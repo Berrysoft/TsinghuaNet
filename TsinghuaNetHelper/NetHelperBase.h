@@ -5,7 +5,7 @@ namespace winrt::TsinghuaNetHelper
 {
     struct NetHelperBase
     {
-        NetHelperBase() = default;
+        NetHelperBase(hstring const& username = {}, hstring const& password = {}) : m_Username(username), m_Password(password) {}
 
         concurrency::task<hstring> GetAsync(Windows::Foundation::Uri const uri);
         concurrency::task<std::string> GetBytesAsync(Windows::Foundation::Uri const uri);

@@ -7,7 +7,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 {
     struct NetHelper : NetHelperT<NetHelper>, NetHelperBase
     {
-        NetHelper() {}
+        NetHelper(hstring const& username = {}, hstring const& password = {}) : NetHelperBase(username, password) {}
 
         Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
         Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();

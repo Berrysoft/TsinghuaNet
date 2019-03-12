@@ -1,7 +1,6 @@
 namespace TsinghuaNetUWP
 {
-    [Windows.UI.Xaml.Markup.ContentPropertyAttribute("GradientStops")]
-        [bindable][default_interface] runtimeclass RadialGradientBrush : Windows.UI.Xaml.Media.XamlCompositionBrushBase
+    [Windows.UI.Xaml.Markup.ContentPropertyAttribute("GradientStops")][bindable][default_interface] runtimeclass RadialGradientBrush : Windows.UI.Xaml.Media.XamlCompositionBrushBase
     {
         RadialGradientBrush();
 

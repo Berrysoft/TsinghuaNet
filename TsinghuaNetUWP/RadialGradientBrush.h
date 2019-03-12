@@ -14,7 +14,6 @@ namespace winrt::TsinghuaNetUWP::implementation
         void OnDisconnected();
 
     private:
-        //Windows::UI::Composition::CompositionSurfaceBrush _surfaceBrush{ nullptr };
         Microsoft::Graphics::Canvas::CanvasDevice _device{ nullptr };
         Windows::UI::Composition::CompositionGraphicsDevice _graphics{ nullptr };
 

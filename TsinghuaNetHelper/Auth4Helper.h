@@ -7,7 +7,7 @@ namespace winrt::TsinghuaNetHelper::implementation
 {
     struct Auth4Helper : Auth4HelperT<Auth4Helper>, AuthHelper
     {
-        Auth4Helper() : AuthHelper(4) {}
+        Auth4Helper(hstring const& username = {}, hstring const& password = {}) : AuthHelper(4, 1, username, password) {}
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 
