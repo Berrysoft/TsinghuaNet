@@ -5,7 +5,7 @@
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    struct ThemeCheckedConverter : ThemeCheckedConverterT<ThemeCheckedConverter>, EnumCheckedConverter<Windows::UI::Xaml::ElementTheme>
+    struct ThemeCheckedConverter : ThemeCheckedConverterT<ThemeCheckedConverter>, EnumCheckedConverter<TsinghuaNetHelper::UserTheme>
     {
         ThemeCheckedConverter() = default;
     };

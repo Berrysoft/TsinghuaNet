@@ -52,6 +52,30 @@ namespace winrt::TsinghuaNetUWP::implementation
         }
     }
 
+    void MainViewModel::OnSettingsThemePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
+    {
+        if (auto model{ d.try_as<class_type>() })
+        {
+            auto theme{ unbox_value<UserTheme>(e.NewValue()) };
+            ElementTheme actheme{ (int)theme };
+            if (theme == UserTheme::Auto)
+            {
+                time_t time = clock::to_time_t(clock::now());
+                tm lt;
+                localtime_s(&lt, &time);
+                if (lt.tm_hour <= 6 || lt.tm_hour >= 18)
+                {
+                    actheme = ElementTheme::Dark;
+                }
+                else
+                {
+                    actheme = ElementTheme::Light;
+                }
+            }
+            model.Theme(actheme);
+        }
+    }
+
     void MainViewModel::OnContentTypePropertyChanged(DependencyObject const& d, DependencyPropertyChangedEventArgs const& e)
     {
         if (auto model{ d.try_as<class_type>() })
@@ -67,7 +91,10 @@ namespace winrt::TsinghuaNetUWP::implementation
                 newc = make<ArcUserContent>();
                 break;
             case UserContentType::Water:
-                newc = make<WaterUserContent>();
+                newc = make<WaterUserContent>(false);
+                break;
+            case UserContentType::Concentric:
+                newc = make<WaterUserContent>(true);
                 break;
             }
             if (oldc)
@@ -98,6 +125,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     DEPENDENCY_PROPERTY_INIT(Ssid, hstring, MainViewModel, box_value(hstring{}))
     DEPENDENCY_PROPERTY_INIT(SuggestState, NetState, MainViewModel, box_value(NetState::Unknown))
 
+    DEPENDENCY_PROPERTY_INIT(SettingsTheme, UserTheme, MainViewModel, box_value(UserTheme::Default), &MainViewModel::OnSettingsThemePropertyChanged)
     DEPENDENCY_PROPERTY_INIT(Theme, ElementTheme, MainViewModel, box_value(ElementTheme::Default))
     DEPENDENCY_PROPERTY_INIT(ContentType, UserContentType, MainViewModel, box_value(UserContentType::Ring), &MainViewModel::OnContentTypePropertyChanged)
 

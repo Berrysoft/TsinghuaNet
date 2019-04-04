@@ -10,15 +10,12 @@ using namespace Windows::Data::Json;
 using namespace Windows::Foundation::Collections;
 using namespace Windows::Networking::Connectivity;
 using namespace Windows::Storage;
-using namespace Windows::UI::Xaml;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
     template <typename T>
-    T GetValue(wstring_view const& key, T def = {})
+    T SettingsHelper::GetValue(wstring_view key, T def)
     {
-        auto settings{ ApplicationData::Current().LocalSettings() };
-        auto values{ settings.Values() };
         auto value{ values.TryLookup(key) };
         if (value)
         {
@@ -28,10 +25,8 @@ namespace winrt::TsinghuaNetHelper::implementation
     }
 
     template <typename T>
-    void SetValue(wstring_view const& key, T value)
+    void SettingsHelper::SetValue(wstring_view key, T value)
     {
-        auto settings{ ApplicationData::Current().LocalSettings() };
-        auto values{ settings.Values() };
         values.Insert(key, box_value(value));
     }
 
@@ -65,7 +60,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     constexpr wstring_view ThemeKey{ L"Theme" };
     constexpr wstring_view ContentTypeKey{ L"UserContentType" };
 
-    SettingsHelper::SettingsHelper()
+    SettingsHelper::SettingsHelper() : values(ApplicationData::Current().LocalSettings().Values())
     {
         m_StoredUsername = GetValue<hstring>(StoredUsernameKey);
         m_AutoLogin = GetValue<bool>(AutoLoginKey, true);
@@ -73,7 +68,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         m_BackgroundLiveTile = GetValue<bool>(BackgroundLiveTileKey, true);
         m_LanState = (NetState)GetValue<int>(LanStateKey, (int)NetState::Auth4);
         m_WwanState = (NetState)GetValue<int>(WwanStateKey, (int)NetState::Unknown);
-        m_Theme = (ElementTheme)GetValue<int>(ThemeKey, (int)ElementTheme::Default);
+        m_Theme = (UserTheme)GetValue<int>(ThemeKey, (int)UserTheme::Default);
         m_ContentType = (UserContentType)GetValue<int>(ContentTypeKey, (int)UserContentType::Ring);
         hstring json{ GetValue<hstring>(WlanStateKey) };
         if (json.empty())

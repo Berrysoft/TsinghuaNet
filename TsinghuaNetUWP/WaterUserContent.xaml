@@ -9,12 +9,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <local:RadialGradientBrush x:Key="WaterBrush">
+        <local:RadialGradientBrush x:Key="ConcentricBrush">
             <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
             <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
             <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
             <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
         </local:RadialGradientBrush>
+        <LinearGradientBrush x:Key="WaterBrush" StartPoint="0.5,1" EndPoint="0.5,0">
+            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+            <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+            <GradientStop Offset="{x:Bind Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
+        </LinearGradientBrush>
         <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="FluxStoryboard">
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
@@ -28,7 +34,8 @@
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0">
             <Grid>
-                <TextBlock Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}"/>
+                <TextBlock x:Name="ConcentricIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource ConcentricBrush}" Visibility="Collapsed"/>
+                <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}" Visibility="Collapsed"/>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
             </Grid>
         </Viewbox>

@@ -18,11 +18,20 @@ namespace TsinghuaNetHelper
         Lan
     };
 
+    enum UserTheme
+    {
+        Default,
+        Light,
+        Dark,
+        Auto
+    };
+
     enum UserContentType
     {
         Line,
         Ring,
-        Water
+        Water,
+        Concentric
     };
 
     runtimeclass CredentialHelper
@@ -47,7 +56,7 @@ namespace TsinghuaNetHelper
         NetState WlanState(String ssid);
         Windows.Foundation.Collections.IMap<String, NetState> WlanStates;
 
-        Windows.UI.Xaml.ElementTheme Theme;
+        UserTheme Theme;
         UserContentType ContentType;
 
         NetState SuggestNetState(InternetStatus status, String ssid);

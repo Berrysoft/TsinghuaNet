@@ -44,7 +44,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         // 设置主窗格为标题栏
         Window::Current().SetTitleBar(MainFrame());
         // 获取用户设置的主题
-        Model().Theme(settings.Theme());
+        Model().SettingsTheme(settings.Theme());
         Model().ContentType(settings.ContentType());
         // 设置计时器
         mainTimer.Interval(1s);
@@ -58,7 +58,7 @@ namespace winrt::TsinghuaNetUWP::implementation
     /// </summary>
     void MainPage::SaveSettings()
     {
-        settings.Theme(Model().Theme());
+        settings.Theme(Model().SettingsTheme());
         settings.ContentType(Model().ContentType());
         settings.SaveSettings();
     }

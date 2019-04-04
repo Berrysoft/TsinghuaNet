@@ -4,7 +4,7 @@ namespace TsinghuaNetUWP
 {
     [default_interface] runtimeclass WaterUserContent : Windows.UI.Xaml.Controls.UserControl, IUserContent
     {
-        WaterUserContent();
+        WaterUserContent(Boolean concentric);
 
         Double Max(Double d1, Double d2);
 

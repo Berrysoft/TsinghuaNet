@@ -42,6 +42,9 @@ namespace TsinghuaNetUWP
 
         Windows.Foundation.Collections.IObservableVector<Object> NetUsers { get; };
 
+        TsinghuaNetHelper.UserTheme SettingsTheme;
+        static Windows.UI.Xaml.DependencyProperty SettingsThemeProperty { get; };
+
         Windows.UI.Xaml.ElementTheme Theme;
         static Windows.UI.Xaml.DependencyProperty ThemeProperty { get; };
 

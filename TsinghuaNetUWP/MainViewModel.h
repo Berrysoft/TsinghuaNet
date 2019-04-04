@@ -30,6 +30,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         DEPENDENCY_PROPERTY(Ssid, hstring)
         DEPENDENCY_PROPERTY(SuggestState, TsinghuaNetHelper::NetState)
 
+        DEPENDENCY_PROPERTY(SettingsTheme, TsinghuaNetHelper::UserTheme)
         DEPENDENCY_PROPERTY(Theme, Windows::UI::Xaml::ElementTheme)
         DEPENDENCY_PROPERTY(ContentType, TsinghuaNetHelper::UserContentType)
         EVENT_DECL(ContentTypeChanged, TsinghuaNetHelper::UserContentType)
@@ -47,6 +48,7 @@ namespace winrt::TsinghuaNetUWP::implementation
         static void OnAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void OnBackgroundAutoLoginPropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void OnBackgroundLiveTilePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
+        static void OnSettingsThemePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
         static void OnContentTypePropertyChanged(Windows::UI::Xaml::DependencyObject const& d, Windows::UI::Xaml::DependencyPropertyChangedEventArgs const& e);
     };
 } // namespace winrt::TsinghuaNetUWP::implementation

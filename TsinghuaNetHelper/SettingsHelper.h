@@ -18,7 +18,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         PROP_DECL_REF(LanState, NetState)
         PROP_DECL_REF(WwanState, NetState)
 
-        PROP_DECL_REF(Theme, Windows::UI::Xaml::ElementTheme)
+        PROP_DECL_REF(Theme, UserTheme)
         PROP_DECL_REF(ContentType, UserContentType)
 
     public:
@@ -35,6 +35,12 @@ namespace winrt::TsinghuaNetHelper::implementation
 
     private:
         Windows::Data::Json::JsonObject wlanMap;
+        Windows::Foundation::Collections::IPropertySet values;
+
+        template <typename T>
+        T GetValue(std::wstring_view key, T def = {});
+        template <typename T>
+        void SetValue(std::wstring_view key, T value);
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

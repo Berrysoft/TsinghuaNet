@@ -6,13 +6,22 @@ using namespace std;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
+using namespace Windows::UI::Xaml::Media;
 using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    WaterUserContent::WaterUserContent()
+    WaterUserContent::WaterUserContent(bool concentric)
     {
         InitializeComponent();
+        if (concentric)
+        {
+            ConcentricIcon().Visibility(Visibility::Visible);
+        }
+        else
+        {
+            WaterIcon().Visibility(Visibility::Visible);
+        }
     }
 
     DEPENDENCY_PROPERTY_INIT(User, TsinghuaNetUWP::FluxUserBox, WaterUserContent, nullptr, OnUserPropertyChangedH<WaterUserContent>)

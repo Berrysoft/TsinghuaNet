@@ -10,7 +10,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 {
     struct WaterUserContent : WaterUserContentT<WaterUserContent>
     {
-        WaterUserContent();
+        WaterUserContent(bool concentric);
 
         double Max(double d1, double d2) const { return std::max(d1, d2); }
         bool IsProgressActive() { return Progress().IsActive(); }
