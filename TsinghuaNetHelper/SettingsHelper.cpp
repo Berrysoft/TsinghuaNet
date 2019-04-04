@@ -1,8 +1,8 @@
 ﻿#include "pch.h"
 
 #include "SettingsHelper.h"
-#include <winrt/Windows.Networking.Connectivity.h>
-#include <winrt/Windows.Storage.h>
+#include "winrt/Windows.Networking.Connectivity.h"
+#include "winrt/Windows.Storage.h"
 
 using namespace std;
 using namespace winrt;

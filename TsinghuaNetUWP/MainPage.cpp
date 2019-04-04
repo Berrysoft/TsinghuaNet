@@ -6,9 +6,9 @@
 #include "MainPage.h"
 #include "NetStateSsidBox.h"
 #include "UserContentHelper.h"
-#include <winrt/Windows.ApplicationModel.Core.h>
-#include <winrt/Windows.UI.Core.h>
-#include <winrt/Windows.UI.ViewManagement.h>
+#include "winrt/Windows.ApplicationModel.Core.h"
+#include "winrt/Windows.UI.Core.h"
+#include "winrt/Windows.UI.ViewManagement.h"
 
 using namespace std::chrono_literals;
 using namespace sf;

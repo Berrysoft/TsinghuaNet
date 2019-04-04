@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 
 #include "EditSuggestionDialog.h"
+#include "winrt/TsinghuaNetHelper.h"
 
 using namespace linq;
 using namespace winrt;

@@ -2,8 +2,8 @@
 
 #include "../Shared/Utility.h"
 #include "NotificationHelper.h"
-#include <winrt/Windows.Data.Xml.Dom.h>
-#include <winrt/Windows.UI.Notifications.h>
+#include "winrt/Windows.Data.Xml.Dom.h"
+#include "winrt/Windows.UI.Notifications.h"
 
 using namespace std;
 using namespace sf;

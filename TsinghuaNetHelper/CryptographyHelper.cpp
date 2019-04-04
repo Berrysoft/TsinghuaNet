@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #include "CryptographyHelper.h"
-#include <winrt/Windows.Security.Cryptography.Core.h>
+#include "winrt/Windows.Security.Cryptography.Core.h"
 
 using namespace std;
 using namespace winrt;

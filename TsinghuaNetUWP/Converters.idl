@@ -1,16 +1,16 @@
 namespace TsinghuaNetUWP
 {
-    runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    [default_interface] runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
     {
         NetStateCheckedConverter();
     }
 
-    runtimeclass ThemeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    [default_interface] runtimeclass ThemeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
     {
         ThemeCheckedConverter();
     }
 
-    runtimeclass UserContentTypeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
+    [default_interface] runtimeclass UserContentTypeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
     {
         UserContentTypeCheckedConverter();
     }

@@ -8,12 +8,12 @@ namespace TsinghuaNetHelper
         static void RegisterLogin(Boolean reg);
     }
 
-    runtimeclass LiveTileTask : Windows.ApplicationModel.Background.IBackgroundTask
+    [default_interface] runtimeclass LiveTileTask : Windows.ApplicationModel.Background.IBackgroundTask
     {
         LiveTileTask();
     }
 
-    runtimeclass LoginTask : Windows.ApplicationModel.Background.IBackgroundTask
+    [default_interface] runtimeclass LoginTask : Windows.ApplicationModel.Background.IBackgroundTask
     {
         LoginTask();
     }
