@@ -6,6 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetHelper"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d" Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model" AutoLoginChanged="AutoLoginChanged" BackgroundAutoLoginChanged="BackgroundAutoLoginChanged" BackgroundLiveTileChanged="BackgroundLiveTileChanged" ContentTypeChanged="ContentTypeChanged"/>
