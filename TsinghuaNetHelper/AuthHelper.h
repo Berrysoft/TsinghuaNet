@@ -16,10 +16,9 @@ namespace winrt::TsinghuaNetHelper
         std::wstring const LogUri;
         std::wstring const FluxUri;
         std::wstring const ChallengeUri;
-        int ac_id;
 
         concurrency::task<std::string> ChallengeAsync();
-        concurrency::task<std::map<hstring, hstring>> LoginDataAsync();
-        concurrency::task<std::map<hstring, hstring>> LogoutDataAsync();
+        concurrency::task<std::map<hstring, hstring>> LoginDataAsync(int ac_id);
+        concurrency::task<std::map<hstring, hstring>> LogoutDataAsync(int ac_id);
     };
 } // namespace winrt::TsinghuaNetHelper

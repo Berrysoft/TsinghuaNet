@@ -31,10 +31,9 @@ namespace winrt::TsinghuaNetHelper
     IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
         LogResponse response;
-        for (int id : acids)
+        for (int ac_id : acids)
         {
-            ac_id = id;
-            auto data{ single_threaded_map(co_await LoginDataAsync()) };
+            auto data{ single_threaded_map(co_await LoginDataAsync(ac_id)) };
             response = UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), true);
             if (response.Succeed)
                 break;
@@ -45,10 +44,9 @@ namespace winrt::TsinghuaNetHelper
     IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
         LogResponse response;
-        for (int id : acids)
+        for (int ac_id : acids)
         {
-            ac_id = id;
-            auto data{ single_threaded_map(co_await LogoutDataAsync()) };
+            auto data{ single_threaded_map(co_await LogoutDataAsync(ac_id)) };
             response = UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), false);
             if (response.Succeed)
                 break;
@@ -76,7 +74,7 @@ namespace winrt::TsinghuaNetHelper
 
     constexpr char LoginInfoJson[]{ "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}" };
     constexpr char LoginChkSumData[]{ "{0}{1}{0}{2}{0}{4}{0}{0}200{0}1{0}{3}" };
-    task<map<hstring, hstring>> AuthHelper::LoginDataAsync()
+    task<map<hstring, hstring>> AuthHelper::LoginDataAsync(int ac_id)
     {
         string token{ co_await ChallengeAsync() };
         hstring md5{ GetHMACMD5(to_hstring(token)) };
@@ -98,7 +96,7 @@ namespace winrt::TsinghuaNetHelper
 
     constexpr char LogoutInfoJson[]{ "{{\"username\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}" };
     constexpr char LogoutChkSumData[]{ "{0}{1}{0}{3}{0}{0}200{0}1{0}{2}" };
-    task<map<hstring, hstring>> AuthHelper::LogoutDataAsync()
+    task<map<hstring, hstring>> AuthHelper::LogoutDataAsync(int ac_id)
     {
         string token{ co_await ChallengeAsync() };
         map<hstring, hstring> data{
