@@ -118,7 +118,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         return single_threaded_map(map<hstring, NetState>{
             { L"Tsinghua", NetState::Net },
             { L"Tsinghua-5G", NetState::Net },
-            { L"Tsinghua-IPv4", NetState::Auth4_25 },
+            { L"Tsinghua-IPv4", NetState::Auth4 },
             { L"Wifi.郑裕彤讲堂", NetState::Net } });
     }
 

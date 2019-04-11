@@ -90,15 +90,6 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4_25)}">
-                            <RadioButton.IsChecked>
-                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:NetState>Auth4_25</helper:NetState>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>

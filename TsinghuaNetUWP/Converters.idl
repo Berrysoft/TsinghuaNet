@@ -1,3 +1,5 @@
+import "SsidSuggestion.idl";
+
 namespace TsinghuaNetUWP
 {
     [default_interface] runtimeclass NetStateCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
@@ -13,5 +15,10 @@ namespace TsinghuaNetUWP
     [default_interface] runtimeclass UserContentTypeCheckedConverter : Windows.UI.Xaml.Data.IValueConverter
     {
         UserContentTypeCheckedConverter();
+    }
+
+    [default_interface] runtimeclass NetStateIndexConverter : Windows.UI.Xaml.Data.IValueConverter
+    {
+        NetStateIndexConverter();
     }
 } // namespace TsinghuaNetUWP

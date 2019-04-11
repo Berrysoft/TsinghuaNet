@@ -93,12 +93,6 @@
     <ClInclude Include="LoginTask.h">
       <Filter>BackgroundHelper</Filter>
     </ClInclude>
-    <ClInclude Include="Auth4Helper25.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
-    <ClInclude Include="Auth6Helper25.h">
-      <Filter>NetHelper</Filter>
-    </ClInclude>
     <ClInclude Include="BackgroundHelper.h">
       <Filter>BackgroundHelper</Filter>
     </ClInclude>

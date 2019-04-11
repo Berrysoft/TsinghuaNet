@@ -61,16 +61,12 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         switch (state)
         {
+        case NetState::Net:
+            return L"Net - http://net.tsinghua.edu.cn/";
         case NetState::Auth4:
             return L"Auth4 - http://auth4.tsinghua.edu.cn/";
         case NetState::Auth6:
             return L"Auth6 - http://auth6.tsinghua.edu.cn/";
-        case NetState::Net:
-            return L"Net - http://net.tsinghua.edu.cn/";
-        case NetState::Auth4_25:
-            return L"IPv4 - http://auth4.tsinghua.edu.cn/";
-        case NetState::Auth6_25:
-            return L"IPv6 - http://auth6.tsinghua.edu.cn/";
         default:
             return L"不需要登录";
         }
@@ -125,7 +121,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         if (str == L"Login is successful.")
         {
-            return { L"登录成功" };
+            return { L"登录成功", {}, true };
         }
         else if (str == L"IP has been online, please logout.")
         {
@@ -155,7 +151,7 @@ namespace winrt::TsinghuaNetHelper::implementation
             hstring msg{ json.GetNamedString(L"error_msg") };
             if (code == L"ok")
             {
-                return { login ? L"登录成功" : L"注销成功" };
+                return { login ? L"登录成功" : L"注销成功", {}, true };
             }
             else if (code == L"ip_already_online_error")
             {

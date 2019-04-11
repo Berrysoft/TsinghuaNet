@@ -5,9 +5,7 @@ namespace TsinghuaNetHelper
         Unknown,
         Net,
         Auth4,
-        Auth6,
-        Auth4_25,
-        Auth6_25
+        Auth6
     };
 
     enum InternetStatus

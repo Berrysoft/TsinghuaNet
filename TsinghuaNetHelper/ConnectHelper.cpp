@@ -2,45 +2,34 @@
 
 #include "ConnectHelper.h"
 
+using namespace std;
 using namespace winrt;
 
 namespace winrt::TsinghuaNetHelper::implementation
 {
-    IConnect ConnectHelper::GetHelper(NetState const& state)
+    template <typename... Args>
+    IConnect GetHelperT(NetState const& state, Args&&... args)
     {
         switch (state)
         {
         case NetState::Net:
-            return NetHelper();
+            return NetHelper(forward<Args>(args)...);
         case NetState::Auth4:
-            return Auth4Helper();
+            return Auth4Helper(forward<Args>(args)...);
         case NetState::Auth6:
-            return Auth6Helper();
-        case NetState::Auth4_25:
-            return Auth4Helper25();
-        case NetState::Auth6_25:
-            return Auth6Helper25();
+            return Auth6Helper(forward<Args>(args)...);
         default:
             return nullptr;
         }
     }
 
+    IConnect ConnectHelper::GetHelper(NetState const& state)
+    {
+        return GetHelperT(state);
+    }
+
     IConnect ConnectHelper::GetHelper(NetState const& state, hstring const& username, hstring const& password)
     {
-        switch (state)
-        {
-        case NetState::Net:
-            return NetHelper(username, password);
-        case NetState::Auth4:
-            return Auth4Helper(username, password);
-        case NetState::Auth6:
-            return Auth6Helper(username, password);
-        case NetState::Auth4_25:
-            return Auth4Helper25(username, password);
-        case NetState::Auth6_25:
-            return Auth6Helper25(username, password);
-        default:
-            return nullptr;
-        }
+        return GetHelperT(state, username, password);
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

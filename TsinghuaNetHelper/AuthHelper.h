@@ -6,7 +6,7 @@ namespace winrt::TsinghuaNetHelper
 {
     struct AuthHelper : NetHelperBase
     {
-        AuthHelper(int ver, int ac_id, hstring const& username = {}, hstring const& password = {});
+        AuthHelper(int ver, hstring const& username = {}, hstring const& password = {});
 
         Windows::Foundation::IAsyncOperation<LogResponse> LoginAsync();
         Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
@@ -16,7 +16,7 @@ namespace winrt::TsinghuaNetHelper
         std::wstring const LogUri;
         std::wstring const FluxUri;
         std::wstring const ChallengeUri;
-        int const ac_id;
+        int ac_id;
 
         concurrency::task<std::string> ChallengeAsync();
         concurrency::task<std::map<hstring, hstring>> LoginDataAsync();

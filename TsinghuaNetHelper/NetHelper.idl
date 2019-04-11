@@ -14,6 +14,7 @@ namespace TsinghuaNetHelper
     {
         String Code;
         String Message;
+        Boolean Succeed;
     };
 
     interface ICredential
@@ -51,18 +52,6 @@ namespace TsinghuaNetHelper
     {
         Auth6Helper();
         Auth6Helper(String username, String password);
-    }
-
-    [default_interface] runtimeclass Auth4Helper25 : ICredential, IConnect
-    {
-        Auth4Helper25();
-        Auth4Helper25(String username, String password);
-    }
-
-    [default_interface] runtimeclass Auth6Helper25 : ICredential, IConnect
-    {
-        Auth6Helper25();
-        Auth6Helper25(String username, String password);
     }
 
     [bindable] runtimeclass NetUser : Windows.UI.Xaml.DependencyObject

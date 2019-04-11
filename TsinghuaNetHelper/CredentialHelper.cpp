@@ -16,7 +16,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         PasswordVault vault;
         for (auto c : vault.RetrieveAll() >>
-                          where([&](PasswordCredential c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
+                          where([&username](PasswordCredential c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
         {
             c.RetrievePassword();
             return c.Password();
@@ -34,7 +34,7 @@ namespace winrt::TsinghuaNetHelper::implementation
     {
         PasswordVault vault;
         for (auto c : vault.RetrieveAll() >>
-                          where([&](auto c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
+                          where([&username](auto c) { return c.Resource() == CredentialResource && c.UserName() == username; }))
         {
             vault.Remove(c);
         }

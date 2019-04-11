@@ -22,16 +22,12 @@
         <Flyout x:Name="HelpFlyout">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="80">Net</TextBlock>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">一般的无线网，以及未改造的有线网连接方式</TextBlock>
+                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Net</TextBlock>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">传统的校园网连接方式</TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="80">Auth4</TextBlock>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">改造后的有线网连接方式</TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="80">IPv4</TextBlock>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">无线网“Tsinghua-IPv4”的连接方式</TextBlock>
+                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Auth4</TextBlock>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv4连接方式</TextBlock>
                 </StackPanel>
             </StackPanel>
         </Flyout>

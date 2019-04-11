@@ -25,6 +25,7 @@
     <Page Include="WaterUserContent.xaml">
       <Filter>Contents</Filter>
     </Page>
+    <Page Include="$(MSBuildThisFileDirectory)DensityStyles\Compact.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />
@@ -41,9 +42,6 @@
       <Filter>ViewModels</Filter>
     </Midl>
     <Midl Include="SsidSuggestion.idl" />
-    <Midl Include="Converters.idl">
-      <Filter>Converters</Filter>
-    </Midl>
     <Midl Include="IUserContent.idl">
       <Filter>Contents</Filter>
     </Midl>
@@ -55,6 +53,9 @@
     </Midl>
     <Midl Include="RadialGradientBrush.idl">
       <Filter>Contents</Filter>
+    </Midl>
+    <Midl Include="Converters.idl">
+      <Filter>Converters</Filter>
     </Midl>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +73,9 @@
     <ClCompile Include="WaterUserContent.cpp" />
     <ClCompile Include="FluxUserBox.cpp" />
     <ClCompile Include="RadialGradientBrush.cpp" />
+    <ClCompile Include="NetStateIndexConverter.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -105,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="FluxUserBox.h" />
     <ClInclude Include="RadialGradientBrush.h" />
+    <ClInclude Include="NetStateIndexConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

@@ -162,6 +162,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="NetStateCheckedConverter.h" />
+    <ClInclude Include="NetStateIndexConverter.h" />
     <ClInclude Include="NetStateSsidBox.h">
       <DependentUpon>NetStateSsidBox.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -266,6 +267,7 @@
       <DependentUpon>MainViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="NetStateIndexConverter.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

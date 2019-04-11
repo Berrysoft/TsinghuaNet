@@ -2,6 +2,7 @@
 
 #include "AuthHelper.h"
 #include "CryptographyHelper.h"
+#include <array>
 #include <regex>
 
 using namespace std;
@@ -17,25 +18,42 @@ namespace winrt::TsinghuaNetHelper
     constexpr wstring_view FluxUriBase{ L"http://auth{}.tsinghua.edu.cn/rad_user_info.php" };
     constexpr wstring_view ChallengeUriBase{ L"http://auth{}.tsinghua.edu.cn/cgi-bin/get_challenge?username={{}}&double_stack=1&ip&callback=callback" };
 
-    AuthHelper::AuthHelper(int ver, int ac_id, hstring const& username, hstring const& password)
+    constexpr array acids{ 1, 25, 33, 35 };
+
+    AuthHelper::AuthHelper(int ver, hstring const& username, hstring const& password)
         : NetHelperBase(username, password),
           LogUri(wsprint(LogUriBase, ver)),
           FluxUri(wsprint(FluxUriBase, ver)),
-          ChallengeUri(wsprint(ChallengeUriBase, ver)),
-          ac_id(ac_id)
+          ChallengeUri(wsprint(ChallengeUriBase, ver))
     {
     }
 
     IAsyncOperation<LogResponse> AuthHelper::LoginAsync()
     {
-        auto data{ single_threaded_map(co_await LoginDataAsync()) };
-        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), true);
+        LogResponse response;
+        for (int id : acids)
+        {
+            ac_id = id;
+            auto data{ single_threaded_map(co_await LoginDataAsync()) };
+            response = UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), true);
+            if (response.Succeed)
+                break;
+        }
+        co_return response;
     }
 
     IAsyncOperation<LogResponse> AuthHelper::LogoutAsync()
     {
-        auto data{ single_threaded_map(co_await LogoutDataAsync()) };
-        co_return UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), false);
+        LogResponse response;
+        for (int id : acids)
+        {
+            ac_id = id;
+            auto data{ single_threaded_map(co_await LogoutDataAsync()) };
+            response = UserHelper::GetAuthLogResponse(co_await PostAsync(Uri(LogUri), data), false);
+            if (response.Succeed)
+                break;
+        }
+        co_return response;
     }
 
     IAsyncOperation<FluxUser> AuthHelper::FluxAsync()
@@ -53,7 +71,7 @@ namespace winrt::TsinghuaNetHelper
         {
             co_return match[1].str();
         }
-        co_return {};
+        co_return{};
     }
 
     constexpr char LoginInfoJson[]{ "{{\"username\": \"{}\", \"password\": \"{}\", \"ip\": \"\", \"acid\": \"{}\", \"enc_ver\": \"srun_bx1\"}}" };

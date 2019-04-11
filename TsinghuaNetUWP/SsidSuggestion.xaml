@@ -11,7 +11,8 @@
         <DataTemplate x:Key="NetStateTemplate" x:DataType="local:NetStateBox">
             <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
         </DataTemplate>
+        <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
     </StackPanel.Resources>
     <TextBlock Width="120" VerticalAlignment="Center" Style="{x:Bind SsidStyle,Mode=OneWay}" Text="{x:Bind Ssid,Mode=OneWay}"/>
-    <ComboBox Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind ValueToIndex(Value),BindBack=IndexToValue,Mode=TwoWay}" ItemTemplate="{StaticResource NetStateTemplate}"/>
+    <ComboBox Width="280" ItemsSource="{x:Bind States}" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}" ItemTemplate="{StaticResource NetStateTemplate}"/>
 </StackPanel>

@@ -129,9 +129,7 @@
   <ItemGroup>
     <ClInclude Include="..\Shared\Utility.h" />
     <ClInclude Include="Auth4Helper.h" />
-    <ClInclude Include="Auth4Helper25.h" />
     <ClInclude Include="Auth6Helper.h" />
-    <ClInclude Include="Auth6Helper25.h" />
     <ClInclude Include="AuthHelper.h" />
     <ClInclude Include="BackgroundHelper.h" />
     <ClInclude Include="ConnectHelper.h" />
