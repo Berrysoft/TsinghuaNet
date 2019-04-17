@@ -2,12 +2,11 @@
 
 #include "CryptographyHelper.h"
 #include "UseregHelper.h"
-#include <linq/to_container.hpp>
-#include <regex>
+#include <html/html_doc.hpp>
 
 using namespace std;
 using namespace sf;
-using namespace linq;
+using namespace html;
 using namespace winrt;
 using namespace Windows::Foundation;
 using namespace Windows::Foundation::Collections;
@@ -35,32 +34,21 @@ namespace winrt::TsinghuaNetHelper::implementation
         co_return UserHelper::GetLogResponse(co_await PostAsync(Uri(InfoUri), wsprint(DropData, ip)));
     }
 
-    constexpr wchar_t TableRegex[]{ L"<tr align=\"center\">[\\s\\S]+?</tr>" };
-    constexpr wchar_t ItemRegex[]{ L"<td class=\"maintd\">(.*?)</td>" };
     IAsyncOperation<IVector<NetUser>> UseregHelper::UsersAsync()
     {
-        wregex tabler{ TableRegex };
-        wregex itemr{ ItemRegex };
-        wstring userhtml(co_await GetAsync(Uri(InfoUri)));
-        auto result{
-            get_enumerable(wsregex_iterator{ userhtml.begin(), userhtml.end(), tabler }, wsregex_iterator{}) >>
-            select([&itemr](auto& m) {
-                auto r{ m.str() };
-                auto details{
-                    get_enumerable(wsregex_iterator{ r.begin(), r.end(), itemr }, wsregex_iterator{}) >>
-                    select([](auto& m) {
-                        auto& range{ m[1] };
-                        return wstring_view(addressof(*range.first), range.length());
-                    }) >>
-                    to_vector<wstring_view>()
-                };
-                NetUser t;
-                t.Address(hstring(details[0]));
-                t.LoginTime(hstring(details[1]));
-                t.Client(hstring(details[10]));
-                return t;
-            })
-        };
-        co_return single_threaded_vector(result >> to_vector<NetUser>());
+        html_doc doc{ html_doc::parse(co_await GetBytesAsync(Uri(InfoUri))) };
+        vector<NetUser> result;
+        for (const auto& tr : (*(++doc.node()["body"].front()["table"].front()["tr"].front()["td"].back()["table"].begin()))["tr"])
+        {
+            if (tr.tag().size() == 1)
+            {
+                NetUser user;
+                user.Address(to_hstring(tr[1].front().text()));
+                user.LoginTime(to_hstring(tr[2].front().text()));
+                user.Client(to_hstring(tr[11].front().text()));
+                result.push_back(user);
+            }
+        }
+        co_return single_threaded_vector(move(result));
     }
 } // namespace winrt::TsinghuaNetHelper::implementation

@@ -25,7 +25,6 @@
     <Page Include="WaterUserContent.xaml">
       <Filter>Contents</Filter>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)DensityStyles\Compact.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />
