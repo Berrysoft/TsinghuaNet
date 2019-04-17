@@ -4,7 +4,12 @@ Public Class FluxUserBox
     Inherits DependencyObject
 
     Public Sub New(Optional flux As FluxUser = Nothing)
-        Username = flux.Username
+        If flux IsNot Nothing Then
+            Username = flux.Username
+            Me.Flux = flux.Flux
+            OnlineTime = flux.OnlineTime
+            Balance = flux.Balance
+        End If
     End Sub
 
     Public Shared ReadOnly UsernameProperty As DependencyProperty = DependencyProperty.Register(NameOf(Username), GetType(String), GetType(FluxUserBox), New PropertyMetadata(String.Empty))

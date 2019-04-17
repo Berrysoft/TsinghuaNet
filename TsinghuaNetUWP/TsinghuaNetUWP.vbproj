@@ -130,18 +130,20 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Arc.xaml.vb">
+    <Compile Include="Contents\Arc.xaml.vb">
       <DependentUpon>Arc.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ArcUserContent.xaml.vb">
+    <Compile Include="Contents\ArcUserContent.xaml.vb">
       <DependentUpon>ArcUserContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FluxUserBox.vb" />
-    <Compile Include="IUserContent.vb" />
+    <Compile Include="ViewModels\FluxUserBox.vb" />
+    <Compile Include="Contents\IUserContent.vb" />
     <Compile Include="MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="ViewModels\MainViewModel.vb" />
+    <Compile Include="ViewModels\NetUserBox.vb" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -166,11 +168,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Arc.xaml">
+    <Page Include="Contents\Arc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ArcUserContent.xaml">
+    <Page Include="Contents\ArcUserContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -143,6 +143,7 @@
     <Compile Include="NotificationHelper.vb" />
     <Compile Include="SettingsHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="UserHelper.vb" />
     <EmbeddedResource Include="My Project\TsinghuaNetUWP.Helper.rd.xml" />
   </ItemGroup>
   <ItemGroup>
