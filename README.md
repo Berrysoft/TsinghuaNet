@@ -1,5 +1,8 @@
+# 弃坑通知
+由于C++/WinRT过于繁琐而且适用的库很少，现决定逐步用Visual Basic重写。
+
 # TsinghuaNetUWP
-清华大学校园网客户端，UWP架构，使用C++/WinRT编写。
+清华大学校园网客户端，UWP架构。
 
 其内核与我的另一个使用WPF编写的[客户端](https://github.com/Berrysoft/Tsinghua_Auth4_Net)相似，不过支持的功能更多。
 
@@ -36,8 +39,4 @@
 * 上面的几个问题，详情请咨询[深澜软件](http://www.srun.com/)。
 
 ## 编译
-源代码编译需要已经为Visual Studio安装“通用 Windows 平台开发”以及其中的“C++ 通用 Windows 平台工具”，并需要Windows SDK 10.0.17763。
-
-此外，还需要我自己的库[StreamFormat](https://github.com/Berrysoft/StreamFormat)、[CppLinq](https://github.com/Berrysoft/CppLinq)与[CppHtml](https://github.com/Berrysoft/CppHtml)。
-
-最后，面对C++的编译速度，请保持耐心。
+源代码编译需要已经为Visual Studio安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.17763。
