@@ -10,7 +10,7 @@ Imports Windows.UI
 Public NotInheritable Class MainPage
     Inherits Page
 
-    Private settings As SettingsHelper
+    Private settings As New SettingsHelper
 
     Public Sub New()
         InitializeComponent()
@@ -65,8 +65,16 @@ Public NotInheritable Class MainPage
         Await DropImpl(e)
     End Sub
 
+    Private Async Sub ShowChangeUser()
+
+    End Sub
+
     Private Sub RefreshStatus()
         RefreshStatusImpl()
+    End Sub
+
+    Private Async Sub ShowEditSuggestion()
+
     End Sub
 
     Private Async Sub RefreshNetUsers()

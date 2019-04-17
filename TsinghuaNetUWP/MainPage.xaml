@@ -72,7 +72,7 @@
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
-                    <StackPanel Margin="10" Orientation="Vertical">
+                    <!--<StackPanel Margin="10" Orientation="Vertical">
                         <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}">
                             <RadioButton.IsChecked>
                                 <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
@@ -91,7 +91,7 @@
                                 </Binding>
                             </RadioButton.IsChecked>
                         </RadioButton>
-                    </StackPanel>
+                    </StackPanel>-->
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>

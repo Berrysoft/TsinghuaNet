@@ -74,7 +74,7 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Public ReadOnly Property NetUsers As IObservableVector(Of Object) = New ObservableCollection(Of Object)
+    Public ReadOnly Property NetUsers As ObservableCollection(Of Object) = New ObservableCollection(Of Object)
 
     Public ReadOnly Property Version As PackageVersion
         Get

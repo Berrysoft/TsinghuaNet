@@ -54,7 +54,7 @@ Public NotInheritable Class Arc
     Private Sub DrawArc()
         Dim size = RenderSize
         Dim length = Math.Min(size.Width, size.Height)
-        Dim radius = (length - Thickness) / 2
+        Dim radius = Math.Abs((length - Thickness) / 2)
         Dim centerPoint = size.ToVector2() / 2
         Dim angle = GetAngle(Value)
         Dim circleStart As New Point(centerPoint.X, centerPoint.Y + radius)
