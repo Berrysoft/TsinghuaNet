@@ -174,11 +174,11 @@
                                         </Binding>
                                     </RadioButton.IsChecked>
                                 </RadioButton>
-                                <RadioButton GroupName="Type" Content="图标">
+                                <RadioButton GroupName="Type" Content="图表">
                                     <RadioButton.IsChecked>
                                         <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
                                             <Binding.ConverterParameter>
-                                                <helper:UserContentType>Concentric</helper:UserContentType>
+                                                <helper:UserContentType>Graph</helper:UserContentType>
                                             </Binding.ConverterParameter>
                                         </Binding>
                                     </RadioButton.IsChecked>

@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="0">
             <Grid>
-                <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}" Visibility="Collapsed"/>
+                <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}"/>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
             </Grid>
         </Viewbox>
