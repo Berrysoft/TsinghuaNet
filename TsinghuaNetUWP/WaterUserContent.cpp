@@ -11,17 +11,9 @@ using namespace TsinghuaNetHelper;
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    WaterUserContent::WaterUserContent(bool concentric)
+    WaterUserContent::WaterUserContent()
     {
         InitializeComponent();
-        if (concentric)
-        {
-            ConcentricIcon().Visibility(Visibility::Visible);
-        }
-        else
-        {
-            WaterIcon().Visibility(Visibility::Visible);
-        }
     }
 
     DEPENDENCY_PROPERTY_INIT(User, TsinghuaNetUWP::FluxUserBox, WaterUserContent, nullptr, OnUserPropertyChangedH<WaterUserContent>)

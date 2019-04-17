@@ -2,9 +2,9 @@ import "IUserContent.idl";
 
 namespace TsinghuaNetUWP
 {
-    [default_interface] runtimeclass WaterUserContent : Windows.UI.Xaml.Controls.UserControl, IUserContent
+    [default_interface] runtimeclass GraphUserContent : Windows.UI.Xaml.Controls.UserControl, IUserContent
     {
-        WaterUserContent();
+        GraphUserContent();
 
         Double Max(Double d1, Double d2);
 

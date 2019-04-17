@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "WaterUserContent.g.h"
+#include "GraphUserContent.g.h"
 
 #include "../Shared/Utility.h"
 #include "FluxUserBox.h"
@@ -7,13 +7,13 @@
 
 namespace winrt::TsinghuaNetUWP::implementation
 {
-    struct WaterUserContent : WaterUserContentT<WaterUserContent>
+    struct GraphUserContent : GraphUserContentT<GraphUserContent>
     {
-        WaterUserContent();
+        GraphUserContent();
 
         double Max(double d1, double d2) const { return std::max(d1, d2); }
-        bool IsProgressActive() { return Progress().IsActive(); }
-        void IsProgressActive(bool value) { Progress().IsActive(value); }
+        bool IsProgressActive() { return Progress().IsIndeterminate(); }
+        void IsProgressActive(bool value);
         void BeginAnimation() { FluxStoryboard().Begin(); }
         bool AddOneSecond() { return AddOneSecondH(*this); }
 
@@ -26,7 +26,7 @@ namespace winrt::TsinghuaNetUWP::implementation
 
 namespace winrt::TsinghuaNetUWP::factory_implementation
 {
-    struct WaterUserContent : WaterUserContentT<WaterUserContent, implementation::WaterUserContent>
+    struct GraphUserContent : GraphUserContentT<GraphUserContent, implementation::GraphUserContent>
     {
     };
 } // namespace winrt::TsinghuaNetUWP::factory_implementation

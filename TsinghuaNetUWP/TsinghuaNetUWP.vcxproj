@@ -173,6 +173,10 @@
       <DependentUpon>FluxUserBox.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="GraphUserContent.h">
+      <DependentUpon>GraphUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="LineUserContent.h">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -197,10 +201,6 @@
     </ClInclude>
     <ClInclude Include="MainPage.h">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </ClInclude>
-    <ClInclude Include="RadialGradientBrush.h">
-      <DependentUpon>RadialGradientBrush.idl</DependentUpon>
-      <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="SsidSuggestion.h">
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
@@ -228,6 +228,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="EditSuggestionDialog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GraphUserContent.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="LineUserContent.xaml">
@@ -283,6 +286,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Generated Files\module.g.cpp" />
+    <ClCompile Include="GraphUserContent.cpp">
+      <DependentUpon>GraphUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="LineUserContent.cpp">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -300,10 +307,6 @@
     </ClCompile>
     <ClCompile Include="MainPage.cpp">
       <DependentUpon>MainPage.xaml</DependentUpon>
-    </ClCompile>
-    <ClCompile Include="RadialGradientBrush.cpp">
-      <DependentUpon>RadialGradientBrush.idl</DependentUpon>
-      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="SsidSuggestion.cpp">
       <DependentUpon>SsidSuggestion.xaml</DependentUpon>
@@ -335,6 +338,10 @@
     <Midl Include="FluxUserBox.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="GraphUserContent.idl">
+      <DependentUpon>GraphUserContent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="IUserContent.idl" />
     <Midl Include="LineUserContent.idl">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
@@ -350,9 +357,6 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="NetStateSsidBox.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="RadialGradientBrush.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="SsidSuggestion.idl">
@@ -371,14 +375,12 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Win2D.uwp.1.23.0\build\native\Win2D.uwp.targets" Condition="Exists('..\packages\Win2D.uwp.1.23.0\build\native\Win2D.uwp.targets')" />
     <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Win2D.uwp.1.23.0\build\native\Win2D.uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Win2D.uwp.1.23.0\build\native\Win2D.uwp.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.190408.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
   </Target>

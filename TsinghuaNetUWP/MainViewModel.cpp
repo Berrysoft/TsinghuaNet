@@ -1,6 +1,7 @@
 ﻿#include "pch.h"
 
 #include "ArcUserContent.h"
+#include "GraphUserContent.h"
 #include "LineUserContent.h"
 #include "MainViewModel.h"
 #include "WaterUserContent.h"
@@ -91,10 +92,10 @@ namespace winrt::TsinghuaNetUWP::implementation
                 newc = make<ArcUserContent>();
                 break;
             case UserContentType::Water:
-                newc = make<WaterUserContent>(false);
+                newc = make<WaterUserContent>();
                 break;
-            case UserContentType::Concentric:
-                newc = make<WaterUserContent>(true);
+            case UserContentType::Graph:
+                newc = make<GraphUserContent>();
                 break;
             }
             if (oldc)

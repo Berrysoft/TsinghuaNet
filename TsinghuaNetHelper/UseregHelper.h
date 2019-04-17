@@ -13,6 +13,7 @@ namespace winrt::TsinghuaNetHelper::implementation
         Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync();
         Windows::Foundation::IAsyncOperation<LogResponse> LogoutAsync(hstring const ip);
         Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVector<TsinghuaNetHelper::NetUser>> UsersAsync();
+        Windows::Foundation::IAsyncOperation<Windows::Foundation::Collections::IVector<TsinghuaNetHelper::UsageDetail>> DetailsAsync();
     };
 } // namespace winrt::TsinghuaNetHelper::implementation
 

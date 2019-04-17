@@ -29,7 +29,7 @@ namespace TsinghuaNetHelper
         Line,
         Ring,
         Water,
-        Concentric
+        Graph
     };
 
     runtimeclass CredentialHelper

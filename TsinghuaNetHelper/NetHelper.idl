@@ -17,6 +17,12 @@ namespace TsinghuaNetHelper
         Boolean Succeed;
     };
 
+    struct UsageDetail
+    {
+        Int32 Date;
+        UInt64 Usage;
+    };
+
     interface ICredential
     {
         String Username;
@@ -81,6 +87,9 @@ namespace TsinghuaNetHelper
         Windows.Foundation.IAsyncOperation<LogResponse> LoginAsync();
         Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync();
         Windows.Foundation.IAsyncOperation<LogResponse> LogoutAsync(String ip);
+        // clang-format off
         Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVector<NetUser> > UsersAsync();
+        Windows.Foundation.IAsyncOperation<Windows.Foundation.Collections.IVector<UsageDetail> > DetailsAsync();
+        // clang-format on
     }
 } // namespace TsinghuaNetHelper

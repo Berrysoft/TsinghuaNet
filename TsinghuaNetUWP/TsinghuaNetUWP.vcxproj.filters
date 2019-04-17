@@ -25,6 +25,9 @@
     <Page Include="WaterUserContent.xaml">
       <Filter>Contents</Filter>
     </Page>
+    <Page Include="GraphUserContent.xaml">
+      <Filter>Contents</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="MainPage.idl" />
@@ -49,9 +52,6 @@
     <Midl Include="WaterUserContent.idl" />
     <Midl Include="FluxUserBox.idl">
       <Filter>ViewModels</Filter>
-    </Midl>
-    <Midl Include="RadialGradientBrush.idl">
-      <Filter>Contents</Filter>
     </Midl>
     <Midl Include="Converters.idl">
       <Filter>Converters</Filter>
