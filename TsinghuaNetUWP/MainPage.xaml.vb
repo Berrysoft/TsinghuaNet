@@ -99,11 +99,29 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub ShowChangeUser()
-
+        Dim dialog As New ChangeUserDialog(Model.Username)
+        dialog.RequestedTheme = Model.Theme
+        Dim result = Await dialog.ShowAsync()
+        If result = ContentDialogResult.Primary Then
+            Dim un As String = dialog.UnBox.Text
+            Dim pw As String = dialog.PwBox.Password
+            CredentialHelper.RemoveCredential(un)
+            If dialog.SaveBox.IsChecked.Value Then
+                CredentialHelper.SaveCredential(un, pw)
+            End If
+            settings.StoredUsername = un
+            Model.Username = un
+            Model.Password = pw
+            Split.IsPaneOpen = False
+            Await LoginImpl()
+        End If
     End Sub
 
     Private Sub MainTimerTick()
-
+        Dim content As IUserContent = Model.UserContent
+        If Not content.AddOneSecond() Then
+            mainTimer.Stop()
+        End If
     End Sub
 
     Private Sub RefreshStatus()

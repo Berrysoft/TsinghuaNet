@@ -147,6 +147,9 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="ViewModels\MainViewModel.vb" />
     <Compile Include="ViewModels\NetUserBox.vb" />
+    <Compile Include="Views\ChangeUserDialog.xaml.vb">
+      <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -182,6 +185,10 @@
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ChangeUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
