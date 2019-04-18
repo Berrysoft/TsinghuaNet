@@ -164,7 +164,7 @@ Public Class MainViewModel
         Dim newc As IUserContent = Nothing
         Select Case type
             Case UserContentType.Line
-
+                newc = New LineUserContent()
             Case UserContentType.Ring
                 newc = New ArcUserContent()
             Case UserContentType.Water

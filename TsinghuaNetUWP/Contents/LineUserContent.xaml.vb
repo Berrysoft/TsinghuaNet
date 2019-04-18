@@ -1,10 +1,10 @@
 ﻿Imports TsinghuaNetUWP.Helper
 
-Public NotInheritable Class ArcUserContent
+Public NotInheritable Class LineUserContent
     Inherits UserControl
     Implements IUserContent
 
-    Public Shared ReadOnly UserProperty As DependencyProperty = DependencyProperty.Register(NameOf(User), GetType(FluxUserBox), GetType(ArcUserContent), New PropertyMetadata(Nothing, AddressOf UserPropertyChanged))
+    Public Shared ReadOnly UserProperty As DependencyProperty = DependencyProperty.Register(NameOf(User), GetType(FluxUserBox), GetType(LineUserContent), New PropertyMetadata(Nothing, AddressOf UserPropertyChanged))
     Public Property User As FluxUserBox Implements IUserContent.User
         Get
             Return GetValue(UserProperty)
@@ -14,7 +14,7 @@ Public NotInheritable Class ArcUserContent
         End Set
     End Property
     Private Shared Sub UserPropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-        Dim content As ArcUserContent = d
+        Dim content As LineUserContent = d
         Dim flux As FluxUserBox = e.NewValue
         If flux IsNot Nothing Then
             content.OnlineTime = flux.OnlineTime
@@ -24,7 +24,7 @@ Public NotInheritable Class ArcUserContent
         End If
     End Sub
 
-    Public Shared ReadOnly OnlineTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(OnlineTime), GetType(TimeSpan), GetType(ArcUserContent), New PropertyMetadata(TimeSpan.Zero))
+    Public Shared ReadOnly OnlineTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(OnlineTime), GetType(TimeSpan), GetType(LineUserContent), New PropertyMetadata(TimeSpan.Zero))
     Public Property OnlineTime As TimeSpan Implements IUserContent.OnlineTime
         Get
             Return GetValue(OnlineTimeProperty)
@@ -34,7 +34,7 @@ Public NotInheritable Class ArcUserContent
         End Set
     End Property
 
-    Public Shared ReadOnly FreeOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FreeOffset), GetType(Double), GetType(ArcUserContent), New PropertyMetadata(0.0))
+    Public Shared ReadOnly FreeOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FreeOffset), GetType(Double), GetType(LineUserContent), New PropertyMetadata(0.0))
     Public Property FreeOffset As Double Implements IUserContent.FreeOffset
         Get
             Return GetValue(FreeOffsetProperty)
@@ -44,7 +44,7 @@ Public NotInheritable Class ArcUserContent
         End Set
     End Property
 
-    Public Shared ReadOnly FluxOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxOffset), GetType(Double), GetType(ArcUserContent), New PropertyMetadata(0.0))
+    Public Shared ReadOnly FluxOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxOffset), GetType(Double), GetType(LineUserContent), New PropertyMetadata(0.0))
     Public Property FluxOffset As Double Implements IUserContent.FluxOffset
         Get
             Return GetValue(FluxOffsetProperty)
@@ -56,10 +56,11 @@ Public NotInheritable Class ArcUserContent
 
     Public Property IsProgressActive As Boolean Implements IUserContent.IsProgressActive
         Get
-            Return Progress.IsActive
+            Return Progress.IsIndeterminate
         End Get
         Set(value As Boolean)
-            Progress.IsActive = value
+            Progress.IsIndeterminate = value
+            MainRect.Visibility = If(value, Visibility.Collapsed, Visibility.Visible)
         End Set
     End Property
 

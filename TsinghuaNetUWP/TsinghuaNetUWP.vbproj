@@ -136,6 +136,9 @@
     <Compile Include="Contents\ArcUserContent.xaml.vb">
       <DependentUpon>ArcUserContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contents\LineUserContent.xaml.vb">
+      <DependentUpon>LineUserContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\NetStateIndexConverter.vb" />
     <Compile Include="Converters\UserContentTypeIndexConverter.vb" />
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contents\ArcUserContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\LineUserContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
