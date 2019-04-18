@@ -6,8 +6,9 @@
     xmlns:helper="using:TsinghuaNetUWP.Helper"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded">
+    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
         <local:MainViewModel x:Name="Model"/>
     </Page.DataContext>
@@ -25,13 +26,13 @@
         <!--<Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
             <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
         </Flyout>-->
+        <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
+        <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
+        <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
-            <!--<Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>-->
-            <Frame x:Name="MainFrame" Background="Transparent">
-                <local:ArcUserContent/>
-            </Frame>
+            <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
         </SplitView.Content>
         <SplitView.Pane>
             <ScrollViewer>
@@ -72,125 +73,47 @@
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
-                    <!--<StackPanel Margin="10" Orientation="Vertical">
-                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}">
-                            <RadioButton.IsChecked>
-                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:NetState>Net</helper:NetState>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                        <RadioButton GroupName="State" Content="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}">
-                            <RadioButton.IsChecked>
-                                <Binding Path="State" Mode="TwoWay" Converter="{StaticResource NetStateCheckedConverter}">
-                                    <Binding.ConverterParameter>
-                                        <helper:NetState>Auth4</helper:NetState>
-                                    </Binding.ConverterParameter>
-                                </Binding>
-                            </RadioButton.IsChecked>
-                        </RadioButton>
-                    </StackPanel>-->
-                    <StackPanel Orientation="Horizontal">
+                    <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">
+                        <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Unknown)}" Width="300"/>
+                        <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
+                        <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>
+                        <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}"/>
+                    </muxc:RadioButtons>
+                   <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
                     </StackPanel>
-                    <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneWay}" ItemTemplate="{StaticResource NetUserTemplate}">
+                    <ListView Margin="10" ItemsSource="{x:Bind Model.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
                         <ListView.ItemContainerTransitions>
                             <TransitionCollection>
                                 <AddDeleteThemeTransition/>
                             </TransitionCollection>
                         </ListView.ItemContainerTransitions>
                     </ListView>
-                    <!--<StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">颜色主题</TextBlock>
-                            <StackPanel Margin="10" Orientation="Vertical">
-                                <RadioButton GroupName="Theme" Content="系统">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="SettingsTheme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserTheme>Default</helper:UserTheme>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Theme" Content="浅色">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="SettingsTheme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserTheme>Light</helper:UserTheme>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Theme" Content="深色">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="SettingsTheme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserTheme>Dark</helper:UserTheme>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Theme" Content="自动">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="SettingsTheme" Mode="TwoWay" Converter="{StaticResource ThemeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserTheme>Auto</helper:UserTheme>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                            </StackPanel>
+                            <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.SettingsTheme,Converter={StaticResource UserThemeIndexConverter},Mode=TwoWay}">
+                                <x:String>系统</x:String>
+                                <x:String>浅色</x:String>
+                                <x:String>深色</x:String>
+                                <x:String>自动</x:String>
+                            </muxc:RadioButtons>
                         </StackPanel>
                         <StackPanel Orientation="Vertical">
                             <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">样式主题</TextBlock>
-                            <StackPanel Margin="10" Orientation="Vertical">
-                                <RadioButton GroupName="Type" Content="直线">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserContentType>Line</helper:UserContentType>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Type" Content="圆圈">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserContentType>Ring</helper:UserContentType>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Type" Content="水面">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserContentType>Water</helper:UserContentType>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                                <RadioButton GroupName="Type" Content="图表">
-                                    <RadioButton.IsChecked>
-                                        <Binding Path="ContentType" Mode="TwoWay" Converter="{StaticResource UserContentTypeCheckedConverter}">
-                                            <Binding.ConverterParameter>
-                                                <helper:UserContentType>Graph</helper:UserContentType>
-                                            </Binding.ConverterParameter>
-                                        </Binding>
-                                    </RadioButton.IsChecked>
-                                </RadioButton>
-                            </StackPanel>
+                            <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.ContentType,Converter={StaticResource UserContentTypeIndexConverter},Mode=TwoWay}">
+                                <x:String>直线</x:String>
+                                <x:String>圆圈</x:String>
+                                <x:String>水面</x:String>
+                                <x:String>图表</x:String>
+                            </muxc:RadioButtons>
                         </StackPanel>
-                    </StackPanel>-->
+                    </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Bottom" Text="{x:Bind Model.Version,Mode=OneWay}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Bottom" Text="{x:Bind Model.GetVersionString(Model.Version),Mode=OneTime}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018 Berrysoft</TextBlock>

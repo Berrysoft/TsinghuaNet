@@ -1,9 +1,9 @@
-﻿Imports TsinghuaNetUWP.Helper
+﻿Imports Berrysoft.Tsinghua.Net
+Imports TsinghuaNetUWP.Helper
 
 Public Class MainViewModel
     Inherits DependencyObject
 
-    ' TODO: readonly
     Public Shared ReadOnly UserContentProperty As DependencyProperty = DependencyProperty.Register(NameOf(UserContent), GetType(UIElement), GetType(MainViewModel), New PropertyMetadata(Nothing))
     Public Property UserContent As UIElement
         Get
@@ -11,6 +11,16 @@ Public Class MainViewModel
         End Get
         Set(value As UIElement)
             SetValue(UserContentProperty, value)
+        End Set
+    End Property
+
+    Public Shared ReadOnly ResponseProperty As DependencyProperty = DependencyProperty.Register(NameOf(Response), GetType(LogResponse), GetType(MainViewModel), New PropertyMetadata(Nothing))
+    Public Property Response As LogResponse
+        Get
+            Return GetValue(ResponseProperty)
+        End Get
+        Set(value As LogResponse)
+            SetValue(ResponseProperty, value)
         End Set
     End Property
 
@@ -74,11 +84,85 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Public ReadOnly Property NetUsers As ObservableCollection(Of Object) = New ObservableCollection(Of Object)
+    Public Shared ReadOnly SettingsThemeProperty As DependencyProperty = DependencyProperty.Register(NameOf(SettingsTheme), GetType(UserTheme), GetType(MainViewModel), New PropertyMetadata(UserTheme.Default, AddressOf SettingsThemePropertyChanged))
+    Public Property SettingsTheme As UserTheme
+        Get
+            Return GetValue(SettingsThemeProperty)
+        End Get
+        Set(value As UserTheme)
+            SetValue(SettingsThemeProperty, value)
+        End Set
+    End Property
+    Private Shared Sub SettingsThemePropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+        Dim model As MainViewModel = d
+        Dim theme As UserTheme = e.NewValue
+        Dim actheme As ElementTheme = theme
+        If theme = UserTheme.Auto Then
+            Dim now As Date = Date.Now
+            If now.Hour <= 6 OrElse now.Hour >= 18 Then
+                actheme = ElementTheme.Dark
+            Else
+                actheme = ElementTheme.Light
+            End If
+        End If
+        model.Theme = actheme
+    End Sub
+
+    Public Shared ReadOnly ThemeProperty As DependencyProperty = DependencyProperty.Register(NameOf(Theme), GetType(ElementTheme), GetType(MainViewModel), New PropertyMetadata(ElementTheme.Default))
+    Public Property Theme As ElementTheme
+        Get
+            Return GetValue(ThemeProperty)
+        End Get
+        Set(value As ElementTheme)
+            SetValue(ThemeProperty, value)
+        End Set
+    End Property
+
+    Public Shared ReadOnly ContentTypeProperty As DependencyProperty = DependencyProperty.Register(NameOf(ContentType), GetType(UserContentType), GetType(MainViewModel), New PropertyMetadata(UserContentType.Ring, AddressOf OnContentTypePropertyChanged))
+    Public Property ContentType As UserContentType
+        Get
+            Return GetValue(ContentTypeProperty)
+        End Get
+        Set(value As UserContentType)
+            SetValue(ContentTypeProperty, value)
+        End Set
+    End Property
+    Private Shared Sub OnContentTypePropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
+        Dim model As MainViewModel = d
+        Dim type As UserContentType = e.NewValue
+        Dim oldc As IUserContent = model.UserContent
+        Dim newc As IUserContent = Nothing
+        Select Case type
+            Case UserContentType.Line
+
+            Case UserContentType.Ring
+                newc = New ArcUserContent()
+            Case UserContentType.Water
+
+            Case UserContentType.Graph
+
+        End Select
+        If oldc IsNot Nothing AndAlso newc IsNot Nothing Then
+            newc.User = oldc.User
+        End If
+        model.UserContent = newc
+        model.OnContentTypeChanged(type)
+    End Sub
+
+    Public Event ContentTypeChanged As EventHandler(Of UserContentType)
+    Protected Overridable Sub OnContentTypeChanged(e As UserContentType)
+        RaiseEvent ContentTypeChanged(Me, e)
+    End Sub
+
+    Public ReadOnly NetUsers As New ObservableCollection(Of Object)
 
     Public ReadOnly Property Version As PackageVersion
         Get
             Return Package.Current.Id.Version
         End Get
     End Property
+
+    Public Function GetVersionString(ver As PackageVersion) As String
+        Return $"{ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}"
+    End Function
 End Class

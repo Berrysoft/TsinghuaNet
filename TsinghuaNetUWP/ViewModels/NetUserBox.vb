@@ -3,6 +3,7 @@ Imports Berrysoft.Tsinghua.Net
 
 Public Class NetUserBox
     Inherits DependencyObject
+    Implements IEquatable(Of NetUser)
 
     Public Sub New(Optional user As NetUser = Nothing)
         If user IsNot Nothing Then
@@ -45,6 +46,10 @@ Public Class NetUserBox
     Public Sub Drop()
         RaiseEvent DropUser(Me, Address)
     End Sub
+
+    Public Overloads Function Equals(other As NetUser) As Boolean Implements IEquatable(Of NetUser).Equals
+        Return Address.Equals(other) AndAlso LoginTime = other.LoginTime AndAlso Client = other.Client
+    End Function
 
     Public Event DropUser As EventHandler(Of IPAddress)
 End Class

@@ -17,6 +17,20 @@ Public Enum InternetStatus
     Lan
 End Enum
 
+Public Enum UserTheme
+    [Default]
+    Light
+    Dark
+    Auto
+End Enum
+
+Public Enum UserContentType
+    Line
+    Ring
+    Water
+    Graph
+End Enum
+
 Public Class SettingsHelper
     Private values As IPropertySet
 
@@ -66,6 +80,8 @@ Public Class SettingsHelper
         BackgroundLiveTile = GetValue(BackgroundLiveTileKey, True)
         LanState = GetValue(Of Integer)(LanStateKey, NetState.Auth4)
         WwanState = GetValue(Of Integer)(WwanStateKey, NetState.Unknown)
+        Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
+        ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
         Dim json As String = GetValue(Of String)(WlanStateKey)
         If String.IsNullOrEmpty(json) OrElse (Not JsonObject.TryParse(json, wlanMap)) Then
             wlanMap = GetJsonFromMap(DefWlanStates())
@@ -79,6 +95,8 @@ Public Class SettingsHelper
         SetValue(BackgroundLiveTileKey, BackgroundLiveTile)
         SetValue(Of Integer)(LanStateKey, LanState)
         SetValue(Of Integer)(WwanStateKey, WwanState)
+        SetValue(Of Integer)(ThemeKey, Theme)
+        SetValue(Of Integer)(ContentTypeKey, ContentType)
         SetValue(WlanStateKey, wlanMap.ToString())
     End Sub
 
@@ -114,6 +132,10 @@ Public Class SettingsHelper
             End If
         End Get
     End Property
+
+    Public Property Theme As UserTheme
+
+    Public Property ContentType As UserContentType
 
     Public Function SuggestNetState(status As InternetStatus, ssid As String) As NetState
         Select Case status
@@ -157,7 +179,7 @@ Public Class SettingsHelper
         End If
         If profile.IsWwanConnectionProfile Then
             Return (InternetStatus.Wwan, Nothing)
-        ElseIf profile.IsWwanConnectionProfile Then
+        ElseIf profile.IsWlanConnectionProfile Then
             Return (InternetStatus.Wlan, profile.WlanConnectionProfileDetails.GetConnectedSsid())
         Else
             Return (InternetStatus.Lan, Nothing)

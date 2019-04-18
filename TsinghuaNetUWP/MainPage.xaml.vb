@@ -1,5 +1,6 @@
 ﻿Imports System.Net
 Imports Berrysoft.Tsinghua.Net
+Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
 Imports Windows.UI
@@ -11,6 +12,8 @@ Public NotInheritable Class MainPage
     Inherits Page
 
     Private settings As New SettingsHelper
+    Private mainTimer As New DispatcherTimer
+    Private networkListener As NetworkHelper = NetworkHelper.Instance
 
     Public Sub New()
         InitializeComponent()
@@ -18,19 +21,25 @@ Public NotInheritable Class MainPage
         titleBar.BackgroundColor = Colors.Transparent
         titleBar.ButtonBackgroundColor = Colors.Transparent
         titleBar.ButtonInactiveBackgroundColor = Colors.Transparent
-
+        ThemeChanged()
         Dim viewTitleBar = CoreApplication.GetCurrentView().TitleBar
         viewTitleBar.ExtendViewIntoTitleBar = True
-
         Window.Current.SetTitleBar(MainFrame)
+        Model.SettingsTheme = settings.Theme
+        Model.ContentType = settings.ContentType
+        mainTimer.Interval = TimeSpan.FromSeconds(1)
+        AddHandler mainTimer.Tick, AddressOf MainTimerTick
+        AddHandler networkListener.NetworkChanged, AddressOf NetworkChanged
     End Sub
 
     Public Sub SaveSettings()
+        settings.Theme = Model.SettingsTheme
+        settings.ContentType = Model.ContentType
         settings.SaveSettings()
     End Sub
 
     Private Async Sub PageLoaded()
-        RefreshStatusImpl()
+        RefreshStatus()
         Dim un = settings.StoredUsername
         If Not String.IsNullOrEmpty(un) Then
             Model.Username = un
@@ -44,6 +53,30 @@ Public NotInheritable Class MainPage
             Await RefreshNetUsersImpl()
         End If
     End Sub
+
+    Private Sub ThemeChanged()
+        Dim titleBar = ApplicationView.GetForCurrentView().TitleBar
+        Select Case ActualTheme
+            Case ElementTheme.Light
+                titleBar.ButtonForegroundColor = Colors.Black
+            Case ElementTheme.Dark
+                titleBar.ButtonForegroundColor = Colors.White
+        End Select
+    End Sub
+
+    Private Async Sub NetworkChanged()
+        Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Async Sub() Await NetworkChangedImpl())
+    End Sub
+
+    Private Async Function NetworkChangedImpl() As Task
+        RefreshStatus()
+        If Not String.IsNullOrEmpty(Model.Password) Then
+            Await LoginImpl()
+        Else
+            Await RefreshImpl()
+        End If
+        Await RefreshNetUsersImpl()
+    End Function
 
     Private Sub OpenSettings()
         Split.IsPaneOpen = True
@@ -69,8 +102,17 @@ Public NotInheritable Class MainPage
 
     End Sub
 
+    Private Sub MainTimerTick()
+
+    End Sub
+
     Private Sub RefreshStatus()
-        RefreshStatusImpl()
+        Dim tuple = SettingsHelper.GetInternetStatus()
+        Dim state = settings.SuggestNetState(tuple.Status, tuple.Ssid)
+        Model.NetStatus = tuple.Status
+        Model.Ssid = tuple.Ssid
+        Model.SuggestState = state
+        Model.State = state
     End Sub
 
     Private Async Sub ShowEditSuggestion()
@@ -123,7 +165,12 @@ Public NotInheritable Class MainPage
             flux = Await helper.GetFluxAsync()
         End If
         NotificationHelper.UpdateTile(flux)
-
+        Dim content As IUserContent = Model.UserContent
+        If content IsNot Nothing Then
+            content.User = New FluxUserBox(flux)
+            content.BeginAnimation()
+            mainTimer.Start()
+        End If
     End Function
 
     Private Async Function DropImpl(e As IPAddress) As Task
@@ -141,15 +188,38 @@ Public NotInheritable Class MainPage
         Return ConnectHelper.GetHelper(Model.State, Model.Username, Model.Password)
     End Function
 
-    Private Sub RefreshStatusImpl()
-
-    End Sub
-
     Private Async Function RefreshNetUsersImpl() As Task
+        Try
+            If Model.State <> NetState.Unknown Then
+                Dim helper As New UseregHelper(Model.Username, Model.Password)
+                Await helper.LoginAsync()
+                Await RefreshNetUsersImpl(helper)
+            End If
+        Catch ex As Exception
 
+        End Try
     End Function
 
-    Private Async Function RefreshNetUsersImpl(helper As IConnect) As Task
-
+    Private Async Function RefreshNetUsersImpl(helper As UseregHelper) As Task
+        Dim users = (Await helper.GetUsersAsync()).ToList()
+        Dim usersmodel = Model.NetUsers
+        Dim i As Integer = 0
+        Do While i < usersmodel.Count
+            Dim olduser As NetUserBox = usersmodel(i)
+            For j = 0 To users.Count - 1
+                Dim user As NetUser = users(j)
+                If olduser.Equals(user) Then
+                    users.RemoveAt(j)
+                    i += 1
+                    Continue Do
+                End If
+            Next
+            usersmodel.RemoveAt(i)
+        Loop
+        For Each user In users
+            Dim u As New NetUserBox(user)
+            AddHandler u.DropUser, AddressOf DropUser
+            usersmodel.Add(u)
+        Next
     End Function
 End Class
