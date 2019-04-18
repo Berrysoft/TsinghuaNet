@@ -234,6 +234,9 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.2.190416008-prerelease</Version>
     </PackageReference>
+    <PackageReference Include="System.Text.Encoding.CodePages">
+      <Version>4.6.0-preview3.19128.7</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNetUWP.Background\TsinghuaNetUWP.Background.vbproj">

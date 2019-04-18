@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Text
 Imports Berrysoft.Tsinghua.Net
 Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNetUWP.Helper
@@ -17,6 +18,7 @@ Public NotInheritable Class MainPage
 
     Public Sub New()
         InitializeComponent()
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
         Dim titleBar = ApplicationView.GetForCurrentView().TitleBar
         titleBar.BackgroundColor = Colors.Transparent
         titleBar.ButtonBackgroundColor = Colors.Transparent

@@ -48,7 +48,7 @@ Public Class NetUserBox
     End Sub
 
     Public Overloads Function Equals(other As NetUser) As Boolean Implements IEquatable(Of NetUser).Equals
-        Return Address.Equals(other) AndAlso LoginTime = other.LoginTime AndAlso Client = other.Client
+        Return Address.Equals(other.Address) AndAlso LoginTime = other.LoginTime AndAlso Client = other.Client
     End Function
 
     Public Event DropUser As EventHandler(Of IPAddress)
