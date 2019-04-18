@@ -18,10 +18,6 @@ Public Module UserHelper
         Return $"{flux:F2} GB"
     End Function
 
-    Public Function GetTimeSpanString(time As TimeSpan) As String
-        Return time.ToString()
-    End Function
-
     Public Function GetCurrencyString(currency As Decimal) As String
         Return currency.ToString("C2", New CultureInfo("zh-CN"))
     End Function
