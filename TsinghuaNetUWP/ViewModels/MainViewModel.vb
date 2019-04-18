@@ -184,7 +184,7 @@ Public Class MainViewModel
         RaiseEvent ContentTypeChanged(Me, e)
     End Sub
 
-    Public ReadOnly NetUsers As New ObservableCollection(Of Object)
+    Public ReadOnly Property NetUsers As New ObservableCollection(Of NetUserBox)
 
     Public ReadOnly Property Version As PackageVersion
         Get

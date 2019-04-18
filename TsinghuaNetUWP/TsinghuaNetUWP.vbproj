@@ -141,6 +141,10 @@
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
     <Compile Include="ViewModels\FluxUserBox.vb" />
     <Compile Include="Contents\IUserContent.vb" />
+    <Compile Include="ViewModels\NetStateSsidBox.vb" />
+    <Compile Include="Views\EditSuggestionDialog.xaml.vb">
+      <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +153,9 @@
     <Compile Include="ViewModels\NetUserBox.vb" />
     <Compile Include="Views\ChangeUserDialog.xaml.vb">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SsidSuggestion.xaml.vb">
+      <DependentUpon>SsidSuggestion.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -182,11 +189,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\EditSuggestionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\ChangeUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SsidSuggestion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

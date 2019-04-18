@@ -1,5 +1,4 @@
 ﻿Imports Windows.Data.Json
-Imports Windows.Foundation.Collections
 Imports Windows.Networking.Connectivity
 Imports Windows.Storage
 

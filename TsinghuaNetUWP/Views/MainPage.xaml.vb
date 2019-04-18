@@ -150,7 +150,23 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub ShowEditSuggestion()
-
+        Dim dialog As New EditSuggestionDialog
+        dialog.RequestedTheme = Model.Theme
+        dialog.LanCombo.Value = settings.LanState
+        dialog.WwanCombo.Value = settings.WwanState
+        Dim s = settings.WlanStates
+        dialog.RefreshWlanList(s)
+        Dim result = Await dialog.ShowAsync()
+        If result = ContentDialogResult.Primary Then
+            settings.LanState = dialog.LanCombo.Value
+            settings.WwanState = dialog.WwanCombo.Value
+            s.Clear()
+            For Each item In dialog.WlanList
+                s.Add(item.Ssid, item.Value)
+            Next
+            settings.WlanStates = s
+            RefreshStatus()
+        End If
     End Sub
 
     Private Async Sub RefreshNetUsers()
