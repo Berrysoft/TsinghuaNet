@@ -14,12 +14,12 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Public Shared ReadOnly ResponseProperty As DependencyProperty = DependencyProperty.Register(NameOf(Response), GetType(LogResponse), GetType(MainViewModel), New PropertyMetadata(Nothing))
-    Public Property Response As LogResponse
+    Public Shared ReadOnly ResponseProperty As DependencyProperty = DependencyProperty.Register(NameOf(Response), GetType(String), GetType(MainViewModel), New PropertyMetadata(Nothing))
+    Public Property Response As String
         Get
             Return GetValue(ResponseProperty)
         End Get
-        Set(value As LogResponse)
+        Set(value As String)
             SetValue(ResponseProperty, value)
         End Set
     End Property

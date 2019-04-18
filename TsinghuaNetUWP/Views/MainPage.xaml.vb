@@ -203,11 +203,11 @@ Public NotInheritable Class MainPage
             content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
-                Await helper.LoginAsync()
+                ShowResponse(Await helper.LoginAsync())
             End If
             Await RefreshImpl(helper)
         Catch ex As Exception
-
+            ShowException(ex)
         Finally
             content.IsProgressActive = False
         End Try
@@ -219,11 +219,11 @@ Public NotInheritable Class MainPage
             content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
-                Await helper.LogoutAsync()
+                ShowResponse(Await helper.LogoutAsync())
             End If
             Await RefreshImpl(helper)
         Catch ex As Exception
-
+            ShowException(ex)
         Finally
             content.IsProgressActive = False
         End Try
@@ -236,7 +236,7 @@ Public NotInheritable Class MainPage
             Dim helper = GetHelper()
             Await RefreshImpl(helper)
         Catch ex As Exception
-
+            ShowException(ex)
         Finally
             content.IsProgressActive = False
         End Try
@@ -263,13 +263,24 @@ Public NotInheritable Class MainPage
             Await helper.LogoutAsync(e)
             Await RefreshNetUsersImpl(helper)
         Catch ex As Exception
-
+            ShowException(ex)
         End Try
     End Function
 
     Private Function GetHelper() As IConnect
         Return ConnectHelper.GetHelper(Model.State, Model.Username, Model.Password)
     End Function
+
+    Private Async Sub ShowResponse(response As LogResponse)
+        Model.Response = response.Message
+        ResponseFlyout.ShowAt(MainBar)
+        Await Task.Delay(3000)
+        Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
+    End Sub
+
+    Private Sub ShowException(e As Exception)
+        ShowResponse(New LogResponse(False, $"异常 0x{e.HResult:X}：{e.Message}"))
+    End Sub
 
     Private Async Function RefreshNetUsersImpl() As Task
         Try
@@ -279,7 +290,7 @@ Public NotInheritable Class MainPage
                 Await RefreshNetUsersImpl(helper)
             End If
         Catch ex As Exception
-
+            ShowException(ex)
         End Try
     End Function
 

@@ -66,8 +66,4 @@ Public Module UserHelper
     Public Function GetMaxFlux(flux As Long, balance As Decimal) As Long
         Return Math.Max(flux, BaseFlux) + balance / 2 * 1000 * 1000 * 1000
     End Function
-
-    Public Function GetResponseString(response As LogResponse) As String
-        Return response.Message
-    End Function
 End Module

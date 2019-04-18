@@ -23,9 +23,9 @@
                 <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Click="{x:Bind Drop}"/>
             </Grid>
         </DataTemplate>
-        <!--<Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
-            <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind helper:UserHelper.GetResponseString(Model.Response),Mode=OneWay}"/>
-        </Flyout>-->
+        <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
+            <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+        </Flyout>
         <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
         <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
         <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>

@@ -44,28 +44,32 @@ Public Module NotificationHelper
     End Sub
 
     Public Sub UpdateTile(user As FluxUser)
-        Dim dom As New XmlDocument
-        dom.LoadXml(String.Format(
-                    tileText,
-                    user.Username,
-                    UserHelper.GetFluxString(user.Flux),
-                    user.OnlineTime.ToString(),
-                    UserHelper.GetCurrencyString(user.Balance),
-                    UserHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
-        Dim notification As New TileNotification(dom)
-        notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(15)
-        TileUpdateManager.CreateTileUpdaterForApplication().Update(notification)
+        If user IsNot Nothing Then
+            Dim dom As New XmlDocument
+            dom.LoadXml(String.Format(
+                        tileText,
+                        user.Username,
+                        UserHelper.GetFluxString(user.Flux),
+                        user.OnlineTime.ToString(),
+                        UserHelper.GetCurrencyString(user.Balance),
+                        UserHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
+            Dim notification As New TileNotification(dom)
+            notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(15)
+            TileUpdateManager.CreateTileUpdaterForApplication().Update(notification)
+        End If
     End Sub
 
     Public Sub SendToast(user As FluxUser)
-        Dim dom As New XmlDocument
-        dom.LoadXml(String.Format(
+        If user IsNot Nothing Then
+            Dim dom As New XmlDocument
+            dom.LoadXml(String.Format(
                     toastText,
                     user.Username,
                     UserHelper.GetFluxString(user.Flux),
                     UserHelper.GetCurrencyString(user.Balance)))
-        Dim notification As New ToastNotification(dom)
-        notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(1)
-        ToastNotificationManager.CreateToastNotifier().Show(notification)
+            Dim notification As New ToastNotification(dom)
+            notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(1)
+            ToastNotificationManager.CreateToastNotifier().Show(notification)
+        End If
     End Sub
 End Module
