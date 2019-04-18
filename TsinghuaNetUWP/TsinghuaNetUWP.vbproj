@@ -141,7 +141,7 @@
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
     <Compile Include="ViewModels\FluxUserBox.vb" />
     <Compile Include="Contents\IUserContent.vb" />
-    <Compile Include="MainPage.xaml.vb">
+    <Compile Include="Views\MainPage.xaml.vb">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -182,7 +182,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

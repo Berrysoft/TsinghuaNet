@@ -10,11 +10,11 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model"/>
+        <local:MainViewModel x:Name="Model" ContentTypeChanged="ContentTypeChanged"/>
     </Page.DataContext>
     <Page.Resources>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="local:NetUserBox">
-            <Grid Width="280">
+            <Grid Width="260">
                 <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
                     <TextBlock Margin="10,10,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
                     <TextBlock Margin="10,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
@@ -30,7 +30,7 @@
         <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
         <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="350" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="330" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
         </SplitView.Content>
@@ -43,7 +43,7 @@
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Username,Mode=OneWay}"/>
                     </StackPanel>
-                    <!--<StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
                         <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                     </StackPanel>
@@ -54,7 +54,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
                         <ToggleSwitch Margin="10,0" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    </StackPanel>-->
+                    </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshStatus"/>
@@ -70,7 +70,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateSimpleString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
                     <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                     <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">

@@ -2,6 +2,7 @@
 Imports System.Text
 Imports Berrysoft.Tsinghua.Net
 Imports Microsoft.Toolkit.Uwp.Connectivity
+Imports TsinghuaNetUWP.Background
 Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
 Imports Windows.UI
@@ -32,9 +33,12 @@ Public NotInheritable Class MainPage
         mainTimer.Interval = TimeSpan.FromSeconds(1)
         AddHandler mainTimer.Tick, AddressOf MainTimerTick
         AddHandler networkListener.NetworkChanged, AddressOf NetworkChanged
+        Model.RegisterPropertyChangedCallback(MainViewModel.AutoLoginProperty, AddressOf AutoLoginChanged)
+        Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundAutoLoginProperty, AddressOf BackgroundAutoLoginChanged)
+        Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundLiveTileProperty, AddressOf BackgroundLiveTileChanged)
     End Sub
 
-    Public Sub SaveSettings()
+    Friend Sub SaveSettings()
         settings.Theme = Model.SettingsTheme
         settings.ContentType = Model.ContentType
         settings.SaveSettings()
@@ -42,12 +46,22 @@ Public NotInheritable Class MainPage
 
     Private Async Sub PageLoaded()
         RefreshStatus()
+        Dim al = settings.AutoLogin
+        Model.AutoLogin = al
+        Dim bal = settings.BackgroundAutoLogin
+        Model.BackgroundAutoLogin = bal
+        Dim blt = settings.BackgroundLiveTile
+        Model.BackgroundLiveTile = blt
+        If Await BackgroundHelper.RequestAccessAsync() Then
+            BackgroundHelper.RegisterLogin(bal)
+            BackgroundHelper.RegisterLiveTile(blt)
+        End If
         Dim un = settings.StoredUsername
         If Not String.IsNullOrEmpty(un) Then
             Model.Username = un
             Dim pw = CredentialHelper.GetCredential(un)
             Model.Password = pw
-            If Not ToastLogined AndAlso Not String.IsNullOrEmpty(pw) Then
+            If al AndAlso Not ToastLogined AndAlso Not String.IsNullOrEmpty(pw) Then
                 Await LoginImpl()
             Else
                 Await RefreshImpl()
@@ -143,10 +157,34 @@ Public NotInheritable Class MainPage
         Await RefreshNetUsersImpl()
     End Sub
 
-    Public Property ToastLogined As Boolean
+    Private Sub AutoLoginChanged()
+        settings.AutoLogin = Model.AutoLogin
+    End Sub
+
+    Private Async Sub BackgroundAutoLoginChanged()
+        settings.BackgroundAutoLogin = Model.BackgroundAutoLogin
+        If Await BackgroundHelper.RequestAccessAsync() Then
+            BackgroundHelper.RegisterLogin(Model.BackgroundAutoLogin)
+        End If
+    End Sub
+
+    Private Async Sub BackgroundLiveTileChanged()
+        settings.BackgroundLiveTile = Model.BackgroundLiveTile
+        If Await BackgroundHelper.RequestAccessAsync() Then
+            BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile)
+        End If
+    End Sub
+
+    Private Async Sub ContentTypeChanged()
+        Await RefreshImpl()
+    End Sub
+
+    Friend Property ToastLogined As Boolean
 
     Private Async Function LoginImpl() As Task
+        Dim content As IUserContent = Model.UserContent
         Try
+            content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
                 Await helper.LoginAsync()
@@ -154,11 +192,15 @@ Public NotInheritable Class MainPage
             Await RefreshImpl(helper)
         Catch ex As Exception
 
+        Finally
+            content.IsProgressActive = False
         End Try
     End Function
 
     Private Async Function LogoutImpl() As Task
+        Dim content As IUserContent = Model.UserContent
         Try
+            content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
                 Await helper.LogoutAsync()
@@ -166,17 +208,22 @@ Public NotInheritable Class MainPage
             Await RefreshImpl(helper)
         Catch ex As Exception
 
+        Finally
+            content.IsProgressActive = False
         End Try
     End Function
 
     Private Async Function RefreshImpl() As Task
+        Dim content As IUserContent = Model.UserContent
         Try
+            content.IsProgressActive = True
             Dim helper = GetHelper()
             Await RefreshImpl(helper)
         Catch ex As Exception
 
+        Finally
+            content.IsProgressActive = False
         End Try
-
     End Function
 
     Private Async Function RefreshImpl(helper As IConnect) As Task

@@ -43,7 +43,7 @@ Public Class SettingsHelper
     End Function
 
     Private Sub SetValue(Of T)(key As String, value As T)
-        values.Add(key, value)
+        values.TryAdd(key, value)
     End Sub
 
     Private Shared Function GetMapFromJson(json As JsonObject) As IDictionary(Of String, NetState)

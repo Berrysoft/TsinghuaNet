@@ -44,6 +44,36 @@ Public Class MainViewModel
         End Set
     End Property
 
+    Public Shared ReadOnly AutoLoginProperty As DependencyProperty = DependencyProperty.Register(NameOf(AutoLogin), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
+    Public Property AutoLogin As Boolean
+        Get
+            Return GetValue(AutoLoginProperty)
+        End Get
+        Set(value As Boolean)
+            SetValue(AutoLoginProperty, value)
+        End Set
+    End Property
+
+    Public Shared ReadOnly BackgroundAutoLoginProperty As DependencyProperty = DependencyProperty.Register(NameOf(BackgroundAutoLogin), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
+    Public Property BackgroundAutoLogin As Boolean
+        Get
+            Return GetValue(BackgroundAutoLoginProperty)
+        End Get
+        Set(value As Boolean)
+            SetValue(BackgroundAutoLoginProperty, value)
+        End Set
+    End Property
+
+    Public Shared ReadOnly BackgroundLiveTileProperty As DependencyProperty = DependencyProperty.Register(NameOf(BackgroundLiveTile), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
+    Public Property BackgroundLiveTile As Boolean
+        Get
+            Return GetValue(BackgroundLiveTileProperty)
+        End Get
+        Set(value As Boolean)
+            SetValue(BackgroundLiveTileProperty, value)
+        End Set
+    End Property
+
     Public Shared ReadOnly StateProperty As DependencyProperty = DependencyProperty.Register(NameOf(State), GetType(NetState), GetType(MainViewModel), New PropertyMetadata(NetState.Unknown))
     Public Property State As NetState
         Get

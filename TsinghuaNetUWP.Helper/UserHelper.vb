@@ -39,6 +39,19 @@ Public Module UserHelper
         End Select
     End Function
 
+    Public Function GetNetStateSimpleString(state As NetState) As String
+        Select Case state
+            Case NetState.Net
+                Return "Net"
+            Case NetState.Auth4
+                Return "Auth4"
+            Case NetState.Auth6
+                Return "Auth6"
+            Case Else
+                Return "不需要登录"
+        End Select
+    End Function
+
     Public Function GetInternetStatusString(status As InternetStatus) As String
         Select Case status
             Case InternetStatus.Wwan
