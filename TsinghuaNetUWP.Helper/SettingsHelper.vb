@@ -42,7 +42,11 @@ Public Class SettingsHelper
     End Function
 
     Private Sub SetValue(Of T)(key As String, value As T)
-        values.TryAdd(key, value)
+        If values.ContainsKey(key) Then
+            values(key) = value
+        Else
+            values.Add(key, value)
+        End If
     End Sub
 
     Private Shared Function GetMapFromJson(json As JsonObject) As IDictionary(Of String, NetState)

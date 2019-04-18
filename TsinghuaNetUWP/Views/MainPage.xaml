@@ -26,6 +26,22 @@
         <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
             <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
         </Flyout>
+        <Flyout x:Name="HelpFlyout">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Net</TextBlock>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">传统的校园网连接方式</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Auth4</TextBlock>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv4连接方式</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Auth6</TextBlock>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv6连接方式</TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Flyout>
         <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
         <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
         <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
@@ -72,7 +88,10 @@
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
                         <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateSimpleString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
-                    <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
+                        <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
+                    </StackPanel>
                     <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">
                         <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Unknown)}" Width="300"/>
                         <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>

@@ -30,10 +30,6 @@ Public NotInheritable Class EditSuggestionDialog
         End If
     End Sub
 
-    Private Sub HelpSelection(sender As Object, e As RoutedEventArgs)
-        HelpFlyout.ShowAt(e.OriginalSource)
-    End Sub
-
     Private Sub RestoreSelection()
         RefreshWlanList(SettingsHelper.DefWlanStates())
     End Sub

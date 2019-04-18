@@ -168,7 +168,7 @@ Public Class MainViewModel
             Case UserContentType.Ring
                 newc = New ArcUserContent()
             Case UserContentType.Water
-
+                newc = New WaterUserContent()
             Case UserContentType.Graph
 
         End Select

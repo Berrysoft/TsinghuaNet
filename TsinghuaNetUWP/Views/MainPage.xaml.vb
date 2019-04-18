@@ -282,6 +282,10 @@ Public NotInheritable Class MainPage
         ShowResponse(New LogResponse(False, $"异常 0x{e.HResult:X}：{e.Message}"))
     End Sub
 
+    Private Sub HelpSelection(sender As Object, e As RoutedEventArgs)
+        HelpFlyout.ShowAt(e.OriginalSource)
+    End Sub
+
     Private Async Function RefreshNetUsersImpl() As Task
         Try
             If Model.State <> NetState.Unknown Then

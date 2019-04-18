@@ -22,18 +22,6 @@
                 <Button Margin="10,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
             </StackPanel>
         </Flyout>
-        <Flyout x:Name="HelpFlyout">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Net</TextBlock>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">传统的校园网连接方式</TextBlock>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Width="50">Auth4</TextBlock>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv4连接方式</TextBlock>
-                </StackPanel>
-            </StackPanel>
-        </Flyout>
     </ContentDialog.Resources>
     <ScrollViewer>
         <Grid>
@@ -54,7 +42,6 @@
                         <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE81C;"/>
                     </AppBarButton.Icon>
                 </AppBarButton>
-                <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
             </StackPanel>
             <ListView x:Name="WlanListView" Grid.Row="3" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
         </Grid>
