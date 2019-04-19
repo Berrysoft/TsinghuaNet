@@ -63,12 +63,13 @@ Public NotInheritable Class GraphUserContent
             Dim ds = Await helper.GetDetailsAsync()
             Details.Clear()
             MainChart.Opacity = 0
+            Dim totalf As Double = 0
             For Each b In From d In ds
                           Where d.OnlineDate.Month = now.Month
                           Group By d.OnlineDate.Day Into gr = Group
                           Aggregate g In gr Into s = Sum(g.Flux)
-                          Select New NetDetailBox() With {.[Date] = Day, .Flux = s / 1000000000}
-                Details.Add(b)
+                totalf += b.s / 1000000000
+                Details.Add(New NetDetailBox() With {.[Date] = b.Day, .Flux = totalf})
             Next
         End If
     End Function
