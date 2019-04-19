@@ -14,7 +14,7 @@
     </Page.DataContext>
     <Page.Resources>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="local:NetUserBox">
-            <Grid Width="260">
+            <Grid Width="250">
                 <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
                     <TextBlock Margin="10,10,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
                     <TextBlock Margin="10,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
@@ -46,7 +46,7 @@
         <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
         <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="330" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="320" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
         </SplitView.Content>
@@ -86,7 +86,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateSimpleString(Model.SuggestState),Mode=OneWay}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>

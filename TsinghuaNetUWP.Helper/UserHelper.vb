@@ -25,19 +25,6 @@ Public Module UserHelper
     Public Function GetNetStateString(state As NetState) As String
         Select Case state
             Case NetState.Net
-                Return "Net - http://net.tsinghua.edu.cn/"
-            Case NetState.Auth4
-                Return "Auth4 - http://auth4.tsinghua.edu.cn/"
-            Case NetState.Auth6
-                Return "Auth6 - http://auth6.tsinghua.edu.cn/"
-            Case Else
-                Return "不需要登录"
-        End Select
-    End Function
-
-    Public Function GetNetStateSimpleString(state As NetState) As String
-        Select Case state
-            Case NetState.Net
                 Return "Net"
             Case NetState.Auth4
                 Return "Auth4"

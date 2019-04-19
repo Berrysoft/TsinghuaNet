@@ -53,7 +53,7 @@ Public NotInheritable Class GraphUserContent
         End If
     End Function
 
-    Public ReadOnly Property Details As New ObservableCollection(Of NetDetailBox)
+    Public ReadOnly Property Details As New ObservableCollection(Of KeyValuePair(Of Integer, Double))
 
     Friend Async Function RefreshDetails(username As String, password As String) As Task
         If Not String.IsNullOrEmpty(username) Then
@@ -69,7 +69,7 @@ Public NotInheritable Class GraphUserContent
                           Group By d.OnlineDate.Day Into gr = Group
                           Aggregate g In gr Into s = Sum(g.Flux)
                 totalf += b.s / 1000000000
-                Details.Add(New NetDetailBox() With {.[Date] = b.Day, .Flux = totalf})
+                Details.Add(New KeyValuePair(Of Integer, Double)(b.Day, totalf))
             Next
         End If
     End Function

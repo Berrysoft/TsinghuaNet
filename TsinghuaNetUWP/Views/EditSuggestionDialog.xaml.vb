@@ -15,7 +15,7 @@ Public NotInheritable Class EditSuggestionDialog
             AddFlyout.Hide()
             AddFlyoutText.Text = String.Empty
             If Not Aggregate pair In WlanList
-                   Into AnyMatch = Any(pair IsNot Nothing AndAlso pair.Ssid = ssid) Then
+                   Into AnyMatch = Any(pair?.Ssid = ssid) Then
                 Dim item As New NetStateSsidBox()
                 item.Ssid = ssid
                 WlanList.Add(item)
