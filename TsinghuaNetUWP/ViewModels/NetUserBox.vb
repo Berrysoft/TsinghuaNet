@@ -13,35 +13,9 @@ Public Class NetUserBox
         End If
     End Sub
 
-    Public Shared ReadOnly AddressProperty As DependencyProperty = DependencyProperty.Register(NameOf(Address), GetType(IPAddress), GetType(NetUserBox), New PropertyMetadata(Nothing))
     Public Property Address As IPAddress
-        Get
-            Return GetValue(AddressProperty)
-        End Get
-        Set(value As IPAddress)
-            SetValue(AddressProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly LoginTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(LoginTime), GetType(Date), GetType(NetUserBox), New PropertyMetadata(New Date()))
     Public Property LoginTime As Date
-        Get
-            Return GetValue(LoginTimeProperty)
-        End Get
-        Set(value As Date)
-            SetValue(LoginTimeProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly ClientProperty As DependencyProperty = DependencyProperty.Register(NameOf(Client), GetType(String), GetType(NetUserBox), New PropertyMetadata(String.Empty))
     Public Property Client As String
-        Get
-            Return GetValue(ClientProperty)
-        End Get
-        Set(value As String)
-            SetValue(ClientProperty, value)
-        End Set
-    End Property
 
     Public Sub Drop()
         RaiseEvent DropUser(Me, Address)

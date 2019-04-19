@@ -249,9 +249,13 @@ Public NotInheritable Class MainPage
         NotificationHelper.UpdateTile(flux)
         Dim content As IUserContent = Model.UserContent
         If content IsNot Nothing Then
-            content.User = New FluxUserBox(flux)
+            content.User = If(flux, New FluxUser(Nothing, 0, TimeSpan.Zero, 0))
             If TypeOf content Is GraphUserContent Then
-                Await CType(content, GraphUserContent).RefreshDetails(Model.Username, Model.Password)
+                If Not String.IsNullOrEmpty(Model.Username) Then
+                    Dim userhelper As New UseregHelper(Model.Username, Model.Password)
+                    Await userhelper.LoginAsync()
+                    Await CType(content, GraphUserContent).RefreshDetails(userhelper)
+                End If
             End If
             content.BeginAnimation()
             mainTimer.Start()

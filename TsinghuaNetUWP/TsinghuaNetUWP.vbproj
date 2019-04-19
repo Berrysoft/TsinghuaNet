@@ -154,7 +154,6 @@
     <Compile Include="Converters\NetStateIndexConverter.vb" />
     <Compile Include="Converters\UserContentTypeIndexConverter.vb" />
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
-    <Compile Include="ViewModels\FluxUserBox.vb" />
     <Compile Include="Contents\IUserContent.vb" />
     <Compile Include="ViewModels\NetStateSsidBox.vb" />
     <Compile Include="Views\EditSuggestionDialog.xaml.vb">

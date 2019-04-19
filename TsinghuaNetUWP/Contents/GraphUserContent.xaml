@@ -47,7 +47,7 @@
                             <Setter Property="Foreground" Value="{ThemeResource SystemAccentColor}"/>
                         </Style>
                     </wcdc:Chart.TitleStyle>
-                    <wcdc:LineSeries AnimationSequence="FirstToLast" ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
+                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
                         <wcdc:LineSeries.DataPointStyle>
                             <Style TargetType="wcdc:DataPoint">
                                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}"/>

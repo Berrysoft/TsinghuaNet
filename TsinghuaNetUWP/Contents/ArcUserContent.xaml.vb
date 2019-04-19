@@ -1,21 +1,22 @@
-﻿Imports TsinghuaNetUWP.Helper
+﻿Imports Berrysoft.Tsinghua.Net
+Imports TsinghuaNetUWP.Helper
 
 Public NotInheritable Class ArcUserContent
     Inherits UserControl
     Implements IUserContent
 
-    Public Shared ReadOnly UserProperty As DependencyProperty = DependencyProperty.Register(NameOf(User), GetType(FluxUserBox), GetType(ArcUserContent), New PropertyMetadata(Nothing, AddressOf UserPropertyChanged))
-    Public Property User As FluxUserBox Implements IUserContent.User
+    Public Shared ReadOnly UserProperty As DependencyProperty = DependencyProperty.Register(NameOf(User), GetType(FluxUser), GetType(ArcUserContent), New PropertyMetadata(Nothing, AddressOf UserPropertyChanged))
+    Public Property User As FluxUser Implements IUserContent.User
         Get
             Return GetValue(UserProperty)
         End Get
-        Set(value As FluxUserBox)
+        Set(value As FluxUser)
             SetValue(UserProperty, value)
         End Set
     End Property
     Private Shared Sub UserPropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
         Dim content As ArcUserContent = d
-        Dim flux As FluxUserBox = e.NewValue
+        Dim flux As FluxUser = e.NewValue
         If flux IsNot Nothing Then
             content.OnlineTime = flux.OnlineTime
             Dim maxf = UserHelper.GetMaxFlux(flux.Flux, flux.Balance)
