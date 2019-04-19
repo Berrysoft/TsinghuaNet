@@ -142,6 +142,9 @@
     <Compile Include="Contents\ArcUserContent.xaml.vb">
       <DependentUpon>ArcUserContent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contents\GraphUserContent.xaml.vb">
+      <DependentUpon>GraphUserContent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contents\LineUserContent.xaml.vb">
       <DependentUpon>LineUserContent.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,7 @@
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
     <Compile Include="ViewModels\FluxUserBox.vb" />
     <Compile Include="Contents\IUserContent.vb" />
+    <Compile Include="ViewModels\NetDetailBox.vb" />
     <Compile Include="ViewModels\NetStateSsidBox.vb" />
     <Compile Include="Views\EditSuggestionDialog.xaml.vb">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Contents\ArcUserContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Contents\GraphUserContent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -271,6 +279,9 @@
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.6.0-preview4.19212.13</Version>
+    </PackageReference>
+    <PackageReference Include="WinRTXamlToolkit.Controls.DataVisualization.UWP">
+      <Version>2.3.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
