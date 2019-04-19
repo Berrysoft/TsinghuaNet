@@ -170,7 +170,7 @@ Public Class MainViewModel
             Case UserContentType.Water
                 newc = New WaterUserContent()
             Case UserContentType.Graph
-
+                newc = New GraphUserContent()
         End Select
         If oldc IsNot Nothing AndAlso newc IsNot Nothing Then
             newc.User = oldc.User

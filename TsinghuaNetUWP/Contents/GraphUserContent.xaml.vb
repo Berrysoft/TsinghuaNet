@@ -1,5 +1,4 @@
 ﻿Imports Berrysoft.Tsinghua.Net
-Imports TsinghuaNetUWP.Helper
 
 Public NotInheritable Class GraphUserContent
     Inherits UserControl
@@ -56,6 +55,13 @@ Public NotInheritable Class GraphUserContent
     End Property
 
     Public Property IsProgressActive As Boolean Implements IUserContent.IsProgressActive
+        Get
+            Return Progress.IsActive
+        End Get
+        Set(value As Boolean)
+            Progress.IsActive = value
+        End Set
+    End Property
 
     Public Sub BeginAnimation() Implements IUserContent.BeginAnimation
         'FluxStoryboard.Begin()
@@ -72,14 +78,18 @@ Public NotInheritable Class GraphUserContent
 
     Public ReadOnly Property Details As New ObservableCollection(Of NetDetailBox)
 
-    Private username As String
-    Private password As String
-
-    Private Async Sub RefreshDetails()
-        Dim helper As New UseregHelper(username, password)
-        Await helper.LoginAsync()
-        Dim ds = Await helper.GetDetailsAsync()
-        Details.Clear()
-        'TODO: group
-    End Sub
+    Friend Async Function RefreshDetails(username As String, password As String) As Task
+        If Not String.IsNullOrEmpty(username) Then
+            Dim helper As New UseregHelper(username, password)
+            Await helper.LoginAsync()
+            Dim ds = Await helper.GetDetailsAsync()
+            Details.Clear()
+            For Each b In From d In ds
+                          Group By d.OnlineDate.Day Into gr = Group
+                          Aggregate g In gr Into s = Sum(g.Flux)
+                          Select New NetDetailBox() With {.[Date] = Day, .Flux = s / 1000000000}
+                Details.Add(b)
+            Next
+        End If
+    End Function
 End Class
