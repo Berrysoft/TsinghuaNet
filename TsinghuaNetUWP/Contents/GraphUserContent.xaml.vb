@@ -18,9 +18,6 @@ Public NotInheritable Class GraphUserContent
         Dim flux As FluxUserBox = e.NewValue
         If flux IsNot Nothing Then
             content.OnlineTime = flux.OnlineTime
-            'Dim maxf = UserHelper.GetMaxFlux(flux.Flux, flux.Balance)
-            'content.FluxAnimation.To = flux.Flux / maxf
-            'content.FreeAnimation.To = UserHelper.BaseFlux / maxf
         End If
     End Sub
 
@@ -34,26 +31,6 @@ Public NotInheritable Class GraphUserContent
         End Set
     End Property
 
-    Public Shared ReadOnly FreeOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FreeOffset), GetType(Double), GetType(GraphUserContent), New PropertyMetadata(0.0))
-    Public Property FreeOffset As Double Implements IUserContent.FreeOffset
-        Get
-            Return GetValue(FreeOffsetProperty)
-        End Get
-        Set(value As Double)
-            SetValue(FreeOffsetProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly FluxOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxOffset), GetType(Double), GetType(GraphUserContent), New PropertyMetadata(0.0))
-    Public Property FluxOffset As Double Implements IUserContent.FluxOffset
-        Get
-            Return GetValue(FluxOffsetProperty)
-        End Get
-        Set(value As Double)
-            SetValue(FluxOffsetProperty, value)
-        End Set
-    End Property
-
     Public Property IsProgressActive As Boolean Implements IUserContent.IsProgressActive
         Get
             Return Progress.IsActive
@@ -64,7 +41,7 @@ Public NotInheritable Class GraphUserContent
     End Property
 
     Public Sub BeginAnimation() Implements IUserContent.BeginAnimation
-        'FluxStoryboard.Begin()
+        FluxStoryboard.Begin()
     End Sub
 
     Public Function AddOneSecond() As Boolean Implements IUserContent.AddOneSecond
@@ -80,11 +57,14 @@ Public NotInheritable Class GraphUserContent
 
     Friend Async Function RefreshDetails(username As String, password As String) As Task
         If Not String.IsNullOrEmpty(username) Then
+            Dim now As Date = Date.Now
             Dim helper As New UseregHelper(username, password)
             Await helper.LoginAsync()
             Dim ds = Await helper.GetDetailsAsync()
             Details.Clear()
+            MainChart.Opacity = 0
             For Each b In From d In ds
+                          Where d.OnlineDate.Month = now.Month
                           Group By d.OnlineDate.Day Into gr = Group
                           Aggregate g In gr Into s = Sum(g.Flux)
                           Select New NetDetailBox() With {.[Date] = Day, .Flux = s / 1000000000}

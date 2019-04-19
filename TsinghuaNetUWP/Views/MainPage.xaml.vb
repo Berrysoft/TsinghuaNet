@@ -251,11 +251,11 @@ Public NotInheritable Class MainPage
         Dim content As IUserContent = Model.UserContent
         If content IsNot Nothing Then
             content.User = New FluxUserBox(flux)
-            content.BeginAnimation()
-            mainTimer.Start()
             If TypeOf content Is GraphUserContent Then
                 Await CType(content, GraphUserContent).RefreshDetails(Model.Username, Model.Password)
             End If
+            content.BeginAnimation()
+            mainTimer.Start()
         End If
     End Function
 

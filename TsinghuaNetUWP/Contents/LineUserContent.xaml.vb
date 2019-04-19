@@ -35,7 +35,7 @@ Public NotInheritable Class LineUserContent
     End Property
 
     Public Shared ReadOnly FreeOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FreeOffset), GetType(Double), GetType(LineUserContent), New PropertyMetadata(0.0))
-    Public Property FreeOffset As Double Implements IUserContent.FreeOffset
+    Public Property FreeOffset As Double
         Get
             Return GetValue(FreeOffsetProperty)
         End Get
@@ -45,7 +45,7 @@ Public NotInheritable Class LineUserContent
     End Property
 
     Public Shared ReadOnly FluxOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxOffset), GetType(Double), GetType(LineUserContent), New PropertyMetadata(0.0))
-    Public Property FluxOffset As Double Implements IUserContent.FluxOffset
+    Public Property FluxOffset As Double
         Get
             Return GetValue(FluxOffsetProperty)
         End Get

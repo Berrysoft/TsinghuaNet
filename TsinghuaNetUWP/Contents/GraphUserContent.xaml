@@ -10,23 +10,41 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
+    <UserControl.Resources>
+        <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
+        <Storyboard x:Name="FluxStoryboard">
+            <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="0.0" To="1.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+        </Storyboard>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.8*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="8*"/>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
-            <RowDefinition Height="0.8*"/>
         </Grid.RowDefinitions>
         <Viewbox Grid.Row="1">
             <Grid>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
-                <wcdc:Chart Grid.Row="1" Height="400" Width="1000">
+                <wcdc:Chart x:Name="MainChart" Height="600" Width="1000">
                     <wcdc:LineSeries AnimationSequence="FirstToLast" ItemsSource="{x:Bind Details}" DependentValueBinding="{Binding Flux}" IndependentValueBinding="{Binding Date}">
                         <wcdc:LineSeries.LegendItemStyle>
                             <Style TargetType="wcdc:LegendItem">
                                 <Setter Property="Width" Value="0"/>
                             </Style>
                         </wcdc:LineSeries.LegendItemStyle>
+                        <wcdc:LineSeries.DataPointStyle>
+                            <Style TargetType="wcdc:DataPoint">
+                                <Setter Property="Background" Value="{StaticResource SystemAccentColor}"/>
+                            </Style>
+                        </wcdc:LineSeries.DataPointStyle>
+                        <wcdc:LineSeries.Template>
+                            <ControlTemplate TargetType="wcdc:LineSeries">
+                                <Canvas x:Name="PlotArea">
+                                    <Polyline x:Name="polyline" Points="{TemplateBinding Points}" Stroke="{StaticResource SystemAccentColor}" Style="{TemplateBinding PolylineStyle}"/>
+                                </Canvas>
+                            </ControlTemplate>
+                        </wcdc:LineSeries.Template>
                     </wcdc:LineSeries>
                 </wcdc:Chart>
             </Grid>
