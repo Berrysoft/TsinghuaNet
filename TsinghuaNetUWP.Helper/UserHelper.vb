@@ -1,5 +1,4 @@
 ﻿Imports System.Globalization
-Imports Berrysoft.Tsinghua.Net
 
 Public Module UserHelper
     Public Function GetFluxString(flux As Long) As String
