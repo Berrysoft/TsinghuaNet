@@ -203,7 +203,7 @@ Public NotInheritable Class MainPage
             content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
-                ShowResponse(Await helper.LoginAsync())
+                ShowResponse(Await helper.LoginAsync(), True)
             End If
             Await RefreshImpl(helper)
         Catch ex As Exception
@@ -219,7 +219,7 @@ Public NotInheritable Class MainPage
             content.IsProgressActive = True
             Dim helper = GetHelper()
             If helper IsNot Nothing Then
-                ShowResponse(Await helper.LogoutAsync())
+                ShowResponse(Await helper.LogoutAsync(), False)
             End If
             Await RefreshImpl(helper)
         Catch ex As Exception
@@ -274,8 +274,15 @@ Public NotInheritable Class MainPage
         Return ConnectHelper.GetHelper(Model.State, Model.Username, Model.Password)
     End Function
 
-    Private Async Sub ShowResponse(response As LogResponse)
+    Private Async Sub ShowResponse(response As LogResponse, Optional login As Boolean? = Nothing)
         Model.Response = response.Message
+        If login.HasValue AndAlso response.Succeed Then
+            If login.Value Then
+                Model.Response = "登录成功"
+            Else
+                Model.Response = "注销成功"
+            End If
+        End If
         ResponseFlyout.ShowAt(MainBar)
         Await Task.Delay(3000)
         Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
