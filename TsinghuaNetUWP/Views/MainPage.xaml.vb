@@ -1,7 +1,6 @@
 ﻿Imports System.Net
 Imports System.Text
 Imports Berrysoft.Tsinghua.Net
-Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNetUWP.Background
 Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
@@ -15,7 +14,7 @@ Public NotInheritable Class MainPage
 
     Private settings As New SettingsHelper
     Private mainTimer As New DispatcherTimer
-    Private networkListener As NetworkHelper = NetworkHelper.Instance
+    Private networkListener As New NetworkListener
 
     Public Sub New()
         InitializeComponent()
@@ -32,7 +31,7 @@ Public NotInheritable Class MainPage
         Model.ContentType = settings.ContentType
         mainTimer.Interval = TimeSpan.FromSeconds(1)
         AddHandler mainTimer.Tick, AddressOf MainTimerTick
-        AddHandler networkListener.NetworkChanged, AddressOf NetworkChanged
+        AddHandler networkListener.NetworkStatusChanged, AddressOf NetworkChanged
         Model.RegisterPropertyChangedCallback(MainViewModel.AutoLoginProperty, AddressOf AutoLoginChanged)
         Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundAutoLoginProperty, AddressOf BackgroundAutoLoginChanged)
         Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundLiveTileProperty, AddressOf BackgroundLiveTileChanged)
@@ -285,7 +284,9 @@ Public NotInheritable Class MainPage
         End If
         ResponseFlyout.ShowAt(MainBar)
         Await Task.Delay(3000)
-        Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
+        If login.HasValue AndAlso login.Value Then
+            Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
+        End If
     End Sub
 
     Private Sub ShowException(e As Exception)

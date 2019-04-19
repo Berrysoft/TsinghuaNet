@@ -10,7 +10,7 @@ NotInheritable Class App
     ''' 搜索结果等
     ''' </summary>
     ''' <param name="e">有关启动请求和过程的详细信息。</param>
-    Protected Overrides Sub OnLaunched(e As Windows.ApplicationModel.Activation.LaunchActivatedEventArgs)
+    Protected Overrides Sub OnLaunched(e As LaunchActivatedEventArgs)
         Dim rootFrame As Frame = TryCast(Window.Current.Content, Frame)
 
         ' 不要在窗口已包含内容时重复应用程序初始化，
