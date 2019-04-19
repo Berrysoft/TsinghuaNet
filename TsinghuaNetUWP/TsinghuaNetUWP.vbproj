@@ -258,7 +258,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Berrysoft.Tsinghua.Net">
-      <Version>1.1.211-preview4</Version>
+      <Version>1.1.212-preview5</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
@@ -270,7 +270,7 @@
       <Version>2.2.190416008-prerelease</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.6.0-preview3.19128.7</Version>
+      <Version>4.6.0-preview4.19212.13</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
