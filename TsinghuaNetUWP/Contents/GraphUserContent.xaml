@@ -8,13 +8,15 @@
     xmlns:wcdc="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    mc:Ignorable="d">
     <UserControl.Resources>
-        <CubicEase x:Key="FluxAnimationEase" EasingMode="EaseOut"/>
-        <Storyboard x:Name="FluxStoryboard">
-            <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="0.0" To="1.0" Duration="0:0:1" EasingFunction="{StaticResource FluxAnimationEase}"/>
+        <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
+        <Storyboard x:Name="ShowStoryboard">
+            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="0.0" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
+        </Storyboard>
+        <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
+        <Storyboard x:Name="HideStoryboard">
+            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="1.0" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
         <Style TargetType="wcdc:LinearAxis">
             <Setter Property="MajorTickMarkStyle">
@@ -42,11 +44,6 @@
                             <Setter Property="Width" Value="0"/>
                         </Style>
                     </wcdc:Chart.LegendStyle>
-                    <wcdc:Chart.TitleStyle>
-                        <Style TargetType="wcd:Title">
-                            <Setter Property="Foreground" Value="{ThemeResource SystemAccentColor}"/>
-                        </Style>
-                    </wcdc:Chart.TitleStyle>
                     <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
                         <wcdc:LineSeries.DataPointStyle>
                             <Style TargetType="wcdc:DataPoint">

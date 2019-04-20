@@ -6,9 +6,8 @@
     xmlns:helper="using:TsinghuaNetUWP.Helper"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <ContentDialog.Resources>
@@ -23,17 +22,11 @@
             </StackPanel>
         </Flyout>
     </ContentDialog.Resources>
-    <ScrollViewer>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <local:SsidSuggestion x:Name="LanCombo" x:FieldModifier="Friend" Grid.Row="0" Margin="10" Width="400" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
-            <local:SsidSuggestion x:Name="WwanCombo" x:FieldModifier="Friend" Grid.Row="1" Margin="10" Width="400" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
-            <StackPanel Grid.Row="2" Orientation="Horizontal">
+    <muxc:ScrollViewer HorizontalScrollMode="Disabled">
+        <StackPanel>
+            <local:SsidSuggestion x:Name="LanCombo" x:FieldModifier="Friend" Margin="10" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
+            <local:SsidSuggestion x:Name="WwanCombo" x:FieldModifier="Friend" Margin="10" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
+            <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="10" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
@@ -43,7 +36,7 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
             </StackPanel>
-            <ListView x:Name="WlanListView" Grid.Row="3" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
-        </Grid>
-    </ScrollViewer>
+            <ListView x:Name="WlanListView" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
+        </StackPanel>
+    </muxc:ScrollViewer>
 </ContentDialog>

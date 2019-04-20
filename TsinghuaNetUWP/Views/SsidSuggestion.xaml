@@ -7,13 +7,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400" Orientation="Horizontal">
+    Orientation="Horizontal">
     <StackPanel.Resources>
         <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
     </StackPanel.Resources>
     <TextBlock Width="120" VerticalAlignment="Center" Style="{x:Bind SsidStyle,Mode=OneWay}" Text="{x:Bind Ssid,Mode=OneWay}"/>
-    <ComboBox Width="280" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}">
+    <ComboBox Width="120" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}">
         <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Unknown)}"/>
         <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
         <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>

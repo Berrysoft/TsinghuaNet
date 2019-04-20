@@ -1,4 +1,5 @@
 ﻿Imports Berrysoft.Tsinghua.Net
+Imports WinRTXamlToolkit.AwaitableUI
 
 Public NotInheritable Class GraphUserContent
     Inherits UserControl
@@ -41,7 +42,7 @@ Public NotInheritable Class GraphUserContent
     End Property
 
     Public Sub BeginAnimation() Implements IUserContent.BeginAnimation
-        FluxStoryboard.Begin()
+        ShowStoryboard.Begin()
     End Sub
 
     Public Function AddOneSecond() As Boolean Implements IUserContent.AddOneSecond
@@ -56,10 +57,11 @@ Public NotInheritable Class GraphUserContent
     Public ReadOnly Property Details As New ObservableCollection(Of KeyValuePair(Of Integer, Double))
 
     Friend Async Function RefreshDetails(helper As UseregHelper) As Task
+        Dim animationTask = HideStoryboard.BeginAsync()
         Dim now As Date = Date.Now
         Dim ds = Await helper.GetDetailsAsync()
+        Await animationTask
         Details.Clear()
-        MainChart.Opacity = 0
         Dim totalf As Double = 0
         For Each b In From d In ds
                       Where d.OnlineDate.Month = now.Month
