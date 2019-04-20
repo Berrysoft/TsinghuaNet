@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports TsinghuaNetUWP.Helper
+﻿Imports TsinghuaNetUWP.Helper
 
 Public Class MainViewModel
     Inherits DependencyObject

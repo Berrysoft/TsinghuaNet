@@ -22,7 +22,7 @@
             <Setter Property="MajorTickMarkStyle">
                 <Setter.Value>
                     <Style TargetType="Line">
-                        <Setter Property="Stroke" Value="Transparent"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
                     </Style>
                 </Setter.Value>
             </Setter>

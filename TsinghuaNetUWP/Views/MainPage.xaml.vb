@@ -4,6 +4,7 @@ Imports Berrysoft.Tsinghua.Net
 Imports TsinghuaNetUWP.Background
 Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
+Imports Windows.Networking.Connectivity
 Imports Windows.UI
 
 ''' <summary>
@@ -339,4 +340,20 @@ Public NotInheritable Class MainPage
             usersmodel.Add(u)
         Next
     End Function
+End Class
+
+Class NetworkListener
+    Public Event NetworkStatusChanged As NetworkStatusChangedEventHandler
+
+    Protected Sub OnNetworkStatusChanged(sender As Object)
+        RaiseEvent NetworkStatusChanged(sender)
+    End Sub
+
+    Public Sub New()
+        AddHandler NetworkInformation.NetworkStatusChanged, AddressOf OnNetworkStatusChanged
+    End Sub
+
+    Protected Overrides Sub Finalize()
+        RemoveHandler NetworkInformation.NetworkStatusChanged, AddressOf OnNetworkStatusChanged
+    End Sub
 End Class
