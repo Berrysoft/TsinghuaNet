@@ -294,7 +294,11 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub ShowException(e As Exception)
-        ShowResponse(New LogResponse(False, $"异常 0x{e.HResult:X}：{e.Message}"))
+        Try
+            ShowResponse(New LogResponse(False, $"异常 0x{e.HResult:X}：{e.Message}"))
+        Catch ex As Exception
+            Debug.Fail(ex.Message)
+        End Try
     End Sub
 
     Private Sub HelpSelection(sender As Object, e As RoutedEventArgs)
