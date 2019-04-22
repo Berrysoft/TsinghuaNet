@@ -19,9 +19,6 @@
         <Storyboard x:Name="HideStoryboard">
             <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
-        <Style x:Key="CollapsedLine" TargetType="Line">
-            <Setter Property="Visibility" Value="Collapsed"/>
-        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -34,26 +31,26 @@
             <Grid>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
                 <wcdc:Chart x:Name="MainChart" Height="600" Width="1000">
-                    <wcdc:Chart.Axes>
-                        <wcdc:LinearAxis Orientation="X" Minimum="1" Interval="1" ShowGridLines="False" MajorTickMarkStyle="{StaticResource CollapsedLine}"/>
-                        <wcdc:LinearAxis Orientation="Y" Minimum="0" ShowGridLines="True" MajorTickMarkStyle="{StaticResource CollapsedLine}">
-                            <wcdc:LinearAxis.AxisLabelStyle>
-                                <Style TargetType="wcdc:AxisLabel">
-                                    <Setter Property="StringFormat">
-                                        <Setter.Value>
-                                            <x:String>{0} G</x:String>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </wcdc:LinearAxis.AxisLabelStyle>
-                        </wcdc:LinearAxis>
-                    </wcdc:Chart.Axes>
                     <wcdc:Chart.LegendStyle>
                         <Style TargetType="wcd:Legend">
                             <Setter Property="Width" Value="0"/>
                         </Style>
                     </wcdc:Chart.LegendStyle>
-                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
+                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValuePath="Key" DependentValuePath="Value">
+                        <wcdc:LineSeries.DependentRangeAxis>
+                            <wcdc:LinearAxis Orientation="Y" ShowGridLines="True">
+                                <wcdc:LinearAxis.MajorTickMarkStyle>
+                                    <Style TargetType="Line">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Style>
+                                </wcdc:LinearAxis.MajorTickMarkStyle>
+                                <wcdc:LinearAxis.AxisLabelStyle>
+                                    <Style TargetType="wcdc:AxisLabel">
+                                        <Setter Property="StringFormat" Value="{}{0} G"/>
+                                    </Style>
+                                </wcdc:LinearAxis.AxisLabelStyle>
+                            </wcdc:LinearAxis>
+                        </wcdc:LineSeries.DependentRangeAxis>
                         <wcdc:LineSeries.DataPointStyle>
                             <Style TargetType="wcdc:LineDataPoint">
                                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}"/>
