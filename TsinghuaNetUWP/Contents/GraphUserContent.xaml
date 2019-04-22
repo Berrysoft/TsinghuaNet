@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetUWP.Helper"
+    xmlns:wc="using:WinRTXamlToolkit.Controls"
     xmlns:wcd="using:WinRTXamlToolkit.Controls.DataVisualization"
     xmlns:wcdc="using:WinRTXamlToolkit.Controls.DataVisualization.Charting"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -18,6 +19,9 @@
         <Storyboard x:Name="HideStoryboard">
             <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
+        <Style x:Key="CollapsedLine" TargetType="Line">
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -31,8 +35,8 @@
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
                 <wcdc:Chart x:Name="MainChart" Height="600" Width="1000">
                     <wcdc:Chart.Axes>
-                        <wcdc:LinearAxis Orientation="X" Minimum="1" Interval="1" ShowGridLines="False"/>
-                        <wcdc:LinearAxis Orientation="Y" Minimum="0" ShowGridLines="False">
+                        <wcdc:LinearAxis Orientation="X" Minimum="1" Interval="1" ShowGridLines="False" MajorTickMarkStyle="{StaticResource CollapsedLine}"/>
+                        <wcdc:LinearAxis Orientation="Y" Minimum="0" ShowGridLines="True" MajorTickMarkStyle="{StaticResource CollapsedLine}">
                             <wcdc:LinearAxis.AxisLabelStyle>
                                 <Style TargetType="wcdc:AxisLabel">
                                     <Setter Property="StringFormat">
@@ -49,7 +53,7 @@
                             <Setter Property="Width" Value="0"/>
                         </Style>
                     </wcdc:Chart.LegendStyle>
-                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Day}" DependentValueBinding="{Binding Flux}">
+                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
                         <wcdc:LineSeries.DataPointStyle>
                             <Style TargetType="wcdc:LineDataPoint">
                                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}"/>
@@ -66,31 +70,25 @@
                 </wcdc:Chart>
             </Grid>
         </Viewbox>
-        <Viewbox Grid.Row="2">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
+        <Viewbox Margin="10" Grid.Row="2">
+            <wc:UniformGrid Rows="1">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">用户：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind User.Username,Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">流量：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetFluxString(User.Flux),Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">时长：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind OnlineTime,Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">余额：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetCurrencyString(User.Balance),Mode=OneWay}"/>
                 </StackPanel>
-            </Grid>
+            </wc:UniformGrid>
         </Viewbox>
     </Grid>
 </UserControl>

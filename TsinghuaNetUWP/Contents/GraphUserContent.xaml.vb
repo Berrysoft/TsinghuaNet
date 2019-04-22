@@ -55,7 +55,7 @@ Public NotInheritable Class GraphUserContent
         End If
     End Function
 
-    Public ReadOnly Property Details As New ObservableRangeCollection(Of NetDetailBox)
+    Public ReadOnly Property Details As New ObservableRangeCollection(Of KeyValuePair(Of Integer, Double))
 
     Friend Async Function RefreshDetails(helper As UseregHelper) As Task
         Dim animationTask = HideStoryboard.BeginAsync()
@@ -67,14 +67,14 @@ End Class
 
 Module NetDetailExtensions
     <Extension>
-    Public Iterator Function GetDailyDetails(ds As IEnumerable(Of NetDetail)) As IEnumerable(Of NetDetailBox)
+    Public Iterator Function GetDailyDetails(ds As IEnumerable(Of NetDetail)) As IEnumerable(Of KeyValuePair(Of Integer, Double))
         Dim totalf As Double = 0
         Dim now As Date = Date.Now
         For Each b In From d In ds
                       Where d.OnlineDate.Month = now.Month
                       Group By d.OnlineDate.Day Into Flux = Sum(d.Flux)
             totalf += b.Flux / 1000000000
-            Yield New NetDetailBox(b.Day, totalf)
+            Yield New KeyValuePair(Of Integer, Double)(b.Day, totalf)
         Next
     End Function
 End Module

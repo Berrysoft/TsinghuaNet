@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetUWP.Helper"
+    xmlns:wc="using:WinRTXamlToolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -35,7 +36,7 @@
             </Grid>
         </Viewbox>
         <Viewbox Grid.Row="2">
-            <StackPanel Orientation="Vertical">
+            <wc:UniformGrid Columns="1">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5">用户：</TextBlock>
                     <TextBlock Margin="5" Text="{x:Bind User.Username,Mode=OneWay}"/>
@@ -52,7 +53,7 @@
                     <TextBlock Margin="5">余额：</TextBlock>
                     <TextBlock Margin="5" Text="{x:Bind helper:UserHelper.GetCurrencyString(User.Balance),Mode=OneWay}"/>
                 </StackPanel>
-            </StackPanel>
+            </wc:UniformGrid>
         </Viewbox>
     </Grid>
 </UserControl>

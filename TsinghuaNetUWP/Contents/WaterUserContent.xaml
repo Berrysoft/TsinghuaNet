@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetUWP.Helper"
+    xmlns:wc="using:WinRTXamlToolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -33,30 +34,24 @@
             </Grid>
         </Viewbox>
         <Viewbox Margin="10" Grid.Row="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
+            <wc:UniformGrid Rows="1">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">用户：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind User.Username,Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">流量：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetFluxString(User.Flux),Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">时长：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind OnlineTime,Mode=OneWay}"/>
                 </StackPanel>
-                <StackPanel Grid.Column="3" Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="5,5,0,5">余额：</TextBlock>
                     <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetCurrencyString(User.Balance),Mode=OneWay}"/>
                 </StackPanel>
-            </Grid>
+            </wc:UniformGrid>
         </Viewbox>
     </Grid>
 </UserControl>

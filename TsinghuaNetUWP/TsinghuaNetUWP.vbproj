@@ -156,7 +156,6 @@
     <Compile Include="Converters\UserContentTypeIndexConverter.vb" />
     <Compile Include="Converters\UserThemeIndexConverter.vb" />
     <Compile Include="Contents\IUserContent.vb" />
-    <Compile Include="ViewModels\NetDetailBox.vb" />
     <Compile Include="ViewModels\NetStateSsidBox.vb" />
     <Compile Include="Views\EditSuggestionDialog.xaml.vb">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
