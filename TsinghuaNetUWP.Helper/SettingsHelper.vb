@@ -57,7 +57,7 @@ Public Class SettingsHelper
         Return result
     End Function
 
-    Private Shared Function GetJsonFromMap(map As IDictionary(Of String, NetState)) As JsonObject
+    Private Shared Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JsonObject
         Dim result As New JsonObject
         For Each pair In map
             result.Add(pair.Key, JsonValue.CreateNumberValue(pair.Value))
@@ -86,8 +86,11 @@ Public Class SettingsHelper
         Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
         Dim json As String = GetValue(Of String)(WlanStateKey)
-        If String.IsNullOrEmpty(json) OrElse (Not JsonObject.TryParse(json, wlanMap)) Then
-            wlanMap = GetJsonFromMap(DefWlanStates())
+        Dim jsonobj As JsonObject = Nothing
+        If String.IsNullOrEmpty(json) OrElse (Not JsonObject.TryParse(json, jsonobj)) Then
+            WlanStates = DefWlanStates()
+        Else
+            WlanStates = GetMapFromJson(jsonobj)
         End If
     End Sub
 
@@ -100,7 +103,7 @@ Public Class SettingsHelper
         SetValue(Of Integer)(WwanStateKey, WwanState)
         SetValue(Of Integer)(ThemeKey, Theme)
         SetValue(Of Integer)(ContentTypeKey, ContentType)
-        SetValue(WlanStateKey, wlanMap.ToString())
+        SetValue(WlanStateKey, GetJsonFromMap(WlanStates).ToString())
     End Sub
 
     Public Property StoredUsername As String
@@ -115,21 +118,12 @@ Public Class SettingsHelper
 
     Public Property WwanState As NetState
 
-    Private wlanMap As JsonObject
-
-    Public Property WlanStates As IDictionary(Of String, NetState)
-        Get
-            Return GetMapFromJson(wlanMap)
-        End Get
-        Set(value As IDictionary(Of String, NetState))
-            wlanMap = GetJsonFromMap(value)
-        End Set
-    End Property
+    Public Property WlanStates As Dictionary(Of String, NetState)
 
     Public ReadOnly Property WlanState(ssid As String) As NetState
         Get
-            If wlanMap.ContainsKey(ssid) Then
-                Return wlanMap.GetNamedNumber(ssid)
+            If WlanStates.ContainsKey(ssid) Then
+                Return WlanStates(ssid)
             Else
                 Return NetState.Unknown
             End If

@@ -3,7 +3,10 @@
 Public Module BackgroundHelper
     Private Async Function RequestAccessImplAsync() As Task(Of Boolean)
         Dim status = Await BackgroundExecutionManager.RequestAccessAsync()
-        Return Not (status = BackgroundAccessStatus.Unspecified OrElse status = BackgroundAccessStatus.DeniedByUser OrElse status = BackgroundAccessStatus.DeniedBySystemPolicy)
+        Return Not (
+            status = BackgroundAccessStatus.Unspecified OrElse
+            status = BackgroundAccessStatus.DeniedByUser OrElse
+            status = BackgroundAccessStatus.DeniedBySystemPolicy)
     End Function
 
     Public Function RequestAccessAsync() As IAsyncOperation(Of Boolean)
@@ -17,22 +20,21 @@ Public Module BackgroundHelper
         Next
     End Sub
 
-    Private Function NewTask(name As String, type As Type) As BackgroundTaskBuilder
+    Private Sub RegisterTask(name As String, type As Type, Optional trigger As IBackgroundTrigger = Nothing, Optional condition As IBackgroundCondition = Nothing)
         Dim task As New BackgroundTaskBuilder
         task.Name = name
         task.TaskEntryPoint = type.FullName
-        Return task
-    End Function
+        If trigger IsNot Nothing Then task.SetTrigger(trigger)
+        If condition IsNot Nothing Then task.AddCondition(condition)
+        task.Register()
+    End Sub
 
     Private Const LIVETILETASK As String = "LIVETILETASK"
 
     Public Sub RegisterLiveTile(reg As Boolean)
         UnregisterTask(LIVETILETASK)
         If reg Then
-            Dim task = NewTask(LIVETILETASK, GetType(LiveTileTask))
-            task.SetTrigger(New TimeTrigger(15, False))
-            task.AddCondition(New SystemCondition(SystemConditionType.InternetAvailable))
-            task.Register()
+            RegisterTask(LIVETILETASK, GetType(LiveTileTask), New TimeTrigger(15, False), New SystemCondition(SystemConditionType.InternetAvailable))
         End If
     End Sub
 
@@ -41,9 +43,7 @@ Public Module BackgroundHelper
     Public Sub RegisterLogin(reg As Boolean)
         UnregisterTask(LOGINTASK)
         If reg Then
-            Dim task = NewTask(LOGINTASK, GetType(LoginTask))
-            task.SetTrigger(New SystemTrigger(SystemTriggerType.NetworkStateChange, False))
-            task.Register()
+            RegisterTask(LOGINTASK, GetType(LoginTask), New SystemTrigger(SystemTriggerType.NetworkStateChange, False))
         End If
     End Sub
 End Module

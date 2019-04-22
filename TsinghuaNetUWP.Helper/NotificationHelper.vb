@@ -8,39 +8,39 @@ Public Module NotificationHelper
 
     Sub New()
         tileText =
-            (<?xml version="1.0" encoding="utf-8"?>
-             <tile>
-                 <visual branding="nameAndLogo">
-                     <binding template="TileMedium">
-                         <text hint-style="base">{0}</text>
-                         <text hint-style="bodySubtle">{1}</text>
-                         <text hint-style="bodySubtle">{3}</text>
-                     </binding>
-                     <binding template="TileWide">
-                         <text hint-style="subtitle">{0}</text>
-                         <text hint-style="bodySubtle">流量：{1}</text>
-                         <text hint-style="bodySubtle">余额：{3}</text>
-                     </binding>
-                     <binding template="TileLarge">
-                         <text hint-style="title">{0}</text>
-                         <text hint-style="subtitleSubtle">流量：{1}</text>
-                         <text hint-style="subtitleSubtle">剩余：{4}</text>
-                         <text hint-style="subtitleSubtle">时长：{2}</text>
-                         <text hint-style="subtitleSubtle">余额：{3}</text>
-                     </binding>
-                 </visual>
-             </tile>).ToString()
+            <?xml version="1.0" encoding="utf-8"?>
+            <tile>
+                <visual branding="nameAndLogo">
+                    <binding template="TileMedium">
+                        <text hint-style="base">{0}</text>
+                        <text hint-style="bodySubtle">{1}</text>
+                        <text hint-style="bodySubtle">{3}</text>
+                    </binding>
+                    <binding template="TileWide">
+                        <text hint-style="subtitle">{0}</text>
+                        <text hint-style="bodySubtle">流量：{1}</text>
+                        <text hint-style="bodySubtle">余额：{3}</text>
+                    </binding>
+                    <binding template="TileLarge">
+                        <text hint-style="title">{0}</text>
+                        <text hint-style="subtitleSubtle">流量：{1}</text>
+                        <text hint-style="subtitleSubtle">剩余：{4}</text>
+                        <text hint-style="subtitleSubtle">时长：{2}</text>
+                        <text hint-style="subtitleSubtle">余额：{3}</text>
+                    </binding>
+                </visual>
+            </tile>.ToString()
         toastText =
-            (<?xml version="1.0" encoding="utf-8"?>
-             <toast>
-                 <visual>
-                     <binding template="ToastGeneric">
-                         <text hint-maxLines="1">登录成功：{0}</text>
-                         <text>流量：{1}</text>
-                         <text>余额：{2}</text>
-                     </binding>
-                 </visual>
-             </toast>).ToString()
+            <?xml version="1.0" encoding="utf-8"?>
+            <toast>
+                <visual>
+                    <binding template="ToastGeneric">
+                        <text hint-maxLines="1">登录成功：{0}</text>
+                        <text>流量：{1}</text>
+                        <text>余额：{2}</text>
+                    </binding>
+                </visual>
+            </toast>.ToString()
     End Sub
 
     Public Sub UpdateTile(user As FluxUser)
@@ -54,7 +54,7 @@ Public Module NotificationHelper
                         UserHelper.GetCurrencyString(user.Balance),
                         UserHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
             Dim notification As New TileNotification(dom)
-            notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(15)
+            notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(15)
             TileUpdateManager.CreateTileUpdaterForApplication().Update(notification)
         End If
     End Sub
@@ -68,7 +68,7 @@ Public Module NotificationHelper
                     UserHelper.GetFluxString(user.Flux),
                     UserHelper.GetCurrencyString(user.Balance)))
             Dim notification As New ToastNotification(dom)
-            notification.ExpirationTime = Date.Now + TimeSpan.FromMinutes(1)
+            notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1)
             ToastNotificationManager.CreateToastNotifier().Show(notification)
         End If
     End Sub

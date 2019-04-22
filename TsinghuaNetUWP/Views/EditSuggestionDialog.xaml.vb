@@ -1,9 +1,10 @@
-﻿Imports TsinghuaNetUWP.Helper
+﻿Imports MvvmHelpers
+Imports TsinghuaNetUWP.Helper
 
 Public NotInheritable Class EditSuggestionDialog
     Inherits ContentDialog
 
-    Public ReadOnly Property WlanList As New ObservableCollection(Of NetStateSsidBox)
+    Public ReadOnly Property WlanList As New ObservableRangeCollection(Of NetStateSsidBox)
 
     Private Sub AddSelection(sender As Object, e As RoutedEventArgs)
         AddFlyout.ShowAt(e.OriginalSource)
@@ -16,8 +17,7 @@ Public NotInheritable Class EditSuggestionDialog
             AddFlyoutText.Text = String.Empty
             If Not Aggregate pair In WlanList
                    Into AnyMatch = Any(pair?.Ssid = ssid) Then
-                Dim item As New NetStateSsidBox()
-                item.Ssid = ssid
+                Dim item As New NetStateSsidBox(ssid, NetState.Unknown)
                 WlanList.Add(item)
             End If
         End If
@@ -34,13 +34,9 @@ Public NotInheritable Class EditSuggestionDialog
         RefreshWlanList(SettingsHelper.DefWlanStates())
     End Sub
 
-    Friend Sub RefreshWlanList(list As IDictionary(Of String, NetState))
-        WlanList.Clear()
-        For Each pair In list
-            Dim item As New NetStateSsidBox
-            item.Ssid = pair.Key
-            item.Value = pair.Value
-            WlanList.Add(item)
-        Next
+    Friend Sub RefreshWlanList(list As Dictionary(Of String, NetState))
+        WlanList.ReplaceRange(
+            From pair In list
+            Select New NetStateSsidBox(pair.Key, pair.Value))
     End Sub
 End Class

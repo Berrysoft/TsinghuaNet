@@ -164,7 +164,6 @@ Public NotInheritable Class MainPage
             For Each item In dialog.WlanList
                 s.Add(item.Ssid, item.Value)
             Next
-            settings.WlanStates = s
             RefreshStatus()
         End If
     End Sub
@@ -288,8 +287,8 @@ Public NotInheritable Class MainPage
             End If
         End If
         ResponseFlyout.ShowAt(MainBar)
-        Await Task.Delay(3000)
         If login.HasValue AndAlso login.Value Then
+            Await Task.Delay(3000)
             Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
         End If
     End Sub
