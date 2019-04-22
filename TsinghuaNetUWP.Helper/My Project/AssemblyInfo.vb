@@ -11,9 +11,9 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("TsinghuaNetUWP.Helper")> 
 <Assembly: AssemblyDescription("")> 
 <Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("TsinghuaNetUWP.Helper")> 
-<Assembly: AssemblyCopyright("Copyright ©  2019")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyProduct("TsinghuaNetUWP.Helper")>
+<Assembly: AssemblyCopyright("Copyright ©  2018-2019")>
+<Assembly: AssemblyTrademark("")>
 
 ' 程序集的版本信息由下列四个值组成: 
 '
@@ -26,6 +26,6 @@ Imports System.Runtime.InteropServices
 '通过使用 "*"，如下所示:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("3.0.0.0")>
+<Assembly: AssemblyFileVersion("3.0.0.0")>
 <Assembly: ComVisible(false)>

@@ -12,21 +12,12 @@
     <UserControl.Resources>
         <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="ShowStoryboard">
-            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="0.0" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </Storyboard>
         <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
         <Storyboard x:Name="HideStoryboard">
-            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" From="1.0" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
+            <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
-        <Style TargetType="wcdc:LinearAxis">
-            <Setter Property="MajorTickMarkStyle">
-                <Setter.Value>
-                    <Style TargetType="Line">
-                        <Setter Property="Visibility" Value="Collapsed"/>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -39,6 +30,20 @@
             <Grid>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
                 <wcdc:Chart x:Name="MainChart" Height="600" Width="1000">
+                    <wcdc:Chart.Axes>
+                        <wcdc:LinearAxis Orientation="X" Minimum="1" Interval="1" ShowGridLines="False"/>
+                        <wcdc:LinearAxis Orientation="Y" Minimum="0" ShowGridLines="False">
+                            <wcdc:LinearAxis.AxisLabelStyle>
+                                <Style TargetType="wcdc:AxisLabel">
+                                    <Setter Property="StringFormat">
+                                        <Setter.Value>
+                                            <x:String>{0} G</x:String>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </wcdc:LinearAxis.AxisLabelStyle>
+                        </wcdc:LinearAxis>
+                    </wcdc:Chart.Axes>
                     <wcdc:Chart.LegendStyle>
                         <Style TargetType="wcd:Legend">
                             <Setter Property="Width" Value="0"/>
@@ -46,9 +51,8 @@
                     </wcdc:Chart.LegendStyle>
                     <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Day}" DependentValueBinding="{Binding Flux}">
                         <wcdc:LineSeries.DataPointStyle>
-                            <Style TargetType="wcdc:DataPoint">
+                            <Style TargetType="wcdc:LineDataPoint">
                                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}"/>
-                                <Setter Property="ToolTipService.ToolTip" Value="{Binding ToolTipLabel}"/>
                             </Style>
                         </wcdc:LineSeries.DataPointStyle>
                         <wcdc:LineSeries.Template>

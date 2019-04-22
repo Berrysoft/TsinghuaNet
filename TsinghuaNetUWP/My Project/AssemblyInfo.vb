@@ -12,7 +12,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("TsinghuaNetUWP")>
-<Assembly: AssemblyCopyright("Copyright ©  2019")>
+<Assembly: AssemblyCopyright("Copyright ©  2018-2019")>
 <Assembly: AssemblyTrademark("")>
 
 ' 程序集的版本信息由下列四个值组成: 
