@@ -44,10 +44,11 @@
                             <Setter Property="Width" Value="0"/>
                         </Style>
                     </wcdc:Chart.LegendStyle>
-                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Key}" DependentValueBinding="{Binding Value}">
+                    <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValueBinding="{Binding Day}" DependentValueBinding="{Binding Flux}">
                         <wcdc:LineSeries.DataPointStyle>
                             <Style TargetType="wcdc:DataPoint">
                                 <Setter Property="Background" Value="{ThemeResource SystemAccentColor}"/>
+                                <Setter Property="ToolTipService.ToolTip" Value="{Binding ToolTipLabel}"/>
                             </Style>
                         </wcdc:LineSeries.DataPointStyle>
                         <wcdc:LineSeries.Template>

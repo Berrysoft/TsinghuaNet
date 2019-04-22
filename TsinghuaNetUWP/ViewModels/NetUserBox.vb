@@ -1,7 +1,7 @@
 ﻿Imports System.Net
 Imports Berrysoft.Tsinghua.Net
 
-Public Class NetUserBox
+Public NotInheritable Class NetUserBox
     Inherits DependencyObject
     Implements IEquatable(Of NetUser)
 

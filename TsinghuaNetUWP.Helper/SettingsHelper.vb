@@ -30,7 +30,7 @@ Public Enum UserContentType
     Graph
 End Enum
 
-Public Class SettingsHelper
+Public NotInheritable Class SettingsHelper
     Private values As IPropertySet
 
     Private Function GetValue(Of T)(key As String, Optional def As T = Nothing) As T

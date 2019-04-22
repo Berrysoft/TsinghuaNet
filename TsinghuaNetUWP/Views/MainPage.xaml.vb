@@ -7,9 +7,6 @@ Imports Windows.ApplicationModel.Core
 Imports Windows.Networking.Connectivity
 Imports Windows.UI
 
-''' <summary>
-''' 可用于自身或导航至 Frame 内部的空白页。
-''' </summary>
 Public NotInheritable Class MainPage
     Inherits Page
 
@@ -341,7 +338,7 @@ Public NotInheritable Class MainPage
     End Function
 End Class
 
-Class NetworkListener
+NotInheritable Class NetworkListener
     Public Event NetworkStatusChanged As NetworkStatusChangedEventHandler
 
     Protected Sub OnNetworkStatusChanged(sender As Object)
