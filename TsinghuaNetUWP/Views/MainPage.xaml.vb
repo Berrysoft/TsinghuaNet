@@ -319,10 +319,10 @@ Public NotInheritable Class MainPage
         Dim usersmodel = Model.NetUsers
         Dim i As Integer = 0
         Do While i < usersmodel.Count
-            Dim olduser As NetUserBox = usersmodel(i)
+            Dim olduser As NetUser = usersmodel(i)
             For j = 0 To users.Count - 1
                 Dim user As NetUser = users(j)
-                If olduser.Equals(user) Then
+                If NetUserHelper.Equals(olduser, user) Then
                     users.RemoveAt(j)
                     i += 1
                     Continue Do
@@ -330,11 +330,9 @@ Public NotInheritable Class MainPage
             Next
             usersmodel.RemoveAt(i)
         Loop
-        For Each user In users
-            Dim u As New NetUserBox(user)
-            AddHandler u.DropUser, AddressOf DropUser
-            usersmodel.Add(u)
-        Next
+        If users.Count > 0 Then
+            usersmodel.AddRange(users)
+        End If
     End Function
 
     Private Async Sub ShowAbout()

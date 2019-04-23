@@ -1,4 +1,6 @@
-﻿Imports TsinghuaNetUWP.Helper
+﻿Imports Berrysoft.Tsinghua.Net
+Imports MvvmHelpers
+Imports TsinghuaNetUWP.Helper
 
 Public Class MainViewModel
     Inherits DependencyObject
@@ -183,5 +185,5 @@ Public Class MainViewModel
         RaiseEvent ContentTypeChanged(Me, e)
     End Sub
 
-    Public ReadOnly Property NetUsers As New ObservableCollection(Of NetUserBox)
+    Public ReadOnly Property NetUsers As New ObservableRangeCollection(Of NetUser)
 End Class

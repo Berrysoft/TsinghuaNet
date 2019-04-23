@@ -169,7 +169,7 @@
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="ViewModels\MainViewModel.vb" />
-    <Compile Include="ViewModels\NetUserBox.vb" />
+    <Compile Include="ViewModels\NetUserHelper.vb" />
     <Compile Include="Views\ChangeUserDialog.xaml.vb">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
     </Compile>
