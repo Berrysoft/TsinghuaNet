@@ -8,6 +8,6 @@
     End Property
 
     Public Function GetVersionString(ver As PackageVersion) As String
-        Return $"{ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}"
+        Return $"版本 {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}"
     End Function
 End Class

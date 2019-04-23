@@ -7,16 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
-    Title="关于" DefaultButton="Close" CloseButtonText="确定">
+    Title="关于：清华大学校园网客户端" DefaultButton="Close" CloseButtonText="确定">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
-            <TextBlock Margin="10" VerticalAlignment="Bottom" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind GetVersionString(Version),Mode=OneTime}"/>
+            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind GetVersionString(Version),Mode=OneTime}"/>
+            <HyperlinkButton Margin="10,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目地址</HyperlinkButton>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
-            <HyperlinkButton Margin="10,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
-        </StackPanel>
+        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">包含的开源库</TextBlock>
         <ListView Margin="10">
             <ListView.ItemTemplate>
