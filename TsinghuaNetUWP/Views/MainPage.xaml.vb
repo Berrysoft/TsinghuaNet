@@ -283,10 +283,10 @@ Public NotInheritable Class MainPage
                 Model.Response = "注销成功"
             End If
         End If
-        ResponseFlyout.ShowAt(MainBar)
+        ResponseViewer.Visibility = Visibility.Visible
         If login.HasValue AndAlso login.Value Then
             Await Task.Delay(3000)
-            Await Dispatcher.RunAsync(Core.CoreDispatcherPriority.Normal, Sub() ResponseFlyout.Hide())
+            ResponseViewer.Visibility = Visibility.Collapsed
         End If
     End Sub
 

@@ -24,9 +24,6 @@
                 <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
             </Grid>
         </DataTemplate>
-        <Flyout x:Name="ResponseFlyout" Placement="RightEdgeAlignedBottom">
-            <TextBlock Margin="5" HorizontalTextAlignment="Center" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
-        </Flyout>
         <Flyout x:Name="HelpFlyout">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -52,7 +49,12 @@
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="320" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
-            <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
+            <Grid>
+                <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
+                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled">
+                    <TextBlock Margin="5" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+                </muxc:ScrollViewer>
+            </Grid>
         </SplitView.Content>
         <SplitView.Pane>
             <muxc:ScrollViewer HorizontalScrollMode="Disabled">
