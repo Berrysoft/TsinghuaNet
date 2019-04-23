@@ -47,6 +47,14 @@ Public Module UserHelper
         End Select
     End Function
 
+    Public Function GetInternetStatusString(status As InternetStatus, ssid As String) As String
+        If String.IsNullOrEmpty(ssid) Then
+            Return GetInternetStatusString(status)
+        Else
+            Return $"{GetInternetStatusString(status)} - {ssid}"
+        End If
+    End Function
+
     Public Const BaseFlux As Long = 25000000000
 
     Public Function GetMaxFlux(flux As Long, balance As Decimal) As Long

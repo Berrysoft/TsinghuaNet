@@ -1,0 +1,42 @@
+﻿<ContentDialog
+    x:Class="TsinghuaNetUWP.AboutDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TsinghuaNetUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
+    Title="关于" DefaultButton="Close" CloseButtonText="确定">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
+            <TextBlock Margin="10" VerticalAlignment="Bottom" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind GetVersionString(Version),Mode=OneTime}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
+            <HyperlinkButton Margin="10,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
+        </StackPanel>
+        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">包含的开源库</TextBlock>
+        <ListView Margin="10">
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="local:PackageBox">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="350"/>
+                            <ColumnDefinition Width="75"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}"/>
+                        <TextBlock Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind License}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            <local:PackageBox Name="Berrysoft.Tsinghua.Net" License="MIT许可证"/>
+            <local:PackageBox Name="HtmlAgilityPack" License="MIT许可证"/>
+            <local:PackageBox Name="Microsoft.UI.Xaml" License="MIT许可证"/>
+            <local:PackageBox Name="Refractored.MvvmHelpers" License="MIT许可证"/>
+            <local:PackageBox Name="WinRTXamlToolkit" License="MIT许可证"/>
+            <local:PackageBox Name="WinRTXamlToolkit.Controls.DataVisualization" License="MIT许可证"/>
+        </ListView>
+    </StackPanel>
+</ContentDialog>

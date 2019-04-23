@@ -16,8 +16,7 @@
         <DataTemplate x:Key="NetUserTemplate" x:DataType="local:NetUserBox">
             <Grid Width="250">
                 <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
-                    <TextBlock Margin="10,10,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
-                    <TextBlock Margin="10,0,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
+                    <TextBlock Margin="10,10,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Address}"/>
                     <TextBlock Margin="10,0,0,10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
                 </StackPanel>
                 <AppBarButton HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Click="{x:Bind Drop}"/>
@@ -81,11 +80,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetInternetStatusString(Model.NetStatus),Mode=OneWay}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">网络名称</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Ssid,Mode=OneWay}"/>
+                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetInternetStatusString(Model.NetStatus,Model.Ssid),Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
@@ -95,7 +90,7 @@
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
-                    <muxc:RadioButtons Margin="10" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">
+                    <muxc:RadioButtons Margin="10" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">
                         <x:String>不登录</x:String>
                         <x:String>Net</x:String>
                         <x:String>Auth4</x:String>
@@ -133,15 +128,6 @@
                             <x:String>图表</x:String>
                         </muxc:RadioButtons>
                     </StackPanel>
-                    <TextBlock Margin="10" Style="{ThemeResource TitleTextBlockStyle}">关于</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">清华大学校园网客户端</TextBlock>
-                        <TextBlock Margin="10" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Bottom" Text="{x:Bind Model.GetVersionString(Model.Version),Mode=OneTime}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
-                        <HyperlinkButton NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目网址</HyperlinkButton>
-                    </StackPanel>
                 </StackPanel>
             </muxc:ScrollViewer>
         </SplitView.Pane>
@@ -153,6 +139,7 @@
             <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>
             <AppBarSeparator/>
             <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
+            <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

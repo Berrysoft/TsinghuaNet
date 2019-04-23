@@ -336,6 +336,11 @@ Public NotInheritable Class MainPage
             usersmodel.Add(u)
         Next
     End Function
+
+    Private Async Sub ShowAbout()
+        Dim dialog As New AboutDialog()
+        Await dialog.ShowAsync()
+    End Sub
 End Class
 
 NotInheritable Class NetworkListener

@@ -184,14 +184,4 @@ Public Class MainViewModel
     End Sub
 
     Public ReadOnly Property NetUsers As New ObservableCollection(Of NetUserBox)
-
-    Public ReadOnly Property Version As PackageVersion
-        Get
-            Return Package.Current.Id.Version
-        End Get
-    End Property
-
-    Public Function GetVersionString(ver As PackageVersion) As String
-        Return $"{ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}"
-    End Function
 End Class
