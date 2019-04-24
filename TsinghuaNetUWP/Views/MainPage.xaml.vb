@@ -248,12 +248,10 @@ Public NotInheritable Class MainPage
         Dim content As IUserContent = Model.UserContent
         If content IsNot Nothing Then
             content.User = If(flux, New FluxUser(Nothing, 0, TimeSpan.Zero, 0))
-            If TypeOf content Is GraphUserContent Then
-                If Not String.IsNullOrEmpty(Model.Username) Then
-                    Dim userhelper As New UseregHelper(Model.Username, Model.Password)
-                    Await userhelper.LoginAsync()
-                    Await CType(content, GraphUserContent).RefreshDetails(userhelper)
-                End If
+            If flux IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Model.Username) Then
+                Dim userhelper As New UseregHelper(Model.Username, Model.Password)
+                Await userhelper.LoginAsync()
+                Await CType(content, GraphUserContent).RefreshDetails(userhelper)
             End If
             content.BeginAnimation()
             mainTimer.Start()

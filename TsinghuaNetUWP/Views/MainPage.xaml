@@ -59,8 +59,8 @@
         <SplitView.Content>
             <Grid>
                 <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
-                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="50" Width="300" Opacity="0">
-                    <TextBlock Margin="10" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="50" Opacity="0">
+                    <TextBlock Margin="10" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </muxc:ScrollViewer>
             </Grid>
         </SplitView.Content>
