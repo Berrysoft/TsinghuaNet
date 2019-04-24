@@ -2,42 +2,30 @@
 Imports Berrysoft.Tsinghua.Net
 
 Public Module ConnectHelper
+    Private ReadOnly StateHelperMap As New Dictionary(Of NetState, Type) From
+    {
+        {NetState.Net, GetType(NetHelper)},
+        {NetState.Auth4, GetType(Auth4Helper)},
+        {NetState.Auth6, GetType(Auth6Helper)}
+    }
+
+    Private Function GetHelperImpl(state As NetState, ParamArray args() As Object) As IConnect
+        If StateHelperMap.ContainsKey(state) Then
+            Return Activator.CreateInstance(StateHelperMap(state), args)
+        Else
+            Return Nothing
+        End If
+    End Function
+
     Public Function GetHelper(state As NetState) As IConnect
-        Select Case state
-            Case NetState.Net
-                Return New NetHelper()
-            Case NetState.Auth4
-                Return New Auth4Helper()
-            Case NetState.Auth6
-                Return New Auth6Helper()
-            Case Else
-                Return Nothing
-        End Select
+        Return GetHelperImpl(state)
     End Function
 
     Public Function GetHelper(state As NetState, username As String, password As String) As IConnect
-        Select Case state
-            Case NetState.Net
-                Return New NetHelper(username, password)
-            Case NetState.Auth4
-                Return New Auth4Helper(username, password)
-            Case NetState.Auth6
-                Return New Auth6Helper(username, password)
-            Case Else
-                Return Nothing
-        End Select
+        Return GetHelperImpl(state, username, password)
     End Function
 
     Public Function GetHelper(state As NetState, username As String, password As String, client As HttpClient) As IConnect
-        Select Case state
-            Case NetState.Net
-                Return New NetHelper(username, password, client)
-            Case NetState.Auth4
-                Return New Auth4Helper(username, password, client)
-            Case NetState.Auth6
-                Return New Auth6Helper(username, password, client)
-            Case Else
-                Return Nothing
-        End Select
+        Return GetHelperImpl(state, username, password, client)
     End Function
 End Module
