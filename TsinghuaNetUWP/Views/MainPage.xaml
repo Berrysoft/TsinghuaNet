@@ -46,13 +46,21 @@
         <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
         <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
         <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
+        <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
+        <Storyboard x:Name="ShowResponseStoryboard">
+            <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
+        </Storyboard>
+        <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
+        <Storyboard x:Name="HideResponseStoryboard">
+            <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
+        </Storyboard>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="320" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Grid>
                 <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
-                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled">
-                    <TextBlock Margin="5" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Right" Height="50" Width="300" Opacity="0">
+                    <TextBlock Margin="10" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </muxc:ScrollViewer>
             </Grid>
         </SplitView.Content>

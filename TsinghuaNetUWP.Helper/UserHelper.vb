@@ -1,7 +1,7 @@
 ﻿Imports System.Globalization
 
 Public Module UserHelper
-    Public Function GetFluxString(flux As Long) As String
+    Public Function GetFluxString(flux As Double) As String
         If flux < 1000 Then
             Return $"{flux} B"
         End If

@@ -6,6 +6,7 @@ Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
 Imports Windows.Networking.Connectivity
 Imports Windows.UI
+Imports WinRTXamlToolkit.AwaitableUI
 
 Public NotInheritable Class MainPage
     Inherits Page
@@ -283,10 +284,10 @@ Public NotInheritable Class MainPage
                 Model.Response = "注销成功"
             End If
         End If
-        ResponseViewer.Visibility = Visibility.Visible
+        Await ShowResponseStoryboard.BeginAsync()
         If login.HasValue AndAlso login.Value Then
             Await Task.Delay(3000)
-            ResponseViewer.Visibility = Visibility.Collapsed
+            HideResponseStoryboard.Begin()
         End If
     End Sub
 
