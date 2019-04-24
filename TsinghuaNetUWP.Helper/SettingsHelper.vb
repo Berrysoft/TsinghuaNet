@@ -1,4 +1,5 @@
-﻿Imports Windows.Data.Json
+﻿Imports System.Json
+Imports System.Runtime.InteropServices
 Imports Windows.Networking.Connectivity
 Imports Windows.Storage
 
@@ -49,10 +50,10 @@ Public NotInheritable Class SettingsHelper
         End If
     End Sub
 
-    Private Shared Function GetMapFromJson(json As JsonObject) As IDictionary(Of String, NetState)
+    Private Shared Function GetMapFromJson(json As JsonObject) As Dictionary(Of String, NetState)
         Dim result As New Dictionary(Of String, NetState)
         For Each pair In json
-            result.Add(pair.Key, pair.Value.GetNumber)
+            result.Add(pair.Key, CInt(pair.Value))
         Next
         Return result
     End Function
@@ -60,7 +61,7 @@ Public NotInheritable Class SettingsHelper
     Private Shared Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JsonObject
         Dim result As New JsonObject
         For Each pair In map
-            result.Add(pair.Key, JsonValue.CreateNumberValue(pair.Value))
+            result.Add(pair.Key, pair.Value)
         Next
         Return result
     End Function
@@ -87,7 +88,7 @@ Public NotInheritable Class SettingsHelper
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
         Dim json As String = GetValue(Of String)(WlanStateKey)
         Dim jsonobj As JsonObject = Nothing
-        If String.IsNullOrEmpty(json) OrElse (Not JsonObject.TryParse(json, jsonobj)) Then
+        If String.IsNullOrEmpty(json) OrElse (Not JsonValueExtensions.TryParse(json, jsonobj)) Then
             WlanStates = DefWlanStates()
         Else
             WlanStates = GetMapFromJson(jsonobj)
@@ -183,3 +184,14 @@ Public NotInheritable Class SettingsHelper
         End If
     End Function
 End Class
+
+Module JsonValueExtensions
+    Public Function TryParse(str As String, <Out> ByRef json As JsonObject) As Boolean
+        Try
+            json = JsonValue.Parse(str)
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+    End Function
+End Module
