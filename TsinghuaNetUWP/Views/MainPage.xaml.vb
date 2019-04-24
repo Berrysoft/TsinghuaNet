@@ -1,4 +1,5 @@
 ﻿Imports System.Net
+Imports System.Net.Http
 Imports System.Text
 Imports Berrysoft.Tsinghua.Net
 Imports TsinghuaNetUWP.Background
@@ -14,6 +15,8 @@ Public NotInheritable Class MainPage
     Private settings As New SettingsHelper
     Private mainTimer As New DispatcherTimer
     Private networkListener As New NetworkListener
+
+    Private Shared ReadOnly Client As New HttpClient
 
     Public Sub New()
         InitializeComponent()
@@ -249,7 +252,7 @@ Public NotInheritable Class MainPage
         If content IsNot Nothing Then
             content.User = If(flux, New FluxUser(Nothing, 0, TimeSpan.Zero, 0))
             If flux IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Model.Username) Then
-                Dim userhelper As New UseregHelper(Model.Username, Model.Password)
+                Dim userhelper = GetUseregHelper()
                 Await userhelper.LoginAsync()
                 Await CType(content, GraphUserContent).RefreshDetails(userhelper)
             End If
@@ -260,7 +263,7 @@ Public NotInheritable Class MainPage
 
     Private Async Function DropImpl(e As IPAddress) As Task
         Try
-            Dim helper As New UseregHelper(Model.Username, Model.Password)
+            Dim helper = GetUseregHelper()
             Await helper.LoginAsync()
             Await helper.LogoutAsync(e)
             Await RefreshNetUsersImpl(helper)
@@ -270,17 +273,17 @@ Public NotInheritable Class MainPage
     End Function
 
     Private Function GetHelper() As IConnect
-        Return ConnectHelper.GetHelper(Model.State, Model.Username, Model.Password)
+        Return ConnectHelper.GetHelper(Model.State, Model.Username, Model.Password, Client)
+    End Function
+
+    Private Function GetUseregHelper() As UseregHelper
+        Return New UseregHelper(Model.Username, Model.Password, Client)
     End Function
 
     Private Async Sub ShowResponse(response As LogResponse, Optional login As Boolean? = Nothing)
         Model.Response = response.Message
         If login.HasValue AndAlso response.Succeed Then
-            If login.Value Then
-                Model.Response = "登录成功"
-            Else
-                Model.Response = "注销成功"
-            End If
+            Model.Response = If(login.Value, "登录成功", "注销成功")
         End If
         Await ShowResponseStoryboard.BeginAsync()
         If login.HasValue AndAlso login.Value Then
@@ -304,7 +307,7 @@ Public NotInheritable Class MainPage
     Private Async Function RefreshNetUsersImpl() As Task
         Try
             If Model.State <> NetState.Unknown Then
-                Dim helper As New UseregHelper(Model.Username, Model.Password)
+                Dim helper = GetUseregHelper()
                 Await helper.LoginAsync()
                 Await RefreshNetUsersImpl(helper)
             End If

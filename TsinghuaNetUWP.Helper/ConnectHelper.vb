@@ -1,4 +1,5 @@
-﻿Imports Berrysoft.Tsinghua.Net
+﻿Imports System.Net.Http
+Imports Berrysoft.Tsinghua.Net
 
 Public Module ConnectHelper
     Public Function GetHelper(state As NetState) As IConnect
@@ -22,6 +23,19 @@ Public Module ConnectHelper
                 Return New Auth4Helper(username, password)
             Case NetState.Auth6
                 Return New Auth6Helper(username, password)
+            Case Else
+                Return Nothing
+        End Select
+    End Function
+
+    Public Function GetHelper(state As NetState, username As String, password As String, client As HttpClient) As IConnect
+        Select Case state
+            Case NetState.Net
+                Return New NetHelper(username, password, client)
+            Case NetState.Auth4
+                Return New Auth4Helper(username, password, client)
+            Case NetState.Auth6
+                Return New Auth6Helper(username, password, client)
             Case Else
                 Return Nothing
         End Select

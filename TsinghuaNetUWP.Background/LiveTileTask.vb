@@ -14,8 +14,10 @@ Public NotInheritable Class LiveTileTask
             Dim state = settings.SuggestNetState(tuple.Status, tuple.Ssid)
             Dim helper = ConnectHelper.GetHelper(state)
             If helper IsNot Nothing Then
-                Dim user As FluxUser = Await helper.GetFluxAsync()
-                NotificationHelper.UpdateTile(user)
+                Using helper
+                    Dim user As FluxUser = Await helper.GetFluxAsync()
+                    NotificationHelper.UpdateTile(user)
+                End Using
             End If
         Finally
             deferral.Complete()
