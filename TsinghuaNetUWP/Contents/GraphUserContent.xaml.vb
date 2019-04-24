@@ -71,8 +71,7 @@ Module NetDetailExtensions
         Dim totalf As Double = 0
         Dim now As Date = Date.Now
         For Each b In From d In ds
-                      Where d.OnlineDate.Month = now.Month
-                      Group By d.OnlineDate.Day Into Flux = Sum(d.Flux)
+                      Group By d.LogoutTime.Day Into Flux = Sum(d.Flux)
             totalf += b.Flux / 1000000000
             Yield New KeyValuePair(Of Integer, Double)(b.Day, totalf)
         Next

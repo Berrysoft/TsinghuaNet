@@ -1,11 +1,4 @@
 ﻿Imports System.Net
-Imports Berrysoft.Tsinghua.Net
-
-Module NetUserHelper
-    Public Function Equals(user As NetUser, other As NetUser) As Boolean
-        Return user.Address.Equals(other.Address) AndAlso user.LoginTime = other.LoginTime AndAlso user.Client = other.Client
-    End Function
-End Module
 
 Public NotInheritable Class DropCommand
     Implements ICommand

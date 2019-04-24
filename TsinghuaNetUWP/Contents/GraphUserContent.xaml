@@ -19,6 +19,9 @@
         <Storyboard x:Name="HideStoryboard">
             <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
+        <Style x:Key="NoTickLine" TargetType="Line">
+            <Setter Property="Visibility" Value="Collapsed"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -36,13 +39,11 @@
                         </Style>
                     </wcdc:Chart.LegendStyle>
                     <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValuePath="Key" DependentValuePath="Value">
+                        <wcdc:LineSeries.IndependentAxis>
+                            <wcdc:LinearAxis Orientation="X" ShowGridLines="False" MajorTickMarkStyle="{StaticResource NoTickLine}"/>
+                        </wcdc:LineSeries.IndependentAxis>
                         <wcdc:LineSeries.DependentRangeAxis>
-                            <wcdc:LinearAxis Orientation="Y" ShowGridLines="True">
-                                <wcdc:LinearAxis.MajorTickMarkStyle>
-                                    <Style TargetType="Line">
-                                        <Setter Property="Visibility" Value="Collapsed"/>
-                                    </Style>
-                                </wcdc:LinearAxis.MajorTickMarkStyle>
+                            <wcdc:LinearAxis Orientation="Y" ShowGridLines="True" MajorTickMarkStyle="{StaticResource NoTickLine}">
                                 <wcdc:LinearAxis.AxisLabelStyle>
                                     <Style TargetType="wcdc:AxisLabel">
                                         <Setter Property="StringFormat" Value="{}{0} G"/>

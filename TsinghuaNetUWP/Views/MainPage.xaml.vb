@@ -321,7 +321,7 @@ Public NotInheritable Class MainPage
             Dim olduser As NetUser = usersmodel(i)
             For j = 0 To users.Count - 1
                 Dim user As NetUser = users(j)
-                If NetUserHelper.Equals(olduser, user) Then
+                If olduser.Equals(user) Then
                     users.RemoveAt(j)
                     i += 1
                     Continue Do
