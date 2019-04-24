@@ -7,40 +7,38 @@ Public Module NotificationHelper
     Private toastText As String
 
     Sub New()
-        tileText =
-            <?xml version="1.0" encoding="utf-8"?>
-            <tile>
-                <visual branding="nameAndLogo">
-                    <binding template="TileMedium">
-                        <text hint-style="base">{0}</text>
-                        <text hint-style="bodySubtle">{1}</text>
-                        <text hint-style="bodySubtle">{3}</text>
-                    </binding>
-                    <binding template="TileWide">
-                        <text hint-style="subtitle">{0}</text>
-                        <text hint-style="bodySubtle">流量：{1}</text>
-                        <text hint-style="bodySubtle">余额：{3}</text>
-                    </binding>
-                    <binding template="TileLarge">
-                        <text hint-style="title">{0}</text>
-                        <text hint-style="subtitleSubtle">流量：{1}</text>
-                        <text hint-style="subtitleSubtle">剩余：{4}</text>
-                        <text hint-style="subtitleSubtle">时长：{2}</text>
-                        <text hint-style="subtitleSubtle">余额：{3}</text>
-                    </binding>
-                </visual>
-            </tile>.ToString()
-        toastText =
-            <?xml version="1.0" encoding="utf-8"?>
-            <toast>
-                <visual>
-                    <binding template="ToastGeneric">
-                        <text hint-maxLines="1">登录成功：{0}</text>
-                        <text>流量：{1}</text>
-                        <text>余额：{2}</text>
-                    </binding>
-                </visual>
-            </toast>.ToString()
+        tileText = <![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<tile>
+    <visual branding="nameAndLogo">
+        <binding template="TileMedium">
+            <text hint-style="base">{0}</text>
+            <text hint-style="bodySubtle">{1}</text>
+            <text hint-style="bodySubtle">{3}</text>
+        </binding>
+        <binding template="TileWide">
+            <text hint-style="subtitle">{0}</text>
+            <text hint-style="bodySubtle">流量：{1}</text>
+            <text hint-style="bodySubtle">余额：{3}</text>
+        </binding>
+        <binding template="TileLarge">
+            <text hint-style="title">{0}</text>
+            <text hint-style="subtitleSubtle">流量：{1}</text>
+            <text hint-style="subtitleSubtle">剩余：{4}</text>
+            <text hint-style="subtitleSubtle">时长：{2}</text>
+            <text hint-style="subtitleSubtle">余额：{3}</text>
+        </binding>
+    </visual>
+</tile>]]>.Value
+        toastText = <![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<toast>
+    <visual>
+        <binding template="ToastGeneric">
+            <text hint-maxLines="1">登录成功：{0}</text>
+            <text>流量：{1}</text>
+            <text>余额：{2}</text>
+        </binding>
+    </visual>
+</toast>]]>.Value
     End Sub
 
     Public Sub UpdateTile(user As FluxUser)
