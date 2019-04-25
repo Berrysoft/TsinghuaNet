@@ -46,9 +46,9 @@
         </Viewbox>
         <Viewbox Grid.RowSpan="3">
             <Grid Height="300" Width="300" Margin="10">
-                <local:Arc Fill="{ThemeResource SystemAccentDark2ColorBrush}" Value="1"/>
-                <local:Arc Fill="{ThemeResource SystemAccentDark1ColorBrush}" Value="{x:Bind FreeOffset,Mode=OneWay}"/>
-                <local:Arc Fill="{ThemeResource SystemAccentColorBrush}" Value="{x:Bind FluxOffset,Mode=OneWay}"/>
+                <local:Arc Fill="{StaticResource SystemAccentDark2ColorBrush}" Value="1"/>
+                <local:Arc Fill="{StaticResource SystemAccentDark1ColorBrush}" Value="{x:Bind FreeOffset,Mode=OneWay}"/>
+                <local:Arc Fill="{StaticResource SystemAccentColorBrush}" Value="{x:Bind FluxOffset,Mode=OneWay}"/>
                 <ProgressRing x:Name="Progress" Height="50" Width="50"/>
             </Grid>
         </Viewbox>

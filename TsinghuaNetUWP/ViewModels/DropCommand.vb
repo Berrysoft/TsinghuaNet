@@ -11,6 +11,6 @@ Public NotInheritable Class DropCommand
     End Sub
 
     Public Function CanExecute(parameter As Object) As Boolean Implements ICommand.CanExecute
-        Return True
+        Return parameter IsNot Nothing
     End Function
 End Class
