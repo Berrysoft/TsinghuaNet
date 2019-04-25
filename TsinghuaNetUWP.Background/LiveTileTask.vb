@@ -5,13 +5,11 @@ Imports Windows.ApplicationModel.Background
 Public NotInheritable Class LiveTileTask
     Implements IBackgroundTask
 
-    Private settings As New SettingsHelper
-
     Public Async Sub Run(taskInstance As IBackgroundTaskInstance) Implements IBackgroundTask.Run
         Dim deferral = taskInstance.GetDeferral()
         Try
             Dim tuple = SettingsHelper.GetInternetStatus()
-            Dim state = settings.SuggestNetState(tuple.Status, tuple.Ssid)
+            Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
             Dim helper = ConnectHelper.GetHelper(state)
             If helper IsNot Nothing Then
                 Using helper

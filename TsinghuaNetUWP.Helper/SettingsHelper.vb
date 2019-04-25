@@ -31,7 +31,7 @@ Public Enum UserContentType
     Graph
 End Enum
 
-Public NotInheritable Class SettingsHelper
+Public Module SettingsHelper
     Private values As IPropertySet
 
     Private Function GetValue(Of T)(key As String, Optional def As T = Nothing) As T
@@ -50,7 +50,7 @@ Public NotInheritable Class SettingsHelper
         End If
     End Sub
 
-    Private Shared Function GetMapFromJson(json As JsonObject) As Dictionary(Of String, NetState)
+    Private Function GetMapFromJson(json As JsonObject) As Dictionary(Of String, NetState)
         Dim result As New Dictionary(Of String, NetState)
         For Each pair In json
             result.Add(pair.Key, CInt(pair.Value))
@@ -58,7 +58,7 @@ Public NotInheritable Class SettingsHelper
         Return result
     End Function
 
-    Private Shared Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JsonObject
+    Private Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JsonObject
         Dim result As New JsonObject
         For Each pair In map
             result.Add(pair.Key, pair.Value)
@@ -76,7 +76,7 @@ Public NotInheritable Class SettingsHelper
     Private Const ThemeKey As String = "Theme"
     Private Const ContentTypeKey As String = "UserContentType"
 
-    Public Sub New()
+    Sub New()
         values = ApplicationData.Current.LocalSettings.Values
         StoredUsername = GetValue(Of String)(StoredUsernameKey)
         AutoLogin = GetValue(AutoLoginKey, True)
@@ -148,7 +148,7 @@ Public NotInheritable Class SettingsHelper
         End Select
     End Function
 
-    Public Shared Function DefWlanStates() As IDictionary(Of String, NetState)
+    Public Function DefWlanStates() As IDictionary(Of String, NetState)
         Return New Dictionary(Of String, NetState) From
         {
             {"Tsinghua", NetState.Net},
@@ -158,7 +158,7 @@ Public NotInheritable Class SettingsHelper
         }
     End Function
 
-    Public Shared Function InternetAvailable() As Boolean
+    Public Function InternetAvailable() As Boolean
         Dim profile = NetworkInformation.GetInternetConnectionProfile()
         If profile Is Nothing Then
             Return False
@@ -166,7 +166,7 @@ Public NotInheritable Class SettingsHelper
         Return profile.GetNetworkConnectivityLevel() = NetworkConnectivityLevel.InternetAccess
     End Function
 
-    Public Shared Function GetInternetStatus() As (Status As InternetStatus, Ssid As String)
+    Public Function GetInternetStatus() As (Status As InternetStatus, Ssid As String)
         Dim profile = NetworkInformation.GetInternetConnectionProfile()
         If profile Is Nothing Then
             Return (InternetStatus.Unknown, Nothing)
@@ -183,7 +183,7 @@ Public NotInheritable Class SettingsHelper
             Return (InternetStatus.Lan, Nothing)
         End If
     End Function
-End Class
+End Module
 
 Module JsonValueExtensions
     Public Function TryParse(str As String, <Out> ByRef json As JsonObject) As Boolean

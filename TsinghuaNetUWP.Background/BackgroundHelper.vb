@@ -3,10 +3,9 @@
 Public Module BackgroundHelper
     Private Async Function RequestAccessImplAsync() As Task(Of Boolean)
         Dim status = Await BackgroundExecutionManager.RequestAccessAsync()
-        Return Not (
-            status = BackgroundAccessStatus.Unspecified OrElse
-            status = BackgroundAccessStatus.DeniedByUser OrElse
-            status = BackgroundAccessStatus.DeniedBySystemPolicy)
+        Return Not (status = BackgroundAccessStatus.Unspecified OrElse
+                    status = BackgroundAccessStatus.DeniedByUser OrElse
+                    status = BackgroundAccessStatus.DeniedBySystemPolicy)
     End Function
 
     Public Function RequestAccessAsync() As IAsyncOperation(Of Boolean)

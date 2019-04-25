@@ -18,7 +18,8 @@ Public Module UserHelper
     End Function
 
     Public Function GetCurrencyString(currency As Decimal) As String
-        Return currency.ToString("C2", New CultureInfo("zh-CN"))
+        Static culture As New CultureInfo("zh-CN")
+        Return currency.ToString("C2", culture)
     End Function
 
     Public Function GetNetStateString(state As NetState) As String

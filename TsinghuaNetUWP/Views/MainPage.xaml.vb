@@ -12,7 +12,6 @@ Imports WinRTXamlToolkit.AwaitableUI
 Public NotInheritable Class MainPage
     Inherits Page
 
-    Private settings As New SettingsHelper
     Private mainTimer As New DispatcherTimer
     Private networkListener As New NetworkListener
 
@@ -29,8 +28,8 @@ Public NotInheritable Class MainPage
         Dim viewTitleBar = CoreApplication.GetCurrentView().TitleBar
         viewTitleBar.ExtendViewIntoTitleBar = True
         Window.Current.SetTitleBar(MainFrame)
-        Model.SettingsTheme = settings.Theme
-        Model.ContentType = settings.ContentType
+        Model.SettingsTheme = SettingsHelper.Theme
+        Model.ContentType = SettingsHelper.ContentType
         mainTimer.Interval = TimeSpan.FromSeconds(1)
         AddHandler mainTimer.Tick, AddressOf MainTimerTick
         AddHandler networkListener.NetworkStatusChanged, AddressOf NetworkChanged
@@ -40,24 +39,23 @@ Public NotInheritable Class MainPage
     End Sub
 
     Friend Sub SaveSettings()
-        settings.Theme = Model.SettingsTheme
-        settings.ContentType = Model.ContentType
-        settings.SaveSettings()
+        SettingsHelper.Theme = Model.SettingsTheme
+        SettingsHelper.ContentType = Model.ContentType
     End Sub
 
     Private Async Sub PageLoaded()
         RefreshStatus()
-        Dim al = settings.AutoLogin
+        Dim al = SettingsHelper.AutoLogin
         Model.AutoLogin = al
-        Dim bal = settings.BackgroundAutoLogin
+        Dim bal = SettingsHelper.BackgroundAutoLogin
         Model.BackgroundAutoLogin = bal
-        Dim blt = settings.BackgroundLiveTile
+        Dim blt = SettingsHelper.BackgroundLiveTile
         Model.BackgroundLiveTile = blt
         If Await BackgroundHelper.RequestAccessAsync() Then
             BackgroundHelper.RegisterLogin(bal)
             BackgroundHelper.RegisterLiveTile(blt)
         End If
-        Dim un = settings.StoredUsername
+        Dim un = SettingsHelper.StoredUsername
         If Not String.IsNullOrEmpty(un) Then
             Model.Username = un
             Dim pw = CredentialHelper.GetCredential(un)
@@ -126,7 +124,7 @@ Public NotInheritable Class MainPage
             If dialog.SaveBox.IsChecked.Value Then
                 CredentialHelper.SaveCredential(un, pw)
             End If
-            settings.StoredUsername = un
+            SettingsHelper.StoredUsername = un
             Model.Username = un
             Model.Password = pw
             Split.IsPaneOpen = False
@@ -143,7 +141,7 @@ Public NotInheritable Class MainPage
 
     Private Sub RefreshStatus()
         Dim tuple = SettingsHelper.GetInternetStatus()
-        Dim state = settings.SuggestNetState(tuple.Status, tuple.Ssid)
+        Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
         Model.NetStatus = tuple.Status
         Model.Ssid = tuple.Ssid
         Model.SuggestState = state
@@ -153,14 +151,14 @@ Public NotInheritable Class MainPage
     Private Async Sub ShowEditSuggestion()
         Dim dialog As New EditSuggestionDialog
         dialog.RequestedTheme = Model.Theme
-        dialog.LanCombo.Value = settings.LanState
-        dialog.WwanCombo.Value = settings.WwanState
-        Dim s = settings.WlanStates
+        dialog.LanCombo.Value = SettingsHelper.LanState
+        dialog.WwanCombo.Value = SettingsHelper.WwanState
+        Dim s = SettingsHelper.WlanStates
         dialog.RefreshWlanList(s)
         Dim result = Await dialog.ShowAsync()
         If result = ContentDialogResult.Primary Then
-            settings.LanState = dialog.LanCombo.Value
-            settings.WwanState = dialog.WwanCombo.Value
+            SettingsHelper.LanState = dialog.LanCombo.Value
+            SettingsHelper.WwanState = dialog.WwanCombo.Value
             s.Clear()
             For Each item In dialog.WlanList
                 s.Add(item.Ssid, item.Value)
@@ -174,18 +172,18 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub AutoLoginChanged()
-        settings.AutoLogin = Model.AutoLogin
+        SettingsHelper.AutoLogin = Model.AutoLogin
     End Sub
 
     Private Async Sub BackgroundAutoLoginChanged()
-        settings.BackgroundAutoLogin = Model.BackgroundAutoLogin
+        SettingsHelper.BackgroundAutoLogin = Model.BackgroundAutoLogin
         If Await BackgroundHelper.RequestAccessAsync() Then
             BackgroundHelper.RegisterLogin(Model.BackgroundAutoLogin)
         End If
     End Sub
 
     Private Async Sub BackgroundLiveTileChanged()
-        settings.BackgroundLiveTile = Model.BackgroundLiveTile
+        SettingsHelper.BackgroundLiveTile = Model.BackgroundLiveTile
         If Await BackgroundHelper.RequestAccessAsync() Then
             BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile)
         End If

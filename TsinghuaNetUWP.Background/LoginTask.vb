@@ -5,14 +5,12 @@ Imports Windows.ApplicationModel.Background
 Public NotInheritable Class LoginTask
     Implements IBackgroundTask
 
-    Private settings As New SettingsHelper
-
     Public Async Sub Run(taskInstance As IBackgroundTaskInstance) Implements IBackgroundTask.Run
         Dim deferral = taskInstance.GetDeferral()
         Try
             Dim tuple = SettingsHelper.GetInternetStatus()
-            Dim state = settings.SuggestNetState(tuple.Status, tuple.Ssid)
-            Dim un = settings.StoredUsername
+            Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
+            Dim un = SettingsHelper.StoredUsername
             Dim pw = CredentialHelper.GetCredential(un)
             Dim helper = ConnectHelper.GetHelper(state, un, pw)
             If helper IsNot Nothing Then

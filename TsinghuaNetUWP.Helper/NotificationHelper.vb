@@ -61,10 +61,10 @@ Public Module NotificationHelper
         If user IsNot Nothing Then
             Dim dom As New XmlDocument
             dom.LoadXml(String.Format(
-                    toastText,
-                    user.Username,
-                    UserHelper.GetFluxString(user.Flux),
-                    UserHelper.GetCurrencyString(user.Balance)))
+                        toastText,
+                        user.Username,
+                        UserHelper.GetFluxString(user.Flux),
+                        UserHelper.GetCurrencyString(user.Balance)))
             Dim notification As New ToastNotification(dom)
             notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1)
             ToastNotificationManager.CreateToastNotifier().Show(notification)

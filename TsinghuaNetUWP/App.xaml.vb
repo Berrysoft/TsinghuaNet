@@ -1,4 +1,6 @@
-﻿''' <summary>
+﻿Imports TsinghuaNetUWP.Helper
+
+''' <summary>
 ''' 提供特定于应用程序的行为，以补充默认的应用程序类。
 ''' </summary>
 NotInheritable Class App
@@ -22,9 +24,6 @@ NotInheritable Class App
 
             AddHandler rootFrame.NavigationFailed, AddressOf OnNavigationFailed
 
-            If e.PreviousExecutionState = ApplicationExecutionState.Terminated Then
-                ' TODO: 从之前挂起的应用程序加载状态
-            End If
             ' 将框架放在当前窗口中
             Window.Current.Content = rootFrame
         End If
@@ -61,6 +60,7 @@ NotInheritable Class App
         If args.Kind = ActivationKind.ToastNotification Then
             mainPage.ToastLogined = True
         End If
+        ' 确保当前窗口处于活动状态
         Window.Current.Activate()
     End Sub
 
@@ -81,15 +81,19 @@ NotInheritable Class App
     ''' <param name="sender">挂起的请求的源。</param>
     ''' <param name="e">有关挂起请求的详细信息。</param>
     Private Sub OnSuspending(sender As Object, e As SuspendingEventArgs) Handles Me.Suspending
-        Dim deferral As SuspendingDeferral = e.SuspendingOperation.GetDeferral()
-        Dim rootFrame As Frame = TryCast(Window.Current.Content, Frame)
-        If rootFrame IsNot Nothing Then
-            Dim mainPage As MainPage = TryCast(rootFrame.Content, MainPage)
-            If mainPage IsNot Nothing Then
-                mainPage.SaveSettings()
+        Dim deferral = e.SuspendingOperation.GetDeferral()
+        Try
+            Dim rootFrame As Frame = TryCast(Window.Current.Content, Frame)
+            If rootFrame IsNot Nothing Then
+                Dim mainPage As MainPage = TryCast(rootFrame.Content, MainPage)
+                If mainPage IsNot Nothing Then
+                    mainPage.SaveSettings()
+                End If
             End If
-        End If
-        deferral.Complete()
+            SettingsHelper.SaveSettings()
+        Finally
+            deferral.Complete()
+        End Try
     End Sub
 
 End Class
