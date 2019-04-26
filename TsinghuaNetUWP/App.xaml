@@ -4,6 +4,17 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP">
     <Application.Resources>
-        <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
+                <ResourceDictionary>
+                    <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
+                    <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
+                    <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
+                    <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
+                    <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

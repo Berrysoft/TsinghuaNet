@@ -11,11 +11,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
         <Storyboard x:Name="ShowStoryboard">
             <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </Storyboard>
-        <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
         <Storyboard x:Name="HideStoryboard">
             <DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>

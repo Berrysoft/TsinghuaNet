@@ -19,7 +19,6 @@
                 <Button Margin="10,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
             </StackPanel>
         </Flyout>
-        <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
     </ContentDialog.Resources>
     <muxc:ScrollViewer HorizontalScrollMode="Disabled">
         <StackPanel>
