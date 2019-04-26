@@ -4,16 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetUWP.Helper"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="编辑建议" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <ContentDialog.Resources>
-        <DataTemplate x:Key="SsidSuggestionTemplate" x:DataType="local:NetStateSsidBox">
-            <local:SsidSuggestion Margin="0,10" SsidStyle="{ThemeResource BaseTextBlockStyle}" Ssid="{x:Bind Ssid,Mode=TwoWay}" Value="{x:Bind Value,Mode=TwoWay}"/>
-        </DataTemplate>
         <Flyout x:Name="AddFlyout">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="0,0,10,0" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center">SSID：</TextBlock>
@@ -21,6 +19,7 @@
                 <Button Margin="10,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
             </StackPanel>
         </Flyout>
+        <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
     </ContentDialog.Resources>
     <muxc:ScrollViewer HorizontalScrollMode="Disabled">
         <StackPanel>
@@ -36,7 +35,28 @@
                     </AppBarButton.Icon>
                 </AppBarButton>
             </StackPanel>
-            <ListView x:Name="WlanListView" Margin="10" ItemsSource="{x:Bind WlanList,Mode=OneTime}" ItemTemplate="{StaticResource SsidSuggestionTemplate}"/>
+            <mtuuc:DataGrid x:Name="WlanListView" Margin="10" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind WlanList}">
+                <mtuuc:DataGrid.Columns>
+                    <mtuuc:DataGridTextColumn Header="SSID" Width="150" Binding="{Binding Ssid,Mode=TwoWay}" IsReadOnly="True" Tag="Ssid"/>
+                    <mtuuc:DataGridTemplateColumn Header="连接类型" Width="120" Tag="Value">
+                        <mtuuc:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="local:NetStateSsidBox">
+                                <TextBlock Margin="12,0" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
+                            </DataTemplate>
+                        </mtuuc:DataGridTemplateColumn.CellTemplate>
+                        <mtuuc:DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate x:DataType="local:NetStateSsidBox">
+                                <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}">
+                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Unknown)}"/>
+                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
+                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>
+                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}"/>
+                                </ComboBox>
+                            </DataTemplate>
+                        </mtuuc:DataGridTemplateColumn.CellEditingTemplate>
+                    </mtuuc:DataGridTemplateColumn>
+                </mtuuc:DataGrid.Columns>
+            </mtuuc:DataGrid>
         </StackPanel>
     </muxc:ScrollViewer>
 </ContentDialog>
