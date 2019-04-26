@@ -2,10 +2,10 @@
 Imports System.Net.Http
 Imports System.Text
 Imports Berrysoft.Tsinghua.Net
+Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNetUWP.Background
 Imports TsinghuaNetUWP.Helper
 Imports Windows.ApplicationModel.Core
-Imports Windows.Networking.Connectivity
 Imports Windows.UI
 Imports WinRTXamlToolkit.AwaitableUI
 
@@ -13,7 +13,6 @@ Public NotInheritable Class MainPage
     Inherits Page
 
     Private mainTimer As New DispatcherTimer
-    Private networkListener As New NetworkListener
 
     Private Shared ReadOnly Client As New HttpClient
 
@@ -39,7 +38,7 @@ Public NotInheritable Class MainPage
         mainTimer.Interval = TimeSpan.FromSeconds(1)
         AddHandler mainTimer.Tick, AddressOf MainTimerTick
         ' 监视网络情况变化
-        AddHandler networkListener.NetworkStatusChanged, AddressOf NetworkChanged
+        AddHandler NetworkHelper.Instance.NetworkChanged, AddressOf NetworkChanged
         ' 响应选项变化
         Model.RegisterPropertyChangedCallback(MainViewModel.AutoLoginProperty, AddressOf AutoLoginChanged)
         Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundAutoLoginProperty, AddressOf BackgroundAutoLoginChanged)
@@ -426,21 +425,5 @@ Public NotInheritable Class MainPage
     Private Async Sub ShowAbout()
         Dim dialog As New AboutDialog()
         Await dialog.ShowAsync()
-    End Sub
-End Class
-
-NotInheritable Class NetworkListener
-    Public Event NetworkStatusChanged As NetworkStatusChangedEventHandler
-
-    Protected Sub OnNetworkStatusChanged(sender As Object)
-        RaiseEvent NetworkStatusChanged(sender)
-    End Sub
-
-    Public Sub New()
-        AddHandler NetworkInformation.NetworkStatusChanged, AddressOf OnNetworkStatusChanged
-    End Sub
-
-    Protected Overrides Sub Finalize()
-        RemoveHandler NetworkInformation.NetworkStatusChanged, AddressOf OnNetworkStatusChanged
     End Sub
 End Class

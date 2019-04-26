@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNetUWP"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -15,25 +16,11 @@
         </StackPanel>
         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
         <TextBlock Margin="10" Style="{ThemeResource BaseTextBlockStyle}">包含的开源库</TextBlock>
-        <ListView Margin="10">
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="local:PackageBox">
-                    <Grid HorizontalAlignment="Stretch">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="350"/>
-                            <ColumnDefinition Width="75"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Name}"/>
-                        <TextBlock Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind License}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-            <local:PackageBox Name="Berrysoft.Tsinghua.Net" License="MIT许可证"/>
-            <local:PackageBox Name="HtmlAgilityPack" License="MIT许可证"/>
-            <local:PackageBox Name="Microsoft.UI.Xaml" License="MIT许可证"/>
-            <local:PackageBox Name="Refractored.MvvmHelpers" License="MIT许可证"/>
-            <local:PackageBox Name="WinRTXamlToolkit" License="MIT许可证"/>
-            <local:PackageBox Name="WinRTXamlToolkit.Controls.DataVisualization" License="MIT许可证"/>
-        </ListView>
+        <mtuuc:DataGrid Margin="10" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind Packages}">
+            <mtuuc:DataGrid.Columns>
+                <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
+                <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
+            </mtuuc:DataGrid.Columns>
+        </mtuuc:DataGrid>
     </StackPanel>
 </ContentDialog>
