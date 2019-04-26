@@ -424,6 +424,7 @@ Public NotInheritable Class MainPage
 
     Private Async Sub ShowAbout()
         Dim dialog As New AboutDialog()
+        dialog.RequestedTheme = Model.Theme
         Await dialog.ShowAsync()
     End Sub
 End Class
