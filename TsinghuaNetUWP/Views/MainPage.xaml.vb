@@ -201,14 +201,14 @@ Public NotInheritable Class MainPage
     Private Async Sub ShowEditSuggestion()
         Dim dialog As New EditSuggestionDialog
         dialog.RequestedTheme = Model.Theme
-        dialog.LanCombo.Value = SettingsHelper.LanState
-        dialog.WwanCombo.Value = SettingsHelper.WwanState
+        dialog.LanCombo.SelectedIndex = SettingsHelper.LanState
+        dialog.WwanCombo.SelectedIndex = SettingsHelper.WwanState
         Dim s = SettingsHelper.WlanStates
         dialog.RefreshWlanList(s)
         Dim result = Await dialog.ShowAsync()
         If result = ContentDialogResult.Primary Then
-            SettingsHelper.LanState = dialog.LanCombo.Value
-            SettingsHelper.WwanState = dialog.WwanCombo.Value
+            SettingsHelper.LanState = dialog.LanCombo.SelectedIndex
+            SettingsHelper.WwanState = dialog.WwanCombo.SelectedIndex
             s.Clear()
             For Each item In dialog.WlanList
                 s.Add(item.Ssid, item.Value)

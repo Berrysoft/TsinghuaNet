@@ -23,8 +23,14 @@
     </ContentDialog.Resources>
     <muxc:ScrollViewer HorizontalScrollMode="Disabled">
         <StackPanel>
-            <local:SsidSuggestion x:Name="LanCombo" x:FieldModifier="Friend" Margin="10" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
-            <local:SsidSuggestion x:Name="WwanCombo" x:FieldModifier="Friend" Margin="10" Ssid="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="10" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
+                <ComboBox x:Name="LanCombo" x:FieldModifier="Friend" Width="120" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="10" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
+                <ComboBox x:Name="WwanCombo" x:FieldModifier="Friend" Width="120" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Margin="10" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
                 <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
@@ -37,7 +43,7 @@
             </StackPanel>
             <mtuuc:DataGrid x:Name="WlanListView" Margin="10" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind WlanList}">
                 <mtuuc:DataGrid.Columns>
-                    <mtuuc:DataGridTextColumn Header="SSID" Width="150" Binding="{Binding Ssid,Mode=TwoWay}" IsReadOnly="True" Tag="Ssid"/>
+                    <mtuuc:DataGridTextColumn Header="SSID" Width="160" Binding="{Binding Ssid,Mode=TwoWay}" IsReadOnly="True" Tag="Ssid"/>
                     <mtuuc:DataGridTemplateColumn Header="连接类型" Width="120" Tag="Value">
                         <mtuuc:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate x:DataType="local:NetStateSsidBox">
@@ -46,12 +52,7 @@
                         </mtuuc:DataGridTemplateColumn.CellTemplate>
                         <mtuuc:DataGridTemplateColumn.CellEditingTemplate>
                             <DataTemplate x:DataType="local:NetStateSsidBox">
-                                <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}">
-                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Unknown)}"/>
-                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Net)}"/>
-                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth4)}"/>
-                                    <TextBlock Text="{x:Bind helper:UserHelper.GetNetStateString(helper:NetState.Auth6)}"/>
-                                </ComboBox>
+                                <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
                             </DataTemplate>
                         </mtuuc:DataGridTemplateColumn.CellEditingTemplate>
                     </mtuuc:DataGridTemplateColumn>

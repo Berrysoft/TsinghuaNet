@@ -102,12 +102,7 @@
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
-                    <muxc:RadioButtons Margin="10" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}">
-                        <x:String>不登录</x:String>
-                        <x:String>Net</x:String>
-                        <x:String>Auth4</x:String>
-                        <x:String>Auth6</x:String>
-                    </muxc:RadioButtons>
+                    <muxc:RadioButtons Margin="10" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="10" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
