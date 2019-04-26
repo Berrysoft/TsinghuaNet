@@ -12,18 +12,13 @@
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
     Title="流量明细" DefaultButton="Close" CloseButtonText="确定">
     <mtuuc:DataGrid x:Name="DetailsView" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
-        <mtuuc:DataGrid.Transitions>
-            <TransitionCollection>
-                <AddDeleteThemeTransition/>
-            </TransitionCollection>
-        </mtuuc:DataGrid.Transitions>
         <mtuuc:DataGrid.Columns>
             <mtuuc:DataGridTextColumn Header="登录时间" Width="160" Binding="{Binding LoginTime}" Tag="LoginTime"/>
             <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Width="160" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
             <mtuuc:DataGridTemplateColumn Header="使用流量" Width="120" Tag="Flux">
                 <mtuuc:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="net:NetDetail">
-                        <TextBlock Margin="16" HorizontalTextAlignment="Right" Text="{x:Bind helper:UserHelper.GetFluxString(Flux)}"/>
+                        <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind helper:UserHelper.GetFluxString(Flux)}"/>
                     </DataTemplate>
                 </mtuuc:DataGridTemplateColumn.CellTemplate>
             </mtuuc:DataGridTemplateColumn>
