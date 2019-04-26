@@ -1,0 +1,32 @@
+﻿<ContentDialog
+    x:Class="TsinghuaNetUWP.DetailDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TsinghuaNetUWP"
+    xmlns:helper="using:TsinghuaNetUWP.Helper"
+    xmlns:net="using:Berrysoft.Tsinghua.Net"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
+    Title="流量明细" DefaultButton="Close" CloseButtonText="确定">
+    <mtuuc:DataGrid x:Name="DetailsView" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
+        <mtuuc:DataGrid.Transitions>
+            <TransitionCollection>
+                <AddDeleteThemeTransition/>
+            </TransitionCollection>
+        </mtuuc:DataGrid.Transitions>
+        <mtuuc:DataGrid.Columns>
+            <mtuuc:DataGridTextColumn Header="登录时间" Width="160" Binding="{Binding LoginTime}" Tag="LoginTime"/>
+            <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Width="160" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
+            <mtuuc:DataGridTemplateColumn Header="使用流量" Width="120" Tag="Flux">
+                <mtuuc:DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate x:DataType="net:NetDetail">
+                        <TextBlock Margin="16" HorizontalTextAlignment="Right" Text="{x:Bind helper:UserHelper.GetFluxString(Flux)}"/>
+                    </DataTemplate>
+                </mtuuc:DataGridTemplateColumn.CellTemplate>
+            </mtuuc:DataGridTemplateColumn>
+        </mtuuc:DataGrid.Columns>
+    </mtuuc:DataGrid>
+</ContentDialog>

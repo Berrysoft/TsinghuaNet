@@ -1,11 +1,7 @@
 ﻿Public NotInheritable Class AboutDialog
     Inherits ContentDialog
 
-    Public ReadOnly Property Version As PackageVersion
-        Get
-            Return Package.Current.Id.Version
-        End Get
-    End Property
+    Public ReadOnly Version As PackageVersion = Package.Current.Id.Version
 
     Public Function GetVersionString(ver As PackageVersion) As String
         Return $"版本 {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}"

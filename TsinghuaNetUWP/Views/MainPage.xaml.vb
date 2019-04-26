@@ -422,6 +422,14 @@ Public NotInheritable Class MainPage
         End If
     End Function
 
+    Private Async Sub ShowDetail()
+        Dim helper = GetUseregHelper()
+        Await helper.LoginAsync()
+        Dim dialog As New DetailDialog(helper)
+        dialog.RequestedTheme = Model.Theme
+        Await dialog.ShowAsync()
+    End Sub
+
     Private Async Sub ShowAbout()
         Dim dialog As New AboutDialog()
         dialog.RequestedTheme = Model.Theme

@@ -139,6 +139,7 @@
             <AppBarButton Icon="Upload" Label="登录" Click="Login"/>
             <AppBarButton Icon="Download" Label="注销" Click="Logout"/>
             <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>
+            <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
             <AppBarSeparator/>
             <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
             <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>

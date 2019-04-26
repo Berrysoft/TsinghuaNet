@@ -161,6 +161,9 @@
     <Compile Include="Views\AboutDialog.xaml.vb">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DetailDialog.xaml.vb">
+      <DependentUpon>DetailDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\EditSuggestionDialog.xaml.vb">
       <DependentUpon>EditSuggestionDialog.xaml</DependentUpon>
     </Compile>
@@ -218,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DetailDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
