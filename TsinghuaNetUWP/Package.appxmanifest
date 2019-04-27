@@ -9,7 +9,7 @@
   <Identity
     Name="Berrysoft.TsinghuaNetUWP"
     Publisher="CN=Straw"
-    Version="3.1.56.0" />
+    Version="3.1.57.0" />
 
   <mp:PhoneIdentity PhoneProductId="a82c01d1-a86d-44f3-8094-66f9b4e47d63" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

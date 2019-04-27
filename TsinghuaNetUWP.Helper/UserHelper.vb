@@ -31,7 +31,7 @@ Public Module UserHelper
             Case NetState.Auth6
                 Return "Auth6"
             Case Else
-                Return "不需要登录"
+                Return "不登录"
         End Select
     End Function
 
