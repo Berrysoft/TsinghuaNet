@@ -13,32 +13,32 @@
     <ContentDialog.Resources>
         <Flyout x:Name="AddFlyout">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="0,0,10,0" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center">SSID：</TextBlock>
-                <TextBox x:Name="AddFlyoutText" Width="150"/>
-                <Button Margin="10,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
+                <TextBlock Margin="0,0,8,0" Style="{ThemeResource BaseTextBlockStyle}" VerticalAlignment="Center">SSID：</TextBlock>
+                <TextBox x:Name="AddFlyoutText" Width="160"/>
+                <Button Margin="8,0,0,0" Style="{ThemeResource ButtonRevealStyle}" Width="100" Click="AddButtonClick">添加</Button>
             </StackPanel>
         </Flyout>
     </ContentDialog.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="10" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
-            <ComboBox x:Name="LanCombo" x:FieldModifier="Friend" Width="120" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
+            <ComboBox x:Name="LanCombo" x:FieldModifier="Friend" Width="120" VerticalAlignment="Center" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="10" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
-            <ComboBox x:Name="WwanCombo" x:FieldModifier="Friend" Width="120" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
+            <ComboBox x:Name="WwanCombo" x:FieldModifier="Friend" Width="120" VerticalAlignment="Center" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="10" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
-            <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
-            <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
-            <AppBarButton Margin="10,0" Width="50" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="恢复默认值" Click="RestoreSelection">
+            <TextBlock Margin="8" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
+            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
+            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
+            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="恢复默认值" Click="RestoreSelection">
                 <AppBarButton.Icon>
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE81C;"/>
                 </AppBarButton.Icon>
             </AppBarButton>
         </StackPanel>
-        <mtuuc:DataGrid x:Name="WlanListView" Margin="10" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind WlanList}">
+        <mtuuc:DataGrid x:Name="WlanListView" Margin="8" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind WlanList}">
             <mtuuc:DataGrid.Columns>
                 <mtuuc:DataGridTextColumn Header="SSID" Width="160" Binding="{Binding Ssid,Mode=TwoWay}" IsReadOnly="True" Tag="Ssid"/>
                 <mtuuc:DataGridTemplateColumn Header="连接类型" Width="120" Tag="Value">

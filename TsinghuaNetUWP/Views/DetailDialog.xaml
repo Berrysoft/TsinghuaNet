@@ -11,7 +11,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
     Title="流量明细" DefaultButton="Close" CloseButtonText="确定">
-    <mtuuc:DataGrid x:Name="DetailsView" Margin="10" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
+    <mtuuc:DataGrid x:Name="DetailsView" Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
         <mtuuc:DataGrid.Columns>
             <mtuuc:DataGridTextColumn Header="登录时间" Width="160" Binding="{Binding LoginTime}" Tag="LoginTime"/>
             <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Width="160" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>

@@ -26,29 +26,29 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <Viewbox Grid.Row="0">
+        <Viewbox Margin="8" Grid.Row="0">
             <Grid>
                 <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}"/>
-                <ProgressRing x:Name="Progress" Height="50" Width="50"/>
+                <ProgressRing x:Name="Progress" Height="40" Width="40"/>
             </Grid>
         </Viewbox>
-        <Viewbox Margin="10" Grid.Row="1">
+        <Viewbox Margin="8" Grid.Row="1">
             <wc:UniformGrid Rows="1">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,5,0,5">用户：</TextBlock>
-                    <TextBlock Margin="0,5,5,5" Text="{x:Bind User.Username,Mode=OneWay}"/>
+                    <TextBlock Margin="4">用户：</TextBlock>
+                    <TextBlock Margin="4" Text="{x:Bind User.Username,Mode=OneWay}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,5,0,5">流量：</TextBlock>
-                    <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetFluxString(User.Flux),Mode=OneWay}"/>
+                    <TextBlock Margin="4">流量：</TextBlock>
+                    <TextBlock Margin="4" Text="{x:Bind helper:UserHelper.GetFluxString(User.Flux),Mode=OneWay}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,5,0,5">时长：</TextBlock>
-                    <TextBlock Margin="0,5,5,5" Text="{x:Bind OnlineTime,Mode=OneWay}"/>
+                    <TextBlock Margin="4">时长：</TextBlock>
+                    <TextBlock Margin="4" Text="{x:Bind OnlineTime,Mode=OneWay}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5,5,0,5">余额：</TextBlock>
-                    <TextBlock Margin="0,5,5,5" Text="{x:Bind helper:UserHelper.GetCurrencyString(User.Balance),Mode=OneWay}"/>
+                    <TextBlock Margin="4">余额：</TextBlock>
+                    <TextBlock Margin="4" Text="{x:Bind helper:UserHelper.GetCurrencyString(User.Balance),Mode=OneWay}"/>
                 </StackPanel>
             </wc:UniformGrid>
         </Viewbox>
