@@ -14,11 +14,7 @@ Public NotInheritable Class ChangeUserDialog
         Dim pw As String = If(CredentialHelper.GetCredential(un), String.Empty)
         IsPrimaryButtonEnabled = Not (String.IsNullOrEmpty(un) OrElse String.IsNullOrEmpty(pw))
         PwBox.Password = pw
-        If String.IsNullOrEmpty(pw) Then
-            SaveBox.IsChecked = False
-        Else
-            SaveBox.IsChecked = True
-        End If
+        SaveBox.IsChecked = Not String.IsNullOrEmpty(pw)
     End Sub
 
     Private Sub PasswordChanged()

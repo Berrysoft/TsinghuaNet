@@ -5,9 +5,9 @@
     xmlns:local="using:TsinghuaNetUWP"
     xmlns:helper="using:TsinghuaNetUWP.Helper"
     xmlns:net="using:Berrysoft.Tsinghua.Net"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
@@ -97,7 +97,7 @@
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
-                    <muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource NetStateIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+                    <muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
@@ -111,7 +111,7 @@
                     </ListView>
                     <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">主题设置</TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.SettingsTheme,Converter={StaticResource UserThemeIndexConverter},Mode=TwoWay}">
+                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.SettingsTheme,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
                             <muxc:RadioButtons.Header>
                                 <TextBlock Margin="0,0,0,8" Style="{ThemeResource BaseTextBlockStyle}">颜色</TextBlock>
                             </muxc:RadioButtons.Header>
@@ -120,7 +120,7 @@
                             <x:String>深色</x:String>
                             <x:String>自动</x:String>
                         </muxc:RadioButtons>
-                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.ContentType,Converter={StaticResource UserContentTypeIndexConverter},Mode=TwoWay}">
+                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.ContentType,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
                             <muxc:RadioButtons.Header>
                                 <TextBlock Margin="0,0,0,8" Style="{ThemeResource BaseTextBlockStyle}">样式</TextBlock>
                             </muxc:RadioButtons.Header>

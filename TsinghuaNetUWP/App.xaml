@@ -10,9 +10,7 @@
                 <ResourceDictionary>
                     <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
                     <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
-                    <local:NetStateIndexConverter x:Key="NetStateIndexConverter"/>
-                    <local:UserThemeIndexConverter x:Key="UserThemeIndexConverter"/>
-                    <local:UserContentTypeIndexConverter x:Key="UserContentTypeIndexConverter"/>
+                    <local:EnumIndexConverter x:Key="EnumIndexConverter"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

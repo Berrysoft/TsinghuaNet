@@ -152,9 +152,7 @@
     <Compile Include="Contents\WaterUserContent.xaml.vb">
       <DependentUpon>WaterUserContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\NetStateIndexConverter.vb" />
-    <Compile Include="Converters\UserContentTypeIndexConverter.vb" />
-    <Compile Include="Converters\UserThemeIndexConverter.vb" />
+    <Compile Include="Converters\EnumIndexConverter.vb" />
     <Compile Include="Contents\IUserContent.vb" />
     <Compile Include="ViewModels\NetStateSsidBox.vb" />
     <Compile Include="ViewModels\PackageBox.vb" />
@@ -286,6 +284,9 @@
     </PackageReference>
     <PackageReference Include="Refractored.MvvmHelpers">
       <Version>1.4.1-beta</Version>
+    </PackageReference>
+    <PackageReference Include="Semver">
+      <Version>2.0.5</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.6.0-preview4.19212.13</Version>

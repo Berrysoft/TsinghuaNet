@@ -49,7 +49,7 @@
                     </mtuuc:DataGridTemplateColumn.CellTemplate>
                     <mtuuc:DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate x:DataType="local:NetStateSsidBox">
-                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource NetStateIndexConverter}}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+                            <ComboBox VerticalAlignment="Center" HorizontalAlignment="Stretch" SelectedIndex="{x:Bind Value,Mode=TwoWay,Converter={StaticResource EnumIndexConverter}}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
                         </DataTemplate>
                     </mtuuc:DataGridTemplateColumn.CellEditingTemplate>
                 </mtuuc:DataGridTemplateColumn>

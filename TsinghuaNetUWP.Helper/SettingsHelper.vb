@@ -148,7 +148,7 @@ Public Module SettingsHelper
         End Select
     End Function
 
-    Public Function DefWlanStates() As IDictionary(Of String, NetState)
+    Public Function DefWlanStates() As Dictionary(Of String, NetState)
         Return New Dictionary(Of String, NetState) From
         {
             {"Tsinghua", NetState.Net},
