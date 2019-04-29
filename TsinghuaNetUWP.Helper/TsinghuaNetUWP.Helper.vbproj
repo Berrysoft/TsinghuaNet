@@ -178,13 +178,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Berrysoft.Tsinghua.Net">
-      <Version>1.1.223-rc3</Version>
+      <Version>1.1.224-rc3</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
     </PackageReference>
-    <PackageReference Include="System.Json">
-      <Version>4.6.0-preview4.19212.13</Version>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>

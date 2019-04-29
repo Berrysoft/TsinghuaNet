@@ -1,7 +1,7 @@
-﻿Imports System.Json
-Imports System.Runtime.InteropServices
+﻿Imports System.Runtime.InteropServices
 Imports Windows.Networking.Connectivity
 Imports Windows.Storage
+Imports Newtonsoft.Json.Linq
 
 Public Enum NetState
     Unknown
@@ -50,7 +50,7 @@ Public Module SettingsHelper
         End If
     End Sub
 
-    Private Function GetMapFromJson(json As JsonObject) As Dictionary(Of String, NetState)
+    Private Function GetMapFromJson(json As JObject) As Dictionary(Of String, NetState)
         Dim result As New Dictionary(Of String, NetState)
         For Each pair In json
             result.Add(pair.Key, CInt(pair.Value))
@@ -58,8 +58,8 @@ Public Module SettingsHelper
         Return result
     End Function
 
-    Private Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JsonObject
-        Dim result As New JsonObject
+    Private Function GetJsonFromMap(map As Dictionary(Of String, NetState)) As JObject
+        Dim result As New JObject
         For Each pair In map
             result.Add(pair.Key, pair.Value)
         Next
@@ -87,8 +87,8 @@ Public Module SettingsHelper
         Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
         Dim json As String = GetValue(Of String)(WlanStateKey)
-        Dim jsonobj As JsonObject = Nothing
-        If String.IsNullOrEmpty(json) OrElse (Not JsonValueExtensions.TryParse(json, jsonobj)) Then
+        Dim jsonobj As JObject = Nothing
+        If String.IsNullOrEmpty(json) OrElse (Not JsonExtensions.TryParse(json, jsonobj)) Then
             WlanStates = DefWlanStates()
         Else
             WlanStates = GetMapFromJson(jsonobj)
@@ -185,10 +185,10 @@ Public Module SettingsHelper
     End Function
 End Module
 
-Module JsonValueExtensions
-    Public Function TryParse(str As String, <Out> ByRef json As JsonObject) As Boolean
+Module JsonExtensions
+    Public Function TryParse(str As String, <Out> ByRef json As JObject) As Boolean
         Try
-            json = JsonValue.Parse(str)
+            json = JObject.Parse(str)
             Return True
         Catch ex As Exception
             Return False
