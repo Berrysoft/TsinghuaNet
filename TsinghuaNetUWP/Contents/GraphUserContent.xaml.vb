@@ -18,9 +18,7 @@ Public NotInheritable Class GraphUserContent
     Private Shared Sub UserPropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
         Dim content As GraphUserContent = d
         Dim flux As FluxUser = e.NewValue
-        If flux IsNot Nothing Then
-            content.OnlineTime = flux.OnlineTime
-        End If
+        content.OnlineTime = flux.OnlineTime
     End Sub
 
     Public Shared ReadOnly OnlineTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(OnlineTime), GetType(TimeSpan), GetType(GraphUserContent), New PropertyMetadata(TimeSpan.Zero))
@@ -47,7 +45,7 @@ Public NotInheritable Class GraphUserContent
     End Sub
 
     Public Function AddOneSecond() As Boolean Implements IUserContent.AddOneSecond
-        If User Is Nothing OrElse String.IsNullOrEmpty(User.Username) Then
+        If User.Username Is Nothing OrElse String.IsNullOrEmpty(User.Username) Then
             Return False
         Else
             OnlineTime += TimeSpan.FromSeconds(1)

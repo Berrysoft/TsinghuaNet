@@ -9,7 +9,6 @@
 
     Public ReadOnly Packages As New List(Of PackageBox) From
     {
-        New PackageBox("Berrysoft.Tsinghua.Net", "MIT许可证"),
         New PackageBox("HtmlAgilityPack", "MIT许可证"),
         New PackageBox("Microsoft.Toolkit.Uwp", "MIT许可证"),
         New PackageBox("Microsoft.UI.Xaml", "MIT许可证"),

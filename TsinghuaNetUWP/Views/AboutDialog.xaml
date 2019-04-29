@@ -15,7 +15,7 @@
             <HyperlinkButton Margin="8,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目地址</HyperlinkButton>
         </StackPanel>
         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
-        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">包含的开源库</TextBlock>
+        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
         <mtuuc:DataGrid Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind Packages}">
             <mtuuc:DataGrid.Columns>
                 <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>

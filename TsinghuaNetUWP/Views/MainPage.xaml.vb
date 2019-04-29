@@ -313,9 +313,9 @@ Public NotInheritable Class MainPage
         ' 设置内容
         Dim content As IUserContent = TryCast(Model.UserContent, IUserContent)
         If content IsNot Nothing Then
-            content.User = If(flux, New FluxUser(Nothing, 0, TimeSpan.Zero, 0))
+            content.User = flux
             ' 刷新图表
-            If flux IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Model.Username) Then
+            If flux.Username IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Model.Username) Then
                 Dim userhelper = GetUseregHelper()
                 Await userhelper.LoginAsync()
                 Await CType(content, GraphUserContent).RefreshDetails(userhelper)
@@ -406,7 +406,7 @@ Public NotInheritable Class MainPage
             For j = 0 To users.Count - 1
                 Dim user As NetUser = users(j)
                 ' 如果存在则移除新元素
-                If olduser.Equals(user) Then
+                If olduser = user Then
                     users.RemoveAt(j)
                     i += 1
                     Continue Do

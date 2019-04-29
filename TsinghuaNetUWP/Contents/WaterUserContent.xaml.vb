@@ -17,12 +17,10 @@ Public NotInheritable Class WaterUserContent
     Private Shared Sub UserPropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
         Dim content As WaterUserContent = d
         Dim flux As FluxUser = e.NewValue
-        If flux IsNot Nothing Then
-            content.OnlineTime = flux.OnlineTime
-            Dim maxf = UserHelper.GetMaxFlux(flux.Flux, flux.Balance)
-            content.FluxAnimation.To = flux.Flux / maxf
-            content.FreeAnimation.To = UserHelper.BaseFlux / maxf
-        End If
+        content.OnlineTime = flux.OnlineTime
+        Dim maxf = UserHelper.GetMaxFlux(flux.Flux, flux.Balance)
+        content.FluxAnimation.To = flux.Flux / maxf
+        content.FreeAnimation.To = UserHelper.BaseFlux / maxf
     End Sub
 
     Public Shared ReadOnly OnlineTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(OnlineTime), GetType(TimeSpan), GetType(WaterUserContent), New PropertyMetadata(TimeSpan.Zero))
@@ -69,7 +67,7 @@ Public NotInheritable Class WaterUserContent
     End Sub
 
     Public Function AddOneSecond() As Boolean Implements IUserContent.AddOneSecond
-        If User Is Nothing OrElse String.IsNullOrEmpty(User.Username) Then
+        If User.Username Is Nothing OrElse String.IsNullOrEmpty(User.Username) Then
             Return False
         Else
             OnlineTime += TimeSpan.FromSeconds(1)
