@@ -16,18 +16,18 @@
     <Page.Resources>
         <local:DropCommand x:Key="DropUser" DropUser="DropUser"/>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
-            <Grid Width="250">
+            <Grid Width="240">
                 <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
                     <TextBlock Margin="8,8,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Address}"/>
                     <TextBlock Margin="8,0,0,8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
                 </StackPanel>
-                <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
+                <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
             </Grid>
         </DataTemplate>
         <Flyout x:Name="HelpFlyout">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="48"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -50,11 +50,11 @@
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="320" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
             <Grid>
                 <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
-                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="50" Opacity="0">
+                <muxc:ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="48" Opacity="0">
                     <TextBlock Margin="8" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </muxc:ScrollViewer>
             </Grid>
