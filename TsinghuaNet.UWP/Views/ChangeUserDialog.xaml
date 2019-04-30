@@ -1,0 +1,22 @@
+﻿<ContentDialog
+    x:Class="TsinghuaNet.UWP.ChangeUserDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TsinghuaNet.UWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
+    Title="更改用户" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
+    <StackPanel Orientation="Vertical">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</TextBlock>
+            <TextBox x:Name="UnBox" x:FieldModifier="Friend" InputScope="Password" Margin="8" Width="200" TextChanged="UsernameChanged"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</TextBlock>
+            <PasswordBox x:Name="PwBox" x:FieldModifier="Friend" Margin="8" Width="200" PasswordChanged="PasswordChanged"/>
+        </StackPanel>
+        <CheckBox x:Name="SaveBox" x:FieldModifier="Friend" Margin="0,8" HorizontalAlignment="Right">保存密码</CheckBox>
+    </StackPanel>
+</ContentDialog>
