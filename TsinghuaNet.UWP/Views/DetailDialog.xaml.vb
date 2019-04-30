@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports Microsoft.Toolkit.Uwp.UI.Controls
+﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
 
 Public NotInheritable Class DetailDialog
     Inherits ContentDialog

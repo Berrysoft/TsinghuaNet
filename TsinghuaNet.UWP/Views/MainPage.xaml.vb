@@ -1,7 +1,6 @@
 ﻿Imports System.Net
 Imports System.Net.Http
 Imports System.Text
-Imports Berrysoft.Tsinghua.Net
 Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper

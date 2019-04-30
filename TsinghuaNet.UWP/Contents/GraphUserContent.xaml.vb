@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports WinRTXamlToolkit.AwaitableUI
+﻿Imports WinRTXamlToolkit.AwaitableUI
 Imports MvvmHelpers
 
 Public NotInheritable Class GraphUserContent

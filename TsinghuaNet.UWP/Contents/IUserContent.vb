@@ -1,6 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-
-Public Interface IUserContent
+﻿Public Interface IUserContent
     Property User As FluxUser
 
     Property OnlineTime As TimeSpan

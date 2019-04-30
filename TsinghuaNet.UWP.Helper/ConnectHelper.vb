@@ -1,5 +1,4 @@
 ﻿Imports System.Net.Http
-Imports Berrysoft.Tsinghua.Net
 
 Public Module ConnectHelper
     Private ReadOnly StateHelperMap As New Dictionary(Of NetState, Type) From

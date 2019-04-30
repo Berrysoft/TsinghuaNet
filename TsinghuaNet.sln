@@ -9,6 +9,8 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.UWP.Background"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.UWP.Helper", "TsinghuaNet.UWP.Helper\TsinghuaNet.UWP.Helper.vbproj", "{074F8459-BAB7-492F-979F-20EE1EA3B3E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet", "TsinghuaNet\TsinghuaNet.csproj", "{198A7897-55A9-43DC-9455-84270A46960F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +93,26 @@ Global
 		{074F8459-BAB7-492F-979F-20EE1EA3B3E7}.Release|x64.Build.0 = Release|x64
 		{074F8459-BAB7-492F-979F-20EE1EA3B3E7}.Release|x86.ActiveCfg = Release|x86
 		{074F8459-BAB7-492F-979F-20EE1EA3B3E7}.Release|x86.Build.0 = Release|x86
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|ARM.Build.0 = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|x64.Build.0 = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Debug|x86.Build.0 = Debug|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|ARM.ActiveCfg = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|ARM.Build.0 = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|ARM64.Build.0 = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|x64.ActiveCfg = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|x64.Build.0 = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|x86.ActiveCfg = Release|Any CPU
+		{198A7897-55A9-43DC-9455-84270A46960F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports MvvmHelpers
+﻿Imports MvvmHelpers
 Imports TsinghuaNet.UWP.Helper
 
 Public Class MainViewModel

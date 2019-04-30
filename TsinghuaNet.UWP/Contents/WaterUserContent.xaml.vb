@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports TsinghuaNet.UWP.Helper
+﻿Imports TsinghuaNet.UWP.Helper
 
 Public NotInheritable Class WaterUserContent
     Inherits UserControl

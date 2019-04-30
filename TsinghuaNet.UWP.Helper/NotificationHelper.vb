@@ -1,5 +1,4 @@
-﻿Imports Berrysoft.Tsinghua.Net
-Imports Windows.Data.Xml.Dom
+﻿Imports Windows.Data.Xml.Dom
 Imports Windows.UI.Notifications
 
 Public Module NotificationHelper
