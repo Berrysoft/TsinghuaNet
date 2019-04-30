@@ -1,5 +1,5 @@
-# TsinghuaNetUWP
-清华大学校园网客户端，UWP架构。3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basic。
+# TsinghuaNet
+清华大学校园网客户端，目前只有UWP架构，但是很快会有跨平台支持。3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basic。
 
 其内核与我的另一个使用WPF编写的[客户端](https://github.com/Berrysoft/Tsinghua_Auth4_Net)相同，不过支持的功能更多。
 
