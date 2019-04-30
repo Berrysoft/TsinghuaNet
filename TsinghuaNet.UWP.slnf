@@ -1,0 +1,11 @@
+{
+  "solution": {
+    "path": "TsinghuaNet.sln",
+    "projects": [
+      "TsinghuaNet.UWP.Background\\TsinghuaNet.UWP.Background.vbproj",
+      "TsinghuaNet.UWP.Helper\\TsinghuaNet.UWP.Helper.vbproj",
+      "TsinghuaNet.UWP\\TsinghuaNet.UWP.vbproj",
+      "TsinghuaNet\\TsinghuaNet.csproj"
+    ]
+  }
+}

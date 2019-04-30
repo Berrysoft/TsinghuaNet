@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "TsinghuaNet.sln",
+    "projects": [
+      "TsinghuaNet.CLI\\TsinghuaNet.CLI.vbproj",
+      "TsinghuaNet\\TsinghuaNet.csproj"
+    ]
+  }
+}
