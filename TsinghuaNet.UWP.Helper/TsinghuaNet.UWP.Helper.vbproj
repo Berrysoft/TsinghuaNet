@@ -138,7 +138,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ConnectHelper.vb" />
     <Compile Include="CredentialHelper.vb" />
     <Compile Include="NotificationHelper.vb" />
     <Compile Include="SettingsHelper.vb" />

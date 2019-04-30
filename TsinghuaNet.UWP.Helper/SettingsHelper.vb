@@ -3,13 +3,6 @@ Imports Windows.Networking.Connectivity
 Imports Windows.Storage
 Imports Newtonsoft.Json.Linq
 
-Public Enum NetState
-    Unknown
-    Net
-    Auth4
-    Auth6
-End Enum
-
 Public Enum InternetStatus
     Unknown
     Wwan

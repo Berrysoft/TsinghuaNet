@@ -1,27 +1,4 @@
-﻿Imports System.Globalization
-
-Public Module UserHelper
-    Public Function GetFluxString(flux As Double) As String
-        If flux < 1000 Then
-            Return $"{flux} B"
-        End If
-        flux /= 1000
-        If flux < 1000 Then
-            Return $"{flux:F2} KB"
-        End If
-        flux /= 1000
-        If flux < 1000 Then
-            Return $"{flux:F2} MB"
-        End If
-        flux /= 1000
-        Return $"{flux:F2} GB"
-    End Function
-
-    Public Function GetCurrencyString(currency As Decimal) As String
-        Static culture As New CultureInfo("zh-CN")
-        Return currency.ToString("C2", culture)
-    End Function
-
+﻿Public Module UserHelper
     Public Function GetNetStateString(state As NetState) As String
         Select Case state
             Case NetState.Net

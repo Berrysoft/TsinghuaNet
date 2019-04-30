@@ -64,7 +64,7 @@ namespace TsinghuaNet
             {
                 string jsonstr = response.Substring(9, response.Length - 10);
                 JObject json = JObject.Parse(jsonstr);
-                return new LogResponse((string)json["error"] == "ok", $"error: {json["error"]}\nerror_msg: {json["error_msg"]}");
+                return new LogResponse((string)json["error"] == "ok", $"error: {json["error"]}; error_msg: {json["error_msg"]}");
             }
             catch (Exception)
             {

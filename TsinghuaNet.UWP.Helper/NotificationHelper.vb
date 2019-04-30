@@ -45,10 +45,10 @@ Public Module NotificationHelper
         dom.LoadXml(String.Format(
                     tileText,
                     user.Username,
-                    UserHelper.GetFluxString(user.Flux),
+                    StringHelper.GetFluxString(user.Flux),
                     user.OnlineTime.ToString(),
-                    UserHelper.GetCurrencyString(user.Balance),
-                    UserHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
+                    StringHelper.GetCurrencyString(user.Balance),
+                    StringHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
         Dim notification As New TileNotification(dom)
         notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(15)
         TileUpdateManager.CreateTileUpdaterForApplication().Update(notification)
@@ -59,8 +59,8 @@ Public Module NotificationHelper
         dom.LoadXml(String.Format(
                     toastText,
                     user.Username,
-                    UserHelper.GetFluxString(user.Flux),
-                    UserHelper.GetCurrencyString(user.Balance)))
+                    StringHelper.GetFluxString(user.Flux),
+                    StringHelper.GetCurrencyString(user.Balance)))
         Dim notification As New ToastNotification(dom)
         notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1)
         ToastNotificationManager.CreateToastNotifier().Show(notification)

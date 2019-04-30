@@ -11,7 +11,6 @@ Public NotInheritable Class AboutDialog
 
     Public ReadOnly Packages As New List(Of PackageBox) From
     {
-        New PackageBox("Berrysoft.Tsinghua.Net", "MIT许可证", New SemVersion(1, 1, 224, "rc3")),
         New PackageBox("HtmlAgilityPack", "MIT许可证", New SemVersion(1, 11, 3)),
         New PackageBox("Microsoft.Toolkit.Uwp", "MIT许可证", New SemVersion(5, 1, 1)),
         New PackageBox("Microsoft.Toolkit.Uwp.Connectivity", "MIT许可证", New SemVersion(5, 1, 1)),
