@@ -8,7 +8,7 @@ Module Program
             Function(opts As LoginVerb) RunLogin(opts).GetAwaiter().GetResult(),
             Function(opts As LogoutVerb) RunLogout(opts).GetAwaiter().GetResult(),
             Function(opts As StatusVerb) RunStatus(opts).GetAwaiter().GetResult(),
-            Function(errs) 1)
+            AddressOf RunError)
     End Function
 
     Async Function RunLogin(opts As LoginVerb) As Task(Of Integer)
@@ -57,6 +57,14 @@ Module Program
             End Using
         End If
         Return 0
+    End Function
+
+    Function RunError(errs As IEnumerable(Of [Error])) As Integer
+        If errs.Any(Function(e) e.Tag = ErrorType.HelpRequestedError OrElse e.Tag = ErrorType.HelpVerbRequestedError OrElse e.Tag = ErrorType.VersionRequestedError) Then
+            Return 0
+        Else
+            Return 1
+        End If
     End Function
 
     Function GetHelper(opts As VerbBase) As IConnect
