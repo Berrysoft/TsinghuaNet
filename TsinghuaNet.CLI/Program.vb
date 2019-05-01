@@ -47,10 +47,10 @@ Module Program
             Using helper
                 Try
                     Dim flux = Await helper.GetFluxAsync()
-                    Console.WriteLine("”√ªß£∫{0}", flux.Username)
-                    Console.WriteLine("¡˜¡ø£∫{0}", StringHelper.GetFluxString(flux.Flux))
-                    Console.WriteLine(" ±≥§£∫{0}", flux.OnlineTime)
-                    Console.WriteLine("¡˜¡ø£∫{0}", StringHelper.GetCurrencyString(flux.Balance))
+                    Console.WriteLine("Áî®Êà∑Ôºö{0}", flux.Username)
+                    Console.WriteLine("ÊµÅÈáèÔºö{0}", StringHelper.GetFluxString(flux.Flux))
+                    Console.WriteLine("Êó∂ÈïøÔºö{0}", flux.OnlineTime)
+                    Console.WriteLine("ÊµÅÈáèÔºö{0}", StringHelper.GetCurrencyString(flux.Balance))
                 Catch ex As Exception
                     Console.WriteLine(ex.Message)
                 End Try
@@ -84,35 +84,35 @@ Module Program
 End Module
 
 MustInherit Class VerbBase
-    <[Option]("s"c, "host", Required:=False, HelpText:="¡¨Ω”∑Ω Ω")>
+    <[Option]("s"c, "host", Required:=False, HelpText:="ËøûÊé•ÊñπÂºè")>
     Public Property Host As String
     Public MustOverride Property Username As String
     Public MustOverride Property Password As String
 End Class
 
-<Verb("login", HelpText:="µ«¬º")>
+<Verb("login", HelpText:="ÁôªÂΩï")>
 Class LoginVerb
     Inherits VerbBase
-    <[Option]("u"c, "username", Required:=True, HelpText:="”√ªß√˚")>
+    <[Option]("u"c, "username", Required:=True, HelpText:="Áî®Êà∑Âêç")>
     Public Overrides Property Username As String
-    <[Option]("p"c, "password", Required:=True, HelpText:="√‹¬Î")>
+    <[Option]("p"c, "password", Required:=True, HelpText:="ÂØÜÁ†Å")>
     Public Overrides Property Password As String
 End Class
 
 Class NotRequiredVerbBase
     Inherits VerbBase
-    <[Option]("u"c, "username", Required:=False, HelpText:="”√ªß√˚")>
+    <[Option]("u"c, "username", Required:=False, HelpText:="Áî®Êà∑Âêç")>
     Public Overrides Property Username As String
-    <[Option]("p"c, "password", Required:=False, HelpText:="√‹¬Î")>
+    <[Option]("p"c, "password", Required:=False, HelpText:="ÂØÜÁ†Å")>
     Public Overrides Property Password As String
 End Class
 
-<Verb("logout", HelpText:="◊¢œ˙")>
+<Verb("logout", HelpText:="Ê≥®ÈîÄ")>
 Class LogoutVerb
     Inherits NotRequiredVerbBase
 End Class
 
-<Verb("status", HelpText:="≤Èø¥‘⁄œﬂ◊¥Ã¨")>
+<Verb("status", HelpText:="Êü•ÁúãÂú®Á∫øÁä∂ÊÄÅ")>
 Class StatusVerb
     Inherits NotRequiredVerbBase
 End Class

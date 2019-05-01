@@ -1,6 +1,4 @@
-﻿Imports TsinghuaNet.UWP.Helper
-
-Public NotInheritable Class NetStateSsidBox
+﻿Public NotInheritable Class NetStateSsidBox
     Public Sub New(ssid As String, value As NetState)
         Me.Ssid = ssid
         Me.Value = value

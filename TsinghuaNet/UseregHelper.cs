@@ -92,7 +92,7 @@ namespace TsinghuaNet
         /// <summary>
         /// The flux has been used.
         /// </summary>
-        public long Flux { get; }
+        public readonly long Flux;
 
         public static bool operator ==(NetDetail d1, NetDetail d2) => d1.LoginTime == d2.LoginTime && d1.LogoutTime == d2.LogoutTime && d1.Flux == d2.Flux;
         public static bool operator !=(NetDetail d1, NetDetail d2) => !(d1 == d2);

@@ -1,0 +1,16 @@
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Application>
+    <Assembly Name="TsinghuaNet">
+      <Type Name="TsinghuaNet.NetHelper" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.Auth4Helper" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.Auth6Helper" Dynamic="Required All"/>
+    </Assembly>
+    <Assembly Name="TsinghuaNet.CLI">
+      <Type Name="TsinghuaNet.CLI.VerbBase" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.NotRequiredVerbBase" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.LoginVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.LogoutVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.StatusVerb" Dynamic="Required All"/>
+    </Assembly>
+  </Application>
+</Directives>
