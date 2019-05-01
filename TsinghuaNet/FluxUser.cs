@@ -5,7 +5,7 @@ namespace TsinghuaNet
     /// <summary>
     /// A simple structure represents the current user online.
     /// </summary>
-    public struct FluxUser
+    public readonly struct FluxUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="FluxUser"/> class.
@@ -24,19 +24,19 @@ namespace TsinghuaNet
         /// <summary>
         /// Username of the user.
         /// </summary>
-        public string Username { get; }
+        public readonly string Username;
         /// <summary>
         /// Flux used by the user this month.
         /// </summary>
-        public long Flux { get; }
+        public readonly long Flux;
         /// <summary>
         /// Online time used this time of the user.
         /// </summary>
-        public TimeSpan OnlineTime { get; }
+        public readonly TimeSpan OnlineTime;
         /// <summary>
         /// The network balance of the user.
         /// </summary>
-        public decimal Balance { get; }
+        public readonly decimal Balance;
 
         public static bool operator ==(FluxUser u1, FluxUser u2) => u1.Username == u2.Username;
         public static bool operator !=(FluxUser u1, FluxUser u2) => !(u1 == u2);

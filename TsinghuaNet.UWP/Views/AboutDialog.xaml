@@ -16,19 +16,11 @@
         </StackPanel>
         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
-        <mtuuc:DataGrid Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="VisibleWhenSelected" ItemsSource="{x:Bind Packages}">
+        <mtuuc:DataGrid Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" RowDetailsVisibilityMode="Collapsed" ItemsSource="{x:Bind Packages}">
             <mtuuc:DataGrid.Columns>
                 <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
                 <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
             </mtuuc:DataGrid.Columns>
-            <mtuuc:DataGrid.RowDetailsTemplate>
-                <DataTemplate x:DataType="local:PackageBox">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="12,8,4,8">版本：</TextBlock>
-                        <TextBlock Margin="4,8,12,8" Text="{x:Bind Version}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </mtuuc:DataGrid.RowDetailsTemplate>
         </mtuuc:DataGrid>
     </StackPanel>
 </ContentDialog>

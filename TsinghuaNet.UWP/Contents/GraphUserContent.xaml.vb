@@ -5,6 +5,12 @@ Public NotInheritable Class GraphUserContent
     Inherits UserControl
     Implements IUserContent
 
+    Public Sub New()
+        InitializeComponent()
+        XAxis.Interval = 1
+        YAxis.Minimum = 0
+    End Sub
+
     Public Shared ReadOnly UserProperty As DependencyProperty = DependencyProperty.Register(NameOf(User), GetType(FluxUser), GetType(GraphUserContent), New PropertyMetadata(Nothing, AddressOf UserPropertyChanged))
     Public Property User As FluxUser Implements IUserContent.User
         Get

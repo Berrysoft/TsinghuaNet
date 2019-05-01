@@ -285,9 +285,6 @@
     <PackageReference Include="Refractored.MvvmHelpers">
       <Version>1.4.1-beta</Version>
     </PackageReference>
-    <PackageReference Include="Semver">
-      <Version>2.0.5</Version>
-    </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.6.0-preview4.19212.13</Version>
     </PackageReference>

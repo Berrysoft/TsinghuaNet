@@ -12,7 +12,7 @@ namespace TsinghuaNet
     /// <summary>
     /// A simple structure represents the status of a connection.
     /// </summary>
-    public struct NetUser
+    public readonly struct NetUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NetUser"/> class.
@@ -29,15 +29,14 @@ namespace TsinghuaNet
         /// <summary>
         /// IP address the connection was allocated.
         /// </summary>
-        public IPAddress Address { get; }
-        /// <summary>
+        public readonly IPAddress Address;
         /// Online time used this time of the connection.
         /// </summary>
-        public DateTime LoginTime { get; }
+        public readonly DateTime LoginTime;
         /// <summary>
         /// The client used by this connection. It may be "Unknown" through <see cref="NetHelper"/>, and "Windows NT", "Windows 8", "Windows 7" or "Unknown" through <see cref="AuthHelper"/>.
         /// </summary>
-        public string Client { get; }
+        public readonly string Client;
 
         public static bool operator ==(NetUser u1, NetUser u2) => u1.Address.Equals(u2.Address) && u1.LoginTime == u2.LoginTime && u1.Client == u2.Client;
         public static bool operator !=(NetUser u1, NetUser u2) => !(u1 == u2);
@@ -68,7 +67,7 @@ namespace TsinghuaNet
     /// <summary>
     /// Flux detail.
     /// </summary>
-    public struct NetDetail
+    public readonly struct NetDetail
     {
         /// <summary>
         /// Initializes a new instance of <see cref="NetDetail"/> class.
@@ -85,11 +84,11 @@ namespace TsinghuaNet
         /// <summary>
         /// The time logging in.
         /// </summary>
-        public DateTime LoginTime { get; }
+        public readonly DateTime LoginTime;
         /// <summary>
         /// The time logging out.
         /// </summary>
-        public DateTime LogoutTime { get; }
+        public readonly DateTime LogoutTime;
         /// <summary>
         /// The flux has been used.
         /// </summary>

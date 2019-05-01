@@ -38,10 +38,10 @@
                     </wcdc:Chart.LegendStyle>
                     <wcdc:LineSeries ItemsSource="{x:Bind Details}" IndependentValuePath="Key" DependentValuePath="Value">
                         <wcdc:LineSeries.IndependentAxis>
-                            <wcdc:LinearAxis Orientation="X" ShowGridLines="False" MajorTickMarkStyle="{StaticResource NoTickLine}"/>
+                            <wcdc:LinearAxis x:Name="XAxis" Orientation="X" ShowGridLines="False" MajorTickMarkStyle="{StaticResource NoTickLine}"/>
                         </wcdc:LineSeries.IndependentAxis>
                         <wcdc:LineSeries.DependentRangeAxis>
-                            <wcdc:LinearAxis Orientation="Y" ShowGridLines="True" MajorTickMarkStyle="{StaticResource NoTickLine}">
+                            <wcdc:LinearAxis x:Name="YAxis" Orientation="Y" ShowGridLines="True" MajorTickMarkStyle="{StaticResource NoTickLine}">
                                 <wcdc:LinearAxis.AxisLabelStyle>
                                     <Style TargetType="wcdc:AxisLabel">
                                         <Setter Property="StringFormat" Value="{}{0} G"/>

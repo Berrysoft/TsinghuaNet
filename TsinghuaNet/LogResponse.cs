@@ -6,7 +6,7 @@ namespace TsinghuaNet
     /// <summary>
     /// The response of Login or Logout.
     /// </summary>
-    public struct LogResponse
+    public readonly struct LogResponse
     {
         /// <summary>
         /// Initialize a new instance of <see cref="LogResponse"/> class.
@@ -22,11 +22,11 @@ namespace TsinghuaNet
         /// <summary>
         /// Shows whether the command is succeed.
         /// </summary>
-        public bool Succeed { get; }
+        public readonly bool Succeed;
         /// <summary>
         /// The formatted response message.
         /// </summary>
-        public string Message { get; }
+        public readonly string Message;
 
         public static bool operator ==(LogResponse r1, LogResponse r2) => r1.Succeed == r2.Succeed && r1.Message == r2.Message;
         public static bool operator !=(LogResponse r1, LogResponse r2) => !(r1 == r2);
