@@ -7,12 +7,10 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls"/>
-                <ResourceDictionary>
-                    <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
-                    <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
-                    <local:EnumIndexConverter x:Key="EnumIndexConverter"/>
-                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
+            <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
+            <local:EnumIndexConverter x:Key="EnumIndexConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
