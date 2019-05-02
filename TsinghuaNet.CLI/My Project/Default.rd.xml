@@ -6,10 +6,12 @@
       <Type Name="TsinghuaNet.Auth6Helper" Dynamic="Required All"/>
     </Assembly>
     <Assembly Name="TsinghuaNet.CLI">
-      <Type Name="TsinghuaNet.CLI.VerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.IConnectVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.VerbBase" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.NetVerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.RequiredVerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.NotRequiredVerbBase" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.UseregVerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.LoginVerb" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.LogoutVerb" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.StatusVerb" Dynamic="Required All"/>

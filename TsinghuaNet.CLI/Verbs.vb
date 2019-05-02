@@ -2,12 +2,13 @@
 
 Imports System.Net
 Imports System.Runtime.CompilerServices
-Imports System.Text
 Imports CommandLine
+Imports CommandLine.Text
+Imports TsinghuaNet.CLI
 
 Module VerbHelper
     <Extension>
-    Public Function GetHelper(opts As VerbBase) As IConnect
+    Public Function GetHelper(opts As NetVerbBase) As IConnect
         Dim v = TryCast(opts, IConnectVerb)
         If v IsNot Nothing Then
             Return ConnectHelper.GetHelper(GetHost(opts.Host), v.Username, v.Password)
@@ -33,10 +34,13 @@ End Module
 MustInherit Class VerbBase
     Protected Const DateTimeFormat As String = "yyyy-M-d h:mm:ss"
 
-    <[Option]("s"c, "host", Required:=False, HelpText:="连接方式")>
-    Public Property Host As String
-
     Public MustOverride Function RunAsync() As Task
+End Class
+
+MustInherit Class NetVerbBase
+    Inherits VerbBase
+    <[Option]("s"c, "host", Required:=False, HelpText:="连接方式：[net], auth4, auth6")>
+    Public Property Host As String
 End Class
 
 Interface IConnectVerb
@@ -45,7 +49,7 @@ Interface IConnectVerb
 End Interface
 
 MustInherit Class RequiredVerbBase
-    Inherits VerbBase
+    Inherits NetVerbBase
     Implements IConnectVerb
     <[Option]("u"c, "username", Required:=True, HelpText:="用户名")>
     Public Property Username As String Implements IConnectVerb.Username
@@ -54,7 +58,7 @@ MustInherit Class RequiredVerbBase
 End Class
 
 MustInherit Class NotRequiredVerbBase
-    Inherits VerbBase
+    Inherits NetVerbBase
     Implements IConnectVerb
     <[Option]("u"c, "username", Required:=False, HelpText:="用户名")>
     Public Property Username As String Implements IConnectVerb.Username
@@ -62,9 +66,26 @@ MustInherit Class NotRequiredVerbBase
     Public Property Password As String Implements IConnectVerb.Password
 End Class
 
+MustInherit Class UseregVerbBase
+    Inherits VerbBase
+    Implements IConnectVerb
+    <[Option]("u"c, "username", Required:=True, HelpText:="用户名")>
+    Public Property Username As String Implements IConnectVerb.Username
+    <[Option]("p"c, "password", Required:=True, HelpText:="密码")>
+    Public Property Password As String Implements IConnectVerb.Password
+End Class
+
 <Verb("login", HelpText:="登录")>
 Class LoginVerb
     Inherits RequiredVerbBase
+
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("使用默认（net）方式登录", New LoginVerb() With {.Username = "用户名", .Password = "密码"})
+            Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
+        End Get
+    End Property
 
     Public Overrides Async Function RunAsync() As Task
         Using helper = GetHelper()
@@ -80,6 +101,14 @@ End Class
 Class LogoutVerb
     Inherits NotRequiredVerbBase
 
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("使用默认（net）方式注销，不需要用户名密码", New LogoutVerb())
+            Yield New Example("使用auth4方式注销，需要用户名密码", New LogoutVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
+        End Get
+    End Property
+
     Public Overrides Async Function RunAsync() As Task
         Using helper = GetHelper()
             If helper IsNot Nothing Then
@@ -92,7 +121,15 @@ End Class
 
 <Verb("status", HelpText:="查看在线状态")>
 Class StatusVerb
-    Inherits VerbBase
+    Inherits NetVerbBase
+
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("使用默认（net）方式", New StatusVerb())
+            Yield New Example("使用auth4方式", New StatusVerb() With {.Host = "auth4"})
+        End Get
+    End Property
 
     Public Overrides Async Function RunAsync() As Task
         Using helper = GetHelper()
@@ -109,7 +146,14 @@ End Class
 
 <Verb("online", HelpText:="查询在线IP")>
 Class OnlineVerb
-    Inherits RequiredVerbBase
+    Inherits UseregVerbBase
+
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("查询", New OnlineVerb() With {.Username = "用户名", .Password = "密码"})
+        End Get
+    End Property
 
     Public Overrides Async Function RunAsync() As Task
         Using helper As New UseregHelper(Username, Password)
@@ -130,7 +174,14 @@ End Class
 
 <Verb("drop", HelpText:="下线IP")>
 Class DropVerb
-    Inherits RequiredVerbBase
+    Inherits UseregVerbBase
+
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("下线一个IP", New DropVerb() With {.Username = "用户名", .Password = "密码", .Address = "IP地址"})
+        End Get
+    End Property
 
     <[Option]("a"c, "address", Required:=True, HelpText:="IP地址")>
     Public Property Address As String
@@ -153,9 +204,18 @@ End Class
 
 <Verb("detail", HelpText:="流量明细")>
 Class DetailVerb
-    Inherits RequiredVerbBase
+    Inherits UseregVerbBase
 
-    <[Option]("o"c, "order", Required:=False, HelpText:="排序指标")>
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("使用默认排序（注销时间，升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码"})
+            Yield New Example("使用登陆时间升序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "login"})
+            Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "flux", .Descending = True})
+        End Get
+    End Property
+
+    <[Option]("o"c, "order", Required:=False, HelpText:="排序指标：[logout<time>], login<time>, flux")>
     Public Property Order As String
     <[Option]("d"c, "descending", Required:=False, HelpText:="降序")>
     Public Property Descending As Boolean
