@@ -7,10 +7,15 @@
     </Assembly>
     <Assembly Name="TsinghuaNet.CLI">
       <Type Name="TsinghuaNet.CLI.VerbBase" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.IConnectVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.RequiredVerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.NotRequiredVerbBase" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.LoginVerb" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.LogoutVerb" Dynamic="Required All"/>
       <Type Name="TsinghuaNet.CLI.StatusVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.OnlineVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.DropVerb" Dynamic="Required All"/>
+      <Type Name="TsinghuaNet.CLI.DetailVerb" Dynamic="Required All"/>
     </Assembly>
   </Application>
 </Directives>
