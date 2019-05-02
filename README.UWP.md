@@ -1,22 +1,4 @@
 # TsinghuaNet.UWP
-
-<table>
-    <tbody>
-        <tr>
-            <th><img alt="主界面" src="./Screenshots/MainPage.png"/></th>
-            <th><img alt="设置栏" src="./Screenshots/Settings.png"/></th>
-        </tr>
-        <tr>
-            <th><img alt="适应主题" src="./Screenshots/Theme.png"/></th>
-            <th><img alt="编辑建议" src="./Screenshots/Suggestions.png"/></th>
-        </tr>
-        <tr>
-            <th><img alt="直线" src="./Screenshots/Line.png"/></th>
-            <th><img alt="图标" src="./Screenshots/Circle.png"/></th>
-        </tr>
-    </tbody>
-</table>
-
 # Q&A
 ## 为什么需要一个客户端？
 为了连接校园网，我们通常需要登录特定的网址，输入用户名和密码，并点击登录。这很麻烦，且由于各种技术原因容易出现误操作。而使用客户端，可以自动完成这些操作，节约时间。

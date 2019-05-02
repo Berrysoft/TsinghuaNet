@@ -33,6 +33,7 @@ End Module
 
 MustInherit Class VerbBase
     Protected Const DateTimeFormat As String = "yyyy-M-d h:mm:ss"
+    Protected Const DateFormat As String = "yyyy-M-d"
 
     Public MustOverride Function RunAsync() As Task
 End Class
@@ -210,8 +211,9 @@ Class DetailVerb
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
             Yield New Example("使用默认排序（注销时间，升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用登陆时间升序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "login"})
+            Yield New Example("使用登陆时间（升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "login"})
             Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "flux", .Descending = True})
+            Yield New Example("使用流量降序查询明细，并按注销日期组合", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "flux", .Descending = True, .Grouping = True})
         End Get
     End Property
 
@@ -219,17 +221,32 @@ Class DetailVerb
     Public Property Order As String
     <[Option]("d"c, "descending", Required:=False, HelpText:="降序")>
     Public Property Descending As Boolean
+    <[Option]("g"c, "grouping", Required:=False, HelpText:="按注销日期组合")>
+    Public Property Grouping As Boolean
 
     Public Overrides Async Function RunAsync() As Task
         Using helper As New UseregHelper(Username, Password)
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
-                Dim details = Await helper.GetDetailsAsync(GetOrder() + If(Descending, 1, 0))
-                Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
-                Console.WriteLine(New String("="c, 60))
-                For Each d In details
-                    Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), StringHelper.GetFluxString(d.Flux).PadLeft(11))
-                Next
+                If Grouping Then
+                    Dim details = Await helper.GetDetailsAsync()
+                    Dim now = Date.Now
+                    Dim ord = GetOrder()
+                    Console.WriteLine("|    日期    |    流量    |")
+                    Console.WriteLine(New String("="c, 27))
+                    Dim query = From d In details Group By d.LogoutTime.Day Into TotalFlux = Sum(d.Flux)
+                    Dim orderedQuery = If(ord = NetDetailOrder.Flux, query.OrderBy(Function(d) d.TotalFlux, Descending), query.OrderBy(Function(d) d.Day, Descending))
+                    For Each p In orderedQuery
+                        Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), StringHelper.GetFluxString(p.TotalFlux).PadLeft(11))
+                    Next
+                Else
+                    Dim details = Await helper.GetDetailsAsync(GetOrder() + If(Descending, 1, 0))
+                    Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
+                    Console.WriteLine(New String("="c, 60))
+                    For Each d In details
+                        Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), StringHelper.GetFluxString(d.Flux).PadLeft(11))
+                    Next
+                End If
             Else
                 Console.WriteLine(res.Message)
             End If

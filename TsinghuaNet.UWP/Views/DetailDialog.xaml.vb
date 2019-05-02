@@ -35,11 +35,11 @@ Public NotInheritable Class DetailDialog
                 Dim ascending As Boolean = dir.Value = DataGridSortDirection.Ascending
                 Select Case e.Column.Tag
                     Case "LoginTime"
-                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.LoginTime, ascending)
+                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.LoginTime, Not ascending)
                     Case "LogoutTime"
-                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.LogoutTime, ascending)
+                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.LogoutTime, Not ascending)
                     Case "Flux"
-                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.Flux, ascending)
+                        DetailsView.ItemsSource = details.OrderBy(Function(d) d.Flux, Not ascending)
                 End Select
             Else
                 DetailsView.ItemsSource = details
@@ -47,14 +47,3 @@ Public NotInheritable Class DetailDialog
         End If
     End Sub
 End Class
-
-Module OrderByHelper
-    <Extension>
-    Public Function OrderBy(Of TSource, TKey)(source As IEnumerable(Of TSource), selector As Func(Of TSource, TKey), ascending As Boolean) As IOrderedEnumerable(Of TSource)
-        If ascending Then
-            Return source.OrderBy(selector)
-        Else
-            Return source.OrderByDescending(selector)
-        End If
-    End Function
-End Module
