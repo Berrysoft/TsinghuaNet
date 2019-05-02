@@ -22,13 +22,17 @@ Module VerbHelper
                 Return NetState.Auth4
             Case "auth6"
                 Return NetState.Auth6
-            Case Else
+            Case "net", Nothing
                 Return NetState.Net
+            Case Else
+                Throw New ArgumentException("连接方式错误")
         End Select
     End Function
 End Module
 
 MustInherit Class VerbBase
+    Protected Const DateTimeFormat As String = "yyyy-M-d h:mm:ss"
+
     <[Option]("s"c, "host", Required:=False, HelpText:="连接方式")>
     Public Property Host As String
 
@@ -115,7 +119,7 @@ Class OnlineVerb
                 Console.WriteLine("|       IP       |       登录时间       |   客户端   |")
                 Console.WriteLine(New String("="c, 54))
                 For Each user In users
-                    Console.WriteLine("| {0}| {1}| {2}|", user.Address.ToString().PadRight(15), user.LoginTime.ToString().PadRight(21), user.Client.PadRight(11))
+                    Console.WriteLine("| {0}| {1}| {2}|", user.Address.ToString().PadRight(15), user.LoginTime.ToString(DateTimeFormat).PadRight(21), user.Client.PadRight(11))
                 Next
             Else
                 Console.WriteLine(res.Message)
@@ -151,19 +155,37 @@ End Class
 Class DetailVerb
     Inherits RequiredVerbBase
 
+    <[Option]("o"c, "order", Required:=False, HelpText:="排序指标")>
+    Public Property Order As String
+    <[Option]("d"c, "descending", Required:=False, HelpText:="降序")>
+    Public Property Descending As Boolean
+
     Public Overrides Async Function RunAsync() As Task
         Using helper As New UseregHelper(Username, Password)
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
-                Dim details = Await helper.GetDetailsAsync()
+                Dim details = Await helper.GetDetailsAsync(GetOrder() + If(Descending, 1, 0))
                 Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
                 Console.WriteLine(New String("="c, 60))
                 For Each d In details
-                    Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString().PadRight(21), d.LogoutTime.ToString().PadRight(21), StringHelper.GetFluxString(d.Flux).PadLeft(11))
+                    Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), StringHelper.GetFluxString(d.Flux).PadLeft(11))
                 Next
             Else
                 Console.WriteLine(res.Message)
             End If
         End Using
+    End Function
+
+    Private Function GetOrder() As NetDetailOrder
+        Select Case Order
+            Case "login", "logintime"
+                Return NetDetailOrder.LoginTime
+            Case "logout", "logouttime", Nothing
+                Return NetDetailOrder.LogoutTime
+            Case "flux"
+                Return NetDetailOrder.Flux
+            Case Else
+                Throw New ArgumentException("排序指标错误")
+        End Select
     End Function
 End Class

@@ -120,6 +120,16 @@ namespace TsinghuaNet
         }
     }
 
+    public enum NetDetailOrder
+    {
+        LoginTime,
+        LoginTimeDescending,
+        LogoutTime,
+        LogoutTimeDescending,
+        Flux,
+        FluxDescending
+    }
+
     /// <summary>
     /// Exposes methods to login, logout, get connection information and drop connections from https://usereg.tsinghua.edu.cn/
     /// </summary>
@@ -127,7 +137,7 @@ namespace TsinghuaNet
     {
         private const string LogUri = "https://usereg.tsinghua.edu.cn/do.php";
         private const string InfoUri = "https://usereg.tsinghua.edu.cn/online_user_ipv4.php";
-        private const string DetailUri = "https://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&order=user_real_name&start_time={0}-{1}-01&end_time={0}-{1}-{2}&page={3}&offset={4}";
+        private const string DetailUri = "https://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&order={5}&start_time={0}-{1}-01&end_time={0}-{1}-{2}&page={3}&offset={4}";
         private const string LogoutData = "action=logout";
         private const string DropData = "action=drop&user_ip={0}";
         /// <summary>
@@ -228,18 +238,28 @@ namespace TsinghuaNet
             return (long)flux;
         }
 
+        private readonly static Dictionary<NetDetailOrder, string> OrderQueryMap = new Dictionary<NetDetailOrder, string>
+        {
+            [NetDetailOrder.LoginTime] = "user_login_time",
+            [NetDetailOrder.LoginTimeDescending] = "user_login_time&desc=DESC",
+            [NetDetailOrder.LogoutTime] = "user_drop_time",
+            [NetDetailOrder.LogoutTimeDescending] = "user_drop_time&desc=DESC",
+            [NetDetailOrder.Flux] = "user_in_bytes",
+            [NetDetailOrder.FluxDescending] = "user_in_bytes&desc=DESC"
+        };
+
         /// <summary>
         /// Get all details of this month.
         /// </summary>
         /// <returns><see cref="IEnumerable{NetDetail}"/></returns>
-        public async Task<IEnumerable<NetDetail>> GetDetailsAsync()
+        public async Task<IEnumerable<NetDetail>> GetDetailsAsync(NetDetailOrder order = NetDetailOrder.LogoutTime)
         {
             const int offset = 100;
             DateTime now = DateTime.Now;
             List<NetDetail> list = new List<NetDetail>();
             for (int i = 1; ; i++)
             {
-                string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month.ToString().PadLeft(2, '0'), now.Day, i, offset));
+                string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month.ToString().PadLeft(2, '0'), now.Day, i, offset, OrderQueryMap[order]));
                 var doc = new HtmlDocument();
                 doc.LoadHtml(detailhtml);
                 int oldsize = list.Count;
