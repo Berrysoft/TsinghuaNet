@@ -64,3 +64,8 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 </table>
 
 相关问答见[此处](./README.UWP.md)。
+
+## TsinghuaNet.Avalonia
+Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64的AOT版本。
+
+仍在开发中，将会至少支持**TsinghuaNet.CLI**的所有功能，并至少再提供Linux x64的AOT。
