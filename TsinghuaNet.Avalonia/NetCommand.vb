@@ -1,8 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Windows.Input
-Imports TsinghuaNet
 
-MustInherit Class NetCommand
+Public MustInherit Class NetCommand
     Implements ICommand
 
     Protected ReadOnly model As MainViewModel

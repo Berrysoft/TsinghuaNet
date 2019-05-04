@@ -12,15 +12,16 @@
   <Window.Resources>
     <local:FluxStringConverter x:Key="FluxStringConverter"/>
     <local:BalanceStringConverter x:Key="BalanceStringConverter"/>
+    <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
   </Window.Resources>
   <Grid RowDefinitions="*,*,*,1.5*,*" ColumnDefinitions="*,*,*">
-    <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" Content="Net"/>
-    <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" Content="Auth4"/>
-    <RadioButton Grid.Row="0" Grid.Column="2" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth6" Content="Auth6"/>
+    <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" IsChecked="{Binding State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Net}" Content="Net"/>
+    <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" IsChecked="{Binding State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Auth4}" Content="Auth4"/>
+    <RadioButton Grid.Row="0" Grid.Column="2" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth6" IsChecked="{Binding State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Auth6}" Content="Auth6"/>
     <TextBlock Grid.Row="1" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">用户名：</TextBlock>
-    <TextBox Grid.Row="1" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" Text="{Binding Username,Mode=TwoWay}"/>
+    <TextBox Grid.Row="1" Grid.Column="1" Margin="8,8,40,8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" Text="{Binding Username,Mode=TwoWay}"/>
     <TextBlock Grid.Row="2" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">密码：</TextBlock>
-    <TextBox Grid.Row="2" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
+    <TextBox Grid.Row="2" Grid.Column="1" Margin="8,8,40,8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
     <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="4" Rows="2">
       <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户：</TextBlock>
       <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUsername}"/>

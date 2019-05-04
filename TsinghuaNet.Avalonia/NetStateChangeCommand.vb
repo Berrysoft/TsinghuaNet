@@ -1,6 +1,6 @@
 ﻿Imports System.Windows.Input
 
-Class NetStateChangeCommand
+Public Class NetStateChangeCommand
     Implements ICommand
 
     Private ReadOnly model As MainViewModel

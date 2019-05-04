@@ -1,7 +1,43 @@
-﻿Imports MvvmHelpers
+﻿Imports System.IO
+Imports System.Security.Cryptography
+Imports System.Text
+Imports MvvmHelpers
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 
-Class MainViewModel
+Public Class MainViewModel
     Inherits ObservableObject
+
+    Private Const settingsFilename As String = "settings.json"
+
+    Public Sub New()
+        If File.Exists(settingsFilename) Then
+            Try
+                Using stream As New StreamReader(settingsFilename)
+                    Using reader As New JsonTextReader(stream)
+                        Dim json = JObject.Load(reader)
+                        _Username = json("username")
+                        _Password = Encoding.UTF8.GetString(ProtectedData.Unprotect(Convert.FromBase64String(json("password")), Nothing, DataProtectionScope.CurrentUser))
+                        _State = CInt(json("state"))
+                    End Using
+                End Using
+            Catch ex As Exception
+
+            End Try
+        End If
+    End Sub
+
+    Public Sub SaveSettings()
+        Dim json As New JObject
+        json("username") = If(_Username, String.Empty)
+        json("password") = Convert.ToBase64String(ProtectedData.Protect(Encoding.UTF8.GetBytes(If(_Password, String.Empty)), Nothing, DataProtectionScope.CurrentUser))
+        json("state") = _State
+        Using stream As New StreamWriter(settingsFilename)
+            Using writer As New JsonTextWriter(stream)
+                json.WriteTo(writer)
+            End Using
+        End Using
+    End Sub
 
     Private _Username As String
     Public Property Username As String
