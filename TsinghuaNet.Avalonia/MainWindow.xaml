@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.MainWindow"
-        Width="480" Height="220" Title="清华大学校园网客户端" CanResize="False">
+        Width="300" Height="220" Title="清华大学校园网客户端" CanResize="False">
   <Window.DataContext>
     <local:MainViewModel/>
   </Window.DataContext>
@@ -13,23 +13,23 @@
     <local:FluxStringConverter x:Key="FluxStringConverter"/>
     <local:BalanceStringConverter x:Key="BalanceStringConverter"/>
   </Window.Resources>
-  <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*,*">
+  <Grid RowDefinitions="*,*,*,1.5*,*" ColumnDefinitions="*,*,*">
     <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" Content="Net"/>
     <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" Content="Auth4"/>
     <RadioButton Grid.Row="0" Grid.Column="2" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth6" Content="Auth6"/>
     <TextBlock Grid.Row="1" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">用户名：</TextBlock>
-    <TextBox Grid.Row="1" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" Text="{Binding Username,Mode=TwoWay}"/>
+    <TextBox Grid.Row="1" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="{Binding Username,Mode=TwoWay}"/>
     <TextBlock Grid.Row="2" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">密码：</TextBlock>
-    <TextBox Grid.Row="2" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
-    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="8" Rows="1">
-      <TextBlock HorizontalAlignment="Right">用户：</TextBlock>
-      <TextBlock Text="{Binding OnlineUsername}"/>
-      <TextBlock HorizontalAlignment="Right">流量：</TextBlock>
-      <TextBlock Text="{Binding OnlineFlux,Converter={StaticResource FluxStringConverter}}"/>
-      <TextBlock HorizontalAlignment="Right">时长：</TextBlock>
-      <TextBlock Text="{Binding OnlineTime}"/>
-      <TextBlock HorizontalAlignment="Right">余额：</TextBlock>
-      <TextBlock Text="{Binding OnlineBalance,Converter={StaticResource BalanceStringConverter}}"/>
+    <TextBox Grid.Row="2" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
+    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="4" Rows="2">
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUsername}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">流量：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineFlux,Converter={StaticResource FluxStringConverter}}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">时长：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineTime}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">余额：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineBalance,Converter={StaticResource BalanceStringConverter}}"/>
     </UniformGrid>
     <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}">登录</Button>
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>

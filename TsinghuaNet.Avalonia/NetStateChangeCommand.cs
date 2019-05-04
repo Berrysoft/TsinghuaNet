@@ -5,11 +5,11 @@ namespace TsinghuaNet.Avalonia
 {
     class NetStateChangeCommand : ICommand
     {
-        public event EventHandler CanExecuteChanged;
+        event EventHandler ICommand.CanExecuteChanged { add { } remove { } }
 
-        public bool CanExecute(object parameter) => true;
+        bool ICommand.CanExecute(object parameter) => true;
 
-        private MainViewModel model;
+        private readonly MainViewModel model;
         public NetStateChangeCommand(MainViewModel model) => this.model = model;
 
         public void Execute(object parameter) => model.State = Enum.Parse<NetState>(parameter.ToString());

@@ -7,7 +7,7 @@ namespace TsinghuaNet.Avalonia
 {
     abstract class NetCommand : ICommand
     {
-        protected MainViewModel model;
+        protected readonly MainViewModel model;
         protected bool executing;
         public NetCommand(MainViewModel model)
         {
