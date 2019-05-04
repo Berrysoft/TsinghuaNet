@@ -2,7 +2,7 @@
   "solution": {
     "path": "TsinghuaNet.sln",
     "projects": [
-      "TsinghuaNet.Avalonia\\TsinghuaNet.Avalonia.csproj",
+      "TsinghuaNet.Avalonia\\TsinghuaNet.Avalonia.vbproj",
       "TsinghuaNet\\TsinghuaNet.csproj"
     ]
   }

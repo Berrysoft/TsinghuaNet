@@ -1,8 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
+    <RootNamespace>TsinghuaNet.Avalonia</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Update="**\*.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
@@ -11,12 +14,15 @@
       <SubType>Designer</SubType>
     </AvaloniaResource>
   </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.8.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.4.1-beta" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>
+
 </Project>
