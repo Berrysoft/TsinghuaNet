@@ -3,7 +3,11 @@ Imports Avalonia.Logging.Serilog
 
 Module Program
     Sub Main(args As String())
-        BuildAvaloniaApp().Start(AddressOf AppMain, args)
+        Try
+            BuildAvaloniaApp().Start(AddressOf AppMain, args)
+        Catch ex As Exception
+            Console.WriteLine(ex)
+        End Try
     End Sub
 
     Function BuildAvaloniaApp() As AppBuilder

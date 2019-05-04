@@ -7,6 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <RdXmlFile Include="My Project\Default.rd.xml" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
+    <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
+    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
+    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+  </PropertyGroup>
+
+  <ItemGroup>
     <Compile Update="**\*.xaml.vb">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>
