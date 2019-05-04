@@ -1,0 +1,9 @@
+{
+  "solution": {
+    "path": "TsinghuaNet.sln",
+    "projects": [
+      "TsinghuaNet.Avalonia\\TsinghuaNet.Avalonia.csproj",
+      "TsinghuaNet\\TsinghuaNet.csproj"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TsinghuaNet.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TsinghuaNet.Avalonia.MainWindow"
+        Width="300" Height="220" Title="清华大学校园网客户端" CanResize="False">
+  <Window.DataContext>
+    <local:MainViewModel/>
+  </Window.DataContext>
+  <Window.Resources>
+    <local:FluxStringConverter x:Key="FluxStringConverter"/>
+    <local:BalanceStringConverter x:Key="BalanceStringConverter"/>
+  </Window.Resources>
+  <Grid RowDefinitions="*,*,*,1.5*,*" ColumnDefinitions="*,*,*">
+    <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" Content="Net"/>
+    <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" Content="Auth4"/>
+    <RadioButton Grid.Row="0" Grid.Column="2" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth6" Content="Auth6"/>
+    <TextBlock Grid.Row="1" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">用户名：</TextBlock>
+    <TextBox Grid.Row="1" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" Text="{Binding Username,Mode=TwoWay}"/>
+    <TextBlock Grid.Row="2" Grid.Column="0" Margin="8" HorizontalAlignment="Right" VerticalAlignment="Center">密码：</TextBlock>
+    <TextBox Grid.Row="2" Grid.Column="1" Margin="8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
+    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="4" Rows="2">
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUsername}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">流量：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineFlux,Converter={StaticResource FluxStringConverter}}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">时长：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineTime}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">余额：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineBalance,Converter={StaticResource BalanceStringConverter}}"/>
+    </UniformGrid>
+    <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}">登录</Button>
+    <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
+    <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
+  </Grid>
+</Window>
