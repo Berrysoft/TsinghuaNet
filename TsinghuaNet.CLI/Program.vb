@@ -4,15 +4,14 @@ Imports CommandLine
 Module Program
     Function Main(args As String()) As Integer
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
-        Return Parser.Default.ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb)(args).
-            MapResult(
-                Function(opts As VerbBase) RunTask(opts.RunAsync()),
-                AddressOf RunError)
+        Return Parser.Default.
+            ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb)(args).
+            MapResult(AddressOf RunVerb, AddressOf RunError)
     End Function
 
-    Private Function RunTask(t As Task) As Integer
+    Private Function RunVerb(opts As VerbBase) As Integer
         Try
-            t.GetAwaiter().GetResult()
+            opts.RunAsync().Wait()
             Return 0
         Catch ex As Exception
             Console.Error.WriteLine(ex)
