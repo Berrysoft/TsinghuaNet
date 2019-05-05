@@ -1,7 +1,5 @@
 ﻿Imports System.IO
-Imports System.Security.Cryptography
 Imports System.Text
-Imports Avalonia.ThemeManager
 Imports MvvmHelpers
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -18,7 +16,7 @@ Public Class MainViewModel
                     Using reader As New JsonTextReader(stream)
                         Dim json = JObject.Load(reader)
                         _Username = json("username")
-                        _Password = Encoding.UTF8.GetString(ProtectedData.Unprotect(Convert.FromBase64String(json("password")), Nothing, DataProtectionScope.CurrentUser))
+                        _Password = Encoding.UTF8.GetString(Convert.FromBase64String(json("password")))
                         _State = CInt(json("state"))
                     End Using
                 End Using
@@ -31,7 +29,7 @@ Public Class MainViewModel
     Public Sub SaveSettings()
         Dim json As New JObject
         json("username") = If(_Username, String.Empty)
-        json("password") = Convert.ToBase64String(ProtectedData.Protect(Encoding.UTF8.GetBytes(If(_Password, String.Empty)), Nothing, DataProtectionScope.CurrentUser))
+        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(_Password, String.Empty)))
         json("state") = _State
         Using stream As New StreamWriter(settingsFilename)
             Using writer As New JsonTextWriter(stream)
