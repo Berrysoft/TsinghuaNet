@@ -20,6 +20,7 @@
     <Assembly Name="Avalonia.Logging.Serilog" Dynamic="Required All" />
     <Assembly Name="Avalonia.Visuals" Dynamic="Required All" />
     <Assembly Name="Avalonia.Styling" Dynamic="Required All" />
+    <Assembly Name="Avalonia.ThemeManager" Dynamic="Required All"/>
     <Assembly Name="Avalonia.Themes.Default" Dynamic="Required All" />
     <Assembly Name="Avalonia.Markup" Dynamic="Required All" />
     <Assembly Name="Avalonia.Markup.Xaml" Dynamic="Required All">
