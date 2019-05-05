@@ -22,15 +22,8 @@ Public Class DetailWindow
         Dim showtask = ShowDialog(owner)
         Dim helper = model.GetUseregHelper()
         Await helper.LoginAsync()
-        Dim details = (Await helper.GetDetailsAsync()).Select(Function(d) New NetDetailBox() With {.LoginTime = d.LoginTime, .LogoutTime = d.LogoutTime, .Flux = d.Flux})
         Dim grid = FindControl(Of DataGrid)("DetailView")
-        grid.Items = details
+        grid.Items = Await helper.GetDetailsAsync()
         Await showtask
     End Function
-End Class
-
-Class NetDetailBox
-    Public Property LoginTime As Date
-    Public Property LogoutTime As Date
-    Public Property Flux As Long
 End Class

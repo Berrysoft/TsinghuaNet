@@ -76,23 +76,13 @@ Public Class MainViewModel
 
     Public ReadOnly Property StateChangeCommand As New NetStateChangeCommand(Me)
 
-    Private _OnlineUsername As String
-    Public Property OnlineUsername As String
+    Private _OnlineUser As FluxUser
+    Public Property OnlineUser As FluxUser
         Get
-            Return _OnlineUsername
+            Return _OnlineUser
         End Get
-        Set(value As String)
-            SetProperty(_OnlineUsername, value)
-        End Set
-    End Property
-
-    Private _OnlineFlux As Long
-    Public Property OnlineFlux As Long
-        Get
-            Return _OnlineFlux
-        End Get
-        Set(value As Long)
-            SetProperty(_OnlineFlux, value)
+        Set(value As FluxUser)
+            SetProperty(_OnlineUser, value)
         End Set
     End Property
 
@@ -103,16 +93,6 @@ Public Class MainViewModel
         End Get
         Set(value As TimeSpan)
             SetProperty(_OnlineTime, value)
-        End Set
-    End Property
-
-    Private _OnlineBalance As Decimal
-    Public Property OnlineBalance As Decimal
-        Get
-            Return _OnlineBalance
-        End Get
-        Set(value As Decimal)
-            SetProperty(_OnlineBalance, value)
         End Set
     End Property
 
@@ -135,10 +115,8 @@ Public Class MainViewModel
         If helper IsNot Nothing Then
             flux = Await helper.GetFluxAsync()
         End If
-        OnlineUsername = flux.Username
-        OnlineFlux = flux.Flux
+        OnlineUser = flux
         OnlineTime = flux.OnlineTime
-        OnlineBalance = flux.Balance
     End Function
 
     Public ReadOnly Property ShowDetailCommand As New ShowDialogCommand(Of DetailWindow)(Me)

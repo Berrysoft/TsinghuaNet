@@ -19,13 +19,13 @@
     <TextBox Grid.Row="2" Grid.Column="1" Margin="8,8,40,8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" PasswordChar="●" Text="{Binding Password,Mode=TwoWay}"/>
     <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="4" Rows="2">
       <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户：</TextBlock>
-      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUsername}"/>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
       <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">流量：</TextBlock>
-      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineFlux,Converter={StaticResource FluxStringConverter}}"/>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
       <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">时长：</TextBlock>
       <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineTime}"/>
       <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">余额：</TextBlock>
-      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineBalance,Converter={StaticResource BalanceStringConverter}}"/>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
     </UniformGrid>
     <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}">登录</Button>
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>

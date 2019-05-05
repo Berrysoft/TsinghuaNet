@@ -29,14 +29,14 @@ namespace TsinghuaNet
         /// <summary>
         /// IP address the connection was allocated.
         /// </summary>
-        public readonly IPAddress Address;
+        public IPAddress Address { get; }
         /// Online time used this time of the connection.
         /// </summary>
-        public readonly DateTime LoginTime;
+        public DateTime LoginTime { get; }
         /// <summary>
         /// The client used by this connection. It may be "Unknown" through <see cref="NetHelper"/>, and "Windows NT", "Windows 8", "Windows 7" or "Unknown" through <see cref="AuthHelper"/>.
         /// </summary>
-        public readonly string Client;
+        public string Client { get; }
 
         public static bool operator ==(NetUser u1, NetUser u2) => u1.Address.Equals(u2.Address) && u1.LoginTime == u2.LoginTime && u1.Client == u2.Client;
         public static bool operator !=(NetUser u1, NetUser u2) => !(u1 == u2);
@@ -84,15 +84,15 @@ namespace TsinghuaNet
         /// <summary>
         /// The time logging in.
         /// </summary>
-        public readonly DateTime LoginTime;
+        public DateTime LoginTime { get; }
         /// <summary>
         /// The time logging out.
         /// </summary>
-        public readonly DateTime LogoutTime;
+        public DateTime LogoutTime { get; }
         /// <summary>
         /// The flux has been used.
         /// </summary>
-        public readonly long Flux;
+        public long Flux { get; }
 
         public static bool operator ==(NetDetail d1, NetDetail d2) => d1.LoginTime == d2.LoginTime && d1.LogoutTime == d2.LogoutTime && d1.Flux == d2.Flux;
         public static bool operator !=(NetDetail d1, NetDetail d2) => !(d1 == d2);

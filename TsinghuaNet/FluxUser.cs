@@ -24,19 +24,19 @@ namespace TsinghuaNet
         /// <summary>
         /// Username of the user.
         /// </summary>
-        public readonly string Username;
+        public string Username { get; }
         /// <summary>
         /// Flux used by the user this month.
         /// </summary>
-        public readonly long Flux;
+        public long Flux { get; }
         /// <summary>
         /// Online time used this time of the user.
         /// </summary>
-        public readonly TimeSpan OnlineTime;
+        public TimeSpan OnlineTime { get; }
         /// <summary>
         /// The network balance of the user.
         /// </summary>
-        public readonly decimal Balance;
+        public decimal Balance { get; }
 
         public static bool operator ==(FluxUser u1, FluxUser u2) => u1.Username == u2.Username;
         public static bool operator !=(FluxUser u1, FluxUser u2) => !(u1 == u2);
