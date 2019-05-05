@@ -9,11 +9,6 @@
   <Window.DataContext>
     <local:MainViewModel/>
   </Window.DataContext>
-  <Window.Resources>
-    <local:FluxStringConverter x:Key="FluxStringConverter"/>
-    <local:BalanceStringConverter x:Key="BalanceStringConverter"/>
-    <local:NetStateCheckedConverter x:Key="NetStateCheckedConverter"/>
-  </Window.Resources>
   <Grid RowDefinitions="*,*,*,1.5*,*,*" ColumnDefinitions="*,*,*">
     <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" IsChecked="{Binding State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Net}" Content="Net"/>
     <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" IsChecked="{Binding State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Auth4}" Content="Auth4"/>
@@ -36,7 +31,7 @@
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
     <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
     <Button Grid.Row="5" Grid.Column="0" Margin="8">管理连接</Button>
-    <Button Grid.Row="5" Grid.Column="1" Margin="8">流量明细</Button>
+    <Button Grid.Row="5" Grid.Column="1" Margin="8" Command="{Binding ShowDetailCommand}">流量明细</Button>
     <ComboBox Grid.Row="5" Grid.Column="2" Margin="8" DataContext="{x:Static local:Program.Selector}" Items="{Binding Themes}" SelectedItem="{Binding SelectedTheme,Mode=TwoWay}">
       <ComboBox.ItemTemplate>
         <DataTemplate>

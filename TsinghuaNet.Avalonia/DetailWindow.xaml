@@ -1,0 +1,21 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TsinghuaNet.Avalonia.DetailWindow"
+        Width="320" Height="400" Title="流量明细" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" WindowStartupLocation="CenterScreen">
+  <DataGrid Name="DetailView" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
+    <DataGrid.Columns>
+      <DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}"/>
+      <DataGridTextColumn Header="注销时间" Binding="{Binding LogoutTime}"/>
+      <DataGridTemplateColumn Header="使用流量" SortMemberPath="Flux">
+        <DataGridTemplateColumn.CellTemplate>
+          <DataTemplate>
+            <TextBlock Margin="4" Text="{Binding Flux,Converter={StaticResource FluxStringConverter}}" HorizontalAlignment="Right"/>
+          </DataTemplate>
+        </DataGridTemplateColumn.CellTemplate>
+      </DataGridTemplateColumn>
+    </DataGrid.Columns>
+  </DataGrid>
+</Window>

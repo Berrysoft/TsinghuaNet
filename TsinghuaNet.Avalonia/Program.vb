@@ -1,3 +1,4 @@
+Imports System.Text
 Imports Avalonia
 Imports Avalonia.Logging.Serilog
 Imports Avalonia.ThemeManager
@@ -5,6 +6,7 @@ Imports Avalonia.ThemeManager
 Module Program
     Sub Main(args As String())
         Try
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
             BuildAvaloniaApp().Start(AddressOf AppMain, args)
         Catch ex As Exception
             Console.WriteLine(ex)
@@ -12,7 +14,7 @@ Module Program
     End Sub
 
     Function BuildAvaloniaApp() As AppBuilder
-        Return AppBuilder.Configure(Of App)().UsePlatformDetect().LogToDebug()
+        Return AppBuilder.Configure(Of App)().UsePlatformDetect().UseDataGrid().LogToDebug()
     End Function
 
     Public Selector As IThemeSelector

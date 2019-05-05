@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net.Http
 Imports System.Text
 Imports MvvmHelpers
 Imports Newtonsoft.Json
@@ -119,8 +120,14 @@ Public Class MainViewModel
     Public ReadOnly Property LogoutCommand As NetCommand = New LogoutCommand(Me)
     Public ReadOnly Property RefreshCommand As NetCommand = New RefreshCommand(Me)
 
+    Private Shared Client As New HttpClient
+
     Friend Function GetHelper() As IConnect
-        Return ConnectHelper.GetHelper(State, Username, Password)
+        Return ConnectHelper.GetHelper(State, Username, Password, Client)
+    End Function
+
+    Friend Function GetUseregHelper() As UseregHelper
+        Return New UseregHelper(Username, Password, Client)
     End Function
 
     Friend Async Function RefreshAsync(helper As IConnect) As Task
@@ -133,4 +140,6 @@ Public Class MainViewModel
         OnlineTime = flux.OnlineTime
         OnlineBalance = flux.Balance
     End Function
+
+    Public ReadOnly Property ShowDetailCommand As New ShowDialogCommand(Of DetailWindow)(Me)
 End Class
