@@ -13,20 +13,8 @@
     <mtuuc:DataGrid x:Name="DetailsView" Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
         <mtuuc:DataGrid.Columns>
             <!--DataGridTextColumn居然不支持x:Bind-->
-            <mtuuc:DataGridTemplateColumn Header="登录时间" Width="160" Tag="LoginTime">
-                <mtuuc:DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate x:DataType="net:NetDetail">
-                        <TextBlock Margin="12,0" VerticalAlignment="Center" Text="{x:Bind LoginTime}"/>
-                    </DataTemplate>
-                </mtuuc:DataGridTemplateColumn.CellTemplate>
-            </mtuuc:DataGridTemplateColumn>
-            <mtuuc:DataGridTemplateColumn x:Name="LogoutColumn" Header="注销时间" Width="160" Tag="LogoutTime">
-                <mtuuc:DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate x:DataType="net:NetDetail">
-                        <TextBlock Margin="12,0" VerticalAlignment="Center" Text="{x:Bind LogoutTime}"/>
-                    </DataTemplate>
-                </mtuuc:DataGridTemplateColumn.CellTemplate>
-            </mtuuc:DataGridTemplateColumn>
+            <mtuuc:DataGridTextColumn Header="登录时间" Width="160" Binding="{Binding LoginTime}" Tag="LoginTime"/>
+            <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Width="160" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
             <mtuuc:DataGridTemplateColumn Header="使用流量" Width="120" Tag="Flux">
                 <mtuuc:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="net:NetDetail">
