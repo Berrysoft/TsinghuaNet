@@ -1,10 +1,6 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
-    <Assembly Name="TsinghuaNet">
-      <Type Name="TsinghuaNet.NetHelper" Dynamic="Required All"/>
-      <Type Name="TsinghuaNet.Auth4Helper" Dynamic="Required All"/>
-      <Type Name="TsinghuaNet.Auth6Helper" Dynamic="Required All"/>
-    </Assembly>
+    <Assembly Name="TsinghuaNet" Dynamic="Required All"/>
     <Assembly Name="TsinghuaNet.Avalonia" Dynamic="Required All"/>
 
     <Assembly Name="Avalonia.Animation" Dynamic="Required All"/>
@@ -57,6 +53,10 @@
 
     <Assembly Name="mscorlib"/>
     <Assembly Name="System.Private.CoreLib"/>
+    <Assembly Name="System.Collections">
+      <Type Name="System.Collections.Generic.Comparer`1[[System.Int64,System.Private.CoreLib]]`" Dynamic="Required All"/>
+      <Type Name="System.Collections.Generic.Comparer`1[[System.DateTime,System.Private.CoreLib]]`" Dynamic="Required All"/>
+    </Assembly>
     <Assembly Name="System.ComponentModel.TypeConverter" Dynamic="Required All"/>
   </Application>
 </Directives>

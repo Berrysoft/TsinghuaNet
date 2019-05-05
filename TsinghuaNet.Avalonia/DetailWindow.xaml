@@ -4,7 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.DetailWindow"
-        Width="320" Height="400" Title="流量明细" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" WindowStartupLocation="CenterScreen">
+        Width="360" Height="400" Title="流量明细" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="True" WindowStartupLocation="CenterScreen">
   <DataGrid Name="DetailView" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
     <DataGrid.Columns>
       <DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}"/>
