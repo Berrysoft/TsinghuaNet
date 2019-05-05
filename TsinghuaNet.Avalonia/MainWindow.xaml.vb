@@ -10,6 +10,7 @@ Public Class MainWindow
 #If DEBUG Then
         AttachDevTools()
 #End If
+        Program.Selector.EnableThemes(Me)
     End Sub
 
     Private Sub InitializeComponent()

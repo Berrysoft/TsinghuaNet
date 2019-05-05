@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Security.Cryptography
 Imports System.Text
+Imports Avalonia.ThemeManager
 Imports MvvmHelpers
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
