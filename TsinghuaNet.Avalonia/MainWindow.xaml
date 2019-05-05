@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.MainWindow"
-        Width="300" Height="240" Title="清华大学校园网客户端" CanResize="False" WindowStartupLocation="CenterScreen">
+        Width="300" Height="240" Title="清华大学校园网客户端" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="False" WindowStartupLocation="CenterScreen">
   <Window.DataContext>
     <local:MainViewModel/>
   </Window.DataContext>

@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TsinghuaNet.Avalonia</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -27,6 +28,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Avalonia" Version="0.8.0" />
     <PackageReference Include="Avalonia.Desktop" Version="0.8.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
@@ -37,6 +42,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Logo.ico" />
   </ItemGroup>
 
 </Project>
