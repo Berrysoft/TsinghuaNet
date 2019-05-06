@@ -1,4 +1,5 @@
-﻿Imports Avalonia
+﻿Imports System.ComponentModel
+Imports Avalonia
 Imports Avalonia.Controls
 Imports Avalonia.Markup.Xaml
 Imports TsinghuaNet.Helper
@@ -6,6 +7,7 @@ Imports TsinghuaNet.Helper
 Public Class SettingsWindow
     Inherits Window
     Implements IDialogWithModel(Of MainViewModel)
+    Implements INotifyPropertyChanged
 
     Public Sub New()
         InitializeComponent()
@@ -20,13 +22,16 @@ Public Class SettingsWindow
         AvaloniaXamlLoader.Load(Me)
     End Sub
 
-    Private ModelProperty As AvaloniaProperty(Of MainViewModel) = AvaloniaProperty.Register(Of SettingsWindow, MainViewModel)(NameOf(Model))
+    Public Shadows Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+    Private _Model As MainViewModel
     Public Property Model As MainViewModel
         Get
-            Return GetValue(ModelProperty)
+            Return _Model
         End Get
         Set(value As MainViewModel)
-            SetValue(ModelProperty, value)
+            _Model = value
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(NameOf(Model)))
         End Set
     End Property
 

@@ -23,6 +23,7 @@ Public Class MainViewModel
                         State = CInt(json("state"))
                         AutoLogin = CBool(json("autologin"))
                         AutoSuggest = CBool(json("autosuggest"))
+                        UseTimer = CBool(json("usetimer"))
                     End Using
                 End Using
             Catch ex As Exception
@@ -46,6 +47,7 @@ Public Class MainViewModel
         json("state") = State
         json("autologin") = AutoLogin
         json("autosuggest") = AutoSuggest
+        json("usetimer") = UseTimer
         Using stream As New StreamWriter(settingsFilename)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)
@@ -130,6 +132,16 @@ Public Class MainViewModel
         End Set
     End Property
 
+    Private _UseTimer As Boolean
+    Public Property UseTimer As Boolean
+        Get
+            Return _UseTimer
+        End Get
+        Set(value As Boolean)
+            SetProperty(_UseTimer, value)
+        End Set
+    End Property
+
     Private _OnlineUser As FluxUser
     Public Property OnlineUser As FluxUser
         Get
@@ -141,7 +153,7 @@ Public Class MainViewModel
     End Property
     Private Sub OnOnlineUserChanged()
         OnlineTimeTimer.Stop()
-        If Not String.IsNullOrEmpty(OnlineUser.Username) Then
+        If _UseTimer AndAlso Not String.IsNullOrEmpty(OnlineUser.Username) Then
             OnlineTimeTimer.Start()
         End If
     End Sub
