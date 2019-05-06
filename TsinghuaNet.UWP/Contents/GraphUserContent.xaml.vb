@@ -45,6 +45,16 @@ Public NotInheritable Class GraphUserContent
         End Set
     End Property
 
+    Public Shared ReadOnly ChartBrushOffsetProperty As DependencyProperty = DependencyProperty.Register(NameOf(ChartBrushOffset), GetType(Double), GetType(GraphUserContent), New PropertyMetadata(1.0))
+    Public Property ChartBrushOffset As Double
+        Get
+            Return GetValue(ChartBrushOffsetProperty)
+        End Get
+        Set(value As Double)
+            SetValue(ChartBrushOffsetProperty, value)
+        End Set
+    End Property
+
     Public Sub BeginAnimation() Implements IUserContent.BeginAnimation
         ShowStoryboard.Begin()
     End Sub
