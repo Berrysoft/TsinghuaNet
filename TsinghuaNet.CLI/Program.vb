@@ -10,7 +10,7 @@ Module Program
                 settings.CaseInsensitiveEnumValues = True
             End Sub)
         Return p.
-            ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb)(args).
+            ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb, SuggestionVerb)(args).
             MapResult(AddressOf RunVerb, AddressOf RunError)
     End Function
 

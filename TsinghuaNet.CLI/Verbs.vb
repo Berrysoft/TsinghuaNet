@@ -1,6 +1,4 @@
-﻿Option Compare Text
-
-Imports System.Net
+﻿Imports System.Net
 Imports System.Runtime.CompilerServices
 Imports CommandLine
 Imports CommandLine.Text
@@ -8,7 +6,10 @@ Imports TsinghuaNet.Helper
 
 Module VerbHelper
     <Extension>
-    Public Function GetHelper(opts As NetVerbBase) As IConnect
+    Public Async Function GetHelperAsync(opts As NetVerbBase) As Task(Of IConnect)
+        If opts.Host = OptionNetState.Auto Then
+            opts.Host = Await SuggestionHelper.GetSuggestion()
+        End If
         Dim v = TryCast(opts, IConnectVerb)
         If v IsNot Nothing Then
             Return ConnectHelper.GetHelper(opts.Host, v.Username, v.Password)
@@ -19,7 +20,8 @@ Module VerbHelper
 End Module
 
 Enum OptionNetState
-    Net = 1
+    Auto
+    Net
     Auth4
     Auth6
 End Enum
@@ -41,7 +43,7 @@ End Class
 
 MustInherit Class NetVerbBase
     Inherits VerbBase
-    <[Option]("s"c, "host", Required:=False, [Default]:=OptionNetState.Net, HelpText:="连接方式：[net], auth4, auth6")>
+    <[Option]("s"c, "host", Required:=False, [Default]:=OptionNetState.Auto, HelpText:="连接方式：[auto], net, auth4, auth6")>
     Public Property Host As OptionNetState
 End Class
 
@@ -84,13 +86,13 @@ Class LoginVerb
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（net）方式登录", New LoginVerb() With {.Username = "用户名", .Password = "密码"})
+            Yield New Example("使用默认（自动判断）方式登录", New LoginVerb() With {.Username = "用户名", .Password = "密码"})
             Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
         End Get
     End Property
 
     Public Overrides Async Function RunAsync() As Task
-        Using helper = GetHelper()
+        Using helper = Await GetHelperAsync()
             If helper IsNot Nothing Then
                 Dim res = Await helper.LoginAsync()
                 Console.WriteLine(res.Message)
@@ -106,13 +108,13 @@ Class LogoutVerb
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（net）方式注销，不需要用户名密码", New LogoutVerb())
+            Yield New Example("使用默认（自动判断）方式注销，不需要用户名密码", New LogoutVerb())
             Yield New Example("使用auth4方式注销，需要用户名密码", New LogoutVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
         End Get
     End Property
 
     Public Overrides Async Function RunAsync() As Task
-        Using helper = GetHelper()
+        Using helper = Await GetHelperAsync()
             If helper IsNot Nothing Then
                 Dim res = Await helper.LogoutAsync()
                 Console.WriteLine(res.Message)
@@ -128,13 +130,13 @@ Class StatusVerb
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（net）方式", New StatusVerb())
+            Yield New Example("使用默认（自动判断）方式", New StatusVerb())
             Yield New Example("使用auth4方式", New StatusVerb() With {.Host = "auth4"})
         End Get
     End Property
 
     Public Overrides Async Function RunAsync() As Task
-        Using helper = GetHelper()
+        Using helper = Await GetHelperAsync()
             If helper IsNot Nothing Then
                 Dim flux = Await helper.GetFluxAsync()
                 Console.WriteLine("用户：{0}", flux.Username)
@@ -251,5 +253,14 @@ Class DetailVerb
                 Console.WriteLine(res.Message)
             End If
         End Using
+    End Function
+End Class
+
+<Verb("suggestion", HelpText:="获取建议的连接方式")>
+Class SuggestionVerb
+    Inherits VerbBase
+
+    Public Overrides Async Function RunAsync() As Task
+        Console.WriteLine(StringHelper.GetNetStateString(Await SuggestionHelper.GetSuggestion()))
     End Function
 End Class

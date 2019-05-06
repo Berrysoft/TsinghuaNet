@@ -8,9 +8,9 @@
 命令行版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
 ### 登录/注销
 ``` bash
-# 使用默认（net）方式登录
+# 使用默认（自动判断）方式登录
 TsinghuaNet.CLI login -u 用户名 -p 密码
-# 使用默认（net）方式注销，不需要用户名密码
+# 使用默认（自动判断）方式注销，不需要用户名密码
 TsinghuaNet.CLI logout
 # 使用auth4方式登录
 TsinghuaNet.CLI login -s auth4 -u 用户名 -p 密码
@@ -19,7 +19,7 @@ TsinghuaNet.CLI logout -s auth4 -u 用户名 -p 密码
 ```
 ### 在线状态
 ``` bash
-# 使用默认（net）方式
+# 使用默认（自动判断）方式
 TsinghuaNet.CLI status
 # 使用auth4方式
 TsinghuaNet.CLI status -s auth4
@@ -66,6 +66,4 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 相关问答见[此处](./README.UWP.md)。
 
 ## TsinghuaNet.Avalonia
-Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64的AOT版本。
-
-仍在开发中，将会至少支持**TsinghuaNet.CLI**的所有功能，并至少再提供Linux x64的AOT。
+Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
