@@ -58,4 +58,13 @@
     <EmbeddedResource Include="Logo.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Views\DetailWindow - 副本.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Views\SettingsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
 </Project>

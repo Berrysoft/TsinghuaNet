@@ -20,6 +20,8 @@ Public Class MainViewModel
                         _Username = json("username")
                         _Password = Encoding.UTF8.GetString(Convert.FromBase64String(json("password")))
                         _State = CInt(json("state"))
+                        _AutoLogin = CBool(json("autologin"))
+                        _AutoSuggest = CBool(json("autosuggest"))
                     End Using
                 End Using
             Catch ex As Exception
@@ -33,6 +35,8 @@ Public Class MainViewModel
         json("username") = If(_Username, String.Empty)
         json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(_Password, String.Empty)))
         json("state") = _State
+        json("autologin") = _AutoLogin
+        json("autosuggest") = _AutoSuggest
         Using stream As New StreamWriter(settingsFilename)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)
@@ -76,6 +80,26 @@ Public Class MainViewModel
     End Sub
 
     Public ReadOnly Property StateChangeCommand As New NetStateChangeCommand(Me)
+
+    Private _AutoLogin As Boolean
+    Public Property AutoLogin As Boolean
+        Get
+            Return _AutoLogin
+        End Get
+        Set(value As Boolean)
+            SetProperty(_AutoLogin, value)
+        End Set
+    End Property
+
+    Private _AutoSuggest As Boolean
+    Public Property AutoSuggest As Boolean
+        Get
+            Return _AutoSuggest
+        End Get
+        Set(value As Boolean)
+            SetProperty(_AutoSuggest, value)
+        End Set
+    End Property
 
     Private _OnlineUser As FluxUser
     Public Property OnlineUser As FluxUser
@@ -122,4 +146,5 @@ Public Class MainViewModel
 
     Public ReadOnly Property ShowConnectionCommand As New ShowDialogCommand(Of ConnectionWindow)(Me)
     Public ReadOnly Property ShowDetailCommand As New ShowDialogCommand(Of DetailWindow)(Me)
+    Public ReadOnly Property ShowSettingsCommand As New ShowDialogCommand(Of SettingsWindow)(Me)
 End Class

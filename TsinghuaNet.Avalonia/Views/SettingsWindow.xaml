@@ -1,0 +1,40 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TsinghuaNet.Avalonia"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="TsinghuaNet.Avalonia.SettingsWindow"
+        Width="300" Height="240" Title="设置" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="False" WindowStartupLocation="CenterScreen">
+  <Grid RowDefinitions="*,48">
+    <TabControl Grid.Row="0" Margin="8" TabStripPlacement="Left">
+      <TabItem Header="通用设置">
+        <StackPanel Orientation="Vertical">
+          <CheckBox Margin="8" IsChecked="{Binding Model.AutoLogin}">自动登录</CheckBox>
+          <CheckBox Margin="8" IsChecked="{Binding Model.AutoSuggest}">自动判断连接方式</CheckBox>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="主题设置">
+        <StackPanel Orientation="Vertical">
+          <StackPanel Margin="8" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">主题颜色：</TextBlock>
+            <ComboBox HorizontalAlignment="Left" Width="100" Height="32" DataContext="{x:Static local:Program.Selector}" Items="{Binding Themes}" SelectedItem="{Binding SelectedTheme,Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <ComboBoxItem Content="{Binding Name}"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="关于">
+        <StackPanel Orientation="Vertical">
+          <TextBlock Margin="8" FontSize="16">清华大学校园网客户端</TextBlock>
+          <TextBlock Margin="8">TsinghuaNet.Avalonia</TextBlock>
+        </StackPanel>
+      </TabItem>
+    </TabControl>
+    <Button Grid.Row="1" Margin="8" HorizontalAlignment="Right" Width="100" Command="{Binding Close}">关闭</Button>
+  </Grid>
+</Window>
