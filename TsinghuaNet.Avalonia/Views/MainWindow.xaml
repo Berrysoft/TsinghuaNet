@@ -30,7 +30,7 @@
     <ScrollViewer Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="8" HorizontalAlignment="Stretch" IsVisible="{Binding !ConnectionSuccess}">
       <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding FailMessage}"/>
     </ScrollViewer>
-    <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}">登录</Button>
+    <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}" IsDefault="True">登录</Button>
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
     <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
     <Button Grid.Row="5" Grid.Column="0" Margin="8" Command="{Binding ShowConnectionCommand}">管理连接</Button>

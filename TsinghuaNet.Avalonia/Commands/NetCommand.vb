@@ -23,8 +23,7 @@ Public MustInherit Class NetCommand
         OnCanExecuteChanged(EventArgs.Empty)
         Try
             Dim helper = model.GetHelper()
-            Await ExecuteAsync(helper)
-            model.ConnectionSuccess = True
+            model.ConnectionSuccess = Await ExecuteAsync(helper)
         Catch ex As Exception
             model.FailMessage = ex.Message
             model.ConnectionSuccess = False
@@ -34,7 +33,7 @@ Public MustInherit Class NetCommand
         End Try
     End Sub
 
-    Protected MustOverride Function ExecuteAsync(helper As IConnect) As Task
+    Protected MustOverride Function ExecuteAsync(helper As IConnect) As Task(Of Boolean)
 
     Public Event CanExecuteChanged As EventHandler Implements ICommand.CanExecuteChanged
     Protected Overridable Sub OnCanExecuteChanged(e As EventArgs)
@@ -53,11 +52,16 @@ Class LoginCommand
         MyBase.New(model)
     End Sub
 
-    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task
+    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task(Of Boolean)
         If helper IsNot Nothing Then
-            Await helper.LoginAsync()
+            Dim res = Await helper.LoginAsync()
+            If Not res.Succeed Then
+                model.FailMessage = res.Message
+                Return False
+            End If
         End If
         Await model.RefreshAsync(helper)
+        Return True
     End Function
 End Class
 
@@ -68,11 +72,16 @@ Class LogoutCommand
         MyBase.New(model)
     End Sub
 
-    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task
+    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task(Of Boolean)
         If helper IsNot Nothing Then
-            Await helper.LogoutAsync()
+            Dim res = Await helper.LogoutAsync()
+            If Not res.Succeed Then
+                model.FailMessage = res.Message
+                Return False
+            End If
         End If
         Await model.RefreshAsync(helper)
+        Return True
     End Function
 End Class
 
@@ -83,7 +92,8 @@ Class RefreshCommand
         MyBase.New(model)
     End Sub
 
-    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task
+    Protected Overrides Async Function ExecuteAsync(helper As IConnect) As Task(Of Boolean)
         Await model.RefreshAsync(helper)
+        Return True
     End Function
 End Class
