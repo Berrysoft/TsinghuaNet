@@ -11,25 +11,26 @@ Module VerbHelper
     Public Function GetHelper(opts As NetVerbBase) As IConnect
         Dim v = TryCast(opts, IConnectVerb)
         If v IsNot Nothing Then
-            Return ConnectHelper.GetHelper(GetHost(opts.Host), v.Username, v.Password)
+            Return ConnectHelper.GetHelper(opts.Host, v.Username, v.Password)
         Else
-            Return ConnectHelper.GetHelper(GetHost(opts.Host))
+            Return ConnectHelper.GetHelper(opts.Host)
         End If
     End Function
-
-    Private Function GetHost(host As String) As NetState
-        Select Case host
-            Case "auth4"
-                Return NetState.Auth4
-            Case "auth6"
-                Return NetState.Auth6
-            Case "net", Nothing
-                Return NetState.Net
-            Case Else
-                Throw New ArgumentException("连接方式错误")
-        End Select
-    End Function
 End Module
+
+Enum OptionNetState
+    Net = 1
+    Auth4
+    Auth6
+End Enum
+
+Enum OptionNetDetailOrder
+    Login = 0
+    LoginTime = Login
+    Logout = 2
+    LogoutTime = Logout
+    Flux = 4
+End Enum
 
 MustInherit Class VerbBase
     Protected Const DateTimeFormat As String = "yyyy-M-d h:mm:ss"
@@ -40,8 +41,8 @@ End Class
 
 MustInherit Class NetVerbBase
     Inherits VerbBase
-    <[Option]("s"c, "host", Required:=False, HelpText:="连接方式：[net], auth4, auth6")>
-    Public Property Host As String
+    <[Option]("s"c, "host", Required:=False, [Default]:=OptionNetState.Net, HelpText:="连接方式：[net], auth4, auth6")>
+    Public Property Host As OptionNetState
 End Class
 
 Interface IConnectVerb
@@ -217,8 +218,8 @@ Class DetailVerb
         End Get
     End Property
 
-    <[Option]("o"c, "order", Required:=False, HelpText:="排序指标：[logout<time>], login<time>, flux")>
-    Public Property Order As String
+    <[Option]("o"c, "order", Required:=False, [Default]:=OptionNetDetailOrder.Logout, HelpText:="排序指标：[logout<time>], login<time>, flux")>
+    Public Property Order As OptionNetDetailOrder
     <[Option]("d"c, "descending", Required:=False, HelpText:="降序")>
     Public Property Descending As Boolean
     <[Option]("g"c, "grouping", Required:=False, HelpText:="按注销日期组合")>
@@ -231,16 +232,15 @@ Class DetailVerb
                 If Grouping Then
                     Dim details = Await helper.GetDetailsAsync()
                     Dim now = Date.Now
-                    Dim ord = GetOrder()
                     Console.WriteLine("|    日期    |    流量    |")
                     Console.WriteLine(New String("="c, 27))
                     Dim query = From d In details Group By d.LogoutTime.Day Into TotalFlux = Sum(d.Flux)
-                    Dim orderedQuery = If(ord = NetDetailOrder.Flux, query.OrderBy(Function(d) d.TotalFlux, Descending), query.OrderBy(Function(d) d.Day, Descending))
+                    Dim orderedQuery = If(Order = NetDetailOrder.Flux, query.OrderBy(Function(d) d.TotalFlux, Descending), query.OrderBy(Function(d) d.Day, Descending))
                     For Each p In orderedQuery
                         Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), StringHelper.GetFluxString(p.TotalFlux).PadLeft(11))
                     Next
                 Else
-                    Dim details = Await helper.GetDetailsAsync(GetOrder() + If(Descending, 1, 0))
+                    Dim details = Await helper.GetDetailsAsync(Order + If(Descending, 1, 0))
                     Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
                     Console.WriteLine(New String("="c, 60))
                     For Each d In details
@@ -251,18 +251,5 @@ Class DetailVerb
                 Console.WriteLine(res.Message)
             End If
         End Using
-    End Function
-
-    Private Function GetOrder() As NetDetailOrder
-        Select Case Order
-            Case "login", "logintime"
-                Return NetDetailOrder.LoginTime
-            Case "logout", "logouttime", Nothing
-                Return NetDetailOrder.LogoutTime
-            Case "flux"
-                Return NetDetailOrder.Flux
-            Case Else
-                Throw New ArgumentException("排序指标错误")
-        End Select
     End Function
 End Class

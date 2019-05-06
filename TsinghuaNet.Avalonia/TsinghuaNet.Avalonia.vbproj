@@ -5,6 +5,13 @@
     <RootNamespace>TsinghuaNet.Avalonia</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Authors>Berrysoft</Authors>
+    <Copyright>Copyright (c) 2019 Berrysoft</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
