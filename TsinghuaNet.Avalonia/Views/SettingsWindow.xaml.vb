@@ -1,6 +1,7 @@
 ﻿Imports Avalonia
 Imports Avalonia.Controls
 Imports Avalonia.Markup.Xaml
+Imports TsinghuaNet.Helper
 
 Public Class SettingsWindow
     Inherits Window
@@ -28,6 +29,18 @@ Public Class SettingsWindow
             SetValue(ModelProperty, value)
         End Set
     End Property
+
+    Public ReadOnly Property Packages As New List(Of PackageBox) From
+    {
+        New PackageBox("Avalonia", "MIT许可证"),
+        New PackageBox("Avalonia.Controls.DataGrid", "MIT许可证"),
+        New PackageBox("Avalonia.Desktop", "MIT许可证"),
+        New PackageBox("Avalonia.ThemeManager", "MIT许可证"),
+        New PackageBox("HtmlAgilityPack", "MIT许可证"),
+        New PackageBox("Microsoft.DotNet.ILCompiler", "MIT许可证"),
+        New PackageBox("Newtonsoft.Json", "MIT许可证"),
+        New PackageBox("Refractored.MvvmHelpers", "MIT许可证")
+    }
 
     Public Overloads Function ShowDialog(owner As Window, model As MainViewModel) As Task Implements IDialogWithModel(Of MainViewModel).ShowDialog
         Me.Model = model

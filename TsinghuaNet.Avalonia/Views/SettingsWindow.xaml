@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.SettingsWindow"
-        Width="300" Height="240" Title="设置" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="False" WindowStartupLocation="CenterScreen">
+        Width="400" Height="360" Title="设置" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="False" WindowStartupLocation="CenterScreen">
   <Grid RowDefinitions="*,48">
     <TabControl Grid.Row="0" Margin="8" TabStripPlacement="Left">
       <TabItem Header="通用设置">
@@ -32,6 +32,13 @@
         <StackPanel Orientation="Vertical">
           <TextBlock Margin="8" FontSize="16">清华大学校园网客户端</TextBlock>
           <TextBlock Margin="8">TsinghuaNet.Avalonia</TextBlock>
+          <TextBlock Margin="8">第三方开源库：</TextBlock>
+          <DataGrid Margin="8" Width="280" Height="160" Items="{Binding Packages}">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="名称" Binding="{Binding Name}"/>
+              <DataGridTextColumn Header="开源许可" Binding="{Binding License}"/>
+            </DataGrid.Columns>
+          </DataGrid>
         </StackPanel>
       </TabItem>
     </TabControl>

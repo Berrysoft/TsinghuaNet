@@ -155,7 +155,6 @@
     <Compile Include="Converters\EnumIndexConverter.vb" />
     <Compile Include="Contents\IUserContent.vb" />
     <Compile Include="ViewModels\NetStateSsidBox.vb" />
-    <Compile Include="ViewModels\PackageBox.vb" />
     <Compile Include="Views\AboutDialog.xaml.vb">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>

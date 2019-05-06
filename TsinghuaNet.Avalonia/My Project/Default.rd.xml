@@ -1,6 +1,9 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
     <Assembly Name="TsinghuaNet" Dynamic="Required All"/>
+    <Assembly Name="TsinghuaNet.Helper">
+      <Type Name="TsinghuaNet.Helper.PackageBox" Dynamic="Required All"/>
+    </Assembly>
     <Assembly Name="TsinghuaNet.Avalonia" Dynamic="Required All"/>
 
     <Assembly Name="Avalonia.Animation" Dynamic="Required All"/>

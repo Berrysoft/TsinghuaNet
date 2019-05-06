@@ -1,4 +1,6 @@
-﻿Public NotInheritable Class AboutDialog
+﻿Imports TsinghuaNet.Helper
+
+Public NotInheritable Class AboutDialog
     Inherits ContentDialog
 
     Public ReadOnly Version As PackageVersion = Package.Current.Id.Version
