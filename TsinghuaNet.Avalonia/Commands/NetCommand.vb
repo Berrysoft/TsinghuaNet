@@ -24,6 +24,10 @@ Public MustInherit Class NetCommand
         Try
             Dim helper = model.GetHelper()
             Await ExecuteAsync(helper)
+            model.ConnectionSuccess = True
+        Catch ex As Exception
+            model.FailMessage = ex.Message
+            model.ConnectionSuccess = False
         Finally
             executing = False
             OnCanExecuteChanged(EventArgs.Empty)

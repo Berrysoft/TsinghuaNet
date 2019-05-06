@@ -89,6 +89,26 @@ Public Class MainViewModel
 
     Public ReadOnly Property StateChangeCommand As New NetStateChangeCommand(Me)
 
+    Private _ConnectionSuccess As Boolean
+    Public Property ConnectionSuccess As Boolean
+        Get
+            Return _ConnectionSuccess
+        End Get
+        Set(value As Boolean)
+            SetProperty(_ConnectionSuccess, value)
+        End Set
+    End Property
+
+    Private _FailMessage As String
+    Public Property FailMessage As String
+        Get
+            Return _FailMessage
+        End Get
+        Set(value As String)
+            SetProperty(_FailMessage, value)
+        End Set
+    End Property
+
     Private _AutoLogin As Boolean
     Public Property AutoLogin As Boolean
         Get
