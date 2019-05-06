@@ -11,32 +11,40 @@ Public Class MainViewModel
 
     Private Const settingsFilename As String = "settings.json"
 
-    Public Sub New()
+    Public Async Function LoadSettingsAsync() As Task
         If File.Exists(settingsFilename) Then
             Try
                 Using stream As New StreamReader(settingsFilename)
                     Using reader As New JsonTextReader(stream)
-                        Dim json = JObject.Load(reader)
-                        _Username = json("username")
-                        _Password = Encoding.UTF8.GetString(Convert.FromBase64String(json("password")))
-                        _State = CInt(json("state"))
-                        _AutoLogin = CBool(json("autologin"))
-                        _AutoSuggest = CBool(json("autosuggest"))
+                        Dim json = Await JObject.LoadAsync(reader)
+                        Username = json("username")
+                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(json("password")))
+                        State = CInt(json("state"))
+                        AutoLogin = CBool(json("autologin"))
+                        AutoSuggest = CBool(json("autosuggest"))
                     End Using
                 End Using
             Catch ex As Exception
 
             End Try
         End If
-    End Sub
+        If AutoSuggest Then
+            State = Await SuggestionHelper.GetSuggestion()
+        End If
+        If AutoLogin AndAlso LoginCommand.CanExecute(Nothing) Then
+            LoginCommand.Execute(Nothing)
+        ElseIf RefreshCommand.CanExecute(Nothing) Then
+            RefreshCommand.Execute(Nothing)
+        End If
+    End Function
 
     Public Sub SaveSettings()
         Dim json As New JObject
-        json("username") = If(_Username, String.Empty)
-        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(_Password, String.Empty)))
-        json("state") = _State
-        json("autologin") = _AutoLogin
-        json("autosuggest") = _AutoSuggest
+        json("username") = If(Username, String.Empty)
+        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(Password, String.Empty)))
+        json("state") = State
+        json("autologin") = AutoLogin
+        json("autosuggest") = AutoSuggest
         Using stream As New StreamWriter(settingsFilename)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)
