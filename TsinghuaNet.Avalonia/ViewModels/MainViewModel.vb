@@ -120,5 +120,6 @@ Public Class MainViewModel
         OnlineTime = flux.OnlineTime
     End Function
 
+    Public ReadOnly Property ShowConnectionCommand As New ShowDialogCommand(Of ConnectionWindow)(Me)
     Public ReadOnly Property ShowDetailCommand As New ShowDialogCommand(Of DetailWindow)(Me)
 End Class

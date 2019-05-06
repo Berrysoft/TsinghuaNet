@@ -30,7 +30,7 @@
     <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}">登录</Button>
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
     <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
-    <Button Grid.Row="5" Grid.Column="0" Margin="8">管理连接</Button>
+    <Button Grid.Row="5" Grid.Column="0" Margin="8" Command="{Binding ShowConnectionCommand}">管理连接</Button>
     <Button Grid.Row="5" Grid.Column="1" Margin="8" Command="{Binding ShowDetailCommand}">流量明细</Button>
     <ComboBox Grid.Row="5" Grid.Column="2" Margin="8" DataContext="{x:Static local:Program.Selector}" Items="{Binding Themes}" SelectedItem="{Binding SelectedTheme,Mode=TwoWay}">
       <ComboBox.ItemTemplate>
