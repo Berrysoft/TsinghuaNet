@@ -1,4 +1,5 @@
-﻿Imports Windows.Data.Xml.Dom
+﻿Imports TsinghuaNet.Helper
+Imports Windows.Data.Xml.Dom
 Imports Windows.UI.Notifications
 
 Public Module NotificationHelper

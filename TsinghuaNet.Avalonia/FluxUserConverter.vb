@@ -1,5 +1,6 @@
 ﻿Imports System.Globalization
 Imports Avalonia.Data.Converters
+Imports TsinghuaNet.Helper
 
 Class FluxStringConverter
     Implements IValueConverter

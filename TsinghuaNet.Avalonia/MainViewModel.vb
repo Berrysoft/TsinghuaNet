@@ -4,6 +4,7 @@ Imports System.Text
 Imports MvvmHelpers
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
+Imports TsinghuaNet.Helper
 
 Public Class MainViewModel
     Inherits ObservableObject

@@ -1,4 +1,5 @@
 ﻿Imports MvvmHelpers
+Imports TsinghuaNet.Helper
 Imports TsinghuaNet.UWP.Helper
 
 Public NotInheritable Class EditSuggestionDialog

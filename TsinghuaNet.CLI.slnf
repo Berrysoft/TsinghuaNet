@@ -2,6 +2,7 @@
   "solution": {
     "path": "TsinghuaNet.sln",
     "projects": [
+      "TsinghuaNet.Helper\\TsinghuaNet.Helper.vbproj",
       "TsinghuaNet.CLI\\TsinghuaNet.CLI.vbproj",
       "TsinghuaNet\\TsinghuaNet.csproj"
     ]

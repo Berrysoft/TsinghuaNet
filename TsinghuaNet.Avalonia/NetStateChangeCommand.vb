@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Input
+Imports TsinghuaNet.Helper
 
 Public Class NetStateChangeCommand
     Implements ICommand

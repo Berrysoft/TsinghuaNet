@@ -1,4 +1,5 @@
-﻿Imports TsinghuaNet.UWP.Helper
+﻿Imports TsinghuaNet.Helper
+Imports TsinghuaNet.UWP.Helper
 Imports Windows.ApplicationModel.Background
 
 Public NotInheritable Class LoginTask

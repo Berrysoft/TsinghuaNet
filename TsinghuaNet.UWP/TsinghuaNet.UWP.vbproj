@@ -296,6 +296,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj">
+      <Project>{28ACFD31-7997-4362-AC8E-2F74D425B121}</Project>
+      <Name>TsinghuaNet.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.UWP.Background\TsinghuaNet.UWP.Background.vbproj">
       <Project>{5c3c6116-a8a1-4afe-8549-3c925a173211}</Project>
       <Name>TsinghuaNet.UWP.Background</Name>

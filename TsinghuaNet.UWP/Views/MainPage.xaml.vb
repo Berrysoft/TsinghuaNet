@@ -2,6 +2,7 @@
 Imports System.Net.Http
 Imports System.Text
 Imports Microsoft.Toolkit.Uwp.Connectivity
+Imports TsinghuaNet.Helper
 Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper
 Imports Windows.ApplicationModel.Core

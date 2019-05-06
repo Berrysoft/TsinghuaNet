@@ -2,6 +2,7 @@
 Imports Windows.Networking.Connectivity
 Imports Windows.Storage
 Imports Newtonsoft.Json.Linq
+Imports TsinghuaNet.Helper
 
 Public Enum InternetStatus
     Unknown

@@ -5,6 +5,7 @@
     xmlns:local="using:TsinghuaNet.UWP"
     xmlns:helper="using:TsinghuaNet.UWP.Helper"
     xmlns:net="using:TsinghuaNet"
+    xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -91,7 +92,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
+                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind nethelper:StringHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>

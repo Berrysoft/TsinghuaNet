@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Toolkit.Uwp.UI.Controls
+Imports TsinghuaNet.Helper
 
 Public NotInheritable Class DetailDialog
     Inherits ContentDialog

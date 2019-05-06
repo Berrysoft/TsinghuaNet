@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.UWP"
     xmlns:net="using:TsinghuaNet"
+    xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -18,7 +19,7 @@
             <mtuuc:DataGridTemplateColumn Header="使用流量" Width="120" Tag="Flux">
                 <mtuuc:DataGridTemplateColumn.CellTemplate>
                     <DataTemplate x:DataType="net:NetDetail">
-                        <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind net:StringHelper.GetFluxString(Flux)}"/>
+                        <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind nethelper:StringHelper.GetFluxString(Flux)}"/>
                     </DataTemplate>
                 </mtuuc:DataGridTemplateColumn.CellTemplate>
             </mtuuc:DataGridTemplateColumn>

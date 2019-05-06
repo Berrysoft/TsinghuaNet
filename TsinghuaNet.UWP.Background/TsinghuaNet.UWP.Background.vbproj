@@ -181,6 +181,10 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj">
+      <Project>{28ACFD31-7997-4362-AC8E-2F74D425B121}</Project>
+      <Name>TsinghuaNet.Helper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.UWP.Helper\TsinghuaNet.UWP.Helper.vbproj">
       <Project>{074f8459-bab7-492f-979f-20ee1ea3b3e7}</Project>
       <Name>TsinghuaNet.UWP.Helper</Name>

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.UWP"
     xmlns:helper="using:TsinghuaNet.UWP.Helper"
+    xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -44,7 +45,7 @@
                 <mtuuc:DataGridTemplateColumn Header="连接类型" Width="120" Tag="Value">
                     <mtuuc:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="local:NetStateSsidBox">
-                            <TextBlock Margin="12,0" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetNetStateString(Value)}"/>
+                            <TextBlock Margin="12,0" VerticalAlignment="Center" Text="{x:Bind nethelper:StringHelper.GetNetStateString(Value)}"/>
                         </DataTemplate>
                     </mtuuc:DataGridTemplateColumn.CellTemplate>
                     <mtuuc:DataGridTemplateColumn.CellEditingTemplate>

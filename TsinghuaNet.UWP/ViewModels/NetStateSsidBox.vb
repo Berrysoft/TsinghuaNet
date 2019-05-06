@@ -1,4 +1,6 @@
-﻿Public NotInheritable Class NetStateSsidBox
+﻿Imports TsinghuaNet.Helper
+
+Public NotInheritable Class NetStateSsidBox
     Public Sub New(ssid As String, value As NetState)
         Me.Ssid = ssid
         Me.Value = value
