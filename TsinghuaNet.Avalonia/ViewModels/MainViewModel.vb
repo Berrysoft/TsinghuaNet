@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net.Http
 Imports System.Text
+Imports Avalonia.Threading
 Imports MvvmHelpers
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
@@ -135,9 +136,15 @@ Public Class MainViewModel
             Return _OnlineUser
         End Get
         Set(value As FluxUser)
-            SetProperty(_OnlineUser, value)
+            SetProperty(_OnlineUser, value, onChanged:=AddressOf OnOnlineUserChanged)
         End Set
     End Property
+    Private Sub OnOnlineUserChanged()
+        OnlineTimeTimer.Stop()
+        If Not String.IsNullOrEmpty(OnlineUser.Username) Then
+            OnlineTimeTimer.Start()
+        End If
+    End Sub
 
     Private _OnlineTime As TimeSpan
     Public Property OnlineTime As TimeSpan
@@ -148,6 +155,12 @@ Public Class MainViewModel
             SetProperty(_OnlineTime, value)
         End Set
     End Property
+
+    Friend OnlineTimeTimer As New DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.DataBind, AddressOf OnlineTimeTimer_Tick)
+
+    Private Sub OnlineTimeTimer_Tick(sender As Object, e As EventArgs)
+        OnlineTime += TimeSpan.FromSeconds(1)
+    End Sub
 
     Public ReadOnly Property LoginCommand As NetCommand = New LoginCommand(Me)
     Public ReadOnly Property LogoutCommand As NetCommand = New LogoutCommand(Me)
