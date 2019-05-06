@@ -4,7 +4,7 @@ Imports System.Net
 Imports System.Runtime.CompilerServices
 Imports CommandLine
 Imports CommandLine.Text
-Imports TsinghuaNet.CLI
+Imports TsinghuaNet.Helper
 
 Module VerbHelper
     <Extension>

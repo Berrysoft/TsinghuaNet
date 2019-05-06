@@ -1,17 +1,6 @@
-﻿Public Module UserHelper
-    Public Function GetNetStateString(state As NetState) As String
-        Select Case state
-            Case NetState.Net
-                Return "Net"
-            Case NetState.Auth4
-                Return "Auth4"
-            Case NetState.Auth6
-                Return "Auth6"
-            Case Else
-                Return "不登录"
-        End Select
-    End Function
+﻿Imports TsinghuaNet.Helper
 
+Public Module UserHelper
     Public Function GetInternetStatusString(status As InternetStatus) As String
         Select Case status
             Case InternetStatus.Wwan

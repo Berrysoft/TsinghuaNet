@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.Windows.Input
+Imports TsinghuaNet.Helper
 
 Public MustInherit Class NetCommand
     Implements ICommand
