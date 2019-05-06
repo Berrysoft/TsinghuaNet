@@ -4,19 +4,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.ConnectionWindow"
-        Width="360" Height="200" Title="管理连接" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="True" WindowStartupLocation="CenterScreen">
+        Width="320" Height="160" Title="管理连接" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="True" WindowStartupLocation="CenterScreen">
   <DataGrid Name="ConnectionView" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
     <DataGrid.Columns>
       <DataGridTextColumn Header="IP地址" Binding="{Binding Address}"/>
       <DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}"/>
       <DataGridTextColumn Header="客户端" Binding="{Binding Client}"/>
-      <DataGridTemplateColumn Header="操作">
-        <DataGridTemplateColumn.CellTemplate>
-          <DataTemplate>
-            <Button Margin="4" CommandParameter="{Binding Address}">下线</Button>
-          </DataTemplate>
-        </DataGridTemplateColumn.CellTemplate>
-      </DataGridTemplateColumn>
     </DataGrid.Columns>
+    <DataGrid.ContextMenu>
+      <ContextMenu>
+        <MenuItem Command="{Binding DropSelection}" Header="下线选中项"/>
+      </ContextMenu>
+    </DataGrid.ContextMenu>
   </DataGrid>
 </Window>
