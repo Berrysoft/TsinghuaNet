@@ -12,23 +12,27 @@ Public Class MainViewModel
 
     Private Const settingsFilename As String = "settings.json"
 
+    Private Shared Function GetSettings(json As JObject, key As String, def As JToken) As JToken
+        If json.ContainsKey(key) Then
+            Return json(key)
+        Else
+            Return def
+        End If
+    End Function
+
     Public Async Function LoadSettingsAsync() As Task
         If File.Exists(settingsFilename) Then
-            Try
-                Using stream As New StreamReader(settingsFilename)
-                    Using reader As New JsonTextReader(stream)
-                        Dim json = Await JObject.LoadAsync(reader)
-                        Username = json("username")
-                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(json("password")))
-                        State = CInt(json("state"))
-                        AutoLogin = CBool(json("autologin"))
-                        AutoSuggest = CBool(json("autosuggest"))
-                        UseTimer = CBool(json("usetimer"))
-                    End Using
+            Using stream As New StreamReader(settingsFilename)
+                Using reader As New JsonTextReader(stream)
+                    Dim json = Await JObject.LoadAsync(reader)
+                    Username = GetSettings(json, "username", String.Empty)
+                    Password = Encoding.UTF8.GetString(Convert.FromBase64String(GetSettings(json, "password", String.Empty)))
+                    State = CInt(GetSettings(json, "state", NetState.Unknown))
+                    AutoLogin = CBool(GetSettings(json, "autologin", True))
+                    AutoSuggest = CBool(GetSettings(json, "autosuggest", True))
+                    UseTimer = CBool(GetSettings(json, "usetimer", True))
                 End Using
-            Catch ex As Exception
-
-            End Try
+            End Using
         End If
         If AutoSuggest Then
             State = Await SuggestionHelper.GetSuggestion()
