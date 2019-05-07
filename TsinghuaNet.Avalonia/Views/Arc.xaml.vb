@@ -17,7 +17,7 @@ Public Class Arc
         AvaloniaXamlLoader.Load(Me)
     End Sub
 
-    Public Shared ReadOnly ThicknessProperty As AvaloniaProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Thickness))
+    Public Shared ReadOnly ThicknessProperty As StyledProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Thickness))
     Public Property Thickness As Double
         Get
             Return GetValue(ThicknessProperty)
@@ -27,7 +27,7 @@ Public Class Arc
         End Set
     End Property
 
-    Public Shared ReadOnly ValueProperty As AvaloniaProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Value))
+    Public Shared ReadOnly ValueProperty As StyledProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Value))
     Public Property Value As Double
         Get
             Return GetValue(ValueProperty)
@@ -37,7 +37,7 @@ Public Class Arc
         End Set
     End Property
 
-    Public Shared ReadOnly FillProperty As AvaloniaProperty(Of Brush) = AvaloniaProperty.Register(Of Arc, Brush)(NameOf(Fill))
+    Public Shared ReadOnly FillProperty As StyledProperty(Of Brush) = AvaloniaProperty.Register(Of Arc, Brush)(NameOf(Fill))
     Public Property Fill As Brush
         Get
             Return GetValue(FillProperty)
@@ -60,7 +60,7 @@ Public Class Arc
         Return dir * radius + origin
     End Function
 
-    Private Sub DrawArc() Handles Me.Initialized, Me.LayoutUpdated
+    Friend Sub DrawArc() Handles Me.Initialized, Me.LayoutUpdated
         Dim size As New Size(Width, Height)
         Dim length = Math.Min(size.Width, size.Height)
         Dim radius = Math.Abs((length - Thickness) / 2)
@@ -68,11 +68,14 @@ Public Class Arc
         Dim angle = GetAngle(Value)
         Dim circleStart As New Point(centerPoint.X, centerPoint.Y + radius)
         Dim ArcPath As Path = FindControl(Of Path)("ArcPath")
-        Dim ArcFigure As PathFigure = CType(ArcPath.Data, PathGeometry).Figures(0)
+        Dim ArcGeometry As PathGeometry = ArcPath.Data
+        Dim ArcFigure As PathFigure = ArcGeometry.Figures(0)
         Dim ArcFigureSegment As ArcSegment = ArcFigure.Segments(0)
         ArcFigureSegment.IsLargeArc = angle > Math.PI
         ArcFigureSegment.Point = ScaleUnitCirclePoint(centerPoint, radius, angle)
         ArcFigureSegment.Size = New Size(radius, radius)
         ArcFigure.StartPoint = circleStart
+        ArcGeometry.Figures.RemoveAt(0)
+        ArcGeometry.Figures.Add(ArcFigure)
     End Sub
 End Class
