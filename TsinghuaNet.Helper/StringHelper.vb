@@ -2,19 +2,20 @@
 
 Public Module StringHelper
     Public Function GetFluxString(flux As Long) As String
-        If flux < 1000 Then
-            Return $"{flux} B"
+        Dim f As Double = flux
+        If f < 1000 Then
+            Return $"{f} B"
         End If
-        flux /= 1000
-        If flux < 1000 Then
-            Return $"{flux:F2} KB"
+        f /= 1000
+        If f < 1000 Then
+            Return $"{f:F2} KB"
         End If
-        flux /= 1000
-        If flux < 1000 Then
-            Return $"{flux:F2} MB"
+        f /= 1000
+        If f < 1000 Then
+            Return $"{f:F2} MB"
         End If
-        flux /= 1000
-        Return $"{flux:F2} GB"
+        f /= 1000
+        Return $"{f:F2} GB"
     End Function
 
     Public Function GetCurrencyString(currency As Decimal) As String
