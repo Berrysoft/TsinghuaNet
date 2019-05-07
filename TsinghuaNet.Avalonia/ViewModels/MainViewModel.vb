@@ -199,7 +199,18 @@ Public Class MainViewModel
         End If
         OnlineUser = flux
         OnlineTime = flux.OnlineTime
+        FluxOffset = flux.Flux / 25000000000
     End Function
+
+    Private _FluxOffset As Double
+    Public Property FluxOffset As Double
+        Get
+            Return _FluxOffset
+        End Get
+        Set(value As Double)
+            SetProperty(_FluxOffset, value)
+        End Set
+    End Property
 
     Public ReadOnly Property ShowConnectionCommand As New ShowDialogCommand(Of ConnectionWindow)(Me)
     Public ReadOnly Property ShowDetailCommand As New ShowDialogCommand(Of DetailWindow)(Me)
