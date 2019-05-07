@@ -9,8 +9,8 @@ Public Class Arc
 
     Public Sub New()
         InitializeComponent()
-        AddHandler PropertyChanged, AddressOf OnSizeChanged
-        DataContext = Me
+        ThicknessProperty.Changed.Subscribe(AddressOf DrawArc)
+        ValueProperty.Changed.Subscribe(AddressOf DrawArc)
     End Sub
 
     Private Sub InitializeComponent()
@@ -27,7 +27,7 @@ Public Class Arc
         End Set
     End Property
 
-    Public Shared ReadOnly ValueProperty As AvaloniaProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Value), validate:=AddressOf CoerceValue)
+    Public Shared ReadOnly ValueProperty As AvaloniaProperty(Of Double) = AvaloniaProperty.Register(Of Arc, Double)(NameOf(Value))
     Public Property Value As Double
         Get
             Return GetValue(ValueProperty)
@@ -36,9 +36,6 @@ Public Class Arc
             SetValue(ValueProperty, value)
         End Set
     End Property
-    Private Shared Function CoerceValue(o As AvaloniaObject, e As Double) As Double
-        Return Math.Min(1, Math.Max(0, e))
-    End Function
 
     Public Shared ReadOnly FillProperty As AvaloniaProperty(Of Brush) = AvaloniaProperty.Register(Of Arc, Brush)(NameOf(Fill))
     Public Property Fill As Brush
@@ -49,13 +46,6 @@ Public Class Arc
             SetValue(FillProperty, value)
         End Set
     End Property
-
-    Private Sub OnSizeChanged(sender As Object, e As AvaloniaPropertyChangedEventArgs)
-        If e.Property.Name = NameOf(Thickness) OrElse e.Property.Name = NameOf(Value) Then
-            Dim a As Arc = sender
-            a.DrawArc()
-        End If
-    End Sub
 
     Private Shared Function GetAngle(value As Double) As Double
         Dim angle = value * 2 * Math.PI
@@ -70,7 +60,7 @@ Public Class Arc
         Return dir * radius + origin
     End Function
 
-    Private Sub DrawArc()
+    Private Sub DrawArc() Handles Me.Initialized, Me.LayoutUpdated
         Dim size As New Size(Width, Height)
         Dim length = Math.Min(size.Width, size.Height)
         Dim radius = Math.Abs((length - Thickness) / 2)

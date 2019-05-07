@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="TsinghuaNet.Avalonia.Arc">
-  <Path Name="ArcPath" Stroke="{Binding Fill}" StrokeThickness="{Binding Thickness}">
+  <Path DataContext="{Binding $parent}" Name="ArcPath" Stroke="{Binding Fill}" StrokeThickness="{Binding Thickness}">
     <Path.Data>
       <PathGeometry>
         <PathGeometry.Figures>
