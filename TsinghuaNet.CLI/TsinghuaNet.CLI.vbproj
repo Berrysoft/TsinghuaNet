@@ -27,7 +27,7 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview4.19212.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview5.19224.8" />
   </ItemGroup>
 
   <ItemGroup>

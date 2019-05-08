@@ -285,7 +285,7 @@
       <Version>1.4.1-beta</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.6.0-preview4.19212.13</Version>
+      <Version>4.6.0-preview5.19224.8</Version>
     </PackageReference>
     <PackageReference Include="WinRTXamlToolkit.Controls.DataVisualization.UWP">
       <Version>2.3.0</Version>
