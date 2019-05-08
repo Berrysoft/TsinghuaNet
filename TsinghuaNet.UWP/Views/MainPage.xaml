@@ -88,7 +88,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:UserHelper.GetInternetStatusString(Model.NetStatus,Model.Ssid),Mode=OneWay}"/>
+                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:InternetStatusHelper.GetInternetStatusString(Model.NetStatus,Model.Ssid),Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>

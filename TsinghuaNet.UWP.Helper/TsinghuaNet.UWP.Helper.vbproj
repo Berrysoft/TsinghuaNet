@@ -142,7 +142,7 @@
     <Compile Include="NotificationHelper.vb" />
     <Compile Include="SettingsHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="UserHelper.vb" />
+    <Compile Include="InternetStatusHelper.vb" />
     <EmbeddedResource Include="My Project\TsinghuaNet.UWP.Helper.rd.xml" />
   </ItemGroup>
   <ItemGroup>

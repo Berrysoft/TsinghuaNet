@@ -8,7 +8,7 @@ Public NotInheritable Class LoginTask
     Public Async Sub Run(taskInstance As IBackgroundTaskInstance) Implements IBackgroundTask.Run
         Dim deferral = taskInstance.GetDeferral()
         Try
-            Dim tuple = SettingsHelper.GetInternetStatus()
+            Dim tuple = InternetStatusHelper.GetInternetStatus()
             Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
             Dim un = SettingsHelper.StoredUsername
             Dim pw = CredentialHelper.GetCredential(un)

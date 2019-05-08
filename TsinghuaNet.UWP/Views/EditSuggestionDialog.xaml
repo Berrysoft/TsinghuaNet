@@ -22,15 +22,15 @@
     </ContentDialog.Resources>
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
+            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:InternetStatusHelper.GetInternetStatusString(helper:InternetStatus.Lan)}"/>
             <ComboBox x:Name="LanCombo" x:FieldModifier="Friend" Width="120" VerticalAlignment="Center" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
+            <TextBlock Margin="8" Width="120" VerticalAlignment="Center" Text="{x:Bind helper:InternetStatusHelper.GetInternetStatusString(helper:InternetStatus.Wwan)}"/>
             <ComboBox x:Name="WwanCombo" x:FieldModifier="Friend" Width="120" VerticalAlignment="Center" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="8" VerticalAlignment="Center" Text="{x:Bind helper:UserHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
+            <TextBlock Margin="8" VerticalAlignment="Center" Text="{x:Bind helper:InternetStatusHelper.GetInternetStatusString(helper:InternetStatus.Wlan)}"/>
             <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Add" ToolTipService.ToolTip="增加建议项" Click="AddSelection" AllowFocusOnInteraction="True"/>
             <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Delete" ToolTipService.ToolTip="删除选定项" Click="DeleteSelection"/>
             <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="恢复默认值" Click="RestoreSelection">

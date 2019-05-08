@@ -187,7 +187,7 @@ Public NotInheritable Class MainPage
     ''' 根据网络类型与SSID判断建议网络类型
     ''' </summary>
     Private Sub RefreshStatus()
-        Dim tuple = SettingsHelper.GetInternetStatus()
+        Dim tuple = InternetStatusHelper.GetInternetStatus()
         Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
         Model.NetStatus = tuple.Status
         Model.Ssid = tuple.Ssid

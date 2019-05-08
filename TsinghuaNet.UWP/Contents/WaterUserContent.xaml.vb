@@ -1,4 +1,4 @@
-﻿Imports TsinghuaNet.UWP.Helper
+﻿Imports TsinghuaNet.Helper
 
 Public NotInheritable Class WaterUserContent
     Inherits UserControl
@@ -17,9 +17,9 @@ Public NotInheritable Class WaterUserContent
         Dim content As WaterUserContent = d
         Dim flux As FluxUser = e.NewValue
         content.OnlineTime = flux.OnlineTime
-        Dim maxf = UserHelper.GetMaxFlux(flux.Flux, flux.Balance)
+        Dim maxf = FluxHelper.GetMaxFlux(flux.Flux, flux.Balance)
         content.FluxAnimation.To = flux.Flux / maxf
-        content.FreeAnimation.To = UserHelper.BaseFlux / maxf
+        content.FreeAnimation.To = FluxHelper.BaseFlux / maxf
     End Sub
 
     Public Shared ReadOnly OnlineTimeProperty As DependencyProperty = DependencyProperty.Register(NameOf(OnlineTime), GetType(TimeSpan), GetType(WaterUserContent), New PropertyMetadata(TimeSpan.Zero))

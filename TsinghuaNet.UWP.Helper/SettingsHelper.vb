@@ -1,5 +1,4 @@
 ﻿Imports System.Runtime.InteropServices
-Imports Windows.Networking.Connectivity
 Imports Windows.Storage
 Imports Newtonsoft.Json.Linq
 Imports TsinghuaNet.Helper
@@ -150,32 +149,6 @@ Public Module SettingsHelper
             {"Tsinghua-IPv4", NetState.Auth4},
             {"Wifi.郑裕彤讲堂", NetState.Net}
         }
-    End Function
-
-    Public Function InternetAvailable() As Boolean
-        Dim profile = NetworkInformation.GetInternetConnectionProfile()
-        If profile Is Nothing Then
-            Return False
-        End If
-        Return profile.GetNetworkConnectivityLevel() = NetworkConnectivityLevel.InternetAccess
-    End Function
-
-    Public Function GetInternetStatus() As (Status As InternetStatus, Ssid As String)
-        Dim profile = NetworkInformation.GetInternetConnectionProfile()
-        If profile Is Nothing Then
-            Return (InternetStatus.Unknown, Nothing)
-        End If
-        Dim cl = profile.GetNetworkConnectivityLevel()
-        If cl = NetworkConnectivityLevel.None Then
-            Return (InternetStatus.Unknown, Nothing)
-        End If
-        If profile.IsWwanConnectionProfile Then
-            Return (InternetStatus.Wwan, Nothing)
-        ElseIf profile.IsWlanConnectionProfile Then
-            Return (InternetStatus.Wlan, profile.WlanConnectionProfileDetails.GetConnectedSsid())
-        Else
-            Return (InternetStatus.Lan, Nothing)
-        End If
     End Function
 End Module
 

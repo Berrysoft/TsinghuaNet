@@ -49,7 +49,7 @@ Public Module NotificationHelper
                     StringHelper.GetFluxString(user.Flux),
                     user.OnlineTime.ToString(),
                     StringHelper.GetCurrencyString(user.Balance),
-                    StringHelper.GetFluxString(UserHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
+                    StringHelper.GetFluxString(FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
         Dim notification As New TileNotification(dom)
         notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(15)
         TileUpdateManager.CreateTileUpdaterForApplication().Update(notification)
