@@ -61,10 +61,10 @@ Public Class Arc
     End Function
 
     Friend Sub DrawArc() Handles Me.Initialized, Me.LayoutUpdated
-        Dim size As New Size(Width, Height)
-        Dim length = Math.Min(size.Width, size.Height)
+        Dim size As New Vector(Width, Height)
+        Dim length = Math.Min(size.X, size.Y)
         Dim radius = Math.Abs((length - Thickness) / 2)
-        Dim centerPoint As New Point(size.Width / 2, size.Height / 2)
+        Dim centerPoint As Point = size / 2
         Dim angle = GetAngle(Value)
         Dim circleStart As New Point(centerPoint.X, centerPoint.Y + radius)
         Dim ArcPath As Path = FindControl(Of Path)("ArcPath")
@@ -75,7 +75,9 @@ Public Class Arc
         ArcFigureSegment.Point = ScaleUnitCirclePoint(centerPoint, radius, angle)
         ArcFigureSegment.Size = New Size(radius, radius)
         ArcFigure.StartPoint = circleStart
-        ArcGeometry.Figures.RemoveAt(0)
+        ArcPath.Data = Nothing
         ArcGeometry.Figures.Add(ArcFigure)
+        ArcGeometry.Figures.RemoveAt(0)
+        ArcPath.Data = ArcGeometry
     End Sub
 End Class

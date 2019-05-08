@@ -38,7 +38,7 @@ namespace TsinghuaNet
         /// </summary>
         public decimal Balance { get; }
 
-        public static bool operator ==(FluxUser u1, FluxUser u2) => u1.Username == u2.Username;
+        public static bool operator ==(FluxUser u1, FluxUser u2) => u1.Username == u2.Username && u1.Flux == u2.Flux && u1.OnlineTime == u2.OnlineTime && u1.Balance == u2.Balance;
         public static bool operator !=(FluxUser u1, FluxUser u2) => !(u1 == u2);
 
         /// <summary>

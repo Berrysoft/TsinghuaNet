@@ -199,7 +199,7 @@ Public Class MainViewModel
         End If
         OnlineUser = flux
         OnlineTime = flux.OnlineTime
-        FluxOffset = flux.Flux / 25000000000
+        FluxOffset = flux.Flux / FluxHelper.GetMaxFlux(flux.Flux, flux.Balance)
     End Function
 
     Private _FluxOffset As Double
