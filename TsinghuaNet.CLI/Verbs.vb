@@ -87,7 +87,7 @@ Class LoginVerb
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
             Yield New Example("使用默认（自动判断）方式登录", New LoginVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
+            Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
         End Get
     End Property
 
@@ -109,7 +109,7 @@ Class LogoutVerb
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
             Yield New Example("使用默认（自动判断）方式注销，不需要用户名密码", New LogoutVerb())
-            Yield New Example("使用auth4方式注销，需要用户名密码", New LogoutVerb() With {.Host = "auth4", .Username = "用户名", .Password = "密码"})
+            Yield New Example("使用auth4方式注销，需要用户名密码", New LogoutVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
         End Get
     End Property
 
@@ -131,7 +131,7 @@ Class StatusVerb
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
             Yield New Example("使用默认（自动判断）方式", New StatusVerb())
-            Yield New Example("使用auth4方式", New StatusVerb() With {.Host = "auth4"})
+            Yield New Example("使用auth4方式", New StatusVerb() With {.Host = OptionNetState.Auth4})
         End Get
     End Property
 
@@ -214,9 +214,9 @@ Class DetailVerb
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
             Yield New Example("使用默认排序（注销时间，升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用登陆时间（升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "login"})
-            Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "flux", .Descending = True})
-            Yield New Example("使用流量降序查询明细，并按注销日期组合", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = "flux", .Descending = True, .Grouping = True})
+            Yield New Example("使用登陆时间（升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Login})
+            Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Flux, .Descending = True})
+            Yield New Example("使用流量降序查询明细，并按注销日期组合", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Flux, .Descending = True, .Grouping = True})
         End Get
     End Property
 
@@ -259,6 +259,13 @@ End Class
 <Verb("suggestion", HelpText:="获取建议的连接方式")>
 Class SuggestionVerb
     Inherits VerbBase
+
+    <Usage()>
+    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
+        Get
+            Yield New Example("获取建议", New SuggestionVerb())
+        End Get
+    End Property
 
     Public Overrides Async Function RunAsync() As Task
         Console.WriteLine(StringHelper.GetNetStateString(Await SuggestionHelper.GetSuggestion()))
