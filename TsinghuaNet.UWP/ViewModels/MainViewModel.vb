@@ -75,6 +75,26 @@ Public Class MainViewModel
         End Set
     End Property
 
+    Public Shared ReadOnly EnableFluxLimitProperty As DependencyProperty = DependencyProperty.Register(NameOf(EnableFluxLimit), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(False))
+    Public Property EnableFluxLimit As Boolean
+        Get
+            Return GetValue(EnableFluxLimitProperty)
+        End Get
+        Set(value As Boolean)
+            SetValue(EnableFluxLimitProperty, value)
+        End Set
+    End Property
+
+    Public Shared ReadOnly FluxLimitProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxLimit), GetType(Long), GetType(MainViewModel), New PropertyMetadata(20000000000))
+    Public Property FluxLimit As Long
+        Get
+            Return GetValue(FluxLimitProperty)
+        End Get
+        Set(value As Long)
+            SetValue(FluxLimitProperty, value)
+        End Set
+    End Property
+
     Public Shared ReadOnly StateProperty As DependencyProperty = DependencyProperty.Register(NameOf(State), GetType(NetState), GetType(MainViewModel), New PropertyMetadata(NetState.Unknown))
     Public Property State As NetState
         Get

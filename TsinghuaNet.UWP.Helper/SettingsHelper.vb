@@ -68,6 +68,7 @@ Public Module SettingsHelper
     Private Const WlanStateKey As String = "WlanState"
     Private Const ThemeKey As String = "Theme"
     Private Const ContentTypeKey As String = "UserContentType"
+    Private Const FluxLimitKey As String = "FluxLimit"
 
     Sub New()
         values = ApplicationData.Current.LocalSettings.Values
@@ -79,6 +80,7 @@ Public Module SettingsHelper
         WwanState = GetValue(Of Integer)(WwanStateKey, NetState.Unknown)
         Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
+        FluxLimit = GetValue(Of Long?)(FluxLimitKey, Nothing)
         Dim json As String = GetValue(Of String)(WlanStateKey)
         Dim jsonobj As JObject = Nothing
         If String.IsNullOrEmpty(json) OrElse (Not JsonExtensions.TryParse(json, jsonobj)) Then
@@ -97,6 +99,7 @@ Public Module SettingsHelper
         SetValue(Of Integer)(WwanStateKey, WwanState)
         SetValue(Of Integer)(ThemeKey, Theme)
         SetValue(Of Integer)(ContentTypeKey, ContentType)
+        SetValue(FluxLimitKey, FluxLimit)
         SetValue(WlanStateKey, GetJsonFromMap(WlanStates).ToString())
     End Sub
 
@@ -127,6 +130,8 @@ Public Module SettingsHelper
     Public Property Theme As UserTheme
 
     Public Property ContentType As UserContentType
+
+    Public Property FluxLimit As Long?
 
     Public Function SuggestNetState(status As InternetStatus, ssid As String) As NetState
         Select Case status

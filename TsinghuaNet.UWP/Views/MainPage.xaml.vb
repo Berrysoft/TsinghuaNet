@@ -40,7 +40,6 @@ Public NotInheritable Class MainPage
         ' 监视网络情况变化
         AddHandler NetworkHelper.Instance.NetworkChanged, AddressOf NetworkChanged
         ' 响应选项变化
-        Model.RegisterPropertyChangedCallback(MainViewModel.AutoLoginProperty, AddressOf AutoLoginChanged)
         Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundAutoLoginProperty, AddressOf BackgroundAutoLoginChanged)
         Model.RegisterPropertyChangedCallback(MainViewModel.BackgroundLiveTileProperty, AddressOf BackgroundLiveTileChanged)
     End Sub
@@ -49,8 +48,10 @@ Public NotInheritable Class MainPage
     ''' 保存设置
     ''' </summary>
     Friend Sub SaveSettings()
+        SettingsHelper.AutoLogin = Model.AutoLogin
         SettingsHelper.Theme = Model.SettingsTheme
         SettingsHelper.ContentType = Model.ContentType
+        SettingsHelper.FluxLimit = If(Model.EnableFluxLimit, CType(Model.FluxLimit, Long?), Nothing)
     End Sub
 
     ''' <summary>
@@ -71,6 +72,10 @@ Public NotInheritable Class MainPage
         If Await BackgroundHelper.RequestAccessAsync() Then
             BackgroundHelper.RegisterLogin(bal)
             BackgroundHelper.RegisterLiveTile(blt)
+        End If
+        If SettingsHelper.FluxLimit IsNot Nothing Then
+            Model.FluxLimit = SettingsHelper.FluxLimit
+            Model.EnableFluxLimit = True
         End If
         ' 上一次登录的用户名
         Dim un = SettingsHelper.StoredUsername
@@ -221,10 +226,6 @@ Public NotInheritable Class MainPage
         Await RefreshNetUsersImpl()
     End Sub
 
-    Private Sub AutoLoginChanged()
-        SettingsHelper.AutoLogin = Model.AutoLogin
-    End Sub
-
     Private Async Sub BackgroundAutoLoginChanged()
         SettingsHelper.BackgroundAutoLogin = Model.BackgroundAutoLogin
         If Await BackgroundHelper.RequestAccessAsync() Then
@@ -310,6 +311,9 @@ Public NotInheritable Class MainPage
         End If
         ' 更新磁贴
         NotificationHelper.UpdateTile(flux)
+        If Model.EnableFluxLimit Then
+            NotificationHelper.SendWarningToast(flux, Model.FluxLimit)
+        End If
         ' 设置内容
         Dim content As IUserContent = TryCast(Model.UserContent, IUserContent)
         If content IsNot Nothing Then

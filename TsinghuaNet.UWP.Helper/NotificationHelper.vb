@@ -5,6 +5,7 @@ Imports Windows.UI.Notifications
 Public Module NotificationHelper
     Private tileText As String
     Private toastText As String
+    Private toastWarningText As String
 
     Sub New()
         tileText = <![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -39,6 +40,16 @@ Public Module NotificationHelper
         </binding>
     </visual>
 </toast>]]>.Value
+        toastWarningText = <![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<toast>
+    <visual>
+        <binding template="ToastGeneric">
+            <text hint-maxLines="1">流量预警：{0}</text>
+            <text>流量：{1}</text>
+            <text>剩余：{2}</text>
+        </binding>
+    </visual>
+</toast>]]>.Value
     End Sub
 
     Public Sub UpdateTile(user As FluxUser)
@@ -65,5 +76,19 @@ Public Module NotificationHelper
         Dim notification As New ToastNotification(dom)
         notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1)
         ToastNotificationManager.CreateToastNotifier().Show(notification)
+    End Sub
+
+    Public Sub SendWarningToast(user As FluxUser, limit As Long)
+        If user.Flux > limit Then
+            Dim dom As New XmlDocument
+            dom.LoadXml(String.Format(
+                        toastWarningText,
+                        user.Username,
+                        StringHelper.GetFluxString(user.Flux),
+                        StringHelper.GetFluxString(FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux)))
+            Dim notification As New ToastNotification(dom)
+            notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1)
+            ToastNotificationManager.CreateToastNotifier().Show(notification)
+        End If
     End Sub
 End Module

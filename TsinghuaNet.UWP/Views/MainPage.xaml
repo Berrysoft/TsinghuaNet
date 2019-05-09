@@ -7,6 +7,7 @@
     xmlns:net="using:TsinghuaNet"
     xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:wc="using:WinRTXamlToolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -50,6 +51,8 @@
         <Storyboard x:Name="HideResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
+        <local:FluxNumericConverter x:Key="FluxNumericConverter"/>
+        <local:FluxStringConverter x:Key="FluxStringConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
         <SplitView.Content>
@@ -81,6 +84,11 @@
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
                         <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">流量不足警告</TextBlock>
+                        <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.EnableFluxLimit,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                    </StackPanel>
+                    <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxNumericConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshStatus"/>

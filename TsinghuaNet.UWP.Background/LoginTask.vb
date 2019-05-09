@@ -19,6 +19,9 @@ Public NotInheritable Class LoginTask
                     Dim user As FluxUser = Await helper.GetFluxAsync()
                     NotificationHelper.UpdateTile(user)
                     NotificationHelper.SendToast(user)
+                    If SettingsHelper.FluxLimit IsNot Nothing Then
+                        NotificationHelper.SendWarningToast(user, SettingsHelper.FluxLimit)
+                    End If
                 End Using
             End If
         Finally

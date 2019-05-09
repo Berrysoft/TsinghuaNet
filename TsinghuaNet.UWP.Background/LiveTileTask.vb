@@ -15,6 +15,9 @@ Public NotInheritable Class LiveTileTask
                 Using helper
                     Dim user As FluxUser = Await helper.GetFluxAsync()
                     NotificationHelper.UpdateTile(user)
+                    If SettingsHelper.FluxLimit IsNot Nothing Then
+                        NotificationHelper.SendWarningToast(user, SettingsHelper.FluxLimit)
+                    End If
                 End Using
             End If
         Finally
