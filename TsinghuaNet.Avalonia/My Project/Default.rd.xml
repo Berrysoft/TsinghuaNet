@@ -44,6 +44,8 @@
 
     <Assembly Name="Avalonia.Win32" Dynamic="Required All"/>
     <Assembly Name="Avalonia.X11" Dynamic="Required All"/>
+    <Assembly Name="Avalonia.Native" Dynamic="Required All"/>
+    <Assembly Name="Avalonia.OpenGL" Dynamic="Required All" MarshalDelegate="Required All"/>
 
     <Assembly Name="Avalonia.Direct2D1" Dynamic="Required All"/>
     <Assembly Name="SharpDX" Dynamic="Required All"/>

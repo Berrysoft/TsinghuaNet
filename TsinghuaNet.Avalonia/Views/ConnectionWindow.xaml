@@ -1,9 +1,9 @@
-﻿<Window xmlns="https://github.com/avaloniaui"
+<Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        x:Class="TsinghuaNet.Avalonia.ConnectionWindow"
+        x:Class="TsinghuaNet.Avalonia.ConnectionWindow" FontFamily="微软雅黑,苹方-简"
         Width="320" Height="160" Title="管理连接" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="True" WindowStartupLocation="CenterScreen">
   <DataGrid Name="ConnectionView" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
     <DataGrid.Columns>
