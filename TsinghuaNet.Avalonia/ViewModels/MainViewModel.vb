@@ -1,6 +1,8 @@
 ﻿Imports System.IO
 Imports System.Net.Http
 Imports System.Text
+Imports Avalonia
+Imports Avalonia.Media
 Imports Avalonia.Threading
 Imports MvvmHelpers
 Imports Newtonsoft.Json
@@ -28,9 +30,11 @@ Public Class MainViewModel
                     Username = GetSettings(json, "username", String.Empty)
                     Password = Encoding.UTF8.GetString(Convert.FromBase64String(GetSettings(json, "password", String.Empty)))
                     State = CInt(GetSettings(json, "state", NetState.Unknown))
-                    AutoLogin = CBool(GetSettings(json, "autologin", True))
-                    AutoSuggest = CBool(GetSettings(json, "autosuggest", True))
-                    UseTimer = CBool(GetSettings(json, "usetimer", True))
+                    AutoLogin = CBool(GetSettings(json, "autoLogin", True))
+                    AutoSuggest = CBool(GetSettings(json, "autoSuggest", True))
+                    UseTimer = CBool(GetSettings(json, "useTimer", True))
+                    EnableFluxLimit = CBool(GetSettings(json, "enableFluxLimit", True))
+                    FluxLimit = CDbl(GetSettings(json, "fluxLimit", 20.0))
                 End Using
             End Using
         End If
@@ -49,9 +53,11 @@ Public Class MainViewModel
         json("username") = If(Username, String.Empty)
         json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(Password, String.Empty)))
         json("state") = State
-        json("autologin") = AutoLogin
-        json("autosuggest") = AutoSuggest
-        json("usetimer") = UseTimer
+        json("autoLogin") = AutoLogin
+        json("autoSuggest") = AutoSuggest
+        json("useTimer") = UseTimer
+        json("enableFluxLimit") = EnableFluxLimit
+        json("fluxLimit") = FluxLimit
         Using stream As New StreamWriter(settingsFilename)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)
@@ -209,6 +215,49 @@ Public Class MainViewModel
         End Get
         Set(value As Double)
             SetProperty(_FluxOffset, value)
+            OnFluxOffsetChanged()
+        End Set
+    End Property
+    Private Sub OnFluxOffsetChanged()
+        If EnableFluxLimit Then
+            If OnlineUser.Flux > FluxLimit * 1000000000 Then
+                FluxFill = Brushes.Red
+                Return
+            End If
+        End If
+        Dim b As IBrush = Nothing
+        If Program.Selector.SelectedTheme.Style.TryGetResource("ThemeAccentBrush", b) Then
+            FluxFill = b
+        End If
+    End Sub
+
+    Private _FluxFill As IBrush
+    Public Property FluxFill As IBrush
+        Get
+            Return _FluxFill
+        End Get
+        Set(value As IBrush)
+            SetProperty(_FluxFill, value)
+        End Set
+    End Property
+
+    Private _EnableFluxLimit As Boolean
+    Public Property EnableFluxLimit As Boolean
+        Get
+            Return _EnableFluxLimit
+        End Get
+        Set(value As Boolean)
+            SetProperty(_EnableFluxLimit, value)
+        End Set
+    End Property
+
+    Public _FluxLimit As Double
+    Public Property FluxLimit As Double
+        Get
+            Return _FluxLimit
+        End Get
+        Set(value As Double)
+            SetProperty(_FluxLimit, value)
         End Set
     End Property
 

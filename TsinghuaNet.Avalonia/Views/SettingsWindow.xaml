@@ -13,6 +13,8 @@
           <CheckBox Margin="8" IsChecked="{Binding AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
           <CheckBox Margin="8" IsChecked="{Binding AutoSuggest,Mode=TwoWay}">自动判断连接方式（仅作参考）</CheckBox>
           <CheckBox Margin="8" IsChecked="{Binding UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
+          <CheckBox Margin="8" IsChecked="{Binding EnableFluxLimit,Mode=TwoWay}">流量不足预警</CheckBox>
+          <NumericUpDown Margin="32,0,8,8" IsEnabled="{Binding EnableFluxLimit,Mode=TwoWay}" Minimum="5" Maximum="30" Value="{Binding FluxLimit,Mode=TwoWay}"/>
         </StackPanel>
       </TabItem>
       <TabItem Header="主题设置">

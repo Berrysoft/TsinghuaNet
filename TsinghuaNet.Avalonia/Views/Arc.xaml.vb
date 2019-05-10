@@ -11,6 +11,7 @@ Public Class Arc
         InitializeComponent()
         ThicknessProperty.Changed.Subscribe(AddressOf DrawArc)
         ValueProperty.Changed.Subscribe(AddressOf DrawArc)
+        FillProperty.Changed.Subscribe(AddressOf DrawArc)
     End Sub
 
     Private Sub InitializeComponent()
@@ -37,12 +38,12 @@ Public Class Arc
         End Set
     End Property
 
-    Public Shared ReadOnly FillProperty As StyledProperty(Of Brush) = AvaloniaProperty.Register(Of Arc, Brush)(NameOf(Fill))
-    Public Property Fill As Brush
+    Public Shared ReadOnly FillProperty As StyledProperty(Of IBrush) = AvaloniaProperty.Register(Of Arc, IBrush)(NameOf(Fill))
+    Public Property Fill As IBrush
         Get
             Return GetValue(FillProperty)
         End Get
-        Set(value As Brush)
+        Set(value As IBrush)
             SetValue(FillProperty, value)
         End Set
     End Property

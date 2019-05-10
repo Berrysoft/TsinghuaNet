@@ -31,7 +31,7 @@
       <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding FailMessage}"/>
     </ScrollViewer>
     <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="1.0" Fill="{StaticResource ThemeBorderLowBrush}" Thickness="10"/>
-    <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="{Binding FluxOffset}" Fill="{StaticResource ThemeAccentBrush}" Thickness="10"/>
+    <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="{Binding FluxOffset}" Fill="{Binding FluxFill}" Thickness="10"/>
     <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}" IsDefault="True">登录</Button>
     <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
     <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
