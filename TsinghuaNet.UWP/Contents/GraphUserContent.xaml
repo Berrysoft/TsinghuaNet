@@ -13,7 +13,7 @@
     mc:Ignorable="d">
     <UserControl.Resources>
         <LinearGradientBrush x:Key="ChartBrush" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Offset="{x:Bind ChartBrushOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColor}"/>
+            <GradientStop Offset="{x:Bind ChartBrushOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
             <GradientStop Offset="{x:Bind ChartBrushOffset,Mode=OneWay}" Color="Transparent"/>
         </LinearGradientBrush>
         <Storyboard x:Name="ShowStoryboard">
