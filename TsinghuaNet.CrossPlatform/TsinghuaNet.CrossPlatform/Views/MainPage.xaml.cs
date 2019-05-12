@@ -20,7 +20,7 @@ namespace TsinghuaNet.CrossPlatform.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Info, (NavigationPage)Detail);
         }
 
         public async Task NavigateFromMenu(int id)

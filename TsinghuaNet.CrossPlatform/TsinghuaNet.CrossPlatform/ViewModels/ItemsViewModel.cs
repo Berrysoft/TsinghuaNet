@@ -17,7 +17,7 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
 
         public ItemsViewModel()
         {
-            Title = "Browse";
+            Title = "在线信息";
             Items = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 

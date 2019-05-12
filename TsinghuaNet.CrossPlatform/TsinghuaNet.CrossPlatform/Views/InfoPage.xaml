@@ -1,12 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TsinghuaNet.CrossPlatform.Views.InfoPage">
+             x:Class="TsinghuaNet.CrossPlatform.Views.InfoPage"
+             Title="{Binding Title}">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Margin="8">用户：</Label>
+            <Label Grid.Column="1" Grid.Row="0" Margin="8"/>
+            <Label Grid.Column="2" Grid.Row="0" Margin="8">时长：</Label>
+            <Label Grid.Column="3" Grid.Row="0" Margin="8"/>
+            <Label Grid.Column="0" Grid.Row="1" Margin="8">流量：</Label>
+            <Label Grid.Column="1" Grid.Row="1" Margin="8"/>
+            <Label Grid.Column="2" Grid.Row="1" Margin="8">余额：</Label>
+            <Label Grid.Column="3" Grid.Row="1" Margin="8"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
