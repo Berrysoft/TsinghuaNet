@@ -16,6 +16,7 @@ namespace TsinghuaNet.CrossPlatform.MacOS
             var rect = new CoreGraphics.CGRect(500, 500, 600, 600);
             window = new NSWindow(rect, style, NSBackingStore.Buffered, false);
             window.Title = "清华大学校园网客户端";
+			window.TitleVisibility = NSWindowTitleVisibility.Hidden;
         }
 
         public override NSWindow MainWindow => window;
