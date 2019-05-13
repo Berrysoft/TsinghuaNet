@@ -13,7 +13,7 @@ namespace TsinghuaNet.CrossPlatform.MacOS
         {
             var style = NSWindowStyle.Closable | NSWindowStyle.Resizable | NSWindowStyle.Titled;
 
-            var rect = new CoreGraphics.CGRect(200, 1000, 300, 400);
+            var rect = new CoreGraphics.CGRect(500, 500, 600, 600);
             window = new NSWindow(rect, style, NSBackingStore.Buffered, false);
             window.Title = "";
             window.TitleVisibility = NSWindowTitleVisibility.Hidden;
