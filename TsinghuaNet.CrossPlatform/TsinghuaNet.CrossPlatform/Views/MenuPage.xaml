@@ -10,7 +10,7 @@
                 <DataTemplate>
                     <ViewCell>
                         <Grid Padding="16">
-                            <Label Text="{Binding Title}"/>
+                            <Label Text="{Binding Title}" Style="{DynamicResource ListItemTextStyle}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

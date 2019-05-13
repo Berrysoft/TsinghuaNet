@@ -19,17 +19,17 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0">用户：</Label>
-            <Label Grid.Column="1" Grid.Row="0" Text="{Binding OnlineUser.Username}"/>
-            <Label Grid.Column="2" Grid.Row="0">时长：</Label>
-            <Label Grid.Column="3" Grid.Row="0" Text="{Binding OnlineTime,StringFormat='{0}'}"/>
-            <Label Grid.Column="0" Grid.Row="1">流量：</Label>
-            <Label Grid.Column="1" Grid.Row="1" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
-            <Label Grid.Column="2" Grid.Row="1">余额：</Label>
-            <Label Grid.Column="3" Grid.Row="1" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
+            <Label Grid.Column="0" Grid.Row="0" Style="{DynamicResource BodyStyle}">用户：</Label>
+            <Label Grid.Column="1" Grid.Row="0" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Username}"/>
+            <Label Grid.Column="2" Grid.Row="0" Style="{DynamicResource BodyStyle}">时长：</Label>
+            <Label Grid.Column="3" Grid.Row="0" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineTime,StringFormat='{0}'}"/>
+            <Label Grid.Column="0" Grid.Row="1" Style="{DynamicResource BodyStyle}">流量：</Label>
+            <Label Grid.Column="1" Grid.Row="1" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
+            <Label Grid.Column="2" Grid.Row="1" Style="{DynamicResource BodyStyle}">余额：</Label>
+            <Label Grid.Column="3" Grid.Row="1" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
         </Grid>
         <StackLayout Orientation="Horizontal" Padding="8">
-            <Label VerticalOptions="Center">使用Auth4</Label>
+            <Label VerticalOptions="Center" Style="{DynamicResource BodyStyle}">使用Auth4</Label>
             <Switch VerticalOptions="Center" IsToggled="{Binding UseAuth4,Mode=TwoWay}"/>
         </StackLayout>
         <Grid>

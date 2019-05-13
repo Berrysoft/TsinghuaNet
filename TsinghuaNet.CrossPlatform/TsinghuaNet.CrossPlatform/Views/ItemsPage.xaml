@@ -21,7 +21,7 @@
                         <StackLayout Padding="16">
                             <Label Text="{Binding Client}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
                             <Label Text="{Binding Address,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
-                            <Label Text="{Binding LoginTime}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <Label Text="{Binding LoginTime,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

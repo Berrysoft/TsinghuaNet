@@ -7,9 +7,9 @@
         <ToolbarItem Text="下线"/>
     </ContentPage.ToolbarItems>
     <StackLayout Padding="16">
-        <Label Text="IP地址：" FontSize="Medium" />
-        <Label Text="{Binding Item.Address,StringFormat='{0}'}" FontSize="Small"/>
-        <Label Text="登录时间：" FontSize="Medium" />
-        <Label Text="{Binding Item.LoginTime}" FontSize="Small"/>
+        <Label Style="{DynamicResource BodyStyle}" FontAttributes="Bold" Text="IP地址："/>
+        <Label Style="{DynamicResource BodyStyle}" Text="{Binding Item.Address,StringFormat='{0}'}"/>
+        <Label Style="{DynamicResource BodyStyle}" FontAttributes="Bold" Text="登录时间："/>
+        <Label Style="{DynamicResource BodyStyle}" Text="{Binding Item.LoginTime,StringFormat='{0}'}"/>
     </StackLayout>
 </ContentPage>

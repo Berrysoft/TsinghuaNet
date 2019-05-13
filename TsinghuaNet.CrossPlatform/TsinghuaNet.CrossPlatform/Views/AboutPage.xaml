@@ -19,7 +19,7 @@
 
     <ScrollView>
         <StackLayout Orientation="Vertical" Padding="16">
-            <Label FontSize="22">
+            <Label Style="{DynamicResource TitleStyle}">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
@@ -30,7 +30,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Label>
+            <Label Style="{DynamicResource BodyStyle}">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
@@ -41,7 +41,7 @@
                     </FormattedString>
                 </Label.FormattedText>
             </Label>
-            <Label>
+            <Label Style="{DynamicResource BodyStyle}">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
