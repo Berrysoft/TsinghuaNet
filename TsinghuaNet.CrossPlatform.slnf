@@ -7,6 +7,7 @@
       "TsinghuaNet.CrossPlatform\\TsinghuaNet.CrossPlatform.iOS\\TsinghuaNet.CrossPlatform.iOS.csproj",
       "TsinghuaNet.CrossPlatform\\TsinghuaNet.CrossPlatform.MacOS\\TsinghuaNet.CrossPlatform.MacOS.csproj",
       "TsinghuaNet.CrossPlatform\\TsinghuaNet.CrossPlatform.Wpf\\TsinghuaNet.CrossPlatform.Wpf.vbproj",
+      "TsinghuaNet.CrossPlatform\\TsinghuaNet.CrossPlatform.Gtk\\TsinghuaNet.CrossPlatform.Gtk.vbproj",
       "TsinghuaNet\\TsinghuaNet.csproj"
     ]
   }
