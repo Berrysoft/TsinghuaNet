@@ -13,6 +13,7 @@ namespace TsinghuaNet.CrossPlatform
             InitializeComponent();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             DependencyService.Register<NetCredential>();
+            DependencyService.Register<NetSettings>();
             MainPage = new MainPage();
         }
 

@@ -30,6 +30,7 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
             {
                 Items.Clear();
                 var helper = Credential.GetUseregHelper();
+                await helper.LoginAsync();
                 var items = await helper.GetUsersAsync();
                 Items.AddRange(items);
             }

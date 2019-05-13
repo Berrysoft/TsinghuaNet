@@ -4,8 +4,6 @@ using Xamarin.Forms;
 
 namespace TsinghuaNet.CrossPlatform.Views
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class ItemsPage : ContentPage
     {
@@ -20,11 +18,11 @@ namespace TsinghuaNet.CrossPlatform.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = (NetUser)args.SelectedItem;
+            var item = args.SelectedItem as NetUser?;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item.Value)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;

@@ -19,14 +19,9 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="10">
-                            <Label Text="{Binding Address}" 
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
-                            <Label Text="{Binding LoginTime}" 
-                                LineBreakMode="NoWrap"
-                                Style="{DynamicResource ListItemDetailTextStyle}"
-                                FontSize="13" />
+                            <Label Text="{Binding Client}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                            <Label Text="{Binding Address,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                            <Label Text="{Binding LoginTime}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

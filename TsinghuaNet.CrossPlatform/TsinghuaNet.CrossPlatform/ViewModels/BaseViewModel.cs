@@ -7,6 +7,7 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
     public class BaseViewModel : ObservableObject
     {
         public NetCredential Credential => DependencyService.Get<NetCredential>() ?? new NetCredential();
+        public NetSettings Settings => DependencyService.Get<NetSettings>() ?? new NetSettings();
 
         bool isBusy = false;
         public bool IsBusy

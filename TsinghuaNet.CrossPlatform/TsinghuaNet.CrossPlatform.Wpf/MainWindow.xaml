@@ -6,4 +6,4 @@
         xmlns:local="clr-namespace:TsinghuaNet.CrossPlatform.Wpf"
         xmlns:wpf="clr-namespace:Xamarin.Forms.Platform.WPF;assembly=Xamarin.Forms.Platform.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="300" WindowStartupLocation="CenterScreen"/>
+        Title="MainWindow" Height="600" Width="450" WindowStartupLocation="CenterScreen"/>

@@ -3,12 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TsinghuaNet.CrossPlatform.Views.ItemDetailPage"
              Title="{Binding Title}">
-
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="下线"/>
+    </ContentPage.ToolbarItems>
     <StackLayout Spacing="20" Padding="15">
         <Label Text="IP地址：" FontSize="Medium" />
-        <Label Text="{Binding Item.Address}" FontSize="Small"/>
+        <Label Text="{Binding Item.Address,StringFormat='{0}'}" FontSize="Small"/>
         <Label Text="登录时间：" FontSize="Medium" />
         <Label Text="{Binding Item.LoginTime}" FontSize="Small"/>
     </StackLayout>
-
 </ContentPage>

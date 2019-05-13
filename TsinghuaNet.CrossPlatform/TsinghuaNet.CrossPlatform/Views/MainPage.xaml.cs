@@ -6,12 +6,10 @@ using Xamarin.Forms;
 
 namespace TsinghuaNet.CrossPlatform.Views
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(true)]
     public partial class MainPage : MasterDetailPage
     {
-        Dictionary<int, NavigationPage> MenuPages = new Dictionary<int, NavigationPage>();
+        Dictionary<MenuItemType, NavigationPage> MenuPages = new Dictionary<MenuItemType, NavigationPage>();
         public MainPage()
         {
             InitializeComponent();
@@ -19,19 +17,22 @@ namespace TsinghuaNet.CrossPlatform.Views
             MenuPages.Add((int)MenuItemType.Info, (NavigationPage)Detail);
         }
 
-        public async Task NavigateFromMenu(int id)
+        public async Task NavigateFromMenu(MenuItemType id)
         {
             if (!MenuPages.ContainsKey(id))
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Info:
+                    case MenuItemType.Info:
                         MenuPages.Add(id, new NavigationPage(new InfoPage()));
                         break;
-                    case (int)MenuItemType.Browse:
+                    case MenuItemType.Browse:
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
-                    case (int)MenuItemType.About:
+                    case MenuItemType.Settings:
+                        MenuPages.Add(id, new NavigationPage(new SettingsPage()));
+                        break;
+                    case MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
                 }
