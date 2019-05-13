@@ -18,7 +18,7 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <StackLayout Orientation="Vertical" Padding="16" Spacing="8">
+        <StackLayout Orientation="Vertical" Padding="16">
             <Label FontSize="22">
                 <Label.FormattedText>
                     <FormattedString>

@@ -7,7 +7,7 @@
     <ContentPage.BindingContext>
         <vm:SettingsViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout Orientation="Vertical" Padding="8">
+    <StackLayout Orientation="Vertical" Padding="16">
         <StackLayout Orientation="Horizontal">
             <Label VerticalOptions="Center">当前用户：</Label>
             <Label VerticalOptions="Center" Text="{Binding Credential.Username}"/>

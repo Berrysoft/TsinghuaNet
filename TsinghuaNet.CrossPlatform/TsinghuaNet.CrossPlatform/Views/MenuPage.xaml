@@ -9,8 +9,8 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid Padding="10">
-                            <Label Text="{Binding Title}" FontSize="20"/>
+                        <Grid Padding="16">
+                            <Label Text="{Binding Title}"/>
                         </Grid>
                     </ViewCell>
                 </DataTemplate>

@@ -6,7 +6,7 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="下线"/>
     </ContentPage.ToolbarItems>
-    <StackLayout Spacing="20" Padding="15">
+    <StackLayout Padding="16">
         <Label Text="IP地址：" FontSize="Medium" />
         <Label Text="{Binding Item.Address,StringFormat='{0}'}" FontSize="Small"/>
         <Label Text="登录时间：" FontSize="Medium" />
