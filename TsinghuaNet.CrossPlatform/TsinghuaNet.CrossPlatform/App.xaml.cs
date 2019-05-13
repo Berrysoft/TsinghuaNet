@@ -1,6 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 using TsinghuaNet.CrossPlatform.Services;
 using TsinghuaNet.CrossPlatform.Views;
 
@@ -13,7 +11,7 @@ namespace TsinghuaNet.CrossPlatform
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            DependencyService.Register<NetCredential>();
             MainPage = new MainPage();
         }
 
