@@ -139,7 +139,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.csproj">
-      <Project>{4A884906-198D-47C4-A697-92CC5DA95CFA}</Project>
+      <Project>{8219A318-8A10-40D2-901A-5604C713DA43}</Project>
       <Name>TsinghuaNet.CrossPlatform</Name>
     </ProjectReference>
   </ItemGroup>

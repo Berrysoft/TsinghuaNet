@@ -12,6 +12,9 @@
     <Copyright>Copyright (c) 2019 Berrysoft</Copyright>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineDebug>false</DefineDebug>
+  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>

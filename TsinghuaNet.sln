@@ -11,17 +11,19 @@ Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.UWP.Helper", "T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TsinghuaNet", "TsinghuaNet\TsinghuaNet.csproj", "{198A7897-55A9-43DC-9455-84270A46960F}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.CLI", "TsinghuaNet.CLI\TsinghuaNet.CLI.vbproj", "{DAED6770-EC0D-47B3-95B2-60FC9B559073}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.CLI", "TsinghuaNet.CLI\TsinghuaNet.CLI.vbproj", "{DAED6770-EC0D-47B3-95B2-60FC9B559073}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Avalonia", "TsinghuaNet.Avalonia\TsinghuaNet.Avalonia.vbproj", "{F6516399-8399-4A50-AFCE-FA88305D8FD8}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.Avalonia", "TsinghuaNet.Avalonia\TsinghuaNet.Avalonia.vbproj", "{F6516399-8399-4A50-AFCE-FA88305D8FD8}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Helper", "TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj", "{28ACFD31-7997-4362-AC8E-2F74D425B121}"
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.Helper", "TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj", "{28ACFD31-7997-4362-AC8E-2F74D425B121}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.CrossPlatform.iOS", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.iOS\TsinghuaNet.CrossPlatform.iOS.csproj", "{88A70EB7-B929-4C6C-98A1-FCC68048B202}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.CrossPlatform", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.csproj", "{8219A318-8A10-40D2-901A-5604C713DA43}"
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.CrossPlatform.Wpf", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.Wpf\TsinghuaNet.CrossPlatform.Wpf.vbproj", "{3A36C9A6-47D5-4487-927D-492D7E560EE6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.CrossPlatform.MacOS", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.MacOS\TsinghuaNet.CrossPlatform.MacOS.csproj", "{5407A906-0362-41F7-BADD-841C8F4E0D68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -315,6 +317,34 @@ Global
 		{3A36C9A6-47D5-4487-927D-492D7E560EE6}.Release|x64.Build.0 = Release|Any CPU
 		{3A36C9A6-47D5-4487-927D-492D7E560EE6}.Release|x86.ActiveCfg = Release|Any CPU
 		{3A36C9A6-47D5-4487-927D-492D7E560EE6}.Release|x86.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|ARM.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|x64.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Debug|x86.Build.0 = Debug|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|ARM.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|ARM.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|ARM64.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|iPhone.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|x64.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|x64.Build.0 = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|x86.ActiveCfg = Release|Any CPU
+		{5407A906-0362-41F7-BADD-841C8F4E0D68}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

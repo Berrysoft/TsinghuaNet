@@ -25,6 +25,9 @@
     <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DefineDebug>false</DefineDebug>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Update="**\*.xaml.vb">
       <DependentUpon>%(Filename)</DependentUpon>
