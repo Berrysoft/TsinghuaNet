@@ -52,6 +52,7 @@
     <HttpClientHandler>HttpClientHandler</HttpClientHandler>
     <XamMacArch></XamMacArch>
     <AOTMode>None</AOTMode>
+    <I18n>cjk</I18n>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
