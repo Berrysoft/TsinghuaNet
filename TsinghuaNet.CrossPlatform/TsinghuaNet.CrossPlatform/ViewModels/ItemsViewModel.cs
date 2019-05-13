@@ -1,30 +1,22 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using MvvmHelpers;
 using Xamarin.Forms;
-using TsinghuaNet.CrossPlatform.Models;
-using TsinghuaNet.CrossPlatform.Views;
 
 namespace TsinghuaNet.CrossPlatform.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        public ObservableCollection<Item> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public ObservableRangeCollection<NetUser> Items { get; set; }
+        public ICommand LoadItemsCommand { get; set; }
 
         public ItemsViewModel()
         {
             Title = "在线信息";
-            Items = new ObservableCollection<Item>();
+            Items = new ObservableRangeCollection<NetUser>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-
-            MessagingCenter.Subscribe<NewItemPage, Item>(this, "AddItem", (obj, item) =>
-            {
-                var newItem = item as Item;
-                Items.Add(newItem);
-                //await DataStore.AddItemAsync(newItem);
-            });
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -37,11 +29,9 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
             try
             {
                 Items.Clear();
-                //var items = await DataStore.GetItemsAsync(true);
-                //foreach (var item in items)
-                //{
-                //    Items.Add(item);
-                //}
+                var helper = Credential.GetUseregHelper();
+                var items = await helper.GetUsersAsync();
+                Items.AddRange(items);
             }
             catch (Exception ex)
             {

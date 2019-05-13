@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TsinghuaNet.Helper;
@@ -41,6 +42,10 @@ namespace TsinghuaNet.CrossPlatform.Services
             {
                 var helper = credential.GetHelper();
                 await executor(helper);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
             }
             finally
             {

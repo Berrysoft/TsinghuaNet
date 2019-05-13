@@ -1,11 +1,6 @@
-﻿using System;
-using System.ComponentModel;
-
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
-using TsinghuaNet.CrossPlatform.Models;
+﻿using System.ComponentModel;
 using TsinghuaNet.CrossPlatform.ViewModels;
+using Xamarin.Forms;
 
 namespace TsinghuaNet.CrossPlatform.Views
 {
@@ -21,20 +16,6 @@ namespace TsinghuaNet.CrossPlatform.Views
             InitializeComponent();
 
             BindingContext = this.viewModel = viewModel;
-        }
-
-        public ItemDetailPage()
-        {
-            InitializeComponent();
-
-            var item = new Item
-            {
-                Text = "Item 1",
-                Description = "This is an item description."
-            };
-
-            viewModel = new ItemDetailViewModel(item);
-            BindingContext = viewModel;
         }
     }
 }

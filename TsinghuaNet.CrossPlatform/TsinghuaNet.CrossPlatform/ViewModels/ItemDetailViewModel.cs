@@ -1,15 +1,11 @@
-﻿using System;
-
-using TsinghuaNet.CrossPlatform.Models;
-
-namespace TsinghuaNet.CrossPlatform.ViewModels
+﻿namespace TsinghuaNet.CrossPlatform.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Item Item { get; set; }
-        public ItemDetailViewModel(Item item = null)
+        public NetUser Item { get; set; }
+        public ItemDetailViewModel(NetUser item = default)
         {
-            Title = item?.Text;
+            Title = item.Client;
             Item = item;
         }
     }

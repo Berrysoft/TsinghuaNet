@@ -5,10 +5,10 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Item.Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Item.Description}" FontSize="Small"/>
+        <Label Text="IP地址：" FontSize="Medium" />
+        <Label Text="{Binding Item.Address}" FontSize="Small"/>
+        <Label Text="登录时间：" FontSize="Medium" />
+        <Label Text="{Binding Item.LoginTime}" FontSize="Small"/>
     </StackLayout>
-    
+
 </ContentPage>
