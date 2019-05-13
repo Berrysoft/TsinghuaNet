@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Text;
+using Xamarin.Forms;
 using TsinghuaNet.CrossPlatform.Services;
 using TsinghuaNet.CrossPlatform.Views;
 
@@ -10,7 +11,7 @@ namespace TsinghuaNet.CrossPlatform
         public App()
         {
             InitializeComponent();
-
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             DependencyService.Register<NetCredential>();
             MainPage = new MainPage();
         }
