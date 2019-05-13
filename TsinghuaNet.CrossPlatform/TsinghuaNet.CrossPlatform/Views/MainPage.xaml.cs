@@ -1,10 +1,8 @@
-﻿using TsinghuaNet.CrossPlatform.Models;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
+using TsinghuaNet.CrossPlatform.Models;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace TsinghuaNet.CrossPlatform.Views
 {
@@ -17,8 +15,6 @@ namespace TsinghuaNet.CrossPlatform.Views
         public MainPage()
         {
             InitializeComponent();
-
-            MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Info, (NavigationPage)Detail);
         }

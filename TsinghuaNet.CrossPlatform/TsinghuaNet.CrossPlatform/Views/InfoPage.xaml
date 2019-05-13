@@ -5,26 +5,40 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Margin="8">用户：</Label>
-            <Label Grid.Column="1" Grid.Row="0" Margin="8" Text="{Binding OnlineUser.Username}"/>
-            <Label Grid.Column="2" Grid.Row="0" Margin="8">时长：</Label>
-            <Label Grid.Column="3" Grid.Row="0" Margin="8" Text="{Binding OnlineTime}"/>
-            <Label Grid.Column="0" Grid.Row="1" Margin="8">流量：</Label>
-            <Label Grid.Column="1" Grid.Row="1" Margin="8" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
-            <Label Grid.Column="2" Grid.Row="1" Margin="8">余额：</Label>
-            <Label Grid.Column="3" Grid.Row="1" Margin="8" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
+            <StackLayout Grid.Row="0" Orientation="Horizontal" Padding="8">
+                <Label VerticalOptions="Center">使用Auth4</Label>
+                <Switch VerticalOptions="Center" IsToggled="{Binding UseAuth4,Mode=TwoWay}"/>
+            </StackLayout>
+            <Grid Grid.Row="1" VerticalOptions="CenterAndExpand" Padding="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">用户：</Label>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding OnlineUser.Username}"/>
+                <Label Grid.Column="2" Grid.Row="0">时长：</Label>
+                <Label Grid.Column="3" Grid.Row="0" Text="{Binding OnlineTime,StringFormat='{0}'}"/>
+                <Label Grid.Column="0" Grid.Row="1">流量：</Label>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
+                <Label Grid.Column="2" Grid.Row="1">余额：</Label>
+                <Label Grid.Column="3" Grid.Row="1" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
+            </Grid>
+            <Button Margin="8" Grid.Row="2" Command="{Binding RefreshCommand}" Text="刷新"/>
+            <Button Margin="8" Grid.Row="3" Command="{Binding LoginCommand}" Text="登录"/>
+            <Button Margin="8" Grid.Row="4" Command="{Binding LogoutCommand}" Text="注销"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
