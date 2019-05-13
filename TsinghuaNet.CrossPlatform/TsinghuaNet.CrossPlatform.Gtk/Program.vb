@@ -1,9 +1,11 @@
+Imports System.Text
 Imports Xamarin.Forms
 Imports Xamarin.Forms.Platform.GTK
 
 Module Program
     <STAThread>
     Sub Main()
+        Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
         Global.Gtk.Application.Init()
         Forms.Init()
 
