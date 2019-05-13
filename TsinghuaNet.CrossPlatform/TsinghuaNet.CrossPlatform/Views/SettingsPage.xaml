@@ -9,8 +9,8 @@
     </ContentPage.BindingContext>
     <StackLayout Orientation="Vertical" Padding="16">
         <StackLayout Orientation="Horizontal">
-            <Label VerticalOptions="Center">当前用户：</Label>
-            <Label VerticalOptions="Center" Text="{Binding Credential.Username}"/>
+            <Label VerticalOptions="Center" Style="{DynamicResource BodyStyle}">当前用户：</Label>
+            <Label VerticalOptions="Center" Style="{DynamicResource BodyStyle}" Text="{Binding Credential.Username}"/>
             <Button Clicked="ChangeCredential" WidthRequest="80" Text="更改"/>
         </StackLayout>
     </StackLayout>
