@@ -35,4 +35,25 @@ Public Module StringHelper
                 Return "不登录"
         End Select
     End Function
+
+    Public Function GetNetStatusString(status As NetStatus) As String
+        Select Case status
+            Case NetStatus.Wwan
+                Return "移动流量"
+            Case NetStatus.Wlan
+                Return "无线网络"
+            Case NetStatus.Lan
+                Return "有线网络"
+            Case Else
+                Return "未连接"
+        End Select
+    End Function
+
+    Public Function GetNetStatusString(status As NetStatus, ssid As String) As String
+        If String.IsNullOrEmpty(ssid) Then
+            Return GetNetStatusString(status)
+        Else
+            Return $"{GetNetStatusString(status)} - {ssid}"
+        End If
+    End Function
 End Module
