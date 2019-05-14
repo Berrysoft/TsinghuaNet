@@ -13,16 +13,29 @@ Public Class NetModel
         End Set
     End Property
 
+    Private _SuggestState As NetState
+    Public Property SuggestState As NetState
+        Get
+            Return _SuggestState
+        End Get
+        Set(value As NetState)
+            SetProperty(_SuggestState, value)
+        End Set
+    End Property
+
     Public ReadOnly Property RefreshStatusCommand As ICommand = New Command(AddressOf RefreshStatus)
-    Private Async Sub RefreshStatus()
+    Public Async Sub RefreshStatus()
+        Await RefreshStatusAsync()
+    End Sub
+    Public Async Function RefreshStatusAsync() As Task
         Try
             IsBusy = True
             Await Status.RefreshAsync()
-            Credential.State = Await Status.SuggestAsync()
+            SuggestState = Await Status.SuggestAsync()
         Finally
             IsBusy = False
         End Try
-    End Sub
+    End Function
 
     Private _OnlineUser As FluxUser
     Public Property OnlineUser As FluxUser
@@ -34,32 +47,59 @@ Public Class NetModel
         End Set
     End Property
 
+    Friend Async Function NetCommandExecuteAsync(executor As Func(Of IConnect, Task(Of LogResponse))) As Task
+        If IsBusy Then
+            Return
+        End If
+        Try
+            IsBusy = True
+            Dim helper = Credential.GetHelper()
+            Await executor(helper)
+        Finally
+            IsBusy = False
+        End Try
+    End Function
+
     Public ReadOnly Property LoginCommand As ICommand = New NetCommand(Me, AddressOf LoginAsync)
-    Private Async Function LoginAsync(helper As IConnect) As Task(Of LogResponse)
+    Protected Overridable Async Function LoginAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res As New LogResponse(True, "登录成功")
         If helper IsNot Nothing Then
-            Dim res = Await helper.LoginAsync()
-            If Not res.Succeed Then
-                Return res
+            Dim r = Await helper.LoginAsync()
+            If Not r.Succeed Then
+                res = r
             End If
         End If
         Await RefreshAsync(helper)
-        Return New LogResponse(True, "登录成功")
+        Return res
     End Function
+    Public Function LoginAsync() As Task
+        Return NetCommandExecuteAsync(AddressOf LoginAsync)
+    End Function
+    Public Async Sub Login()
+        Await LoginAsync()
+    End Sub
 
     Public ReadOnly Property LogoutCommand As ICommand = New NetCommand(Me, AddressOf LogoutAsync)
-    Private Async Function LogoutAsync(helper As IConnect) As Task(Of LogResponse)
+    Protected Overridable Async Function LogoutAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res As New LogResponse(True, "注销成功")
         If helper IsNot Nothing Then
-            Dim res = Await helper.LogoutAsync()
-            If Not res.Succeed Then
-                Return res
+            Dim r = Await helper.LogoutAsync()
+            If Not r.Succeed Then
+                res = r
             End If
         End If
         Await RefreshAsync(helper)
-        Return New LogResponse(True, "注销成功")
+        Return res
     End Function
+    Public Function LogoutAsync() As Task
+        Return NetCommandExecuteAsync(AddressOf LogoutAsync)
+    End Function
+    Public Async Sub Logout()
+        Await LogoutAsync()
+    End Sub
 
     Public ReadOnly Property RefreshCommand As ICommand = New NetCommand(Me, AddressOf RefreshAsync)
-    Private Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
+    Protected Overridable Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
         Dim user As FluxUser = Nothing
         If helper IsNot Nothing Then
             user = Await helper.GetFluxAsync()
@@ -67,4 +107,10 @@ Public Class NetModel
         OnlineUser = user
         Return New LogResponse(True, String.Empty)
     End Function
+    Public Function RefreshAsync() As Task
+        Return NetCommandExecuteAsync(AddressOf RefreshAsync)
+    End Function
+    Public Async Sub Refresh()
+        Await RefreshAsync()
+    End Sub
 End Class

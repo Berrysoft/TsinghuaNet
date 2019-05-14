@@ -4,10 +4,10 @@ Imports System.Windows.Input
 Public Class NetCommand
     Implements ICommand
 
-    Private ReadOnly model As NetObservableBase
+    Private ReadOnly model As NetModel
     Private executor As Func(Of IConnect, Task(Of LogResponse))
 
-    Public Sub New(model As NetObservableBase, executor As Func(Of IConnect, Task(Of LogResponse)))
+    Public Sub New(model As NetModel, executor As Func(Of IConnect, Task(Of LogResponse)))
         Me.model = model
         Me.executor = executor
         AddHandler model.PropertyChanged, AddressOf OnModelPropertyChanged
@@ -30,12 +30,6 @@ Public Class NetCommand
     End Function
 
     Public Async Sub Execute(parameter As Object) Implements ICommand.Execute
-        model.IsBusy = True
-        Try
-            Dim helper = model.Credential.GetHelper()
-            Await executor(helper)
-        Finally
-            model.IsBusy = False
-        End Try
+        Await model.NetCommandExecuteAsync(executor)
     End Sub
 End Class

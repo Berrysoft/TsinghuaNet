@@ -7,13 +7,12 @@
     xmlns:net="using:TsinghuaNet"
     xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:wc="using:WinRTXamlToolkit.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model" ContentTypeChanged="ContentTypeChanged"/>
+        <local:MainViewModel x:Name="Model"/>
     </Page.DataContext>
     <Page.Resources>
         <local:DropCommand x:Key="DropUser" DropUser="DropUser"/>
@@ -70,7 +69,7 @@
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Username,Mode=OneWay}"/>
+                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Credential.Username,Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
@@ -91,12 +90,11 @@
                     <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxNumericConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
-                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshStatus"/>
-                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Edit" ToolTipService.ToolTip="编辑建议" Click="ShowEditSuggestion"/>
+                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind Model.RefreshStatusCommand}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind helper:InternetStatusHelper.GetInternetStatusString(Model.NetStatus,Model.Ssid),Mode=OneWay}"/>
+                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind nethelper:StringHelper.GetNetStatusString(Model.Status.Status,Model.Status.Ssid),Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
@@ -106,7 +104,7 @@
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
-                    <muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
+                    <muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.Credential.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
@@ -145,9 +143,9 @@
     </SplitView>
     <Page.BottomAppBar>
         <CommandBar x:Name="MainBar" Style="{ThemeResource CommandBarRevealStyle}" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
-            <AppBarButton Icon="Upload" Label="登录" Click="Login"/>
-            <AppBarButton Icon="Download" Label="注销" Click="Logout"/>
-            <AppBarButton Icon="Refresh" Label="刷新" Click="Refresh"/>
+            <AppBarButton Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
+            <AppBarButton Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
+            <AppBarButton Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
             <AppBarSeparator/>
             <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
             <AppBarSeparator/>

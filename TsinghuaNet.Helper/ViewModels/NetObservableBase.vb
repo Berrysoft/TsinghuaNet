@@ -17,7 +17,10 @@ Public Class NetObservableBase
             Return _IsBusy
         End Get
         Set(value As Boolean)
-            SetProperty(_IsBusy, value)
+            SetProperty(_IsBusy, value, onChanged:=AddressOf OnIsBusyChanged)
         End Set
     End Property
+    Protected Overridable Sub OnIsBusyChanged()
+
+    End Sub
 End Class

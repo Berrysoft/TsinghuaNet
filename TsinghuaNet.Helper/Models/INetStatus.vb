@@ -102,14 +102,18 @@ Public MustInherit Class NetMapStatus
         {"Wifi.郑裕彤讲堂", NetState.Net}
     }
 
-    Public Async Function SuggestAsync() As Task(Of NetState) Implements INetStatus.SuggestAsync
-        Return Await Task.Run(
+    Public Function SuggestAsync() As Task(Of NetState) Implements INetStatus.SuggestAsync
+        Return Task.Run(
             Function()
                 Select Case Status
                     Case NetStatus.Lan
                         Return NetState.Auth4
                     Case NetStatus.Wlan
-                        Return SsidStateMap(Ssid)
+                        If SsidStateMap.ContainsKey(Ssid) Then
+                            Return SsidStateMap(Ssid)
+                        Else
+                            Return NetState.Unknown
+                        End If
                     Case Else
                         Return NetState.Unknown
                 End Select

@@ -142,7 +142,7 @@
     <Compile Include="NotificationHelper.vb" />
     <Compile Include="SettingsHelper.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
-    <Compile Include="InternetStatusHelper.vb" />
+    <Compile Include="InternetStatus.vb" />
     <EmbeddedResource Include="My Project\TsinghuaNet.UWP.Helper.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -178,9 +178,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.8</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.2</Version>
     </PackageReference>
     <PackageReference Include="System.ValueTuple">
       <Version>4.5.0</Version>
