@@ -2,7 +2,6 @@
 Imports System.Net.Http
 Imports System.Text
 Imports Microsoft.Toolkit.Uwp.Connectivity
-Imports TsinghuaNet.Helper
 Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper
 Imports Windows.ApplicationModel.Core
@@ -63,7 +62,7 @@ Public NotInheritable Class MainPage
                 Await Model.RefreshAsync()
             End If
             ' 刷新当前用户所有连接状态
-            Await RefreshNetUsersImpl()
+            Await ConnectionModel.RefreshNetUsersAsync()
         End If
     End Sub
 
@@ -101,7 +100,7 @@ Public NotInheritable Class MainPage
         Else
             Await Model.RefreshAsync()
         End If
-        Await RefreshNetUsersImpl()
+        Await ConnectionModel.RefreshNetUsersAsync()
     End Function
 
     Private Sub OpenSettings()
@@ -138,10 +137,6 @@ Public NotInheritable Class MainPage
         End If
     End Sub
 
-    Private Async Sub RefreshNetUsers()
-        Await RefreshNetUsersImpl()
-    End Sub
-
     Friend Property ToastLogined As Boolean
 
     ''' <summary>
@@ -153,19 +148,20 @@ Public NotInheritable Class MainPage
             Dim helper = Model.Credential.GetUseregHelper()
             Await helper.LoginAsync()
             Await helper.LogoutAsync(e)
-            Await RefreshNetUsersImpl(helper)
+            Await ConnectionModel.RefreshNetUsersAsync(helper)
         Catch ex As Exception
             ShowException(ex)
         End Try
     End Function
 
-    Private Async Sub ShowResponse(response As LogResponse, Optional login As Boolean? = Nothing)
+    Private Sub Model_ReceivedResponse(sender As Object, res As LogResponse)
+        ShowResponse(res)
+    End Sub
+
+    Private Async Sub ShowResponse(response As LogResponse)
         Model.Response = response.Message
-        If login.HasValue AndAlso response.Succeed Then
-            Model.Response = If(login.Value, "登录成功", "注销成功")
-        End If
         Await ShowResponseStoryboard.BeginAsync()
-        If login.HasValue AndAlso login.Value Then
+        If response.Succeed Then
             Await Task.Delay(3000)
             HideResponseStoryboard.Begin()
         End If
@@ -182,52 +178,6 @@ Public NotInheritable Class MainPage
     Private Sub HelpSelection(sender As Object, e As RoutedEventArgs)
         HelpFlyout.ShowAt(e.OriginalSource)
     End Sub
-
-    ''' <summary>
-    ''' 刷新所有连接情况
-    ''' </summary>
-    Private Async Function RefreshNetUsersImpl() As Task
-        Try
-            If Model.Credential.State <> NetState.Unknown Then
-                Dim helper = Model.Credential.GetUseregHelper()
-                Await helper.LoginAsync()
-                Await RefreshNetUsersImpl(helper)
-            End If
-        Catch ex As Exception
-            ShowException(ex)
-        End Try
-    End Function
-
-    ''' <summary>
-    ''' 使用给定的帮助类刷新所有连接情况。
-    ''' 在调用这个方法前要调用<see cref="UseregHelper.LoginAsync"/>。
-    ''' </summary>
-    ''' <param name="helper">帮助类实例</param>
-    Private Async Function RefreshNetUsersImpl(helper As UseregHelper) As Task
-        Dim users = (Await helper.GetUsersAsync()).ToList()
-        Dim usersmodel = Model.NetUsers
-        Dim i As Integer = 0
-        Do While i < usersmodel.Count
-            Dim olduser As NetUser = usersmodel(i)
-            ' 循环判断旧元素是否存在于新集合中
-            For j = 0 To users.Count - 1
-                Dim user As NetUser = users(j)
-                ' 如果存在则移除新元素
-                If olduser = user Then
-                    users.RemoveAt(j)
-                    i += 1
-                    Continue Do
-                End If
-            Next
-            ' 反之移除旧元素
-            usersmodel.RemoveAt(i)
-        Loop
-        ' 最后添加新增元素
-        ' 判断大小以防止索引错误
-        If users.Count > 0 Then
-            usersmodel.AddRange(users)
-        End If
-    End Function
 
     Private Async Sub ShowDetail()
         Dim helper = Model.Credential.GetUseregHelper()

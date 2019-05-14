@@ -11,7 +11,7 @@ Public MustInherit Class NetViewModel
 
     Public MustOverride Sub SaveSettings()
 
-    Private _AutoLogin As Boolean = True
+    Private _AutoLogin As Boolean
     Public Property AutoLogin As Boolean
         Get
             Return _AutoLogin

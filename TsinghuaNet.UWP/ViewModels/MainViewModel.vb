@@ -1,6 +1,4 @@
-﻿Imports MvvmHelpers
-Imports TsinghuaNet
-Imports TsinghuaNet.Helper
+﻿Imports TsinghuaNet.Helper
 Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper
 
@@ -95,7 +93,17 @@ Public Class MainViewModel
         End If
     End Sub
 
-    Private _BackgroundAutoLogin As Boolean = True
+    Private _Response As String
+    Public Property Response As String
+        Get
+            Return _Response
+        End Get
+        Set(value As String)
+            SetProperty(_Response, value)
+        End Set
+    End Property
+
+    Private _BackgroundAutoLogin As Boolean
     Public Property BackgroundAutoLogin As Boolean
         Get
             Return _BackgroundAutoLogin
@@ -111,7 +119,7 @@ Public Class MainViewModel
         End If
     End Sub
 
-    Private _BackgroundLiveTile As Boolean = True
+    Private _BackgroundLiveTile As Boolean
     Public Property BackgroundLiveTile As Boolean
         Get
             Return _BackgroundLiveTile
@@ -128,7 +136,7 @@ Public Class MainViewModel
         End If
     End Sub
 
-    Private _SettingsTheme As UserTheme = UserTheme.Default
+    Private _SettingsTheme As UserTheme
     Public Property SettingsTheme As UserTheme
         Get
             Return _SettingsTheme
@@ -151,7 +159,7 @@ Public Class MainViewModel
         Theme = actheme
     End Sub
 
-    Private _Theme As ElementTheme = ElementTheme.Default
+    Private _Theme As ElementTheme
     Public Property Theme As ElementTheme
         Get
             Return _Theme
@@ -161,7 +169,7 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Private _ContentType As UserContentType = UserContentType.Ring
+    Private _ContentType As UserContentType
     Public Property ContentType As UserContentType
         Get
             Return _ContentType
@@ -189,6 +197,4 @@ Public Class MainViewModel
         UserContent = newc
         Refresh()
     End Sub
-
-    Public ReadOnly Property NetUsers As New ObservableRangeCollection(Of NetUser)
 End Class

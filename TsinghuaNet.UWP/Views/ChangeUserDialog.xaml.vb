@@ -5,7 +5,7 @@ Public NotInheritable Class ChangeUserDialog
 
     Public Sub New(username As String)
         InitializeComponent()
-        UnBox.Text = username
+        UnBox.Text = If(username, String.Empty)
         UsernameChanged()
     End Sub
 

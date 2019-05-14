@@ -12,7 +12,7 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
-        <local:MainViewModel x:Name="Model"/>
+        <local:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
     <Page.Resources>
         <local:DropCommand x:Key="DropUser" DropUser="DropUser"/>
@@ -105,19 +105,22 @@
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
                     <muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.Credential.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>
-                    <Grid>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel.DataContext>
+                            <nethelper:ConnectionViewModel x:Name="ConnectionModel"/>
+                        </StackPanel.DataContext>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
-                            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Click="RefreshNetUsers"/>
+                            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
                         </StackPanel>
-                        <ListView Margin="8" ItemsSource="{x:Bind Model.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
+                        <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
                             <ListView.ItemContainerTransitions>
                                 <TransitionCollection>
                                     <AddDeleteThemeTransition/>
                                 </TransitionCollection>
                             </ListView.ItemContainerTransitions>
                         </ListView>
-                    </Grid>
+                    </StackPanel>
                     <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">主题设置</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.SettingsTheme,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">

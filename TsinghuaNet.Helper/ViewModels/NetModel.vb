@@ -23,7 +23,7 @@ Public Class NetModel
         End Set
     End Property
 
-    Public ReadOnly Property RefreshStatusCommand As ICommand = New Command(AddressOf RefreshStatus)
+    Public ReadOnly Property RefreshStatusCommand As ICommand = New Command(Me, AddressOf RefreshStatus)
     Public Async Sub RefreshStatus()
         Await RefreshStatusAsync()
     End Sub
@@ -47,29 +47,24 @@ Public Class NetModel
         End Set
     End Property
 
-    Private _Response As String
-    Public Property Response As String
-        Get
-            Return _Response
-        End Get
-        Set(value As String)
-            SetProperty(_Response, value)
-        End Set
-    End Property
+    Public Event ReceivedResponse As EventHandler(Of LogResponse)
 
-    Friend Async Function NetCommandExecuteAsync(executor As Func(Of IConnect, Task(Of LogResponse))) As Task(Of LogResponse)
+    Protected Overridable Sub OnReceivedResponse(res As LogResponse)
+        RaiseEvent ReceivedResponse(Me, res)
+    End Sub
+
+    Friend Async Function NetCommandExecuteAsync(executor As Func(Of IConnect, Task(Of LogResponse))) As Task
         If Not IsBusy Then
             Try
                 IsBusy = True
                 Dim helper = Credential.GetHelper()
-                Return Await executor(helper)
+                OnReceivedResponse(Await executor(helper))
             Catch ex As Exception
-                Debug.WriteLine(ex)
+                OnReceivedResponse(New LogResponse(False, ex.Message))
             Finally
                 IsBusy = False
             End Try
         End If
-        Return New LogResponse(False, String.Empty)
     End Function
 
     Public ReadOnly Property LoginCommand As ICommand = New NetCommand(Me, AddressOf LoginAsync)
@@ -84,7 +79,7 @@ Public Class NetModel
         Await RefreshAsync(helper)
         Return res
     End Function
-    Public Function LoginAsync() As Task(Of LogResponse)
+    Public Function LoginAsync() As Task
         Return NetCommandExecuteAsync(AddressOf LoginAsync)
     End Function
     Public Async Sub Login()
@@ -103,7 +98,7 @@ Public Class NetModel
         Await RefreshAsync(helper)
         Return res
     End Function
-    Public Function LogoutAsync() As Task(Of LogResponse)
+    Public Function LogoutAsync() As Task
         Return NetCommandExecuteAsync(AddressOf LogoutAsync)
     End Function
     Public Async Sub Logout()
@@ -119,7 +114,7 @@ Public Class NetModel
         OnlineUser = user
         Return New LogResponse(True, String.Empty)
     End Function
-    Public Function RefreshAsync() As Task(Of LogResponse)
+    Public Function RefreshAsync() As Task
         Return NetCommandExecuteAsync(AddressOf RefreshAsync)
     End Function
     Public Async Sub Refresh()
