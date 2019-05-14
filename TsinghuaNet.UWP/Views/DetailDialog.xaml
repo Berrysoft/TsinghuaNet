@@ -11,6 +11,9 @@
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
     Title="流量明细" DefaultButton="Close" CloseButtonText="确定">
+    <ContentDialog.DataContext>
+        <nethelper:DetailViewModel x:Name="Model"/>
+    </ContentDialog.DataContext>
     <mtuuc:DataGrid x:Name="DetailsView" Margin="8" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
         <mtuuc:DataGrid.Columns>
             <!--DataGridTextColumn居然不支持x:Bind-->

@@ -1,15 +1,15 @@
-﻿Public Class NetViewModel
+﻿Imports TsinghuaNet
+
+Public MustInherit Class NetViewModel
     Inherits NetModel
 
-    Private _Response As String
-    Public Property Response As String
-        Get
-            Return _Response
-        End Get
-        Set(value As String)
-            SetProperty(_Response, value)
-        End Set
-    End Property
+    Public Sub New()
+        LoadSettings()
+    End Sub
+
+    Public MustOverride Sub LoadSettings()
+
+    Public MustOverride Sub SaveSettings()
 
     Private _AutoLogin As Boolean = True
     Public Property AutoLogin As Boolean

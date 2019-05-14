@@ -10,11 +10,42 @@ Public Class MainViewModel
     Private mainTimer As New DispatcherTimer
 
     Public Sub New()
+        MyBase.New()
         Status = New InternetStatus()
         ' 设置计时器
         mainTimer.Interval = TimeSpan.FromSeconds(1)
         AddHandler mainTimer.Tick, AddressOf MainTimerTick
     End Sub
+
+    Public Overrides Sub LoadSettings()
+        ' 上一次登录的用户名
+        Dim un = SettingsHelper.StoredUsername
+        ' 设置为当前用户名并获取密码
+        Credential.Username = un
+        Credential.Password = CredentialHelper.GetCredential(un)
+        ' 获取用户设置的主题
+        SettingsTheme = SettingsHelper.Theme
+        ContentType = SettingsHelper.ContentType
+        ' 自动登录
+        AutoLogin = SettingsHelper.AutoLogin
+        ' 后台任务
+        BackgroundAutoLogin = SettingsHelper.BackgroundAutoLogin
+        BackgroundLiveTile = SettingsHelper.BackgroundLiveTile
+        ' 流量限制
+        If SettingsHelper.FluxLimit IsNot Nothing Then
+            FluxLimit = SettingsHelper.FluxLimit
+            EnableFluxLimit = True
+        End If
+    End Sub
+
+    Public Overrides Sub SaveSettings()
+        SettingsHelper.StoredUsername = Credential.Username
+        SettingsHelper.AutoLogin = AutoLogin
+        SettingsHelper.Theme = SettingsTheme
+        SettingsHelper.ContentType = ContentType
+        SettingsHelper.FluxLimit = If(EnableFluxLimit, CType(FluxLimit, Long?), Nothing)
+    End Sub
+
 
     Private _UserContent As UIElement
     Public Property UserContent As UIElement

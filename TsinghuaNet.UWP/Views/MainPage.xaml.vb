@@ -29,9 +29,6 @@ Public NotInheritable Class MainPage
         viewTitleBar.ExtendViewIntoTitleBar = True
         ' 将用户区拓展到全窗口
         Window.Current.SetTitleBar(MainFrame)
-        ' 获取用户设置的主题
-        Model.SettingsTheme = SettingsHelper.Theme
-        Model.ContentType = SettingsHelper.ContentType
         ' 监视网络情况变化
         AddHandler NetworkHelper.Instance.NetworkChanged, AddressOf NetworkChanged
     End Sub
@@ -40,10 +37,7 @@ Public NotInheritable Class MainPage
     ''' 保存设置
     ''' </summary>
     Friend Sub SaveSettings()
-        SettingsHelper.AutoLogin = Model.AutoLogin
-        SettingsHelper.Theme = Model.SettingsTheme
-        SettingsHelper.ContentType = Model.ContentType
-        SettingsHelper.FluxLimit = If(Model.EnableFluxLimit, CType(Model.FluxLimit, Long?), Nothing)
+        Model.SaveSettings()
     End Sub
 
     ''' <summary>
@@ -53,35 +47,17 @@ Public NotInheritable Class MainPage
         ' 刷新状态
         Await Model.RefreshStatusAsync()
         Model.Credential.State = Model.SuggestState
-        ' 自动登录
-        Dim al = SettingsHelper.AutoLogin
-        Model.AutoLogin = al
-        ' 后台任务
-        Dim bal = SettingsHelper.BackgroundAutoLogin
-        Model.BackgroundAutoLogin = bal
-        Dim blt = SettingsHelper.BackgroundLiveTile
-        Model.BackgroundLiveTile = blt
         ' 调整后台任务
         If Await BackgroundHelper.RequestAccessAsync() Then
-            BackgroundHelper.RegisterLogin(bal)
-            BackgroundHelper.RegisterLiveTile(blt)
+            BackgroundHelper.RegisterLogin(Model.BackgroundAutoLogin)
+            BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile)
         End If
-        If SettingsHelper.FluxLimit IsNot Nothing Then
-            Model.FluxLimit = SettingsHelper.FluxLimit
-            Model.EnableFluxLimit = True
-        End If
-        ' 上一次登录的用户名
-        Dim un = SettingsHelper.StoredUsername
-        If Not String.IsNullOrEmpty(un) Then
-            ' 设置为当前用户名并获取密码
-            Model.Credential.Username = un
-            Dim pw = CredentialHelper.GetCredential(un)
-            Model.Credential.Password = pw
+        If Not String.IsNullOrEmpty(Model.Credential.Username) Then
             ' 自动登录的条件为：
             ' 打开了自动登录
             ' 不知道后台任务成功登录
             ' 密码不为空
-            If al AndAlso Not ToastLogined AndAlso Not String.IsNullOrEmpty(pw) Then
+            If Model.AutoLogin AndAlso Not ToastLogined AndAlso Not String.IsNullOrEmpty(Model.Credential.Password) Then
                 Await Model.LoginAsync()
             Else
                 Await Model.RefreshAsync()
@@ -154,7 +130,6 @@ Public NotInheritable Class MainPage
                 CredentialHelper.SaveCredential(un, pw)
             End If
             ' 同步
-            SettingsHelper.StoredUsername = un
             Model.Credential.Username = un
             Model.Credential.Password = pw
             ' 关闭设置栏并登录
