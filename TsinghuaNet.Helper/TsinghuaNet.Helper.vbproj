@@ -12,10 +12,6 @@
     <Copyright>Copyright (c) 2019 Berrysoft</Copyright>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineDebug>false</DefineDebug>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.4.1-beta" />
   </ItemGroup>

@@ -24,9 +24,6 @@
     <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineDebug>false</DefineDebug>
-  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />

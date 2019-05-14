@@ -7,9 +7,6 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DefineDebug>false</DefineDebug>
-  </PropertyGroup>
   <ItemGroup>
     <Import Include="System.Windows" />
     <Import Include="System.Windows.Controls" />
