@@ -28,7 +28,7 @@
       <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
     </UniformGrid>
     <ScrollViewer Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="8" HorizontalAlignment="Stretch" IsVisible="{Binding !ConnectionSuccess}">
-      <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding FailMessage}"/>
+      <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Response}"/>
     </ScrollViewer>
     <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="1.0" Fill="{StaticResource ThemeBorderLowBrush}" Thickness="10"/>
     <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="{Binding FluxOffset}" Fill="{Binding FluxFill}" Thickness="10"/>

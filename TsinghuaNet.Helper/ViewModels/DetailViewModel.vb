@@ -11,6 +11,7 @@ Public Class DetailViewModel
 
     Private Async Sub InitializeDetails()
         Dim helper = Credential.GetUseregHelper()
+        Await helper.LoginAsync()
         details = New List(Of NetDetail)(Await helper.GetDetailsAsync())
         DetailsSource = details
     End Sub

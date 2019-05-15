@@ -4,6 +4,7 @@ Imports Avalonia.Media
 Imports Avalonia.Threading
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
+Imports TsinghuaNet
 Imports TsinghuaNet.Helper
 
 Public Class MainViewModel
@@ -12,10 +13,11 @@ Public Class MainViewModel
     Public Sub New()
         MyBase.New()
         Status = New NetPingStatus()
-        If AutoLogin AndAlso LoginCommand.CanExecute(Nothing) Then
-            LoginCommand.Execute(Nothing)
-        ElseIf RefreshCommand.CanExecute(Nothing) Then
-            RefreshCommand.Execute(Nothing)
+        ConnectionSuccess = True
+        If AutoLogin Then
+            Login()
+        Else
+            Refresh()
         End If
     End Sub
 
@@ -81,16 +83,6 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Private _FailMessage As String
-    Public Property FailMessage As String
-        Get
-            Return _FailMessage
-        End Get
-        Set(value As String)
-            SetProperty(_FailMessage, value)
-        End Set
-    End Property
-
     Private _AutoSuggest As Boolean
     Public Property AutoSuggest As Boolean
         Get
@@ -110,6 +102,18 @@ Public Class MainViewModel
             SetProperty(_UseTimer, value)
         End Set
     End Property
+
+    Protected Overrides Async Function LoginAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res = Await MyBase.LoginAsync(helper)
+        ConnectionSuccess = res.Succeed
+        Return res
+    End Function
+
+    Protected Overrides Async Function LogoutAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res = Await MyBase.LogoutAsync(helper)
+        ConnectionSuccess = res.Succeed
+        Return res
+    End Function
 
     Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
         Dim res = Await MyBase.RefreshAsync(helper)

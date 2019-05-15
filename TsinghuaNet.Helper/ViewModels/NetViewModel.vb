@@ -73,17 +73,15 @@ Public MustInherit Class NetViewModel
     End Sub
 
     Friend Async Function NetCommandExecuteAsync(executor As Func(Of IConnect, Task(Of LogResponse))) As Task
-        If Not IsBusy Then
-            Try
-                IsBusy = True
-                Dim helper = Credential.GetHelper()
-                OnReceivedResponse(Await executor(helper))
-            Catch ex As Exception
-                OnReceivedResponse(New LogResponse(False, ex.Message))
-            Finally
-                IsBusy = False
-            End Try
-        End If
+        Try
+            IsBusy = True
+            Dim helper = Credential.GetHelper()
+            OnReceivedResponse(Await executor(helper))
+        Catch ex As Exception
+            OnReceivedResponse(New LogResponse(False, ex.Message))
+        Finally
+            IsBusy = False
+        End Try
     End Function
 
     Public ReadOnly Property LoginCommand As ICommand = New NetCommand(Me, AddressOf LoginAsync)

@@ -9,7 +9,7 @@
   <Window.DataContext>
     <local:ConnectionViewModel/>
   </Window.DataContext>
-  <DataGrid Name="ConnectionView" Margin="8" ItemsSource="{Binding NetUsers}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
+  <DataGrid Name="ConnectionView" Margin="8" Items="{Binding NetUsers}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
     <DataGrid.Columns>
       <DataGridTextColumn Header="IP地址" Binding="{Binding Address}"/>
       <DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}"/>
