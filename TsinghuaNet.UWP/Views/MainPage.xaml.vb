@@ -108,7 +108,7 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub DropUser(sender As Object, e As IPAddress)
-        Await DropImpl(e)
+        Await ConnectionModel.DropAsync(e)
     End Sub
 
     ''' <summary>
@@ -138,21 +138,6 @@ Public NotInheritable Class MainPage
     End Sub
 
     Friend Property ToastLogined As Boolean
-
-    ''' <summary>
-    ''' 根据IP强制下线某个连接
-    ''' </summary>
-    ''' <param name="e">连接的IP地址</param>
-    Private Async Function DropImpl(e As IPAddress) As Task
-        Try
-            Dim helper = Model.Credential.GetUseregHelper()
-            Await helper.LoginAsync()
-            Await helper.LogoutAsync(e)
-            Await ConnectionModel.RefreshNetUsersAsync(helper)
-        Catch ex As Exception
-            ShowException(ex)
-        End Try
-    End Function
 
     Private Sub Model_ReceivedResponse(sender As Object, res As LogResponse)
         ShowResponse(res)

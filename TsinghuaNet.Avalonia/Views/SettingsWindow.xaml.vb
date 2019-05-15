@@ -6,7 +6,6 @@ Imports TsinghuaNet.Helper
 
 Public Class SettingsWindow
     Inherits Window
-    Implements IDialogWithModel(Of MainViewModel)
     Implements INotifyPropertyChanged
 
     Public Sub New()
@@ -16,6 +15,7 @@ Public Class SettingsWindow
 #End If
         Program.Selector.EnableThemes(Me)
         DataContext = Me
+        Model = Application.Current.MainWindow.DataContext
     End Sub
 
     Private Sub InitializeComponent()
@@ -46,9 +46,4 @@ Public Class SettingsWindow
         New PackageBox("Newtonsoft.Json", "MIT许可证"),
         New PackageBox("Refractored.MvvmHelpers", "MIT许可证")
     }
-
-    Public Overloads Function ShowDialog(owner As Window, model As MainViewModel) As Task Implements IDialogWithModel(Of MainViewModel).ShowDialog
-        Me.Model = model
-        Return ShowDialog(owner)
-    End Function
 End Class

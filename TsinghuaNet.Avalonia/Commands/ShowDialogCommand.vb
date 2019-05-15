@@ -2,11 +2,7 @@
 Imports Avalonia
 Imports Avalonia.Controls
 
-Public Interface IDialogWithModel(Of T)
-    Function ShowDialog(owner As Window, model As T) As Task
-End Interface
-
-Public Class ShowDialogCommand(Of T As {IDialogWithModel(Of MainViewModel), New})
+Public Class ShowDialogCommand(Of T As {Window, New})
     Implements ICommand
 
     Private ReadOnly model As MainViewModel
@@ -16,7 +12,7 @@ Public Class ShowDialogCommand(Of T As {IDialogWithModel(Of MainViewModel), New}
 
     Public Async Sub Execute(parameter As Object) Implements ICommand.Execute
         Dim win As New T
-        Await win.ShowDialog(Application.Current.MainWindow, model)
+        Await win.ShowDialog(Application.Current.MainWindow)
     End Sub
 
     Public Event CanExecuteChanged As EventHandler Implements ICommand.CanExecuteChanged

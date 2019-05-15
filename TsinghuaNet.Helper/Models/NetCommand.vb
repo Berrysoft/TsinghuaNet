@@ -4,10 +4,10 @@ Imports System.Windows.Input
 Public Class NetCommand
     Implements ICommand
 
-    Private ReadOnly model As NetModel
+    Private ReadOnly model As NetViewModel
     Private executor As Func(Of IConnect, Task(Of LogResponse))
 
-    Public Sub New(model As NetModel, executor As Func(Of IConnect, Task(Of LogResponse)))
+    Public Sub New(model As NetViewModel, executor As Func(Of IConnect, Task(Of LogResponse)))
         Me.model = model
         Me.executor = executor
         AddHandler model.PropertyChanged, AddressOf OnModelPropertyChanged

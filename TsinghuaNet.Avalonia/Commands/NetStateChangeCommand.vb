@@ -10,7 +10,7 @@ Public Class NetStateChangeCommand
     End Sub
 
     Public Sub Execute(parameter As Object) Implements ICommand.Execute
-        model.State = [Enum].Parse(Of NetState)(parameter)
+        model.Credential.State = [Enum].Parse(Of NetState)(parameter)
     End Sub
 
     Public Event CanExecuteChanged As EventHandler Implements ICommand.CanExecuteChanged

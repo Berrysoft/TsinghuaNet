@@ -1,16 +1,28 @@
 ﻿Imports System.IO
-Imports System.Net.Http
 Imports System.Text
-Imports Avalonia
 Imports Avalonia.Media
 Imports Avalonia.Threading
-Imports MvvmHelpers
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports TsinghuaNet.Helper
 
 Public Class MainViewModel
-    Inherits ObservableObject
+    Inherits NetViewModel
+
+    Public Sub New()
+        MyBase.New()
+        Status = New NetPingStatus()
+        If AutoLogin AndAlso LoginCommand.CanExecute(Nothing) Then
+            LoginCommand.Execute(Nothing)
+        ElseIf RefreshCommand.CanExecute(Nothing) Then
+            RefreshCommand.Execute(Nothing)
+        End If
+    End Sub
+
+    Protected Overrides Sub OnSuggestStateChanged()
+        MyBase.OnSuggestStateChanged()
+        Credential.State = SuggestState
+    End Sub
 
     Private Const settingsFilename As String = "settings.json"
 
@@ -22,14 +34,14 @@ Public Class MainViewModel
         End If
     End Function
 
-    Public Async Function LoadSettingsAsync() As Task
+    Public Overrides Sub LoadSettings()
         If File.Exists(settingsFilename) Then
             Using stream As New StreamReader(settingsFilename)
                 Using reader As New JsonTextReader(stream)
-                    Dim json = Await JObject.LoadAsync(reader)
-                    Username = GetSettings(json, "username", String.Empty)
-                    Password = Encoding.UTF8.GetString(Convert.FromBase64String(GetSettings(json, "password", String.Empty)))
-                    State = CInt(GetSettings(json, "state", NetState.Unknown))
+                    Dim json = JObject.Load(reader)
+                    Credential.Username = GetSettings(json, "username", String.Empty)
+                    Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(GetSettings(json, "password", String.Empty)))
+                    Credential.State = CInt(GetSettings(json, "state", NetState.Unknown))
                     AutoLogin = CBool(GetSettings(json, "autoLogin", True))
                     AutoSuggest = CBool(GetSettings(json, "autoSuggest", True))
                     UseTimer = CBool(GetSettings(json, "useTimer", True))
@@ -38,21 +50,13 @@ Public Class MainViewModel
                 End Using
             End Using
         End If
-        If AutoSuggest Then
-            State = Await SuggestionHelper.GetSuggestion()
-        End If
-        If AutoLogin AndAlso LoginCommand.CanExecute(Nothing) Then
-            LoginCommand.Execute(Nothing)
-        ElseIf RefreshCommand.CanExecute(Nothing) Then
-            RefreshCommand.Execute(Nothing)
-        End If
-    End Function
+    End Sub
 
-    Public Sub SaveSettings()
+    Public Overrides Sub SaveSettings()
         Dim json As New JObject
-        json("username") = If(Username, String.Empty)
-        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(Password, String.Empty)))
-        json("state") = State
+        json("username") = If(Credential.Username, String.Empty)
+        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(Credential.Password, String.Empty)))
+        json("state") = Credential.State
         json("autoLogin") = AutoLogin
         json("autoSuggest") = AutoSuggest
         json("useTimer") = UseTimer
@@ -63,41 +67,6 @@ Public Class MainViewModel
                 json.WriteTo(writer)
             End Using
         End Using
-    End Sub
-
-    Private _Username As String
-    Public Property Username As String
-        Get
-            Return _Username
-        End Get
-        Set(value As String)
-            SetProperty(_Username, value)
-        End Set
-    End Property
-
-    Private _Password As String
-    Public Property Password As String
-        Get
-            Return _Password
-        End Get
-        Set(value As String)
-            SetProperty(_Password, value)
-        End Set
-    End Property
-
-    Private _State As NetState
-    Public Property State As NetState
-        Get
-            Return _State
-        End Get
-        Set(value As NetState)
-            SetProperty(_State, value, onChanged:=AddressOf OnStateChanged)
-        End Set
-    End Property
-    Private Sub OnStateChanged()
-        If RefreshCommand.CanExecute(Nothing) Then
-            RefreshCommand.Execute(Nothing)
-        End If
     End Sub
 
     Public ReadOnly Property StateChangeCommand As New NetStateChangeCommand(Me)
@@ -122,16 +91,6 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Private _AutoLogin As Boolean
-    Public Property AutoLogin As Boolean
-        Get
-            Return _AutoLogin
-        End Get
-        Set(value As Boolean)
-            SetProperty(_AutoLogin, value)
-        End Set
-    End Property
-
     Private _AutoSuggest As Boolean
     Public Property AutoSuggest As Boolean
         Get
@@ -152,21 +111,16 @@ Public Class MainViewModel
         End Set
     End Property
 
-    Private _OnlineUser As FluxUser
-    Public Property OnlineUser As FluxUser
-        Get
-            Return _OnlineUser
-        End Get
-        Set(value As FluxUser)
-            SetProperty(_OnlineUser, value, onChanged:=AddressOf OnOnlineUserChanged)
-        End Set
-    End Property
-    Private Sub OnOnlineUserChanged()
+    Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res = Await MyBase.RefreshAsync(helper)
+        OnlineTime = OnlineUser.OnlineTime
+        FluxOffset = OnlineUser.Flux / FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance)
         OnlineTimeTimer.Stop()
         If _UseTimer AndAlso Not String.IsNullOrEmpty(OnlineUser.Username) Then
             OnlineTimeTimer.Start()
         End If
-    End Sub
+        Return res
+    End Function
 
     Private _OnlineTime As TimeSpan
     Public Property OnlineTime As TimeSpan
@@ -183,30 +137,6 @@ Public Class MainViewModel
     Private Sub OnlineTimeTimer_Tick(sender As Object, e As EventArgs)
         OnlineTime += TimeSpan.FromSeconds(1)
     End Sub
-
-    Public ReadOnly Property LoginCommand As NetCommand = New LoginCommand(Me)
-    Public ReadOnly Property LogoutCommand As NetCommand = New LogoutCommand(Me)
-    Public ReadOnly Property RefreshCommand As NetCommand = New RefreshCommand(Me)
-
-    Private Shared Client As New HttpClient
-
-    Friend Function GetHelper() As IConnect
-        Return ConnectHelper.GetHelper(State, Username, Password, Client)
-    End Function
-
-    Friend Function GetUseregHelper() As UseregHelper
-        Return New UseregHelper(Username, Password, Client)
-    End Function
-
-    Friend Async Function RefreshAsync(helper As IConnect) As Task
-        Dim flux As FluxUser = Nothing
-        If helper IsNot Nothing Then
-            flux = Await helper.GetFluxAsync()
-        End If
-        OnlineUser = flux
-        OnlineTime = flux.OnlineTime
-        FluxOffset = flux.Flux / FluxHelper.GetMaxFlux(flux.Flux, flux.Balance)
-    End Function
 
     Private _FluxOffset As Double
     Public Property FluxOffset As Double
@@ -238,26 +168,6 @@ Public Class MainViewModel
         End Get
         Set(value As IBrush)
             SetProperty(_FluxFill, value)
-        End Set
-    End Property
-
-    Private _EnableFluxLimit As Boolean
-    Public Property EnableFluxLimit As Boolean
-        Get
-            Return _EnableFluxLimit
-        End Get
-        Set(value As Boolean)
-            SetProperty(_EnableFluxLimit, value)
-        End Set
-    End Property
-
-    Public _FluxLimit As Double
-    Public Property FluxLimit As Double
-        Get
-            Return _FluxLimit
-        End Get
-        Set(value As Double)
-            SetProperty(_FluxLimit, value)
         End Set
     End Property
 

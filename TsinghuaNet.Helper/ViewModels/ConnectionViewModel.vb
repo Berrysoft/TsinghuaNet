@@ -1,4 +1,5 @@
-﻿Imports System.Windows.Input
+﻿Imports System.Net
+Imports System.Windows.Input
 Imports MvvmHelpers
 
 Public Class ConnectionViewModel
@@ -56,5 +57,24 @@ Public Class ConnectionViewModel
         If users.Count > 0 Then
             usersmodel.AddRange(users)
         End If
+    End Function
+
+    Public Function DropAsync(ParamArray ips() As IPAddress) As Task
+        Return DropAsync(ips.AsEnumerable())
+    End Function
+
+    Public Async Function DropAsync(ips As IEnumerable(Of IPAddress)) As Task
+        Try
+            If Credential.State <> NetState.Unknown Then
+                Dim helper = Credential.GetUseregHelper()
+                Await helper.LoginAsync()
+                For Each ip In ips
+                    Await helper.LogoutAsync(ip)
+                Next
+                Await RefreshNetUsersAsync(helper)
+            End If
+        Catch ex As Exception
+            Debug.WriteLine(ex)
+        End Try
     End Function
 End Class
