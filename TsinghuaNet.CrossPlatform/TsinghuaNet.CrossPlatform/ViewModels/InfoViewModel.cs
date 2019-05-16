@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Threading.Tasks;
+using TsinghuaNet.CrossPlatform.Models;
 using TsinghuaNet.Helper;
 
 namespace TsinghuaNet.CrossPlatform.ViewModels
 {
     public class InfoViewModel : NetViewModel
     {
-        public InfoViewModel() : base() { }
+        public InfoViewModel() : base()
+        {
+            timer = new DeviceTimer(TimeSpan.FromSeconds(1), OnlineTimerTick);
+        }
 
         public override void LoadSettings() { }
 
@@ -34,10 +38,19 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
             set => SetProperty(ref onlineTime, value);
         }
 
+        private DeviceTimer timer;
+        private void OnlineTimerTick(object sender, EventArgs e)
+        {
+            OnlineTime += TimeSpan.FromSeconds(1);
+            if (string.IsNullOrEmpty(OnlineUser.Username))
+                timer.Stop();
+        }
+
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
             var res = await base.RefreshAsync(helper);
             onlineTime = OnlineUser.OnlineTime;
+            timer.Start();
             return res;
         }
     }
