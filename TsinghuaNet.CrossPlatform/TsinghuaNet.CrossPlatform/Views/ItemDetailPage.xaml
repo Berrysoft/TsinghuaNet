@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TsinghuaNet.CrossPlatform.Views.ItemDetailPage"
+             Title="{Binding Item.Client}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="下线"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout Padding="16">
+        <Label Style="{DynamicResource BodyStyle}" FontAttributes="Bold" Text="IP地址："/>
+        <Label Style="{DynamicResource BodyStyle}" Text="{Binding Item.Address,StringFormat='{0}'}"/>
+        <Label Style="{DynamicResource BodyStyle}" FontAttributes="Bold" Text="登录时间："/>
+        <Label Style="{DynamicResource BodyStyle}" Text="{Binding Item.LoginTime,StringFormat='{0}'}"/>
+    </StackLayout>
+</ContentPage>

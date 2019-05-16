@@ -17,11 +17,6 @@ Public Class MainWindow
         AvaloniaXamlLoader.Load(Me)
     End Sub
 
-    Private Async Sub MainWindow_Opened(sender As Object, e As EventArgs) Handles Me.Opened
-        Dim model As MainViewModel = DataContext
-        Await model.LoadSettingsAsync()
-    End Sub
-
     Private Sub MainWindow_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Dim model As MainViewModel = DataContext
         model.SaveSettings()

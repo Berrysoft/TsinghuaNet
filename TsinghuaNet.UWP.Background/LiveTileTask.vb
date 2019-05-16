@@ -8,9 +8,9 @@ Public NotInheritable Class LiveTileTask
     Public Async Sub Run(taskInstance As IBackgroundTaskInstance) Implements IBackgroundTask.Run
         Dim deferral = taskInstance.GetDeferral()
         Try
-            Dim tuple = InternetStatusHelper.GetInternetStatus()
-            Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
-            Dim helper = ConnectHelper.GetHelper(state)
+            Dim status As New InternetStatus
+            Await status.RefreshAsync()
+            Dim helper = ConnectHelper.GetHelper(Await status.SuggestAsync())
             If helper IsNot Nothing Then
                 Using helper
                     Dim user As FluxUser = Await helper.GetFluxAsync()

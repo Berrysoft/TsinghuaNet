@@ -2,10 +2,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:nethelper="clr-namespace:TsinghuaNet.Helper;assembly:TsinghuaNet.Helper"
         mc:Ignorable="d"
         x:Class="TsinghuaNet.Avalonia.DetailWindow" FontFamily="微软雅黑,苹方-简"
         Width="400" Height="400" Title="流量明细" Icon="resm:TsinghuaNet.Avalonia.Logo.ico" CanResize="True" WindowStartupLocation="CenterScreen">
-  <DataGrid Name="DetailView" Margin="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
+  <Window.DataContext>
+    <nethelper:DetailViewModel/>
+  </Window.DataContext>
+  <DataGrid Name="DetailView" Margin="8" Items="{Binding DetailsSource}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" CanUserResizeColumns="True" CanUserSortColumns="True" CanUserReorderColumns="False">
     <DataGrid.Columns>
       <DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}"/>
       <DataGridTextColumn Header="注销时间" Binding="{Binding LogoutTime}"/>

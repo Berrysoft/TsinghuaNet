@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TsinghuaNet.CrossPlatform.Views.InfoPage"
+             xmlns:vm="clr-namespace:TsinghuaNet.CrossPlatform.ViewModels"
+             Title="简要信息">
+    <ContentPage.BindingContext>
+        <vm:InfoViewModel/>
+    </ContentPage.BindingContext>
+    <StackLayout Orientation="Vertical" Padding="8">
+        <Grid Padding="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Style="{DynamicResource BodyStyle}">用户：</Label>
+            <Label Grid.Column="1" Grid.Row="0" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Username}"/>
+            <Label Grid.Column="2" Grid.Row="0" Style="{DynamicResource BodyStyle}">时长：</Label>
+            <Label Grid.Column="3" Grid.Row="0" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineTime,StringFormat='{0}'}"/>
+            <Label Grid.Column="0" Grid.Row="1" Style="{DynamicResource BodyStyle}">流量：</Label>
+            <Label Grid.Column="1" Grid.Row="1" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
+            <Label Grid.Column="2" Grid.Row="1" Style="{DynamicResource BodyStyle}">余额：</Label>
+            <Label Grid.Column="3" Grid.Row="1" Style="{DynamicResource BodyStyle}" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
+        </Grid>
+        <StackLayout Orientation="Horizontal" Padding="8">
+            <Label VerticalOptions="Center" Style="{DynamicResource BodyStyle}">使用Auth4</Label>
+            <Switch VerticalOptions="Center" IsToggled="{Binding UseAuth4,Mode=TwoWay}"/>
+        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Margin="8" Grid.Column="0" Command="{Binding RefreshCommand}" Text="刷新"/>
+            <Button Margin="8" Grid.Column="1" Command="{Binding LoginCommand}" Text="登录"/>
+            <Button Margin="8" Grid.Column="2" Command="{Binding LogoutCommand}" Text="注销"/>
+        </Grid>
+    </StackLayout>
+</ContentPage>

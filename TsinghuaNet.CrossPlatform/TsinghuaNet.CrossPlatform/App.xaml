@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:TsinghuaNet.CrossPlatform.Converters"
+             x:Class="TsinghuaNet.CrossPlatform.App">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--Global Styles-->
+            <Style TargetType="Label">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="WPF" Value="微软雅黑"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontSize" Value="Micro"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="WPF" Value="微软雅黑"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontSize" Value="Micro"/>
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="FontFamily">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:String">
+                            <On Platform="WPF" Value="微软雅黑"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="FontSize" Value="Micro"/>
+            </Style>
+            <!--Converters-->
+            <converters:FluxStringConverter x:Key="FluxStringConverter"/>
+            <converters:BalanceStringConverter x:Key="BalanceStringConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+
+</Application>

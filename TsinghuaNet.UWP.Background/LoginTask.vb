@@ -8,11 +8,11 @@ Public NotInheritable Class LoginTask
     Public Async Sub Run(taskInstance As IBackgroundTaskInstance) Implements IBackgroundTask.Run
         Dim deferral = taskInstance.GetDeferral()
         Try
-            Dim tuple = InternetStatusHelper.GetInternetStatus()
-            Dim state = SettingsHelper.SuggestNetState(tuple.Status, tuple.Ssid)
+            Dim status As New InternetStatus
+            Await status.RefreshAsync()
             Dim un = SettingsHelper.StoredUsername
             Dim pw = CredentialHelper.GetCredential(un)
-            Dim helper = ConnectHelper.GetHelper(state, un, pw)
+            Dim helper = ConnectHelper.GetHelper(Await status.SuggestAsync(), un, pw)
             If helper IsNot Nothing Then
                 Using helper
                     Await helper.LoginAsync()

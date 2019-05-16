@@ -1,154 +1,154 @@
-﻿Imports MvvmHelpers
-Imports TsinghuaNet.Helper
+﻿Imports TsinghuaNet.Helper
+Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper
 
 Public Class MainViewModel
-    Inherits DependencyObject
+    Inherits NetViewModel
 
-    Public Shared ReadOnly UserContentProperty As DependencyProperty = DependencyProperty.Register(NameOf(UserContent), GetType(UIElement), GetType(MainViewModel), New PropertyMetadata(Nothing))
+    Private mainTimer As New DispatcherTimer
+
+    Public Sub New()
+        MyBase.New()
+        Status = New InternetStatus()
+        ' 设置计时器
+        mainTimer.Interval = TimeSpan.FromSeconds(1)
+        AddHandler mainTimer.Tick, AddressOf MainTimerTick
+    End Sub
+
+    Public Overrides Sub LoadSettings()
+        ' 上一次登录的用户名
+        Dim un = SettingsHelper.StoredUsername
+        ' 设置为当前用户名并获取密码
+        Credential.Username = un
+        Credential.Password = CredentialHelper.GetCredential(un)
+        ' 获取用户设置的主题
+        SettingsTheme = SettingsHelper.Theme
+        ContentType = SettingsHelper.ContentType
+        ' 自动登录
+        AutoLogin = SettingsHelper.AutoLogin
+        ' 后台任务
+        BackgroundAutoLogin = SettingsHelper.BackgroundAutoLogin
+        BackgroundLiveTile = SettingsHelper.BackgroundLiveTile
+        ' 流量限制
+        If SettingsHelper.FluxLimit IsNot Nothing Then
+            FluxLimit = SettingsHelper.FluxLimit
+            EnableFluxLimit = True
+        End If
+    End Sub
+
+    Public Overrides Sub SaveSettings()
+        SettingsHelper.StoredUsername = Credential.Username
+        SettingsHelper.AutoLogin = AutoLogin
+        SettingsHelper.Theme = SettingsTheme
+        SettingsHelper.ContentType = ContentType
+        SettingsHelper.FluxLimit = If(EnableFluxLimit, CType(FluxLimit, Long?), Nothing)
+    End Sub
+
+
+    Private _UserContent As UIElement
     Public Property UserContent As UIElement
         Get
-            Return GetValue(UserContentProperty)
+            Return _UserContent
         End Get
         Set(value As UIElement)
-            SetValue(UserContentProperty, value)
+            SetProperty(_UserContent, value)
         End Set
     End Property
 
-    Public Shared ReadOnly ResponseProperty As DependencyProperty = DependencyProperty.Register(NameOf(Response), GetType(String), GetType(MainViewModel), New PropertyMetadata(Nothing))
+    Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res = Await MyBase.RefreshAsync(helper)
+        ' 更新磁贴
+        NotificationHelper.UpdateTile(OnlineUser)
+        If EnableFluxLimit Then
+            NotificationHelper.SendWarningToast(OnlineUser, FluxLimit)
+        End If
+        ' 设置内容
+        Dim content As IUserContent = TryCast(UserContent, IUserContent)
+        If content IsNot Nothing Then
+            content.User = OnlineUser
+            ' 刷新图表
+            If OnlineUser.Username IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Credential.Username) Then
+                Dim userhelper = Credential.GetUseregHelper()
+                Await userhelper.LoginAsync()
+                Await CType(content, GraphUserContent).RefreshDetails(userhelper)
+            End If
+            content.BeginAnimation()
+            mainTimer.Start()
+        End If
+        Return res
+    End Function
+
+    Private Sub MainTimerTick()
+        Dim content As IUserContent = UserContent
+        If Not content.AddOneSecond() Then
+            mainTimer.Stop()
+        End If
+    End Sub
+
+    Protected Overrides Sub OnIsBusyChanged()
+        MyBase.OnIsBusyChanged()
+        Dim content As IUserContent = UserContent
+        If content IsNot Nothing Then
+            content.IsProgressActive = IsBusy
+        End If
+    End Sub
+
+    Private _Response As String
     Public Property Response As String
         Get
-            Return GetValue(ResponseProperty)
+            Return _Response
         End Get
         Set(value As String)
-            SetValue(ResponseProperty, value)
+            SetProperty(_Response, value)
         End Set
     End Property
 
-    Public Shared ReadOnly UsernameProperty As DependencyProperty = DependencyProperty.Register(NameOf(Username), GetType(String), GetType(MainViewModel), New PropertyMetadata(String.Empty))
-    Public Property Username As String
-        Get
-            Return GetValue(UsernameProperty)
-        End Get
-        Set(value As String)
-            SetValue(UsernameProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly PasswordProperty As DependencyProperty = DependencyProperty.Register(NameOf(Password), GetType(String), GetType(MainViewModel), New PropertyMetadata(String.Empty))
-    Public Property Password As String
-        Get
-            Return GetValue(PasswordProperty)
-        End Get
-        Set(value As String)
-            SetValue(PasswordProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly AutoLoginProperty As DependencyProperty = DependencyProperty.Register(NameOf(AutoLogin), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
-    Public Property AutoLogin As Boolean
-        Get
-            Return GetValue(AutoLoginProperty)
-        End Get
-        Set(value As Boolean)
-            SetValue(AutoLoginProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly BackgroundAutoLoginProperty As DependencyProperty = DependencyProperty.Register(NameOf(BackgroundAutoLogin), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
+    Private _BackgroundAutoLogin As Boolean
     Public Property BackgroundAutoLogin As Boolean
         Get
-            Return GetValue(BackgroundAutoLoginProperty)
+            Return _BackgroundAutoLogin
         End Get
         Set(value As Boolean)
-            SetValue(BackgroundAutoLoginProperty, value)
+            SetProperty(_BackgroundAutoLogin, value, onChanged:=AddressOf OnBackgroundAutoLoginChanged)
         End Set
     End Property
+    Private Async Sub OnBackgroundAutoLoginChanged()
+        SettingsHelper.BackgroundAutoLogin = BackgroundAutoLogin
+        If Await BackgroundHelper.RequestAccessAsync() Then
+            BackgroundHelper.RegisterLogin(BackgroundAutoLogin)
+        End If
+    End Sub
 
-    Public Shared ReadOnly BackgroundLiveTileProperty As DependencyProperty = DependencyProperty.Register(NameOf(BackgroundLiveTile), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(True))
+    Private _BackgroundLiveTile As Boolean
     Public Property BackgroundLiveTile As Boolean
         Get
-            Return GetValue(BackgroundLiveTileProperty)
+            Return _BackgroundLiveTile
         End Get
         Set(value As Boolean)
-            SetValue(BackgroundLiveTileProperty, value)
+            SetProperty(_BackgroundLiveTile, value, onChanged:=AddressOf OnBackgroundLiveTileChanged)
         End Set
     End Property
 
-    Public Shared ReadOnly EnableFluxLimitProperty As DependencyProperty = DependencyProperty.Register(NameOf(EnableFluxLimit), GetType(Boolean), GetType(MainViewModel), New PropertyMetadata(False))
-    Public Property EnableFluxLimit As Boolean
-        Get
-            Return GetValue(EnableFluxLimitProperty)
-        End Get
-        Set(value As Boolean)
-            SetValue(EnableFluxLimitProperty, value)
-        End Set
-    End Property
+    Private Async Sub OnBackgroundLiveTileChanged()
+        SettingsHelper.BackgroundLiveTile = BackgroundLiveTile
+        If Await BackgroundHelper.RequestAccessAsync() Then
+            BackgroundHelper.RegisterLiveTile(BackgroundLiveTile)
+        End If
+    End Sub
 
-    Public Shared ReadOnly FluxLimitProperty As DependencyProperty = DependencyProperty.Register(NameOf(FluxLimit), GetType(Long), GetType(MainViewModel), New PropertyMetadata(20000000000))
-    Public Property FluxLimit As Long
-        Get
-            Return GetValue(FluxLimitProperty)
-        End Get
-        Set(value As Long)
-            SetValue(FluxLimitProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly StateProperty As DependencyProperty = DependencyProperty.Register(NameOf(State), GetType(NetState), GetType(MainViewModel), New PropertyMetadata(NetState.Unknown))
-    Public Property State As NetState
-        Get
-            Return GetValue(StateProperty)
-        End Get
-        Set(value As NetState)
-            SetValue(StateProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly NetStatusProperty As DependencyProperty = DependencyProperty.Register(NameOf(NetStatus), GetType(InternetStatus), GetType(MainViewModel), New PropertyMetadata(InternetStatus.Unknown))
-    Public Property NetStatus As InternetStatus
-        Get
-            Return GetValue(NetStatusProperty)
-        End Get
-        Set(value As InternetStatus)
-            SetValue(NetStatusProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly SsidProperty As DependencyProperty = DependencyProperty.Register(NameOf(Ssid), GetType(String), GetType(MainViewModel), New PropertyMetadata(String.Empty))
-    Public Property Ssid As String
-        Get
-            Return GetValue(SsidProperty)
-        End Get
-        Set(value As String)
-            SetValue(SsidProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly SuggestStateProperty As DependencyProperty = DependencyProperty.Register(NameOf(SuggestState), GetType(NetState), GetType(MainViewModel), New PropertyMetadata(NetState.Unknown))
-    Public Property SuggestState As NetState
-        Get
-            Return GetValue(SuggestStateProperty)
-        End Get
-        Set(value As NetState)
-            SetValue(SuggestStateProperty, value)
-        End Set
-    End Property
-
-    Public Shared ReadOnly SettingsThemeProperty As DependencyProperty = DependencyProperty.Register(NameOf(SettingsTheme), GetType(UserTheme), GetType(MainViewModel), New PropertyMetadata(UserTheme.Default, AddressOf SettingsThemePropertyChanged))
+    Private _SettingsTheme As UserTheme
     Public Property SettingsTheme As UserTheme
         Get
-            Return GetValue(SettingsThemeProperty)
+            Return _SettingsTheme
         End Get
         Set(value As UserTheme)
-            SetValue(SettingsThemeProperty, value)
+            SetProperty(_SettingsTheme, value, onChanged:=AddressOf OnSettingsThemeChanged)
         End Set
     End Property
-    Private Shared Sub SettingsThemePropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-        Dim model As MainViewModel = d
-        Dim theme As UserTheme = e.NewValue
-        Dim actheme As ElementTheme = theme
-        If theme = UserTheme.Auto Then
+    Private Sub OnSettingsThemeChanged()
+        Dim settheme As UserTheme = SettingsTheme
+        Dim actheme As ElementTheme = settheme
+        If settheme = UserTheme.Auto Then
             Dim now As Date = Date.Now
             If now.Hour <= 6 OrElse now.Hour >= 18 Then
                 actheme = ElementTheme.Dark
@@ -156,34 +156,32 @@ Public Class MainViewModel
                 actheme = ElementTheme.Light
             End If
         End If
-        model.Theme = actheme
+        Theme = actheme
     End Sub
 
-    Public Shared ReadOnly ThemeProperty As DependencyProperty = DependencyProperty.Register(NameOf(Theme), GetType(ElementTheme), GetType(MainViewModel), New PropertyMetadata(ElementTheme.Default))
+    Private _Theme As ElementTheme
     Public Property Theme As ElementTheme
         Get
-            Return GetValue(ThemeProperty)
+            Return _Theme
         End Get
         Set(value As ElementTheme)
-            SetValue(ThemeProperty, value)
+            SetProperty(_Theme, value)
         End Set
     End Property
 
-    Public Shared ReadOnly ContentTypeProperty As DependencyProperty = DependencyProperty.Register(NameOf(ContentType), GetType(UserContentType), GetType(MainViewModel), New PropertyMetadata(UserContentType.Ring, AddressOf OnContentTypePropertyChanged))
+    Private _ContentType As UserContentType
     Public Property ContentType As UserContentType
         Get
-            Return GetValue(ContentTypeProperty)
+            Return _ContentType
         End Get
         Set(value As UserContentType)
-            SetValue(ContentTypeProperty, value)
+            SetProperty(_ContentType, value, onChanged:=AddressOf OnContentTypeChanged)
         End Set
     End Property
-    Private Shared Sub OnContentTypePropertyChanged(d As DependencyObject, e As DependencyPropertyChangedEventArgs)
-        Dim model As MainViewModel = d
-        Dim type As UserContentType = e.NewValue
-        Dim oldc As IUserContent = model.UserContent
+    Private Sub OnContentTypeChanged()
+        Dim oldc As IUserContent = UserContent
         Dim newc As IUserContent = Nothing
-        Select Case type
+        Select Case ContentType
             Case UserContentType.Line
                 newc = New LineUserContent()
             Case UserContentType.Ring
@@ -196,14 +194,7 @@ Public Class MainViewModel
         If oldc IsNot Nothing AndAlso newc IsNot Nothing Then
             newc.User = oldc.User
         End If
-        model.UserContent = newc
-        model.OnContentTypeChanged(type)
+        UserContent = newc
+        Refresh()
     End Sub
-
-    Public Event ContentTypeChanged As EventHandler(Of UserContentType)
-    Protected Overridable Sub OnContentTypeChanged(e As UserContentType)
-        RaiseEvent ContentTypeChanged(Me, e)
-    End Sub
-
-    Public ReadOnly Property NetUsers As New ObservableRangeCollection(Of NetUser)
 End Class
