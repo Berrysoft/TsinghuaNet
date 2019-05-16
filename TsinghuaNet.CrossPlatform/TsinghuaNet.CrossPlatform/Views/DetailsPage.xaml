@@ -13,7 +13,13 @@
             <datagrid:DataGrid.Columns>
                 <datagrid:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
                 <datagrid:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
-                <datagrid:DataGridColumn Title="流量" PropertyName="Flux"/>
+                <datagrid:DataGridColumn Title="流量">
+                    <datagrid:DataGridColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Flux,Converter={StaticResource FluxStringConverter}}"/>
+                        </DataTemplate>
+                    </datagrid:DataGridColumn.CellTemplate>
+                </datagrid:DataGridColumn>
             </datagrid:DataGrid.Columns>
         </datagrid:DataGrid>
     </StackLayout>

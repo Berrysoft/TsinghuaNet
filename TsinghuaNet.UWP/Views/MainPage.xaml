@@ -50,7 +50,6 @@
         <Storyboard x:Name="HideResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
-        <local:FluxNumericConverter x:Key="FluxNumericConverter"/>
         <local:FluxStringConverter x:Key="FluxStringConverter"/>
     </Page.Resources>
     <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
@@ -87,7 +86,7 @@
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">流量不足警告</TextBlock>
                         <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.EnableFluxLimit,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                     </StackPanel>
-                    <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxNumericConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
+                    <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
                         <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind Model.RefreshStatusCommand}"/>
