@@ -61,7 +61,8 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
     </tr>
 </table>
 
-## TsinghuaNet.Avalonia
+## TsinghuaNet.Avalonia（**拟弃用**）
+
 Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
 
 <table>
@@ -70,6 +71,9 @@ Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows
         <th><img alt="暗主题" src="./Screenshots/Avalonia.Dark.png"/></th>
     </tr>
 </table>
+
+## TsinghuaaNet.CrossPlatform
+Xamarin版本，使用C#，支持iOS与WPF（测试用），考虑增加Android。
 
 # Q&A
 ## 为什么需要一个客户端？
