@@ -1,11 +1,11 @@
-﻿Imports System.Net
+﻿Imports System.Collections.ObjectModel
+Imports System.Net
 Imports System.Windows.Input
-Imports MvvmHelpers
 
 Public Class ConnectionViewModel
     Inherits NetObservableBase
 
-    Public ReadOnly Property NetUsers As New ObservableRangeCollection(Of NetUser)
+    Public ReadOnly Property NetUsers As New ObservableCollection(Of NetUser)
 
     Public ReadOnly Property RefreshCommand As ICommand = New Command(Me, AddressOf RefreshNetUsers)
 
@@ -54,9 +54,9 @@ Public Class ConnectionViewModel
         Loop
         ' 最后添加新增元素
         ' 判断大小以防止索引错误
-        If users.Count > 0 Then
-            usersmodel.AddRange(users)
-        End If
+        For Each user In users
+            usersmodel.Add(user)
+        Next
     End Function
 
     Public Function DropAsync(ParamArray ips() As IPAddress) As Task

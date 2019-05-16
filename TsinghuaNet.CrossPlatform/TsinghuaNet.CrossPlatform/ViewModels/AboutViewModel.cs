@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Windows.Input;
-using Xamarin.Forms;
+using TsinghuaNet.Helper;
 
 namespace TsinghuaNet.CrossPlatform.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class AboutViewModel : NetObservableBase
     {
         public AboutViewModel()
         {
-            Title = "关于";
-
-            OpenWebCommand = new Command(() => Device.OpenUri(new Uri("https://github.com/Berrysoft/TsinghuaNet")));
+            OpenWebCommand = new Command(this, () => Xamarin.Forms.Device.OpenUri(new Uri("https://github.com/Berrysoft/TsinghuaNet")));
         }
 
         public ICommand OpenWebCommand { get; }

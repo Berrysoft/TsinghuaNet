@@ -1,5 +1,4 @@
-﻿using TsinghuaNet.CrossPlatform.Services;
-using TsinghuaNet.CrossPlatform.Views;
+﻿using TsinghuaNet.CrossPlatform.Views;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.CrossPlatform
@@ -10,8 +9,6 @@ namespace TsinghuaNet.CrossPlatform
         public App()
         {
             InitializeComponent();
-            DependencyService.Register<NetCredential>();
-            DependencyService.Register<NetSettings>();
             MainPage = new MainPage();
         }
 

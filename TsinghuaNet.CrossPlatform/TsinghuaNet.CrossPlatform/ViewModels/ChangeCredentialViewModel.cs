@@ -1,10 +1,11 @@
-﻿namespace TsinghuaNet.CrossPlatform.ViewModels
+﻿using TsinghuaNet.Helper;
+
+namespace TsinghuaNet.CrossPlatform.ViewModels
 {
-    public class ChangeCredentialViewModel : BaseViewModel
+    public class ChangeCredentialViewModel : NetObservableBase
     {
         public ChangeCredentialViewModel()
         {
-            Title = "更改用户";
             Username = Credential.Username;
             Password = Credential.Password;
         }

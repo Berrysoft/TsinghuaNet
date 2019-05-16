@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using TsinghuaNet.Helper;
 
 namespace TsinghuaNet.CrossPlatform.ViewModels
 {
-    public class SettingsViewModel : BaseViewModel
+    public class SettingsViewModel : NetObservableBase
     {
-        public SettingsViewModel()
-        {
-            Title = "设置";
-        }
     }
 }
