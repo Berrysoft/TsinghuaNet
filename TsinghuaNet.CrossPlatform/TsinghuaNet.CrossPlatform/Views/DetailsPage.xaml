@@ -8,8 +8,8 @@
     <ContentPage.BindingContext>
         <nethelper:DetailViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout>
-        <datagrid:DataGrid ItemsSource="{Binding DetailsSource}">
+    <StackLayout Padding="16">
+        <datagrid:DataGrid ItemsSource="{Binding DetailsSource}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <datagrid:DataGrid.Columns>
                 <datagrid:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
                 <datagrid:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>

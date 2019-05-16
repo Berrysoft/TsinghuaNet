@@ -1,5 +1,6 @@
 ﻿using TsinghuaNet.CrossPlatform.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.DataGrid;
 
 namespace TsinghuaNet.CrossPlatform
 {
@@ -9,6 +10,7 @@ namespace TsinghuaNet.CrossPlatform
         public App()
         {
             InitializeComponent();
+			DataGridComponent.Init();
             MainPage = new MainPage();
         }
 
