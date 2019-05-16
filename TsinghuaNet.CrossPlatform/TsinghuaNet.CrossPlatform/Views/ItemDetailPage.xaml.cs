@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using TsinghuaNet.CrossPlatform.ViewModels;
 using Xamarin.Forms;
 
@@ -16,6 +17,12 @@ namespace TsinghuaNet.CrossPlatform.Views
             InitializeComponent();
 
             BindingContext = this.viewModel = viewModel;
+        }
+
+        private async void DropSelf(object sender, EventArgs e)
+        {
+            await viewModel.DropAsync();
+            await Navigation.PopAsync();
         }
     }
 }

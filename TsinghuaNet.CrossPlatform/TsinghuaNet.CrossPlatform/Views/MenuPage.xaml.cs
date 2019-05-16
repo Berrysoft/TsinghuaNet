@@ -23,7 +23,7 @@ namespace TsinghuaNet.CrossPlatform.Views
             {
                 new HomeMenuItem {Id = MenuItemType.Info, Title = "简要信息"},
                 new HomeMenuItem {Id = MenuItemType.Browse, Title = "在线信息" },
-                //new HomeMenuItem {Id = MenuItemType.Details, Title = "流量明细"},
+                new HomeMenuItem {Id = MenuItemType.Details, Title = "流量明细"},
                 new HomeMenuItem {Id = MenuItemType.Settings, Title = "设置"},
                 new HomeMenuItem {Id = MenuItemType.About, Title = "关于" }
             };

@@ -4,7 +4,7 @@
              x:Class="TsinghuaNet.CrossPlatform.Views.ItemDetailPage"
              Title="{Binding Item.Client}">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="下线"/>
+        <ToolbarItem Text="下线" Clicked="DropSelf"/>
     </ContentPage.ToolbarItems>
     <StackLayout Padding="16">
         <Label Style="{DynamicResource BodyStyle}" FontAttributes="Bold" Text="IP地址："/>

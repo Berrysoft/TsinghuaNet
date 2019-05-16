@@ -1,4 +1,5 @@
-﻿using TsinghuaNet.Helper;
+﻿using System.Threading.Tasks;
+using TsinghuaNet.Helper;
 
 namespace TsinghuaNet.CrossPlatform.ViewModels
 {
@@ -8,6 +9,13 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
         public ItemDetailViewModel(NetUser item = default)
         {
             Item = item;
+        }
+
+        public async Task DropAsync()
+        {
+            var helper = Credential.GetUseregHelper();
+            await helper.LoginAsync();
+            await helper.LogoutAsync(Item.Address);
         }
     }
 }

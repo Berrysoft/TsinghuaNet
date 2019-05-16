@@ -32,8 +32,7 @@ namespace TsinghuaNet.CrossPlatform.Views
         {
             base.OnAppearing();
 
-            if (viewModel.NetUsers.Count == 0)
-                viewModel.RefreshNetUsers();
+            viewModel.RefreshNetUsers();
         }
     }
 }

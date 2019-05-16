@@ -29,6 +29,9 @@ namespace TsinghuaNet.CrossPlatform.Views
                     case MenuItemType.Browse:
                         MenuPages.Add(id, new NavigationPage(new ItemsPage()));
                         break;
+                    case MenuItemType.Details:
+                        MenuPages.Add(id, new NavigationPage(new DetailsPage()));
+                        break;
                     case MenuItemType.Settings:
                         MenuPages.Add(id, new NavigationPage(new SettingsPage()));
                         break;
