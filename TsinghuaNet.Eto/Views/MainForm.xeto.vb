@@ -33,4 +33,14 @@ Public Class MainForm
                 FindChild(Of RadioButtonList)("NetStateList").SelectedIndex = Model.SuggestState - 1
         End Select
     End Sub
+
+    Private Sub ShowConnection(sender As Object, e As EventArgs)
+        Dim dialog As New ConnectionDialog
+        dialog.ShowModal(Me)
+    End Sub
+
+    Private Sub ShowDetails(sender As Object, e As EventArgs)
+        Dim dialog As New DetailsDialog
+        dialog.ShowModal(Me)
+    End Sub
 End Class

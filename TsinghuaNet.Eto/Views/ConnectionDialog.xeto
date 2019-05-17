@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dialog xmlns="http://schema.picoe.ca/eto.forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="320" Height="320" Title="管理连接">
+  <GridView x:Name="ConnectionView" DataStore="{Binding NetUsers}" AllowMultipleSelection="True">
+    <GridView.Columns>
+      <GridColumn HeaderText="IP地址">
+        <GridColumn.DataCell>
+          <TextBoxCell Binding="{Binding Address}"/>
+        </GridColumn.DataCell>
+      </GridColumn>
+      <GridColumn HeaderText="登录时间">
+        <GridColumn.DataCell>
+          <TextBoxCell Binding="{Binding LoginTime}"/>
+        </GridColumn.DataCell>
+      </GridColumn>
+      <GridColumn HeaderText="客户端">
+        <GridColumn.DataCell>
+          <TextBoxCell Binding="{Binding Client}"/>
+        </GridColumn.DataCell>
+      </GridColumn>
+    </GridView.Columns>
+    <GridView.ContextMenu>
+      <ContextMenu>
+        <ButtonMenuItem Click="DropSelection" Text="下线选中项"/>
+      </ContextMenu>
+    </GridView.ContextMenu>
+  </GridView>
+</Dialog>

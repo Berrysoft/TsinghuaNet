@@ -10,10 +10,14 @@ Public Class DetailViewModel
     End Sub
 
     Private Async Sub InitializeDetails()
-        Dim helper = Credential.GetUseregHelper()
-        Await helper.LoginAsync()
-        details = New List(Of NetDetail)(Await helper.GetDetailsAsync())
-        DetailsSource = details
+        Try
+            Dim helper = Credential.GetUseregHelper()
+            Await helper.LoginAsync()
+            details = New List(Of NetDetail)(Await helper.GetDetailsAsync())
+            DetailsSource = details
+        Catch ex As Exception
+            Debug.WriteLine(ex)
+        End Try
     End Sub
 
     Private _DetailsSource As IEnumerable(Of NetDetail)

@@ -46,8 +46,8 @@
         <Button Command="{Binding RefreshCommand}">刷新</Button>
       </TableRow>
       <TableRow>
-        <Button>管理连接</Button>
-        <Button>流量明细</Button>
+        <Button Click="ShowConnection">管理连接</Button>
+        <Button Click="ShowDetails">流量明细</Button>
         <Button>设置</Button>
       </TableRow>
     </TableLayout>
