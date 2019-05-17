@@ -42,6 +42,7 @@ Public Class MainViewModel
     Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
         Dim res = Await MyBase.RefreshAsync(helper)
         timer.Stop()
+        OnlineTime = OnlineUser.OnlineTime
         If Not String.IsNullOrEmpty(OnlineUser.Username) Then
             timer.Start()
         End If
