@@ -5,6 +5,7 @@
     <RootNamespace>TsinghuaNet.Eto</RootNamespace>
     <TargetFramework>net48</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
+    <VBRuntime></VBRuntime>
   </PropertyGroup>
 
   <ItemGroup>
