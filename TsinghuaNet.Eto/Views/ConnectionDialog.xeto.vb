@@ -11,6 +11,7 @@ Public Class ConnectionDialog
         XamlReader.Load(Me)
         Model = New ConnectionViewModel()
         DataContext = Model
+        FindChild(Of GridView)("ConnectionView").DataStore = Model.NetUsers
         Model.RefreshNetUsers()
     End Sub
 

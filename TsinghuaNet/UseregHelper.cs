@@ -12,7 +12,7 @@ namespace TsinghuaNet
     /// <summary>
     /// A simple structure represents the status of a connection.
     /// </summary>
-    public readonly struct NetUser
+    public class NetUser
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NetUser"/> class.
@@ -67,7 +67,7 @@ namespace TsinghuaNet
     /// <summary>
     /// Flux detail.
     /// </summary>
-    public readonly struct NetDetail
+    public class NetDetail
     {
         /// <summary>
         /// Initializes a new instance of <see cref="NetDetail"/> class.

@@ -12,7 +12,7 @@
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
     DefaultButton="Close" CloseButtonText="确定">
     <ContentDialog.DataContext>
-        <nethelper:DetailViewModel x:Name="Model"/>
+        <local:DetailViewModel x:Name="Model"/>
     </ContentDialog.DataContext>
     <ContentDialog.Title>
         <StackPanel Orientation="Horizontal">

@@ -6,23 +6,25 @@
   <Dialog.Properties>
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
-  <GridView DataStore="{Binding DetailsSource}">
-    <GridView.Columns>
-      <GridColumn HeaderText="登录时间">
-        <GridColumn.DataCell>
-          <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
-        </GridColumn.DataCell>
-      </GridColumn>
-      <GridColumn HeaderText="注销时间">
-        <GridColumn.DataCell>
-          <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter}}"/>
-        </GridColumn.DataCell>
-      </GridColumn>
-      <GridColumn HeaderText="使用流量">
-        <GridColumn.DataCell>
-          <TextBoxCell Binding="{Binding Flux}"/>
-        </GridColumn.DataCell>
-      </GridColumn>
-    </GridView.Columns>
-  </GridView>
+  <Panel Padding="8">
+    <GridView x:Name="DetailsView">
+      <GridView.Columns>
+        <GridColumn HeaderText="登录时间">
+          <GridColumn.DataCell>
+            <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
+          </GridColumn.DataCell>
+        </GridColumn>
+        <GridColumn HeaderText="注销时间">
+          <GridColumn.DataCell>
+            <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter}}"/>
+          </GridColumn.DataCell>
+        </GridColumn>
+        <GridColumn HeaderText="使用流量">
+          <GridColumn.DataCell>
+            <TextBoxCell x:Name="FluxCell" TextAlignment="Right"/>
+          </GridColumn.DataCell>
+        </GridColumn>
+      </GridView.Columns>
+    </GridView>
+  </Panel>
 </Dialog>
