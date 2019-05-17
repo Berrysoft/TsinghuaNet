@@ -5,10 +5,12 @@ Imports CommandLine.Text
 Imports TsinghuaNet.Helper
 
 Module VerbHelper
+    Public Status As New NetPingStatus
+
     <Extension>
     Public Async Function GetHelperAsync(opts As NetVerbBase) As Task(Of IConnect)
         If opts.Host = OptionNetState.Auto Then
-            opts.Host = Await SuggestionHelper.GetSuggestion()
+            opts.Host = Await Status.SuggestAsync()
         End If
         Dim v = TryCast(opts, IConnectVerb)
         If v IsNot Nothing Then
@@ -268,6 +270,6 @@ Class SuggestionVerb
     End Property
 
     Public Overrides Async Function RunAsync() As Task
-        Console.WriteLine(StringHelper.GetNetStateString(Await SuggestionHelper.GetSuggestion()))
+        Console.WriteLine(StringHelper.GetNetStateString(Await VerbHelper.Status.SuggestAsync()))
     End Function
 End Class

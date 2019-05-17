@@ -6,7 +6,14 @@
     <TargetFramework>net48</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
     <VBRuntime></VBRuntime>
+    <DefineConstants>_MYTYPE="Empty"</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Update="**\*.xeto.vb">
+      <DependentUpon>%(Filename)</DependentUpon>
+    </Compile>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Eto.Forms" Version="2.5.0-beta.1" />
@@ -19,10 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Converters\" />
   </ItemGroup>
 
 </Project>

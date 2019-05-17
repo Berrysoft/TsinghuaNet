@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TsinghuaNet.CrossPlatform.Wpf</RootNamespace>
     <TargetFramework>net48</TargetFramework>
+    <VBRuntime></VBRuntime>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 

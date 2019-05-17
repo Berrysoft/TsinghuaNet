@@ -1,5 +1,4 @@
 ﻿Imports Eto.Forms
-Imports TsinghuaNet
 Imports TsinghuaNet.Helper
 
 Public Class MainViewModel

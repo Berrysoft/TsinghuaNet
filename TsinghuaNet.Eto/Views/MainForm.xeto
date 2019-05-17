@@ -3,6 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto"
         Width="400" Height="300" Resizable="False" Title="清华大学校园网客户端">
+  <Form.Properties>
+    <local:StringFormatConverter x:Key="StringFormatConverter"/>
+  </Form.Properties>
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>
@@ -14,9 +17,9 @@
     </StackLayout>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8" Spacing="8">
       <RadioButtonList x:Name="NetStateList" Orientation="Vertical" Spacing="0,4" SelectedIndexChanged="NetStateList_SelectedIndexChanged">
-        <ListItem Key="Net">Net</ListItem>
-        <ListItem Key="Auth4">Auth4</ListItem>
-        <ListItem Key="Auth6">Auth6</ListItem>
+        <ListItem>Net</ListItem>
+        <ListItem>Auth4</ListItem>
+        <ListItem>Auth6</ListItem>
       </RadioButtonList>
       <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center">
         <TableLayout Padding="8" Spacing="4,4">
@@ -28,7 +31,7 @@
           </TableRow>
           <TableRow>
             <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
-            <Label x:Name="OnlineTimeLabel" VerticalAlignment="Center"/>
+            <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
             <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
             <Label x:Name="OnlineUserBalanceLabel" VerticalAlignment="Center"/>
           </TableRow>

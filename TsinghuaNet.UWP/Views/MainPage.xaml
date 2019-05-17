@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.UWP"
-    xmlns:helper="using:TsinghuaNet.UWP.Helper"
     xmlns:net="using:TsinghuaNet"
     xmlns:nethelper="using:TsinghuaNet.Helper"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
