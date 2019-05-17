@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TsinghuaNet.Eto</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Eto.Forms" Version="2.5.0-beta.1" />
+    <PackageReference Include="Eto.Platform.Gtk" Version="2.5.0-beta.1" />
+    <PackageReference Include="Eto.Platform.Mac64" Version="2.5.0-beta.1" />
+    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0-beta.1" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.0-beta.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
+    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
+
+</Project>

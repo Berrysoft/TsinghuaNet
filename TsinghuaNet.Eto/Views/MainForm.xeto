@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Form xmlns="http://schema.picoe.ca/eto.forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TsinghuaNet.Eto"
+        Width="400" Height="300" Resizable="False" Title="清华大学校园网客户端">
+  <Form.DataContext>
+    <local:MainViewModel/>
+  </Form.DataContext>
+  <!--<Grid RowDefinitions="*,*,*,1.5*,*,*" ColumnDefinitions="*,*,*">
+    <RadioButton Grid.Row="0" Grid.Column="0" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Net" IsChecked="{Binding Credential.State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Net}" Content="Net"/>
+    <RadioButton Grid.Row="0" Grid.Column="1" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth4" IsChecked="{Binding Credential.State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Auth4}" Content="Auth4"/>
+    <RadioButton Grid.Row="0" Grid.Column="2" Margin="16,8" GroupName="State" Command="{Binding StateChangeCommand}" CommandParameter="Auth6" IsChecked="{Binding Credential.State,Mode=OneWay,Converter={StaticResource NetStateCheckedConverter},ConverterParameter=Auth6}" Content="Auth6"/>
+    <TextBlock Grid.Row="1" Grid.Column="0" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户名：</TextBlock>
+    <TextBox Grid.Row="1" Grid.Column="1" Margin="8,8,40,8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" Text="{Binding Credential.Username,Mode=TwoWay}"/>
+    <TextBlock Grid.Row="2" Grid.Column="0" Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">密码：</TextBlock>
+    <TextBox Grid.Row="2" Grid.Column="1" Margin="8,8,40,8" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Disabled" VerticalAlignment="Center" PasswordChar="●" Text="{Binding Credential.Password,Mode=TwoWay}"/>
+    <UniformGrid Name="FluxUserGrid" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Rows="2" IsVisible="{Binding ConnectionSuccess}">
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">用户：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">流量：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource FluxStringConverter}}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">时长：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineTime}"/>
+      <TextBlock Margin="4" HorizontalAlignment="Right" VerticalAlignment="Center">余额：</TextBlock>
+      <TextBlock Margin="4" VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource BalanceStringConverter}}"/>
+    </UniformGrid>
+    <ScrollViewer Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="8" HorizontalAlignment="Stretch" IsVisible="{Binding !ConnectionSuccess}">
+      <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="{Binding Response}"/>
+    </ScrollViewer>
+    <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="1.0" Fill="{StaticResource ThemeBorderLowBrush}" Thickness="10"/>
+    <local:Arc Grid.Row="3" Grid.Column="0" Margin="8" Width="300" Height="60" Value="{Binding FluxOffset}" Fill="{Binding FluxFill}" Thickness="10"/>
+    <Button Grid.Row="4" Grid.Column="0" Margin="8" Command="{Binding LoginCommand}" IsDefault="True">登录</Button>
+    <Button Grid.Row="4" Grid.Column="1" Margin="8" Command="{Binding LogoutCommand}">注销</Button>
+    <Button Grid.Row="4" Grid.Column="2" Margin="8" Command="{Binding RefreshCommand}">刷新</Button>
+    <Button Grid.Row="5" Grid.Column="0" Margin="8" Command="{Binding ShowConnectionCommand}">管理连接</Button>
+    <Button Grid.Row="5" Grid.Column="1" Margin="8" Command="{Binding ShowDetailCommand}">流量明细</Button>
+    <Button Grid.Row="5" Grid.Column="2" Margin="8" Command="{Binding ShowSettingsCommand}">设置</Button>
+  </Grid>-->
+  <StackLayout Orientation="Vertical" Padding="16">
+    <RadioButtonList Orientation="Vertical" SelectedValue="{Binding Credential.State,Mode=TwoWay}">
+      <ListItem Key="Net">Net</ListItem>
+      <ListItem Key="Auth4">Auth4</ListItem>
+      <ListItem Key="Auth6">Auth6</ListItem>
+    </RadioButtonList>
+    <Label Text="{Binding Credential.State}"/>
+  </StackLayout>
+</Form>
