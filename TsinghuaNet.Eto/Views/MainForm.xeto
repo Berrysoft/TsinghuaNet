@@ -65,7 +65,7 @@
       <TableRow>
         <Button Click="ShowConnection">管理连接</Button>
         <Button Click="ShowDetails">流量明细</Button>
-        <Button Click="ShowSettings">设置</Button>
+        <Button Click="ShowSettings" Text="{On 设置,Mac=首选项}"/>
       </TableRow>
     </TableLayout>
   </StackLayout>

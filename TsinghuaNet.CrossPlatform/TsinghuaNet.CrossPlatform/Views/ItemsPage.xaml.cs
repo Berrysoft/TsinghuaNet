@@ -18,11 +18,11 @@ namespace TsinghuaNet.CrossPlatform.Views
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
         {
-            var item = args.SelectedItem as NetUser?;
+            var item = args.SelectedItem as NetUser;
             if (item == null)
                 return;
 
-            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item.Value)));
+            await Navigation.PushAsync(new ItemDetailPage(new ItemDetailViewModel(item)));
 
             // Manually deselect item.
             ItemsListView.SelectedItem = null;

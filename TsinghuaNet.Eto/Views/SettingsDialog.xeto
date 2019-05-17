@@ -3,22 +3,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Avalonia"
         Width="400" Height="360" Resizable="False" Title="设置">
-  <Dialog.DefaultButton>
-    <Button>关闭</Button>
-  </Dialog.DefaultButton>
-  <TabControl x:Name="SettingsTab">
-    <TabPage Text="通用设置" Padding="8">
-      <StackLayout Orientation="Vertical" Spacing="8">
-        <CheckBox>自动登录</CheckBox>
-        <CheckBox>使用计时器递增在线时间</CheckBox>
-      </StackLayout>
-    </TabPage>
-    <TabPage Text="关于" Padding="8">
-      <StackLayout Orientation="Vertical" Spacing="8">
-        <Label Font="SystemFont.Bold+14pt">清华大学校园网客户端</Label>
-        <Label>TsinghuaNet.Eto</Label>
-        <Label>第三方开源库：</Label>
-      </StackLayout>
-    </TabPage>
-  </TabControl>
+  <Panel Padding="8">
+    <TabControl x:Name="SettingsTab">
+      <TabPage Text="通用设置" Padding="8">
+        <StackLayout Orientation="Vertical" Spacing="8">
+          <CheckBox>自动登录</CheckBox>
+          <CheckBox>使用计时器递增在线时间</CheckBox>
+        </StackLayout>
+      </TabPage>
+      <TabPage Text="关于" Padding="8">
+        <StackLayout Orientation="Vertical" Spacing="8" HorizontalContentAlignment="Stretch">
+          <Label Font="SystemFont.Bold+14pt">清华大学校园网客户端</Label>
+          <Label>TsinghuaNet.Eto</Label>
+          <Label>第三方开源库：</Label>
+          <GridView x:Name="PackageView" Height="160">
+            <GridView.Columns>
+              <GridColumn HeaderText="包名称">
+                <GridColumn.DataCell>
+                  <TextBoxCell Binding="{Binding Name}"/>
+                </GridColumn.DataCell>
+              </GridColumn>
+              <GridColumn HeaderText="开源许可">
+                <GridColumn.DataCell>
+                  <TextBoxCell Binding="{Binding License}"/>
+                </GridColumn.DataCell>
+              </GridColumn>
+            </GridView.Columns>
+          </GridView>
+        </StackLayout>
+      </TabPage>
+    </TabControl>
+  </Panel>
 </Dialog>

@@ -2,11 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:datagrid="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+             xmlns:vm="clr-namespace:TsinghuaNet.CrossPlatform.ViewModels"
              xmlns:nethelper="clr-namespace:TsinghuaNet.Helper;assembly=TsinghuaNet.Helper"
              x:Class="TsinghuaNet.CrossPlatform.Views.DetailsPage"
              Title="流量明细">
     <ContentPage.BindingContext>
-        <nethelper:DetailViewModel/>
+        <vm:DetailViewModel/>
     </ContentPage.BindingContext>
     <StackLayout Padding="16">
         <datagrid:DataGrid ItemsSource="{Binding DetailsSource}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
