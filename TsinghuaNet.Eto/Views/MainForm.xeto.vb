@@ -1,11 +1,12 @@
-﻿Imports Eto.Forms
+﻿Imports System.ComponentModel
+Imports Eto.Forms
 Imports Eto.Serialization.Xaml
 Imports TsinghuaNet.Helper
 
 Public Class MainForm
     Inherits Form
 
-    Private Model As MainViewModel
+    Private WithEvents Model As MainViewModel
 
     Public Sub New()
         XamlReader.Load(Me)
@@ -30,4 +31,10 @@ Public Class MainForm
         Model.Credential.State = FindChild(Of RadioButtonList)("NetStateList").SelectedIndex + 1
     End Sub
 
+    Private Sub Model_PropertyChanged(sender As Object, e As PropertyChangedEventArgs) Handles Model.PropertyChanged
+        Select Case e.PropertyName
+            Case "SuggestState"
+                FindChild(Of RadioButtonList)("NetStateList").SelectedIndex = Model.SuggestState - 1
+        End Select
+    End Sub
 End Class

@@ -1,4 +1,5 @@
-﻿Imports TsinghuaNet
+﻿Imports Eto.Forms
+Imports TsinghuaNet
 Imports TsinghuaNet.Helper
 
 Public Class MainViewModel
@@ -6,7 +7,9 @@ Public Class MainViewModel
 
     Public Sub New()
         MyBase.New()
-
+        Status = New NetPingStatus()
+        timer = New UITimer(AddressOf OnlineTimerTick)
+        timer.Interval = 1
     End Sub
 
     Public Overrides Sub LoadSettings()
@@ -15,6 +18,11 @@ Public Class MainViewModel
 
     Public Overrides Sub SaveSettings()
 
+    End Sub
+
+    Protected Overrides Sub OnSuggestStateChanged()
+        MyBase.OnSuggestStateChanged()
+        Credential.State = SuggestState
     End Sub
 
     Private _OnlineTime As TimeSpan
@@ -26,6 +34,20 @@ Public Class MainViewModel
             SetProperty(_OnlineTime, value)
         End Set
     End Property
+
+    Private timer As UITimer
+    Private Sub OnlineTimerTick()
+        OnlineTime += TimeSpan.FromSeconds(1)
+    End Sub
+
+    Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
+        Dim res = Await MyBase.RefreshAsync(helper)
+        timer.Stop()
+        If Not String.IsNullOrEmpty(OnlineUser.Username) Then
+            timer.Start()
+        End If
+        Return res
+    End Function
 
     Private _Response As String
     Public Property Response As String

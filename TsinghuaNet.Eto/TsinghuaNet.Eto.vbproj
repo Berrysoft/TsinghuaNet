@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TsinghuaNet.Eto</RootNamespace>
     <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>
