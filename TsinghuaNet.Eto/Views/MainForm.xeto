@@ -6,6 +6,23 @@
   <Form.Properties>
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Form.Properties>
+  <Form.Menu>
+    <On>
+      <On.Mac>
+        <MenuBar>
+          <MenuBar.ApplicationItems>
+            <ButtonMenuItem Text="首选项..." Shortcut="Application+Comma"/>
+          </MenuBar.ApplicationItems>
+          <MenuBar.QuitItem>
+            <ButtonMenuItem Text="退出" Shortcut="CommonModifier+Q" Click="HandleQuit"/>
+          </MenuBar.QuitItem>
+          <MenuBar.AboutItem>
+            <ButtonMenuItem Text="关于..."/>
+          </MenuBar.AboutItem>
+        </MenuBar>
+      </On.Mac>
+    </On>
+  </Form.Menu>
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>

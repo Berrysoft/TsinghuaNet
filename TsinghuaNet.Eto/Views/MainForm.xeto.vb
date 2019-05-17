@@ -43,4 +43,8 @@ Public Class MainForm
         Dim dialog As New DetailsDialog
         dialog.ShowModal(Me)
     End Sub
+
+    Protected Sub HandleQuit(sender As Object, e As EventArgs)
+        Application.Instance.Quit()
+    End Sub
 End Class
