@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dialog xmlns="http://schema.picoe.ca/eto.forms"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:TsinghuaNet.Avalonia"
+        Width="400" Height="360" Resizable="False" Title="设置">
+  <!--<Grid RowDefinitions="*,48">
+    <TabControl Grid.Row="0" Margin="8" TabStripPlacement="Left">
+      <TabItem Header="通用设置">
+        <StackPanel Orientation="Vertical" DataContext="{Binding Model,Mode=OneWay}">
+          <CheckBox Margin="8" IsChecked="{Binding AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
+          <CheckBox Margin="8" IsChecked="{Binding AutoSuggest,Mode=TwoWay}">自动判断连接方式（仅作参考）</CheckBox>
+          <CheckBox Margin="8" IsChecked="{Binding UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
+          <CheckBox Margin="8" IsChecked="{Binding EnableFluxLimit,Mode=TwoWay}">流量不足预警</CheckBox>
+          <NumericUpDown Margin="32,0,8,8" IsEnabled="{Binding EnableFluxLimit,Mode=TwoWay}" Minimum="5" Maximum="30" Value="{Binding FluxLimit,Mode=TwoWay}"/>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="主题设置">
+        <StackPanel Orientation="Vertical">
+          <StackPanel Margin="8" Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">主题颜色：</TextBlock>
+            <ComboBox HorizontalAlignment="Left" Width="100" Height="32" DataContext="{x:Static local:Program.Selector}" Items="{Binding Themes}" SelectedItem="{Binding SelectedTheme,Mode=TwoWay}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <ComboBoxItem Content="{Binding Name}"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+          </StackPanel>
+        </StackPanel>
+      </TabItem>
+      <TabItem Header="关于">
+        <Grid RowDefinitions="Auto,*">
+          <StackPanel Grid.Row="0" Orientation="Vertical">
+            <TextBlock Margin="8" FontSize="16">清华大学校园网客户端</TextBlock>
+            <TextBlock Margin="8">TsinghuaNet.Avalonia</TextBlock>
+            <TextBlock Margin="8">第三方开源库：</TextBlock>
+          </StackPanel>
+          <DataGrid Grid.Row="1" Margin="8" Width="280" Items="{Binding Packages}">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="名称" Binding="{Binding Name}"/>
+              <DataGridTextColumn Header="开源许可" Binding="{Binding License}"/>
+            </DataGrid.Columns>
+          </DataGrid>
+        </Grid>
+      </TabItem>
+    </TabControl>
+    <Button Grid.Row="1" Margin="8" HorizontalAlignment="Right" Width="100" Command="{Binding Close}">关闭</Button>
+  </Grid>-->
+  <Dialog.DefaultButton>
+    <Button>关闭</Button>
+  </Dialog.DefaultButton>
+  <TabControl TabPosition="Left">
+    <TabPage Text="通用设置">
+      <StackLayout Orientation="Vertical">
+        <CheckBox Margin="8">自动登录</CheckBox>
+        <CheckBox Margin="8">使用计时器递增在线时间</CheckBox>
+      </StackLayout>
+    </TabPage>
+    <TabPage Text="关于">
+      <StackLayout Orientation="Vertical">
+        <Label FontSize="16">清华大学校园网客户端</Label>
+        <Label>TsinghuaNet.Eto</Label>
+        <Label>第三方开源库：</Label>
+      </StackLayout>
+    </TabPage>
+  </TabControl>
+</Dialog>

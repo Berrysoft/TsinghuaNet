@@ -17,7 +17,7 @@
             <ButtonMenuItem Text="退出" Shortcut="CommonModifier+Q" Click="HandleQuit"/>
           </MenuBar.QuitItem>
           <MenuBar.AboutItem>
-            <ButtonMenuItem Text="关于..."/>
+            <ButtonMenuItem Text="关于..." Click="ShowAbout"/>
           </MenuBar.AboutItem>
         </MenuBar>
       </On.Mac>
@@ -65,7 +65,7 @@
       <TableRow>
         <Button Click="ShowConnection">管理连接</Button>
         <Button Click="ShowDetails">流量明细</Button>
-        <Button>设置</Button>
+        <Button Click="ShowAbout">设置</Button>
       </TableRow>
     </TableLayout>
   </StackLayout>
