@@ -12,25 +12,31 @@
         </StackLayout>
       </TabPage>
       <TabPage Text="关于" Padding="8">
-        <StackLayout Orientation="Vertical" Spacing="8" HorizontalContentAlignment="Stretch">
-          <Label Font="SystemFont.Bold+14pt">清华大学校园网客户端</Label>
-          <Label>TsinghuaNet.Eto</Label>
-          <Label>第三方开源库：</Label>
-          <GridView x:Name="PackageView" Height="160">
-            <GridView.Columns>
-              <GridColumn HeaderText="包名称">
-                <GridColumn.DataCell>
-                  <TextBoxCell Binding="{Binding Name}"/>
-                </GridColumn.DataCell>
-              </GridColumn>
-              <GridColumn HeaderText="开源许可">
-                <GridColumn.DataCell>
-                  <TextBoxCell Binding="{Binding License}"/>
-                </GridColumn.DataCell>
-              </GridColumn>
-            </GridView.Columns>
-          </GridView>
-        </StackLayout>
+        <TableLayout Padding="8" Spacing="8,8">
+          <TableRow>
+            <StackLayout Orientation="Vertical" Spacing="8" HorizontalContentAlignment="Stretch">
+              <Label Font="SystemFont.Bold+14pt">清华大学校园网客户端</Label>
+              <Label>TsinghuaNet.Eto</Label>
+              <Label>第三方开源库：</Label>
+            </StackLayout>
+          </TableRow>
+          <TableRow>
+            <GridView x:Name="PackageView" Height="160">
+              <GridView.Columns>
+                <GridColumn HeaderText="包名称">
+                  <GridColumn.DataCell>
+                    <TextBoxCell Binding="{Binding Name}"/>
+                  </GridColumn.DataCell>
+                </GridColumn>
+                <GridColumn HeaderText="开源许可">
+                  <GridColumn.DataCell>
+                    <TextBoxCell Binding="{Binding License}"/>
+                  </GridColumn.DataCell>
+                </GridColumn>
+              </GridView.Columns>
+            </GridView>
+          </TableRow>
+        </TableLayout>
       </TabPage>
     </TabControl>
   </Panel>

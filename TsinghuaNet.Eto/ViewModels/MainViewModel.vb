@@ -1,4 +1,8 @@
-﻿Imports Eto.Forms
+﻿Imports System.IO
+Imports System.Text
+Imports Eto.Forms
+Imports Newtonsoft.Json
+Imports Newtonsoft.Json.Linq
 Imports TsinghuaNet.Helper
 
 Public Class MainViewModel
@@ -9,20 +13,70 @@ Public Class MainViewModel
         Status = New NetPingStatus()
         timer = New UITimer(AddressOf OnlineTimerTick)
         timer.Interval = 1
+        If AutoLogin Then
+            Login()
+        Else
+            Refresh()
+        End If
     End Sub
 
-    Public Overrides Sub LoadSettings()
+    Private Const settingsFilename As String = "settings.json"
 
+    Private Shared Function GetSettings(json As JObject, key As String, def As JToken) As JToken
+        If json.ContainsKey(key) Then
+            Return json(key)
+        Else
+            Return def
+        End If
+    End Function
+
+    Public Overrides Sub LoadSettings()
+        If File.Exists(settingsFilename) Then
+            Using stream As New StreamReader(settingsFilename)
+                Using reader As New JsonTextReader(stream)
+                    Dim json = JObject.Load(reader)
+                    Credential.Username = GetSettings(json, "username", String.Empty)
+                    Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(GetSettings(json, "password", String.Empty)))
+                    Credential.State = CInt(GetSettings(json, "state", NetState.Unknown))
+                    AutoLogin = CBool(GetSettings(json, "autoLogin", True))
+                    UseTimer = CBool(GetSettings(json, "useTimer", True))
+                    EnableFluxLimit = CBool(GetSettings(json, "enableFluxLimit", True))
+                    FluxLimit = CDbl(GetSettings(json, "fluxLimit", 20.0))
+                End Using
+            End Using
+        End If
     End Sub
 
     Public Overrides Sub SaveSettings()
-
+        Dim json As New JObject
+        json("username") = If(Credential.Username, String.Empty)
+        json("password") = Convert.ToBase64String(Encoding.UTF8.GetBytes(If(Credential.Password, String.Empty)))
+        json("state") = Credential.State
+        json("autoLogin") = AutoLogin
+        json("useTimer") = UseTimer
+        json("enableFluxLimit") = EnableFluxLimit
+        json("fluxLimit") = FluxLimit
+        Using stream As New StreamWriter(settingsFilename)
+            Using writer As New JsonTextWriter(stream)
+                json.WriteTo(writer)
+            End Using
+        End Using
     End Sub
 
     Protected Overrides Sub OnSuggestStateChanged()
         MyBase.OnSuggestStateChanged()
         Credential.State = SuggestState
     End Sub
+
+    Private _UseTimer As Boolean
+    Public Property UseTimer As Boolean
+        Get
+            Return _UseTimer
+        End Get
+        Set(value As Boolean)
+            SetProperty(_UseTimer, value)
+        End Set
+    End Property
 
     Private _OnlineTime As TimeSpan
     Public Property OnlineTime As TimeSpan
@@ -43,7 +97,7 @@ Public Class MainViewModel
         Dim res = Await MyBase.RefreshAsync(helper)
         timer.Stop()
         OnlineTime = OnlineUser.OnlineTime
-        If Not String.IsNullOrEmpty(OnlineUser.Username) Then
+        If UseTimer AndAlso Not String.IsNullOrEmpty(OnlineUser.Username) Then
             timer.Start()
         End If
         Return res

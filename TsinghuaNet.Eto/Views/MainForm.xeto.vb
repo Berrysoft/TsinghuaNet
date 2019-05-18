@@ -54,7 +54,8 @@ Public Class MainForm
         dialog.ShowModal(Me)
     End Sub
 
-    Protected Sub HandleQuit(sender As Object, e As EventArgs)
-        Application.Instance.Quit()
+
+    Private Sub MainForm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
+        Model.SaveSettings()
     End Sub
 End Class
