@@ -43,6 +43,17 @@ TsinghuaNet.CLI detail -o flux -d -u 用户名 -p 密码
 TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
 ```
 
+## TsinghuaNet.CrossPlatform
+Xamarin.Forms版本，使用C#，支持iOS与WPF（测试用），考虑增加Android。
+
+## TsinghuaNet.Eto
+Eto.Forms版本，使用Visual Basic，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
+|平台|实现|
+|-|-|
+|Windows|WPF（.NET Framework）|
+|Linux|GTK#（Mono）|
+|Mac OS|MonoMac（Mono）|
+
 ## TsinghuaNet.UWP
 UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basic。支持Windows 10.0.16299 (1709)以上版本。
 
@@ -72,9 +83,6 @@ Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows
     </tr>
 </table>
 
-## TsinghuaaNet.CrossPlatform
-Xamarin版本，使用C#，支持iOS与WPF（测试用），考虑增加Android。
-
 # Q&A
 ## 为什么需要一个客户端？
 为了连接校园网，我们通常需要登录特定的网址，输入用户名和密码，并点击登录。这很麻烦，且由于各种技术原因容易出现误操作。而使用客户端，可以自动完成这些操作，节约时间。
@@ -86,14 +94,16 @@ Xamarin版本，使用C#，支持iOS与WPF（测试用），考虑增加Android�
 * 在网络状态改变时会自动判断，后台连接。（UWP独有）
 * 后台刷新流量，更新磁贴。（UWP独有）
 ## 如何确保我的信息安全？
-* 用户名和密码使用[Windows凭据管理器](https://support.microsoft.com/zh-cn/help/4026814/windows-accessing-credential-manager)管理。（UWP独有；由于跨平台限制，Avalonia版本尚无法做到完全安全保存密码）
+* 用户名和密码使用[Windows凭据管理器](https://support.microsoft.com/zh-cn/help/4026814/windows-accessing-credential-manager)管理。（UWP独有；由于跨平台限制，其余版本尚无法做到完全安全保存密码）
 * 其他涉及隐私的信息，如在线用户、上网明细，即时从相应网站获得，不存储。
 * 登录时使用了相应的加密算法。
 * 所有代码开源，欢迎审核。
 ## 从哪里下载最新版的程序？
 在[Releases](https://github.com/Berrysoft/TsinghuaNet/releases)页面。
 ## 我该如何从源代码编译这个程序？
-为Visual Studio安装“.NET Core 跨平台开发”，并需要 .NET Core SDK 3.0。
+为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0与 .NET Framework SDK 4.8。
+
+编译Avalonia还需要安装“.NET Core 跨平台开发”。
 
 编译UWP还需要安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.18362。
 ## 我可以使用这里的源代码吗？
@@ -102,6 +112,8 @@ Xamarin版本，使用C#，支持iOS与WPF（测试用），考虑增加Android�
 这个技术问题还没有完全解决，欢迎你的帮助。
 ## 这个程序能卸载干净吗？
 卸载时，除了凭据，所有个人配置都会被删除。凭据仅在选中“保存密码”时保存。（UWP独有）
+
+Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
 
 其他版本不需要安装，无所谓卸载。
 ## 后台任务会不会拖慢系统速度？（UWP独有）
