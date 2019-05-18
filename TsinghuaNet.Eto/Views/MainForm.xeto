@@ -2,7 +2,7 @@
 <Form xmlns="http://schema.picoe.ca/eto.forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto"
-        Width="400" Height="300" Resizable="False" Maximizable="False" Title="清华大学校园网客户端" BackgroundColor="White">
+        Width="400" Height="300" Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.Logo.ico}" BackgroundColor="White">
   <Form.Properties>
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Form.Properties>
@@ -10,8 +10,12 @@
     <On>
       <On.Mac>
         <MenuBar IncludeSystemItems="Quit">
+          <ButtonMenuItem Text="管理(&amp;M)">
+            <ButtonMenuItem Text="管理连接...(&amp;C)" Click="ShowConnection"/>
+            <ButtonMenuItem Text="流量明细...(&amp;F)" Click="ShowDetails"/>
+          </ButtonMenuItem>
           <MenuBar.ApplicationItems>
-            <ButtonMenuItem Text="首选项..." Shortcut="Application+Comma" Click="ShowSettings"/>
+            <ButtonMenuItem Text="偏好设置..." Shortcut="Application+Comma" Click="ShowSettings"/>
           </MenuBar.ApplicationItems>
           <MenuBar.AboutItem>
             <ButtonMenuItem Text="关于..." Click="ShowAbout"/>
@@ -55,26 +59,14 @@
     </StackLayout>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
-        <TableCell ScaleWidth="False">
-          <Button Command="{Binding LoginCommand}">登录</Button>
-        </TableCell>
-        <TableCell ScaleWidth="False">
-          <Button Command="{Binding LogoutCommand}">注销</Button>
-        </TableCell>
-        <TableCell ScaleWidth="False">
-          <Button Command="{Binding RefreshCommand}">刷新</Button>
-        </TableCell>
+        <Button Command="{Binding LoginCommand}">登录</Button>
+        <Button Command="{Binding LogoutCommand}">注销</Button>
+        <Button Command="{Binding RefreshCommand}">刷新</Button>
       </TableRow>
       <TableRow>
-        <TableCell ScaleWidth="False">
-          <Button Click="ShowConnection">管理连接</Button>
-        </TableCell>
-        <TableCell ScaleWidth="False">
-          <Button Click="ShowDetails">流量明细</Button>
-        </TableCell>
-        <TableCell ScaleWidth="False">
-          <Button Click="ShowSettings" Text="{On 设置,Mac=首选项}"/>
-        </TableCell>
+        <Button Click="ShowConnection">管理连接</Button>
+        <Button Click="ShowDetails">流量明细</Button>
+        <Button Click="ShowSettings" Text="{On 设置,Mac=偏好设置}"/>
       </TableRow>
     </TableLayout>
   </StackLayout>

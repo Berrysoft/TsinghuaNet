@@ -1,5 +1,4 @@
 ﻿Imports System.IO
-Imports System.Reflection
 Imports System.Text
 Imports Eto.Forms
 Imports Newtonsoft.Json
@@ -24,7 +23,7 @@ Public Class MainViewModel
     Private Const settingsFilename As String = "settings.json"
     Private ReadOnly Property SettingsPath As String
         Get
-            Return Path.Combine(Path.GetDirectoryName(GetType(Program).Assembly.Location), settingsFilename)
+            Return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config", "TsinghuaNet.Eto", settingsFilename)
         End Get
     End Property
 
@@ -53,6 +52,11 @@ Public Class MainViewModel
         End If
     End Sub
 
+    Private Sub CreateSettingsFolder()
+        Dim home As New DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile))
+        home.CreateSubdirectory(Path.Combine(".config", "TsinghuaNet.Eto"))
+    End Sub
+
     Public Overrides Sub SaveSettings()
         Dim json As New JObject
         json("username") = If(Credential.Username, String.Empty)
@@ -62,6 +66,7 @@ Public Class MainViewModel
         json("useTimer") = UseTimer
         json("enableFluxLimit") = EnableFluxLimit
         json("fluxLimit") = FluxLimit
+        CreateSettingsFolder()
         Using stream As New StreamWriter(SettingsPath)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)

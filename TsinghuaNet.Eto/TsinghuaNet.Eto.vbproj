@@ -5,7 +5,25 @@
     <RootNamespace>TsinghuaNet.Eto</RootNamespace>
     <TargetFramework>net48</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
+    <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <MkBundleArgs>$(MkBundleArgs) --i18n CJK</MkBundleArgs>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Logo.icns" />
+    <None Remove="Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Logo.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BundleResource Include="Logo.icns" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="**\*.xeto.vb">
