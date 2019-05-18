@@ -54,7 +54,6 @@ Public Class MainForm
         dialog.ShowModal(Me)
     End Sub
 
-
     Private Sub MainForm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
         Model.SaveSettings()
     End Sub

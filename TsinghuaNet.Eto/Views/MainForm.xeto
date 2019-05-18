@@ -55,14 +55,26 @@
     </StackLayout>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
-        <Button Command="{Binding LoginCommand}">登录</Button>
-        <Button Command="{Binding LogoutCommand}">注销</Button>
-        <Button Command="{Binding RefreshCommand}">刷新</Button>
+        <TableCell ScaleWidth="False">
+          <Button Command="{Binding LoginCommand}">登录</Button>
+        </TableCell>
+        <TableCell ScaleWidth="False">
+          <Button Command="{Binding LogoutCommand}">注销</Button>
+        </TableCell>
+        <TableCell ScaleWidth="False">
+          <Button Command="{Binding RefreshCommand}">刷新</Button>
+        </TableCell>
       </TableRow>
       <TableRow>
-        <Button Click="ShowConnection">管理连接</Button>
-        <Button Click="ShowDetails">流量明细</Button>
-        <Button Click="ShowSettings" Text="{On 设置,Mac=首选项}"/>
+        <TableCell ScaleWidth="False">
+          <Button Click="ShowConnection">管理连接</Button>
+        </TableCell>
+        <TableCell ScaleWidth="False">
+          <Button Click="ShowDetails">流量明细</Button>
+        </TableCell>
+        <TableCell ScaleWidth="False">
+          <Button Click="ShowSettings" Text="{On 设置,Mac=首选项}"/>
+        </TableCell>
       </TableRow>
     </TableLayout>
   </StackLayout>

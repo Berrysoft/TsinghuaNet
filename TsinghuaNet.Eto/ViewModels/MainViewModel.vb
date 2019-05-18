@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Reflection
 Imports System.Text
 Imports Eto.Forms
 Imports Newtonsoft.Json
@@ -21,6 +22,11 @@ Public Class MainViewModel
     End Sub
 
     Private Const settingsFilename As String = "settings.json"
+    Private ReadOnly Property SettingsPath As String
+        Get
+            Return Path.Combine(Path.GetDirectoryName(GetType(Program).Assembly.Location), settingsFilename)
+        End Get
+    End Property
 
     Private Shared Function GetSettings(json As JObject, key As String, def As JToken) As JToken
         If json.ContainsKey(key) Then
@@ -31,8 +37,8 @@ Public Class MainViewModel
     End Function
 
     Public Overrides Sub LoadSettings()
-        If File.Exists(settingsFilename) Then
-            Using stream As New StreamReader(settingsFilename)
+        If File.Exists(SettingsPath) Then
+            Using stream As New StreamReader(SettingsPath)
                 Using reader As New JsonTextReader(stream)
                     Dim json = JObject.Load(reader)
                     Credential.Username = GetSettings(json, "username", String.Empty)
@@ -56,7 +62,7 @@ Public Class MainViewModel
         json("useTimer") = UseTimer
         json("enableFluxLimit") = EnableFluxLimit
         json("fluxLimit") = FluxLimit
-        Using stream As New StreamWriter(settingsFilename)
+        Using stream As New StreamWriter(SettingsPath)
             Using writer As New JsonTextWriter(stream)
                 json.WriteTo(writer)
             End Using
