@@ -117,6 +117,10 @@ Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows
 Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
 
 其他版本不需要安装，无所谓卸载。
+## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto独有）
+进入系统偏好设置，双击“安全性与隐私”，点击“仍要打开”，如下图：
+
+![我是身份不明的开发者](./Screenshots/Eto.MacSecurity.png)
 ## 后台任务会不会拖慢系统速度？（UWP独有）
 不会。
 ## 这个程序的颜色在我的电脑上和你的电脑上不同！（UWP独有）
