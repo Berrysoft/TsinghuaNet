@@ -49,11 +49,11 @@ Xamarin.Forms版本，使用C#，支持iOS与WPF（测试用），考虑增加An
 ## TsinghuaNet.Eto
 Eto.Forms版本，使用Visual Basic，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
 
-|平台|实现|
-|-|-|
-|Windows|WPF（.NET Framework）|
-|Linux|GTK#（Mono）|
-|Mac OS|MonoMac（Mono）|
+|平台|实现|框架|屏幕截图|
+|-|-|-|-|
+|Windows|WPF|.NET Framework|![Windows](./Screenshots/Eto.Windows.png)
+|Linux|GTK#|Mono|![WSL](./Screenshots/Eto.WSL.png)
+|Mac OS|MonoMac|Mono|![Mac](./Screenshots/Eto.Mac.png)
 
 ## TsinghuaNet.UWP
 UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basic。支持Windows 10.0.16299 (1709)以上版本。
@@ -73,7 +73,7 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
     </tr>
 </table>
 
-## TsinghuaNet.Avalonia（**拟弃用**）
+## TsinghuaNet.Avalonia（**弃用**）
 
 Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
 

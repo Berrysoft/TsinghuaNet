@@ -111,7 +111,7 @@ Public Class MainViewModel
         If UseTimer AndAlso Not String.IsNullOrEmpty(OnlineUser.Username) Then
             timer.Start()
         End If
-        If OnlineUser.Flux > (FluxLimit * 1000000000) Then
+        If EnableFluxLimit AndAlso OnlineUser.Flux > (FluxLimit * 1000000000) Then
             res = New LogResponse(False, $"流量已使用超过{FluxLimit}GB")
         End If
         Return res
