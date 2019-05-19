@@ -1,16 +1,26 @@
 ﻿Imports Eto.Forms
 Imports Eto.Serialization.Xaml
+Imports TsinghuaNet.Helper
 
 Public Class SettingsDialog
     Inherits Dialog
 
-    Private Model As SettingsViewModel
+    Public ReadOnly Property Packages As IReadOnlyList(Of PackageBox) = New List(Of PackageBox) From
+    {
+        New PackageBox("Eto.Forms", "BSD-3许可证"),
+        New PackageBox("Eto.Platform.Gtk", "BSD-3许可证"),
+        New PackageBox("Eto.Platform.Mac64", "BSD-3许可证"),
+        New PackageBox("Eto.Platform.Wpf", "BSD-3许可证"),
+        New PackageBox("Eto.Serialization.Xaml", "BSD-3许可证"),
+        New PackageBox("HtmlAgilityPack", "MIT许可证"),
+        New PackageBox("Newtonsoft.Json", "MIT许可证"),
+        New PackageBox("Refractored.MvvmHelpers", "MIT许可证")
+    }
 
-    Public Sub New(Optional page As Integer = 0)
+    Public Sub New(model As MainViewModel, Optional page As Integer = 0)
         XamlReader.Load(Me)
-        Model = New SettingsViewModel()
-        DataContext = Model
+        DataContext = model
         FindChild(Of TabControl)("SettingsTab").SelectedIndex = page
-        FindChild(Of GridView)("PackageView").DataStore = Model.Packages
+        FindChild(Of GridView)("PackageView").DataStore = Packages
     End Sub
 End Class

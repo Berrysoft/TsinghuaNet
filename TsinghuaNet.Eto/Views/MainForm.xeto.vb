@@ -45,12 +45,12 @@ Public Class MainForm
     End Sub
 
     Private Sub ShowAbout(sender As Object, e As EventArgs)
-        Dim dialog As New SettingsDialog(1)
+        Dim dialog As New SettingsDialog(Model, 1)
         dialog.ShowModal(Me)
     End Sub
 
     Private Sub ShowSettings(sender As Object, e As EventArgs)
-        Dim dialog As New SettingsDialog
+        Dim dialog As New SettingsDialog(Model)
         dialog.ShowModal(Me)
     End Sub
 
