@@ -34,13 +34,13 @@
       <PasswordBox Width="160" Text="{Binding Credential.Password,Mode=TwoWay}"/>
     </StackLayout>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8" Spacing="8">
-      <RadioButtonList x:Name="NetStateList" Orientation="Vertical" Spacing="0,4" SelectedIndexChanged="NetStateList_SelectedIndexChanged">
+      <RadioButtonList x:Name="NetStateList" Orientation="Vertical" Padding="8" Spacing="4,4" SelectedIndexChanged="NetStateList_SelectedIndexChanged">
         <ListItem>Net</ListItem>
         <ListItem>Auth4</ListItem>
         <ListItem>Auth6</ListItem>
       </RadioButtonList>
-      <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center">
-        <TableLayout Padding="8" Spacing="4,4">
+      <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="8" Spacing="4">
+        <TableLayout Spacing="4,4">
           <TableRow>
             <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
             <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
