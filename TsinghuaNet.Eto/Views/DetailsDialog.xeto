@@ -7,19 +7,19 @@
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
   <Panel Padding="8">
-    <GridView x:Name="DetailsView">
+    <GridView x:Name="DetailsView" ColumnHeaderClick="DetailsView_ColumnHeaderClick">
       <GridView.Columns>
-        <GridColumn HeaderText="登录时间">
+        <GridColumn Sortable="True" HeaderText="登录时间">
           <GridColumn.DataCell>
             <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
           </GridColumn.DataCell>
         </GridColumn>
-        <GridColumn HeaderText="注销时间">
+        <GridColumn Sortable="True" HeaderText="注销时间">
           <GridColumn.DataCell>
             <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter}}"/>
           </GridColumn.DataCell>
         </GridColumn>
-        <GridColumn HeaderText="使用流量">
+        <GridColumn Sortable="True" HeaderText="使用流量">
           <GridColumn.DataCell>
             <TextBoxCell x:Name="FluxCell" TextAlignment="Right"/>
           </GridColumn.DataCell>

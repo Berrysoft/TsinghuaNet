@@ -8,14 +8,17 @@ Public Class DetailViewModel
         MyBase.New()
     End Sub
 
+    Private details As List(Of NetDetail)
+
     Public ReadOnly Property DetailsSource As New ObservableRangeCollection(Of NetDetail)
 
     Protected Overrides Property InitialDetails As IEnumerable(Of NetDetail)
         Get
-            Return DetailsSource
+            Return details
         End Get
         Set(value As IEnumerable(Of NetDetail))
-            DetailsSource.ReplaceRange(value)
+            details = value
+            DetailsSource.ReplaceRange(details)
         End Set
     End Property
 
