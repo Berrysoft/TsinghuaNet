@@ -2,7 +2,7 @@
 <Dialog xmlns="http://schema.picoe.ca/eto.forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto"
-        Width="320" Height="160" Title="管理连接" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
+        Width="320" Height="160" Resizable="True" Title="管理连接" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form xmlns="http://schema.picoe.ca/eto.forms"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:TsinghuaNet.Eto"
-        Width="400" Height="300" Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White">
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:TsinghuaNet.Eto"
+      xmlns:helper="clr-namespace:TsinghuaNet.Helper;assembly:TsinghuaNet.Helper"
+      Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White">
   <Form.Properties>
     <local:StringFormatConverter x:Key="StringFormatConverter"/>
   </Form.Properties>
@@ -25,6 +26,7 @@
     </On>
   </Form.Menu>
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
+    <EnumRadioButtonList x:TypeArguments="helper:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0"/>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>
       <TextBox Width="160" Text="{Binding Credential.Username,Mode=TwoWay}"/>
@@ -33,30 +35,21 @@
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</Label>
       <PasswordBox Width="160" Text="{Binding Credential.Password,Mode=TwoWay}"/>
     </StackLayout>
-    <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8" Spacing="8">
-      <RadioButtonList x:Name="NetStateList" Orientation="Vertical" Padding="8" Spacing="4,4" SelectedIndexChanged="NetStateList_SelectedIndexChanged">
-        <ListItem>Net</ListItem>
-        <ListItem>Auth4</ListItem>
-        <ListItem>Auth6</ListItem>
-      </RadioButtonList>
-      <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="8" Spacing="4">
-        <TableLayout Spacing="4,4">
-          <TableRow>
-            <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
-            <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
-            <Label x:Name="OnlineUserFluxLabel" VerticalAlignment="Center"/>
-          </TableRow>
-          <TableRow>
-            <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
-            <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
-            <Label x:Name="OnlineUserBalanceLabel" VerticalAlignment="Center"/>
-          </TableRow>
-        </TableLayout>
-        <Label TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Response}"/>
-      </StackLayout>
-    </StackLayout>
+    <TableLayout Padding="8" Spacing="4,4">
+      <TableRow>
+        <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
+        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
+        <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
+        <Label x:Name="OnlineUserFluxLabel" VerticalAlignment="Center"/>
+      </TableRow>
+      <TableRow>
+        <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
+        <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
+        <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
+        <Label x:Name="OnlineUserBalanceLabel" VerticalAlignment="Center"/>
+      </TableRow>
+    </TableLayout>
+    <Label TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Response}"/>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
         <Button Command="{Binding LoginCommand}">登录</Button>
