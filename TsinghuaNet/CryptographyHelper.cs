@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace TsinghuaNet
@@ -215,7 +216,7 @@ namespace TsinghuaNet
             }
             using (HMACMD5 hash = new HMACMD5(Encoding.UTF8.GetBytes(key)))
             {
-                return GetHexString(hash.ComputeHash(new byte[0]));
+                return GetHexString(hash.ComputeHash(Array.Empty<byte>()));
             }
         }
     }

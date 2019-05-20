@@ -54,6 +54,8 @@ Public Class NetPingStatus
             Return NetState.Auth4
         ElseIf Await CanConnectTo("net.tsinghua.edu.cn") Then
             Return NetState.Net
+        ElseIf Await CanConnectTo("auth6.tsinghua.edu.cn") Then
+            Return NetState.Auth6
         Else
             Return NetState.Unknown
         End If
@@ -99,6 +101,7 @@ Public MustInherit Class NetMapStatus
         {"Tsinghua", NetState.Net},
         {"Tsinghua-5G", NetState.Net},
         {"Tsinghua-IPv4", NetState.Auth4},
+        {"Tsinghua-IPv6", NetState.Auth6},
         {"Wifi.郑裕彤讲堂", NetState.Net}
     }
 
