@@ -5,7 +5,7 @@
 联网库，和一些其他项目需要的辅助类。使用C#，支持 .NET Standard 2.0。
 
 ## TsinghuaNet.CLI
-命令行版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
+命令行版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
 ### 登录/注销
 ``` bash
 # 使用默认（自动判断）方式登录
@@ -44,7 +44,7 @@ TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
 ```
 
 ## TsinghuaNet.CrossPlatform
-Xamarin.Forms版本，使用C#，支持iOS与WPF（测试用），考虑增加Android。
+Xamarin.Forms版本，使用C#，支持iOS与WPF（测试用）。
 
 ## TsinghuaNet.Eto
 Eto.Forms版本，使用Visual Basic，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
@@ -73,17 +73,6 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
     </tr>
 </table>
 
-## TsinghuaNet.Avalonia（**弃用**）
-
-Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64与Linux x64的AOT版本。
-
-<table>
-    <tr>
-        <th><img alt="亮主题" src="./Screenshots/Avalonia.Light.png"/></th>
-        <th><img alt="暗主题" src="./Screenshots/Avalonia.Dark.png"/></th>
-    </tr>
-</table>
-
 # Q&A
 ## 为什么需要一个客户端？
 为了连接校园网，我们通常需要登录特定的网址，输入用户名和密码，并点击登录。这很麻烦，且由于各种技术原因容易出现误操作。而使用客户端，可以自动完成这些操作，节约时间。
@@ -103,8 +92,6 @@ Avalonia版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows
 在[Releases](https://github.com/Berrysoft/TsinghuaNet/releases)页面。
 ## 我该如何从源代码编译这个程序？
 为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0与 .NET Framework SDK 4.8。
-
-编译Avalonia还需要安装“.NET Core 跨平台开发”。
 
 编译UWP还需要安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.18362。
 ## 我可以使用这里的源代码吗？
