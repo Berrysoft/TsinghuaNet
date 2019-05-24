@@ -22,8 +22,8 @@
 
   <ItemGroup>
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview5.19224.8" />
-    <PackageReference Include="Xamarin.Forms" Version="4.0.0.394984-pre10" />
-    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.0.0.394984-pre10" />
+    <PackageReference Include="Xamarin.Forms" Version="4.0.0.425677" />
+    <PackageReference Include="Xamarin.Forms.Platform.WPF" Version="4.0.0.425677" />
   </ItemGroup>
 
   <ItemGroup>

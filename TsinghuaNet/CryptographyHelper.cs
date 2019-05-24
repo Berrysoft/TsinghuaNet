@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -69,9 +70,7 @@ namespace TsinghuaNet
         private static unsafe uint[] S(string a, bool b)
         {
             int c = a.Length;
-            int n = c / 4;
-            n += c % 4 != 0 ? 1 : 0;
-            //Array is 30 times faster than stack array and Encoding.GetBytes().
+            int n = (c + 3) / 4;
             uint[] v;
             if (b)
             {
@@ -80,7 +79,7 @@ namespace TsinghuaNet
             }
             else
             {
-                v = new uint[n >= 4 ? n : 4];
+                v = new uint[Math.Max(n, 4)];
             }
             fixed (uint* pv = v)
             {
@@ -98,7 +97,7 @@ namespace TsinghuaNet
         /// <param name="a">A <see cref="uint"/> array contains the encoded string.</param>
         /// <param name="b">Whether the length of the original string is in the end.</param>
         /// <returns>Decoded string.</returns>
-        private static unsafe string L(uint[] a, bool b)
+        private static byte[] L(uint[] a, bool b)
         {
             int d = a.Length;
             uint c = ((uint)(d - 1)) << 2;
@@ -107,30 +106,14 @@ namespace TsinghuaNet
                 uint m = a[d - 1];
                 if (m < c - 3 || m > c)
                 {
-                    return null;
+                    return Array.Empty<byte>();
                 }
                 c = m;
             }
-            fixed (uint* pa = a)
-            {
-                byte* pb = (byte*)pa;
-                int n = d << 2;
-                //When the return string needs subtracted, stack array is a little faster than array;
-                //otherwise, array is 1.2 times faster than stack array.
-                char[] aa = new char[n];
-                for (int i = 0; i < n; i++)
-                {
-                    aa[i] = (char)pb[i];
-                }
-                if (b)
-                {
-                    return new string(aa, 0, (int)c);
-                }
-                else
-                {
-                    return new string(aa);
-                }
-            }
+            uint n = b ? c : (uint)(d << 2);
+            byte[] aa = new byte[n];
+            Unsafe.CopyBlock(ref aa[0], ref Unsafe.As<uint, byte>(ref a[0]), n);
+            return aa;
         }
         /// <summary>
         /// Encode a string by a special TEA algorithm.
@@ -138,17 +121,17 @@ namespace TsinghuaNet
         /// <param name="str">String to be encoded.</param>
         /// <param name="key">Key to encode.</param>
         /// <returns>Encoded string.</returns>
-        public static string XEncode(string str, string key)
+        public static byte[] XEncode(string str, string key)
         {
             if (str.Length == 0)
             {
-                return string.Empty;
+                return Array.Empty<byte>();
             }
             uint[] v = S(str, true);
             uint[] k = S(key, false);
             int n = v.Length - 1;
             uint z = v[n];
-            uint y = v[0];
+            uint y;
             int q = 6 + 52 / (n + 1);
             uint d = 0;
             while (q-- > 0)
@@ -157,7 +140,7 @@ namespace TsinghuaNet
                 uint e = (d >> 2) & 3;
                 for (int p = 0; p <= n; p++)
                 {
-                    y = v[p == n ? 0 : p + 1];
+                    y = v[(p + 1) % (n + 1)];
                     uint m = (z >> 5) ^ (y << 2);
                     m += (y >> 3) ^ (z << 4) ^ (d ^ y);
                     m += k[(p & 3) ^ (int)e] ^ z;
@@ -173,23 +156,18 @@ namespace TsinghuaNet
         /// </summary>
         /// <param name="t">String to be encoded.</param>
         /// <returns>Encoded string.</returns>
-        public unsafe static string Base64Encode(string t)
+        public unsafe static string Base64Encode(byte[] t)
         {
             int a = t.Length;
-            int len = a / 3 * 4;
-            len += a % 3 != 0 ? 4 : 0;
+            int len = (a + 2) / 3 * 4;
             //Stack array is 30 times faster than array, StringBuilder and Converter.ToBase64String().
             char* u = stackalloc char[len];
             char r = '=';
-            int h = 0;
-            byte* p = (byte*)&h;
             int ui = 0;
             for (int o = 0; o < a; o += 3)
             {
-                p[2] = (byte)t[o];
-                p[1] = (byte)(o + 1 < a ? t[o + 1] : 0);
-                p[0] = (byte)(o + 2 < a ? t[o + 2] : 0);
-                for (int i = 0; i < 4; i += 1)
+                int h = (t[o] << 16) + (o + 1 < a ? (t[o + 1] << 8) : 0) + (o + 2 < a ? t[o + 2] : 0);
+                for (int i = 0; i < 4; i++)
                 {
                     if (o * 8 + i * 6 > a * 8)
                     {
