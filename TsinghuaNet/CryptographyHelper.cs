@@ -17,8 +17,7 @@ namespace TsinghuaNet
         /// <returns>A hex string.</returns>
         private static string GetHexString(byte[] data)
         {
-            //StringBuilder is 5 times faster than stack array and array.
-            StringBuilder sBuilder = new StringBuilder();
+            StringBuilder sBuilder = new StringBuilder(data.Length * 2);
             for (int i = 0; i < data.Length; i++)
             {
                 sBuilder.Append(data[i].ToString("x2"));
@@ -67,7 +66,7 @@ namespace TsinghuaNet
         /// <param name="a">String to be encoded.</param>
         /// <param name="b">Whether to add the length of the string in the end.</param>
         /// <returns>A <see cref="uint"/> array contains encoded string.</returns>
-        private static unsafe uint[] S(string a, bool b)
+        private static uint[] S(byte[] a, bool b)
         {
             int c = a.Length;
             int n = (c + 3) / 4;
@@ -81,14 +80,7 @@ namespace TsinghuaNet
             {
                 v = new uint[Math.Max(n, 4)];
             }
-            fixed (uint* pv = v)
-            {
-                byte* pb = (byte*)pv;
-                for (int i = 0; i < c; i++)
-                {
-                    pb[i] = (byte)a[i];
-                }
-            }
+            Unsafe.CopyBlock(ref Unsafe.As<uint, byte>(ref v[0]), ref a[0], (uint)c);
             return v;
         }
         /// <summary>
@@ -127,8 +119,8 @@ namespace TsinghuaNet
             {
                 return Array.Empty<byte>();
             }
-            uint[] v = S(str, true);
-            uint[] k = S(key, false);
+            uint[] v = S(Encoding.UTF8.GetBytes(str), true);
+            uint[] k = S(Encoding.UTF8.GetBytes(key), false);
             int n = v.Length - 1;
             uint z = v[n];
             uint y;
@@ -160,7 +152,6 @@ namespace TsinghuaNet
         {
             int a = t.Length;
             int len = (a + 2) / 3 * 4;
-            //Stack array is 30 times faster than array, StringBuilder and Converter.ToBase64String().
             char* u = stackalloc char[len];
             char r = '=';
             int ui = 0;
