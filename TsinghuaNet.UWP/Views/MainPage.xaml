@@ -151,6 +151,7 @@
             <AppBarButton Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
             <AppBarSeparator/>
             <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
+            <AppBarButton Icon="OtherUser" Label="自服务" Click="ShowUsereg"/>
             <AppBarSeparator/>
             <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
             <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>

@@ -5,6 +5,7 @@ Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNet.UWP.Background
 Imports TsinghuaNet.UWP.Helper
 Imports Windows.ApplicationModel.Core
+Imports Windows.System
 Imports Windows.UI
 Imports WinRTXamlToolkit.AwaitableUI
 
@@ -170,6 +171,10 @@ Public NotInheritable Class MainPage
         Dim dialog As New DetailDialog(helper)
         dialog.RequestedTheme = Model.Theme
         Await dialog.ShowAsync()
+    End Sub
+
+    Private Async Sub ShowUsereg()
+        Await Launcher.LaunchUriAsync(New Uri("https://usereg.tsinghua.edu.cn/"))
     End Sub
 
     Private Async Sub ShowAbout()

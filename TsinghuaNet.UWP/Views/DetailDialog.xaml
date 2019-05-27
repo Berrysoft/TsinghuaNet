@@ -10,16 +10,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
-    DefaultButton="Close" CloseButtonText="确定">
+    Title="流量明细" DefaultButton="Close" CloseButtonText="确定">
     <ContentDialog.DataContext>
         <local:DetailViewModel x:Name="Model"/>
     </ContentDialog.DataContext>
-    <ContentDialog.Title>
-        <StackPanel Orientation="Horizontal">
-            <TextBlock Margin="8">流量明细</TextBlock>
-            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-        </StackPanel>
-    </ContentDialog.Title>
     <mtuuc:DataGrid x:Name="DetailsView" Margin="8" ItemsSource="{x:Bind Model.DetailsSource,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
         <mtuuc:DataGrid.Columns>
             <!--DataGridTextColumn居然不支持x:Bind-->
