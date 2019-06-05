@@ -8,7 +8,7 @@ Public MustInherit Class AuthHelper
     Private Const LogUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/srun_portal"
     Private Const FluxUri = "https://auth{0}.tsinghua.edu.cn/rad_user_info.php"
     Private Const ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={1}&double_stack=1&ip&callback=callback"
-    Private ReadOnly AcIds() As Integer = {1, 25, 33, 35, 37}
+    Private Shared ReadOnly AcIds() As Integer = {1, 25, 33, 35, 37}
     Private ReadOnly version As Integer
 
     Public Sub New(username As String, password As String, version As Integer)
