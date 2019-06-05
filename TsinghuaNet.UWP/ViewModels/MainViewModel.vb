@@ -58,7 +58,7 @@ Public Class MainViewModel
     Protected Overrides Async Function RefreshAsync(helper As IConnect) As Task(Of LogResponse)
         Dim res = Await MyBase.RefreshAsync(helper)
         ' 先启动计时器
-        mainTimer.Start()
+        mainTimer?.Start()
         ' 更新磁贴
         NotificationHelper.UpdateTile(OnlineUser)
         If EnableFluxLimit Then

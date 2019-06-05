@@ -303,7 +303,7 @@
       <Project>{074f8459-bab7-492f-979f-20ee1ea3b3e7}</Project>
       <Name>TsinghuaNet.UWP.Helper</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj">
+    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.vbproj">
       <Project>{198A7897-55A9-43DC-9455-84270A46960F}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>

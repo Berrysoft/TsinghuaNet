@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
-    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
+    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.vbproj" />
   </ItemGroup>
 
 </Project>

@@ -24,11 +24,11 @@ Public Module ConnectHelper
     End Function
 
     Public Function GetHelper(state As NetState) As IConnect
-        Return GetHelperImpl(state)
+        Return GetHelper(state, Nothing, Nothing)
     End Function
 
     Public Function GetHelper(state As NetState, client As HttpClient) As IConnect
-        Return GetHelperImpl(state, client)
+        Return GetHelper(state, Nothing, Nothing, client)
     End Function
 
     Public Function GetHelper(state As NetState, username As String, password As String) As IConnect

@@ -6,7 +6,7 @@
       "TsinghuaNet.UWP.Helper\\TsinghuaNet.UWP.Helper.vbproj",
       "TsinghuaNet.UWP\\TsinghuaNet.UWP.vbproj",
       "TsinghuaNet.Helper\\TsinghuaNet.Helper.vbproj",
-      "TsinghuaNet\\TsinghuaNet.csproj"
+      "TsinghuaNet\\TsinghuaNet.vbproj"
     ]
   }
 }

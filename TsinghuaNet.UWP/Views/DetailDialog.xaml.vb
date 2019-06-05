@@ -34,7 +34,7 @@ Public NotInheritable Class DetailDialog
                     Model.SortSource(NetDetailOrder.Flux, Not ascending)
             End Select
         Else
-            Model.SortSource(Nothing)
+            Model.SortSource(Nothing, False)
         End If
     End Sub
 End Class

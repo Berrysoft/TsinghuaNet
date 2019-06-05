@@ -1,5 +1,4 @@
 ﻿Imports MvvmHelpers
-Imports TsinghuaNet
 
 Public Class DetailViewModel
     Inherits Helper.DetailViewModel

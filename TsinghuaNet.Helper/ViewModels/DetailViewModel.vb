@@ -14,7 +14,7 @@ Public MustInherit Class DetailViewModel
         Try
             Dim helper = Credential.GetUseregHelper()
             Await helper.LoginAsync()
-            InitialDetails = Await helper.GetDetailsAsync()
+            InitialDetails = Await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, False)
         Catch ex As Exception
             Debug.WriteLine(ex)
         End Try
@@ -22,20 +22,16 @@ Public MustInherit Class DetailViewModel
 
     Public ReadOnly Property RefreshCommand As ICommand = New Command(Me, AddressOf InitializeDetails)
 
-    Public Sub SortSource(order As NetDetailOrder?)
-        SortSource(order, order Is Nothing OrElse order.Value Mod 2 <> 0)
-    End Sub
-
     Public Sub SortSource(order As NetDetailOrder?, descending As Boolean)
         If order Is Nothing Then
             SetSortedDetails(InitialDetails)
         Else
             Select Case order.Value
-                Case NetDetailOrder.LoginTime, NetDetailOrder.LoginTimeDescending
+                Case NetDetailOrder.LoginTime
                     SetSortedDetails(InitialDetails.OrderBy(Function(d) d.LoginTime, descending))
-                Case NetDetailOrder.LogoutTime, NetDetailOrder.LogoutTimeDescending
+                Case NetDetailOrder.LogoutTime
                     SetSortedDetails(InitialDetails.OrderBy(Function(d) d.LogoutTime, descending))
-                Case NetDetailOrder.Flux, NetDetailOrder.FluxDescending
+                Case NetDetailOrder.Flux
                     SetSortedDetails(InitialDetails.OrderBy(Function(d) d.Flux, descending))
             End Select
         End If

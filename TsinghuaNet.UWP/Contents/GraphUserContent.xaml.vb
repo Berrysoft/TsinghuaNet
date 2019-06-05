@@ -72,7 +72,7 @@ Public NotInheritable Class GraphUserContent
 
     Friend Async Function RefreshDetails(helper As UseregHelper) As Task
         Dim animationTask = HideStoryboard.BeginAsync()
-        Dim ds = Await helper.GetDetailsAsync()
+        Dim ds = Await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, False)
         Await animationTask
         Details.ReplaceRange(ds.GetDailyDetails())
     End Function

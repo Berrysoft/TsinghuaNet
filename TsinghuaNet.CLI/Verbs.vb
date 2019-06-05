@@ -31,9 +31,9 @@ End Enum
 Enum OptionNetDetailOrder
     Login = 0
     LoginTime = Login
-    Logout = 2
+    Logout = 1
     LogoutTime = Logout
-    Flux = 4
+    Flux = 2
 End Enum
 
 MustInherit Class VerbBase
@@ -234,7 +234,7 @@ Class DetailVerb
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
                 If Grouping Then
-                    Dim details = Await helper.GetDetailsAsync()
+                    Dim details = Await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, False)
                     Dim now = Date.Now
                     Console.WriteLine("|    日期    |    流量    |")
                     Console.WriteLine(New String("="c, 27))
@@ -244,7 +244,7 @@ Class DetailVerb
                         Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), StringHelper.GetFluxString(p.TotalFlux).PadLeft(11))
                     Next
                 Else
-                    Dim details = Await helper.GetDetailsAsync(Order + If(Descending, 1, 0))
+                    Dim details = Await helper.GetDetailsAsync(Order, Descending)
                     Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
                     Console.WriteLine(New String("="c, 60))
                     For Each d In details

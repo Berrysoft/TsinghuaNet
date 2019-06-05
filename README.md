@@ -2,10 +2,10 @@
 清华大学校园网联网库与客户端。
 
 ## TsinghuaNet
-联网库，和一些其他项目需要的辅助类。使用C#，支持 .NET Standard 2.0。
+联网库，和一些其他项目需要的辅助类。支持 .NET Standard 2.0。
 
 ## TsinghuaNet.CLI
-命令行版本，使用Visual Basic，支持 .NET Core 3.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
+命令行版本，支持 .NET Core 3.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
 ### 登录/注销
 ``` bash
 # 使用默认（自动判断）方式登录
@@ -44,10 +44,10 @@ TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
 ```
 
 ## TsinghuaNet.CrossPlatform
-Xamarin.Forms版本，使用C#，支持iOS与WPF（测试用）。
+Xamarin.Forms版本，支持iOS与WPF（测试用）。
 
 ## TsinghuaNet.Eto
-Eto.Forms版本，使用Visual Basic，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
+Eto.Forms版本，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
 
 |平台|实现|框架|屏幕截图|
 |-|-|-|-|
