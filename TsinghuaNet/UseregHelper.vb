@@ -77,9 +77,9 @@ Public Class UseregHelper
     Inherits NetHelperBase
     Implements ILog
 
-    Private Const LogUri = "https://usereg.tsinghua.edu.cn/do.php"
-    Private Const InfoUri = "https://usereg.tsinghua.edu.cn/online_user_ipv4.php"
-    Private Const DetailUri = "https://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1}-01&end_time={0}-{1}-{2}&page={3}&offset={4}"
+    Private Const LogUri = "http://usereg.tsinghua.edu.cn/do.php"
+    Private Const InfoUri = "http://usereg.tsinghua.edu.cn/online_user_ipv4.php"
+    Private Const DetailUri = "http://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1}-01&end_time={0}-{1}-{2}&page={3}&offset={4}"
     Private Const LogoutData = "action=logout"
     Private Const DropData = "action=drop&user_ip={0}"
 
