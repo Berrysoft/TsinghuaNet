@@ -60,16 +60,12 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 
 <table>
     <tr>
-        <th><img alt="主界面" src="./Screenshots/MainPage.png"/></th>
-        <th><img alt="设置栏" src="./Screenshots/Settings.png"/></th>
+        <th><img alt="直线" src="./Screenshots/Uwp.Line.png"/></th>
+        <th><img alt="圆圈" src="./Screenshots/Uwp.Ring.png"/></th>
     </tr>
     <tr>
-        <th><img alt="适应主题" src="./Screenshots/Theme.png"/></th>
-        <th><img alt="编辑建议" src="./Screenshots/Suggestions.png"/></th>
-    </tr>
-    <tr>
-        <th><img alt="直线" src="./Screenshots/Line.png"/></th>
-        <th><img alt="图标" src="./Screenshots/Circle.png"/></th>
+        <th><img alt="水面" src="./Screenshots/Uwp.Water.png"/></th>
+        <th><img alt="图表" src="./Screenshots/Uwp.Graph.png"/></th>
     </tr>
 </table>
 
@@ -80,7 +76,7 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 * 速度快。
 * 针对不同的网络类型给出建议。
 * 查看本月流量明细。
-* 第一个支持Tsinghua-IPv4无线网。
+* 第一个支持Tsinghua-IPv4与Tsinghua-IPv6无线网。
 * 在网络状态改变时会自动判断，后台连接。（UWP独有）
 * 后台刷新流量，更新磁贴。（UWP独有）
 ## 如何确保我的信息安全？
@@ -93,15 +89,15 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 ## 我该如何从源代码编译这个程序？
 为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0与 .NET Framework SDK 4.8。
 
-编译UWP还需要安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.18362。
+编译UWP版本还需要安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.18362。
+
+为Mac编译Eto版本需要安装Mono。
 ## 我可以使用这里的源代码吗？
 可以。这个项目使用[MIT许可证](./LICENSE)开源。
 ## 这个程序能卸载干净吗？
 卸载时，除了凭据，所有个人配置都会被删除。凭据仅在选中“保存密码”时保存。（UWP独有）
 
 Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
-
-其他版本不需要安装，无所谓卸载。
 ## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto独有）
 进入系统偏好设置，双击“安全性与隐私”，点击“仍要打开”，如下图：
 
