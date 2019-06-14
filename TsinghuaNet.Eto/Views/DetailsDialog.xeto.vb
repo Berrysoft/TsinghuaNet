@@ -21,6 +21,7 @@ Public Class DetailsDialog
     Private Const AscendingChar As Char = "▲"c
     Private Const DescendingChar As Char = "▼"c
 
+    ' 打ち止めは最高だ！
     Private lastOrder As NetDetailOrder?
     Private lastDescending As Boolean
 

@@ -25,6 +25,8 @@
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <PackageCertificateThumbprint>0E348C13EFE3041FDA91B985151864BF7213D50E</PackageCertificateThumbprint>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -281,7 +283,7 @@
       <Version>1.4.1-beta</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.6.0-preview5.19224.8</Version>
+      <Version>4.6.0-preview6.19303.8</Version>
     </PackageReference>
     <PackageReference Include="WinRTXamlToolkit.Controls.DataVisualization.UWP">
       <Version>2.3.0</Version>
