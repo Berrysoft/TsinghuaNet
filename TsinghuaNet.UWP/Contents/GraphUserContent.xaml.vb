@@ -1,5 +1,6 @@
 ﻿Imports WinRTXamlToolkit.AwaitableUI
 Imports MvvmHelpers
+Imports TsinghuaNet.Helper
 
 Public NotInheritable Class GraphUserContent
     Inherits UserControl
@@ -85,7 +86,7 @@ Module NetDetailExtensions
         Dim now As Date = Date.Now
         For Each b In From d In ds
                       Group By d.LogoutTime.Day Into Flux = Sum(d.Flux)
-            totalf += b.Flux / 1000000000
+            totalf += b.Flux.GigaBytes
             Yield New KeyValuePair(Of Integer, Double)(b.Day, totalf)
         Next
     End Function

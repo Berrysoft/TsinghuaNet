@@ -142,7 +142,7 @@ Class StatusVerb
             If helper IsNot Nothing Then
                 Dim flux = Await helper.GetFluxAsync()
                 Console.WriteLine("用户：{0}", flux.Username)
-                Console.WriteLine("流量：{0}", StringHelper.GetFluxString(flux.Flux))
+                Console.WriteLine("流量：{0:F2}", flux.Flux)
                 Console.WriteLine("时长：{0}", flux.OnlineTime)
                 Console.WriteLine("流量：{0}", StringHelper.GetCurrencyString(flux.Balance))
             End If
@@ -241,14 +241,14 @@ Class DetailVerb
                     Dim query = From d In details Group By d.LogoutTime.Day Into TotalFlux = Sum(d.Flux)
                     Dim orderedQuery = If(Order = NetDetailOrder.Flux, query.OrderBy(Function(d) d.TotalFlux, Descending), query.OrderBy(Function(d) d.Day, Descending))
                     For Each p In orderedQuery
-                        Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), StringHelper.GetFluxString(p.TotalFlux).PadLeft(11))
+                        Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), p.TotalFlux.ToString("F2").PadLeft(11))
                     Next
                 Else
                     Dim details = Await helper.GetDetailsAsync(Order, Descending)
                     Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
                     Console.WriteLine(New String("="c, 60))
                     For Each d In details
-                        Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), StringHelper.GetFluxString(d.Flux).PadLeft(11))
+                        Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), d.Flux.ToString("F2").PadLeft(11))
                     Next
                 End If
             Else

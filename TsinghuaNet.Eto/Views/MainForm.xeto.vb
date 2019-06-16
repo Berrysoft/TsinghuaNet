@@ -17,7 +17,7 @@ Public Class MainForm
         FindChild(Of Label)("OnlineUserFluxLabel").
             TextBinding.BindDataContext(
                 Binding.Property(Function(m As MainViewModel) m.OnlineUser.Flux).
-                    Convert(AddressOf StringHelper.GetFluxString))
+                    Convert(Function(f) f.ToString("F2")))
         FindChild(Of Label)("OnlineUserBalanceLabel").
             TextBinding.BindDataContext(
                 Binding.Property(Function(m As MainViewModel) m.OnlineUser.Balance).

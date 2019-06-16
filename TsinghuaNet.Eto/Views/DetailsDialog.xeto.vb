@@ -1,6 +1,5 @@
 ﻿Imports Eto.Forms
 Imports Eto.Serialization.Xaml
-Imports TsinghuaNet.Helper
 
 Public Class DetailsDialog
     Inherits Dialog
@@ -15,7 +14,7 @@ Public Class DetailsDialog
         DetailsView.DataStore = Model.DetailsSource
         CType(DetailsView.Columns(2).DataCell, TextBoxCell).Binding =
             Binding.Property(Function(d As NetDetail) d.Flux).
-                Convert(AddressOf StringHelper.GetFluxString)
+                Convert(Function(f) f.ToString("F2"))
     End Sub
 
     Private Const AscendingChar As Char = "▲"c

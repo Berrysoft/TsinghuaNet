@@ -41,7 +41,7 @@ Public Class MainViewModel
         SettingsHelper.AutoLogin = AutoLogin
         SettingsHelper.Theme = SettingsTheme
         SettingsHelper.ContentType = ContentType
-        SettingsHelper.FluxLimit = If(EnableFluxLimit, CType(FluxLimit, Long?), Nothing)
+        SettingsHelper.FluxLimit = If(EnableFluxLimit, CType(FluxLimit, ByteSize?), Nothing)
     End Sub
 
 

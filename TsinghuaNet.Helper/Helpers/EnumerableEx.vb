@@ -9,4 +9,9 @@ Public Module EnumerableEx
             Return source.OrderBy(selector)
         End If
     End Function
+
+    <Extension>
+    Public Function Sum(Of T)(source As IEnumerable(Of T), selector As Func(Of T, ByteSize)) As ByteSize
+        Return New ByteSize(source.Sum(Function(v) selector(v).Bytes))
+    End Function
 End Module

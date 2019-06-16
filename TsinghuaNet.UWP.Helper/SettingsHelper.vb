@@ -49,7 +49,8 @@ Public Module SettingsHelper
         BackgroundLiveTile = GetValue(BackgroundLiveTileKey, True)
         Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
-        FluxLimit = GetValue(Of Long?)(FluxLimitKey, Nothing)
+        Dim limit = GetValue(Of Long?)(FluxLimitKey, Nothing)
+        FluxLimit = If(limit Is Nothing, Nothing, CType(ByteSize.FromGigaBytes(limit), ByteSize?))
     End Sub
 
     Public Sub SaveSettings()
@@ -59,7 +60,7 @@ Public Module SettingsHelper
         SetValue(BackgroundLiveTileKey, BackgroundLiveTile)
         SetValue(Of Integer)(ThemeKey, Theme)
         SetValue(Of Integer)(ContentTypeKey, ContentType)
-        SetValue(FluxLimitKey, FluxLimit)
+        SetValue(FluxLimitKey, If(FluxLimit Is Nothing, Nothing, CType(FluxLimit.Value.GigaBytes, Long?)))
     End Sub
 
     Public Property StoredUsername As String
@@ -74,5 +75,5 @@ Public Module SettingsHelper
 
     Public Property ContentType As UserContentType
 
-    Public Property FluxLimit As Long?
+    Public Property FluxLimit As ByteSize?
 End Module

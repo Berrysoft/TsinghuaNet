@@ -46,7 +46,7 @@ Public Class MainViewModel
                     AutoLogin = CBool(GetSettings(json, "autoLogin", True))
                     UseTimer = CBool(GetSettings(json, "useTimer", True))
                     EnableFluxLimit = CBool(GetSettings(json, "enableFluxLimit", True))
-                    FluxLimit = CDbl(GetSettings(json, "fluxLimit", 20.0))
+                    FluxLimit = ByteSize.FromGigaBytes(GetSettings(json, "fluxLimit", 20.0))
                 End Using
             End Using
         End If
@@ -65,7 +65,7 @@ Public Class MainViewModel
         json("autoLogin") = AutoLogin
         json("useTimer") = UseTimer
         json("enableFluxLimit") = EnableFluxLimit
-        json("fluxLimit") = FluxLimit
+        json("fluxLimit") = FluxLimit.GigaBytes
         CreateSettingsFolder()
         Using stream As New StreamWriter(SettingsPath)
             Using writer As New JsonTextWriter(stream)
@@ -111,8 +111,8 @@ Public Class MainViewModel
         If UseTimer AndAlso Not String.IsNullOrEmpty(OnlineUser.Username) Then
             timer.Start()
         End If
-        If EnableFluxLimit AndAlso OnlineUser.Flux > (FluxLimit * 1000000000) Then
-            res = New LogResponse(False, $"流量已使用超过{FluxLimit}GB")
+        If EnableFluxLimit AndAlso OnlineUser.Flux > FluxLimit Then
+            res = New LogResponse(False, $"流量已使用超过{FluxLimit}")
         End If
         Return res
     End Function

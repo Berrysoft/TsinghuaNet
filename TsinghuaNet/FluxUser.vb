@@ -1,10 +1,10 @@
 ﻿Public Structure FluxUser
     Public ReadOnly Property Username As String
-    Public ReadOnly Property Flux As Long
+    Public ReadOnly Property Flux As ByteSize
     Public ReadOnly Property OnlineTime As TimeSpan
     Public ReadOnly Property Balance As Decimal
 
-    Public Sub New(username As String, flux As Long, onlineTime As TimeSpan, balance As Decimal)
+    Public Sub New(username As String, flux As ByteSize, onlineTime As TimeSpan, balance As Decimal)
         Me.Username = username
         Me.Flux = flux
         Me.OnlineTime = onlineTime
@@ -34,7 +34,7 @@
         Else
             Return New FluxUser(
                 r(0),
-                r(6),
+                ByteSize.FromBytes(r(6)),
                 TimeSpan.FromSeconds(CLng(r(2)) - CLng(r(1))),
                 r(11))
         End If

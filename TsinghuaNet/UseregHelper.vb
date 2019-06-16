@@ -38,9 +38,9 @@ End Class
 Public Class NetDetail
     Public ReadOnly Property LoginTime As Date
     Public ReadOnly Property LogoutTime As Date
-    Public ReadOnly Property Flux As Long
+    Public ReadOnly Property Flux As ByteSize
 
-    Public Sub New(login As Date, logout As Date, flux As Long)
+    Public Sub New(login As Date, logout As Date, flux As ByteSize)
         Me.LoginTime = login
         Me.LogoutTime = logout
         Me.Flux = flux
@@ -123,20 +123,6 @@ Public Class UseregHelper
                    tds(10))
     End Function
 
-    Private Function ParseFlux(str As String) As Long
-        Dim flux As Double = str.Substring(0, str.Length - 1)
-        Dim c = str(str.Length - 1)
-        Select Case c
-            Case "G"c
-                flux *= 1_000_000_000
-            Case "M"c
-                flux *= 1_000_000
-            Case "K"c
-                flux *= 1_000
-        End Select
-        Return flux
-    End Function
-
     Private Shared ReadOnly OrderQueryMap As New Dictionary(Of NetDetailOrder, String) From
     {
         {NetDetailOrder.LoginTime, "user_login_time"},
@@ -161,7 +147,7 @@ Public Class UseregHelper
                 Select New NetDetail(
                         Date.ParseExact(tds(1), DateTimeFormat, CultureInfo.InvariantCulture),
                         Date.ParseExact(tds(2), DateTimeFormat, CultureInfo.InvariantCulture),
-                        ParseFlux(tds(4))))
+                        ByteSize.Parse(tds(4))))
             If list.Count - oldsize < offset Then
                 Exit Do
             End If

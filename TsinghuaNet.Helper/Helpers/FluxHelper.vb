@@ -1,7 +1,7 @@
 ﻿Public Module FluxHelper
-    Public Const BaseFlux As Long = 25_000_000_000
+    Public ReadOnly BaseFlux As ByteSize = ByteSize.FromGigaBytes(25)
 
-    Public Function GetMaxFlux(flux As Long, balance As Decimal) As Long
-        Return Math.Max(flux, BaseFlux) + balance / 2 * 1_000_000_000
+    Public Function GetMaxFlux(flux As ByteSize, balance As Decimal) As ByteSize
+        Return New ByteSize(Math.Max(flux.Bytes, BaseFlux.Bytes)) + ByteSize.FromGigaBytes(balance / 2)
     End Function
 End Module

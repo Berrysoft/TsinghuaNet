@@ -158,12 +158,12 @@ Public MustInherit Class NetViewModel
         End Set
     End Property
 
-    Private _FluxLimit As Double
-    Public Property FluxLimit As Double
+    Private _FluxLimit As ByteSize
+    Public Property FluxLimit As ByteSize
         Get
             Return _FluxLimit
         End Get
-        Set(value As Double)
+        Set(value As ByteSize)
             SetProperty(_FluxLimit, value)
         End Set
     End Property
