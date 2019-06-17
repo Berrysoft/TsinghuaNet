@@ -116,6 +116,7 @@ Public Structure ByteSize
     End Function
 
     Public Shared Function TryParse(str As String, <Out> ByRef s As ByteSize) As Boolean
+        If str Is Nothing Then Return False
         Dim index As Integer = 0
         Do While index < str.Length
             If Not (Char.IsDigit(str(index)) OrElse str(index) = "."c) Then
@@ -137,18 +138,18 @@ Public Structure ByteSize
             Case "T", "TB"
                 s = FromTeraBytes(f)
             Case Else
-                s = New ByteSize()
                 Return False
         End Select
         Return True
     End Function
 
     Public Shared Function Parse(str As String) As ByteSize
+        If str Is Nothing Then Throw New ArgumentNullException(NameOf(str))
         Dim result As ByteSize
         If TryParse(str, result) Then
             Return result
         Else
-            Throw New ArgumentException(NameOf(str))
+            Throw New FormatException("Not supported magnitude.")
         End If
     End Function
 

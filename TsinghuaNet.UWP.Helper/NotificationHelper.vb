@@ -24,7 +24,7 @@ Public Module NotificationHelper
         <binding template="TileLarge">
             <text hint-style="title">{0}</text>
             <text hint-style="subtitleSubtle">流量：{1:F2}</text>
-            <text hint-style="subtitleSubtle">剩余：{4}</text>
+            <text hint-style="subtitleSubtle">剩余：{4:F2}</text>
             <text hint-style="subtitleSubtle">时长：{2}</text>
             <text hint-style="subtitleSubtle">余额：{3}</text>
         </binding>
