@@ -17,9 +17,12 @@
         <local:DropCommand x:Key="DropUser" DropUser="DropUser"/>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
             <Grid Width="240">
-                <StackPanel HorizontalAlignment="Left" Orientation="Vertical">
-                    <TextBlock Margin="8,8,0,0" Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Address}"/>
-                    <TextBlock Margin="8,0,0,8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
+                <StackPanel Margin="8" HorizontalAlignment="Left" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
+                    </StackPanel>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
                 </StackPanel>
                 <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
             </Grid>
@@ -122,14 +125,13 @@
                     </StackPanel>
                     <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">主题设置</TextBlock>
                     <StackPanel Orientation="Horizontal">
-                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.SettingsTheme,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
+                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.Theme,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
                             <muxc:RadioButtons.Header>
                                 <TextBlock Margin="0,0,0,8" Style="{ThemeResource BaseTextBlockStyle}">颜色</TextBlock>
                             </muxc:RadioButtons.Header>
                             <x:String>系统</x:String>
                             <x:String>浅色</x:String>
                             <x:String>深色</x:String>
-                            <x:String>自动</x:String>
                         </muxc:RadioButtons>
                         <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.ContentType,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
                             <muxc:RadioButtons.Header>
@@ -138,7 +140,6 @@
                             <x:String>直线</x:String>
                             <x:String>圆圈</x:String>
                             <x:String>水面</x:String>
-                            <x:String>图表</x:String>
                         </muxc:RadioButtons>
                     </StackPanel>
                 </StackPanel>

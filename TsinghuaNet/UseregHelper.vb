@@ -11,7 +11,7 @@ Public Class NetUser
     Public Sub New(address As IPAddress, loginTime As Date, client As String)
         Me.Address = address
         Me.LoginTime = loginTime
-        Me.Client = client
+        Me.Client = If(String.IsNullOrEmpty(client) OrElse client = "Unknown", "未知设备", client)
     End Sub
 
     Public Shared Operator =(u1 As NetUser, u2 As NetUser) As Boolean

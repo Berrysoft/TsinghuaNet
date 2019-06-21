@@ -1,17 +1,9 @@
 ﻿Imports Windows.Storage
 
-Public Enum UserTheme
-    [Default]
-    Light
-    Dark
-    Auto
-End Enum
-
 Public Enum UserContentType
     Line
     Ring
     Water
-    Graph
 End Enum
 
 Public Module SettingsHelper
@@ -47,7 +39,7 @@ Public Module SettingsHelper
         AutoLogin = GetValue(AutoLoginKey, True)
         BackgroundAutoLogin = GetValue(BackgroundAutoLoginKey, True)
         BackgroundLiveTile = GetValue(BackgroundLiveTileKey, True)
-        Theme = GetValue(Of Integer)(ThemeKey, UserTheme.Default)
+        Theme = GetValue(Of Integer)(ThemeKey, ElementTheme.Default)
         ContentType = GetValue(Of Integer)(ContentTypeKey, UserContentType.Ring)
         Dim limit = GetValue(Of Long?)(FluxLimitKey, Nothing)
         FluxLimit = If(limit Is Nothing, Nothing, CType(ByteSize.FromGigaBytes(limit), ByteSize?))
@@ -71,7 +63,7 @@ Public Module SettingsHelper
 
     Public Property BackgroundLiveTile As Boolean
 
-    Public Property Theme As UserTheme
+    Public Property Theme As ElementTheme
 
     Public Property ContentType As UserContentType
 

@@ -19,9 +19,12 @@
         End Get
         Set(value As IEnumerable(Of NetDetail))
             details = value
+            RaiseEvent DetailsInitialized(Me, value)
             DetailsSource = details
         End Set
     End Property
+
+    Public Event DetailsInitialized As EventHandler(Of IEnumerable(Of NetDetail))
 
     Protected Overrides Sub SetSortedDetails(source As IEnumerable(Of NetDetail))
         DetailsSource = source

@@ -22,7 +22,7 @@ Public Class MainViewModel
         Credential.Username = un
         Credential.Password = CredentialHelper.GetCredential(un)
         ' 获取用户设置的主题
-        SettingsTheme = SettingsHelper.Theme
+        Theme = SettingsHelper.Theme
         ContentType = SettingsHelper.ContentType
         ' 自动登录
         AutoLogin = SettingsHelper.AutoLogin
@@ -39,7 +39,7 @@ Public Class MainViewModel
     Public Overrides Sub SaveSettings()
         SettingsHelper.StoredUsername = Credential.Username
         SettingsHelper.AutoLogin = AutoLogin
-        SettingsHelper.Theme = SettingsTheme
+        SettingsHelper.Theme = Theme
         SettingsHelper.ContentType = ContentType
         SettingsHelper.FluxLimit = If(EnableFluxLimit, CType(FluxLimit, ByteSize?), Nothing)
     End Sub
@@ -68,12 +68,6 @@ Public Class MainViewModel
         Dim content As IUserContent = TryCast(UserContent, IUserContent)
         If content IsNot Nothing Then
             content.User = OnlineUser
-            ' 刷新图表
-            If OnlineUser.Username IsNot Nothing AndAlso TypeOf content Is GraphUserContent AndAlso Not String.IsNullOrEmpty(Credential.Username) Then
-                Dim userhelper = Credential.GetUseregHelper()
-                Await userhelper.LoginAsync()
-                Await CType(content, GraphUserContent).RefreshDetails(userhelper)
-            End If
             content.BeginAnimation()
         End If
         Return res
@@ -137,29 +131,6 @@ Public Class MainViewModel
         End If
     End Sub
 
-    Private _SettingsTheme As UserTheme
-    Public Property SettingsTheme As UserTheme
-        Get
-            Return _SettingsTheme
-        End Get
-        Set(value As UserTheme)
-            SetProperty(_SettingsTheme, value, onChanged:=AddressOf OnSettingsThemeChanged)
-        End Set
-    End Property
-    Private Sub OnSettingsThemeChanged()
-        Dim settheme As UserTheme = SettingsTheme
-        Dim actheme As ElementTheme = settheme
-        If settheme = UserTheme.Auto Then
-            Dim now As Date = Date.Now
-            If now.Hour <= 6 OrElse now.Hour >= 18 Then
-                actheme = ElementTheme.Dark
-            Else
-                actheme = ElementTheme.Light
-            End If
-        End If
-        Theme = actheme
-    End Sub
-
     Private _Theme As ElementTheme
     Public Property Theme As ElementTheme
         Get
@@ -189,8 +160,6 @@ Public Class MainViewModel
                 newc = New ArcUserContent()
             Case UserContentType.Water
                 newc = New WaterUserContent()
-            Case UserContentType.Graph
-                newc = New GraphUserContent()
         End Select
         If oldc IsNot Nothing AndAlso newc IsNot Nothing Then
             newc.User = oldc.User

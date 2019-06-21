@@ -1,5 +1,4 @@
 ﻿Imports System.Net
-Imports System.Net.Http
 Imports System.Text
 Imports Microsoft.Toolkit.Uwp.Connectivity
 Imports TsinghuaNet.UWP.Background
@@ -11,8 +10,6 @@ Imports WinRTXamlToolkit.AwaitableUI
 
 Public NotInheritable Class MainPage
     Inherits Page
-
-    Private Shared ReadOnly Client As New HttpClient
 
     Public Sub New()
         InitializeComponent()
@@ -76,9 +73,9 @@ Public NotInheritable Class MainPage
 
     Private Sub ThemeChangedImpl(titleBar As ApplicationViewTitleBar)
         Select Case ActualTheme
-            Case ElementTheme.Light
+            Case Xaml.ElementTheme.Light
                 titleBar.ButtonForegroundColor = Colors.Black
-            Case ElementTheme.Dark
+            Case Xaml.ElementTheme.Dark
                 titleBar.ButtonForegroundColor = Colors.White
         End Select
     End Sub
@@ -112,14 +109,22 @@ Public NotInheritable Class MainPage
         Await ConnectionModel.DropAsync(e)
     End Sub
 
+    Private Async Function ShowDialogAsync(Of T As ContentDialog)(dialog As T) As Task(Of ContentDialogResult)
+        dialog.RequestedTheme = Model.Theme
+        Return Await dialog.ShowAsync()
+    End Function
+
+    Private Function ShowDialogAsync(Of T As {ContentDialog, New})() As Task(Of ContentDialogResult)
+        Return ShowDialogAsync(New T())
+    End Function
+
     ''' <summary>
     ''' 打开“更改用户”对话框
     ''' </summary>
     Private Async Sub ShowChangeUser()
         Dim dialog As New ChangeUserDialog(Model.Credential.Username)
-        dialog.RequestedTheme = Model.Theme
         ' 显示对话框
-        Dim result = Await dialog.ShowAsync()
+        Dim result = Await ShowDialogAsync(dialog)
         ' 确定
         If result = ContentDialogResult.Primary Then
             Dim un As String = dialog.UnBox.Text
@@ -153,33 +158,19 @@ Public NotInheritable Class MainPage
         End If
     End Sub
 
-    Private Sub ShowException(e As Exception)
-        Try
-            ShowResponse(New LogResponse(False, $"异常 0x{e.HResult:X}：{e.Message}"))
-        Catch ex As Exception
-            Debug.Fail(ex.Message)
-        End Try
-    End Sub
-
     Private Sub HelpSelection(sender As Object, e As RoutedEventArgs)
         HelpFlyout.ShowAt(e.OriginalSource)
     End Sub
 
     Private Async Sub ShowDetail()
-        Dim helper = Model.Credential.GetUseregHelper()
-        Await helper.LoginAsync()
-        Dim dialog As New DetailDialog(helper)
-        dialog.RequestedTheme = Model.Theme
-        Await dialog.ShowAsync()
+        Await ShowDialogAsync(Of DetailDialog)()
     End Sub
 
     Private Async Sub ShowUsereg()
-        Await Launcher.LaunchUriAsync(New Uri("https://usereg.tsinghua.edu.cn/"))
+        Await Launcher.LaunchUriAsync(New Uri("http://usereg.tsinghua.edu.cn/"))
     End Sub
 
     Private Async Sub ShowAbout()
-        Dim dialog As New AboutDialog()
-        dialog.RequestedTheme = Model.Theme
-        Await dialog.ShowAsync()
+        Await ShowDialogAsync(Of AboutDialog)()
     End Sub
 End Class
