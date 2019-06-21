@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>TsinghuaNet.Eto.Mac</RootNamespace>
+    <TargetFramework>net48</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <MkBundleArgs>$(MkBundleArgs) --i18n CJK</MkBundleArgs>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Logo.icns" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <BundleResource Include="Logo.icns" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Eto.Platform.Mac64" Version="2.5.0-beta.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TsinghuaNet.Eto\TsinghuaNet.Eto.vbproj" />
+  </ItemGroup>
+
+</Project>

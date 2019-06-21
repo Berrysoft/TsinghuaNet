@@ -31,23 +31,27 @@ Public Class MainForm
     End Sub
 
     Private Sub ShowConnection(sender As Object, e As EventArgs)
-        Dim dialog As New ConnectionDialog
-        dialog.ShowModal(Me)
+        Using dialog As New ConnectionDialog
+            dialog.ShowModal(Me)
+        End Using
     End Sub
 
     Private Sub ShowDetails(sender As Object, e As EventArgs)
-        Dim dialog As New DetailsDialog
-        dialog.ShowModal(Me)
+        Using dialog As New DetailsDialog
+            dialog.ShowModal(Me)
+        End Using
     End Sub
 
     Private Sub ShowAbout(sender As Object, e As EventArgs)
-        Dim dialog As New SettingsDialog(Model, 1)
-        dialog.ShowModal(Me)
+        Using dialog As New SettingsDialog(Model, 1)
+            dialog.ShowModal(Me)
+        End Using
     End Sub
 
     Private Sub ShowSettings(sender As Object, e As EventArgs)
-        Dim dialog As New SettingsDialog(Model)
-        dialog.ShowModal(Me)
+        Using dialog As New SettingsDialog(Model)
+            dialog.ShowModal(Me)
+        End Using
     End Sub
 
     Private Sub MainForm_Closed(sender As Object, e As EventArgs) Handles Me.Closed
