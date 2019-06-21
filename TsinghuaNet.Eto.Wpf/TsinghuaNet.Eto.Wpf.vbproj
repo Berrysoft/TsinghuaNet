@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>TsinghuaNet.Eto.Wpf</RootNamespace>
     <TargetFramework>net48</TargetFramework>
+    <VBRuntime></VBRuntime>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
 
