@@ -8,23 +8,8 @@ Public Enum NetState
 End Enum
 
 Public Module ConnectHelper
-    Private ReadOnly StateHelperMap As New Dictionary(Of NetState, Type) From
-    {
-        {NetState.Net, GetType(NetHelper)},
-        {NetState.Auth4, GetType(Auth4Helper)},
-        {NetState.Auth6, GetType(Auth6Helper)}
-    }
-
-    Private Function GetHelperImpl(state As NetState, ParamArray args As Object()) As IConnect
-        If StateHelperMap.ContainsKey(state) Then
-            Return Activator.CreateInstance(StateHelperMap(state), args)
-        Else
-            Return Nothing
-        End If
-    End Function
-
     Public Function GetHelper(state As NetState) As IConnect
-        Return GetHelper(state, Nothing, Nothing)
+        Return GetHelper(state, Nothing, Nothing, Nothing)
     End Function
 
     Public Function GetHelper(state As NetState, client As HttpClient) As IConnect
@@ -32,10 +17,19 @@ Public Module ConnectHelper
     End Function
 
     Public Function GetHelper(state As NetState, username As String, password As String) As IConnect
-        Return GetHelperImpl(state, username, password)
+        Return GetHelper(state, username, password, Nothing)
     End Function
 
     Public Function GetHelper(state As NetState, username As String, password As String, client As HttpClient) As IConnect
-        Return GetHelperImpl(state, username, password, client)
+        Select Case state
+            Case NetState.Net
+                Return New NetHelper(username, password, client)
+            Case NetState.Auth4
+                Return New Auth4Helper(username, password, client)
+            Case NetState.Auth6
+                Return New Auth6Helper(username, password, client)
+            Case Else
+                Return Nothing
+        End Select
     End Function
 End Module

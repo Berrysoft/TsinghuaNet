@@ -1,10 +1,5 @@
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
-    <Assembly Name="TsinghuaNet">
-      <Type Name="TsinghuaNet.NetHelper" Dynamic="Required All"/>
-      <Type Name="TsinghuaNet.Auth4Helper" Dynamic="Required All"/>
-      <Type Name="TsinghuaNet.Auth6Helper" Dynamic="Required All"/>
-    </Assembly>
     <Assembly Name="TsinghuaNet.CLI" Dynamic="Required All"/>
   </Application>
 </Directives>

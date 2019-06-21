@@ -169,7 +169,7 @@ Class OnlineVerb
                 Console.WriteLine("|       IP       |       登录时间       |   客户端   |")
                 Console.WriteLine(New String("="c, 54))
                 For Each user In users
-                    Console.WriteLine("| {0}| {1}| {2}|", user.Address.ToString().PadRight(15), user.LoginTime.ToString(DateTimeFormat).PadRight(21), user.Client.PadRight(11))
+                    Console.WriteLine("| {0,-14} | {1,-20} | {2,-10} |", user.Address, user.LoginTime.ToString(DateTimeFormat), user.Client)
                 Next
             Else
                 Console.WriteLine(res.Message)
@@ -241,14 +241,14 @@ Class DetailVerb
                     Dim query = From d In details Group By d.LogoutTime.Day Into TotalFlux = Sum(d.Flux)
                     Dim orderedQuery = If(Order = NetDetailOrder.Flux, query.OrderBy(Function(d) d.TotalFlux, Descending), query.OrderBy(Function(d) d.Day, Descending))
                     For Each p In orderedQuery
-                        Console.WriteLine("| {0}|{1} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat).PadRight(11), p.TotalFlux.ToString("F2").PadLeft(11))
+                        Console.WriteLine("| {0,-10} | {1,10} |", New Date(now.Year, now.Month, p.Day).ToString(DateFormat), p.TotalFlux.ToString("F2"))
                     Next
                 Else
                     Dim details = Await helper.GetDetailsAsync(Order, Descending)
                     Console.WriteLine("|       登录时间       |       注销时间       |    流量    |")
                     Console.WriteLine(New String("="c, 60))
                     For Each d In details
-                        Console.WriteLine("| {0}| {1}|{2} |", d.LoginTime.ToString(DateTimeFormat).PadRight(21), d.LogoutTime.ToString(DateTimeFormat).PadRight(21), d.Flux.ToString("F2").PadLeft(11))
+                        Console.WriteLine("| {0,-20} | {1,-20} | {2,10} |", d.LoginTime.ToString(DateTimeFormat), d.LogoutTime.ToString(DateTimeFormat), d.Flux.ToString("F2"))
                     Next
                 End If
             Else
