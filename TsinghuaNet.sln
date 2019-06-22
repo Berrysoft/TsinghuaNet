@@ -23,11 +23,13 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.CrossPlatform.W
 EndProject
 Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto", "TsinghuaNet.Eto\TsinghuaNet.Eto.vbproj", "{BC2FC763-C2AD-4CF9-BDE0-71B9ABCCBD48}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.Eto.Wpf", "TsinghuaNet.Eto.Wpf\TsinghuaNet.Eto.Wpf.vbproj", "{DB7EC886-7FD0-4D7D-A7F1-C73172EBD877}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Wpf", "TsinghuaNet.Eto.Wpf\TsinghuaNet.Eto.Wpf.vbproj", "{DB7EC886-7FD0-4D7D-A7F1-C73172EBD877}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.Eto.Gtk", "TsinghuaNet.Eto.Gtk\TsinghuaNet.Eto.Gtk.vbproj", "{9433D481-88B5-40C7-B5D9-5D8E62D4EFD3}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Gtk", "TsinghuaNet.Eto.Gtk\TsinghuaNet.Eto.Gtk.vbproj", "{9433D481-88B5-40C7-B5D9-5D8E62D4EFD3}"
 EndProject
-Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "TsinghuaNet.Eto.Mac", "TsinghuaNet.Eto.Mac\TsinghuaNet.Eto.Mac.vbproj", "{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Mac", "TsinghuaNet.Eto.Mac\TsinghuaNet.Eto.Mac.vbproj", "{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.Eto.iOS", "TsinghuaNet.Eto.iOS\TsinghuaNet.Eto.iOS.csproj", "{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -405,6 +407,24 @@ Global
 		{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}.Release|x64.Build.0 = Release|Any CPU
 		{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}.Release|x86.ActiveCfg = Release|Any CPU
 		{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}.Release|x86.Build.0 = Release|Any CPU
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|Any CPU.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|ARM.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|ARM64.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|iPhone.Build.0 = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|x64.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Debug|x86.ActiveCfg = Debug|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|ARM.ActiveCfg = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|ARM64.ActiveCfg = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|iPhone.ActiveCfg = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|iPhone.Build.0 = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|x64.ActiveCfg = Release|iPhone
+		{FEE47515-BAA7-4CFC-91A7-A1DE2473DA35}.Release|x86.ActiveCfg = Release|iPhone
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
