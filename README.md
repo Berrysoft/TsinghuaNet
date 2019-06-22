@@ -47,13 +47,13 @@ TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
 Xamarin.Forms版本，支持iOS与WPF（测试用）。
 
 ## TsinghuaNet.Eto
-Eto.Forms版本，支持 .NET Framework 4.8。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
+Eto.Forms版本。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
 
-|平台|实现|框架|屏幕截图|
-|-|-|-|-|
-|Windows|WPF|.NET Framework|![Windows](./Screenshots/Eto.Windows.png)
-|Linux|GTK#|Mono|![WSL](./Screenshots/Eto.WSL.png)
-|Mac OS|MonoMac|Mono|![Mac](./Screenshots/Eto.Mac.png)
+|平台|Windows|Linux|Mac OS|
+|-|:-:|:-:|:-:|
+|实现|WPF|GTK#|MonoMac|
+|框架|.NET Core|.NET Core|Mono|
+|屏幕截图|![Windows](./Screenshots/Eto.Windows.png)|![WSL](./Screenshots/Eto.WSL.png)|![Mac](./Screenshots/Eto.Mac.png)|
 
 ## TsinghuaNet.UWP
 UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basic。支持Windows 10.0.16299 (1709)以上版本。

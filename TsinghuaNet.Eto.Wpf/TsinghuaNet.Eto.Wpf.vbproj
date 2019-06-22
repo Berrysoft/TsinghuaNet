@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <RootNamespace>TsinghuaNet.Eto.Wpf</RootNamespace>
-    <TargetFramework>net48</TargetFramework>
-    <VBRuntime></VBRuntime>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <UseWpf>true</UseWpf>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0-beta.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview6.19303.8" />
   </ItemGroup>
 
   <ItemGroup>
