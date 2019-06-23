@@ -44,7 +44,7 @@ TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
 ```
 
 ## TsinghuaNet.CrossPlatform
-Xamarin.Forms版本，支持iOS与WPF（测试用）。
+Xamarin.Forms版本，支持iOS与Android。
 
 ## TsinghuaNet.Eto
 Eto.Forms版本。支持Windows、Linux与Mac OS桌面平台，平台与实现方式如下表：
@@ -87,7 +87,7 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 ## 从哪里下载最新版的程序？
 在[Releases](https://github.com/Berrysoft/TsinghuaNet/releases)页面。
 ## 我该如何从源代码编译这个程序？
-为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0与 .NET Framework SDK 4.8。
+为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0。
 
 编译UWP版本还需要安装“通用 Windows 平台开发”，并需要Windows SDK 10.0.18362。
 
