@@ -41,9 +41,10 @@ Public Class NetPingStatus
 
     Private Shared Async Function CanConnectTo(uri As String) As Task(Of Boolean)
         Try
-            Dim p As New Ping
-            Dim reply = Await p.SendPingAsync(uri)
-            Return reply.Status = IPStatus.Success
+            Using p As New Ping
+                Dim reply = Await p.SendPingAsync(uri)
+                Return reply.Status = IPStatus.Success
+            End Using
         Catch ex As Exception
             Return False
         End Try
@@ -96,7 +97,7 @@ Public MustInherit Class NetMapStatus
 
     Public MustOverride Function RefreshAsync() As Task Implements INetStatus.RefreshAsync
 
-    Private Shared SsidStateMap As New Dictionary(Of String, NetState) From
+    Private Shared ReadOnly SsidStateMap As New Dictionary(Of String, NetState) From
     {
         {"Tsinghua", NetState.Net},
         {"Tsinghua-5G", NetState.Net},
