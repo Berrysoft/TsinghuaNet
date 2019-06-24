@@ -110,8 +110,9 @@ Class LogoutVerb
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（自动判断）方式注销，不需要用户名密码", New LogoutVerb())
-            Yield New Example("使用auth4方式注销，需要用户名密码", New LogoutVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
+            Yield New Example("使用默认（自动判断）方式注销", New LogoutVerb() With {.Username = "用户名", .Password = "密码"})
+            Yield New Example("使用auth4方式注销", New LogoutVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
+            Yield New Example("使用net方式注销，不需要用户名密码", New LogoutVerb() With {.Host = OptionNetState.Net})
         End Get
     End Property
 

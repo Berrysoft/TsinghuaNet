@@ -7,15 +7,18 @@
 ## TsinghuaNet.CLI
 命令行版本，支持 .NET Core 3.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
 ### 登录/注销
+**注意：**登录与注销方式必须对应。
 ``` bash
 # 使用默认（自动判断）方式登录
 TsinghuaNet.CLI login -u 用户名 -p 密码
-# 使用默认（自动判断）方式注销，不需要用户名密码
-TsinghuaNet.CLI logout
+# 使用默认（自动判断）方式注销
+TsinghuaNet.CLI logout -u 用户名 -p 密码
 # 使用auth4方式登录
 TsinghuaNet.CLI login -s auth4 -u 用户名 -p 密码
-# 使用auth4方式注销，需要用户名密码
+# 使用auth4方式注销
 TsinghuaNet.CLI logout -s auth4 -u 用户名 -p 密码
+# 使用net方式注销，不需要用户名密码
+TsinghuaNet.CLI logout -s net
 ```
 ### 在线状态
 ``` bash
