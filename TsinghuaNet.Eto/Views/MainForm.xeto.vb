@@ -14,10 +14,6 @@ Public Class MainForm
         Dim NetStateList = FindChild(Of EnumRadioButtonList(Of NetState))("NetStateList")
         AddHandler NetStateList.AddValue, AddressOf NetStateList_AddValue
         NetStateList.SelectedValueBinding.BindDataContext(Binding.Property(Function(m As MainViewModel) m.Credential.State))
-        FindChild(Of Label)("OnlineUserFluxLabel").
-            TextBinding.BindDataContext(
-                Binding.Property(Function(m As MainViewModel) m.OnlineUser.Flux).
-                    Convert(Function(f) f.ToString("F2")))
         FindChild(Of Label)("OnlineUserBalanceLabel").
             TextBinding.BindDataContext(
                 Binding.Property(Function(m As MainViewModel) m.OnlineUser.Balance).

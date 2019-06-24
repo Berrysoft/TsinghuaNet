@@ -9,6 +9,7 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
     {
         public InfoViewModel() : base()
         {
+            Status = new NetPingStatus();
             timer = new DeviceTimer(TimeSpan.FromSeconds(1), OnlineTimerTick);
         }
 

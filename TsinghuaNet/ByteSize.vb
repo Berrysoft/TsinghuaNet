@@ -1,6 +1,7 @@
 ﻿Imports System.Runtime.InteropServices
 
 Public Structure ByteSize
+    Implements IComparable
     Implements IComparable(Of ByteSize)
     Implements IEquatable(Of ByteSize)
     Implements IFormattable
@@ -72,6 +73,10 @@ Public Structure ByteSize
         Return New ByteSize(tb * TERA)
     End Function
 
+    Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
+        Return CompareTo(CType(obj, ByteSize))
+    End Function
+
     Public Function CompareTo(other As ByteSize) As Integer Implements IComparable(Of ByteSize).CompareTo
         Return Bytes.CompareTo(other.Bytes)
     End Function
@@ -101,6 +106,9 @@ Public Structure ByteSize
     End Function
 
     Public Overloads Function ToString(format As String, formatProvider As IFormatProvider) As String Implements IFormattable.ToString
+        If format Is Nothing Then
+            format = "F2"
+        End If
         Dim b = Math.Abs(Bytes)
         If b < KILA Then
             Return $"{Bytes.ToString(format, formatProvider)} B"

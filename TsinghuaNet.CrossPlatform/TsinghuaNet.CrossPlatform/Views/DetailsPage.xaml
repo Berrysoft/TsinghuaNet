@@ -14,14 +14,14 @@
             <datagrid:DataGrid.Columns>
                 <datagrid:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
                 <datagrid:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
-                <datagrid:DataGridColumn Title="流量">
-                    <datagrid:DataGridColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label VerticalOptions="Center" HorizontalOptions="End" Text="{Binding Flux,Converter={StaticResource FluxStringConverter}}"/>
-                        </DataTemplate>
-                    </datagrid:DataGridColumn.CellTemplate>
-                </datagrid:DataGridColumn>
+                <datagrid:DataGridColumn Title="流量" PropertyName="Flux" StringFormat="{}{0}"/>
             </datagrid:DataGrid.Columns>
+            <datagrid:DataGrid.RowsBackgroundColorPalette>
+                <datagrid:PaletteCollection>
+                    <Color>#F2F2F2</Color>
+                    <Color>#FFFFFF</Color>
+                </datagrid:PaletteCollection>
+            </datagrid:DataGrid.RowsBackgroundColorPalette>
         </datagrid:DataGrid>
     </StackLayout>
 </ContentPage>

@@ -21,7 +21,7 @@
         </GridColumn>
         <GridColumn Sortable="True" HeaderText="使用流量">
           <GridColumn.DataCell>
-            <TextBoxCell x:Name="FluxCell" TextAlignment="Right"/>
+            <TextBoxCell TextAlignment="Right" Binding="{Binding Flux,Converter={StaticResource StringFormatConverter}}"/>
           </GridColumn.DataCell>
         </GridColumn>
       </GridView.Columns>

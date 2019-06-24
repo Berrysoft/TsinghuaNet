@@ -81,7 +81,7 @@
                 <mtuuc:DataGridTemplateColumn Header="使用流量" Width="120" Tag="Flux">
                     <mtuuc:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate x:DataType="net:NetDetail">
-                            <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux.ToString('F2')}"/>
+                            <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
                         </DataTemplate>
                     </mtuuc:DataGridTemplateColumn.CellTemplate>
                 </mtuuc:DataGridTemplateColumn>

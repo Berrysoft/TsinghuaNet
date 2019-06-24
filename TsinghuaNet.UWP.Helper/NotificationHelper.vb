@@ -13,18 +13,18 @@ Public Module NotificationHelper
     <visual branding="nameAndLogo">
         <binding template="TileMedium">
             <text hint-style="base">{0}</text>
-            <text hint-style="bodySubtle">{1:F2}</text>
+            <text hint-style="bodySubtle">{1}</text>
             <text hint-style="bodySubtle">{3}</text>
         </binding>
         <binding template="TileWide">
             <text hint-style="subtitle">{0}</text>
-            <text hint-style="bodySubtle">流量：{1:F2}</text>
+            <text hint-style="bodySubtle">流量：{1}</text>
             <text hint-style="bodySubtle">余额：{3}</text>
         </binding>
         <binding template="TileLarge">
             <text hint-style="title">{0}</text>
-            <text hint-style="subtitleSubtle">流量：{1:F2}</text>
-            <text hint-style="subtitleSubtle">剩余：{4:F2}</text>
+            <text hint-style="subtitleSubtle">流量：{1}</text>
+            <text hint-style="subtitleSubtle">剩余：{4}</text>
             <text hint-style="subtitleSubtle">时长：{2}</text>
             <text hint-style="subtitleSubtle">余额：{3}</text>
         </binding>
@@ -35,7 +35,7 @@ Public Module NotificationHelper
     <visual>
         <binding template="ToastGeneric">
             <text hint-maxLines="1">登录成功：{0}</text>
-            <text>流量：{1:F2}</text>
+            <text>流量：{1}</text>
             <text>余额：{2}</text>
         </binding>
     </visual>
@@ -45,8 +45,8 @@ Public Module NotificationHelper
     <visual>
         <binding template="ToastGeneric">
             <text hint-maxLines="1">流量预警：{0}</text>
-            <text>流量：{1:F2}</text>
-            <text>剩余：{2:F2}</text>
+            <text>流量：{1}</text>
+            <text>剩余：{2}</text>
         </binding>
     </visual>
 </toast>]]>.Value

@@ -12,9 +12,6 @@ Public Class DetailsDialog
         DataContext = Model
         Dim DetailsView = FindChild(Of GridView)("DetailsView")
         DetailsView.DataStore = Model.DetailsSource
-        CType(DetailsView.Columns(2).DataCell, TextBoxCell).Binding =
-            Binding.Property(Function(d As NetDetail) d.Flux).
-                Convert(Function(f) f.ToString("F2"))
     End Sub
 
     Private Const AscendingChar As Char = "▲"c

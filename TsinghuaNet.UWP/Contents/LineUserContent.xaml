@@ -42,7 +42,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="4">流量：</TextBlock>
-                    <TextBlock Margin="4" Text="{x:Bind User.Flux.ToString('F2'),Mode=OneWay}"/>
+                    <TextBlock Margin="4" Text="{x:Bind User.Flux,Mode=OneWay}"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="4">时长：</TextBlock>

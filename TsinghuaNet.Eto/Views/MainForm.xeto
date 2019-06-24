@@ -40,7 +40,7 @@
         <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
         <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
         <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
-        <Label x:Name="OnlineUserFluxLabel" VerticalAlignment="Center"/>
+        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource StringFormatConverter}}"/>
       </TableRow>
       <TableRow>
         <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
