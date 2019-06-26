@@ -1,5 +1,8 @@
 ﻿Imports System.Runtime.InteropServices
 
+''' <summary>
+''' 表示流量，以字节计算，并记1k=1000
+''' </summary>
 Public Structure ByteSize
     Implements IComparable
     Implements IComparable(Of ByteSize)
@@ -11,8 +14,16 @@ Public Structure ByteSize
     Private Const GIGA As Long = 1000_000_000
     Private Const TERA As Long = 1000_000_000_000
 
+    ''' <summary>
+    ''' 字节数
+    ''' </summary>
+    ''' <returns>字节数</returns>
     Public Property Bytes As Long
 
+    ''' <summary>
+    ''' 千字节数
+    ''' </summary>
+    ''' <returns>KB</returns>
     Public Property KilaBytes As Double
         Get
             Return Bytes / KILA
@@ -22,6 +33,10 @@ Public Structure ByteSize
         End Set
     End Property
 
+    ''' <summary>
+    ''' 兆字节数
+    ''' </summary>
+    ''' <returns>MB</returns>
     Public Property MegaBytes As Double
         Get
             Return Bytes / MEGA
@@ -31,6 +46,10 @@ Public Structure ByteSize
         End Set
     End Property
 
+    ''' <summary>
+    ''' 吉字节数
+    ''' </summary>
+    ''' <returns>GB</returns>
     Public Property GigaBytes As Double
         Get
             Return Bytes / GIGA
@@ -40,6 +59,10 @@ Public Structure ByteSize
         End Set
     End Property
 
+    ''' <summary>
+    ''' 太字节数
+    ''' </summary>
+    ''' <returns>TB</returns>
     Public Property TeraBytes As Double
         Get
             Return Bytes / TERA
@@ -49,50 +72,80 @@ Public Structure ByteSize
         End Set
     End Property
 
+    ''' <summary>
+    ''' 使用字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="bytes">字节数</param>
     Public Sub New(bytes As Long)
         Me.Bytes = bytes
     End Sub
 
+    ''' <summary>
+    ''' 使用字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="bytes">字节数</param>
     Public Shared Function FromBytes(bytes As Long) As ByteSize
         Return New ByteSize(bytes)
     End Function
 
+    ''' <summary>
+    ''' 使用千字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="kb">KB</param>
     Public Shared Function FromKilaBytes(kb As Double) As ByteSize
         Return New ByteSize(kb * KILA)
     End Function
 
+    ''' <summary>
+    ''' 使用兆字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="mb">MB</param>
     Public Shared Function FromMegaBytes(mb As Double) As ByteSize
         Return New ByteSize(mb * MEGA)
     End Function
 
+    ''' <summary>
+    ''' 使用吉字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="gb">GB</param>
     Public Shared Function FromGigaBytes(gb As Double) As ByteSize
         Return New ByteSize(gb * GIGA)
     End Function
 
+    ''' <summary>
+    ''' 使用太字节数初始化<see cref="ByteSize"/>
+    ''' </summary>
+    ''' <param name="tb">TB</param>
     Public Shared Function FromTeraBytes(tb As Double) As ByteSize
         Return New ByteSize(tb * TERA)
     End Function
 
+    ''' <inheritdoc/>
     Public Function CompareTo(obj As Object) As Integer Implements IComparable.CompareTo
         Return CompareTo(CType(obj, ByteSize))
     End Function
 
+    ''' <inheritdoc/>
     Public Function CompareTo(other As ByteSize) As Integer Implements IComparable(Of ByteSize).CompareTo
         Return Bytes.CompareTo(other.Bytes)
     End Function
 
+    ''' <inheritdoc/>
     Public Overrides Function Equals(obj As Object) As Boolean
         Return TypeOf obj Is ByteSize AndAlso Equals(CType(obj, ByteSize))
     End Function
 
+    ''' <inheritdoc/>
     Public Overloads Function Equals(other As ByteSize) As Boolean Implements IEquatable(Of ByteSize).Equals
         Return Bytes = other.Bytes
     End Function
 
+    ''' <inheritdoc/>
     Public Overrides Function GetHashCode() As Integer
         Return Bytes.GetHashCode()
     End Function
 
+    ''' <inheritdoc/>
     Public Overrides Function ToString() As String
         Return ToString(Nothing, Nothing)
     End Function
@@ -105,6 +158,7 @@ Public Structure ByteSize
         Return ToString(Nothing, formatProvider)
     End Function
 
+    ''' <inheritdoc/>
     Public Overloads Function ToString(format As String, formatProvider As IFormatProvider) As String Implements IFormattable.ToString
         If format Is Nothing Then
             format = "F2"
@@ -123,6 +177,12 @@ Public Structure ByteSize
         End If
     End Function
 
+    ''' <summary>
+    ''' 尝试将字符串转换为<see cref="ByteSize"/>实例
+    ''' </summary>
+    ''' <param name="str">字符串</param>
+    ''' <param name="s">返回实例</param>
+    ''' <returns>指示转换是否成功</returns>
     Public Shared Function TryParse(str As String, <Out> ByRef s As ByteSize) As Boolean
         If str Is Nothing Then Return False
         Dim index As Integer = 0
@@ -151,13 +211,20 @@ Public Structure ByteSize
         Return True
     End Function
 
+    ''' <summary>
+    ''' 将字符串转换为<see cref="ByteSize"/>实例
+    ''' </summary>
+    ''' <param name="str">字符串</param>
+    ''' <returns>实例</returns>
+    ''' <exception cref="ArgumentNullException">当<paramref name="str"/>为<see langword="Nothing"/></exception>
+    ''' <exception cref="FormatException">不支持的单位</exception>
     Public Shared Function Parse(str As String) As ByteSize
         If str Is Nothing Then Throw New ArgumentNullException(NameOf(str))
         Dim result As ByteSize
         If TryParse(str, result) Then
             Return result
         Else
-            Throw New FormatException("Not supported magnitude.")
+            Throw New FormatException("不支持的单位。")
         End If
     End Function
 

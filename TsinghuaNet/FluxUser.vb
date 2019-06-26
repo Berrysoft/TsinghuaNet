@@ -1,9 +1,31 @@
-﻿Public Structure FluxUser
+﻿''' <summary>
+''' 表示在线用户信息
+''' </summary>
+Public Structure FluxUser
+    ''' <summary>
+    ''' 用户名
+    ''' </summary>
     Public ReadOnly Property Username As String
+    ''' <summary>
+    ''' 使用流量
+    ''' </summary>
     Public ReadOnly Property Flux As ByteSize
+    ''' <summary>
+    ''' 在线时长
+    ''' </summary>
     Public ReadOnly Property OnlineTime As TimeSpan
+    ''' <summary>
+    ''' 剩余流量
+    ''' </summary>
     Public ReadOnly Property Balance As Decimal
 
+    ''' <summary>
+    ''' 使用相应信息初始化<see cref="FluxUser"/>
+    ''' </summary>
+    ''' <param name="username">用户名</param>
+    ''' <param name="flux">使用流量</param>
+    ''' <param name="onlineTime">在线时长</param>
+    ''' <param name="balance">剩余流量</param>
     Public Sub New(username As String, flux As ByteSize, onlineTime As TimeSpan, balance As Decimal)
         Me.Username = username
         Me.Flux = flux
@@ -19,14 +41,21 @@
         Return Not u1 = u2
     End Operator
 
+    ''' <inheritdoc/>
     Public Overrides Function Equals(obj As Object) As Boolean
         Return TypeOf obj Is FluxUser AndAlso Me = CType(obj, FluxUser)
     End Function
 
+    ''' <inheritdoc/>
     Public Overrides Function GetHashCode() As Integer
         Return If(Username?.GetHashCode(), 0)
     End Function
 
+    ''' <summary>
+    ''' 转换字符串为<see cref="FluxUser"/>实例
+    ''' </summary>
+    ''' <param name="fluxstr">字符串</param>
+    ''' <returns>实例</returns>
     Friend Shared Function Parse(fluxstr As String) As FluxUser
         Dim r = fluxstr.Split(","c)
         If String.IsNullOrWhiteSpace(r(0)) Then
