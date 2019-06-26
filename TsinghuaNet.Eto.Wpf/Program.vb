@@ -5,6 +5,7 @@ Imports Eto
 
 Module Program
     Sub Main()
+#If NETCOREAPP3_0 Then
         ' ¹æ±Ü.NET Core 3.0.0-preview6µÄbug
         Dim culture = CultureInfo.CreateSpecificCulture("en")
         Thread.CurrentThread.CurrentUICulture = culture
@@ -13,6 +14,7 @@ Module Program
         CultureInfo.DefaultThreadCurrentUICulture = culture
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
+#End If
         Using app As New App(Platforms.Wpf), form As New MainForm
             app.Run(form)
         End Using

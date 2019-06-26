@@ -49,7 +49,9 @@
         <Label x:Name="OnlineUserBalanceLabel" VerticalAlignment="Center"/>
       </TableRow>
     </TableLayout>
-    <Label TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Response}"/>
+    <StackLayoutItem HorizontalAlignment="Stretch">
+      <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
+    </StackLayoutItem>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
         <Button Command="{Binding LoginCommand}">登录</Button>
