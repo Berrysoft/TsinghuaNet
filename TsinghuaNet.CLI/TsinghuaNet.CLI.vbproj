@@ -31,7 +31,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>
 

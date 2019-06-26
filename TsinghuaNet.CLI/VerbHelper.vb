@@ -4,6 +4,7 @@ Imports System.Text
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports TsinghuaNet.Helper
+Imports TsinghuaNet.Model
 
 Module VerbHelper
     Public Status As New NetPingStatus

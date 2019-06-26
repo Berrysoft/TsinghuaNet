@@ -4,6 +4,7 @@ Imports Eto.Forms
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 Imports TsinghuaNet.Helper
+Imports TsinghuaNet.Model
 
 Public Class MainViewModel
     Inherits NetViewModel

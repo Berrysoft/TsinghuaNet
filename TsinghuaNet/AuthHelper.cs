@@ -13,7 +13,7 @@ namespace TsinghuaNet
     {
         private const string LogUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/srun_portal";
         private const string FluxUri = "https://auth{0}.tsinghua.edu.cn/rad_user_info.php";
-        private const string ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={{0}}&double_stack=1&ip&callback=callback";
+        private const string ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={1}&double_stack=1&ip&callback=callback";
         private static readonly int[] AcIds = new int[] { 1, 25, 33, 35, 37 };
         private readonly int version;
         /// <summary>
@@ -57,7 +57,7 @@ namespace TsinghuaNet
         /// Get information of the user online.
         /// </summary>
         /// <returns>An instance of <see cref="FluxUser"/> class of the current user.</returns>
-        public async Task<FluxUser> GetFluxAsync() => FluxUser.Parse(await PostAsync(FluxUri));
+        public async Task<FluxUser> GetFluxAsync() => FluxUser.Parse(await PostAsync(string.Format(FluxUri, version)));
 
         /// <summary>
         /// Get "challenge" to encode the password.
@@ -65,7 +65,7 @@ namespace TsinghuaNet
         /// <returns>The content of the website.</returns>
         private async Task<string> GetChallengeAsync()
         {
-            string result = await GetAsync(string.Format(ChallengeUri, Username));
+            string result = await GetAsync(string.Format(ChallengeUri, version, Username));
             JObject json = JObject.Parse(result.Substring(9, result.Length - 10));
             return (string)json["challenge"];
         }

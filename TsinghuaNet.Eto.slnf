@@ -1,0 +1,13 @@
+{
+  "solution": {
+    "path": "TsinghuaNet.sln",
+    "projects": [
+      "TsinghuaNet.Helper\\TsinghuaNet.Helper.vbproj",
+      "TsinghuaNet.Eto\\TsinghuaNet.Eto\\TsinghuaNet.Eto.vbproj",
+      "TsinghuaNet.Eto\\TsinghuaNet.Eto.Wpf\\TsinghuaNet.Eto.Wpf.vbproj",
+      "TsinghuaNet.Eto\\TsinghuaNet.Eto.Gtk\\TsinghuaNet.Eto.Gtk.vbproj",
+      "TsinghuaNet.Eto\\TsinghuaNet.Eto.Mac\\TsinghuaNet.Eto.Mac.vbproj",
+      "TsinghuaNet\\TsinghuaNet.csproj"
+    ]
+  }
+}

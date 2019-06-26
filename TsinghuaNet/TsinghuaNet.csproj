@@ -2,20 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RemoveIntegerChecks>true</RemoveIntegerChecks>
     <AssemblyVersion>1.3.0.0</AssemblyVersion>
     <FileVersion>1.3.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Authors>Berrysoft</Authors>
-    <Copyright>Copyright (c) 2018-2019 Berrysoft</Copyright>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="HtmlAgilityPack" Version="1.11.7" />
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.8" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.4.1-beta" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0-preview6.19303.8" />
   </ItemGroup>
 
