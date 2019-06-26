@@ -53,7 +53,7 @@ Eto.Forms版本。支持Windows、Linux与Mac OS桌面平台，平台与实现�
 |平台|Windows|Linux|Mac OS|
 |-|:-:|:-:|:-:|
 |实现|WPF|GTK#|MonoMac|
-|框架|.NET Core|.NET Core|Mono|
+|框架|.NET Core/.NET Framework|.NET Core|Mono|
 |屏幕截图|![Windows](./Screenshots/Eto.Windows.png)|![WSL](./Screenshots/Eto.WSL.png)|![Mac](./Screenshots/Eto.Mac.png)|
 
 ## TsinghuaNet.UWP

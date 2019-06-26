@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
-    <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.vbproj" />
+    <ProjectReference Include="..\..\TsinghuaNet.Helper\TsinghuaNet.Helper.vbproj" />
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.vbproj" />
   </ItemGroup>
 
 </Project>

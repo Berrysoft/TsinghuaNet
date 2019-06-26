@@ -19,13 +19,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.CrossPlatform.i
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TsinghuaNet.CrossPlatform", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.csproj", "{8219A318-8A10-40D2-901A-5604C713DA43}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto", "TsinghuaNet.Eto\TsinghuaNet.Eto.vbproj", "{BC2FC763-C2AD-4CF9-BDE0-71B9ABCCBD48}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto", "TsinghuaNet.Eto\TsinghuaNet.Eto\TsinghuaNet.Eto.vbproj", "{BC2FC763-C2AD-4CF9-BDE0-71B9ABCCBD48}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Wpf", "TsinghuaNet.Eto.Wpf\TsinghuaNet.Eto.Wpf.vbproj", "{DB7EC886-7FD0-4D7D-A7F1-C73172EBD877}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Wpf", "TsinghuaNet.Eto\TsinghuaNet.Eto.Wpf\TsinghuaNet.Eto.Wpf.vbproj", "{DB7EC886-7FD0-4D7D-A7F1-C73172EBD877}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Gtk", "TsinghuaNet.Eto.Gtk\TsinghuaNet.Eto.Gtk.vbproj", "{9433D481-88B5-40C7-B5D9-5D8E62D4EFD3}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Gtk", "TsinghuaNet.Eto\TsinghuaNet.Eto.Gtk\TsinghuaNet.Eto.Gtk.vbproj", "{9433D481-88B5-40C7-B5D9-5D8E62D4EFD3}"
 EndProject
-Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Mac", "TsinghuaNet.Eto.Mac\TsinghuaNet.Eto.Mac.vbproj", "{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}"
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "TsinghuaNet.Eto.Mac", "TsinghuaNet.Eto\TsinghuaNet.Eto.Mac\TsinghuaNet.Eto.Mac.vbproj", "{CE0603F5-9864-45C4-8A8D-91D26ADA4AE8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.CrossPlatform.Android", "TsinghuaNet.CrossPlatform\TsinghuaNet.CrossPlatform.Android\TsinghuaNet.CrossPlatform.Android.csproj", "{4E731CA3-2F0F-418B-A22E-BE51EDF69AFB}"
 EndProject
