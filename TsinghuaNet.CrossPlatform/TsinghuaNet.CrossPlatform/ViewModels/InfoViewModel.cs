@@ -17,6 +17,11 @@ namespace TsinghuaNet.CrossPlatform.ViewModels
 
         public override void SaveSettings() { }
 
+        protected override void OnSuggestStateChanged()
+        {
+            Credential.State = SuggestState;
+        }
+
         private bool useAuth4;
         public bool UseAuth4
         {
