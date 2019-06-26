@@ -10,15 +10,13 @@
 **注意：**登录与注销方式必须对应。
 ``` bash
 # 使用默认（自动判断）方式登录
-TsinghuaNet.CLI login -u 用户名 -p 密码
+TsinghuaNet.CLI login
 # 使用默认（自动判断）方式注销
-TsinghuaNet.CLI logout -u 用户名 -p 密码
+TsinghuaNet.CLI logout
 # 使用auth4方式登录
-TsinghuaNet.CLI login -s auth4 -u 用户名 -p 密码
+TsinghuaNet.CLI login -s auth4
 # 使用auth4方式注销
-TsinghuaNet.CLI logout -s auth4 -u 用户名 -p 密码
-# 使用net方式注销，不需要用户名密码
-TsinghuaNet.CLI logout -s net
+TsinghuaNet.CLI logout -s auth4
 ```
 ### 在线状态
 ``` bash
@@ -30,20 +28,20 @@ TsinghuaNet.CLI status -s auth4
 ### 查询/强制下线在线IP
 ``` bash
 # 查询
-TsinghuaNet.CLI online -u 用户名 -p 密码
+TsinghuaNet.CLI online
 # 强制下线
-TsinghuaNet.CLI drop -a IP地址 -u 用户名 -p 密码
+TsinghuaNet.CLI drop -a IP地址
 ```
 ### 流量明细
 ``` bash
 # 使用默认排序（注销时间，升序）查询明细
-TsinghuaNet.CLI detail -u 用户名 -p 密码
+TsinghuaNet.CLI detail
 # 使用登录时间（升序）查询明细
-TsinghuaNet.CLI detail -o login -u 用户名 -p 密码
+TsinghuaNet.CLI detail -o login
 # 使用流量降序查询明细
-TsinghuaNet.CLI detail -o flux -d -u 用户名 -p 密码
+TsinghuaNet.CLI detail -o flux -d
 # 使用流量降序查询明细，并按注销日期组合
-TsinghuaNet.CLI detail -o flux -dg -u 用户名 -p 密码
+TsinghuaNet.CLI detail -o flux -dg
 ```
 
 ## TsinghuaNet.CrossPlatform
@@ -99,6 +97,8 @@ UWP版本，3.0以前的版本使用C++/WinRT，之后的版本使用Visual Basi
 可以。这个项目使用[MIT许可证](./LICENSE)开源。
 ## 这个程序能卸载干净吗？
 卸载时，除了凭据，所有个人配置都会被删除。凭据仅在选中“保存密码”时保存。（UWP独有）
+
+CLI版本的用户名和密码保存在用户文件夹下的`.config/TsinghuaNet.CLI/settings.json`，仅在运行`savecred`后创建，可使用`deletecred`删除。
 
 Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
 ## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto独有）
