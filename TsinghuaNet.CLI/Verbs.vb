@@ -1,25 +1,7 @@
 ﻿Imports System.Net
-Imports System.Runtime.CompilerServices
 Imports CommandLine
 Imports CommandLine.Text
 Imports TsinghuaNet.Helper
-
-Module VerbHelper
-    Public Status As New NetPingStatus
-
-    <Extension>
-    Public Async Function GetHelperAsync(opts As NetVerbBase) As Task(Of IConnect)
-        If opts.Host = OptionNetState.Auto Then
-            opts.Host = Await Status.SuggestAsync()
-        End If
-        Dim v = TryCast(opts, IConnectVerb)
-        If v IsNot Nothing Then
-            Return ConnectHelper.GetHelper(opts.Host, v.Username, v.Password)
-        Else
-            Return ConnectHelper.GetHelper(opts.Host)
-        End If
-    End Function
-End Module
 
 Enum OptionNetState
     Auto
@@ -49,47 +31,15 @@ MustInherit Class NetVerbBase
     Public Property Host As OptionNetState
 End Class
 
-Interface IConnectVerb
-    Property Username As String
-    Property Password As String
-End Interface
-
-MustInherit Class RequiredVerbBase
-    Inherits NetVerbBase
-    Implements IConnectVerb
-    <[Option]("u"c, "username", Required:=True, HelpText:="用户名")>
-    Public Property Username As String Implements IConnectVerb.Username
-    <[Option]("p"c, "password", Required:=True, HelpText:="密码")>
-    Public Property Password As String Implements IConnectVerb.Password
-End Class
-
-MustInherit Class NotRequiredVerbBase
-    Inherits NetVerbBase
-    Implements IConnectVerb
-    <[Option]("u"c, "username", Required:=False, HelpText:="用户名")>
-    Public Property Username As String Implements IConnectVerb.Username
-    <[Option]("p"c, "password", Required:=False, HelpText:="密码")>
-    Public Property Password As String Implements IConnectVerb.Password
-End Class
-
-MustInherit Class UseregVerbBase
-    Inherits VerbBase
-    Implements IConnectVerb
-    <[Option]("u"c, "username", Required:=True, HelpText:="用户名")>
-    Public Property Username As String Implements IConnectVerb.Username
-    <[Option]("p"c, "password", Required:=True, HelpText:="密码")>
-    Public Property Password As String Implements IConnectVerb.Password
-End Class
-
 <Verb("login", HelpText:="登录")>
 Class LoginVerb
-    Inherits RequiredVerbBase
+    Inherits NetVerbBase
 
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（自动判断）方式登录", New LoginVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
+            Yield New Example("使用默认（自动判断）方式登录", New LoginVerb())
+            Yield New Example("使用auth4方式登录", New LoginVerb() With {.Host = OptionNetState.Auth4})
         End Get
     End Property
 
@@ -105,14 +55,13 @@ End Class
 
 <Verb("logout", HelpText:="注销")>
 Class LogoutVerb
-    Inherits NotRequiredVerbBase
+    Inherits NetVerbBase
 
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认（自动判断）方式注销", New LogoutVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用auth4方式注销", New LogoutVerb() With {.Host = OptionNetState.Auth4, .Username = "用户名", .Password = "密码"})
-            Yield New Example("使用net方式注销，不需要用户名密码", New LogoutVerb() With {.Host = OptionNetState.Net})
+            Yield New Example("使用默认（自动判断）方式注销", New LogoutVerb())
+            Yield New Example("使用auth4方式注销", New LogoutVerb() With {.Host = OptionNetState.Auth4})
         End Get
     End Property
 
@@ -153,17 +102,17 @@ End Class
 
 <Verb("online", HelpText:="查询在线IP")>
 Class OnlineVerb
-    Inherits UseregVerbBase
+    Inherits VerbBase
 
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("查询", New OnlineVerb() With {.Username = "用户名", .Password = "密码"})
+            Yield New Example("查询", New OnlineVerb())
         End Get
     End Property
 
     Public Overrides Async Function RunAsync() As Task
-        Using helper As New UseregHelper(Username, Password)
+        Using helper = GetUseregHelper()
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
                 Dim users = Await helper.GetUsersAsync()
@@ -181,12 +130,12 @@ End Class
 
 <Verb("drop", HelpText:="下线IP")>
 Class DropVerb
-    Inherits UseregVerbBase
+    Inherits VerbBase
 
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("下线一个IP", New DropVerb() With {.Username = "用户名", .Password = "密码", .Address = "IP地址"})
+            Yield New Example("下线一个IP", New DropVerb() With {.Address = "IP地址"})
         End Get
     End Property
 
@@ -195,7 +144,7 @@ Class DropVerb
 
     Public Overrides Async Function RunAsync() As Task
         Dim ip = IPAddress.Parse(Address)
-        Using helper As New UseregHelper(Username, Password)
+        Using helper = GetUseregHelper()
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
                 res = Await helper.LogoutAsync(ip)
@@ -211,15 +160,15 @@ End Class
 
 <Verb("detail", HelpText:="流量明细")>
 Class DetailVerb
-    Inherits UseregVerbBase
+    Inherits VerbBase
 
     <Usage()>
     Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
         Get
-            Yield New Example("使用默认排序（注销时间，升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码"})
-            Yield New Example("使用登陆时间（升序）查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Login})
-            Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Flux, .Descending = True})
-            Yield New Example("使用流量降序查询明细，并按注销日期组合", New DetailVerb() With {.Username = "用户名", .Password = "密码", .Order = OptionNetDetailOrder.Flux, .Descending = True, .Grouping = True})
+            Yield New Example("使用默认排序（注销时间，升序）查询明细", New DetailVerb())
+            Yield New Example("使用登陆时间（升序）查询明细", New DetailVerb() With {.Order = OptionNetDetailOrder.Login})
+            Yield New Example("使用流量降序查询明细", New DetailVerb() With {.Order = OptionNetDetailOrder.Flux, .Descending = True})
+            Yield New Example("使用流量降序查询明细，并按注销日期组合", New DetailVerb() With {.Order = OptionNetDetailOrder.Flux, .Descending = True, .Grouping = True})
         End Get
     End Property
 
@@ -231,7 +180,7 @@ Class DetailVerb
     Public Property Grouping As Boolean
 
     Public Overrides Async Function RunAsync() As Task
-        Using helper As New UseregHelper(Username, Password)
+        Using helper = GetUseregHelper()
             Dim res = Await helper.LoginAsync()
             If res.Succeed Then
                 If Grouping Then
@@ -263,14 +212,25 @@ End Class
 Class SuggestionVerb
     Inherits VerbBase
 
-    <Usage()>
-    Public Shared ReadOnly Iterator Property Examples As IEnumerable(Of Example)
-        Get
-            Yield New Example("获取建议", New SuggestionVerb())
-        End Get
-    End Property
-
     Public Overrides Async Function RunAsync() As Task
         Console.WriteLine(StringHelper.GetNetStateString(Await VerbHelper.Status.SuggestAsync()))
+    End Function
+End Class
+
+<Verb("savecred", HelpText:="保存用户名和密码")>
+Class SaveCredentialVerb
+    Inherits VerbBase
+
+    Public Overrides Function RunAsync() As Task
+        Return Task.Run(Sub() Credential = ReadCredential())
+    End Function
+End Class
+
+<Verb("deletecred", HelpText:="删除已保存的用户名和密码")>
+Class DeleteCredentialVerb
+    Inherits VerbBase
+
+    Public Overrides Function RunAsync() As Task
+        Return Task.Run(AddressOf DeleteSettings)
     End Function
 End Class

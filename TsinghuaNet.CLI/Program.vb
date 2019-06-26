@@ -4,14 +4,15 @@ Imports CommandLine
 Module Program
     Function Main(args As String()) As Integer
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
-        Dim p As New Parser(
+        Using p As New Parser(
             Sub(settings)
                 settings.HelpWriter = Console.Error
                 settings.CaseInsensitiveEnumValues = True
             End Sub)
-        Return p.
-            ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb, SuggestionVerb)(args).
-            MapResult(AddressOf RunVerb, AddressOf RunError)
+            Return p.
+                ParseArguments(Of LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb, SuggestionVerb, SaveCredentialVerb, DeleteCredentialVerb)(args).
+                MapResult(AddressOf RunVerb, AddressOf RunError)
+        End Using
     End Function
 
     Private Function RunVerb(opts As VerbBase) As Integer
