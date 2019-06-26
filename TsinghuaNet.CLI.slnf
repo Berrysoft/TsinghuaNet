@@ -4,7 +4,7 @@
     "projects": [
       "TsinghuaNet.Helper\\TsinghuaNet.Helper.vbproj",
       "TsinghuaNet.CLI\\TsinghuaNet.CLI.vbproj",
-      "TsinghuaNet\\TsinghuaNet.vbproj"
+      "TsinghuaNet\\TsinghuaNet.csproj"
     ]
   }
 }
