@@ -1,6 +1,9 @@
 ﻿Imports System.Net.Http
 Imports Newtonsoft.Json.Linq
 
+''' <summary>
+''' 连接 https://auth4.tsinghua.edu.cn/ 或 https://auth6.tsinghua.edu.cn/
+''' </summary>
 Public MustInherit Class AuthHelper
     Inherits NetHelperBase
     Implements IConnect
@@ -11,10 +14,7 @@ Public MustInherit Class AuthHelper
     Private Shared ReadOnly AcIds() As Integer = {1, 25, 33, 35, 37}
     Private ReadOnly version As Integer
 
-    Public Sub New(username As String, password As String, version As Integer)
-        Me.New(username, password, Nothing, version)
-    End Sub
-
+    ''' <inheritdoc/>
     Public Sub New(username As String, password As String, client As HttpClient, version As Integer)
         MyBase.New(username, password, client)
         Me.version = version
@@ -32,14 +32,17 @@ Public MustInherit Class AuthHelper
         Return response
     End Function
 
+    ''' <inheritdoc/>
     Public Function LoginAsync() As Task(Of LogResponse) Implements IConnect.LoginAsync
         Return LogAsync(AddressOf GetLoginDataAsync)
     End Function
 
+    ''' <inheritdoc/>
     Public Function LogoutAsync() As Task(Of LogResponse) Implements IConnect.LogoutAsync
         Return LogAsync(AddressOf GetLogoutDataAsync)
     End Function
 
+    ''' <inheritdoc/>
     Public Async Function GetFluxAsync() As Task(Of FluxUser) Implements IConnect.GetFluxAsync
         Return FluxUser.Parse(Await PostAsync(String.Format(FluxUri, version)))
     End Function
@@ -91,25 +94,25 @@ Public MustInherit Class AuthHelper
     End Function
 End Class
 
+''' <summary>
+''' 连接 https://auth4.tsinghua.edu.cn/
+''' </summary>
 Public Class Auth4Helper
     Inherits AuthHelper
 
-    Public Sub New(username As String, password As String)
-        MyBase.New(username, password, 4)
-    End Sub
-
+    ''' <inheritdoc/>
     Public Sub New(username As String, password As String, client As HttpClient)
         MyBase.New(username, password, client, 4)
     End Sub
 End Class
 
+''' <summary>
+''' 连接 https://auth6.tsinghua.edu.cn/
+''' </summary>
 Public Class Auth6Helper
     Inherits AuthHelper
 
-    Public Sub New(username As String, password As String)
-        MyBase.New(username, password, 6)
-    End Sub
-
+    ''' <inheritdoc/>
     Public Sub New(username As String, password As String, client As HttpClient)
         MyBase.New(username, password, client, 6)
     End Sub

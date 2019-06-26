@@ -83,10 +83,6 @@ Public Class UseregHelper
     Private Const LogoutData = "action=logout"
     Private Const DropData = "action=drop&user_ip={0}"
 
-    Public Sub New(username As String, password As String)
-        MyBase.New(username, password)
-    End Sub
-
     Public Sub New(username As String, password As String, client As HttpClient)
         MyBase.New(username, password, client)
     End Sub
