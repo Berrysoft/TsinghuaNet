@@ -3,7 +3,7 @@ using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    public sealed class NetStateSsidBox
+    sealed class NetStateSsidBox
     {
         public NetStateSsidBox(string ssid, NetState value)
         {

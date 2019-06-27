@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.Uno.UWP", "Tsin
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TsinghuaNet.Uno.Helpers.Shared", "TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.shproj", "{6D7D0136-6CA3-46C3-B281-36E7CC9270DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.Uno.UWP.Background", "TsinghuaNet.Uno\TsinghuaNet.Uno.UWP.Background\TsinghuaNet.Uno.UWP.Background.csproj", "{EEA62454-4150-40DE-8BDD-271B38C1C8C2}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{48e1a83c-4f0d-4eb8-a370-12e50110e3be}*SharedItemsImports = 4
@@ -39,6 +41,8 @@ Global
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{6bae1c32-631c-4587-8492-df95c2e101f5}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems*{6bae1c32-631c-4587-8492-df95c2e101f5}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{6d7d0136-6ca3-46c3-b281-36e7cc9270dc}*SharedItemsImports = 13
+		TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems*{bef9993c-cb56-4ab7-9ca3-13ec6a3e2f35}*SharedItemsImports = 4
+		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{eea62454-4150-40de-8bdd-271b38c1c8c2}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -781,6 +785,62 @@ Global
 		{6BAE1C32-631C-4587-8492-DF95C2E101F5}.Release|x86.ActiveCfg = Release|x86
 		{6BAE1C32-631C-4587-8492-DF95C2E101F5}.Release|x86.Build.0 = Release|x86
 		{6BAE1C32-631C-4587-8492-DF95C2E101F5}.Release|x86.Deploy.0 = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|ARM.ActiveCfg = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|ARM.Build.0 = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|ARM64.ActiveCfg = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|ARM64.Build.0 = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|x64.ActiveCfg = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|x64.Build.0 = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|x86.ActiveCfg = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Ad-Hoc|x86.Build.0 = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|ARM.ActiveCfg = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|ARM.Build.0 = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|ARM64.ActiveCfg = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|ARM64.Build.0 = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|x64.ActiveCfg = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|x64.Build.0 = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|x86.ActiveCfg = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.AppStore|x86.Build.0 = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|ARM.ActiveCfg = Debug|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|ARM.Build.0 = Debug|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|ARM64.Build.0 = Debug|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|x64.ActiveCfg = Debug|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|x64.Build.0 = Debug|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|x86.ActiveCfg = Debug|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Debug|x86.Build.0 = Debug|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|ARM.ActiveCfg = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|ARM.Build.0 = Release|ARM
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|ARM64.ActiveCfg = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|ARM64.Build.0 = Release|ARM64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|iPhone.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|x64.ActiveCfg = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|x64.Build.0 = Release|x64
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|x86.ActiveCfg = Release|x86
+		{EEA62454-4150-40DE-8BDD-271B38C1C8C2}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

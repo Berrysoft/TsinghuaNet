@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    public class DetailViewModel : TsinghuaNet.Models.DetailViewModel
+    class DetailViewModel : TsinghuaNet.Models.DetailViewModel
     {
         private List<NetDetail> details;
 

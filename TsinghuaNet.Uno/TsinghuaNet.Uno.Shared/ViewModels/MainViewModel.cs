@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Contents;
 using TsinghuaNet.Uno.Helpers;
+using TsinghuaNet.Uno.UWP.Background;
 using Windows.UI.Xaml;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    public class MainViewModel : NetViewModel
+    class MainViewModel : NetViewModel
     {
         private readonly DispatcherTimer mainTimer = new DispatcherTimer();
 

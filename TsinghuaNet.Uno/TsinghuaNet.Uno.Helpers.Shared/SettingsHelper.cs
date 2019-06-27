@@ -4,7 +4,7 @@ using Windows.UI.Xaml;
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    public enum UserContentType
+    enum UserContentType
     {
         Line,
         Ring,

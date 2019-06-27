@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    public sealed class DropCommand : ICommand
+    sealed class DropCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
         public event EventHandler<IPAddress> DropUser;
