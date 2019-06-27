@@ -4,6 +4,7 @@ using Windows.Networking.Connectivity;
 
 namespace TsinghuaNet.Uno.Helpers
 {
+#if WINDOWS_UWP
     class InternetStatus : NetMapStatus
     {
         private static (NetStatus, string) GetInternetStatus()
@@ -28,4 +29,9 @@ namespace TsinghuaNet.Uno.Helpers
             return Task.CompletedTask;
         }
     }
+#else
+    class InternetStatus : NetPingStatus
+    {
+    }
+#endif
 }

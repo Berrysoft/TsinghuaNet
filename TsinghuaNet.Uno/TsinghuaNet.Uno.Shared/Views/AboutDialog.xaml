@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}"
     Title="关于：清华大学校园网客户端" DefaultButton="Close" CloseButtonText="确定">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">

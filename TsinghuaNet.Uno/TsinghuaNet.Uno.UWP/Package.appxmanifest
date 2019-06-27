@@ -30,7 +30,7 @@
   <Applications>
     <Application Id="App"
       Executable="TsinghuaNet.Uno.exe"
-      EntryPoint="UnoQuickStart.App">
+      EntryPoint="TsinghuaNet.Uno.App">
       <uap:VisualElements
         DisplayName="TsinghuaNet.Uno"
         Square150x150Logo="Assets\Square150x150Logo.png"

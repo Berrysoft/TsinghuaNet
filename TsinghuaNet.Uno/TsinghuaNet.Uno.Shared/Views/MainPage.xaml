@@ -11,7 +11,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
@@ -26,7 +26,7 @@
                     </StackPanel>
                     <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
                 </StackPanel>
-                <AppBarButton Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
+                <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
             </Grid>
         </DataTemplate>
         <Flyout x:Name="HelpFlyout">
@@ -57,13 +57,28 @@
         <converters:FluxStringConverter x:Key="FluxStringConverter"/>
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300" PaneBackground="{ThemeResource SystemControlAcrylicElementBrush}">
+    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300">
         <SplitView.Content>
             <Grid>
-                <Frame x:Name="MainFrame" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
-                <ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="48" Opacity="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <Frame x:Name="MainFrame" Grid.Row="0" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
+                <ScrollViewer x:Name="ResponseViewer" Grid.Row="0" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="48" Opacity="0">
                     <TextBlock Margin="8" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </ScrollViewer>
+                <CommandBar x:Name="MainBar" Grid.Row="1" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
+                    <AppBarButton Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
+                    <AppBarButton Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
+                    <AppBarButton Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
+                    <AppBarButton Icon="OtherUser" Label="自服务" Click="ShowUsereg"/>
+                    <AppBarSeparator/>
+                    <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
+                    <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>
+                </CommandBar>
             </Grid>
         </SplitView.Content>
         <SplitView.Pane>
@@ -72,7 +87,7 @@
                     <TextBlock Margin="8" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
-                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
+                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
                         <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Credential.Username,Mode=OneWay}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
@@ -94,7 +109,7 @@
                     <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
-                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind Model.RefreshStatusCommand}"/>
+                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind Model.RefreshStatusCommand}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
@@ -106,7 +121,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
-                        <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
+                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
                     <!--<muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.Credential.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>-->
                     <StackPanel Orientation="Vertical">
@@ -115,7 +130,7 @@
                         </StackPanel.DataContext>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
-                            <AppBarButton Margin="8,0" Style="{ThemeResource AppBarButtonRevealStyle}" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
+                            <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
                         </StackPanel>
                         <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
                             <ListView.ItemContainerTransitions>
@@ -148,17 +163,4 @@
             </ScrollViewer>
         </SplitView.Pane>
     </SplitView>
-    <Page.BottomAppBar>
-        <CommandBar x:Name="MainBar" Style="{ThemeResource CommandBarRevealStyle}" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
-            <AppBarButton Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
-            <AppBarButton Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
-            <AppBarButton Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-            <AppBarSeparator/>
-            <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
-            <AppBarButton Icon="OtherUser" Label="自服务" Click="ShowUsereg"/>
-            <AppBarSeparator/>
-            <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
-            <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>

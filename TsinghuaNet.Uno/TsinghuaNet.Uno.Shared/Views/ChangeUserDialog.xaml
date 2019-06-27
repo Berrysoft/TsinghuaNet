@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource SystemControlAcrylicWindowMediumHighBrush}" CloseButtonStyle="{ThemeResource ButtonRevealStyle}"
     Title="更改用户" DefaultButton="Primary" PrimaryButtonText="确定" CloseButtonText="取消">
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
