@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Contents\WaterUserContent.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FluxStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />

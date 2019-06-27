@@ -4,6 +4,8 @@ using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Contents;
 using TsinghuaNet.Uno.Helpers;
 using Windows.UI.Xaml;
+using System.Windows.Input;
+using TsinghuaNet.Helpers;
 
 #if WINDOWS_UWP
 using TsinghuaNet.Uno.UWP.Background;
@@ -18,6 +20,9 @@ namespace TsinghuaNet.Uno.ViewModels
         public MainViewModel() : base()
         {
             Status = new InternetStatus();
+            ChangeStateCommand = new ChangeEnumCommand<NetState>(s => Credential.State = s);
+            ChangeThemeCommand = new ChangeEnumCommand<ElementTheme>(t => Theme = t);
+            ChangeContentTypeCommand = new ChangeEnumCommand<UserContentType>(t => ContentType = t);
             // 设置计时器
             mainTimer.Interval = TimeSpan.FromSeconds(1);
             mainTimer.Tick += MainTimerTick;
@@ -55,6 +60,7 @@ namespace TsinghuaNet.Uno.ViewModels
             SettingsHelper.FluxLimit = EnableFluxLimit ? (ByteSize?)FluxLimit : null;
         }
 
+        public ICommand ChangeStateCommand { get; }
 
         private UIElement userContent;
         public UIElement UserContent
@@ -141,6 +147,8 @@ namespace TsinghuaNet.Uno.ViewModels
             set => SetProperty(ref theme, value);
         }
 
+        public ICommand ChangeThemeCommand { get; }
+
         private UserContentType contentType;
         public UserContentType ContentType
         {
@@ -168,5 +176,7 @@ namespace TsinghuaNet.Uno.ViewModels
             UserContent = (UIElement)newc;
             Refresh();
         }
+
+        public ICommand ChangeContentTypeCommand { get; }
     }
 }

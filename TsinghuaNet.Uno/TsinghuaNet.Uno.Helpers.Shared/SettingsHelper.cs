@@ -42,7 +42,7 @@ namespace TsinghuaNet.Uno.Helpers
         static SettingsHelper()
         {
             values = ApplicationData.Current.LocalSettings.Values;
-            StoredUsername = GetValue<string>(StoredUsernameKey);
+            StoredUsername = GetValue(StoredUsernameKey, string.Empty);
             AutoLogin = GetValue(AutoLoginKey, true);
             BackgroundAutoLogin = GetValue(BackgroundAutoLoginKey, true);
             BackgroundLiveTile = GetValue(BackgroundLiveTileKey, true);

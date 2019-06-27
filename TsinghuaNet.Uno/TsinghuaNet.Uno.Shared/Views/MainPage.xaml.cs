@@ -12,6 +12,7 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TsinghuaNet.Uno.ViewModels;
+using TsinghuaNet.Helpers;
 
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
@@ -61,6 +62,45 @@ namespace TsinghuaNet.Uno.Views
             // 刷新状态
             await Model.RefreshStatusAsync();
             Model.Credential.State = Model.SuggestState;
+            switch (Model.Credential.State)
+            {
+                case NetState.Unknown:
+                    UnknownStateButton.IsChecked = true;
+                    break;
+                case NetState.Net:
+                    NetStateButton.IsChecked = true;
+                    break;
+                case NetState.Auth4:
+                    Auth4StateButton.IsChecked = true;
+                    break;
+                case NetState.Auth6:
+                    Auth6StateButton.IsChecked = true;
+                    break;
+            }
+            switch (Model.Theme)
+            {
+                case ElementTheme.Default:
+                    DefaultThemeButton.IsChecked = true;
+                    break;
+                case ElementTheme.Light:
+                    LightThemeButton.IsChecked = true;
+                    break;
+                case ElementTheme.Dark:
+                    DarkThemeButton.IsChecked = true;
+                    break;
+            }
+            switch (Model.ContentType)
+            {
+                case UserContentType.Line:
+                    LineTypeButton.IsChecked = true;
+                    break;
+                case UserContentType.Ring:
+                    RingTypeButton.IsChecked = true;
+                    break;
+                case UserContentType.Water:
+                    WaterTypeButton.IsChecked = true;
+                    break;
+            }
 #if WINDOWS_UWP
             // 调整后台任务
             if (await BackgroundHelper.RequestAccessAsync())

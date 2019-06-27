@@ -8,6 +8,7 @@
     xmlns:netvms="using:TsinghuaNet.Models"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:converters="using:TsinghuaNet.Uno.Converters"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -123,7 +124,12 @@
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
                         <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
                     </StackPanel>
-                    <!--<muxc:RadioButtons Margin="8" MaximumColumns="2" SelectedIndex="{x:Bind Model.Credential.State,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}" ItemsSource="{x:Bind local:NetStateHelper.NetStateNameList}"/>-->
+                    <mtuuc:UniformGrid Margin="8" Columns="2">
+                        <RadioButton x:Name="UnknownStateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
+                        <RadioButton x:Name="NetStateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
+                        <RadioButton x:Name="Auth4StateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
+                        <RadioButton x:Name="Auth6StateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
+                    </mtuuc:UniformGrid>
                     <StackPanel Orientation="Vertical">
                         <StackPanel.DataContext>
                             <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
@@ -141,24 +147,20 @@
                         </ListView>
                     </StackPanel>
                     <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">主题设置</TextBlock>
-                    <!--<StackPanel Orientation="Horizontal">
-                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.Theme,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
-                            <muxc:RadioButtons.Header>
-                                <TextBlock Margin="0,0,0,8" Style="{ThemeResource BaseTextBlockStyle}">颜色</TextBlock>
-                            </muxc:RadioButtons.Header>
-                            <x:String>系统</x:String>
-                            <x:String>浅色</x:String>
-                            <x:String>深色</x:String>
-                        </muxc:RadioButtons>
-                        <muxc:RadioButtons Margin="8" SelectedIndex="{x:Bind Model.ContentType,Converter={StaticResource EnumIndexConverter},Mode=TwoWay}">
-                            <muxc:RadioButtons.Header>
-                                <TextBlock Margin="0,0,0,8" Style="{ThemeResource BaseTextBlockStyle}">样式</TextBlock>
-                            </muxc:RadioButtons.Header>
-                            <x:String>直线</x:String>
-                            <x:String>圆圈</x:String>
-                            <x:String>水面</x:String>
-                        </muxc:RadioButtons>
-                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">颜色</TextBlock>
+                            <RadioButton x:Name="DefaultThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Default">系统</RadioButton>
+                            <RadioButton x:Name="LightThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Light">浅色</RadioButton>
+                            <RadioButton x:Name="DarkThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Dark">深色</RadioButton>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">样式</TextBlock>
+                            <RadioButton x:Name="LineTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Line">直线</RadioButton>
+                            <RadioButton x:Name="RingTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Ring">圆圈</RadioButton>
+                            <RadioButton x:Name="WaterTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Water">水面</RadioButton>
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </SplitView.Pane>
