@@ -29,6 +29,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailDialog.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -47,6 +50,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Contents\WaterUserContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\DetailDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -76,6 +91,15 @@
     </Compile>
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\WaterUserContent.xaml.cs">
       <DependentUpon>WaterUserContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\ChangeUserDialog.xaml.cs">
+      <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailDialog.xaml.cs">
+      <DependentUpon>DetailDialog.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
