@@ -11,7 +11,7 @@
     <StackPanel Orientation="Vertical">
         <StackPanel Orientation="Horizontal">
             <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</TextBlock>
-            <TextBox x:Name="UnBox" x:FieldModifier="Internal" InputScope="Password" Margin="8" Width="200" TextChanged="{x:Bind UsernameChanged}"/>
+            <TextBox x:Name="UnBox" x:FieldModifier="Internal" Margin="8" Width="200" TextChanged="{x:Bind UsernameChanged}"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</TextBlock>

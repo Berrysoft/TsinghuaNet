@@ -2,10 +2,8 @@
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Toolkit.Uwp.Connectivity;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using TsinghuaNet.Uno.Helpers;
-using TsinghuaNet.Uno.UWP.Background;
 using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI;
@@ -13,6 +11,12 @@ using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using TsinghuaNet.Uno.ViewModels;
+
+#if WINDOWS_UWP
+using Microsoft.Toolkit.Uwp.Connectivity;
+using TsinghuaNet.Uno.UWP.Background;
+#endif
 
 namespace TsinghuaNet.Uno.Views
 {
@@ -21,6 +25,10 @@ namespace TsinghuaNet.Uno.Views
         public MainPage()
         {
             InitializeComponent();
+            if (Resources["DropUser"] is DropCommand c)
+            {
+                c.DropUser += DropUser;
+            }
 #if WINDOWS_UWP
             // 调整标题栏的颜色为透明
             // 按钮的背景色为透明
@@ -53,12 +61,14 @@ namespace TsinghuaNet.Uno.Views
             // 刷新状态
             await Model.RefreshStatusAsync();
             Model.Credential.State = Model.SuggestState;
+#if WINDOWS_UWP
             // 调整后台任务
             if (await BackgroundHelper.RequestAccessAsync())
             {
                 BackgroundHelper.RegisterLogin(Model.BackgroundAutoLogin);
                 BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile);
             }
+#endif
             if (!string.IsNullOrEmpty(Model.Credential.Username))
             {
                 // 自动登录的条件为：
@@ -163,7 +173,11 @@ namespace TsinghuaNet.Uno.Views
         private async void ShowResponse(LogResponse response)
         {
             Model.Response = response.Message;
+#if WINDOWS_UWP
             await ShowResponseStoryboard.BeginAsync();
+#else
+            ShowResponseStoryboard.Begin();
+#endif
             if (response.Succeed)
             {
                 await Task.Delay(3000);

@@ -10,12 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <LinearGradientBrush x:Key="WaterBrush" StartPoint="0.5,1" EndPoint="0.5,0">
-            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
-            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
-        </LinearGradientBrush>
         <Storyboard x:Name="FluxStoryboard">
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
@@ -28,7 +22,16 @@
         </Grid.RowDefinitions>
         <Viewbox Margin="8" Grid.Row="0">
             <Grid>
-                <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;" Foreground="{StaticResource WaterBrush}"/>
+                <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
+                    <TextBlock.Foreground>
+                        <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
+                        </LinearGradientBrush>
+                    </TextBlock.Foreground>
+                </TextBlock>
                 <ProgressRing x:Name="Progress" Height="40" Width="40"/>
             </Grid>
         </Viewbox>

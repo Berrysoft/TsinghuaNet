@@ -71,17 +71,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Assets\LargeTile.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.targetsize-24_altform-lightunplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Wide310x150Logo.scale-200.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\Arc.xaml.cs">
       <DependentUpon>Arc.xaml</DependentUpon>
     </Compile>

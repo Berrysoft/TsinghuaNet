@@ -48,7 +48,8 @@ namespace TsinghuaNet.Uno.Contents
         private static Point ScaleUnitCirclePoint(Point origin, double radius, double angle)
         {
             Vector2 dir = new Vector2(-(float)Math.Sin(angle), (float)Math.Cos(angle));
-            return (dir * (float)radius + origin.ToVector2()).ToPoint();
+            var result = (dir * (float)radius + new Vector2((float)origin.X, (float)origin.Y));
+            return new Point(result.X, result.Y);
         }
 
         private void DrawArc()
@@ -56,11 +57,11 @@ namespace TsinghuaNet.Uno.Contents
             var size = RenderSize;
             var length = Math.Min(size.Width, size.Height);
             var radius = Math.Abs((length - Thickness) / 2);
-            var centerPoint = size.ToVector2() / 2;
+            var centerPoint = new Point(size.Width / 2, size.Height / 2);
             var angle = GetAngle(Value);
             Point circleStart = new Point(centerPoint.X, centerPoint.Y + radius);
             ArcFigureSegment.IsLargeArc = angle > Math.PI;
-            ArcFigureSegment.Point = ScaleUnitCirclePoint(centerPoint.ToPoint(), radius, angle);
+            ArcFigureSegment.Point = ScaleUnitCirclePoint(centerPoint, radius, angle);
             ArcFigureSegment.Size = new Size(radius, radius);
             ArcFigure.StartPoint = circleStart;
         }

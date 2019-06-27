@@ -16,7 +16,7 @@
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
     <Page.Resources>
-        <vms:DropCommand x:Key="DropUser" DropUser="DropUser"/>
+        <vms:DropCommand x:Key="DropUser"/>
         <DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
             <Grid Width="240">
                 <StackPanel Margin="8" HorizontalAlignment="Left" Orientation="Vertical">

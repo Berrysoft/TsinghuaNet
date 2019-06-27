@@ -127,6 +127,15 @@
     <None Include="TsinghuaNet.Uno.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\LargeTile.scale-200.png" />
+    <Content Include="Assets\lockscreenlogo.scale-200.png" />
+    <Content Include="Assets\splashscreen.scale-200.png" />
+    <Content Include="Assets\square150x150logo.scale-200.png" />
+    <Content Include="Assets\square44x44logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-lightunplated.png" />
+    <Content Include="Assets\square44x44logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\storelogo.png" />
+    <Content Include="Assets\wide310x150logo.scale-200.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <Import Project="..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems')" />

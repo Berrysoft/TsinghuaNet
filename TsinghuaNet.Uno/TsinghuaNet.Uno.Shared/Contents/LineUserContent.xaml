@@ -10,12 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <LinearGradientBrush x:Key="LineBrush" StartPoint="0,0.5" EndPoint="1,0.5">
-            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
-            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
-        </LinearGradientBrush>
         <Storyboard x:Name="FluxStoryboard">
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
@@ -31,7 +25,16 @@
         <Viewbox Margin="8" Grid.Row="1">
             <Grid Width="400">
                 <ProgressBar x:Name="Progress" VerticalAlignment="Center"/>
-                <Border x:Name="MainRect" Height="28" CornerRadius="14" BorderThickness="0" Background="{StaticResource LineBrush}"/>
+                <Border x:Name="MainRect" Height="28" CornerRadius="14" BorderThickness="0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                            <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                            <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
             </Grid>
         </Viewbox>
         <Viewbox Margin="8" Grid.Row="2">

@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <MandroidI18n>CJK</MandroidI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>portable</DebugType>
@@ -48,6 +49,7 @@
     <AotAssemblies>true</AotAssemblies>
     <EnableLLVM>true</EnableLLVM>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
+    <MandroidI18n>CJK</MandroidI18n>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -59,7 +61,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Uno.UI" Version="1.44.1" />
+    <PackageReference Include="Uno.Microsoft.Toolkit.Uwp">
+      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Animations">
+      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
+      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.UI" Version="1.46.0-dev.1986" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
   </ItemGroup>
   <ItemGroup>

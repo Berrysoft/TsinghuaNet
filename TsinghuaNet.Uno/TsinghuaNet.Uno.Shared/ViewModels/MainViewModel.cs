@@ -3,8 +3,11 @@ using System.Threading.Tasks;
 using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Contents;
 using TsinghuaNet.Uno.Helpers;
-using TsinghuaNet.Uno.UWP.Background;
 using Windows.UI.Xaml;
+
+#if WINDOWS_UWP
+using TsinghuaNet.Uno.UWP.Background;
+#endif
 
 namespace TsinghuaNet.Uno.ViewModels
 {

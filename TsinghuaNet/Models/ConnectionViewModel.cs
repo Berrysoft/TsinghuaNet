@@ -61,11 +61,12 @@ namespace TsinghuaNet.Models
                     {
                         users.RemoveAt(j);
                         i += 1;
-                        continue;
+                        goto continue_while;
                     }
                 }
                 // 反之移除旧元素
                 usersmodel.RemoveAt(i);
+                continue_while:;
             }
             // 最后添加新增元素
             // 判断大小以防止索引错误
