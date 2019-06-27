@@ -3,6 +3,8 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Connectivity;
+using Microsoft.Toolkit.Uwp.UI.Animations;
+using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.UWP.Background;
 using Windows.ApplicationModel.Core;
 using Windows.System;
@@ -46,7 +48,7 @@ namespace TsinghuaNet.Uno.Views
         /// <summary>
         /// 页面装载时触发
         /// </summary>
-        private async void PageLoaded()
+        private async void PageLoaded(object sender, RoutedEventArgs e)
         {
             // 刷新状态
             await Model.RefreshStatusAsync();
@@ -75,7 +77,7 @@ namespace TsinghuaNet.Uno.Views
         /// <summary>
         /// 根据主题调节标题栏按钮前景色
         /// </summary>
-        private void ThemeChanged() => ThemeChangedImpl(ApplicationView.GetForCurrentView().TitleBar);
+        private void ThemeChanged(FrameworkElement sender, object e) => ThemeChangedImpl(ApplicationView.GetForCurrentView().TitleBar);
 
         private void ThemeChangedImpl(ApplicationViewTitleBar titleBar)
         {
@@ -116,7 +118,7 @@ namespace TsinghuaNet.Uno.Views
             await ConnectionModel.RefreshNetUsersAsync();
         }
 
-        private void OpenSettings() => Split.IsPaneOpen = true;
+        private void OpenSettings(object sender, RoutedEventArgs e) => Split.IsPaneOpen = true;
 
         private async void DropUser(object sender, IPAddress e) => await ConnectionModel.DropAsync(e);
 
@@ -131,7 +133,7 @@ namespace TsinghuaNet.Uno.Views
         /// <summary>
         /// 打开“更改用户”对话框
         /// </summary>
-        private async void ShowChangeUser()
+        private async void ShowChangeUser(object sender, RoutedEventArgs e)
         {
             ChangeUserDialog dialog = new ChangeUserDialog(Model.Credential.Username);
             // 显示对话框
@@ -169,12 +171,12 @@ namespace TsinghuaNet.Uno.Views
             }
         }
 
-        private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt(e.OriginalSource);
+        private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt((FrameworkElement)e.OriginalSource);
 
-        private async void ShowDetail() => await ShowDialogAsync<DetailDialog>();
+        private async void ShowDetail(object sender, RoutedEventArgs e) => await ShowDialogAsync<DetailDialog>();
 
-        private async void ShowUsereg() => await Launcher.LaunchUriAsync(new Uri("http://usereg.tsinghua.edu.cn/"));
+        private async void ShowUsereg(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(new Uri("http://usereg.tsinghua.edu.cn/"));
 
-        private async void ShowAbout() => await ShowDialogAsync<AboutDialog>();
+        private async void ShowAbout(object sender, RoutedEventArgs e) => await ShowDialogAsync<AboutDialog>();
     }
 }

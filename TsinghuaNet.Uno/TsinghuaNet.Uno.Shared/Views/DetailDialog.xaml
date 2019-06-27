@@ -15,10 +15,10 @@
         <vms:DetailViewModel x:Name="Model" DetailsInitialized="Model_DetailsInitialized"/>
     </ContentDialog.DataContext>
     <ContentDialog.Resources>
-        <LinearGradientBrush x:Key="ChartBrush" StartPoint="0,0.5" EndPoint="1,0.5">
+        <!--<LinearGradientBrush x:Key="ChartBrush" StartPoint="0,0.5" EndPoint="1,0.5">
             <GradientStop Offset="{x:Bind ChartBrushOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
             <GradientStop Offset="{x:Bind ChartBrushOffset,Mode=OneWay}" Color="Transparent"/>
-        </LinearGradientBrush>
+        </LinearGradientBrush>-->
         <Storyboard x:Name="ShowStoryboard">
             <!--<DoubleAnimation Storyboard.TargetName="MainChart" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetName="Self" Storyboard.TargetProperty="ChartBrushOffset" EnableDependentAnimation="True">
