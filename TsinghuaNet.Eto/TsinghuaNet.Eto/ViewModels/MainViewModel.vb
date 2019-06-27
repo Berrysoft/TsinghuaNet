@@ -3,8 +3,8 @@ Imports System.Text
 Imports Eto.Forms
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
-Imports TsinghuaNet.Helper
-Imports TsinghuaNet.Model
+Imports TsinghuaNet.Helpers
+Imports TsinghuaNet.Models
 
 Public Class MainViewModel
     Inherits NetViewModel

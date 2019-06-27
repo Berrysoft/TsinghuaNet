@@ -1,6 +1,6 @@
 ﻿Imports Eto.Forms
 Imports Eto.Serialization.Xaml
-Imports TsinghuaNet.Helper
+Imports TsinghuaNet.Helpers
 
 Public Class MainForm
     Inherits Form

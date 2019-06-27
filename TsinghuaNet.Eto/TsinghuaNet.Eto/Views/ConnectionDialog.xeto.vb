@@ -1,7 +1,7 @@
 ﻿Imports Eto.Forms
 Imports Eto.Serialization.Xaml
-Imports TsinghuaNet.Helper
-Imports TsinghuaNet.Model
+Imports TsinghuaNet.Helpers
+Imports TsinghuaNet.Models
 
 Public Class ConnectionDialog
     Inherits Dialog

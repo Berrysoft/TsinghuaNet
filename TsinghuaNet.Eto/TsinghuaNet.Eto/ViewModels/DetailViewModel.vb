@@ -1,7 +1,7 @@
 ﻿Imports MvvmHelpers
 
 Public Class DetailViewModel
-    Inherits Model.DetailViewModel
+    Inherits Models.DetailViewModel
 
     Public Sub New()
         MyBase.New()

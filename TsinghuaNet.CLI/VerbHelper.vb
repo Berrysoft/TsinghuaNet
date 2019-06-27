@@ -3,8 +3,8 @@ Imports System.Runtime.CompilerServices
 Imports System.Text
 Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
-Imports TsinghuaNet.Helper
-Imports TsinghuaNet.Model
+Imports TsinghuaNet.Helpers
+Imports TsinghuaNet.Models
 
 Module VerbHelper
     Public Status As New NetPingStatus

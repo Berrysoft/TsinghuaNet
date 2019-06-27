@@ -1,7 +1,7 @@
 ﻿Imports System.Net
 Imports CommandLine
 Imports CommandLine.Text
-Imports TsinghuaNet.Helper
+Imports TsinghuaNet.Helpers
 
 Enum OptionNetState
     Auto
