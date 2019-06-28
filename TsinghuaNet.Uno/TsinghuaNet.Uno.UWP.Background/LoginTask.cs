@@ -24,8 +24,8 @@ namespace TsinghuaNet.Uno.UWP.Background
                         FluxUser user = await helper.GetFluxAsync();
                         NotificationHelper.UpdateTile(user);
                         NotificationHelper.SendToast(user);
-                        if (SettingsHelper.FluxLimit != null)
-                            NotificationHelper.SendWarningToast(user, SettingsHelper.FluxLimit.Value);
+                        if (SettingsHelper.EnableFluxLimit)
+                            NotificationHelper.SendWarningToast(user, SettingsHelper.FluxLimit);
                     }
                 }
             }

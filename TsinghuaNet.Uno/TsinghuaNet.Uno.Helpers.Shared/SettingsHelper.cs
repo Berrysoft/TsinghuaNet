@@ -37,6 +37,7 @@ namespace TsinghuaNet.Uno.Helpers
         private const string BackgroundLiveTileKey = "BackgroundLiveTile";
         private const string ThemeKey = "Theme";
         private const string ContentTypeKey = "UserContentType";
+        private const string EnableFluxLimitKey = "EnableFluxLimit";
         private const string FluxLimitKey = "FluxLimit";
 
         static SettingsHelper()
@@ -48,8 +49,9 @@ namespace TsinghuaNet.Uno.Helpers
             BackgroundLiveTile = GetValue(BackgroundLiveTileKey, true);
             Theme = (ElementTheme)GetValue(ThemeKey, (int)ElementTheme.Default);
             ContentType = (UserContentType)GetValue(ContentTypeKey, (int)UserContentType.Ring);
-            var limit = GetValue<long?>(FluxLimitKey);
-            FluxLimit = limit == null ? null : (ByteSize?)ByteSize.FromGigaBytes(limit.Value);
+            EnableFluxLimit = GetValue<bool>(EnableFluxLimitKey);
+            var limit = GetValue<double>(FluxLimitKey);
+            FluxLimit = ByteSize.FromGigaBytes(limit);
         }
 
         public static void SaveSettings()
@@ -60,7 +62,8 @@ namespace TsinghuaNet.Uno.Helpers
             SetValue(BackgroundLiveTileKey, BackgroundLiveTile);
             SetValue(ThemeKey, (int)Theme);
             SetValue(ContentTypeKey, (int)ContentType);
-            SetValue(FluxLimitKey, FluxLimit == null ? null : (long?)FluxLimit.Value.GigaBytes);
+            SetValue(EnableFluxLimitKey, EnableFluxLimit);
+            SetValue(FluxLimitKey, FluxLimit.GigaBytes);
         }
 
         public static string StoredUsername { get; set; }
@@ -75,6 +78,8 @@ namespace TsinghuaNet.Uno.Helpers
 
         public static UserContentType ContentType { get; set; }
 
-        public static ByteSize? FluxLimit { get; set; }
+        public static bool EnableFluxLimit { get; set; }
+
+        public static ByteSize FluxLimit { get; set; }
     }
 }

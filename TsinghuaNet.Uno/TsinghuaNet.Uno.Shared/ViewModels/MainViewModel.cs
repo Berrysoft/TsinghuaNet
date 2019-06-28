@@ -44,11 +44,8 @@ namespace TsinghuaNet.Uno.ViewModels
             BackgroundAutoLogin = SettingsHelper.BackgroundAutoLogin;
             BackgroundLiveTile = SettingsHelper.BackgroundLiveTile;
             // 流量限制
-            if (SettingsHelper.FluxLimit != null)
-            {
-                FluxLimit = SettingsHelper.FluxLimit.Value;
-                EnableFluxLimit = true;
-            }
+            EnableFluxLimit = SettingsHelper.EnableFluxLimit;
+            FluxLimit = SettingsHelper.FluxLimit;
         }
 
         public override void SaveSettings()
@@ -57,7 +54,8 @@ namespace TsinghuaNet.Uno.ViewModels
             SettingsHelper.AutoLogin = AutoLogin;
             SettingsHelper.Theme = Theme;
             SettingsHelper.ContentType = ContentType;
-            SettingsHelper.FluxLimit = EnableFluxLimit ? (ByteSize?)FluxLimit : null;
+            SettingsHelper.EnableFluxLimit = EnableFluxLimit;
+            SettingsHelper.FluxLimit = FluxLimit;
         }
 
         public ICommand ChangeStateCommand { get; }
