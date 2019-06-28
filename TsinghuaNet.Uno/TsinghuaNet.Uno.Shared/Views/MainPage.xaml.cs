@@ -26,10 +26,10 @@ namespace TsinghuaNet.Uno.Views
         public MainPage()
         {
             InitializeComponent();
-            if (Resources["DropUser"] is DropCommand c)
-            {
-                c.DropUser += DropUser;
-            }
+            //if (Resources["DropUser"] is DropCommand c)
+            //{
+            //    c.DropUser += DropUser;
+            //}
 #if WINDOWS_UWP
             // 调整标题栏的颜色为透明
             // 按钮的背景色为透明
@@ -42,8 +42,6 @@ namespace TsinghuaNet.Uno.Views
             ThemeChangedImpl(titleBar);
             var viewTitleBar = CoreApplication.GetCurrentView().TitleBar;
             viewTitleBar.ExtendViewIntoTitleBar = true;
-            // 将用户区拓展到全窗口
-            Window.Current.SetTitleBar(MainFrame);
             // 监视网络情况变化
             NetworkHelper.Instance.NetworkChanged += NetworkChanged;
 #endif
@@ -53,6 +51,28 @@ namespace TsinghuaNet.Uno.Views
         /// 保存设置
         /// </summary>
         internal void SaveSettings() => Model.SaveSettings();
+
+        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+        public double FreeOffset
+        {
+            get => (double)GetValue(FreeOffsetProperty);
+            set => SetValue(FreeOffsetProperty, value);
+        }
+
+        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+        public double FluxOffset
+        {
+            get => (double)GetValue(FluxOffsetProperty);
+            set => SetValue(FluxOffsetProperty, value);
+        }
+
+        internal void BeginFluxAnimation()
+        {
+            var maxf = FluxHelper.GetMaxFlux(Model.OnlineUser.Flux, Model.OnlineUser.Balance);
+            FluxAnimation.To = Model.OnlineUser.Flux / maxf;
+            FreeAnimation.To = FluxHelper.BaseFlux / maxf;
+            FluxStoryboard.Begin();
+        }
 
         /// <summary>
         /// 页面装载时触发
@@ -77,30 +97,6 @@ namespace TsinghuaNet.Uno.Views
                     Auth6StateButton.IsChecked = true;
                     break;
             }
-            switch (Model.Theme)
-            {
-                case ElementTheme.Default:
-                    DefaultThemeButton.IsChecked = true;
-                    break;
-                case ElementTheme.Light:
-                    LightThemeButton.IsChecked = true;
-                    break;
-                case ElementTheme.Dark:
-                    DarkThemeButton.IsChecked = true;
-                    break;
-            }
-            switch (Model.ContentType)
-            {
-                case UserContentType.Line:
-                    LineTypeButton.IsChecked = true;
-                    break;
-                case UserContentType.Ring:
-                    RingTypeButton.IsChecked = true;
-                    break;
-                case UserContentType.Water:
-                    WaterTypeButton.IsChecked = true;
-                    break;
-            }
 #if WINDOWS_UWP
             // 调整后台任务
             if (await BackgroundHelper.RequestAccessAsync())
@@ -119,9 +115,13 @@ namespace TsinghuaNet.Uno.Views
                     await Model.LoginAsync();
                 else
                     await Model.RefreshAsync();
-                // 刷新当前用户所有连接状态
-                await ConnectionModel.RefreshNetUsersAsync();
             }
+        }
+
+        private void PageSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            string state = (Window.Current.Bounds.Width > Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
+            VisualStateManager.GoToState(this, state, true);
         }
 
         /// <summary>
@@ -165,46 +165,45 @@ namespace TsinghuaNet.Uno.Views
                 await Model.LoginAsync();
             else
                 await Model.RefreshAsync();
-            await ConnectionModel.RefreshNetUsersAsync();
         }
 
-        private void OpenSettings(object sender, RoutedEventArgs e) => Split.IsPaneOpen = true;
+        //private void OpenSettings(object sender, RoutedEventArgs e) => Split.IsPaneOpen = true;
 
-        private async void DropUser(object sender, IPAddress e) => await ConnectionModel.DropAsync(e);
+        //private async void DropUser(object sender, IPAddress e) => await ConnectionModel.DropAsync(e);
 
-        private async Task<ContentDialogResult> ShowDialogAsync<T>(T dialog) where T : ContentDialog
-        {
-            dialog.RequestedTheme = Model.Theme;
-            return await dialog.ShowAsync();
-        }
+        //private async Task<ContentDialogResult> ShowDialogAsync<T>(T dialog) where T : ContentDialog
+        //{
+        //    dialog.RequestedTheme = Model.Theme;
+        //    return await dialog.ShowAsync();
+        //}
 
-        private Task<ContentDialogResult> ShowDialogAsync<T>() where T : ContentDialog, new() => ShowDialogAsync(new T());
+        //private Task<ContentDialogResult> ShowDialogAsync<T>() where T : ContentDialog, new() => ShowDialogAsync(new T());
 
-        /// <summary>
-        /// 打开“更改用户”对话框
-        /// </summary>
-        private async void ShowChangeUser(object sender, RoutedEventArgs e)
-        {
-            ChangeUserDialog dialog = new ChangeUserDialog(Model.Credential.Username);
-            // 显示对话框
-            var result = await ShowDialogAsync(dialog);
-            // 确定
-            if (result == ContentDialogResult.Primary)
-            {
-                string un = dialog.UnBox.Text;
-                string pw = dialog.PwBox.Password;
-                // 不管是否保存，都需要先删除
-                CredentialHelper.RemoveCredential(un);
-                if (dialog.SaveBox.IsChecked.Value)
-                    CredentialHelper.SaveCredential(un, pw);
-                // 同步
-                Model.Credential.Username = un;
-                Model.Credential.Password = pw;
-                // 关闭设置栏并登录
-                Split.IsPaneOpen = false;
-                await Model.LoginAsync();
-            }
-        }
+        ///// <summary>
+        ///// 打开“更改用户”对话框
+        ///// </summary>
+        //private async void ShowChangeUser(object sender, RoutedEventArgs e)
+        //{
+        //    ChangeUserDialog dialog = new ChangeUserDialog(Model.Credential.Username);
+        //    // 显示对话框
+        //    var result = await ShowDialogAsync(dialog);
+        //    // 确定
+        //    if (result == ContentDialogResult.Primary)
+        //    {
+        //        string un = dialog.UnBox.Text;
+        //        string pw = dialog.PwBox.Password;
+        //        // 不管是否保存，都需要先删除
+        //        CredentialHelper.RemoveCredential(un);
+        //        if (dialog.SaveBox.IsChecked.Value)
+        //            CredentialHelper.SaveCredential(un, pw);
+        //        // 同步
+        //        Model.Credential.Username = un;
+        //        Model.Credential.Password = pw;
+        //        // 关闭设置栏并登录
+        //        Split.IsPaneOpen = false;
+        //        await Model.LoginAsync();
+        //    }
+        //}
 
         internal bool ToastLogined { get; set; }
 
@@ -216,7 +215,7 @@ namespace TsinghuaNet.Uno.Views
 #if WINDOWS_UWP
             await ShowResponseStoryboard.BeginAsync();
 #else
-            ShowResponseStoryboard.Begin();
+                        ShowResponseStoryboard.Begin();
 #endif
             if (response.Succeed)
             {
@@ -225,12 +224,15 @@ namespace TsinghuaNet.Uno.Views
             }
         }
 
-        private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt((FrameworkElement)e.OriginalSource);
+        //private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt((FrameworkElement)e.OriginalSource);
 
-        private async void ShowDetail(object sender, RoutedEventArgs e) => await ShowDialogAsync<DetailDialog>();
+        //private async void ShowDetail(object sender, RoutedEventArgs e) => await ShowDialogAsync<DetailDialog>();
 
-        private async void ShowUsereg(object sender, RoutedEventArgs e) => await Launcher.LaunchUriAsync(new Uri("http://usereg.tsinghua.edu.cn/"));
+        //private async void ShowAbout(object sender, RoutedEventArgs e) => await ShowDialogAsync<AboutDialog>();
+    }
 
-        private async void ShowAbout(object sender, RoutedEventArgs e) => await ShowDialogAsync<AboutDialog>();
+    static class UserContentHelper
+    {
+        public static double Max(double d1, double d2) => Math.Max(d1, d2);
     }
 }

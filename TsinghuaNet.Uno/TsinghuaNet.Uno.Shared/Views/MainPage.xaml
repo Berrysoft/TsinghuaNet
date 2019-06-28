@@ -1,5 +1,6 @@
 ﻿<Page
     x:Class="TsinghuaNet.Uno.Views.MainPage"
+    x:Name="Self"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.Uno.Views"
@@ -11,14 +12,14 @@
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" RequestedTheme="{x:Bind Model.Theme,Mode=OneWay}" ActualThemeChanged="ThemeChanged">
+    mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" SizeChanged="PageSizeChanged" ActualThemeChanged="ThemeChanged">
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
     <Page.Resources>
-        <vms:DropCommand x:Key="DropUser"/>
-        <DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
+        <!--<vms:DropCommand x:Key="DropUser"/>-->
+        <!--<DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
             <Grid Width="240">
                 <StackPanel Margin="8" HorizontalAlignment="Left" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -29,8 +30,8 @@
                 </StackPanel>
                 <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
             </Grid>
-        </DataTemplate>
-        <Flyout x:Name="HelpFlyout">
+        </DataTemplate>-->
+        <!--<Flyout x:Name="HelpFlyout">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48"/>
@@ -48,17 +49,98 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}">Auth6</TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv6连接方式</TextBlock>
             </Grid>
-        </Flyout>
+        </Flyout>-->
         <Storyboard x:Name="ShowResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </Storyboard>
         <Storyboard x:Name="HideResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
-        <converters:FluxStringConverter x:Key="FluxStringConverter"/>
-        <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
+        <Storyboard x:Name="FluxStoryboard">
+            <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
+            <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
+        </Storyboard>
+        <!--<converters:FluxStringConverter x:Key="FluxStringConverter"/>
+        <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>-->
+        <converters:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
     </Page.Resources>
-    <SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300">
+    <mtuuc:UniformGrid x:Name="MainGrid" Grid.Row="0">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="VerticalState">
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.Columns" Value="1"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="HorizonalState">
+                    <VisualState.Setters>
+                        <Setter Target="MainGrid.Columns" Value="2"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Viewbox Margin="8">
+                    <Grid>
+                        <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
+                            <TextBlock.Foreground>
+                                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
+                                </LinearGradientBrush>
+                            </TextBlock.Foreground>
+                        </TextBlock>
+                        <ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind Model.IsBusy,Mode=OneWay}"/>
+                    </Grid>
+                </Viewbox>
+                <ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="32" Opacity="0">
+                    <TextBlock VerticalAlignment="Bottom" HorizontalTextAlignment="Center" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+                </ScrollViewer>
+            </Grid>
+            <mtuuc:UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="4" RowSpacing="4">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">用户：</TextBlock>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Username,Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">流量：</TextBlock>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Flux,Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">时长：</TextBlock>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineTime,Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">余额：</TextBlock>
+                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
+                </StackPanel>
+            </mtuuc:UniformGrid>
+        </Grid>
+        <mtuuc:UniformGrid Columns="1">
+            <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
+                <RadioButton x:Name="UnknownStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
+                <RadioButton x:Name="NetStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
+                <RadioButton x:Name="Auth4StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
+                <RadioButton x:Name="Auth6StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
+            </mtuuc:UniformGrid>
+            <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="管理连接"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="流量明细"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置"/>
+            </mtuuc:UniformGrid>
+        </mtuuc:UniformGrid>
+    </mtuuc:UniformGrid>
+    <!--<SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300">
         <SplitView.Content>
             <Grid>
                 <Grid.RowDefinitions>
@@ -164,5 +246,5 @@
                 </StackPanel>
             </ScrollViewer>
         </SplitView.Pane>
-    </SplitView>
+    </SplitView>-->
 </Page>

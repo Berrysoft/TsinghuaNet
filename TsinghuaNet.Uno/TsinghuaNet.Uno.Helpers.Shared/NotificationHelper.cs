@@ -5,6 +5,7 @@ using Windows.UI.Notifications;
 
 namespace TsinghuaNet.Uno.Helpers
 {
+#if WINDOWS_UWP
     static class NotificationHelper
     {
         private static readonly string tileText;
@@ -87,4 +88,12 @@ namespace TsinghuaNet.Uno.Helpers
             }
         }
     }
+#else
+    static class NotificationHelper
+    {
+        public static void UpdateTile(FluxUser user) { }
+        public static void SendToast(FluxUser user) { }
+        public static void SendWarningToast(FluxUser user, ByteSize limit) { }
+    }
+#endif
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using TsinghuaNet.Models;
-using TsinghuaNet.Uno.Contents;
 using TsinghuaNet.Uno.Helpers;
 using Windows.UI.Xaml;
 using System.Windows.Input;
 using TsinghuaNet.Helpers;
+using Windows.UI.Xaml.Controls;
+using TsinghuaNet.Uno.Views;
 
 #if WINDOWS_UWP
 using TsinghuaNet.Uno.UWP.Background;
@@ -21,8 +22,6 @@ namespace TsinghuaNet.Uno.ViewModels
         {
             Status = new InternetStatus();
             ChangeStateCommand = new ChangeEnumCommand<NetState>(s => Credential.State = s);
-            ChangeThemeCommand = new ChangeEnumCommand<ElementTheme>(t => Theme = t);
-            ChangeContentTypeCommand = new ChangeEnumCommand<UserContentType>(t => ContentType = t);
             // 设置计时器
             mainTimer.Interval = TimeSpan.FromSeconds(1);
             mainTimer.Tick += MainTimerTick;
@@ -35,9 +34,6 @@ namespace TsinghuaNet.Uno.ViewModels
             // 设置为当前用户名并获取密码
             Credential.Username = un;
             Credential.Password = CredentialHelper.GetCredential(un);
-            // 获取用户设置的主题
-            Theme = SettingsHelper.Theme;
-            ContentType = SettingsHelper.ContentType;
             // 自动登录
             AutoLogin = SettingsHelper.AutoLogin;
             // 后台任务
@@ -52,20 +48,11 @@ namespace TsinghuaNet.Uno.ViewModels
         {
             SettingsHelper.StoredUsername = Credential.Username;
             SettingsHelper.AutoLogin = AutoLogin;
-            SettingsHelper.Theme = Theme;
-            SettingsHelper.ContentType = ContentType;
             SettingsHelper.EnableFluxLimit = EnableFluxLimit;
             SettingsHelper.FluxLimit = FluxLimit;
         }
 
         public ICommand ChangeStateCommand { get; }
-
-        private UIElement userContent;
-        public UIElement UserContent
-        {
-            get => userContent;
-            set => SetProperty(ref userContent, value);
-        }
 
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
@@ -77,27 +64,30 @@ namespace TsinghuaNet.Uno.ViewModels
             if (EnableFluxLimit)
                 NotificationHelper.SendWarningToast(OnlineUser, FluxLimit);
             // 设置内容
-            if (UserContent is IUserContent content)
+            OnlineTime = OnlineUser.OnlineTime;
+            if (Window.Current.Content is Frame rootFrame)
             {
-                content.User = OnlineUser;
-                content.BeginAnimation();
+                if (rootFrame.Content is MainPage mainPage)
+                {
+                    mainPage.BeginFluxAnimation();
+                }
             }
             return res;
         }
 
-        private void MainTimerTick(object sender, object e)
+        private TimeSpan onlineTime;
+        public TimeSpan OnlineTime
         {
-            IUserContent content = (IUserContent)UserContent;
-            if (!content.AddOneSecond())
-                mainTimer.Stop();
+            get => onlineTime;
+            set => SetProperty(ref onlineTime, value);
         }
 
-        protected override void OnIsBusyChanged()
+        private void MainTimerTick(object sender, object e)
         {
-            base.OnIsBusyChanged();
-            IUserContent content = (IUserContent)UserContent;
-            if (content != null)
-                content.IsProgressActive = IsBusy;
+            if (OnlineUser.Username == null || string.IsNullOrEmpty(OnlineUser.Username))
+                mainTimer.Stop();
+            else
+                OnlineTime += TimeSpan.FromSeconds(1);
         }
 
         private string response;
@@ -137,44 +127,5 @@ namespace TsinghuaNet.Uno.ViewModels
                 BackgroundHelper.RegisterLiveTile(BackgroundLiveTile);
 #endif
         }
-
-        private ElementTheme theme;
-        public ElementTheme Theme
-        {
-            get => theme;
-            set => SetProperty(ref theme, value);
-        }
-
-        public ICommand ChangeThemeCommand { get; }
-
-        private UserContentType contentType;
-        public UserContentType ContentType
-        {
-            get => contentType;
-            set => SetProperty(ref contentType, value, onChanged: OnContentTypeChanged);
-        }
-        private void OnContentTypeChanged()
-        {
-            IUserContent oldc = (IUserContent)UserContent;
-            IUserContent newc = null;
-            switch (ContentType)
-            {
-                case UserContentType.Line:
-                    newc = new LineUserContent();
-                    break;
-                case UserContentType.Ring:
-                    newc = new ArcUserContent();
-                    break;
-                case UserContentType.Water:
-                    newc = new WaterUserContent();
-                    break;
-            }
-            if (oldc != null && newc != null)
-                newc.User = oldc.User;
-            UserContent = (UIElement)newc;
-            Refresh();
-        }
-
-        public ICommand ChangeContentTypeCommand { get; }
     }
 }

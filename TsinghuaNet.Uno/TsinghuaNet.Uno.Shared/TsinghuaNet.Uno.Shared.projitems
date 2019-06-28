@@ -18,11 +18,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Contents\Arc.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Contents\ArcUserContent.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Contents\IUserContent.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Contents\LineUserContent.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Contents\WaterUserContent.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\CurrencyStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FluxStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
@@ -38,22 +34,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Contents\Arc.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Contents\ArcUserContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Contents\LineUserContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Contents\WaterUserContent.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
