@@ -21,20 +21,22 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CurrencyStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FluxStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\PackageVersionStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailDialog.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -42,7 +44,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\DetailDialog.xaml">
+    <Page Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,11 +69,17 @@
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\AboutDialog.xaml.cs">
       <DependentUpon>AboutDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\ChangeUserDialog.xaml.cs">
       <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
     </Compile>
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailDialog.xaml.cs">
       <DependentUpon>DetailDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

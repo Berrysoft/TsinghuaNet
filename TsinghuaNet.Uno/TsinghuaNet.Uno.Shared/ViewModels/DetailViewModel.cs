@@ -5,27 +5,20 @@ namespace TsinghuaNet.Uno.ViewModels
 {
     class DetailViewModel : TsinghuaNet.Models.DetailViewModel
     {
+        public DetailViewModel() : base() { }
+
         private List<NetDetail> details;
 
         private IEnumerable<NetDetail> detailsSource;
         public IEnumerable<NetDetail> DetailsSource
         {
-            get
-            {
-                return detailsSource;
-            }
-            set
-            {
-                SetProperty(ref detailsSource, value);
-            }
+            get => detailsSource;
+            set => SetProperty(ref detailsSource, value);
         }
 
         protected override IEnumerable<NetDetail> InitialDetails
         {
-            get
-            {
-                return details;
-            }
+            get => details;
             set
             {
                 details = (List<NetDetail>)value;
@@ -36,9 +29,6 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public event EventHandler<IEnumerable<NetDetail>> DetailsInitialized;
 
-        protected override void SetSortedDetails(IEnumerable<NetDetail> source)
-        {
-            DetailsSource = source;
-        }
+        protected override void SetSortedDetails(IEnumerable<NetDetail> source) => DetailsSource = source;
     }
 }

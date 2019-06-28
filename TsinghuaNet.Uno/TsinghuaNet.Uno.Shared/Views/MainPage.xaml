@@ -12,8 +12,9 @@
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" SizeChanged="PageSizeChanged" ActualThemeChanged="ThemeChanged">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
@@ -97,31 +98,33 @@
                                 </LinearGradientBrush>
                             </TextBlock.Foreground>
                         </TextBlock>
-                        <ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind Model.IsBusy,Mode=OneWay}"/>
+                        <win:ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind Model.IsBusy,Mode=OneWay}"/>
                     </Grid>
                 </Viewbox>
                 <ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="32" Opacity="0">
                     <TextBlock VerticalAlignment="Bottom" HorizontalTextAlignment="Center" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </ScrollViewer>
             </Grid>
-            <mtuuc:UniformGrid Grid.Row="1" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="4" RowSpacing="4">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">用户：</TextBlock>
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Username,Mode=OneWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">流量：</TextBlock>
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Flux,Mode=OneWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">时长：</TextBlock>
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineTime,Mode=OneWay}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}">余额：</TextBlock>
-                    <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
-                </StackPanel>
-            </mtuuc:UniformGrid>
+            <Viewbox Grid.Row="1" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <mtuuc:UniformGrid ColumnSpacing="4" RowSpacing="4">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">用户：</TextBlock>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Username,Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">流量：</TextBlock>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Flux,Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">时长：</TextBlock>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineTime,Mode=OneWay}"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}">余额：</TextBlock>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
+                    </StackPanel>
+                </mtuuc:UniformGrid>
+            </Viewbox>
         </Grid>
         <mtuuc:UniformGrid Columns="1">
             <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
@@ -134,9 +137,9 @@
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="管理连接"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="流量明细"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="流量明细" Click="ShowDetail"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Help" Label="关于" Click="ShowAbout"/>
             </mtuuc:UniformGrid>
         </mtuuc:UniformGrid>
     </mtuuc:UniformGrid>

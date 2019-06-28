@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.UI.Animations;
-using TsinghuaNet.Uno.Helpers;
-using Windows.ApplicationModel.Core;
-using Windows.System;
-using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using TsinghuaNet.Uno.ViewModels;
 using TsinghuaNet.Helpers;
+using Windows.UI.Xaml.Navigation;
 
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
@@ -31,17 +24,6 @@ namespace TsinghuaNet.Uno.Views
             //    c.DropUser += DropUser;
             //}
 #if WINDOWS_UWP
-            // 调整标题栏的颜色为透明
-            // 按钮的背景色为透明
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            titleBar.BackgroundColor = Colors.Transparent;
-            titleBar.ButtonBackgroundColor = Colors.Transparent;
-            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            // 按钮的前景色根据主题调节
-            ThemeChangedImpl(titleBar);
-            var viewTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            viewTitleBar.ExtendViewIntoTitleBar = true;
             // 监视网络情况变化
             NetworkHelper.Instance.NetworkChanged += NetworkChanged;
 #endif
@@ -105,43 +87,28 @@ namespace TsinghuaNet.Uno.Views
                 BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile);
             }
 #endif
-            if (!string.IsNullOrEmpty(Model.Credential.Username))
-            {
-                // 自动登录的条件为：
-                // 打开了自动登录
-                // 不知道后台任务成功登录
-                // 密码不为空
-                if (Model.AutoLogin && !ToastLogined && !string.IsNullOrEmpty(Model.Credential.Password))
-                    await Model.LoginAsync();
-                else
-                    await Model.RefreshAsync();
-            }
+            // 自动登录的条件为：
+            // 打开了自动登录
+            // 不知道后台任务成功登录
+            // 密码不为空
+            if (Model.AutoLogin && !ToastLogined && !string.IsNullOrEmpty(Model.Credential.Password))
+                await Model.LoginAsync();
+            else
+                await Model.RefreshAsync();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+#if WINDOWS_UWP
+            PageLoaded(this, new RoutedEventArgs());
+#endif
         }
 
         private void PageSizeChanged(object sender, SizeChangedEventArgs e)
         {
             string state = (Window.Current.Bounds.Width > Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
             VisualStateManager.GoToState(this, state, true);
-        }
-
-        /// <summary>
-        /// 根据主题调节标题栏按钮前景色
-        /// </summary>
-        private void ThemeChanged(FrameworkElement sender, object e) => ThemeChangedImpl(ApplicationView.GetForCurrentView().TitleBar);
-
-        private void ThemeChangedImpl(ApplicationViewTitleBar titleBar)
-        {
-#if WINDOWS_UWP
-            switch (ActualTheme)
-            {
-                case ElementTheme.Light:
-                    titleBar.ButtonForegroundColor = Colors.Black;
-                    break;
-                case ElementTheme.Dark:
-                    titleBar.ButtonForegroundColor = Colors.White;
-                    break;
-            }
-#endif
         }
 
 #if WINDOWS_UWP
@@ -215,7 +182,7 @@ namespace TsinghuaNet.Uno.Views
 #if WINDOWS_UWP
             await ShowResponseStoryboard.BeginAsync();
 #else
-                        ShowResponseStoryboard.Begin();
+            ShowResponseStoryboard.Begin();
 #endif
             if (response.Succeed)
             {
@@ -226,9 +193,17 @@ namespace TsinghuaNet.Uno.Views
 
         //private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt((FrameworkElement)e.OriginalSource);
 
-        //private async void ShowDetail(object sender, RoutedEventArgs e) => await ShowDialogAsync<DetailDialog>();
+        private void ShowDetail(object sender, RoutedEventArgs e) => NavigateToType<DetailPage>();
 
-        //private async void ShowAbout(object sender, RoutedEventArgs e) => await ShowDialogAsync<AboutDialog>();
+        private void ShowAbout(object sender, RoutedEventArgs e) => NavigateToType<AboutPage>();
+
+        private void NavigateToType<T>() where T : Page
+        {
+            if (Window.Current.Content is Frame rootFrame)
+            {
+                rootFrame.Navigate(typeof(T));
+            }
+        }
     }
 
     static class UserContentHelper

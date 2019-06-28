@@ -1,0 +1,40 @@
+﻿<Page
+    x:Class="TsinghuaNet.Uno.Views.DetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TsinghuaNet.Uno.Views"
+    xmlns:net="using:TsinghuaNet"
+    xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Page.DataContext>
+        <vms:DetailViewModel x:Name="Model"/>
+    </Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}">
+            <Button.Command>
+                <vms:NavigateBackCommand/>
+            </Button.Command>
+        </Button>
+        <mtuuc:DataGrid x:Name="DetailsView" Grid.Row="1" Margin="8" ItemsSource="{x:Bind Model.DetailsSource,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
+            <mtuuc:DataGrid.Columns>
+                <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
+                <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
+                <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
+                    <mtuuc:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate x:DataType="net:NetDetail">
+                            <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
+                        </DataTemplate>
+                    </mtuuc:DataGridTemplateColumn.CellTemplate>
+                </mtuuc:DataGridTemplateColumn>
+            </mtuuc:DataGrid.Columns>
+        </mtuuc:DataGrid>
+    </Grid>
+</Page>
