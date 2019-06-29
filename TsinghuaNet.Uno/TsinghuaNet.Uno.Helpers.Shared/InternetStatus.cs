@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using TsinghuaNet.Models;
 using Windows.Networking.Connectivity;
 
@@ -6,6 +7,11 @@ using Windows.Networking.Connectivity;
 using Android.App;
 using Android.Content;
 using Android.Net.Wifi;
+#endif
+
+#if __IOS__
+using Foundation;
+using SystemConfiguration;
 #endif
 
 namespace TsinghuaNet.Uno.Helpers
@@ -47,6 +53,33 @@ namespace TsinghuaNet.Uno.Helpers
                 Ssid = wifiManager.ConnectionInfo.SSID;
             }
             else
+            {
+                Status = NetStatus.Unknown;
+                Ssid = string.Empty;
+            }
+            return Task.CompletedTask;
+        }
+    }
+#elif __IOS__
+    class InternetStatus : NetMapStatus
+    {
+        public override Task RefreshAsync()
+        {
+            try
+            {
+                var status = CaptiveNetwork.TryCopyCurrentNetworkInfo("en0", out NSDictionary dict);
+                using (dict)
+                {
+                    if (status == StatusCode.NoKey)
+                    {
+                        Status = NetStatus.Unknown;
+                        Ssid = string.Empty;
+                    }
+                    Status = NetStatus.Wlan;
+                    Ssid = dict[CaptiveNetwork.NetworkInfoKeySSID].ToString();
+                }
+            }
+            catch (Exception)
             {
                 Status = NetStatus.Unknown;
                 Ssid = string.Empty;
