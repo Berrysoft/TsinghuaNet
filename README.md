@@ -59,7 +59,7 @@ Uno版本。支持UWP、Android与iOS平台。
 |平台|UWP|Android|iOS|
 |-|:-:|:-:|:-:|
 |最低版本|10.0.16299(1709)|4.1(Jelly Bean)|10|
-|屏幕截图|![UWP](./Screenshots/Uno.UWP.png)|![Android](./Screenshots/Uno.Android.png)||
+|屏幕截图|![UWP](./Screenshots/Uno.UWP.png)|![Android](./Screenshots/Uno.Android.png)|![iOS](./Screenshots/Uno.iOS.png)|
 
 # Q&A
 ## 为什么需要一个客户端？
