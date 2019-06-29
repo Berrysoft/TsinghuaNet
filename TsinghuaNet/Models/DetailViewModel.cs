@@ -38,6 +38,7 @@ namespace TsinghuaNet.Models
             if (order == null)
                 SetSortedDetails(InitialDetails);
             else
+            {
                 switch (order.Value)
                 {
                     case NetDetailOrder.LoginTime:
@@ -50,6 +51,7 @@ namespace TsinghuaNet.Models
                         SetSortedDetails(InitialDetails.OrderBy(d => d.Flux, descending));
                         break;
                 }
+            }
         }
     }
 }

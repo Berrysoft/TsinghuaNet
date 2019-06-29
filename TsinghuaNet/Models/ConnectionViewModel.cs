@@ -6,7 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
@@ -77,14 +76,11 @@ namespace TsinghuaNet.Models
         {
             try
             {
-                if (Credential.State != NetState.Unknown)
-                {
-                    var helper = Credential.GetUseregHelper();
-                    await helper.LoginAsync();
-                    foreach (var ip in ips)
-                        await helper.LogoutAsync(ip);
-                    await RefreshNetUsersAsync(helper);
-                }
+                var helper = Credential.GetUseregHelper();
+                await helper.LoginAsync();
+                foreach (var ip in ips)
+                    await helper.LogoutAsync(ip);
+                await RefreshNetUsersAsync(helper);
             }
             catch (Exception ex)
             {

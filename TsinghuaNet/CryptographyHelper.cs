@@ -5,16 +5,8 @@ using System.Text;
 
 namespace TsinghuaNet
 {
-    /// <summary>
-    /// Methods of cryptography.
-    /// </summary>
     internal static class CryptographyHelper
     {
-        /// <summary>
-        /// Get hex string of a byte array.
-        /// </summary>
-        /// <param name="data">A <see cref="byte"/> array contains data.</param>
-        /// <returns>A hex string.</returns>
         private static string GetHexString(byte[] data)
         {
             StringBuilder sBuilder = new StringBuilder(data.Length * 2);
@@ -24,12 +16,6 @@ namespace TsinghuaNet
             }
             return sBuilder.ToString();
         }
-        /// <summary>
-        /// Get MD5 encoded string created by <see cref="MD5"/>.
-        /// </summary>
-        /// <param name="input">Original string.</param>
-        /// <returns>An encoded string.</returns>
-        /// <remarks>The <paramref name="input"/> string is encoded into <see cref="byte"/> array by UTF-8.</remarks>
         public static string GetMD5(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -42,12 +28,6 @@ namespace TsinghuaNet
                 return GetHexString(data);
             }
         }
-        /// <summary>
-        /// Get MD5 encoded string created by <see cref="SHA1"/>.
-        /// </summary>
-        /// <param name="input">Original string.</param>
-        /// <returns>An encoded string.</returns>
-        /// <remarks>The <paramref name="input"/> string is encoded into <see cref="byte"/> array by UTF-8.</remarks>
         public static string GetSHA1(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -60,12 +40,6 @@ namespace TsinghuaNet
                 return GetHexString(data);
             }
         }
-        /// <summary>
-        /// Encode a <see cref="string"/> to its UTF-8 form.
-        /// </summary>
-        /// <param name="a">String to be encoded.</param>
-        /// <param name="b">Whether to add the length of the string in the end.</param>
-        /// <returns>A <see cref="uint"/> array contains encoded string.</returns>
         private static uint[] S(byte[] a, bool b)
         {
             int c = a.Length;
@@ -83,12 +57,6 @@ namespace TsinghuaNet
             Unsafe.CopyBlock(ref Unsafe.As<uint, byte>(ref v[0]), ref a[0], (uint)c);
             return v;
         }
-        /// <summary>
-        /// Decode a <see cref="string"/> from its UTF-8 form.
-        /// </summary>
-        /// <param name="a">A <see cref="uint"/> array contains the encoded string.</param>
-        /// <param name="b">Whether the length of the original string is in the end.</param>
-        /// <returns>Decoded string.</returns>
         private static byte[] L(uint[] a, bool b)
         {
             int d = a.Length;
@@ -107,12 +75,6 @@ namespace TsinghuaNet
             Unsafe.CopyBlock(ref aa[0], ref Unsafe.As<uint, byte>(ref a[0]), n);
             return aa;
         }
-        /// <summary>
-        /// Encode a string by a special TEA algorithm.
-        /// </summary>
-        /// <param name="str">String to be encoded.</param>
-        /// <param name="key">Key to encode.</param>
-        /// <returns>Encoded string.</returns>
         public static byte[] XEncode(string str, string key)
         {
             if (str.Length == 0)
@@ -143,11 +105,6 @@ namespace TsinghuaNet
         }
 
         private static readonly string Base64N = "LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";
-        /// <summary>
-        /// Encode a string to base64 in a special way.
-        /// </summary>
-        /// <param name="t">String to be encoded.</param>
-        /// <returns>Encoded string.</returns>
         public unsafe static string Base64Encode(byte[] t)
         {
             int a = t.Length;
@@ -172,11 +129,6 @@ namespace TsinghuaNet
             }
             return new string(u, 0, len);
         }
-        /// <summary>
-        /// Get HMAC-MD5 computed string with a key and an empty string by <see cref="HMACMD5"/>.
-        /// </summary>
-        /// <param name="key">Original key.</param>
-        /// <returns>An encoded string.</returns>
         public static string GetHMACMD5(string key)
         {
             if (string.IsNullOrEmpty(key))

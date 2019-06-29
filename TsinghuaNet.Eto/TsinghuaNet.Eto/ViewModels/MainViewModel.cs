@@ -30,61 +30,44 @@ namespace TsinghuaNet.Eto.ViewModels
             set => base.Settings = value;
         }
 
-        private const string settingsFilename = "settings.json";
-        private string SettingsPath
-        {
-            get
-            {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config", "TsinghuaNet.Eto", settingsFilename);
-            }
-        }
-
-        private static JToken GetSettings(JObject json, string key, JToken def)
-        {
-            if (json.ContainsKey(key))
-                return json[key];
-            else
-                return def;
-        }
+        private const string SettingsFilename = "settings.json";
+        private const string ProjectName = "TsinghuaNet.Eto";
 
         public override void LoadSettings()
         {
             Settings = new NetSettings();
-            if (File.Exists(SettingsPath))
+            var path = SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename);
+            if (File.Exists(path))
             {
-                using (StreamReader stream = new StreamReader(SettingsPath))
+                using (StreamReader stream = new StreamReader(path))
                 using (JsonTextReader reader = new JsonTextReader(stream))
                 {
                     var json = JObject.Load(reader);
-                    Credential.Username = (string)GetSettings(json, "username", string.Empty);
-                    Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String((string)GetSettings(json, "password", string.Empty)));
-                    Credential.State = (NetState)(int)GetSettings(json, "state", (int)NetState.Unknown);
-                    Settings.AutoLogin = (bool)GetSettings(json, "autoLogin", true);
-                    Settings.UseTimer = (bool)GetSettings(json, "useTimer", true);
-                    Settings.EnableFluxLimit = (bool)GetSettings(json, "enableFluxLimit", true);
-                    Settings.FluxLimit = ByteSize.FromGigaBytes((double)GetSettings(json, "fluxLimit", 20.0));
+                    Credential.Username = (string)SettingsFileHelper.GetSettings(json, "username", string.Empty);
+                    Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String((string)SettingsFileHelper.GetSettings(json, "password", string.Empty)));
+                    Credential.State = (NetState)(int)SettingsFileHelper.GetSettings(json, "state", (int)NetState.Unknown);
+                    Settings.AutoLogin = (bool)SettingsFileHelper.GetSettings(json, "autoLogin", true);
+                    Settings.UseTimer = (bool)SettingsFileHelper.GetSettings(json, "useTimer", true);
+                    Settings.EnableFluxLimit = (bool)SettingsFileHelper.GetSettings(json, "enableFluxLimit", true);
+                    Settings.FluxLimit = ByteSize.FromGigaBytes((double)SettingsFileHelper.GetSettings(json, "fluxLimit", 20.0));
                 }
             }
         }
 
-        private void CreateSettingsFolder()
-        {
-            DirectoryInfo home = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            home.CreateSubdirectory(Path.Combine(".config", "TsinghuaNet.Eto"));
-        }
-
         public override void SaveSettings()
         {
-            JObject json = new JObject();
-            json["username"] = Credential.Username ?? string.Empty;
-            json["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password ?? string.Empty));
-            json["state"] = (int)Credential.State;
-            json["autoLogin"] = Settings.AutoLogin;
-            json["useTimer"] = Settings.UseTimer;
-            json["enableFluxLimit"] = Settings.EnableFluxLimit;
-            json["fluxLimit"] = Settings.FluxLimit.GigaBytes;
-            CreateSettingsFolder();
-            using (StreamWriter stream = new StreamWriter(SettingsPath))
+            JObject json = new JObject
+            {
+                ["username"] = Credential.Username ?? string.Empty,
+                ["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password ?? string.Empty)),
+                ["state"] = (int)Credential.State,
+                ["autoLogin"] = Settings.AutoLogin,
+                ["useTimer"] = Settings.UseTimer,
+                ["enableFluxLimit"] = Settings.EnableFluxLimit,
+                ["fluxLimit"] = Settings.FluxLimit.GigaBytes
+            };
+            SettingsFileHelper.CreateSettingsFolder(ProjectName);
+            using (StreamWriter stream = new StreamWriter(SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename)))
             using (JsonTextWriter writer = new JsonTextWriter(stream))
             {
                 json.WriteTo(writer);

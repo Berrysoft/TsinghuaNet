@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
@@ -259,6 +258,17 @@ namespace TsinghuaNet.CLI
     [Verb("deletecred", HelpText = "删除已保存的用户名和密码")]
     class DeleteCredentialVerb : VerbBase
     {
-        public override Task RunAsync() => Task.Run(SettingsHelper.DeleteSettings);
+        public override Task RunAsync() => Task.Run(() =>
+        {
+            Console.Write("是否要删除设置文件？[y/N]");
+            var de = Console.ReadLine();
+            if (string.Equals(de, "y", StringComparison.OrdinalIgnoreCase))
+            {
+                if (SettingsFileHelper.DeleteSettings(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename))
+                {
+                    Console.WriteLine("已删除");
+                }
+            }
+        });
     }
 }

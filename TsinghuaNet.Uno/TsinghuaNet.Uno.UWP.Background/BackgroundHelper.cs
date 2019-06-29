@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Helpers;
 using Windows.ApplicationModel.Background;

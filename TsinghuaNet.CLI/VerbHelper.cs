@@ -64,15 +64,16 @@ namespace TsinghuaNet.CLI
         {
             get
             {
-                if (File.Exists(SettingsHelper.SettingsPath))
+                var path = SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename);
+                if (File.Exists(path))
                 {
                     NetCredential cred = new NetCredential();
-                    using (StreamReader stream = new StreamReader(SettingsHelper.SettingsPath))
+                    using (StreamReader stream = new StreamReader(path))
                     using (JsonTextReader reader = new JsonTextReader(stream))
                     {
                         var json = JObject.Load(reader);
-                        cred.Username = (string)SettingsHelper.GetSettings(json, "username", string.Empty);
-                        cred.Password = Encoding.UTF8.GetString(Convert.FromBase64String((string)SettingsHelper.GetSettings(json, "password", string.Empty)));
+                        cred.Username = (string)SettingsFileHelper.GetSettings(json, "username", string.Empty);
+                        cred.Password = Encoding.UTF8.GetString(Convert.FromBase64String((string)SettingsFileHelper.GetSettings(json, "password", string.Empty)));
                         return cred;
                     }
                 }
@@ -81,11 +82,13 @@ namespace TsinghuaNet.CLI
             }
             set
             {
-                JObject json = new JObject();
-                json["username"] = value.Username ?? string.Empty;
-                json["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty));
-                SettingsHelper.CreateSettingsFolder();
-                using (StreamWriter stream = new StreamWriter(SettingsHelper.SettingsPath))
+                JObject json = new JObject
+                {
+                    ["username"] = value.Username ?? string.Empty,
+                    ["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
+                };
+                SettingsFileHelper.CreateSettingsFolder(SettingsHelper.ProjectName);
+                using (StreamWriter stream = new StreamWriter(SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename)))
                 using (JsonTextWriter writer = new JsonTextWriter(stream))
                 {
                     json.WriteTo(writer);
@@ -96,42 +99,7 @@ namespace TsinghuaNet.CLI
 
     static class SettingsHelper
     {
-        private const string settingsFilename = "settings.json";
-        public static string SettingsPath
-        {
-            get
-            {
-                return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".config", "TsinghuaNet.CLI", settingsFilename);
-            }
-        }
-
-        public static JToken GetSettings(JObject json, string key, JToken def)
-        {
-            if (json.ContainsKey(key))
-                return json[key];
-            else
-                return def;
-        }
-
-        public static void CreateSettingsFolder()
-        {
-            DirectoryInfo home = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            home.CreateSubdirectory(Path.Combine(".config", "TsinghuaNet.CLI"));
-        }
-
-        public static void DeleteSettings()
-        {
-            var p = SettingsPath;
-            if (File.Exists(p))
-            {
-                Console.Write("是否要删除设置文件？[y/N]");
-                var de = Console.ReadLine();
-                if (string.Equals(de, "y", StringComparison.OrdinalIgnoreCase))
-                {
-                    File.Delete(p);
-                    Console.WriteLine("已删除");
-                }
-            }
-        }
+        public const string SettingsFilename = "settings.json";
+        public const string ProjectName = "TsinghuaNet.CLI";
     }
 }
