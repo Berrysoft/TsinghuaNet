@@ -100,12 +100,42 @@
                 <RadioButton x:Name="Auth6StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
             </mtuuc:UniformGrid>
             <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="明细" Click="ShowDetail"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置" Click="ShowSettings"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Help" Label="关于" Click="ShowAbout"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="登录" Command="{x:Bind Model.LoginCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Upload"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11C;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="注销" Command="{x:Bind Model.LogoutCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Download"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE118;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="刷新" Command="{x:Bind Model.RefreshCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Refresh"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="明细" Click="ShowDetail">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="List"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE14C;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="设置" Click="ShowSettings">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Setting"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE115;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="关于" Click="ShowAbout">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Help"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11B;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </mtuuc:UniformGrid>
         </mtuuc:UniformGrid>
     </mtuuc:UniformGrid>

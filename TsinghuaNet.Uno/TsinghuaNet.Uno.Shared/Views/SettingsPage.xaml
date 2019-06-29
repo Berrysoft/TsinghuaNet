@@ -9,7 +9,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    mc:Ignorable="d"
+    xmlns:xamarin="http://uno.ui/xamarin"
+    mc:Ignorable="d xamarin"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded">
     <Page.DataContext>
         <vms:SettingsViewModel x:Name="Model"/>
@@ -25,7 +26,12 @@
                     </StackPanel>
                     <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
                 </StackPanel>
-                <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
+                <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Download"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE118;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
             </Grid>
         </DataTemplate>
         <converters:FluxStringConverter x:Key="FluxStringConverter"/>
@@ -48,7 +54,7 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
-                    <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" AllowFocusOnInteraction="True">
+                    <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="更改用户" AllowFocusOnInteraction="True">
                         <AppBarButton.Flyout>
                             <Flyout x:Name="ChangeUserFlyout" Opened="ChangeUserOpened">
                                 <StackPanel Orientation="Vertical">
@@ -65,6 +71,10 @@
                                 </StackPanel>
                             </Flyout>
                         </AppBarButton.Flyout>
+                        <AppBarButton.Icon>
+                            <win:SymbolIcon Symbol="Contact"/>
+                            <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE13D;"/>
+                        </AppBarButton.Icon>
                     </AppBarButton>
                     <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Credential.Username,Mode=OneWay}"/>
                 </StackPanel>
@@ -91,7 +101,12 @@
                     </StackPanel.DataContext>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
-                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
+                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}">
+                            <AppBarButton.Icon>
+                                <win:SymbolIcon Symbol="Refresh"/>
+                                <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
+                            </AppBarButton.Icon>
+                        </AppBarButton>
                     </StackPanel>
                     <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
                         <ListView.ItemContainerTransitions>
