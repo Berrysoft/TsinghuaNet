@@ -37,7 +37,7 @@ namespace TsinghuaNet.Uno
                 // this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -49,7 +49,7 @@ namespace TsinghuaNet.Uno
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                Windows.UI.Xaml.Window.Current.Content = rootFrame;
             }
 
             if (e.PrelaunchActivated == false)
@@ -62,7 +62,7 @@ namespace TsinghuaNet.Uno
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
-                Window.Current.Activate();
+                Windows.UI.Xaml.Window.Current.Activate();
             }
         }
 
@@ -108,7 +108,7 @@ namespace TsinghuaNet.Uno
             var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                if (Window.Current.Content is Frame rootFrame)
+                if (Windows.UI.Xaml.Window.Current.Content is Frame rootFrame)
                 {
                     if (rootFrame.Content is MainPage mainPage)
                     {

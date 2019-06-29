@@ -127,7 +127,7 @@ namespace TsinghuaNet.Uno.Views
 
         private void PageSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            string state = (Window.Current.Bounds.Width > Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
+            string state = (Windows.UI.Xaml.Window.Current.Bounds.Width > Windows.UI.Xaml.Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
             VisualStateManager.GoToState(this, state, true);
         }
 
@@ -181,7 +181,7 @@ namespace TsinghuaNet.Uno.Views
 
         private void NavigateToType<T>() where T : Page
         {
-            if (Window.Current.Content is Frame rootFrame)
+            if (Windows.UI.Xaml.Window.Current.Content is Frame rootFrame)
             {
                 rootFrame.Navigate(typeof(T));
             }
