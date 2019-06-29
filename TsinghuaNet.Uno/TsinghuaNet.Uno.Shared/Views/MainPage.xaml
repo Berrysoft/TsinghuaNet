@@ -14,7 +14,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" NavigationCacheMode="Enabled" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>

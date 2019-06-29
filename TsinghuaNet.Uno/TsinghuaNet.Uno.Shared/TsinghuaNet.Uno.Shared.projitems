@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml.cs" />

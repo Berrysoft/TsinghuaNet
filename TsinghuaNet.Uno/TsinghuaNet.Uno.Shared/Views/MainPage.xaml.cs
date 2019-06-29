@@ -83,26 +83,18 @@ namespace TsinghuaNet.Uno.Views
             // 调整后台任务
             if (await BackgroundHelper.RequestAccessAsync())
             {
-                BackgroundHelper.RegisterLogin(Model.BackgroundAutoLogin);
-                BackgroundHelper.RegisterLiveTile(Model.BackgroundLiveTile);
+                BackgroundHelper.RegisterLogin(Model.Settings.BackgroundAutoLogin);
+                BackgroundHelper.RegisterLiveTile(Model.Settings.BackgroundLiveTile);
             }
 #endif
             // 自动登录的条件为：
             // 打开了自动登录
             // 不知道后台任务成功登录
             // 密码不为空
-            if (Model.AutoLogin && !ToastLogined && !string.IsNullOrEmpty(Model.Credential.Password))
+            if (Model.Settings.AutoLogin && !ToastLogined && !string.IsNullOrEmpty(Model.Credential.Password))
                 await Model.LoginAsync();
             else
                 await Model.RefreshAsync();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-#if WINDOWS_UWP
-            PageLoaded(this, new RoutedEventArgs());
-#endif
         }
 
         private void PageSizeChanged(object sender, SizeChangedEventArgs e)

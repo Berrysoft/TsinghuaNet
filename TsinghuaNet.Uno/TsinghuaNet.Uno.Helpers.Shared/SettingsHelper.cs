@@ -70,9 +70,12 @@ namespace TsinghuaNet.Uno.Helpers
 
         public static bool AutoLogin { get; set; }
 
+
+#if WINDOWS_UWP
         public static bool BackgroundAutoLogin { get; set; }
 
         public static bool BackgroundLiveTile { get; set; }
+#endif
 
         public static ElementTheme Theme { get; set; }
 

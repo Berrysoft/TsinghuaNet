@@ -18,14 +18,16 @@
             <RowDefinition Height="48"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}">
-            <Button.Command>
-                <vms:NavigateBackCommand/>
-            </Button.Command>
-        </Button>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Style="{StaticResource NavigationBackButtonNormalStyle}">
+                <Button.Command>
+                    <vms:NavigateBackCommand/>
+                </Button.Command>
+            </Button>
+            <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">关于：清华大学校园网客户端</TextBlock>
+        </StackPanel>
         <ScrollViewer Grid.Row="1" Margin="8">
             <StackPanel Orientation="Vertical">
-                <TextBlock Margin="8,0" Style="{ThemeResource TitleTextBlockStyle}">关于：清华大学校园网客户端</TextBlock>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Version,Mode=OneTime,Converter={StaticResource PackageVersionStringConverter}}"/>
                     <HyperlinkButton Margin="8,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目地址</HyperlinkButton>
