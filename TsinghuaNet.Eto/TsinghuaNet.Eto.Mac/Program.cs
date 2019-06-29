@@ -6,7 +6,7 @@ namespace TsinghuaNet.Eto.Mac
     {
         static void Main()
         {
-            using (App app = new App(Platforms.Wpf))
+            using (App app = new App(Platforms.Mac64))
             {
                 app.Run();
             }
