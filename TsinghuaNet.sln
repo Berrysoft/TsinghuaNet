@@ -35,6 +35,7 @@ Global
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{6bae1c32-631c-4587-8492-df95c2e101f5}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems*{6bae1c32-631c-4587-8492-df95c2e101f5}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{6d7d0136-6ca3-46c3-b281-36e7cc9270dc}*SharedItemsImports = 13
+		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{bef9993c-cb56-4ab7-9ca3-13ec6a3e2f35}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems*{bef9993c-cb56-4ab7-9ca3-13ec6a3e2f35}*SharedItemsImports = 4
 		TsinghuaNet.Uno\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems*{eea62454-4150-40de-8bdd-271b38c1c8c2}*SharedItemsImports = 4
 	EndGlobalSection

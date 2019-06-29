@@ -3,7 +3,7 @@ using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.UI.Xaml;
+using wux = Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -12,7 +12,7 @@ namespace TsinghuaNet.Uno
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    sealed partial class App : wux.Application
     {
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -37,11 +37,10 @@ namespace TsinghuaNet.Uno
                 // this.DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
-            Frame rootFrame = Windows.UI.Xaml.Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(wux.Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -49,7 +48,7 @@ namespace TsinghuaNet.Uno
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Place the frame in the current Window
-                Windows.UI.Xaml.Window.Current.Content = rootFrame;
+                wux.Window.Current.Content = rootFrame;
             }
 
             if (e.PrelaunchActivated == false)
@@ -62,18 +61,17 @@ namespace TsinghuaNet.Uno
                     rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
                 // Ensure the current window is active
-                Windows.UI.Xaml.Window.Current.Activate();
+                wux.Window.Current.Activate();
             }
         }
 
 #if WINDOWS_UWP
         protected override void OnActivated(IActivatedEventArgs args)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-            if (rootFrame == null)
+            if (!(wux.Window.Current.Content is Frame rootFrame))
             {
                 rootFrame = new Frame();
-                Window.Current.Content = rootFrame;
+                wux.Window.Current.Content = rootFrame;
             }
 
             if (rootFrame.Content == null)
@@ -82,7 +80,7 @@ namespace TsinghuaNet.Uno
             MainPage mainPage = (MainPage)rootFrame.Content;
             if (args.Kind == ActivationKind.ToastNotification)
                 mainPage.ToastLogined = true;
-            Window.Current.Activate();
+            wux.Window.Current.Activate();
         }
 #endif
 
@@ -108,7 +106,7 @@ namespace TsinghuaNet.Uno
             var deferral = e.SuspendingOperation.GetDeferral();
             try
             {
-                if (Windows.UI.Xaml.Window.Current.Content is Frame rootFrame)
+                if (wux.Window.Current.Content is Frame rootFrame)
                 {
                     if (rootFrame.Content is MainPage mainPage)
                     {
