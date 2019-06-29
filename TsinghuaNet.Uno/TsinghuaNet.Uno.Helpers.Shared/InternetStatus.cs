@@ -2,6 +2,12 @@
 using TsinghuaNet.Models;
 using Windows.Networking.Connectivity;
 
+#if __ANDROID__
+using Android.App;
+using Android.Content;
+using Android.Net.Wifi;
+#endif
+
 namespace TsinghuaNet.Uno.Helpers
 {
 #if WINDOWS_UWP
@@ -26,6 +32,25 @@ namespace TsinghuaNet.Uno.Helpers
         public override Task RefreshAsync()
         {
             (Status, Ssid) = GetInternetStatus();
+            return Task.CompletedTask;
+        }
+    }
+#elif __ANDROID__
+    class InternetStatus : NetMapStatus
+    {
+        public override Task RefreshAsync()
+        {
+            WifiManager wifiManager = (WifiManager)Application.Context.GetSystemService(Context.WifiService);
+            if (wifiManager != null)
+            {
+                Status = NetStatus.Wlan;
+                Ssid = wifiManager.ConnectionInfo.SSID;
+            }
+            else
+            {
+                Status = NetStatus.Unknown;
+                Ssid = string.Empty;
+            }
             return Task.CompletedTask;
         }
     }
