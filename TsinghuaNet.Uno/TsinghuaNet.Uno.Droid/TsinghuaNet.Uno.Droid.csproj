@@ -73,7 +73,7 @@
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
       <Version>5.1.0-build.198.g6c0bc8a801</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2010" />
+    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2031" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
   </ItemGroup>
   <ItemGroup>
