@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dialog xmlns="http://schema.picoe.ca/eto.forms"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:local="clr-namespace:TsinghuaNet.Eto"
+        xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
+        xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
         Width="400" Height="360" Resizable="True" Title="设置" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
-    <local:FluxLimitConverter x:Key="FluxLimitConverter"/>
+    <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
   </Dialog.Properties>
   <Panel Padding="8">
     <TabControl x:Name="SettingsTab">
       <TabPage Text="通用" Padding="8">
         <StackLayout Orientation="Vertical" Spacing="8">
-          <CheckBox Checked="{Binding AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
-          <CheckBox Checked="{Binding UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
+          <CheckBox Checked="{Binding Settings.AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
+          <CheckBox Checked="{Binding Settings.UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
           <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center" Spacing="4">
-            <CheckBox Checked="{Binding EnableFluxLimit,Mode=TwoWay}">流量不足预警，当流量超过</CheckBox>
-            <NumericUpDown Enabled="{Binding EnableFluxLimit}" MinValue="5" MaxValue="30" Value="{Binding FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+            <CheckBox Checked="{Binding Settings.EnableFluxLimit,Mode=TwoWay}">流量不足预警，当流量超过</CheckBox>
+            <NumericUpDown Enabled="{Binding Settings.EnableFluxLimit}" MinValue="5" MaxValue="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
             <Label>GB</Label>
           </StackLayout>
         </StackLayout>

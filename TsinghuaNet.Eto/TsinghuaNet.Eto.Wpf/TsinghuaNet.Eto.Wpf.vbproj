@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TsinghuaNet.Eto\TsinghuaNet.Eto.vbproj" />
+    <ProjectReference Include="..\TsinghuaNet.Eto\TsinghuaNet.Eto.csproj" />
   </ItemGroup>
 
 </Project>

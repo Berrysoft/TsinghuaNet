@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Form xmlns="http://schema.picoe.ca/eto.forms"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:TsinghuaNet.Eto"
-      xmlns:helper="clr-namespace:TsinghuaNet.Helper;assembly:TsinghuaNet"
+      xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
+      xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
+      xmlns:helper="clr-namespace:TsinghuaNet.Helpers;assembly:TsinghuaNet"
       Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White">
   <Form.Properties>
-    <local:StringFormatConverter x:Key="StringFormatConverter"/>
+    <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Form.Properties>
   <Form.Menu>
     <On>

@@ -15,8 +15,8 @@ Module Program
 
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)
 #End If
-        Using app As New App(Platforms.Wpf), form As New MainForm
-            app.Run(form)
+        Using app As New App(Platforms.Wpf)
+            app.Run()
         End Using
     End Sub
 End Module
