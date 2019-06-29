@@ -9,7 +9,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded">
+    <Page.DataContext>
+        <vms:AboutViewModel x:Name="Model"/>
+    </Page.DataContext>
     <Page.Resources>
         <converters:PackageVersionStringConverter x:Key="PackageVersionStringConverter"/>
     </Page.Resources>
@@ -26,15 +29,15 @@
             </Button>
             <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">关于：清华大学校园网客户端</TextBlock>
         </StackPanel>
-        <ScrollViewer Grid.Row="1" Margin="8">
+        <ScrollViewer Grid.Row="1" Margin="8" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled">
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Version,Mode=OneTime,Converter={StaticResource PackageVersionStringConverter}}"/>
+                    <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Version,Mode=OneTime,Converter={StaticResource PackageVersionStringConverter}}"/>
                     <HyperlinkButton Margin="8,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目地址</HyperlinkButton>
                 </StackPanel>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
-                <mtuuc:DataGrid x:Name="PackagesView" Margin="8" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
+                <mtuuc:DataGrid Margin="8" ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
                     <mtuuc:DataGrid.Columns>
                         <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
                         <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>

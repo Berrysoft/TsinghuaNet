@@ -1,16 +1,8 @@
 ﻿using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.UI.Xaml;
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    enum UserContentType
-    {
-        Line,
-        Ring,
-        Water
-    }
-
     static class SettingsHelper
     {
         private static IPropertySet values;
@@ -33,10 +25,10 @@ namespace TsinghuaNet.Uno.Helpers
 
         private const string StoredUsernameKey = "Username";
         private const string AutoLoginKey = "AutoLogin";
+#if WINDOWS_UWP
         private const string BackgroundAutoLoginKey = "BackgroundAutoLogin";
         private const string BackgroundLiveTileKey = "BackgroundLiveTile";
-        private const string ThemeKey = "Theme";
-        private const string ContentTypeKey = "UserContentType";
+#endif
         private const string EnableFluxLimitKey = "EnableFluxLimit";
         private const string FluxLimitKey = "FluxLimit";
 
@@ -45,10 +37,10 @@ namespace TsinghuaNet.Uno.Helpers
             values = ApplicationData.Current.LocalSettings.Values;
             StoredUsername = GetValue(StoredUsernameKey, string.Empty);
             AutoLogin = GetValue(AutoLoginKey, true);
+#if WINDOWS_UWP
             BackgroundAutoLogin = GetValue(BackgroundAutoLoginKey, true);
             BackgroundLiveTile = GetValue(BackgroundLiveTileKey, true);
-            Theme = (ElementTheme)GetValue(ThemeKey, (int)ElementTheme.Default);
-            ContentType = (UserContentType)GetValue(ContentTypeKey, (int)UserContentType.Ring);
+#endif
             EnableFluxLimit = GetValue<bool>(EnableFluxLimitKey);
             var limit = GetValue<double>(FluxLimitKey);
             FluxLimit = ByteSize.FromGigaBytes(limit);
@@ -58,10 +50,10 @@ namespace TsinghuaNet.Uno.Helpers
         {
             SetValue(StoredUsernameKey, StoredUsername);
             SetValue(AutoLoginKey, AutoLogin);
+#if WINDOWS_UWP
             SetValue(BackgroundAutoLoginKey, BackgroundAutoLogin);
             SetValue(BackgroundLiveTileKey, BackgroundLiveTile);
-            SetValue(ThemeKey, (int)Theme);
-            SetValue(ContentTypeKey, (int)ContentType);
+#endif
             SetValue(EnableFluxLimitKey, EnableFluxLimit);
             SetValue(FluxLimitKey, FluxLimit.GigaBytes);
         }
@@ -76,10 +68,6 @@ namespace TsinghuaNet.Uno.Helpers
 
         public static bool BackgroundLiveTile { get; set; }
 #endif
-
-        public static ElementTheme Theme { get; set; }
-
-        public static UserContentType ContentType { get; set; }
 
         public static bool EnableFluxLimit { get; set; }
 

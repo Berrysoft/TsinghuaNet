@@ -31,12 +31,9 @@ namespace TsinghuaNet.Models
         {
             try
             {
-                if (Credential.State != NetState.Unknown)
-                {
-                    var helper = Credential.GetUseregHelper();
-                    await helper.LoginAsync();
-                    await RefreshNetUsersAsync(helper);
-                }
+                var helper = Credential.GetUseregHelper();
+                await helper.LoginAsync();
+                await RefreshNetUsersAsync(helper);
             }
             catch (Exception ex)
             {

@@ -54,11 +54,11 @@
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</TextBlock>
-                                        <TextBox x:Name="UnBox" Margin="8" Width="200" TextChanged="{x:Bind UsernameChanged}"/>
+                                        <TextBox x:Name="UnBox" Margin="8" Width="200"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock HorizontalTextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</TextBlock>
-                                        <PasswordBox x:Name="PwBox" Margin="8" Width="200" PasswordChanged="{x:Bind PasswordChanged}"/>
+                                        <PasswordBox x:Name="PwBox" Margin="8" Width="200"/>
                                     </StackPanel>
                                     <CheckBox x:Name="SaveBox" Margin="0,8" HorizontalAlignment="Right">保存密码</CheckBox>
                                     <Button x:Name="ConfirmChangeUserButton" Margin="8" HorizontalAlignment="Right" Width="100" Click="ConfirmChangeUser">确定</Button>

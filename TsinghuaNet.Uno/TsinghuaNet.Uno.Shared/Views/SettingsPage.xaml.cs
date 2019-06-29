@@ -34,14 +34,8 @@ namespace TsinghuaNet.Uno.Views
         {
             string un = UnBox.Text;
             string pw = CredentialHelper.GetCredential(un) ?? string.Empty;
-            ConfirmChangeUserButton.IsEnabled = !(string.IsNullOrEmpty(un) || string.IsNullOrEmpty(pw));
             PwBox.Password = pw;
             SaveBox.IsChecked = !string.IsNullOrEmpty(pw);
-        }
-
-        private void PasswordChanged()
-        {
-            ConfirmChangeUserButton.IsEnabled = !(string.IsNullOrEmpty(UnBox.Text) || string.IsNullOrEmpty(PwBox.Password));
         }
 
         private void ConfirmChangeUser(object sender, RoutedEventArgs e)
