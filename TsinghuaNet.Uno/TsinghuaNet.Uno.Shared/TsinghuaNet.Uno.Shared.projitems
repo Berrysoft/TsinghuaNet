@@ -29,12 +29,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml">
@@ -50,6 +52,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,6 +87,9 @@
     </Compile>
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

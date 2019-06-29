@@ -36,7 +36,6 @@ namespace TsinghuaNet.Uno.ViewModels
             if (await BackgroundHelper.RequestAccessAsync())
                 BackgroundHelper.RegisterLiveTile(BackgroundLiveTile);
         }
-
 #endif
     }
 }

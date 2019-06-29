@@ -1,0 +1,90 @@
+﻿<Page
+    x:Class="TsinghuaNet.Uno.Views.SettingsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
+    xmlns:netvms="using:TsinghuaNet.Models"
+    xmlns:converters="using:TsinghuaNet.Uno.Converters"
+    xmlns:net="using:TsinghuaNet"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded">
+    <Page.DataContext>
+        <vms:SettingsViewModel x:Name="Model"/>
+    </Page.DataContext>
+    <Page.Resources>
+        <vms:DropCommand x:Key="DropUser"/>
+        <DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
+            <Grid Width="240">
+                <StackPanel Margin="8" HorizontalAlignment="Left" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
+                    </StackPanel>
+                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
+                </StackPanel>
+                <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
+            </Grid>
+        </DataTemplate>
+        <converters:FluxStringConverter x:Key="FluxStringConverter"/>
+        <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Style="{StaticResource NavigationBackButtonNormalStyle}">
+                <Button.Command>
+                    <vms:NavigateBackCommand/>
+                </Button.Command>
+            </Button>
+            <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
+        </StackPanel>
+        <ScrollViewer Grid.Row="1" Margin="8">
+            <StackPanel Orientation="Vertical">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
+                    <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户"/>
+                    <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Credential.Username,Mode=OneWay}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
+                    <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.Settings.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                </StackPanel>
+                <win:StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">后台自动登录</TextBlock>
+                    <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.Settings.BackgroundAutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                </win:StackPanel>
+                <win:StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
+                    <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.Settings.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                </win:StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">流量不足警告</TextBlock>
+                    <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.Settings.EnableFluxLimit,Mode=TwoWay}" OnContent="开" OffContent="关"/>
+                </StackPanel>
+                <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.Settings.EnableFluxLimit,Mode=OneWay}"/>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel.DataContext>
+                        <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
+                    </StackPanel.DataContext>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
+                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
+                    </StackPanel>
+                    <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
+                        <ListView.ItemContainerTransitions>
+                            <TransitionCollection>
+                                <AddDeleteThemeTransition/>
+                            </TransitionCollection>
+                        </ListView.ItemContainerTransitions>
+                    </ListView>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

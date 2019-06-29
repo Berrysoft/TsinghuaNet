@@ -19,10 +19,6 @@ namespace TsinghuaNet.Uno.Views
         public MainPage()
         {
             InitializeComponent();
-            //if (Resources["DropUser"] is DropCommand c)
-            //{
-            //    c.DropUser += DropUser;
-            //}
 #if WINDOWS_UWP
             // 监视网络情况变化
             NetworkHelper.Instance.NetworkChanged += NetworkChanged;
@@ -128,7 +124,6 @@ namespace TsinghuaNet.Uno.Views
 
         //private void OpenSettings(object sender, RoutedEventArgs e) => Split.IsPaneOpen = true;
 
-        //private async void DropUser(object sender, IPAddress e) => await ConnectionModel.DropAsync(e);
 
         //private async Task<ContentDialogResult> ShowDialogAsync<T>(T dialog) where T : ContentDialog
         //{
@@ -188,6 +183,8 @@ namespace TsinghuaNet.Uno.Views
         private void ShowDetail(object sender, RoutedEventArgs e) => NavigateToType<DetailPage>();
 
         private void ShowAbout(object sender, RoutedEventArgs e) => NavigateToType<AboutPage>();
+
+        private void ShowSettings(object sender, RoutedEventArgs e) => NavigateToType<SettingsPage>();
 
         private void NavigateToType<T>() where T : Page
         {

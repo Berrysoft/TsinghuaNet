@@ -4,9 +4,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.Uno.Views"
-    xmlns:net="using:TsinghuaNet"
-    xmlns:nethelper="using:TsinghuaNet.Helpers"
-    xmlns:netvms="using:TsinghuaNet.Models"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:converters="using:TsinghuaNet.Uno.Converters"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -19,38 +16,6 @@
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
     <Page.Resources>
-        <!--<vms:DropCommand x:Key="DropUser"/>-->
-        <!--<DataTemplate x:Key="NetUserTemplate" x:DataType="net:NetUser">
-            <Grid Width="240">
-                <StackPanel Margin="8" HorizontalAlignment="Left" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Style="{ThemeResource BaseTextBlockStyle}" Text="{x:Bind Client}"/>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Address}"/>
-                    </StackPanel>
-                    <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind LoginTime}"/>
-                </StackPanel>
-                <AppBarButton Width="48" HorizontalAlignment="Right" VerticalAlignment="Stretch" Icon="Download" Label="下线" Command="{StaticResource DropUser}" CommandParameter="{x:Bind Address}"/>
-            </Grid>
-        </DataTemplate>-->
-        <!--<Flyout x:Name="HelpFlyout">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="48"/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}">Net</TextBlock>
-                <TextBlock Grid.Row="0" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">传统的校园网连接方式</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}">Auth4</TextBlock>
-                <TextBlock Grid.Row="1" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv4连接方式</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="0" Style="{ThemeResource BaseTextBlockStyle}">Auth6</TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{ThemeResource BodyTextBlockStyle}">改造后的校园网IPv6连接方式</TextBlock>
-            </Grid>
-        </Flyout>-->
         <Storyboard x:Name="ShowResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="1.0" Duration="0:0:0.5" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </Storyboard>
@@ -61,8 +26,6 @@
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </Storyboard>
-        <!--<converters:FluxStringConverter x:Key="FluxStringConverter"/>
-        <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>-->
         <converters:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
     </Page.Resources>
     <mtuuc:UniformGrid x:Name="MainGrid" Grid.Row="0">
@@ -138,116 +101,9 @@
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="流量明细" Click="ShowDetail"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置" Click="ShowSettings"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Help" Label="关于" Click="ShowAbout"/>
             </mtuuc:UniformGrid>
         </mtuuc:UniformGrid>
     </mtuuc:UniformGrid>
-    <!--<SplitView x:Name="Split" PanePlacement="Right" DisplayMode="Overlay" OpenPaneLength="300">
-        <SplitView.Content>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition Height="40"/>
-                </Grid.RowDefinitions>
-                <Frame x:Name="MainFrame" Grid.Row="0" Background="Transparent" Content="{x:Bind Model.UserContent,Mode=OneWay}"/>
-                <ScrollViewer x:Name="ResponseViewer" Grid.Row="0" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="48" Opacity="0">
-                    <TextBlock Margin="8" VerticalAlignment="Bottom" HorizontalTextAlignment="Right" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
-                </ScrollViewer>
-                <CommandBar x:Name="MainBar" Grid.Row="1" Background="Transparent" DefaultLabelPosition="Right" OverflowButtonVisibility="Collapsed">
-                    <AppBarButton Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
-                    <AppBarButton Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
-                    <AppBarButton Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-                    <AppBarSeparator/>
-                    <AppBarButton Icon="List" Label="流量明细" Click="ShowDetail"/>
-                    <AppBarButton Icon="OtherUser" Label="自服务" Click="ShowUsereg"/>
-                    <AppBarSeparator/>
-                    <AppBarButton Icon="Setting" Label="设置" Click="OpenSettings"/>
-                    <AppBarButton Icon="Help" Label="关于" Click="ShowAbout"/>
-                </CommandBar>
-            </Grid>
-        </SplitView.Content>
-        <SplitView.Pane>
-            <ScrollViewer HorizontalScrollMode="Disabled">
-                <StackPanel Margin="8" Orientation="Vertical">
-                    <TextBlock Margin="8" Style="{ThemeResource TitleTextBlockStyle}">设置</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">当前用户</TextBlock>
-                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Contact" ToolTipService.ToolTip="更改用户" Click="ShowChangeUser"/>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" VerticalAlignment="Center" Text="{x:Bind Model.Credential.Username,Mode=OneWay}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">前台自动登录</TextBlock>
-                        <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.AutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">后台自动登录</TextBlock>
-                        <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.BackgroundAutoLogin,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">后台磁贴刷新</TextBlock>
-                        <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.BackgroundLiveTile,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">流量不足警告</TextBlock>
-                        <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.EnableFluxLimit,Mode=TwoWay}" OnContent="开" OffContent="关"/>
-                    </StackPanel>
-                    <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.EnableFluxLimit,Mode=OneWay}"/>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">网络状态</TextBlock>
-                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind Model.RefreshStatusCommand}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">网络类型</TextBlock>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind nethelper:StringHelper.GetNetStatusString(Model.Status.Status,Model.Status.Ssid),Mode=OneWay}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">建议类型</TextBlock>
-                        <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind nethelper:StringHelper.GetNetStateString(Model.SuggestState),Mode=OneWay}"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">连接类型</TextBlock>
-                        <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Help" ToolTipService.ToolTip="选项帮助" Click="HelpSelection"/>
-                    </StackPanel>
-                    <mtuuc:UniformGrid Margin="8" Columns="2">
-                        <RadioButton x:Name="UnknownStateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
-                        <RadioButton x:Name="NetStateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
-                        <RadioButton x:Name="Auth4StateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
-                        <RadioButton x:Name="Auth6StateButton" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
-                    </mtuuc:UniformGrid>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel.DataContext>
-                            <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
-                        </StackPanel.DataContext>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
-                            <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" Icon="Refresh" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}"/>
-                        </StackPanel>
-                        <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
-                            <ListView.ItemContainerTransitions>
-                                <TransitionCollection>
-                                    <AddDeleteThemeTransition/>
-                                </TransitionCollection>
-                            </ListView.ItemContainerTransitions>
-                        </ListView>
-                    </StackPanel>
-                    <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}">主题设置</TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">颜色</TextBlock>
-                            <RadioButton x:Name="DefaultThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Default">系统</RadioButton>
-                            <RadioButton x:Name="LightThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Light">浅色</RadioButton>
-                            <RadioButton x:Name="DarkThemeButton" Command="{x:Bind Model.ChangeThemeCommand}" CommandParameter="Dark">深色</RadioButton>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">样式</TextBlock>
-                            <RadioButton x:Name="LineTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Line">直线</RadioButton>
-                            <RadioButton x:Name="RingTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Ring">圆圈</RadioButton>
-                            <RadioButton x:Name="WaterTypeButton" Command="{x:Bind Model.ChangeContentTypeCommand}" CommandParameter="Water">水面</RadioButton>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
-        </SplitView.Pane>
-    </SplitView>-->
 </Page>
