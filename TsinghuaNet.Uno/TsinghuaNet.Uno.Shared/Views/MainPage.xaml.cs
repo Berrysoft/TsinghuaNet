@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.UI.Animations;
+using Windows.Foundation;
+using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using TsinghuaNet.Helpers;
 
 #if WINDOWS_UWP
@@ -29,26 +32,56 @@ namespace TsinghuaNet.Uno.Views
         /// </summary>
         internal void SaveSettings() => Model.SaveSettings();
 
-        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+#if WINDOWS_UWP
+        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.5));
         public double FreeOffset
         {
             get => (double)GetValue(FreeOffsetProperty);
             set => SetValue(FreeOffsetProperty, value);
         }
 
-        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.8));
         public double FluxOffset
         {
             get => (double)GetValue(FluxOffsetProperty);
             set => SetValue(FluxOffsetProperty, value);
         }
+#else
+        public static readonly DependencyProperty FluxBrushProperty = DependencyProperty.Register(nameof(FluxBrush), typeof(Brush), typeof(MainPage), new PropertyMetadata(new SolidColorBrush(AccentColor)));
+        public Brush FluxBrush
+        {
+            get => (Brush)GetValue(FluxBrushProperty);
+            set => SetValue(FluxBrushProperty, value);
+        }
+
+        private static readonly Color AccentColor = Color.FromArgb(0xFF, 0x00, 0x78, 0xD7);
+        private static readonly Color AccentColorDark1 = Color.FromArgb(0xFF, 0x00, 0x5A, 0x9E);
+        private static readonly Color AccentColorDark2 = Color.FromArgb(0xFF, 0x00, 0x42, 0x75);
+#endif
 
         internal void BeginFluxAnimation()
         {
             var maxf = FluxHelper.GetMaxFlux(Model.OnlineUser.Flux, Model.OnlineUser.Balance);
+#if WINDOWS_UWP
             FluxAnimation.To = Model.OnlineUser.Flux / maxf;
             FreeAnimation.To = FluxHelper.BaseFlux / maxf;
             FluxStoryboard.Begin();
+#else
+            var fluxOffset = Model.OnlineUser.Flux / maxf;
+            var freeOffset = FluxHelper.BaseFlux / maxf;
+            FluxBrush = new LinearGradientBrush()
+            {
+                StartPoint = new Point(0, 0.5),
+                EndPoint = new Point(1, 0.5),
+                GradientStops = new GradientStopCollection()
+                {
+                    new GradientStop() { Offset = fluxOffset, Color = AccentColor },
+                    new GradientStop() { Offset = fluxOffset, Color = AccentColorDark1 },
+                    new GradientStop() { Offset = Math.Max(freeOffset, fluxOffset), Color = AccentColorDark1 },
+                    new GradientStop() { Offset = Math.Max(freeOffset, fluxOffset), Color = AccentColorDark2 }
+                }
+            };
+#endif
         }
 
         /// <summary>
@@ -121,43 +154,6 @@ namespace TsinghuaNet.Uno.Views
                 await Model.RefreshAsync();
         }
 
-        //private void OpenSettings(object sender, RoutedEventArgs e) => Split.IsPaneOpen = true;
-
-
-        //private async Task<ContentDialogResult> ShowDialogAsync<T>(T dialog) where T : ContentDialog
-        //{
-        //    dialog.RequestedTheme = Model.Theme;
-        //    return await dialog.ShowAsync();
-        //}
-
-        //private Task<ContentDialogResult> ShowDialogAsync<T>() where T : ContentDialog, new() => ShowDialogAsync(new T());
-
-        ///// <summary>
-        ///// 打开“更改用户”对话框
-        ///// </summary>
-        //private async void ShowChangeUser(object sender, RoutedEventArgs e)
-        //{
-        //    ChangeUserDialog dialog = new ChangeUserDialog(Model.Credential.Username);
-        //    // 显示对话框
-        //    var result = await ShowDialogAsync(dialog);
-        //    // 确定
-        //    if (result == ContentDialogResult.Primary)
-        //    {
-        //        string un = dialog.UnBox.Text;
-        //        string pw = dialog.PwBox.Password;
-        //        // 不管是否保存，都需要先删除
-        //        CredentialHelper.RemoveCredential(un);
-        //        if (dialog.SaveBox.IsChecked.Value)
-        //            CredentialHelper.SaveCredential(un, pw);
-        //        // 同步
-        //        Model.Credential.Username = un;
-        //        Model.Credential.Password = pw;
-        //        // 关闭设置栏并登录
-        //        Split.IsPaneOpen = false;
-        //        await Model.LoginAsync();
-        //    }
-        //}
-
         internal bool ToastLogined { get; set; }
 
         private void Model_ReceivedResponse(object sender, LogResponse res) => ShowResponse(res);
@@ -176,8 +172,6 @@ namespace TsinghuaNet.Uno.Views
                 HideResponseStoryboard.Begin();
             }
         }
-
-        //private void HelpSelection(object sender, RoutedEventArgs e) => HelpFlyout.ShowAt((FrameworkElement)e.OriginalSource);
 
         private void ShowDetail(object sender, RoutedEventArgs e) => NavigateToType<DetailPage>();
 

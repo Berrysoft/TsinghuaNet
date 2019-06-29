@@ -10,7 +10,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="800"
+    xmlns:xamarin="http://uno.ui/xamarin"
+    mc:Ignorable="d xamarin" d:DesignWidth="600" d:DesignHeight="800"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" NavigationCacheMode="Enabled" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
@@ -22,10 +23,10 @@
         <Storyboard x:Name="HideResponseStoryboard">
             <DoubleAnimation Storyboard.TargetName="ResponseViewer" Storyboard.TargetProperty="Opacity" EnableDependentAnimation="True" To="0.0" Duration="0:0:0.5" EasingFunction="{StaticResource HideAnimationEase}"/>
         </Storyboard>
-        <Storyboard x:Name="FluxStoryboard">
+        <win:Storyboard x:Name="FluxStoryboard">
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
-        </Storyboard>
+        </win:Storyboard>
         <converters:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
     </Page.Resources>
     <mtuuc:UniformGrid x:Name="MainGrid" Grid.Row="0">
@@ -45,13 +46,14 @@
         </VisualStateManager.VisualStateGroups>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"/>
+                <win:RowDefinition Height="1.5*"/>
+                <xamarin:RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Viewbox Margin="8">
+                <win:Viewbox Margin="8">
                     <Grid>
-                        <TextBlock x:Name="WaterIcon" Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
+                        <TextBlock Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
                             <TextBlock.Foreground>
                                 <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
                                     <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
@@ -61,9 +63,10 @@
                                 </LinearGradientBrush>
                             </TextBlock.Foreground>
                         </TextBlock>
-                        <win:ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind Model.IsBusy,Mode=OneWay}"/>
+                        <ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{x:Bind Model.IsBusy,Mode=OneWay}"/>
                     </Grid>
-                </Viewbox>
+                </win:Viewbox>
+                <xamarin:Border Margin="8" Height="28" CornerRadius="14" BorderThickness="0" Background="{x:Bind FluxBrush,Mode=OneWay}"/>
                 <ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="32" Opacity="0">
                     <TextBlock VerticalAlignment="Bottom" HorizontalTextAlignment="Center" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
                 </ScrollViewer>
