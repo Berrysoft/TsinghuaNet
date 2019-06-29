@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TsinghuaNet.CLI</RootNamespace>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <FileVersion>1.1.0.0</FileVersion>
@@ -14,7 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <RdXmlFile Include="My Project\Default.rd.xml" />
+    <RdXmlFile Include="Properties\Default.rd.xml" />
   </ItemGroup>
 
   <PropertyGroup>
