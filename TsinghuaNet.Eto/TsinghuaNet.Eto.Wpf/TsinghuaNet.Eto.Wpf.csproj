@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TsinghuaNet.Eto.Wpf</RootNamespace>
     <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
-    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
-    <UseWpf>true</UseWpf>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
