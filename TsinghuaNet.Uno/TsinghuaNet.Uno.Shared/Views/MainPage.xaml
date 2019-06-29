@@ -100,7 +100,7 @@
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Upload" Label="登录" Command="{x:Bind Model.LoginCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Download" Label="注销" Command="{x:Bind Model.LogoutCommand}"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Refresh" Label="刷新" Command="{x:Bind Model.RefreshCommand}"/>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="流量明细" Click="ShowDetail"/>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="List" Label="明细" Click="ShowDetail"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Setting" Label="设置" Click="ShowSettings"/>
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Icon="Help" Label="关于" Click="ShowAbout"/>
             </mtuuc:UniformGrid>

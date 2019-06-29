@@ -18,11 +18,14 @@
             <RowDefinition Height="48"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Left" Style="{StaticResource NavigationBackButtonNormalStyle}">
-            <Button.Command>
-                <vms:NavigateBackCommand/>
-            </Button.Command>
-        </Button>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Style="{StaticResource NavigationBackButtonNormalStyle}">
+                <Button.Command>
+                    <vms:NavigateBackCommand/>
+                </Button.Command>
+            </Button>
+            <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">明细</TextBlock>
+        </StackPanel>
         <mtuuc:DataGrid x:Name="DetailsView" Grid.Row="1" Margin="8" ItemsSource="{x:Bind Model.DetailsSource,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
             <mtuuc:DataGrid.Columns>
                 <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>

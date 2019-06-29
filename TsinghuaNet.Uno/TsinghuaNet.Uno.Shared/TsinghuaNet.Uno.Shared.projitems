@@ -31,7 +31,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -40,10 +39,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="$(MSBuildThisFileDirectory)Views\ChangeUserDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,7 +5,6 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using TsinghuaNet.Helpers;
-using Windows.UI.Xaml.Navigation;
 
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;

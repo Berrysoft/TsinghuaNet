@@ -7,6 +7,7 @@ using System.Windows.Input;
 using TsinghuaNet.Helpers;
 using Windows.UI.Xaml.Controls;
 using TsinghuaNet.Uno.Views;
+using System.Text;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
@@ -31,6 +32,7 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public override void LoadSettings()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Settings = new NetSettings();
             // 上一次登录的用户名
             var un = SettingsHelper.StoredUsername;
