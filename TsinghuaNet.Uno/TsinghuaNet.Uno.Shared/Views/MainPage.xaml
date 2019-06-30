@@ -35,11 +35,13 @@
                 <VisualState x:Name="VerticalState">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="1"/>
+                        <Setter Target="MainGrid.VerticalAlignment" Value="Top"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="HorizonalState">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="2"/>
+                        <Setter Target="MainGrid.VerticalAlignment" Value="Stretch"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -48,6 +50,7 @@
             <Grid.RowDefinitions>
                 <win:RowDefinition Height="1.5*"/>
                 <xamarin:RowDefinition/>
+                <RowDefinition Height="48"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
@@ -67,11 +70,11 @@
                     </Grid>
                 </win:Viewbox>
                 <xamarin:Border Margin="8" Height="28" CornerRadius="14" BorderThickness="0" Background="{x:Bind FluxBrush,Mode=OneWay}"/>
-                <ScrollViewer x:Name="ResponseViewer" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="32" Opacity="0">
-                    <TextBlock VerticalAlignment="Bottom" HorizontalTextAlignment="Center" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
-                </ScrollViewer>
             </Grid>
-            <Viewbox Grid.Row="1" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ScrollViewer x:Name="ResponseViewer" Grid.Row="1" Margin="8" VerticalScrollMode="Disabled" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="32" Opacity="0">
+                <TextBlock VerticalAlignment="Bottom" HorizontalTextAlignment="Center" TextWrapping="NoWrap" Style="{ThemeResource BodyTextBlockStyle}" IsTextSelectionEnabled="True" Text="{x:Bind Model.Response,Mode=OneWay}"/>
+            </ScrollViewer>
+            <Viewbox Grid.Row="2" Margin="8" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <mtuuc:UniformGrid ColumnSpacing="4" RowSpacing="4">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}">用户：</TextBlock>

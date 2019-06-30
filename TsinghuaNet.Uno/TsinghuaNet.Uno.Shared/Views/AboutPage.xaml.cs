@@ -21,16 +21,11 @@ namespace TsinghuaNet.Uno.Views
                 new PackageBox("HtmlAgilityPack", "MIT许可证"),
 #if WINDOWS_UWP
                 new PackageBox("Microsoft.Toolkit.Uwp", "MIT许可证"),
-                new PackageBox("Microsoft.Toolkit.Uwp.Connectivity", "MIT许可证"),
-                new PackageBox("Microsoft.Toolkit.Uwp.UI.Controls", "MIT许可证"),
-                new PackageBox("Microsoft.Toolkit.Uwp.UI.Controls.DataGrid", "MIT许可证"),
 #endif
                 new PackageBox("Newtonsoft.Json", "MIT许可证"),
                 new PackageBox("Refractored.MvvmHelpers", "MIT许可证"),
 #if __ANDROID__ || __IOS__
                 new PackageBox("Uno.Microsoft.Toolkit.Uwp", "MIT许可证"),
-                new PackageBox("Uno.Microsoft.Toolkit.Uwp.UI.Controls", "MIT许可证"),
-                new PackageBox("Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid", "MIT许可证"),
                 new PackageBox("Uno.UI","Apache 2.0 许可证"),
 #endif
 #if __ANDROID__
