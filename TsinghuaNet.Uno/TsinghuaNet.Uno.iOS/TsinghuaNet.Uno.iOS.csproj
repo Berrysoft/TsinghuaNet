@@ -121,16 +121,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.SourceGenerationTasks">
+      <Version>1.32.0-dev.288</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI" Version="1.46.0-dev.2031" />
     <PackageReference Include="Refractored.MvvmHelpers">

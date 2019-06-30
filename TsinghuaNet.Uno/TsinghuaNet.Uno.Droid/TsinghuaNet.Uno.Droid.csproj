@@ -19,7 +19,6 @@
     <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <AndroidUseIntermediateDesignerFile>True</AndroidUseIntermediateDesignerFile>
-    <ResourcesDirectory>..\TsinghuaNet.Uno.Shared\Strings</ResourcesDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,16 +61,19 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Animations">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Toolkit.Uwp.UI.Controls.DataGrid">
-      <Version>5.1.0-build.198.g6c0bc8a801</Version>
+      <Version>5.1.0-build.200.g677277b453</Version>
+    </PackageReference>
+    <PackageReference Include="Uno.SourceGenerationTasks">
+      <Version>1.32.0-dev.288</Version>
     </PackageReference>
     <PackageReference Include="Uno.UI" Version="1.46.0-dev.2031" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
