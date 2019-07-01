@@ -6,11 +6,13 @@ namespace TsinghuaNet.Eto
 {
     public class App : Application
     {
-        public App() : base() { }
-
-        public App(string platformType) : base(platformType) { }
-
-        public App(Platform platform) : base(platform) { }
+        public App(string platformType) : base(platformType)
+        {
+            LocalizeString += App_LocalizeString;
+#if DEBUG
+            UnhandledException += App_UnhandledException;
+#endif
+        }
 
         public override void Run()
         {

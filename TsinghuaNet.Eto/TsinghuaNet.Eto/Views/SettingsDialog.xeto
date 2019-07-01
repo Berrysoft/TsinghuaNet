@@ -30,7 +30,7 @@
             </StackLayout>
           </TableRow>
           <TableRow>
-            <GridView x:Name="PackageView">
+            <GridView DataStore="{Binding Packages}">
               <GridView.Columns>
                 <GridColumn HeaderText="包名称">
                   <GridColumn.DataCell>
