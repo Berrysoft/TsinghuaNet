@@ -10,38 +10,38 @@
 **注意：** 登录与注销方式必须对应。
 ``` bash
 # 使用默认（自动判断）方式登录
-TsinghuaNet.CLI login
+./TsinghuaNet.CLI login
 # 使用默认（自动判断）方式注销
-TsinghuaNet.CLI logout
+./TsinghuaNet.CLI logout
 # 使用auth4方式登录
-TsinghuaNet.CLI login -s auth4
+./TsinghuaNet.CLI login -s auth4
 # 使用auth4方式注销
-TsinghuaNet.CLI logout -s auth4
+./TsinghuaNet.CLI logout -s auth4
 ```
 ### 在线状态
 ``` bash
 # 使用默认（自动判断）方式
-TsinghuaNet.CLI status
+./TsinghuaNet.CLI status
 # 使用auth4方式
-TsinghuaNet.CLI status -s auth4
+./TsinghuaNet.CLI status -s auth4
 ```
 ### 查询/强制下线在线IP
 ``` bash
 # 查询
-TsinghuaNet.CLI online
+./TsinghuaNet.CLI online
 # 强制下线
-TsinghuaNet.CLI drop -a IP地址
+./TsinghuaNet.CLI drop -a IP地址
 ```
 ### 流量明细
 ``` bash
 # 使用默认排序（注销时间，升序）查询明细
-TsinghuaNet.CLI detail
+./TsinghuaNet.CLI detail
 # 使用登录时间（升序）查询明细
-TsinghuaNet.CLI detail -o login
+./TsinghuaNet.CLI detail -o login
 # 使用流量降序查询明细
-TsinghuaNet.CLI detail -o flux -d
+./TsinghuaNet.CLI detail -o flux -d
 # 使用流量降序查询明细，并按注销日期组合
-TsinghuaNet.CLI detail -o flux -dg
+./TsinghuaNet.CLI detail -o flux -dg
 ```
 
 ## TsinghuaNet.Eto
