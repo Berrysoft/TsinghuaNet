@@ -68,7 +68,7 @@ namespace TsinghuaNet.Uno.ViewModels
             mainTimer?.Start();
             // 更新磁贴
             NotificationHelper.UpdateTile(OnlineUser);
-            if (Settings.EnableFluxLimit)
+            if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
             // 设置内容
             OnlineTime = OnlineUser.OnlineTime;

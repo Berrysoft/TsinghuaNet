@@ -36,12 +36,16 @@
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="1"/>
                         <Setter Target="MainGrid.VerticalAlignment" Value="Top"/>
+                        <Setter Target="StateGrid.Rows" Value="1"/>
+                        <Setter Target="CommandGrid.Rows" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="HorizonalState">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="2"/>
                         <Setter Target="MainGrid.VerticalAlignment" Value="Stretch"/>
+                        <Setter Target="StateGrid.Rows" Value="2"/>
+                        <Setter Target="CommandGrid.Rows" Value="2"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -96,13 +100,13 @@
             </Viewbox>
         </Grid>
         <mtuuc:UniformGrid Columns="1">
-            <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
+            <mtuuc:UniformGrid x:Name="StateGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
                 <RadioButton x:Name="UnknownStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
                 <RadioButton x:Name="NetStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
                 <RadioButton x:Name="Auth4StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
                 <RadioButton x:Name="Auth6StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{x:Bind Model.ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
             </mtuuc:UniformGrid>
-            <mtuuc:UniformGrid Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
+            <mtuuc:UniformGrid x:Name="CommandGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
                 <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="登录" Command="{x:Bind Model.LoginCommand}">
                     <AppBarButton.Icon>
                         <win:SymbolIcon Symbol="Upload"/>

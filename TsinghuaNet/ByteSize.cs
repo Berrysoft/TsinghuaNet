@@ -7,7 +7,6 @@ namespace TsinghuaNet
         private const long KILA = 1000;
         private const long MEGA = 1000_000;
         private const long GIGA = 1000_000_000;
-        private const long TERA = 1000_000_000_000;
 
         public long Bytes { get; set; }
 
@@ -70,11 +69,11 @@ namespace TsinghuaNet
             if (b < KILA)
                 return $"{Bytes.ToString(format, formatProvider)} B";
             else if (b < MEGA)
-                return $"{KilaBytes.ToString(format, formatProvider)} KB";
+                return $"{KilaBytes.ToString(format, formatProvider)} K";
             else if (b < GIGA)
-                return $"{MegaBytes.ToString(format, formatProvider)} MB";
+                return $"{MegaBytes.ToString(format, formatProvider)} M";
             else
-                return $"{GigaBytes.ToString(format, formatProvider)} GB";
+                return $"{GigaBytes.ToString(format, formatProvider)} G";
         }
 
         public static bool TryParse(string str, out ByteSize s)

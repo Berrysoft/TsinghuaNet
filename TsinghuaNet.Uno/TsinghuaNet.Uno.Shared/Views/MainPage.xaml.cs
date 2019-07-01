@@ -33,14 +33,14 @@ namespace TsinghuaNet.Uno.Views
         internal void SaveSettings() => Model.SaveSettings();
 
 #if WINDOWS_UWP
-        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.5));
+        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
         public double FreeOffset
         {
             get => (double)GetValue(FreeOffsetProperty);
             set => SetValue(FreeOffsetProperty, value);
         }
 
-        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.8));
+        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
         public double FluxOffset
         {
             get => (double)GetValue(FluxOffsetProperty);
