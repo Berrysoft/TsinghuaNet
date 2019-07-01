@@ -65,9 +65,11 @@ namespace TsinghuaNet.Uno.ViewModels
         {
             var res = await base.RefreshAsync(helper);
             // 先启动计时器
-            mainTimer?.Start();
+            mainTimer.Stop();
             // 更新磁贴
             NotificationHelper.UpdateTile(OnlineUser);
+            if (!string.IsNullOrEmpty(OnlineUser.Username))
+                mainTimer.Start();
             if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
             // 设置内容
@@ -82,26 +84,9 @@ namespace TsinghuaNet.Uno.ViewModels
             return res;
         }
 
-        private TimeSpan onlineTime;
-        public TimeSpan OnlineTime
-        {
-            get => onlineTime;
-            set => SetProperty(ref onlineTime, value);
-        }
-
         private void MainTimerTick(object sender, object e)
         {
-            if (OnlineUser.Username == null || string.IsNullOrEmpty(OnlineUser.Username))
-                mainTimer.Stop();
-            else
-                OnlineTime += TimeSpan.FromSeconds(1);
-        }
-
-        private string response;
-        public string Response
-        {
-            get => response;
-            set => SetProperty(ref response, value);
+            OnlineTime += TimeSpan.FromSeconds(1);
         }
     }
 }

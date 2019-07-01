@@ -9,12 +9,7 @@ namespace TsinghuaNet.Uno.ViewModels
 
         private List<NetDetail> details;
 
-        private IEnumerable<NetDetail> detailsSource;
-        public IEnumerable<NetDetail> DetailsSource
-        {
-            get => detailsSource;
-            set => SetProperty(ref detailsSource, value);
-        }
+        public IEnumerable<NetDetail> DetailsSource { get; set; }
 
         protected override IEnumerable<NetDetail> InitialDetails
         {

@@ -91,7 +91,6 @@ namespace TsinghuaNet.Uno.Views
         {
             // 刷新状态
             await Model.RefreshStatusAsync();
-            Model.Credential.State = Model.SuggestState;
             switch (Model.Credential.State)
             {
                 case NetState.Unknown:
@@ -147,7 +146,6 @@ namespace TsinghuaNet.Uno.Views
         private async Task NetworkChangedImpl()
         {
             await Model.RefreshStatusAsync();
-            Model.Credential.State = Model.SuggestState;
             if (!string.IsNullOrEmpty(Model.Credential.Password))
                 await Model.LoginAsync();
             else

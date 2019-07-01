@@ -8,11 +8,6 @@ namespace TsinghuaNet.Uno.ViewModels
     {
         public PackageVersion Version { get; } = Package.Current.Id.Version;
 
-        private IEnumerable<PackageBox> packages;
-        public IEnumerable<PackageBox> Packages
-        {
-            get => packages;
-            set => SetProperty(ref packages, value);
-        }
+        public IEnumerable<PackageBox> Packages { get; set; }
     }
 }

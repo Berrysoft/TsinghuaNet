@@ -16,8 +16,10 @@ namespace TsinghuaNet.Eto.ViewModels
         {
             new PackageBox("Eto.Forms", "BSD-3许可证"),
             new PackageBox("Eto.Serialization.Xaml", "BSD-3许可证"),
+            new PackageBox("Fody", "MIT许可证"),
             new PackageBox("HtmlAgilityPack", "MIT许可证"),
             new PackageBox("Newtonsoft.Json", "MIT许可证"),
+            new PackageBox("PropertyChanged.Fody", "MIT许可证"),
             new PackageBox("Refractored.MvvmHelpers", "MIT许可证")
         };
 

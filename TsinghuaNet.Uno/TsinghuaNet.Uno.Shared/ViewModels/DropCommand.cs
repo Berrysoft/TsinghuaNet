@@ -9,14 +9,8 @@ namespace TsinghuaNet.Uno.ViewModels
         public event EventHandler CanExecuteChanged;
         public event EventHandler<IPAddress> DropUser;
 
-        public void Execute(object parameter)
-        {
-            DropUser?.Invoke(this, (IPAddress)parameter);
-        }
+        public void Execute(object parameter) => DropUser?.Invoke(this, (IPAddress)parameter);
 
-        public bool CanExecute(object parameter)
-        {
-            return parameter != null;
-        }
+        public bool CanExecute(object parameter) => parameter != null;
     }
 }

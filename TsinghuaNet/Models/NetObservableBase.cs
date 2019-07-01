@@ -1,27 +1,22 @@
-﻿using MvvmHelpers;
+﻿using System.ComponentModel;
 
 namespace TsinghuaNet.Models
 {
-    public class NetObservableBase : ObservableObject
+    public class NetObservableBase : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private static readonly NetCredential credential = new NetCredential();
         public NetCredential Credential => credential;
 
         private static NetSettings settings;
+
         public NetSettings Settings
         {
             get => settings;
             protected set => settings = value;
         }
 
-        private bool isBusy;
-        public bool IsBusy
-        {
-            get => isBusy;
-            set => SetProperty(ref isBusy, value, onChanged: OnIsBusyChanged);
-        }
-        protected virtual void OnIsBusyChanged()
-        {
-        }
+        public bool IsBusy { get; set; }
     }
 }

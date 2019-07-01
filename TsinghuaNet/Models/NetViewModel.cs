@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
@@ -28,22 +27,7 @@ namespace TsinghuaNet.Models
                 Refresh();
         }
 
-        private INetStatus status;
-        public INetStatus Status
-        {
-            get => status;
-            set => SetProperty(ref status, value, onChanged: RefreshStatus);
-        }
-
-        private NetState suggestState;
-        public NetState SuggestState
-        {
-            get => suggestState;
-            set => SetProperty(ref suggestState, value, onChanged: OnSuggestStateChanged);
-        }
-        protected virtual void OnSuggestStateChanged()
-        {
-        }
+        public INetStatus Status { get; set; }
 
         public ICommand RefreshStatusCommand { get; }
         public async void RefreshStatus() => await RefreshStatusAsync();
@@ -53,7 +37,7 @@ namespace TsinghuaNet.Models
             {
                 IsBusy = true;
                 await Status.RefreshAsync();
-                SuggestState = await Status.SuggestAsync();
+                Credential.State = await Status.SuggestAsync();
             }
             finally
             {
@@ -61,12 +45,11 @@ namespace TsinghuaNet.Models
             }
         }
 
-        private FluxUser onlineUser;
-        public FluxUser OnlineUser
-        {
-            get => onlineUser;
-            set => SetProperty(ref onlineUser, value);
-        }
+        public FluxUser OnlineUser { get; set; }
+
+        public TimeSpan OnlineTime { get; set; }
+
+        public string Response { get; set; }
 
         public event EventHandler<LogResponse> ReceivedResponse;
 

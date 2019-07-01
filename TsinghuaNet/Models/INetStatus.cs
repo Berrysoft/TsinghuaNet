@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using MvvmHelpers;
+using PropertyChanged;
 using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
@@ -24,19 +24,15 @@ namespace TsinghuaNet.Models
         Task<NetState> SuggestAsync();
     }
 
-    public class NetPingStatus : ObservableObject, INetStatus
+    public class NetPingStatus : INetStatus
     {
-        public NetStatus Status
-        {
-            get => NetStatus.Unknown;
-            set { }
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        public string Ssid
-        {
-            get => null;
-            set { }
-        }
+        [DoNotNotify]
+        public NetStatus Status { get; set; }
+
+        [DoNotNotify]
+        public string Ssid { get; set; }
 
         private static async Task<bool> CanConnectTo(string uri)
         {
@@ -71,21 +67,13 @@ namespace TsinghuaNet.Models
         public Task<NetState> SuggestAsync() => GetSuggestion();
     }
 
-    public abstract class NetMapStatus : ObservableObject, INetStatus
+    public abstract class NetMapStatus : INetStatus
     {
-        private NetStatus status;
-        public NetStatus Status
-        {
-            get => status;
-            set => SetProperty(ref status, value);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private string ssid;
-        public string Ssid
-        {
-            get => ssid;
-            set => SetProperty(ref ssid, value);
-        }
+        public NetStatus Status { get; set; }
+
+        public string Ssid { get; set; }
 
         public abstract Task RefreshAsync();
 

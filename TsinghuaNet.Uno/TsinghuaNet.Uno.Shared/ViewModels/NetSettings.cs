@@ -10,12 +10,7 @@ namespace TsinghuaNet.Uno.ViewModels
     public class NetSettings : TsinghuaNet.Models.NetSettings
     {
 #if WINDOWS_UWP
-        private bool backgroundAutoLogin;
-        public bool BackgroundAutoLogin
-        {
-            get => backgroundAutoLogin;
-            set => SetProperty(ref backgroundAutoLogin, value, onChanged: OnBackgroundAutoLoginChanged);
-        }
+        public bool BackgroundAutoLogin { get; set; }
         private async void OnBackgroundAutoLoginChanged()
         {
             SettingsHelper.BackgroundAutoLogin = BackgroundAutoLogin;
@@ -23,12 +18,7 @@ namespace TsinghuaNet.Uno.ViewModels
                 BackgroundHelper.RegisterLogin(BackgroundAutoLogin);
         }
 
-        private bool backgroundLiveTile;
-        public bool BackgroundLiveTile
-        {
-            get => backgroundLiveTile;
-            set => SetProperty(ref backgroundLiveTile, value, onChanged: OnBackgroundLiveTileChanged);
-        }
+        public bool BackgroundLiveTile { get; set; }
 
         private async void OnBackgroundLiveTileChanged()
         {

@@ -1,28 +1,15 @@
-﻿using MvvmHelpers;
+﻿using System.ComponentModel;
 
 namespace TsinghuaNet.Models
 {
-    public class NetSettings : ObservableObject
+    public class NetSettings : INotifyPropertyChanged
     {
-        private bool autoLogin;
-        public bool AutoLogin
-        {
-            get => autoLogin;
-            set => SetProperty(ref autoLogin, value);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool enableFluxLimit;
-        public bool EnableFluxLimit
-        {
-            get => enableFluxLimit;
-            set => SetProperty(ref enableFluxLimit, value);
-        }
+        public bool AutoLogin { get; set; }
 
-        private ByteSize fluxLimit;
-        public ByteSize FluxLimit
-        {
-            get => fluxLimit;
-            set => SetProperty(ref fluxLimit, value);
-        }
+        public bool EnableFluxLimit { get; set; }
+
+        public ByteSize FluxLimit { get; set; }
     }
 }

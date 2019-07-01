@@ -74,25 +74,6 @@ namespace TsinghuaNet.Eto.ViewModels
             }
         }
 
-        protected override void OnSuggestStateChanged()
-        {
-            base.OnSuggestStateChanged();
-            Credential.State = SuggestState;
-        }
-
-        private TimeSpan onlineTime;
-        public TimeSpan OnlineTime
-        {
-            get
-            {
-                return onlineTime;
-            }
-            set
-            {
-                SetProperty(ref onlineTime, value);
-            }
-        }
-
         private UITimer timer;
         private void OnlineTimerTick(object sender, EventArgs e)
         {
@@ -109,13 +90,6 @@ namespace TsinghuaNet.Eto.ViewModels
             if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
             return res;
-        }
-
-        private string response;
-        public string Response
-        {
-            get => response;
-            set => SetProperty(ref response, value);
         }
 
         private void Model_ReceivedResponse(object sender, LogResponse res) => Response = res.Message;

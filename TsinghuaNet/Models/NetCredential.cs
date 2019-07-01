@@ -1,31 +1,18 @@
-﻿using System.Net.Http;
-using MvvmHelpers;
+﻿using System.ComponentModel;
+using System.Net.Http;
 using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
-    public class NetCredential : ObservableObject
+    public class NetCredential : INotifyPropertyChanged
     {
-        private NetState state;
-        public NetState State
-        {
-            get => state;
-            set => SetProperty(ref state, value);
-        }
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        private string username;
-        public string Username
-        {
-            get => username;
-            set => SetProperty(ref username, value);
-        }
+        public NetState State { get; set; }
 
-        private string password;
-        public string Password
-        {
-            get => password;
-            set => SetProperty(ref password, value);
-        }
+        public string Username { get; set; }
+
+        public string Password { get; set; }
 
         private static readonly HttpClient Client = new HttpClient();
 

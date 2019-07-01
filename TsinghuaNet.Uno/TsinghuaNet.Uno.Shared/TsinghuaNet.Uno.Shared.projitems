@@ -29,7 +29,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetStateSsidBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
@@ -87,5 +86,8 @@
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)FodyWeavers.xml" />
   </ItemGroup>
 </Project>
