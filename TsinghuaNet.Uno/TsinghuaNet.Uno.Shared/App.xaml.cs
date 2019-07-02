@@ -1,11 +1,10 @@
 ﻿using System;
-using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using wux = Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using wux = Windows.UI.Xaml;
 
 namespace TsinghuaNet.Uno
 {
@@ -113,7 +112,6 @@ namespace TsinghuaNet.Uno
                         mainPage.SaveSettings();
                     }
                 }
-                SettingsHelper.SaveSettings();
             }
             finally
             {

@@ -12,6 +12,7 @@ namespace TsinghuaNet.Uno.UWP.Background
             try
             {
                 InternetStatus status = new InternetStatus();
+                NetSettings settings = new NetSettings();
                 await status.RefreshAsync();
                 var helper = ConnectHelper.GetHelper(await status.SuggestAsync());
                 if (helper != null)
@@ -20,8 +21,8 @@ namespace TsinghuaNet.Uno.UWP.Background
                     {
                         FluxUser user = await helper.GetFluxAsync();
                         NotificationHelper.UpdateTile(user);
-                        if (SettingsHelper.EnableFluxLimit)
-                            NotificationHelper.SendWarningToast(user, SettingsHelper.FluxLimit);
+                        if (settings.EnableFluxLimit)
+                            NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                     }
                 }
             }

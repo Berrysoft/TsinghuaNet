@@ -1,13 +1,13 @@
 ﻿using System;
+using System.Text;
 using System.Threading.Tasks;
-using TsinghuaNet.Models;
-using TsinghuaNet.Uno.Helpers;
-using Windows.UI.Xaml;
 using System.Windows.Input;
 using TsinghuaNet.Helpers;
-using Windows.UI.Xaml.Controls;
+using TsinghuaNet.Models;
+using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
-using System.Text;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
@@ -15,9 +15,9 @@ namespace TsinghuaNet.Uno.ViewModels
     {
         private readonly DispatcherTimer mainTimer = new DispatcherTimer();
 
-        public new NetSettings Settings
+        public new TsinghuaNet.Uno.Helpers.NetSettings Settings
         {
-            get => (NetSettings)base.Settings;
+            get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;
             set => base.Settings = value;
         }
 
@@ -33,30 +33,17 @@ namespace TsinghuaNet.Uno.ViewModels
         public override void LoadSettings()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Settings = new NetSettings();
+            Settings = new TsinghuaNet.Uno.Helpers.NetSettings();
             // 上一次登录的用户名
-            var un = SettingsHelper.StoredUsername;
+            var un = Settings.StoredUsername;
             // 设置为当前用户名并获取密码
             Credential.Username = un;
             Credential.Password = CredentialHelper.GetCredential(un);
-            // 自动登录
-            Settings.AutoLogin = SettingsHelper.AutoLogin;
-#if WINDOWS_UWP
-            // 后台任务
-            Settings.BackgroundAutoLogin = SettingsHelper.BackgroundAutoLogin;
-            Settings.BackgroundLiveTile = SettingsHelper.BackgroundLiveTile;
-#endif
-            // 流量限制
-            Settings.EnableFluxLimit = SettingsHelper.EnableFluxLimit;
-            Settings.FluxLimit = SettingsHelper.FluxLimit;
         }
 
         public override void SaveSettings()
         {
-            SettingsHelper.StoredUsername = Credential.Username;
-            SettingsHelper.AutoLogin = Settings.AutoLogin;
-            SettingsHelper.EnableFluxLimit = Settings.EnableFluxLimit;
-            SettingsHelper.FluxLimit = Settings.FluxLimit;
+            Settings.SaveSettings();
         }
 
         public ICommand ChangeStateCommand { get; }

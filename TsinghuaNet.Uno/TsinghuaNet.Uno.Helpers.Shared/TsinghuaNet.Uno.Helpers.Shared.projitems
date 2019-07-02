@@ -11,7 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)CredentialHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)InternetStatus.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NetSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NotificationHelper.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)SettingsHelper.cs" />
   </ItemGroup>
 </Project>

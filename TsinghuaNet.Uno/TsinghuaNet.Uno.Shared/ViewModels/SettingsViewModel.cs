@@ -4,9 +4,9 @@ namespace TsinghuaNet.Uno.ViewModels
 {
     class SettingsViewModel : NetObservableBase
     {
-        public new NetSettings Settings
+        public new TsinghuaNet.Uno.Helpers.NetSettings Settings
         {
-            get => (NetSettings)base.Settings;
+            get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;
             set => base.Settings = value;
         }
     }

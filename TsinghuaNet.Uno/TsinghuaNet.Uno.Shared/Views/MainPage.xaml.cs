@@ -4,14 +4,13 @@ using Microsoft.Toolkit.Uwp.UI.Animations;
 using Windows.Foundation;
 using Windows.UI;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using TsinghuaNet.Helpers;
+using wux = Windows.UI.Xaml;
 
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;
-using TsinghuaNet.Uno.UWP.Background;
 #endif
 
 namespace TsinghuaNet.Uno.Views
@@ -33,21 +32,21 @@ namespace TsinghuaNet.Uno.Views
         internal void SaveSettings() => Model.SaveSettings();
 
 #if WINDOWS_UWP
-        public static readonly DependencyProperty FreeOffsetProperty = DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+        public static readonly wux.DependencyProperty FreeOffsetProperty = wux.DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new wux.PropertyMetadata(0.0));
         public double FreeOffset
         {
             get => (double)GetValue(FreeOffsetProperty);
             set => SetValue(FreeOffsetProperty, value);
         }
 
-        public static readonly DependencyProperty FluxOffsetProperty = DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new PropertyMetadata(0.0));
+        public static readonly wux.DependencyProperty FluxOffsetProperty = wux.DependencyProperty.Register(nameof(FluxOffset), typeof(double), typeof(MainPage), new wux.PropertyMetadata(0.0));
         public double FluxOffset
         {
             get => (double)GetValue(FluxOffsetProperty);
             set => SetValue(FluxOffsetProperty, value);
         }
 #else
-        public static readonly DependencyProperty FluxBrushProperty = DependencyProperty.Register(nameof(FluxBrush), typeof(Brush), typeof(MainPage), new PropertyMetadata(new SolidColorBrush(AccentColor)));
+        public static readonly wux.DependencyProperty FluxBrushProperty = wux.DependencyProperty.Register(nameof(FluxBrush), typeof(Brush), typeof(MainPage), new wux.PropertyMetadata(new SolidColorBrush(AccentColor)));
         public Brush FluxBrush
         {
             get => (Brush)GetValue(FluxBrushProperty);
@@ -87,7 +86,7 @@ namespace TsinghuaNet.Uno.Views
         /// <summary>
         /// 页面装载时触发
         /// </summary>
-        private async void PageLoaded(object sender, RoutedEventArgs e)
+        private async void PageLoaded(object sender, wux.RoutedEventArgs e)
         {
             // 刷新状态
             await Model.RefreshStatusAsync();
@@ -106,14 +105,6 @@ namespace TsinghuaNet.Uno.Views
                     Auth6StateButton.IsChecked = true;
                     break;
             }
-#if WINDOWS_UWP
-            // 调整后台任务
-            if (await BackgroundHelper.RequestAccessAsync())
-            {
-                BackgroundHelper.RegisterLogin(Model.Settings.BackgroundAutoLogin);
-                BackgroundHelper.RegisterLiveTile(Model.Settings.BackgroundLiveTile);
-            }
-#endif
             // 自动登录的条件为：
             // 打开了自动登录
             // 不知道后台任务成功登录
@@ -124,10 +115,10 @@ namespace TsinghuaNet.Uno.Views
                 await Model.RefreshAsync();
         }
 
-        private void PageSizeChanged(object sender, SizeChangedEventArgs e)
+        private void PageSizeChanged(object sender, wux.SizeChangedEventArgs e)
         {
-            string state = (Windows.UI.Xaml.Window.Current.Bounds.Width > Windows.UI.Xaml.Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
-            VisualStateManager.GoToState(this, state, true);
+            string state = (wux.Window.Current.Bounds.Width > wux.Window.Current.Bounds.Height) ? "HorizonalState" : "VerticalState";
+            wux.VisualStateManager.GoToState(this, state, true);
         }
 
 #if WINDOWS_UWP
@@ -167,19 +158,23 @@ namespace TsinghuaNet.Uno.Views
             if (response.Succeed)
             {
                 await Task.Delay(3000);
+#if WINDOWS_UWP
+                await HideResponseStoryboard.BeginAsync();
+#else
                 HideResponseStoryboard.Begin();
+#endif
             }
         }
 
-        private void ShowDetail(object sender, RoutedEventArgs e) => NavigateToType<DetailPage>();
+        private void ShowDetail(object sender, wux.RoutedEventArgs e) => NavigateToType<DetailPage>();
 
-        private void ShowAbout(object sender, RoutedEventArgs e) => NavigateToType<AboutPage>();
+        private void ShowAbout(object sender, wux.RoutedEventArgs e) => NavigateToType<AboutPage>();
 
-        private void ShowSettings(object sender, RoutedEventArgs e) => NavigateToType<SettingsPage>();
+        private void ShowSettings(object sender, wux.RoutedEventArgs e) => NavigateToType<SettingsPage>();
 
         private void NavigateToType<T>() where T : Page
         {
-            if (Windows.UI.Xaml.Window.Current.Content is Frame rootFrame)
+            if (wux.Window.Current.Content is Frame rootFrame)
             {
                 rootFrame.Navigate(typeof(T));
             }

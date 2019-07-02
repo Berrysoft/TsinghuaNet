@@ -28,7 +28,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NetSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />

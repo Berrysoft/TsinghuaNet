@@ -1,13 +1,37 @@
-﻿using Windows.Foundation.Collections;
+﻿using System;
+using Windows.Foundation.Collections;
 using Windows.Storage;
+
+#if WINDOWS_UWP
+using TsinghuaNet.Uno.UWP.Background;
+#endif
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    static class SettingsHelper
+    class NetSettings : TsinghuaNet.Models.NetSettings
     {
-        private static IPropertySet values;
+        public string StoredUsername { get; set; }
 
-        private static T GetValue<T>(string key, T def = default)
+#if WINDOWS_UWP
+        public bool BackgroundAutoLogin { get; set; }
+        private async void OnBackgroundAutoLoginChanged()
+        {
+            if (await BackgroundHelper.RequestAccessAsync())
+                BackgroundHelper.RegisterLogin(BackgroundAutoLogin);
+        }
+
+        public bool BackgroundLiveTile { get; set; }
+
+        private async void OnBackgroundLiveTileChanged()
+        {
+            if (await BackgroundHelper.RequestAccessAsync())
+                BackgroundHelper.RegisterLiveTile(BackgroundLiveTile);
+        }
+#endif
+
+        private IPropertySet values;
+
+        private T GetValue<T>(string key, T def = default)
         {
             if (values.ContainsKey(key))
                 return (T)values[key];
@@ -15,7 +39,7 @@ namespace TsinghuaNet.Uno.Helpers
                 return def;
         }
 
-        private static void SetValue<T>(string key, T value)
+        private void SetValue<T>(string key, T value)
         {
             if (values.ContainsKey(key))
                 values[key] = value;
@@ -32,7 +56,7 @@ namespace TsinghuaNet.Uno.Helpers
         private const string EnableFluxLimitKey = "EnableFluxLimit";
         private const string FluxLimitKey = "FluxLimit";
 
-        static SettingsHelper()
+        public NetSettings() : base()
         {
             values = ApplicationData.Current.LocalSettings.Values;
             StoredUsername = GetValue(StoredUsernameKey, string.Empty);
@@ -46,7 +70,7 @@ namespace TsinghuaNet.Uno.Helpers
             FluxLimit = ByteSize.FromGigaBytes(limit);
         }
 
-        public static void SaveSettings()
+        public void SaveSettings()
         {
             SetValue(StoredUsernameKey, StoredUsername);
             SetValue(AutoLoginKey, AutoLogin);
@@ -57,20 +81,5 @@ namespace TsinghuaNet.Uno.Helpers
             SetValue(EnableFluxLimitKey, EnableFluxLimit);
             SetValue(FluxLimitKey, FluxLimit.GigaBytes);
         }
-
-        public static string StoredUsername { get; set; }
-
-        public static bool AutoLogin { get; set; }
-
-
-#if WINDOWS_UWP
-        public static bool BackgroundAutoLogin { get; set; }
-
-        public static bool BackgroundLiveTile { get; set; }
-#endif
-
-        public static bool EnableFluxLimit { get; set; }
-
-        public static ByteSize FluxLimit { get; set; }
     }
 }
