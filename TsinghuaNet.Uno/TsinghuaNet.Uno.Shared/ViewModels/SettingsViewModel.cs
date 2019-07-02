@@ -1,9 +1,11 @@
-﻿using TsinghuaNet.Models;
+﻿using PropertyChanged;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    class SettingsViewModel : NetObservableBase
+    class SettingsViewModel : NetViewModelBase
     {
+        [DoNotNotify]
         public new TsinghuaNet.Uno.Helpers.NetSettings Settings
         {
             get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;

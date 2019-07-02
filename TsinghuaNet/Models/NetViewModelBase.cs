@@ -2,7 +2,7 @@
 
 namespace TsinghuaNet.Models
 {
-    public class NetObservableBase : INotifyPropertyChanged
+    public class NetViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

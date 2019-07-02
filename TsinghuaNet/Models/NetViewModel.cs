@@ -5,9 +5,9 @@ using System.Windows.Input;
 
 namespace TsinghuaNet.Models
 {
-    public abstract class NetViewModel : NetObservableBase
+    public abstract class MainViewModelBase : NetViewModelBase
     {
-        public NetViewModel()
+        public MainViewModelBase()
         {
             LoadSettings();
             RefreshStatusCommand = new Command(this, RefreshStatus);
@@ -28,6 +28,7 @@ namespace TsinghuaNet.Models
         }
 
         public INetStatus Status { get; set; }
+        private void OnStatusChanged() => RefreshStatus();
 
         public ICommand RefreshStatusCommand { get; }
         public async void RefreshStatus() => await RefreshStatusAsync();

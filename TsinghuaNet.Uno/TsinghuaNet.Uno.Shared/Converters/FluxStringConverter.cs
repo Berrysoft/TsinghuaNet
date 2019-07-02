@@ -6,7 +6,7 @@ namespace TsinghuaNet.Uno.Converters
     public class FluxStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
-            => $"{(long)(double)value} GB";
+            => $"{(long)((ByteSize)value).GigaBytes} GB";
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
             => throw new NotImplementedException();

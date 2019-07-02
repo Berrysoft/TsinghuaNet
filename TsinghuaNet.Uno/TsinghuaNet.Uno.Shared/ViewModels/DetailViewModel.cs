@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Uno.ViewModels
@@ -13,10 +12,7 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public IEnumerable<NetDetail> DetailsSource { get; set; }
 
-        private void Model_DetailsInitialized(object sender, List<NetDetail> details)
-        {
-            DetailsSource = details;
-        }
+        private void Model_DetailsInitialized(object sender, List<NetDetail> details) => DetailsSource = details;
 
         protected override void SetSortedDetails(IEnumerable<NetDetail> source) => DetailsSource = source;
     }

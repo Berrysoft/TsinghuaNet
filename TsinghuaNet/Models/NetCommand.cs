@@ -8,10 +8,10 @@ namespace TsinghuaNet.Models
 {
     public class NetCommand : ICommand
     {
-        private readonly NetViewModel model;
+        private readonly MainViewModelBase model;
         private Func<IConnect, Task<LogResponse>> executor;
 
-        public NetCommand(NetViewModel model, Func<IConnect, Task<LogResponse>> executor)
+        public NetCommand(MainViewModelBase model, Func<IConnect, Task<LogResponse>> executor)
         {
             this.model = model;
             this.executor = executor;

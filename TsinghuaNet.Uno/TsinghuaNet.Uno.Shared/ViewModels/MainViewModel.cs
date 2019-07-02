@@ -2,6 +2,7 @@
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PropertyChanged;
 using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
@@ -11,10 +12,11 @@ using Windows.UI.Xaml.Controls;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    class MainViewModel : NetViewModel
+    class MainViewModel : MainViewModelBase
     {
         private readonly DispatcherTimer mainTimer = new DispatcherTimer();
 
+        [DoNotNotify]
         public new TsinghuaNet.Uno.Helpers.NetSettings Settings
         {
             get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;

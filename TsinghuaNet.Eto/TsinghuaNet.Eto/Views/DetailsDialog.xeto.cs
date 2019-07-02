@@ -1,5 +1,7 @@
-﻿using Eto.Forms;
+﻿using System;
+using Eto.Forms;
 using Eto.Serialization.Xaml;
+using TsinghuaNet.Eto.Controls;
 using TsinghuaNet.Eto.ViewModels;
 
 namespace TsinghuaNet.Eto.Views
@@ -13,52 +15,41 @@ namespace TsinghuaNet.Eto.Views
             XamlReader.Load(this);
             Model = new DetailViewModel();
             DataContext = Model;
-            var DetailsView = FindChild<GridView>("DetailsView");
-            DetailsView.DataStore = Model.DetailsSource;
         }
-
-        private const char AscendingChar = '▲';
-        private const char DescendingChar = '▼';
-
-        // 打ち止めは最高だ！
-        private NetDetailOrder? lastOrder;
-        private bool lastDescending;
 
         private void DetailsView_ColumnHeaderClick(object sender, GridColumnEventArgs e)
         {
             if (Model.DetailsSource.Count > 0)
             {
+                GridSortDirection? dir;
                 GridView DetailsView = (GridView)sender;
-                var index = DetailsView.Columns.IndexOf(e.Column);
-                if (lastOrder == null)
+                var clickedColumn = (SortableGridColumn)e.Column;
+                var oridir = clickedColumn.SortDirection;
+                foreach (var c in DetailsView.Columns)
+                    ((SortableGridColumn)c).SortDirection = null;
+                switch (oridir)
                 {
-                    lastOrder = (NetDetailOrder)index;
-                    lastDescending = false;
-                    e.Column.HeaderText += AscendingChar;
+                    case GridSortDirection.Ascending:
+                        dir = GridSortDirection.Descending;
+                        break;
+                    case GridSortDirection.Descending:
+                        dir = null;
+                        break;
+                    default:
+                        dir = GridSortDirection.Ascending;
+                        break;
                 }
-                else if ((int)lastOrder.Value == index)
+                clickedColumn.SortDirection = dir;
+                if (dir != null)
                 {
-                    var t = e.Column.HeaderText;
-                    if (!lastDescending)
+                    bool ascending = dir.Value == GridSortDirection.Ascending;
+                    if (Enum.TryParse(clickedColumn.Tag, out NetDetailOrder order))
                     {
-                        lastDescending = true;
-                        e.Column.HeaderText = t.Substring(0, t.Length - 1) + DescendingChar;
-                    }
-                    else
-                    {
-                        lastOrder = null;
-                        e.Column.HeaderText = t.Substring(0, t.Length - 1);
+                        Model.SortSource(order, !ascending);
                     }
                 }
                 else
-                {
-                    var oldc = DetailsView.Columns[(int)lastOrder.Value];
-                    var oldt = oldc.HeaderText;
-                    oldc.HeaderText = oldt.Substring(0, oldt.Length - 1);
-                    lastOrder = (NetDetailOrder)(index * 2);
-                    e.Column.HeaderText += AscendingChar;
-                }
-                Model.SortSource(lastOrder, lastDescending);
+                    Model.SortSource(null, false);
             }
         }
     }

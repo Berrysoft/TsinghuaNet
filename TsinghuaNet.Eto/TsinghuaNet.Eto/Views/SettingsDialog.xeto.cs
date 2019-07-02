@@ -32,8 +32,9 @@ namespace TsinghuaNet.Eto.Views
                 else if (os.IsMac)
                     Process.Start("open", RepoUri);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.ToString());
             }
         }
     }

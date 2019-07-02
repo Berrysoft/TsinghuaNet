@@ -6,12 +6,12 @@ namespace TsinghuaNet.Models
 {
     public class Command : ICommand
     {
-        private NetObservableBase viewModel;
+        private NetViewModelBase viewModel;
         private Action<object> action;
-        public Command(NetObservableBase viewModel, Action action) : this(viewModel, o => action())
+        public Command(NetViewModelBase viewModel, Action action) : this(viewModel, o => action())
         {
         }
-        public Command(NetObservableBase viewModel, Action<object> action)
+        public Command(NetViewModelBase viewModel, Action<object> action)
         {
             this.viewModel = viewModel;
             this.action = action;

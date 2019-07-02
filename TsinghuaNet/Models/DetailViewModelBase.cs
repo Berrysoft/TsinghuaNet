@@ -7,7 +7,7 @@ using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
-    public abstract class DetailViewModelBase : NetObservableBase
+    public abstract class DetailViewModelBase : NetViewModelBase
     {
         public List<NetDetail> InitialDetails { get; set; }
         protected abstract void SetSortedDetails(IEnumerable<NetDetail> source);

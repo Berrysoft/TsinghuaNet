@@ -4,7 +4,7 @@ using Windows.ApplicationModel;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    class AboutViewModel : NetObservableBase
+    class AboutViewModel : NetViewModelBase
     {
         public PackageVersion Version { get; } = Package.Current.Id.Version;
 

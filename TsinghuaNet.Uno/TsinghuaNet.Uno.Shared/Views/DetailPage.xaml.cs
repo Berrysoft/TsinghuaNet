@@ -1,4 +1,5 @@
-﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+﻿using System;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using Windows.UI.Xaml.Controls;
 
 namespace TsinghuaNet.Uno.Views
@@ -13,7 +14,8 @@ namespace TsinghuaNet.Uno.Views
         private void DetailsView_Sorting(object sender, DataGridColumnEventArgs e)
         {
             DataGridSortDirection? dir;
-            var oridir = e.Column.SortDirection;
+            var clickedColumn = e.Column;
+            var oridir = clickedColumn.SortDirection;
             foreach (var c in DetailsView.Columns)
                 c.SortDirection = null;
             switch (oridir)
@@ -28,21 +30,13 @@ namespace TsinghuaNet.Uno.Views
                     dir = DataGridSortDirection.Ascending;
                     break;
             }
-            e.Column.SortDirection = dir;
+            clickedColumn.SortDirection = dir;
             if (dir != null)
             {
                 bool ascending = dir.Value == DataGridSortDirection.Ascending;
-                switch (e.Column.Tag)
+                if (Enum.TryParse(clickedColumn.Tag.ToString(), out NetDetailOrder order))
                 {
-                    case "LoginTime":
-                        Model.SortSource(NetDetailOrder.LoginTime, !ascending);
-                        break;
-                    case "LogoutTime":
-                        Model.SortSource(NetDetailOrder.LogoutTime, !ascending);
-                        break;
-                    case "Flux":
-                        Model.SortSource(NetDetailOrder.Flux, !ascending);
-                        break;
+                    Model.SortSource(order, !ascending);
                 }
             }
             else

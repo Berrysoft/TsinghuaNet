@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace TsinghuaNet.Models
 {
-    public class ConnectionViewModel : NetObservableBase
+    public class ConnectionViewModel : NetViewModelBase
     {
         public ConnectionViewModel()
         {

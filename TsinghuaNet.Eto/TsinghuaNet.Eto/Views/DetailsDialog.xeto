@@ -3,28 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
         xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
+        xmlns:controls="clr-namespace:TsinghuaNet.Eto.Controls"
         Width="440" Height="400" Resizable="True" Title="流量明细" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
   <Panel Padding="8">
-    <GridView x:Name="DetailsView" ColumnHeaderClick="DetailsView_ColumnHeaderClick">
+    <GridView x:Name="DetailsView" DataStore="{Binding DetailsSource}" ColumnHeaderClick="DetailsView_ColumnHeaderClick">
       <GridView.Columns>
-        <GridColumn Sortable="True" HeaderText="登录时间">
-          <GridColumn.DataCell>
+        <controls:SortableGridColumn Sortable="True" HeaderText="登录时间" Tag="LoginTime">
+          <controls:SortableGridColumn.DataCell>
             <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
-        <GridColumn Sortable="True" HeaderText="注销时间">
-          <GridColumn.DataCell>
+          </controls:SortableGridColumn.DataCell>
+        </controls:SortableGridColumn>
+        <controls:SortableGridColumn Sortable="True" HeaderText="注销时间" Tag="LogoutTime">
+          <controls:SortableGridColumn.DataCell>
             <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter}}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
-        <GridColumn Sortable="True" HeaderText="使用流量">
-          <GridColumn.DataCell>
+          </controls:SortableGridColumn.DataCell>
+        </controls:SortableGridColumn>
+        <controls:SortableGridColumn Sortable="True" HeaderText="使用流量" Tag="Flux">
+          <controls:SortableGridColumn.DataCell>
             <TextBoxCell TextAlignment="Right" Binding="{Binding Flux,Converter={StaticResource StringFormatConverter}}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
+          </controls:SortableGridColumn.DataCell>
+        </controls:SortableGridColumn>
       </GridView.Columns>
     </GridView>
   </Panel>

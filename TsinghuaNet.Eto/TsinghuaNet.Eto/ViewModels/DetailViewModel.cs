@@ -14,10 +14,7 @@ namespace TsinghuaNet.Eto.ViewModels
 
         public ObservableRangeCollection<NetDetail> DetailsSource { get; } = new ObservableRangeCollection<NetDetail>();
 
-        private void Model_DetailsInitialized(object sender, List<NetDetail> details)
-        {
-            DetailsSource.ReplaceRange(details);
-        }
+        private void Model_DetailsInitialized(object sender, List<NetDetail> details) => DetailsSource.ReplaceRange(details);
 
         protected override void SetSortedDetails(IEnumerable<NetDetail> source) => DetailsSource.ReplaceRange(source);
     }

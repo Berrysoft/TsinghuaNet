@@ -6,6 +6,7 @@
     xmlns:netvms="using:TsinghuaNet.Models"
     xmlns:converters="using:TsinghuaNet.Uno.Converters"
     xmlns:net="using:TsinghuaNet"
+    xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -94,7 +95,10 @@
                     <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">流量不足警告</TextBlock>
                     <ToggleSwitch Margin="8,0" IsOn="{x:Bind Model.Settings.EnableFluxLimit,Mode=TwoWay}" OnContent="开" OffContent="关"/>
                 </StackPanel>
-                <Slider Minimum="5" Maximum="30" Margin="8" Value="{x:Bind Model.Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}" ThumbToolTipValueConverter="{StaticResource FluxStringConverter}" Visibility="{x:Bind Model.Settings.EnableFluxLimit,Mode=OneWay}"/>
+                <mtuuc:DockPanel Margin="8" LastChildFill="True" Visibility="{x:Bind Model.Settings.EnableFluxLimit,Mode=OneWay}">
+                    <TextBlock Margin="8" VerticalAlignment="Center" mtuuc:DockPanel.Dock="Right" Text="{x:Bind Model.Settings.FluxLimit,Mode=OneWay,Converter={StaticResource FluxStringConverter}}"/>
+                    <Slider Margin="8" VerticalAlignment="Center" Minimum="5" Maximum="30" Value="{x:Bind Model.Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+                </mtuuc:DockPanel>
                 <StackPanel Orientation="Vertical">
                     <StackPanel.DataContext>
                         <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
