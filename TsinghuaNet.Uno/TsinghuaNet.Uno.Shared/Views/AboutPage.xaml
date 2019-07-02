@@ -33,7 +33,7 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="8" Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.Version,Mode=OneTime,Converter={StaticResource PackageVersionStringConverter}}"/>
-                    <HyperlinkButton Margin="8,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNetUWP">项目地址</HyperlinkButton>
+                    <HyperlinkButton Margin="8,0" NavigateUri="https://github.com/Berrysoft/TsinghuaNet">项目地址</HyperlinkButton>
                 </StackPanel>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
