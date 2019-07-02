@@ -1,24 +1,22 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MvvmHelpers;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Eto.ViewModels
 {
-    public class DetailViewModel : TsinghuaNet.Models.DetailViewModel
+    public class DetailViewModel : DetailViewModelBase
     {
-        public DetailViewModel() : base() { }
-
-        private List<NetDetail> details;
+        public DetailViewModel() : base()
+        {
+            DetailsInitialized += Model_DetailsInitialized;
+        }
 
         public ObservableRangeCollection<NetDetail> DetailsSource { get; } = new ObservableRangeCollection<NetDetail>();
 
-        protected override IEnumerable<NetDetail> InitialDetails
+        private void Model_DetailsInitialized(object sender, List<NetDetail> details)
         {
-            get => details;
-            set
-            {
-                details = (List<NetDetail>)value;
-                DetailsSource.ReplaceRange(details);
-            }
+            DetailsSource.ReplaceRange(details);
         }
 
         protected override void SetSortedDetails(IEnumerable<NetDetail> source) => DetailsSource.ReplaceRange(source);

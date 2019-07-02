@@ -42,7 +42,7 @@ namespace TsinghuaNet.Models
 
         public async Task RefreshNetUsersAsync(UseregHelper helper)
         {
-            var users = (await helper.GetUsersAsync()).ToList();
+            var users = await helper.GetUsersAsync().ToListAsync();
             var usersmodel = NetUsers;
             int i = 0;
             while (i < usersmodel.Count)

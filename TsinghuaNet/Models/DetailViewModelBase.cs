@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Input;
 using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
-    public abstract class DetailViewModel : NetObservableBase
+    public abstract class DetailViewModelBase : NetObservableBase
     {
-        protected abstract IEnumerable<NetDetail> InitialDetails { get; set; }
+        public List<NetDetail> InitialDetails { get; set; }
         protected abstract void SetSortedDetails(IEnumerable<NetDetail> source);
 
-        public DetailViewModel()
+        public DetailViewModelBase()
         {
             InitializeDetails();
             RefreshCommand = new Command(this, InitializeDetails);
@@ -23,13 +24,16 @@ namespace TsinghuaNet.Models
             {
                 var helper = Credential.GetUseregHelper();
                 await helper.LoginAsync();
-                InitialDetails = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false);
+                InitialDetails = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false).ToListAsync();
+                DetailsInitialized?.Invoke(this, InitialDetails);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
         }
+
+        public event EventHandler<List<NetDetail>> DetailsInitialized;
 
         public ICommand RefreshCommand { get; }
 

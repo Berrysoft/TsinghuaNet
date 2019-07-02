@@ -55,13 +55,11 @@ namespace TsinghuaNet.CLI
 
         public override async Task RunAsync()
         {
-            using (var helper = await this.GetHelperAsync())
+            var helper = await this.GetHelperAsync();
+            if (helper != null)
             {
-                if (helper != null)
-                {
-                    var res = await helper.LoginAsync();
-                    Console.WriteLine(res.Message);
-                }
+                var res = await helper.LoginAsync();
+                Console.WriteLine(res.Message);
             }
         }
     }
@@ -81,13 +79,11 @@ namespace TsinghuaNet.CLI
 
         public override async Task RunAsync()
         {
-            using (var helper = await this.GetHelperAsync())
+            var helper = await this.GetHelperAsync();
+            if (helper != null)
             {
-                if (helper != null)
-                {
-                    var res = await helper.LogoutAsync();
-                    Console.WriteLine(res.Message);
-                }
+                var res = await helper.LogoutAsync();
+                Console.WriteLine(res.Message);
             }
         }
     }
@@ -107,16 +103,14 @@ namespace TsinghuaNet.CLI
 
         public override async Task RunAsync()
         {
-            using (var helper = await this.GetHelperAsync())
+            var helper = await this.GetHelperAsync();
+            if (helper != null)
             {
-                if (helper != null)
-                {
-                    var flux = await helper.GetFluxAsync();
-                    Console.WriteLine("用户：{0}", flux.Username);
-                    Console.WriteLine("流量：{0}", flux.Flux);
-                    Console.WriteLine("时长：{0}", flux.OnlineTime);
-                    Console.WriteLine("流量：{0}", StringHelper.GetCurrencyString(flux.Balance));
-                }
+                var flux = await helper.GetFluxAsync();
+                Console.WriteLine("用户：{0}", flux.Username);
+                Console.WriteLine("流量：{0}", flux.Flux);
+                Console.WriteLine("时长：{0}", flux.OnlineTime);
+                Console.WriteLine("流量：{0}", StringHelper.GetCurrencyString(flux.Balance));
             }
         }
     }
@@ -135,20 +129,18 @@ namespace TsinghuaNet.CLI
 
         public override async Task RunAsync()
         {
-            using (var helper = this.GetUseregHelper())
+            var helper = this.GetUseregHelper();
+            var res = await helper.LoginAsync();
+            if (res.Succeed)
             {
-                var res = await helper.LoginAsync();
-                if (res.Succeed)
-                {
-                    var users = await helper.GetUsersAsync();
-                    Console.WriteLine("|       IP       |       登录时间       |   客户端   |");
-                    Console.WriteLine(new string('=', 54));
-                    foreach (var user in users)
-                        Console.WriteLine("| {0,-14} | {1,-20} | {2,-10} |", user.Address, user.LoginTime.ToString(DateTimeFormat), user.Client);
-                }
-                else
-                    Console.WriteLine(res.Message);
+                var users = helper.GetUsersAsync();
+                Console.WriteLine("|       IP       |       登录时间       |   客户端   |");
+                Console.WriteLine(new string('=', 54));
+                await foreach (var user in users)
+                    Console.WriteLine("| {0,-14} | {1,-20} | {2,-10} |", user.Address, user.LoginTime.ToString(DateTimeFormat), user.Client);
             }
+            else
+                Console.WriteLine(res.Message);
         }
     }
 
@@ -170,18 +162,16 @@ namespace TsinghuaNet.CLI
         public override async Task RunAsync()
         {
             var ip = IPAddress.Parse(Address);
-            using (var helper = this.GetUseregHelper())
+            var helper = this.GetUseregHelper();
+            var res = await helper.LoginAsync();
+            if (res.Succeed)
             {
-                var res = await helper.LoginAsync();
-                if (res.Succeed)
-                {
-                    res = await helper.LogoutAsync(ip);
-                    if (!res.Succeed)
-                        Console.WriteLine(res.Message);
-                }
-                else
+                res = await helper.LogoutAsync(ip);
+                if (!res.Succeed)
                     Console.WriteLine(res.Message);
             }
+            else
+                Console.WriteLine(res.Message);
         }
     }
 
@@ -209,34 +199,32 @@ namespace TsinghuaNet.CLI
 
         public override async Task RunAsync()
         {
-            using (var helper = this.GetUseregHelper())
+            var helper = this.GetUseregHelper();
+            var res = await helper.LoginAsync();
+            if (res.Succeed)
             {
-                var res = await helper.LoginAsync();
-                if (res.Succeed)
+                if (Grouping)
                 {
-                    if (Grouping)
-                    {
-                        var details = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false);
-                        var now = DateTime.Now;
-                        Console.WriteLine("|    日期    |    流量    |");
-                        Console.WriteLine(new string('=', 27));
-                        var query = from d in details group d.Flux by d.LogoutTime.Day into g select new { Day = g.Key, TotalFlux = g.Sum() };
-                        var orderedQuery = (int)Order == (int)NetDetailOrder.Flux ? query.OrderBy(d => d.TotalFlux, Descending) : query.OrderBy(d => d.Day, Descending);
-                        foreach (var p in orderedQuery)
-                            Console.WriteLine("| {0,-10} | {1,10} |", new DateTime(now.Year, now.Month, p.Day).ToString(DateFormat), p.TotalFlux);
-                    }
-                    else
-                    {
-                        var details = await helper.GetDetailsAsync((NetDetailOrder)Order, Descending);
-                        Console.WriteLine("|       登录时间       |       注销时间       |    流量    |");
-                        Console.WriteLine(new string('=', 60));
-                        foreach (var d in details)
-                            Console.WriteLine("| {0,-20} | {1,-20} | {2,10} |", d.LoginTime.ToString(DateTimeFormat), d.LogoutTime.ToString(DateTimeFormat), d.Flux);
-                    }
+                    var details = helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false);
+                    var now = DateTime.Now;
+                    Console.WriteLine("|    日期    |    流量    |");
+                    Console.WriteLine(new string('=', 27));
+                    var query = from d in details group d.Flux by d.LogoutTime.Day into g select new { Day = g.Key, TotalFlux = g.SumAsync().GetAwaiter().GetResult() };
+                    var orderedQuery = (int)Order == (int)NetDetailOrder.Flux ? query.OrderBy(d => d.TotalFlux, Descending) : query.OrderBy(d => d.Day, Descending);
+                    await foreach (var p in orderedQuery)
+                        Console.WriteLine("| {0,-10} | {1,10} |", new DateTime(now.Year, now.Month, p.Day).ToString(DateFormat), p.TotalFlux);
                 }
                 else
-                    Console.WriteLine(res.Message);
+                {
+                    var details = helper.GetDetailsAsync((NetDetailOrder)Order, Descending);
+                    Console.WriteLine("|       登录时间       |       注销时间       |    流量    |");
+                    Console.WriteLine(new string('=', 60));
+                    await foreach (var d in details)
+                        Console.WriteLine("| {0,-20} | {1,-20} | {2,10} |", d.LoginTime.ToString(DateTimeFormat), d.LogoutTime.ToString(DateTimeFormat), d.Flux);
+                }
             }
+            else
+                Console.WriteLine(res.Message);
         }
     }
 

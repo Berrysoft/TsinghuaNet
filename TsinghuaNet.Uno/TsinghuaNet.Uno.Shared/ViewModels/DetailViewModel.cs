@@ -1,28 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Uno.ViewModels
 {
-    class DetailViewModel : TsinghuaNet.Models.DetailViewModel
+    class DetailViewModel : DetailViewModelBase
     {
-        public DetailViewModel() : base() { }
-
-        private List<NetDetail> details;
+        public DetailViewModel() : base()
+        {
+            DetailsInitialized += Model_DetailsInitialized;
+        }
 
         public IEnumerable<NetDetail> DetailsSource { get; set; }
 
-        protected override IEnumerable<NetDetail> InitialDetails
+        private void Model_DetailsInitialized(object sender, List<NetDetail> details)
         {
-            get => details;
-            set
-            {
-                details = (List<NetDetail>)value;
-                DetailsInitialized?.Invoke(this, value);
-                DetailsSource = details;
-            }
+            DetailsSource = details;
         }
-
-        public event EventHandler<IEnumerable<NetDetail>> DetailsInitialized;
 
         protected override void SetSortedDetails(IEnumerable<NetDetail> source) => DetailsSource = source;
     }

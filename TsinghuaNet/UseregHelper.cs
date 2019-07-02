@@ -101,18 +101,22 @@ namespace TsinghuaNet
 
         public async Task<LogResponse> LogoutAsync(IPAddress ip) => LogResponse.ParseFromUsereg(await PostAsync(InfoUri, string.Format(DropData, ip.ToString())));
 
-        public async Task<IEnumerable<NetUser>> GetUsersAsync()
+        public async IAsyncEnumerable<NetUser> GetUsersAsync()
         {
             string userhtml = await GetAsync(InfoUri);
             var doc = new HtmlDocument();
             doc.LoadHtml(userhtml);
-            return from tr in doc.DocumentNode.Element("html").Element("body").Element("table").Element("tr").Elements("td").Last().Elements("table").ElementAt(1).Elements("tr").Skip(1)
-                   let tds = (from td in tr.Elements("td").Skip(1)
-                              select td.FirstChild?.InnerText).ToArray()
-                   select new NetUser(
-                       IPAddress.Parse(tds[0]),
-                       DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                       tds[10]);
+            foreach (var u in
+                from tr in doc.DocumentNode.Element("html").Element("body").Element("table").Element("tr").Elements("td").Last().Elements("table").ElementAt(1).Elements("tr").Skip(1)
+                let tds = (from td in tr.Elements("td").Skip(1)
+                           select td.FirstChild?.InnerText).ToArray()
+                select new NetUser(
+                    IPAddress.Parse(tds[0]),
+                    DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+                    tds[10]))
+            {
+                yield return u;
+            }
         }
 
         private readonly static Dictionary<NetDetailOrder, string> OrderQueryMap = new Dictionary<NetDetailOrder, string>
@@ -122,28 +126,30 @@ namespace TsinghuaNet
             [NetDetailOrder.Flux] = "user_in_bytes",
         };
 
-        public async Task<IEnumerable<NetDetail>> GetDetailsAsync(NetDetailOrder order, bool descending)
+        public async IAsyncEnumerable<NetDetail> GetDetailsAsync(NetDetailOrder order, bool descending)
         {
             const int offset = 100;
             DateTime now = DateTime.Now;
-            List<NetDetail> list = new List<NetDetail>();
             for (int i = 1; ; i++)
             {
                 string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month.ToString().PadLeft(2, '0'), now.Day, i, offset, OrderQueryMap[order], descending ? "DESC" : string.Empty));
                 var doc = new HtmlDocument();
                 doc.LoadHtml(detailhtml);
-                int oldsize = list.Count;
-                list.AddRange(
+                bool cont = false;
+                foreach (var d in
                     from tr in doc.DocumentNode.Element("html").Element("body").Element("table").Element("tr").Elements("td").Last().Elements("table").Last().Elements("tr").Skip(1)
                     let tds = (from td in tr.Elements("td").Skip(1)
                                select td.FirstChild?.InnerText).ToArray()
                     select new NetDetail(
                         DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                         DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                        ByteSize.Parse(tds[4])));
-                if (list.Count - oldsize < offset) break;
+                        ByteSize.Parse(tds[4])))
+                {
+                    cont = true;
+                    yield return d;
+                }
+                if (!cont) break;
             }
-            return list;
         }
     }
 }
