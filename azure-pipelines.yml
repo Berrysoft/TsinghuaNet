@@ -28,21 +28,22 @@ steps:
     feedsToUse: config
     nugetConfigPath: NuGet.config
 
-- script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)
-- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f netcoreapp3.0 --output $(Build.ArtifactStagingDirectory)
-- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f net48 --output $(Build.ArtifactStagingDirectory)
-- script: dotnet publish $(etoGtkProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/cli
+- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f netcoreapp3.0 --output $(Build.ArtifactStagingDirectory)/wpf/corefx
+- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f net48 --output $(Build.ArtifactStagingDirectory)/wpf
+- script: dotnet publish $(etoGtkProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux
 
 - task: DotNetCoreCLI@2
   inputs:
     projects: '$(etoMacProject)'
     command: build
+    arguments: '--configuration Release'
 
 - task: CopyFiles@2
   displayName: 'Copy Eto.Mac Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     Contents: |
-     TsinghuaNet.Eto\TsinghuaNet.Eto.Mac\bin\Release\net48\TsinghuaNet.Eto.Mac.app\*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+     TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/mac'
 
 - task: PublishBuildArtifacts@1
