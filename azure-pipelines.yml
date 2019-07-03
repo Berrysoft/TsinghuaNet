@@ -7,13 +7,13 @@ pool:
 variables:
   projects: |
     TsinghuaNet.CLI/TsinghuaNet.CLI.csproj
-    TsinghuaNet.CLI/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj
-    TsinghuaNet.CLI/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj
-    TsinghuaNet.CLI/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj
+    TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj
+    TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj
+    TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  etoWpfProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
-  etoGtkProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
-  etoMacProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
+  etoWpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
+  etoGtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
+  etoMacProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
   buildConfiguration: 'Release'
 
 steps:
