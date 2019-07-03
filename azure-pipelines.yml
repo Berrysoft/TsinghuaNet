@@ -18,7 +18,7 @@ jobs:
       projects: '$(cliProject)'
       command: restore
       feedsToUse: config
-      nugetConfigPath: NuGet.config
+      nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
 
@@ -37,7 +37,7 @@ jobs:
       projects: '$(cliProject)'
       command: restore
       feedsToUse: config
-      nugetConfigPath: NuGet.config
+      nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r osx-x64 -c Release --output $(Build.ArtifactStagingDirectory)/osx-x64
 
@@ -56,7 +56,7 @@ jobs:
       projects: '$(cliProject)'
       command: restore
       feedsToUse: config
-      nugetConfigPath: NuGet.config
+      nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/win-x64
 
