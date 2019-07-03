@@ -1,8 +1,3 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
-
 trigger:
 - master
 
@@ -16,6 +11,9 @@ variables:
     TsinghuaNet.CLI/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj
     TsinghuaNet.CLI/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
+  etoWpfProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
+  etoGtkProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
+  etoMacProject: 'TsinghuaNet.CLI/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
   buildConfiguration: 'Release'
 
 steps:
@@ -30,15 +28,21 @@ steps:
     feedsToUse: config
     nugetConfigPath: NuGet.config
 
-- task: DotNetCoreCLI@2
-  inputs:
-    projects: '$(projects)'
-    command: build
-    configuration: '$(buildConfiguration)'
+- script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f netcoreapp3.0 --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f net48 --output $(Build.ArtifactStagingDirectory)
+- script: dotnet publish $(etoGtkProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)
 
 - task: DotNetCoreCLI@2
   inputs:
-    projects: '$(cliProject)'
-    command: publish
-    configuration: '$(buildConfiguration)'
-    arguments: '-r win-x64'
+    projects: '$(etoMacProject)'
+    command: build
+
+- task: CopyFiles@2
+  displayName: 'Copy Eto.Mac Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    Contents: |
+     TsinghuaNet.Eto\TsinghuaNet.Eto.Mac\bin\Release\net48\TsinghuaNet.Eto.Mac.app\*
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
