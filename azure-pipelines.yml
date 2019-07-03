@@ -10,7 +10,12 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj"'
+  projects: |
+    TsinghuaNet.CLI/TsinghuaNet.CLI.csproj
+    TsinghuaNet.CLI/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj
+    TsinghuaNet.CLI/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj
+    TsinghuaNet.CLI/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj
+  cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   buildConfiguration: 'Release'
 
 steps:
@@ -20,12 +25,12 @@ steps:
 
 - task: DotNetCoreCLI@2
   inputs:
-    projects: '$(cliProject)'
+    projects: '$(projects)'
     command: restore
 
 - task: DotNetCoreCLI@2
   inputs:
-    projects: '$(cliProject)'
+    projects: '$(projects)'
     command: build
     configuration: '$(buildConfiguration)'
 
