@@ -1,49 +1,63 @@
 trigger:
 - master
 
-pool:
-  vmImage: 'windows-latest'
-
 variables:
-  projects: |
-    TsinghuaNet.CLI/TsinghuaNet.CLI.csproj
-    TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj
-    TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj
-    TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  etoWpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
-  etoGtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
-  etoMacProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
-  buildConfiguration: 'Release'
 
-steps:
-- task: DotNetCoreInstaller@0
-  inputs:
-    version: "3.0.100-preview6-012264"
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "3.0.100-preview6-012264"
 
-- task: DotNetCoreCLI@2
-  inputs:
-    projects: '$(projects)'
-    command: restore
-    feedsToUse: config
-    nugetConfigPath: NuGet.config
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(cliProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.config
 
-- script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/cli
-- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f netcoreapp3.0 --output $(Build.ArtifactStagingDirectory)/wpf/corefx
-- script: dotnet publish $(etoWpfProject) -r win-x64 -c Release -f net48 --output $(Build.ArtifactStagingDirectory)/wpf
-- script: dotnet publish $(etoGtkProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux
+  - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
 
-- task: DotNetCoreCLI@2
-  inputs:
-    projects: '$(etoMacProject)'
-    command: build
-    arguments: '--configuration Release'
+  - task: PublishBuildArtifacts@1
 
-- task: CopyFiles@2
-  displayName: 'Copy Eto.Mac Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    Contents: |
-     TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/*
-    TargetFolder: '$(Build.ArtifactStagingDirectory)/mac'
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.14'
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "3.0.100-preview6-012264"
 
-- task: PublishBuildArtifacts@1
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(cliProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.config
+
+  - script: dotnet publish $(cliProject) -r osx-x64 -c Release --output $(Build.ArtifactStagingDirectory)/osx-x64
+
+  - task: PublishBuildArtifacts@1
+
+- job: Windows
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "3.0.100-preview6-012264"
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(cliProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.config
+
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/win-x64
+
+  - task: PublishBuildArtifacts@1
