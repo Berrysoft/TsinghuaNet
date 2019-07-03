@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
         xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
+        xmlns:controls="clr-namespace:TsinghuaNet.Eto.Controls"
         Width="400" Height="360" Resizable="True" Title="设置" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
@@ -33,20 +34,16 @@
             </StackLayout>
           </TableRow>
           <TableRow>
-            <GridView DataStore="{Binding Packages}">
-              <GridView.Columns>
-                <GridColumn HeaderText="包名称">
-                  <GridColumn.DataCell>
-                    <TextBoxCell Binding="{Binding Name}"/>
-                  </GridColumn.DataCell>
-                </GridColumn>
-                <GridColumn HeaderText="开源许可">
-                  <GridColumn.DataCell>
-                    <TextBoxCell Binding="{Binding License}"/>
-                  </GridColumn.DataCell>
-                </GridColumn>
-              </GridView.Columns>
-            </GridView>
+            <controls:SortableGridView DataStore="{Binding Packages}">
+              <controls:SortableGridView.Columns>
+                <controls:SortableGridColumn Sortable="True" HeaderText="包名称" Tag="Name">
+                  <TextBoxCell Binding="{Binding Name}"/>
+                </controls:SortableGridColumn>
+                <controls:SortableGridColumn Sortable="True" HeaderText="开源许可" Tag="License">
+                  <TextBoxCell Binding="{Binding License}"/>
+                </controls:SortableGridColumn>
+              </controls:SortableGridView.Columns>
+            </controls:SortableGridView>
           </TableRow>
         </TableLayout>
       </TabPage>

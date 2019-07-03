@@ -15,8 +15,6 @@ namespace TsinghuaNet.Eto.Views
             XamlReader.Load(this);
             Model = new ConnectionViewModel();
             DataContext = Model;
-            FindChild<GridView>("ConnectionView").DataStore = Model.NetUsers;
-            Model.RefreshNetUsers();
         }
 
         private async void DropSelection(object sender, EventArgs e)

@@ -15,6 +15,7 @@ namespace TsinghuaNet.Models
         {
             NetUsers = new ObservableCollection<NetUser>();
             RefreshCommand = new Command(this, RefreshNetUsers);
+            RefreshNetUsers();
         }
 
         public ObservableCollection<NetUser> NetUsers { get; }

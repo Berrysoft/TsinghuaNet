@@ -3,34 +3,29 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
         xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
+        xmlns:controls="clr-namespace:TsinghuaNet.Eto.Controls"
         Width="400" Height="160" Resizable="True" Title="管理连接" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
   <Panel Padding="8">
-    <GridView x:Name="ConnectionView" AllowMultipleSelection="True">
-      <GridView.Columns>
-        <GridColumn HeaderText="IP地址">
-          <GridColumn.DataCell>
-            <TextBoxCell Binding="{Binding Address,Converter={StaticResource StringFormatConverter}}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
-        <GridColumn HeaderText="登录时间">
-          <GridColumn.DataCell>
-            <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
-        <GridColumn HeaderText="客户端">
-          <GridColumn.DataCell>
-            <TextBoxCell Binding="{Binding Client}"/>
-          </GridColumn.DataCell>
-        </GridColumn>
-      </GridView.Columns>
-      <GridView.ContextMenu>
+    <controls:SortableGridView AllowMultipleSelection="True" DataStore="{Binding NetUsers}">
+      <controls:SortableGridView.Columns>
+        <controls:SortableGridColumn Sortable="True" HeaderText="IP地址" Tag="Address">
+          <TextBoxCell Binding="{Binding Address,Converter={StaticResource StringFormatConverter}}"/>
+        </controls:SortableGridColumn>
+        <controls:SortableGridColumn Sortable="True" HeaderText="登录时间" Tag="LoginTime">
+          <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
+        </controls:SortableGridColumn>
+        <controls:SortableGridColumn Sortable="True" HeaderText="客户端" Tag="Client">
+          <TextBoxCell Binding="{Binding Client}"/>
+        </controls:SortableGridColumn>
+      </controls:SortableGridView.Columns>
+      <controls:SortableGridView.ContextMenu>
         <ContextMenu>
           <ButtonMenuItem Click="DropSelection" Text="下线选中项"/>
         </ContextMenu>
-      </GridView.ContextMenu>
-    </GridView>
+      </controls:SortableGridView.ContextMenu>
+    </controls:SortableGridView>
   </Panel>
 </Dialog>

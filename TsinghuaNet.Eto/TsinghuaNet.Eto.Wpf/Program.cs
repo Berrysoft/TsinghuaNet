@@ -9,7 +9,7 @@ namespace TsinghuaNet.Eto.Wpf
         [STAThread]
         static void Main()
         {
-#if NETCOREAPP3_0
+#if NETCOREAPP
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
             using (App app = new App(Platforms.Wpf))

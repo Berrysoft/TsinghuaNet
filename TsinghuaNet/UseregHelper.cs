@@ -9,7 +9,7 @@ using HtmlAgilityPack;
 
 namespace TsinghuaNet
 {
-    public class NetUser
+    public struct NetUser
     {
         public NetUser(IPAddress address, DateTime loginTime, string client)
         {
@@ -24,13 +24,7 @@ namespace TsinghuaNet
 
         public string Client { get; }
 
-        public static bool operator ==(NetUser u1, NetUser u2)
-        {
-            if (u1 is null || u2 is null)
-                return object.ReferenceEquals(u1, u2);
-            else
-                return u1.Address.Equals(u2.Address) && u1.LoginTime == u2.LoginTime && u1.Client == u2.Client;
-        }
+        public static bool operator ==(NetUser u1, NetUser u2) => u1.Address.Equals(u2.Address) && u1.LoginTime == u2.LoginTime && u1.Client == u2.Client;
 
         public static bool operator !=(NetUser u1, NetUser u2) => !(u1 == u2);
 
@@ -40,7 +34,7 @@ namespace TsinghuaNet
         public override int GetHashCode() => (Address?.GetHashCode() ?? 0) ^ LoginTime.GetHashCode() ^ (Client?.GetHashCode() ?? 0);
     }
 
-    public class NetDetail
+    public struct NetDetail
     {
         public NetDetail(DateTime login, DateTime logout, ByteSize flux)
         {
@@ -55,13 +49,7 @@ namespace TsinghuaNet
 
         public ByteSize Flux { get; }
 
-        public static bool operator ==(NetDetail d1, NetDetail d2)
-        {
-            if (d1 is null || d2 is null)
-                return object.ReferenceEquals(d1, d2);
-            else
-                return d1.LoginTime == d2.LoginTime && d1.LogoutTime == d2.LogoutTime && d1.Flux == d2.Flux;
-        }
+        public static bool operator ==(NetDetail d1, NetDetail d2) => d1.LoginTime == d2.LoginTime && d1.LogoutTime == d2.LogoutTime && d1.Flux == d2.Flux;
 
         public static bool operator !=(NetDetail d1, NetDetail d2) => !(d1 == d2);
 
