@@ -20,9 +20,14 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
+  - script: sudo apt update && sudo apt -y install clang
+  - script: CppCompilerAndLinker=clang && dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
+  - script: strip $(Build.ArtifactStagingDirectory)/linux-x64/TsinghuaNet.CLI
+  - script: rm $(Build.ArtifactStagingDirectory)/linux-x64/*.pdb
 
   - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
 
 - job: macOS
   pool:
@@ -40,8 +45,12 @@ jobs:
       nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r osx-x64 -c Release --output $(Build.ArtifactStagingDirectory)/osx-x64
+  - script: strip $(Build.ArtifactStagingDirectory)/osx-x64/TsinghuaNet.CLI
+  - script: rm $(Build.ArtifactStagingDirectory)/osx-x64/*.pdb
 
   - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
 
 - job: Windows
   pool:
@@ -59,5 +68,8 @@ jobs:
       nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/win-x64
+  - script: del $(Build.ArtifactStagingDirectory)/win-x64/*.pdb
 
   - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
