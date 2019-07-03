@@ -6,6 +6,8 @@
 
 ## TsinghuaNet.CLI
 命令行版本，支持 .NET Core 3.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
+
+![Azure DevOps builds](https://img.shields.io/azure-devops/build/Strawberry-VS/4f6150f9-dab7-4e1c-8274-9276ae127e17/2.svg)
 ### 登录/注销
 **注意：** 登录与注销方式必须对应。
 ``` bash

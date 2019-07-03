@@ -19,9 +19,9 @@ jobs:
       command: restore
       feedsToUse: config
       nugetConfigPath: NuGet.Config
-
-  - script: sudo apt update && sudo apt -y install clang
-  - script: CppCompilerAndLinker=clang && dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
+      
+  - script: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main" && sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9
+  - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
   - script: strip $(Build.ArtifactStagingDirectory)/linux-x64/TsinghuaNet.CLI
   - script: rm $(Build.ArtifactStagingDirectory)/linux-x64/*.pdb
 
@@ -68,7 +68,7 @@ jobs:
       nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/win-x64
-  - script: del $(Build.ArtifactStagingDirectory)/win-x64/*.pdb
+  - script: del $(Build.ArtifactStagingDirectory)\win-x64\*.pdb
 
   - task: PublishBuildArtifacts@1
     inputs:
