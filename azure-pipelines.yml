@@ -20,7 +20,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
       
-  - script: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main" && sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8
+  - script: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main" && sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libgssapi-krb5-2
   - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
   - script: strip $(Build.ArtifactStagingDirectory)/linux-x64/TsinghuaNet.CLI
   - script: rm $(Build.ArtifactStagingDirectory)/linux-x64/*.pdb
