@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using Eto.Forms;
@@ -12,7 +11,6 @@ namespace TsinghuaNet.Eto.Controls
     {
         public SortableGridView() : base()
         {
-            data = new List<object>();
             dataStore = new ObservableRangeCollection<object>();
             base.DataStore = dataStore;
         }

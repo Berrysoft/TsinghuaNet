@@ -6,6 +6,7 @@
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:converters="using:TsinghuaNet.Uno.Converters"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:TsinghuaNet.Uno.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -37,12 +38,12 @@
                 </StackPanel>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
-                <mtuuc:DataGrid Margin="8" ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
-                    <mtuuc:DataGrid.Columns>
+                <controls:SortableDataGrid Margin="8" ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
+                    <controls:SortableDataGrid.Columns>
                         <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
                         <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
-                    </mtuuc:DataGrid.Columns>
-                </mtuuc:DataGrid>
+                    </controls:SortableDataGrid.Columns>
+                </controls:SortableDataGrid>
             </StackPanel>
         </ScrollViewer>
     </Grid>

@@ -4,8 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.Uno.Views"
     xmlns:net="using:TsinghuaNet"
+    xmlns:ms="using:TsinghuaNet.Models"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:controls="using:TsinghuaNet.Uno.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,7 +15,7 @@
     mc:Ignorable="d xamarin"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <vms:DetailViewModel x:Name="Model"/>
+        <ms:DetailViewModel x:Name="Model"/>
     </Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -29,8 +31,8 @@
             <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">明细</TextBlock>
         </StackPanel>
         <xamarin:ScrollViewer Grid.Row="1" Margin="8" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled">
-            <mtuuc:DataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.DetailsSource,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
-                <mtuuc:DataGrid.Columns>
+            <controls:SortableDataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
+                <controls:SortableDataGrid.Columns>
                     <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
                     <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
                     <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
@@ -40,12 +42,12 @@
                             </DataTemplate>
                         </mtuuc:DataGridTemplateColumn.CellTemplate>
                     </mtuuc:DataGridTemplateColumn>
-                </mtuuc:DataGrid.Columns>
-            </mtuuc:DataGrid>
+                </controls:SortableDataGrid.Columns>
+            </controls:SortableDataGrid>
         </xamarin:ScrollViewer>
         <win:Grid Grid.Row="1" Margin="8">
-            <mtuuc:DataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.DetailsSource,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed" Sorting="DetailsView_Sorting">
-                <mtuuc:DataGrid.Columns>
+            <controls:SortableDataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
+                <controls:SortableDataGrid.Columns>
                     <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
                     <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
                     <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
@@ -55,8 +57,8 @@
                             </DataTemplate>
                         </mtuuc:DataGridTemplateColumn.CellTemplate>
                     </mtuuc:DataGridTemplateColumn>
-                </mtuuc:DataGrid.Columns>
-            </mtuuc:DataGrid>
+                </controls:SortableDataGrid.Columns>
+            </controls:SortableDataGrid>
         </win:Grid>
     </Grid>
 </Page>

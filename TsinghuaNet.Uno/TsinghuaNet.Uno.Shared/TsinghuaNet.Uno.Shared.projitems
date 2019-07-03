@@ -18,13 +18,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Controls\SortableDataGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CurrencyStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FluxStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PackageVersionStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
