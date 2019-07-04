@@ -1,5 +1,7 @@
 ﻿using System.Text;
-using Eto;
+using Eto.GtkSharp;
+using TsinghuaNet.Eto.Controls;
+using TsinghuaNet.Eto.Gtk.Controls;
 
 namespace TsinghuaNet.Eto.Gtk
 {
@@ -8,7 +10,9 @@ namespace TsinghuaNet.Eto.Gtk
         static void Main()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            using (App app = new App(Platforms.Gtk))
+            var platform = new Platform();
+            platform.Add<SortableGridColumn.IHandler>(() => new SortableGridColumnHandler());
+            using (App app = new App(platform))
             {
                 app.Run();
             }

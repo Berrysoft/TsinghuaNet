@@ -4,7 +4,7 @@
       xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
       xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
       xmlns:helper="clr-namespace:TsinghuaNet.Helpers;assembly:TsinghuaNet"
-      Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White">
+      Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White" Closed="MainForm_Closed">
   <Form.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Form.Properties>

@@ -9,54 +9,53 @@ namespace TsinghuaNet.Eto.Controls
         Descending
     }
 
+    [Handler(typeof(IHandler))]
     [ContentProperty("DataCell")]
     public class SortableGridColumn : GridColumn
     {
+        new IHandler Handler { get => (IHandler)base.Handler; }
+
+        public new string HeaderText
+        {
+            get => Handler.HeaderText;
+            set => Handler.HeaderText = value;
+        }
+
+        public string Tag { get; set; }
+
+        public GridSortDirection? SortDirection
+        {
+            get => Handler.SortDirection;
+            set => Handler.SortDirection = value;
+        }
+
         private const char AscendingChar = '▲';
         private const char DescendingChar = '▼';
 
-        private string headerText;
-        public new string HeaderText
-        {
-            get => headerText;
-            set
-            {
-                headerText = value;
-                SetBaseHeaderText();
-            }
-        }
-
-        private void SetBaseHeaderText()
+        public void RefreshBaseHeaderText()
         {
             if (SortDirection.HasValue)
             {
                 switch (SortDirection.Value)
                 {
                     case GridSortDirection.Ascending:
-                        base.HeaderText = headerText + AscendingChar;
+                        base.HeaderText = HeaderText + AscendingChar;
                         break;
                     case GridSortDirection.Descending:
-                        base.HeaderText = headerText + DescendingChar;
+                        base.HeaderText = HeaderText + DescendingChar;
                         break;
                 }
             }
             else
             {
-                base.HeaderText = headerText;
+                base.HeaderText = HeaderText;
             }
         }
 
-        public string Tag { get; set; }
-
-        private GridSortDirection? sortDirection;
-        public GridSortDirection? SortDirection
+        public new interface IHandler : GridColumn.IHandler
         {
-            get => sortDirection;
-            set
-            {
-                sortDirection = value;
-                SetBaseHeaderText();
-            }
+            new string HeaderText { get; set; }
+            GridSortDirection? SortDirection { get; set; }
         }
     }
 }

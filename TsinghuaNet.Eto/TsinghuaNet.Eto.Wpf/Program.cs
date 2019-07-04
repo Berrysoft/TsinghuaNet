@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
-using Eto;
+using Eto.Wpf;
+using TsinghuaNet.Eto.Controls;
+using TsinghuaNet.Eto.Wpf.Controls;
 
 namespace TsinghuaNet.Eto.Wpf
 {
@@ -12,7 +14,9 @@ namespace TsinghuaNet.Eto.Wpf
 #if NETCOREAPP
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
-            using (App app = new App(Platforms.Wpf))
+            var platform = new Platform();
+            platform.Add<SortableGridColumn.IHandler>(() => new SortableGridColumnHandler());
+            using (App app = new App(platform))
             {
                 app.Run();
             }

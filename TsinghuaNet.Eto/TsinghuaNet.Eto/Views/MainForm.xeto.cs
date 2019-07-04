@@ -65,6 +65,7 @@ namespace TsinghuaNet.Eto.Views
         private void MainForm_Closed(object sender, EventArgs e)
         {
             Model.SaveSettings();
+            Application.Instance.Quit();
         }
     }
 }

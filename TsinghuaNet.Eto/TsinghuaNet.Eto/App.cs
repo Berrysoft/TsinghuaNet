@@ -6,7 +6,12 @@ namespace TsinghuaNet.Eto
 {
     public class App : Application
     {
-        public App(string platformType) : base(platformType)
+        public App(Platform platform) : base(platform)
+        {
+            InitializeComponent();
+        }
+
+        private void InitializeComponent()
         {
             LocalizeString += App_LocalizeString;
 #if DEBUG

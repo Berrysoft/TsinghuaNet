@@ -47,36 +47,39 @@ namespace TsinghuaNet.Eto.Controls
 
         protected override void OnColumnHeaderClick(GridColumnEventArgs e)
         {
-            GridSortDirection? dir;
-            if (e.Column is SortableGridColumn clickedColumn)
+            if (data != null)
             {
-                var oridir = clickedColumn.SortDirection;
-                foreach (var c in Columns)
+                GridSortDirection? dir;
+                if (e.Column is SortableGridColumn clickedColumn)
                 {
-                    if (c is SortableGridColumn sc)
-                        sc.SortDirection = null;
-                }
-                switch (oridir)
-                {
-                    case GridSortDirection.Ascending:
-                        dir = GridSortDirection.Descending;
-                        break;
-                    case GridSortDirection.Descending:
-                        dir = null;
-                        break;
-                    default:
-                        dir = GridSortDirection.Ascending;
-                        break;
-                }
-                clickedColumn.SortDirection = dir;
-                if (dir != null)
-                {
-                    bool ascending = dir.Value == GridSortDirection.Ascending;
-                    dataStore.ReplaceRange(data.OfType<object>().OrderBy(o => o.GetType().GetProperty(clickedColumn.Tag).GetValue(o), !ascending));
-                }
-                else
-                {
-                    dataStore.ReplaceRange(data.OfType<object>());
+                    var oridir = clickedColumn.SortDirection;
+                    foreach (var c in Columns)
+                    {
+                        if (c is SortableGridColumn sc)
+                            sc.SortDirection = null;
+                    }
+                    switch (oridir)
+                    {
+                        case GridSortDirection.Ascending:
+                            dir = GridSortDirection.Descending;
+                            break;
+                        case GridSortDirection.Descending:
+                            dir = null;
+                            break;
+                        default:
+                            dir = GridSortDirection.Ascending;
+                            break;
+                    }
+                    clickedColumn.SortDirection = dir;
+                    if (dir != null)
+                    {
+                        bool ascending = dir.Value == GridSortDirection.Ascending;
+                        dataStore.ReplaceRange(data.OfType<object>().OrderBy(o => o.GetType().GetProperty(clickedColumn.Tag).GetValue(o), !ascending));
+                    }
+                    else
+                    {
+                        dataStore.ReplaceRange(data.OfType<object>());
+                    }
                 }
             }
             base.OnColumnHeaderClick(e);
