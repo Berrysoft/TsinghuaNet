@@ -2,6 +2,7 @@ trigger:
 - master
 
 variables:
+  mainSolution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
@@ -178,6 +179,34 @@ jobs:
       archiveType: 'tar'
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Self.tar.gz'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
+
+- job: Windows_UWP
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: NuGetToolInstaller@0
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(mainSolution)'
+
+  - task: VSBuild@1
+    inputs:
+      platform: 'x86|x64'
+      solution: '$(mainSolution)'
+      configuration: 'Release'
+      msbuildArgs: '/t:TsinghuaNet.Uno.UWP /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\uwp\AppxPackages'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Uno.UWP.zip'
 
   - task: PublishBuildArtifacts@1
     inputs:
