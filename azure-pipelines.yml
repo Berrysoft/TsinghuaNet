@@ -3,7 +3,6 @@ trigger:
 
 variables:
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  etoProjects: 'TsinghuaNet.Eto/*/*.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
 
@@ -109,7 +108,7 @@ jobs:
 
   - task: DotNetCoreCLI@2
     inputs:
-      projects: '$(etoProjects)'
+      projects: '$(wpfProject)'
       command: restore
       feedsToUse: config
       nugetConfigPath: NuGet.Config
@@ -155,7 +154,7 @@ jobs:
 
   - task: DotNetCoreCLI@2
     inputs:
-      projects: '$(etoProjects)'
+      projects: '$(gtkProject)'
       command: restore
       feedsToUse: config
       nugetConfigPath: NuGet.Config
