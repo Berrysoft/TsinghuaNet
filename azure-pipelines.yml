@@ -3,9 +3,12 @@ trigger:
 
 variables:
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
+  etoProjects: 'TsinghuaNet.Eto/*/*.csproj'
+  wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
+  gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
 
 jobs:
-- job: Linux
+- job: Linux-CLI
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -21,15 +24,23 @@ jobs:
       nugetConfigPath: NuGet.Config
       
   - script: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main" && sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev && sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
-  - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output $(Build.ArtifactStagingDirectory)/linux-x64
-  - script: strip $(Build.ArtifactStagingDirectory)/linux-x64/TsinghuaNet.CLI
-  - script: rm $(Build.ArtifactStagingDirectory)/linux-x64/*.pdb
+  - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output build/linux-x64
+  - script: strip build/linux-x64/TsinghuaNet.CLI
+  - script: rm build/linux-x64/*.pdb
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build/linux-x64'
+      includeRootFolder: false
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.Linux64.tar.gz'
 
   - task: PublishBuildArtifacts@1
     inputs:
       artifactName: 'publish'
 
-- job: macOS
+- job: MacOS-CLI
   pool:
     vmImage: 'macOS-10.14'
   steps:
@@ -44,15 +55,22 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r osx-x64 -c Release --output $(Build.ArtifactStagingDirectory)/osx-x64
-  - script: strip $(Build.ArtifactStagingDirectory)/osx-x64/TsinghuaNet.CLI
-  - script: rm $(Build.ArtifactStagingDirectory)/osx-x64/*.pdb
+  - script: dotnet publish $(cliProject) -r osx-x64 -c Release --output build/osx-x64
+  - script: strip build/osx-x64/TsinghuaNet.CLI
+  - script: rm build/osx-x64/*.pdb
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build/osx-x64'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.OSX64.zip'
 
   - task: PublishBuildArtifacts@1
     inputs:
       artifactName: 'publish'
 
-- job: Windows
+- job: Windows-CLI
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -67,8 +85,79 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release --output $(Build.ArtifactStagingDirectory)/win-x64
-  - script: del $(Build.ArtifactStagingDirectory)\win-x64\*.pdb
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release --output build\win-x64
+  - script: del build\win-x64\*.pdb
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\win-x64'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
+
+- job: Windows-Eto
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "3.0.100-preview6-012264"
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(etoProjects)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+  
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f net48 --output build\eto.wpf\net48
+  - script: del build\eto.wpf\net48\*.pdb
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\eto.wpf\net48'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
+
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 --self-contained false --output build\eto.wpf\netcoreapp3.0\dep
+  - script: del build\eto.wpf\netcoreapp3.0\dep\*.pdb
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\dep'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dependent.zip'
+
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 --output build\eto.wpf\netcoreapp3.0\self
+  - script: del build\eto.wpf\netcoreapp3.0\self\*.pdb
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\self'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Self.zip'
+
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --self-contained false --output build\eto.gtk\dep
+  - script: del build\eto.gtk\dep\*.pdb
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\eto.gtk\dep'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Dependent.zip'
+
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --output build\eto.gtk\self
+  - script: del build\eto.gtk\self\*.pdb
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: 'build\eto.gtk\self'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Self.zip'
 
   - task: PublishBuildArtifacts@1
     inputs:
