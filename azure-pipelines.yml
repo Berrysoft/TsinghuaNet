@@ -159,25 +159,25 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
   
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --self-contained false --output build\eto.gtk\dep
-  - script: rm build\eto.gtk\dep\*.pdb
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --self-contained false --output build/eto.gtk/dep
+  - script: rm build/eto.gtk/dep/*.pdb
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: 'build\eto.gtk\dep'
+      rootFolderOrFile: 'build/eto.gtk/dep'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Dependent.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Dependent.tar.gz'
 
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --output build\eto.gtk\self
-  - script: rm build\eto.gtk\self\*.pdb
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --output build/eto.gtk/self
+  - script: rm build/eto.gtk/self/*.pdb
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: 'build\eto.gtk\self'
+      rootFolderOrFile: 'build/eto.gtk/self'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Self.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Self.tar.gz'
 
   - task: PublishBuildArtifacts@1
     inputs:
