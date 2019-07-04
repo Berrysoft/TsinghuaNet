@@ -8,7 +8,7 @@ variables:
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
 
 jobs:
-- job: Linux-CLI
+- job: Linux_CLI
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
@@ -40,7 +40,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: MacOS-CLI
+- job: MacOS_CLI
   pool:
     vmImage: 'macOS-10.14'
   steps:
@@ -70,7 +70,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows-CLI
+- job: Windows_CLI
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -99,7 +99,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows-Eto
+- job: Windows_Eto
   pool:
     vmImage: 'windows-2019'
   steps:
