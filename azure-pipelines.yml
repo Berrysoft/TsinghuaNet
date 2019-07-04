@@ -141,14 +141,34 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Self.zip'
 
+  - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
+
+- job: Linux_Eto
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task: DotNetCoreInstaller@0
+    inputs:
+      version: "3.0.100-preview6-012264"
+
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(etoProjects)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+  
   - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --self-contained false --output build\eto.gtk\dep
   - script: del build\eto.gtk\dep\*.pdb
   - task: ArchiveFiles@2
     inputs:
       rootFolderOrFile: 'build\eto.gtk\dep'
       includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Dependent.zip'
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Dependent.tar.gz'
 
   - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --output build\eto.gtk\self
   - script: del build\eto.gtk\self\*.pdb
@@ -156,8 +176,9 @@ jobs:
     inputs:
       rootFolderOrFile: 'build\eto.gtk\self'
       includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Self.zip'
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Gtk.Self.tar.gz'
 
   - task: PublishBuildArtifacts@1
     inputs:
