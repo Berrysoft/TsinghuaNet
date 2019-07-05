@@ -3,7 +3,7 @@ using Windows.Security.Credentials;
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    static class CredentialHelper
+    public static class CredentialHelper
     {
         private const string CredentialResource = "TsinghuaNetUWP";
         private static readonly PasswordVault vault = new PasswordVault();

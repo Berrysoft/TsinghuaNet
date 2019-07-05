@@ -90,7 +90,4 @@
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)FodyWeavers.xml" />
-  </ItemGroup>
 </Project>

@@ -115,6 +115,9 @@
       <Name>TsinghuaNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml" />
+  </ItemGroup>
   <Import Project="..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems')" />
   <Import Project="..\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

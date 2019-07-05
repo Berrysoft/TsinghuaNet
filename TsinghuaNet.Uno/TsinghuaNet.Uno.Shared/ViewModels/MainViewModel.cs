@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -9,6 +10,10 @@ using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+
+#if WINDOWS_UWP
+using TsinghuaNet.Uno.UWP.Background;
+#endif
 
 namespace TsinghuaNet.Uno.ViewModels
 {
@@ -36,12 +41,33 @@ namespace TsinghuaNet.Uno.ViewModels
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Settings = new TsinghuaNet.Uno.Helpers.NetSettings();
+#if WINDOWS_UWP
+            Settings.PropertyChanged += OnSettingsPropertyChanged;
+#endif
+            Settings.LoadSettings();
             // 上一次登录的用户名
             var un = Settings.StoredUsername;
             // 设置为当前用户名并获取密码
             Credential.Username = un;
             Credential.Password = CredentialHelper.GetCredential(un);
         }
+
+#if WINDOWS_UWP
+        private async void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            switch(e.PropertyName)
+            {
+                case "BackgroundAutoLogin":
+                    if (await BackgroundHelper.RequestAccessAsync())
+                        BackgroundHelper.RegisterLogin(Settings.BackgroundAutoLogin);
+                    break;
+                case "BackgroundLiveTile":
+                    if (await BackgroundHelper.RequestAccessAsync())
+                        BackgroundHelper.RegisterLogin(Settings.BackgroundLiveTile);
+                    break;
+            }
+        }
+#endif
 
         public override void SaveSettings()
         {

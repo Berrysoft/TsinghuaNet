@@ -153,6 +153,10 @@
       <Project>{198a7897-55a9-43dc-9455-84270a46960f}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TsinghuaNet.Uno.Helpers.UWP\TsinghuaNet.Uno.Helpers.UWP.csproj">
+      <Project>{6c91c778-e47d-4ad6-81b4-33333d78d9b4}</Project>
+      <Name>TsinghuaNet.Uno.Helpers.UWP</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.Uno.UWP.Background\TsinghuaNet.Uno.UWP.Background.csproj">
       <Project>{eea62454-4150-40de-8bdd-271b38c1c8c2}</Project>
       <Name>TsinghuaNet.Uno.UWP.Background</Name>
@@ -177,10 +181,10 @@
     <Content Include="Assets\square44x44logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\storelogo.png" />
     <Content Include="Assets\wide310x150logo.scale-200.png" />
+    <Content Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <Import Project="..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems')" />
-  <Import Project="..\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

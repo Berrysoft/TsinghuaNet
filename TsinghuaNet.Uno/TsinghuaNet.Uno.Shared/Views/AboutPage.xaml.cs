@@ -15,7 +15,9 @@ namespace TsinghuaNet.Uno.Views
 
         private async void PageLoaded(object sender, RoutedEventArgs e)
         {
+#if !WINDOWS_UWP
             await Task.Delay(500);
+#endif
             Model.Packages = new List<PackageBox>()
             {
                 new PackageBox("Fody", "MIT"),

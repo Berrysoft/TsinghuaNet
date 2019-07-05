@@ -6,7 +6,7 @@ using Windows.UI.Notifications;
 namespace TsinghuaNet.Uno.Helpers
 {
 #if WINDOWS_UWP
-    static class NotificationHelper
+    public static class NotificationHelper
     {
         private static readonly string tileText;
         private static readonly string toastText;

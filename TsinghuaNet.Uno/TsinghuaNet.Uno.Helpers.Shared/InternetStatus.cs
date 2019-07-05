@@ -17,7 +17,7 @@ using SystemConfiguration;
 namespace TsinghuaNet.Uno.Helpers
 {
 #if WINDOWS_UWP
-    class InternetStatus : NetMapStatus
+    public class InternetStatus : NetMapStatus
     {
         private static (NetStatus, string) GetInternetStatus()
         {
@@ -42,7 +42,7 @@ namespace TsinghuaNet.Uno.Helpers
         }
     }
 #elif __ANDROID__
-    class InternetStatus : NetMapStatus
+    public class InternetStatus : NetMapStatus
     {
         public override Task RefreshAsync()
         {
@@ -61,7 +61,7 @@ namespace TsinghuaNet.Uno.Helpers
         }
     }
 #elif __IOS__
-    class InternetStatus : NetMapStatus
+    public class InternetStatus : NetMapStatus
     {
         public override Task RefreshAsync()
         {
@@ -88,7 +88,7 @@ namespace TsinghuaNet.Uno.Helpers
         }
     }
 #else
-    class InternetStatus : NetPingStatus
+    public class InternetStatus : NetPingStatus
     {
     }
 #endif

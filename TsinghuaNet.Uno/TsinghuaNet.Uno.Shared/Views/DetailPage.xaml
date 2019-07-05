@@ -51,11 +51,6 @@
         </xamarin:ScrollViewer>
         <win:Grid Grid.Row="1" Margin="8">
             <mtuuc:TabView TabWidthBehavior="Equal" CanCloseTabs="False" IsCloseButtonOverlay="False" CanDragItems="False" CanReorderItems="False" AllowDrop="False">
-                <mtuuc:TabView.Resources>
-                    <x:Double x:Key="TabViewItemHeaderMinHeight">40</x:Double>
-                    <x:Double x:Key="TabViewItemHeaderMinWidth">48</x:Double>
-                    <x:Double x:Key="TabViewItemHeaderMaxWidth">200</x:Double>
-                </mtuuc:TabView.Resources>
                 <mtuuc:TabViewItem Header="按连接统计">
                     <mtuuc:TabViewItem.Icon>
                         <win:SymbolIcon Symbol="List"/>

@@ -1,32 +1,16 @@
-﻿using System;
-using Windows.Foundation.Collections;
+﻿using Windows.Foundation.Collections;
 using Windows.Storage;
-
-#if WINDOWS_UWP
-using TsinghuaNet.Uno.UWP.Background;
-#endif
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    class NetSettings : TsinghuaNet.Models.NetSettings
+    public class NetSettings : TsinghuaNet.Models.NetSettings
     {
         public string StoredUsername { get; set; }
 
 #if WINDOWS_UWP
         public bool BackgroundAutoLogin { get; set; }
-        private async void OnBackgroundAutoLoginChanged()
-        {
-            if (await BackgroundHelper.RequestAccessAsync())
-                BackgroundHelper.RegisterLogin(BackgroundAutoLogin);
-        }
 
         public bool BackgroundLiveTile { get; set; }
-
-        private async void OnBackgroundLiveTileChanged()
-        {
-            if (await BackgroundHelper.RequestAccessAsync())
-                BackgroundHelper.RegisterLiveTile(BackgroundLiveTile);
-        }
 #endif
 
         private IPropertySet values;
@@ -56,7 +40,7 @@ namespace TsinghuaNet.Uno.Helpers
         private const string EnableFluxLimitKey = "EnableFluxLimit";
         private const string FluxLimitKey = "FluxLimit";
 
-        public NetSettings() : base()
+        public void LoadSettings()
         {
             values = ApplicationData.Current.LocalSettings.Values;
             StoredUsername = GetValue(StoredUsernameKey, string.Empty);
