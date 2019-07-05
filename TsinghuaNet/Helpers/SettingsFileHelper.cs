@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Newtonsoft.Json.Linq;
 
 namespace TsinghuaNet.Helpers
 {
@@ -28,14 +27,6 @@ namespace TsinghuaNet.Helpers
                 return true;
             }
             return false;
-        }
-
-        public static JToken GetSettings(JObject json, string key, JToken def)
-        {
-            if (json.ContainsKey(key))
-                return json[key];
-            else
-                return def;
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace TsinghuaNet
 {
@@ -33,8 +33,11 @@ namespace TsinghuaNet
             try
             {
                 string jsonstr = response.Substring(9, response.Length - 10);
-                JObject json = JObject.Parse(jsonstr);
-                return new LogResponse((string)json["error"] == "ok", $"error: {json["error"]}; error_msg: {json["error_msg"]}");
+                JsonDocument json = JsonDocument.Parse(jsonstr);
+                JsonElement root = json.RootElement;
+                string error = root.GetProperty("error").GetString();
+                string error_msg = root.GetProperty("error_msg").GetString();
+                return new LogResponse(error == "ok", $"error: {error}; error_msg: {error_msg}");
             }
             catch (Exception)
             {

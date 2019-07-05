@@ -22,7 +22,6 @@ namespace TsinghuaNet.Eto.ViewModels
             new PackageBox("Eto.Serialization.Xaml", "BSD-3"),
             new PackageBox("Fody", "MIT"),
             new PackageBox("HtmlAgilityPack", "MIT"),
-            new PackageBox("Newtonsoft.Json", "MIT"),
             new PackageBox("PropertyChanged.Fody", "MIT"),
             new PackageBox("Refractored.MvvmHelpers", "MIT"),
             new PackageBox("System.Linq.Async","Apache-2.0")

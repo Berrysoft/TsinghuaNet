@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace TsinghuaNet
 {
@@ -42,8 +42,8 @@ namespace TsinghuaNet
         private async Task<string> GetChallengeAsync()
         {
             string result = await GetAsync(string.Format(ChallengeUri, version, Username));
-            JObject json = JObject.Parse(result.Substring(9, result.Length - 10));
-            return (string)json["challenge"];
+            JsonDocument json = JsonDocument.Parse(result.Substring(9, result.Length - 10));
+            return json.RootElement.GetProperty("challenge").GetString();
         }
 
         private const string LoginInfoJson = "{{\"username\": \"{0}\", \"password\": \"{1}\", \"ip\": \"\", \"acid\": \"{2}\", \"enc_ver\": \"srun_bx1\"}}";
