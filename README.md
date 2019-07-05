@@ -81,11 +81,12 @@ Uno版本。支持UWP、Android与iOS平台。
 ## 从哪里下载最新版的程序？
 在[Releases](https://github.com/Berrysoft/TsinghuaNet/releases)页面。
 ## 我该如何从源代码编译这个程序？
-为Visual Studio安装“.NET Core 桌面开发”，并需要 .NET Core SDK 3.0。
+使用Visual Studio 2019打开解决方案，会自动提示安装大部分需要的组件。
 
-编译Uno版本还需要安装“通用 Windows 平台开发”与“使用.NET的移动开发”，并需要Windows SDK 10.0.18362。
-
-为Mac编译Eto版本需要安装Mono。
+还需要的组件：
+* .NET Core 3.0 SDK
+* .NET Framework 4.8 SDK
+* Mono x64
 ## 我可以使用这里的源代码吗？
 可以。这个项目使用[MIT许可证](./LICENSE)开源。
 ## 这个程序能卸载干净吗？
@@ -94,7 +95,7 @@ Uno版本。支持UWP、Android与iOS平台。
 CLI版本的用户名和密码保存在用户文件夹下的`.config/TsinghuaNet.CLI/settings.json`，仅在运行`savecred`后创建，可使用`deletecred`删除。
 
 Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
-## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto独有）
+## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto）
 进入系统偏好设置，双击“安全性与隐私”，点击“仍要打开”，如下图：
 
 ![我是身份不明的开发者](./Screenshots/Eto.MacSecurity.png)
