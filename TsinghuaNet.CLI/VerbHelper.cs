@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 
@@ -60,6 +60,14 @@ namespace TsinghuaNet.CLI
             return new NetCredential() { Username = u, Password = p };
         }
 
+        private class CredentialSettings
+        {
+            [JsonPropertyName("username")]
+            public string Username { get; set; }
+            [JsonPropertyName("password")]
+            public string Password { get; set; }
+        }
+
         public static NetCredential Credential
         {
             get
@@ -68,31 +76,23 @@ namespace TsinghuaNet.CLI
                 if (File.Exists(path))
                 {
                     NetCredential cred = new NetCredential();
-                    using (StreamReader stream = new StreamReader(path))
-                    using (JsonTextReader reader = new JsonTextReader(stream))
-                    {
-                        var json = JObject.Load(reader);
-                        cred.Username = (string)SettingsFileHelper.GetSettings(json, "username", string.Empty);
-                        cred.Password = Encoding.UTF8.GetString(Convert.FromBase64String((string)SettingsFileHelper.GetSettings(json, "password", string.Empty)));
-                        return cred;
-                    }
+                    CredentialSettings settings = JsonSerializer.Deserialize<CredentialSettings>(File.ReadAllText(path));
+                    cred.Username = settings.Username;
+                    cred.Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings.Password));
+                    return cred;
                 }
                 else
                     return ReadCredential();
             }
             set
             {
-                JObject json = new JObject
+                CredentialSettings settings = new CredentialSettings()
                 {
-                    ["username"] = value.Username ?? string.Empty,
-                    ["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
+                    Username = value.Username ?? string.Empty,
+                    Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
                 };
                 SettingsFileHelper.CreateSettingsFolder(SettingsHelper.ProjectName);
-                using (StreamWriter stream = new StreamWriter(SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename)))
-                using (JsonTextWriter writer = new JsonTextWriter(stream))
-                {
-                    json.WriteTo(writer);
-                }
+                File.WriteAllText(SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename), JsonSerializer.Serialize(settings));
             }
         }
     }

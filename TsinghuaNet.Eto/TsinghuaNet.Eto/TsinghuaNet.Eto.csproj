@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
     <AssemblyVersion>4.0.0.0</AssemblyVersion>
     <FileVersion>4.0.0.0</FileVersion>
   </PropertyGroup>
@@ -29,7 +29,7 @@
     </PackageReference>
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
     <PackageReference Include="Refractored.MvvmHelpers" Version="1.4.1-beta" />
-    <PackageReference Include="System.Text.Json" Version="4.6.0-preview6.19303.8" />
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19355.2" />
   </ItemGroup>
 
   <ItemGroup>

@@ -25,7 +25,6 @@ namespace TsinghuaNet.Uno.Views
 #if WINDOWS_UWP
                 new PackageBox("Microsoft.Toolkit.Uwp", "MIT"),
 #endif
-                new PackageBox("Newtonsoft.Json", "MIT"),
                 new PackageBox("PropertyChanged.Fody", "MIT"),
                 new PackageBox("System.Linq.Async","Apache-2.0"),
 #if __ANDROID__ || __IOS__

@@ -6,7 +6,7 @@ using Eto.Forms;
 using PropertyChanged;
 using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
-using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace TsinghuaNet.Eto.ViewModels
 {
@@ -40,7 +40,7 @@ namespace TsinghuaNet.Eto.ViewModels
             if (File.Exists(path))
             {
                 string json = File.ReadAllText(path);
-                Settings = JsonSerializer.Parse<NetSettings>(json);
+                Settings = JsonSerializer.Deserialize<NetSettings>(json);
             }
             if (Settings == null) Settings = new NetSettings();
             Credential.Username = Settings.Username ?? string.Empty;
@@ -52,7 +52,7 @@ namespace TsinghuaNet.Eto.ViewModels
             Settings.Username = Credential.Username ?? string.Empty;
             Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password ?? string.Empty));
             SettingsFileHelper.CreateSettingsFolder(ProjectName);
-            File.WriteAllText(SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename), JsonSerializer.ToString(Settings));
+            File.WriteAllText(SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename), JsonSerializer.Serialize(Settings));
         }
 
         private UITimer timer;

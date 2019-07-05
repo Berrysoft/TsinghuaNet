@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="Eto.Platform.Gtk" Version="2.5.0-beta.1" />
     <PackageReference Include="GtkSharp" Version="3.22.24.37" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview6.19303.8" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19355.2" />
   </ItemGroup>
 
   <ItemGroup>
