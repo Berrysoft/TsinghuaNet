@@ -2,6 +2,7 @@ trigger:
 - master
 
 variables:
+  sdkVersion: '3.0.0-preview8-27905-01'
   mainSolution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
@@ -15,7 +16,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
-      version: "3.0.100-preview6-012264"
+      version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -47,7 +48,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
-      version: "3.0.100-preview6-012264"
+      version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -77,7 +78,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
-      version: "3.0.100-preview6-012264"
+      version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -106,7 +107,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
-      version: "3.0.100-preview6-012264"
+      version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -152,7 +153,7 @@ jobs:
   steps:
   - task: DotNetCoreInstaller@0
     inputs:
-      version: "3.0.100-preview6-012264"
+      version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
     inputs:
