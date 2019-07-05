@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using Eto;
 using PropertyChanged;
 using TsinghuaNet.Models;
@@ -25,6 +27,8 @@ namespace TsinghuaNet.Eto.ViewModels
             new PackageBox("Refractored.MvvmHelpers", "MIT"),
             new PackageBox("System.Linq.Async","Apache-2.0")
         };
+
+        public Version Version { get => Assembly.GetExecutingAssembly().GetName().Version; }
 
         public SettingsViewModel() : base()
         {
