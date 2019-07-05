@@ -20,9 +20,9 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Controls\SortableDataGrid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\CurrencyStringConverter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Converters\EnumIndexConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\FluxStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PackageVersionStringConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
@@ -37,6 +37,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Controls\SortableDataGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

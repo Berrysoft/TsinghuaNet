@@ -8,6 +8,7 @@
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:TsinghuaNet.Uno.Controls"
+    xmlns:converters="using:TsinghuaNet.Uno.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -17,6 +18,9 @@
     <Page.DataContext>
         <ms:DetailViewModel x:Name="Model"/>
     </Page.DataContext>
+    <Page.Resources>
+        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>
@@ -46,19 +50,50 @@
             </controls:SortableDataGrid>
         </xamarin:ScrollViewer>
         <win:Grid Grid.Row="1" Margin="8">
-            <controls:SortableDataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
-                <controls:SortableDataGrid.Columns>
-                    <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
-                    <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
-                    <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
-                        <mtuuc:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="net:NetDetail">
-                                <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
-                            </DataTemplate>
-                        </mtuuc:DataGridTemplateColumn.CellTemplate>
-                    </mtuuc:DataGridTemplateColumn>
-                </controls:SortableDataGrid.Columns>
-            </controls:SortableDataGrid>
+            <mtuuc:TabView TabWidthBehavior="Equal" CanCloseTabs="False" IsCloseButtonOverlay="False" CanDragItems="False" CanReorderItems="False" AllowDrop="False">
+                <mtuuc:TabView.Resources>
+                    <x:Double x:Key="TabViewItemHeaderMinHeight">40</x:Double>
+                    <x:Double x:Key="TabViewItemHeaderMinWidth">48</x:Double>
+                    <x:Double x:Key="TabViewItemHeaderMaxWidth">200</x:Double>
+                </mtuuc:TabView.Resources>
+                <mtuuc:TabViewItem Header="按连接统计">
+                    <mtuuc:TabViewItem.Icon>
+                        <win:SymbolIcon Symbol="List"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE14C;"/>
+                    </mtuuc:TabViewItem.Icon>
+                    <controls:SortableDataGrid ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
+                        <controls:SortableDataGrid.Columns>
+                            <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
+                            <mtuuc:DataGridTextColumn Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
+                            <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
+                                <mtuuc:DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate x:DataType="net:NetDetail">
+                                        <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
+                                    </DataTemplate>
+                                </mtuuc:DataGridTemplateColumn.CellTemplate>
+                            </mtuuc:DataGridTemplateColumn>
+                        </controls:SortableDataGrid.Columns>
+                    </controls:SortableDataGrid>
+                </mtuuc:TabViewItem>
+                <mtuuc:TabViewItem Header="按日统计">
+                    <mtuuc:TabViewItem.Icon>
+                        <win:SymbolIcon Symbol="CalendarDay"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE161;"/>
+                    </mtuuc:TabViewItem.Icon>
+                    <controls:SortableDataGrid ItemsSource="{x:Bind Model.GroupedDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
+                        <controls:SortableDataGrid.Columns>
+                            <mtuuc:DataGridTextColumn Header="登录日期" Binding="{Binding Key,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:d\}}" Tag="Key"/>
+                            <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Value">
+                                <mtuuc:DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{Binding Value}"/>
+                                    </DataTemplate>
+                                </mtuuc:DataGridTemplateColumn.CellTemplate>
+                            </mtuuc:DataGridTemplateColumn>
+                        </controls:SortableDataGrid.Columns>
+                    </controls:SortableDataGrid>
+                </mtuuc:TabViewItem>
+            </mtuuc:TabView>
         </win:Grid>
     </Grid>
 </Page>

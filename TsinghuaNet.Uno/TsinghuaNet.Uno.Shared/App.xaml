@@ -11,7 +11,6 @@
     <Application.Resources>
         <CubicEase x:Key="ShowAnimationEase" EasingMode="EaseOut"/>
         <CubicEase x:Key="HideAnimationEase" EasingMode="EaseIn"/>
-        <converters:EnumIndexConverter x:Key="EnumIndexConverter"/>
         <xamarin:FontFamily x:Key="SegoeMDLFont">ms-appx:///Assets/Fonts/segmdl2.ttf</xamarin:FontFamily>
     </Application.Resources>
 </Application>

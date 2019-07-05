@@ -6,7 +6,7 @@ using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Uno.Controls
 {
-    public class SortableDataGrid : DataGrid
+    public partial class SortableDataGrid : DataGrid
     {
         public SortableDataGrid() : base()
         {
