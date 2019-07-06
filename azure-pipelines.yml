@@ -191,6 +191,8 @@ jobs:
     vmImage: 'windows-2019'
   steps:
   - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: '4.3.0' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -205,9 +207,9 @@ jobs:
   - task: VSBuild@1
     inputs:
       platform: 'x86|x64'
-      solution: '$(unoSolution)'
+      solution: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
       configuration: 'Release'
-      msbuildArgs: '/t:TsinghuaNet.Uno.UWP /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArgs: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - task: ArchiveFiles@2
     inputs:
@@ -222,12 +224,14 @@ jobs:
 
 - job: Windows_Android
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'vs2017-win2016'
   variables:
     buildConfiguration: 'Release'
     outputDirectory: 'build\droid'
   steps:
   - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: '4.3.0' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -244,6 +248,15 @@ jobs:
       projectFile: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
+  
+  - task: CopyFiles@2
+    inputs:
+      contents: '**\*.apk'
+      targetFolder: '$(build.artifactStagingDirectory)'
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      artifactName: 'publish'
 
 - job: MacOS_iOS
   pool:
@@ -252,6 +265,8 @@ jobs:
     buildConfiguration: 'AppStore'
   steps:
   - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: '4.3.0' 
 
   - task: DotNetCoreInstaller@0
     inputs:
