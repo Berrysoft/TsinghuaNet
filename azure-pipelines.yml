@@ -216,4 +216,4 @@ jobs:
     inputs:
       solution: '$(unoSolution)'
       configuration: 'Release'
-      msbuildArguments: '/p:JavaSdkDirectory=%JAVA_HOME%'
+      msbuildArguments: '/p:JavaSdkDirectory="%JAVA_HOME%"'
