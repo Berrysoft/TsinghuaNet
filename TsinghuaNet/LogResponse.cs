@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Text.Json;
 
 namespace TsinghuaNet
@@ -28,11 +29,11 @@ namespace TsinghuaNet
             return new LogResponse(response == "Login is successful.", response);
         }
 
-        internal static LogResponse ParseFromAuth(string response)
+        internal static LogResponse ParseFromAuth(byte[] response)
         {
             try
             {
-                string jsonstr = response.Substring(9, response.Length - 10);
+                var jsonstr = response.AsMemory().Slice(9, response.Length - 10);
                 JsonDocument json = JsonDocument.Parse(jsonstr);
                 JsonElement root = json.RootElement;
                 string error = root.GetProperty("error").GetString();
@@ -41,7 +42,7 @@ namespace TsinghuaNet
             }
             catch (Exception)
             {
-                return new LogResponse(false, response);
+                return new LogResponse(false, Encoding.UTF8.GetString(response));
             }
         }
 

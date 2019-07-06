@@ -252,7 +252,7 @@ namespace TsinghuaNet.CLI
             var de = Console.ReadLine();
             if (string.Equals(de, "y", StringComparison.OrdinalIgnoreCase))
             {
-                if (SettingsFileHelper.DeleteSettings(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename))
+                if (SettingsHelper.Helper.DeleteSettings())
                 {
                     Console.WriteLine("已删除");
                 }

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.IO;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TsinghuaNet.Helpers;
@@ -72,17 +70,20 @@ namespace TsinghuaNet.CLI
         {
             get
             {
-                var path = SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename);
-                if (File.Exists(path))
+                CredentialSettings settings = SettingsHelper.Helper.ReadSettings<CredentialSettings>();
+                if (settings != null)
                 {
-                    NetCredential cred = new NetCredential();
-                    CredentialSettings settings = JsonSerializer.Deserialize<CredentialSettings>(File.ReadAllText(path));
-                    cred.Username = settings.Username;
-                    cred.Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings.Password));
+                    NetCredential cred = new NetCredential
+                    {
+                        Username = settings.Username,
+                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings.Password))
+                    };
                     return cred;
                 }
                 else
+                {
                     return ReadCredential();
+                }
             }
             set
             {
@@ -91,15 +92,16 @@ namespace TsinghuaNet.CLI
                     Username = value.Username ?? string.Empty,
                     Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
                 };
-                SettingsFileHelper.CreateSettingsFolder(SettingsHelper.ProjectName);
-                File.WriteAllText(SettingsFileHelper.GetSettingsPath(SettingsHelper.ProjectName, SettingsHelper.SettingsFilename), JsonSerializer.Serialize(settings));
+                SettingsHelper.Helper.WriteSettings(settings);
             }
         }
     }
 
     static class SettingsHelper
     {
-        public const string SettingsFilename = "settings.json";
-        public const string ProjectName = "TsinghuaNet.CLI";
+        private const string SettingsFilename = "settings.json";
+        private const string ProjectName = "TsinghuaNet.CLI";
+
+        public readonly static SettingsFileHelper Helper = new SettingsFileHelper(ProjectName, SettingsFilename);
     }
 }

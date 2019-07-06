@@ -1,12 +1,10 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Eto.Forms;
 using PropertyChanged;
 using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
-using System.Text.Json;
 
 namespace TsinghuaNet.Eto.ViewModels
 {
@@ -36,23 +34,18 @@ namespace TsinghuaNet.Eto.ViewModels
 
         public override void LoadSettings()
         {
-            var path = SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename);
-            if (File.Exists(path))
-            {
-                string json = File.ReadAllText(path);
-                Settings = JsonSerializer.Deserialize<NetSettings>(json);
-            }
-            if (Settings == null) Settings = new NetSettings();
+            var helper = new SettingsFileHelper(ProjectName, SettingsFilename);
+            Settings = helper.ReadSettings<NetSettings>() ?? new NetSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
         }
 
         public override void SaveSettings()
         {
-            Settings.Username = Credential.Username ?? string.Empty;
-            Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password ?? string.Empty));
-            SettingsFileHelper.CreateSettingsFolder(ProjectName);
-            File.WriteAllText(SettingsFileHelper.GetSettingsPath(ProjectName, SettingsFilename), JsonSerializer.Serialize(Settings));
+            Settings.Username = Credential.Username;
+            Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
+            var helper = new SettingsFileHelper(ProjectName, SettingsFilename);
+            helper.WriteSettings(Settings);
         }
 
         private UITimer timer;

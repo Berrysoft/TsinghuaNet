@@ -26,7 +26,7 @@ namespace TsinghuaNet
             string uri = string.Format(LogUri, version);
             foreach (int ac_id in AcIds)
             {
-                response = LogResponse.ParseFromAuth(await PostAsync(uri, await f(ac_id)));
+                response = LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
                 if (response.Succeed)
                     break;
             }
@@ -41,8 +41,8 @@ namespace TsinghuaNet
 
         private async Task<string> GetChallengeAsync()
         {
-            string result = await GetAsync(string.Format(ChallengeUri, version, Username));
-            JsonDocument json = JsonDocument.Parse(result.Substring(9, result.Length - 10));
+            byte[] result = await GetBytesAsync(string.Format(ChallengeUri, version, Username));
+            JsonDocument json = JsonDocument.Parse(result.AsMemory().Slice(9, result.Length - 10));
             return json.RootElement.GetProperty("challenge").GetString();
         }
 

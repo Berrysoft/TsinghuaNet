@@ -36,37 +36,42 @@ namespace TsinghuaNet
         protected async Task<string> PostAsync(string uri)
         {
             using (HttpRequestMessage message = new HttpRequestMessage(HttpMethod.Post, uri))
+            using (HttpResponseMessage response = await client.SendAsync(message))
             {
-                using (HttpResponseMessage response = await client.SendAsync(message))
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
+                return await response.Content.ReadAsStringAsync();
             }
         }
 
         protected async Task<string> PostAsync(string uri, string data)
         {
             using (StringContent content = new StringContent(data ?? string.Empty, Encoding.ASCII, "application/x-www-form-urlencoded"))
+            using (HttpResponseMessage response = await client.PostAsync(uri, content))
             {
-                using (HttpResponseMessage response = await client.PostAsync(uri, content))
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
+                return await response.Content.ReadAsStringAsync();
             }
         }
 
         protected async Task<string> PostAsync(string uri, Dictionary<string, string> data)
         {
             using (HttpContent content = new FormUrlEncodedContent(data))
+            using (HttpResponseMessage response = await client.PostAsync(uri, content))
             {
-                using (HttpResponseMessage response = await client.PostAsync(uri, content))
-                {
-                    return await response.Content.ReadAsStringAsync();
-                }
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
+        protected async Task<byte[]> PostReturnBytesAsync(string uri, Dictionary<string, string> data)
+        {
+            using (HttpContent content = new FormUrlEncodedContent(data))
+            using (HttpResponseMessage response = await client.PostAsync(uri, content))
+            {
+                return await response.Content.ReadAsByteArrayAsync();
             }
         }
 
         protected Task<string> GetAsync(string uri) => client.GetStringAsync(uri);
+
+        protected Task<byte[]> GetBytesAsync(string uri) => client.GetByteArrayAsync(uri);
 
         #region IDisposable Support
         private bool disposedValue = false;
