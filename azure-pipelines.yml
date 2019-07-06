@@ -192,19 +192,14 @@ jobs:
     vmImage: 'windows-2019'
   steps:
   - task: NuGetToolInstaller@0
+    inputs:
+      versionSpec: '5.0.2'
 
   - task: UseDotNet@2
     inputs:
       packageType: sdk
       version: $(sdkVersion)
       installationPath: 'C:\Program Files\dotnet'
-
-  - task: DotNetCoreCLI@2
-    inputs:
-      projects: '$(libProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
   
   - task: NuGetCommand@2
     inputs:
