@@ -193,9 +193,11 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
 
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     inputs:
-      version: '$(sdkVersion)'
+      packageType: sdk
+      version: $(sdkVersion)
+      installationPath: 'C:\Program Files\dotnet'
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -204,8 +206,6 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
   
-  - script: dotnet build $(libProject) -c Release
-
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(unoSolution)'
