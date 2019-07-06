@@ -201,12 +201,11 @@ jobs:
       version: $(sdkVersion)
       installationPath: 'C:\Program Files\dotnet'
   
-  # - task: NuGetCommand@2
-  #   inputs:
-  #     restoreSolution: '$(unoSolution)'
-  #     feedsToUse: config
-  #     nugetConfigPath: 'NuGet.Config'
-  - script: msbuild -t:restore -p:RestoreConfigFile=NuGet.Config
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(unoSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
 
   - task: MSBuild@1
     inputs:
