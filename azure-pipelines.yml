@@ -192,7 +192,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '5.0.2' 
+      versionSpec: '4.3.0' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -231,7 +231,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '5.0.2' 
+      versionSpec: '4.3.0' 
 
   - task: DotNetCoreInstaller@0
     inputs:
