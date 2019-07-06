@@ -192,7 +192,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '4.3.0' 
+      versionSpec: '4.9.1' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -204,82 +204,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
-  - task: VSBuild@1
+  - task: MSBuild@1
     inputs:
-      platform: 'x86|x64'
-      solution: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
+      solution: '$(unoSolution)'
       configuration: 'Release'
-      msbuildArgs: '/p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
-
-  - task: ArchiveFiles@2
-    inputs:
-      rootFolderOrFile: 'build\uwp\AppxPackages'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Uno.UWP.zip'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      artifactName: 'publish'
-
-- job: Windows_Android
-  pool:
-    vmImage: 'vs2017-win2016'
-  variables:
-    buildConfiguration: 'Release'
-    outputDirectory: 'build\droid'
-  steps:
-  - task: NuGetToolInstaller@0
-    inputs:
-      versionSpec: '4.3.0' 
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '$(sdkVersion)'
-
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(unoSolution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-  
-  - task: XamarinAndroid@1
-    inputs:
-      projectFile: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
-      outputDirectory: '$(outputDirectory)'
-      configuration: '$(buildConfiguration)'
-  
-  - task: CopyFiles@2
-    inputs:
-      contents: '**\*.apk'
-      targetFolder: '$(build.artifactStagingDirectory)'
-
-  - task: PublishBuildArtifacts@1
-    inputs:
-      artifactName: 'publish'
-
-- job: MacOS_iOS
-  pool:
-    vmImage: 'macOS-10.14'
-  variables:
-    buildConfiguration: 'AppStore'
-  steps:
-  - task: NuGetToolInstaller@0
-    inputs:
-      versionSpec: '5.0.2' 
-
-  - task: DotNetCoreInstaller@0
-    inputs:
-      version: '$(sdkVersion)'
-
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(unoSolution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-  
-  - task: XamariniOS@2
-    inputs:
-      solutionFile: 'TsinghuaNet.Uno/TsinghuaNet.Uno.iOS/TsinghuaNet.Uno.iOS.csproj'
-      configuration: '$(buildConfiguration)'
-      packageApp: true
