@@ -204,7 +204,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
   
-  - script: dotnet build '$(libProject)' -c Release
+  - script: dotnet build $(libProject) -c Release
 
   - task: NuGetCommand@2
     inputs:
