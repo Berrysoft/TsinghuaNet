@@ -36,16 +36,16 @@
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="1"/>
                         <Setter Target="MainGrid.VerticalAlignment" Value="Top"/>
-                        <Setter Target="StateGrid.Rows" Value="1"/>
-                        <Setter Target="CommandGrid.Rows" Value="1"/>
+                        <win:Setter Target="StateGrid.Rows" Value="1"/>
+                        <win:Setter Target="CommandGrid.Rows" Value="1"/>
                     </VisualState.Setters>
                 </VisualState>
                 <VisualState x:Name="HorizonalState">
                     <VisualState.Setters>
                         <Setter Target="MainGrid.Columns" Value="2"/>
                         <Setter Target="MainGrid.VerticalAlignment" Value="Stretch"/>
-                        <Setter Target="StateGrid.Rows" Value="2"/>
-                        <Setter Target="CommandGrid.Rows" Value="2"/>
+                        <win:Setter Target="StateGrid.Rows" Value="2"/>
+                        <win:Setter Target="CommandGrid.Rows" Value="2"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
