@@ -187,28 +187,28 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows_UWP
-  pool:
-    vmImage: 'windows-2019'
-  steps:
-  - task: NuGetToolInstaller@0
-    inputs:
-      versionSpec: '5.1.0'
+# - job: Windows_Uno
+#   pool:
+#     vmImage: 'windows-2019'
+#   steps:
+#   - task: NuGetToolInstaller@0
+#     inputs:
+#       versionSpec: '5.1.0'
 
-  - task: UseDotNet@2
-    inputs:
-      packageType: sdk
-      version: $(sdkVersion)
-      installationPath: 'C:\Program Files\dotnet'
+#   - task: UseDotNet@2
+#     inputs:
+#       packageType: sdk
+#       version: $(sdkVersion)
+#       installationPath: 'C:\Program Files\dotnet'
   
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(unoSolution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
+#   - task: NuGetCommand@2
+#     inputs:
+#       restoreSolution: '$(unoSolution)'
+#       feedsToUse: config
+#       nugetConfigPath: 'NuGet.Config'
 
-  - task: MSBuild@1
-    inputs:
-      solution: '$(unoSolution)'
-      configuration: 'Release'
-      msbuildArguments: '/p:JavaSdkDirectory="%JAVA_HOME%"'
+#   - task: MSBuild@1
+#     inputs:
+#       solution: '$(unoSolution)'
+#       configuration: 'Release'
+#       msbuildArguments: '/p:JavaSdkDirectory="%JAVA_HOME%"'
