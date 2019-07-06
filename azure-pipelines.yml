@@ -199,6 +199,8 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(unoSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
 
   - task: VSBuild@1
     inputs:
@@ -218,7 +220,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Android
+- job: Windows_Android
   pool:
     vmImage: 'windows-2019'
   variables:
@@ -234,6 +236,8 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(unoSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
   
   - task: XamarinAndroid@1
     inputs:
@@ -241,7 +245,7 @@ jobs:
       outputDirectory: '$(outputDirectory)'
       configuration: '$(buildConfiguration)'
 
-- job: iOS
+- job: MacOS_iOS
   pool:
     vmImage: 'macOS-10.14'
   variables:
@@ -256,6 +260,8 @@ jobs:
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(unoSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
   
   - task: XamariniOS@2
     inputs:
