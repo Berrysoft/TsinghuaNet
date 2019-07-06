@@ -192,7 +192,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '4.3.0' 
+      versionSpec: '5.0.2' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -209,7 +209,7 @@ jobs:
       platform: 'x86|x64'
       solution: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
       configuration: 'Release'
-      msbuildArgs: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArgs: '/p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - task: ArchiveFiles@2
     inputs:
@@ -231,7 +231,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '4.3.0' 
+      versionSpec: '5.0.2' 
 
   - task: DotNetCoreInstaller@0
     inputs:
@@ -266,7 +266,7 @@ jobs:
   steps:
   - task: NuGetToolInstaller@0
     inputs:
-      versionSpec: '4.3.0' 
+      versionSpec: '5.0.2' 
 
   - task: DotNetCoreInstaller@0
     inputs:
