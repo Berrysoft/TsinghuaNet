@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
@@ -58,25 +58,17 @@ namespace TsinghuaNet.CLI
             return new NetCredential() { Username = u, Password = p };
         }
 
-        private class CredentialSettings
-        {
-            [JsonPropertyName("username")]
-            public string Username { get; set; }
-            [JsonPropertyName("password")]
-            public string Password { get; set; }
-        }
-
         public static NetCredential Credential
         {
             get
             {
-                CredentialSettings settings = SettingsHelper.Helper.ReadSettings<CredentialSettings>();
+                var settings = SettingsHelper.Helper.ReadDictionary();
                 if (settings != null)
                 {
                     NetCredential cred = new NetCredential
                     {
-                        Username = settings.Username,
-                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings.Password))
+                        Username = settings["username"],
+                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings["password"]))
                     };
                     return cred;
                 }
@@ -87,12 +79,12 @@ namespace TsinghuaNet.CLI
             }
             set
             {
-                CredentialSettings settings = new CredentialSettings()
+                var settings = new Dictionary<string, string>()
                 {
-                    Username = value.Username ?? string.Empty,
-                    Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
+                    ["username"] = value.Username ?? string.Empty,
+                    ["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
                 };
-                SettingsHelper.Helper.WriteSettings(settings);
+                SettingsHelper.Helper.WriteDictionary(settings);
             }
         }
     }
