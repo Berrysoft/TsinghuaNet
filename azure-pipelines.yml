@@ -4,6 +4,7 @@ trigger:
 variables:
   sdkVersion: '3.0.100-preview6-012264'
   unoSolution: 'TsinghuaNet.Uno.sln'
+  libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
@@ -196,6 +197,15 @@ jobs:
     inputs:
       version: '$(sdkVersion)'
 
+  - task: DotNetCoreCLI@2
+    inputs:
+      projects: '$(libProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+  
+  - script: dotnet build '$(libProject)' -c Release
+
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(unoSolution)'
@@ -206,3 +216,4 @@ jobs:
     inputs:
       solution: '$(unoSolution)'
       configuration: 'Release'
+      msbuildArguments: '/p:JavaSdkDirectory=%JAVA_HOME%'
