@@ -149,7 +149,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
       <Project>{198a7897-55a9-43dc-9455-84270a46960f}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>

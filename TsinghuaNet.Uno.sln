@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29021.104
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TsinghuaNet", "TsinghuaNet\TsinghuaNet.csproj", "{7B6E4B9B-E85D-4234-B7E3-1AF3A76657D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TsinghuaNet", "TsinghuaNet\TsinghuaNet.Standard.csproj", "{7B6E4B9B-E85D-4234-B7E3-1AF3A76657D2}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TsinghuaNet.Uno.Shared", "TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.shproj", "{6279C845-92F8-4333-AB99-3D213163593C}"
 EndProject

@@ -138,7 +138,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
       <Project>{198A7897-55A9-43DC-9455-84270A46960F}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>
