@@ -10,7 +10,6 @@ variables:
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
   uwpProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
-  droidProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
 
 jobs:
 - job: Linux_CLI
@@ -28,7 +27,11 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
       
-  - script: wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add - && sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main" && sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev && sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+  - script: |
+      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
+      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
   - script: dotnet publish $(cliProject) -r linux-x64 -c Release --output build/linux-x64
   - script: strip build/linux-x64/TsinghuaNet.CLI
   - script: rm build/linux-x64/*.pdb
@@ -208,6 +211,8 @@ jobs:
       solution: '$(uwpProject)'
       configuration: 'Release'
       msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+  
+  - pwsh: rm build/uwp/AppxPackages/*/*/ARM* -Force -Recurse
 
   - task: ArchiveFiles@2
     inputs:
