@@ -63,7 +63,7 @@ namespace TsinghuaNet.Uno.ViewModels
                     break;
                 case "BackgroundLiveTile":
                     if (await BackgroundHelper.RequestAccessAsync())
-                        BackgroundHelper.RegisterLogin(Settings.BackgroundLiveTile);
+                        BackgroundHelper.RegisterLiveTile(Settings.BackgroundLiveTile);
                     break;
             }
         }
