@@ -207,7 +207,7 @@ jobs:
     inputs:
       solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - task: ArchiveFiles@2
     inputs:
