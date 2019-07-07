@@ -9,6 +9,7 @@ variables:
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
+  uwpProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
 
 jobs:
 - job: Linux_CLI
@@ -187,7 +188,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows_Uno
+- job: Windows_UWP
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -203,6 +204,7 @@ jobs:
 
   - task: MSBuild@1
     inputs:
-      solution: '$(unoSolution)'
+      solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArguments: '/p:JavaSdkDirectory="%JAVA_HOME%"'
+      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      #msbuildArguments: '/p:JavaSdkDirectory="%JAVA_HOME%"'
