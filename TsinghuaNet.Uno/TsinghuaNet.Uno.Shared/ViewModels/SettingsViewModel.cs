@@ -1,5 +1,5 @@
 ﻿using PropertyChanged;
-using TsinghuaNet.Models;
+using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Uno.ViewModels
 {

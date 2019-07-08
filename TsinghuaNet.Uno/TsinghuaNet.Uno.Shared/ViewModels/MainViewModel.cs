@@ -8,6 +8,7 @@ using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
+using TsinghuaNet.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -55,7 +56,7 @@ namespace TsinghuaNet.Uno.ViewModels
 #if WINDOWS_UWP
         private async void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            switch(e.PropertyName)
+            switch (e.PropertyName)
             {
                 case "BackgroundAutoLogin":
                     if (await BackgroundHelper.RequestAccessAsync())

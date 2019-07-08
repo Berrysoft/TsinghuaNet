@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.Uno.Views"
     xmlns:net="using:TsinghuaNet"
-    xmlns:ms="using:TsinghuaNet.Models"
+    xmlns:netvms="using:TsinghuaNet.ViewModels"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:TsinghuaNet.Uno.Controls"
@@ -16,7 +16,7 @@
     mc:Ignorable="d xamarin"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.DataContext>
-        <ms:DetailViewModel x:Name="Model"/>
+        <netvms:DetailViewModel x:Name="Model"/>
     </Page.DataContext>
     <Page.Resources>
         <converters:StringFormatConverter x:Key="StringFormatConverter"/>

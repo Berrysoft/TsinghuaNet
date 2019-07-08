@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using TsinghuaNet.Models;
+using TsinghuaNet.ViewModels;
 using Windows.ApplicationModel;
 
 namespace TsinghuaNet.Uno.ViewModels
