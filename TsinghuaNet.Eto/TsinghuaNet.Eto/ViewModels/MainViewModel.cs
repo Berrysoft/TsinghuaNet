@@ -29,26 +29,28 @@ namespace TsinghuaNet.Eto.ViewModels
             set => base.Settings = value;
         }
 
-        private const string SettingsFilename = "settings.json";
-        private const string ProjectName = "TsinghuaNet.Eto";
-
         public override void LoadSettings()
         {
-            var helper = new SettingsFileHelper(ProjectName, SettingsFilename);
-            Settings = helper.ReadSettings<NetSettings>() ?? new NetSettings();
+            Settings = SettingsHelper.Helper.ReadSettings<NetSettings>() ?? new NetSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
         }
 
         public override void SaveSettings()
         {
-            Settings.Username = Credential.Username;
-            Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
-            var helper = new SettingsFileHelper(ProjectName, SettingsFilename);
-            helper.WriteSettings(Settings);
+            if (Settings.DeleteSettingsOnExit)
+            {
+                SettingsHelper.Helper.DeleteSettings();
+            }
+            else
+            {
+                Settings.Username = Credential.Username;
+                Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
+                SettingsHelper.Helper.WriteSettings(Settings);
+            }
         }
 
-        private UITimer timer;
+        private readonly UITimer timer;
         private void OnlineTimerTick(object sender, EventArgs e)
         {
             OnlineTime += TimeSpan.FromSeconds(1);

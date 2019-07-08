@@ -37,5 +37,24 @@ namespace TsinghuaNet.Eto.Views
                 Debug.WriteLine(ex.ToString());
             }
         }
+
+        private void OpenSettingsFile(object sender, EventArgs e)
+        {
+            try
+            {
+                var path = SettingsHelper.Helper.FilePath;
+                var os = EtoEnvironment.Platform;
+                if (os.IsWindows)
+                    Process.Start(new ProcessStartInfo(path) { UseShellExecute = true });
+                else if (os.IsLinux)
+                    Process.Start("xdg-open", path);
+                else if (os.IsMac)
+                    Process.Start("open", path);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
     }
 }
