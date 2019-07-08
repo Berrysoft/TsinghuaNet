@@ -13,17 +13,15 @@ namespace TsinghuaNet.Uno.UWP.Background
             {
                 InternetStatus status = new InternetStatus();
                 NetSettings settings = new NetSettings();
+                settings.LoadSettings();
                 await status.RefreshAsync();
                 var helper = ConnectHelper.GetHelper(await status.SuggestAsync());
                 if (helper != null)
                 {
-                    using (helper)
-                    {
-                        FluxUser user = await helper.GetFluxAsync();
-                        NotificationHelper.UpdateTile(user);
-                        if (settings.EnableFluxLimit)
-                            NotificationHelper.SendWarningToast(user, settings.FluxLimit);
-                    }
+                    FluxUser user = await helper.GetFluxAsync();
+                    NotificationHelper.UpdateTile(user);
+                    if (settings.EnableFluxLimit)
+                        NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                 }
             }
             finally
