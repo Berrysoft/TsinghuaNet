@@ -45,16 +45,16 @@ jobs:
       configuration: 'Release'
       arguments: '-r linux-x64 --output build/linux-x64'
 
-  - script: strip build/linux-x64/TsinghuaNet.CLI
+  - script: strip build/linux-x64/TsinghuaNet.CLI/TsinghuaNet.CLI
     displayName: 'Strip'
 
-  - script: rm build/linux-x64/*.pdb
+  - script: rm build/linux-x64/TsinghuaNet.CLI/*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/linux-x64'
+      rootFolderOrFile: 'build/linux-x64/TsinghuaNet.CLI'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -91,16 +91,16 @@ jobs:
       configuration: 'Release'
       arguments: '-r osx-x64 --output build/osx-x64'
   
-  - script: strip build/osx-x64/TsinghuaNet.CLI
+  - script: strip build/osx-x64/TsinghuaNet.CLI/TsinghuaNet.CLI
     displayName: 'Strip'
 
-  - script: rm build/osx-x64/*.pdb
+  - script: rm build/osx-x64/TsinghuaNet.CLI/*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/osx-x64'
+      rootFolderOrFile: 'build/osx-x64/TsinghuaNet.CLI'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.OSX64.zip'
@@ -136,13 +136,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r win-x64 --output build\win-x64'
 
-  - script: del build\win-x64\*.pdb
+  - script: del build\win-x64\TsinghuaNet.CLI\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64'
+      rootFolderOrFile: 'build\win-x64\TsinghuaNet.CLI'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
@@ -178,13 +178,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r win-x64 -f net48 --output build\eto.wpf\net48'
 
-  - script: del build\eto.wpf\net48\*.pdb
+  - script: del build\eto.wpf\net48\TsinghuaNet.Eto.Wpf\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\net48'
+      rootFolderOrFile: 'build\eto.wpf\net48\TsinghuaNet.Eto.Wpf'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
@@ -198,13 +198,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r win-x64 -f netcoreapp3.0 --self-contained false --output build\eto.wpf\netcoreapp3.0\dep'
 
-  - script: del build\eto.wpf\netcoreapp3.0\dep\*.pdb
+  - script: del build\eto.wpf\netcoreapp3.0\dep\TsinghuaNet.Eto.Wpf\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\dep'
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\dep\TsinghuaNet.Eto.Wpf'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dependent.zip'
@@ -218,13 +218,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r win-x64 -f netcoreapp3.0 --output build\eto.wpf\netcoreapp3.0\self'
 
-  - script: del build\eto.wpf\netcoreapp3.0\self\*.pdb
+  - script: del build\eto.wpf\netcoreapp3.0\self\TsinghuaNet.Eto.Wpf\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\self'
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\self\TsinghuaNet.Eto.Wpf'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Self.zip'
@@ -260,13 +260,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r linux-x64 -c Release --self-contained false --output build/eto.gtk/dep'
 
-  - script: rm build/eto.gtk/dep/*.pdb
+  - script: rm build/eto.gtk/dep/TsinghuaNet.Eto.Gtk/*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/eto.gtk/dep'
+      rootFolderOrFile: 'build/eto.gtk/dep/TsinghuaNet.Eto.Gtk'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -281,13 +281,13 @@ jobs:
       configuration: 'Release'
       arguments: '-r linux-x64 -c Release --output build/eto.gtk/self'
 
-  - script: rm build/eto.gtk/self/*.pdb
+  - script: rm build/eto.gtk/self/TsinghuaNet.Eto.Gtk/*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/eto.gtk/self'
+      rootFolderOrFile: 'build/eto.gtk/self/TsinghuaNet.Eto.Gtk'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
