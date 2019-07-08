@@ -4,8 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
 using TsinghuaNet.Helpers;
+using TsinghuaNet.Models;
 
-namespace TsinghuaNet.Models
+namespace TsinghuaNet.ViewModels
 {
     public class DetailViewModel : NetViewModelBase
     {

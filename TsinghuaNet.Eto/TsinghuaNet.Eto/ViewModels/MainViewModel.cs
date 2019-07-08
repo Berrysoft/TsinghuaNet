@@ -3,8 +3,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Eto.Forms;
 using PropertyChanged;
-using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
+using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Eto.ViewModels
 {

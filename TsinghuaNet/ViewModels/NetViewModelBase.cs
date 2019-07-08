@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
+using TsinghuaNet.Models;
 
-namespace TsinghuaNet.Models
+namespace TsinghuaNet.ViewModels
 {
     public class NetViewModelBase : INotifyPropertyChanged
     {

@@ -4,6 +4,7 @@ using System.Reflection;
 using Eto;
 using PropertyChanged;
 using TsinghuaNet.Models;
+using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Eto.ViewModels
 {

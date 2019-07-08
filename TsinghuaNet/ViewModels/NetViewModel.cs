@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TsinghuaNet.Models;
 
-namespace TsinghuaNet.Models
+namespace TsinghuaNet.ViewModels
 {
     public abstract class MainViewModelBase : NetViewModelBase
     {

@@ -6,8 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using TsinghuaNet.Models;
 
-namespace TsinghuaNet.Models
+namespace TsinghuaNet.ViewModels
 {
     public class ConnectionViewModel : NetViewModelBase
     {
