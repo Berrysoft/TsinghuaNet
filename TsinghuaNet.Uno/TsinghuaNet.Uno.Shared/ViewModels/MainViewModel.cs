@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using PropertyChanged;
 using TsinghuaNet.Helpers;
-using TsinghuaNet.Models;
+using tm = TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
 using TsinghuaNet.Uno.Models;
@@ -24,9 +24,9 @@ namespace TsinghuaNet.Uno.ViewModels
         private readonly DispatcherTimer mainTimer = new DispatcherTimer();
 
         [DoNotNotify]
-        public new TsinghuaNet.Uno.Helpers.NetSettings Settings
+        public new NetSettings Settings
         {
-            get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;
+            get => (NetSettings)base.Settings;
             set => base.Settings = value;
         }
 
@@ -42,7 +42,7 @@ namespace TsinghuaNet.Uno.ViewModels
         public override void LoadSettings()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Settings = new TsinghuaNet.Uno.Helpers.NetSettings();
+            Settings = new NetSettings();
 #if WINDOWS_UWP
             Settings.PropertyChanged += OnSettingsPropertyChanged;
 #endif
@@ -73,6 +73,7 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public override void SaveSettings()
         {
+            Settings.StoredUsername = Credential.Username;
             Settings.SaveSettings();
         }
 
