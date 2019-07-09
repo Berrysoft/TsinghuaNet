@@ -10,16 +10,17 @@ namespace TsinghuaNet.Eto.Views
     {
         private MainViewModel Model;
 
+        private EnumRadioButtonList<NetState> NetStateList;
+        private Label OnlineUserBalanceLabel;
+
         public MainForm()
         {
             XamlReader.Load(this);
-            Model = new MainViewModel();
-            DataContext = Model;
-            var NetStateList = FindChild<EnumRadioButtonList<NetState>>("NetStateList");
+            DataContext = Model = new MainViewModel();
             NetStateList.AddValue += NetStateList_AddValue;
             NetStateList.SelectedValueBinding.
                 BindDataContext(Binding.Property((MainViewModel m) => m.Credential.State));
-            FindChild<Label>("OnlineUserBalanceLabel").TextBinding.
+            OnlineUserBalanceLabel.TextBinding.
                 BindDataContext(Binding.Property((MainViewModel m) => m.OnlineUser.Balance).
                 Convert(StringHelper.GetCurrencyString));
         }

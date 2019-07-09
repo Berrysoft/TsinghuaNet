@@ -10,17 +10,17 @@ namespace TsinghuaNet.Eto.Views
     {
         private ConnectionViewModel Model;
 
+        private GridView ConnectionView;
+
         public ConnectionDialog()
         {
             XamlReader.Load(this);
-            Model = new ConnectionViewModel();
-            DataContext = Model;
+            DataContext = Model = new ConnectionViewModel();
         }
 
         private async void DropSelection(object sender, EventArgs e)
         {
-            var view = FindChild<GridView>("ConnectionView");
-            await Model.DropAsync(view.SelectedItems.Select(user => ((NetUser)user).Address));
+            await Model.DropAsync(ConnectionView.SelectedItems.Select(user => ((NetUser)user).Address));
         }
     }
 }

@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using TsinghuaNet.Helpers;
+using tm = TsinghuaNet.Models;
 
-namespace TsinghuaNet.Eto.ViewModels
+namespace TsinghuaNet.Eto.Models
 {
-    public class NetSettings : TsinghuaNet.Models.NetSettings
+    public class NetSettings : tm.NetSettings
     {
         public string Username { get; set; }
         public string Password { get; set; }

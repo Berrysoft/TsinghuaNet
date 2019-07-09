@@ -3,8 +3,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Eto.Forms;
 using PropertyChanged;
-using TsinghuaNet.Models;
+using TsinghuaNet.Eto.Models;
 using TsinghuaNet.ViewModels;
+using tm = TsinghuaNet.Models;
 
 namespace TsinghuaNet.Eto.ViewModels
 {
@@ -12,7 +13,7 @@ namespace TsinghuaNet.Eto.ViewModels
     {
         public MainViewModel() : base()
         {
-            Status = new NetPingStatus();
+            Status = new tm.NetPingStatus();
             ReceivedResponse += Model_ReceivedResponse;
             timer = new UITimer(OnlineTimerTick);
             timer.Interval = 1;

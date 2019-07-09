@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Eto;
 using Eto.Forms;
 using Eto.Serialization.Xaml;
+using TsinghuaNet.Eto.Models;
 using TsinghuaNet.Eto.ViewModels;
 
 namespace TsinghuaNet.Eto.Views
@@ -11,12 +12,13 @@ namespace TsinghuaNet.Eto.Views
     {
         private SettingsViewModel Model;
 
+        private TabControl SettingsTab;
+
         public SettingsDialog(int page = 0)
         {
             XamlReader.Load(this);
-            Model = new SettingsViewModel();
-            DataContext = Model;
-            FindChild<TabControl>("SettingsTab").SelectedIndex = page;
+            DataContext = Model = new SettingsViewModel();
+            SettingsTab.SelectedIndex = page;
         }
 
         private const string RepoUri = "https://github.com/Berrysoft/TsinghuaNet";

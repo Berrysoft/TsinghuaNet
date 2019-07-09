@@ -11,8 +11,7 @@ namespace TsinghuaNet.Eto.Views
         public DetailsDialog()
         {
             XamlReader.Load(this);
-            Model = new DetailViewModel();
-            DataContext = Model;
+            DataContext = Model = new DetailViewModel();
         }
     }
 }
