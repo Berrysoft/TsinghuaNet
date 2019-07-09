@@ -2,7 +2,7 @@
 using System.Net;
 using System.Windows.Input;
 
-namespace TsinghuaNet.Uno.ViewModels
+namespace TsinghuaNet.Uno.Models
 {
     sealed class DropCommand : ICommand
     {

@@ -8,6 +8,7 @@ using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
+using TsinghuaNet.Uno.Models;
 using TsinghuaNet.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

@@ -24,10 +24,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Converters\PackageVersionStringConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Converters\StringFormatConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AboutViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ChangeEnumCommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DropCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ChangeEnumCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DropCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\NavigateBackCommand.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\NavigateBackCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
@@ -89,5 +89,8 @@
     <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
 </Project>

@@ -3,9 +3,9 @@ using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace TsinghuaNet.Uno.ViewModels
+namespace TsinghuaNet.Uno.Models
 {
-    class NavigateBackCommand : ICommand
+    sealed class NavigateBackCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 

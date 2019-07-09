@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace TsinghuaNet.Uno.ViewModels
+namespace TsinghuaNet.Uno.Models
 {
-    class ChangeEnumCommand<T> : ICommand
+    sealed class ChangeEnumCommand<T> : ICommand
         where T : struct, Enum
     {
         private Action<T> action;

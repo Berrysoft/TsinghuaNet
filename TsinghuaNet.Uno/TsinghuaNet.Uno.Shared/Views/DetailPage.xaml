@@ -5,6 +5,7 @@
     xmlns:local="using:TsinghuaNet.Uno.Views"
     xmlns:net="using:TsinghuaNet"
     xmlns:netvms="using:TsinghuaNet.ViewModels"
+    xmlns:ms="using:TsinghuaNet.Uno.Models"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
     xmlns:mtuuc="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:controls="using:TsinghuaNet.Uno.Controls"
@@ -29,7 +30,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
             <Button Style="{StaticResource NavigationBackButtonNormalStyle}">
                 <Button.Command>
-                    <vms:NavigateBackCommand/>
+                    <ms:NavigateBackCommand/>
                 </Button.Command>
             </Button>
             <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">明细</TextBlock>

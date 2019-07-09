@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using TsinghuaNet.Uno.Helpers;
-using TsinghuaNet.Uno.ViewModels;
+using TsinghuaNet.Uno.Models;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
