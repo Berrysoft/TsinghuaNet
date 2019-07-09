@@ -92,9 +92,10 @@ Uno版本。支持UWP、Android与iOS平台。
 ## 这个程序能卸载干净吗？
 卸载时，除了凭据，所有个人配置都会被删除。凭据仅在选中“保存密码”时保存。（Uno）
 
-CLI版本的用户名和密码保存在用户文件夹下的`.config/TsinghuaNet.CLI/settings.json`，仅在运行`savecred`后创建，可使用`deletecred`删除。
+CLI版本的用户名和密码保存在用户文件夹下的`AppData\Roaming\TsinghuaNet.CLI\settings.json`（Windows）、`.config/TsinghuaNet.CLI/settings.json`（Unix
+），仅在运行`savecred`后创建，可使用`deletecred`删除。
 
-Eto版本的配置文件保存在用户文件夹下的`.config/TsinghuaNet.Eto/settings.json`。
+Eto版本的配置文件保存在用户文件夹下的`AppData\Roaming\TsinghuaNet.Eto\settings.json`（Windows）、`.config/TsinghuaNet.Eto/settings.json`（Unix）。
 ## Eto.Forms版本在Mac上打不开，提示“来自身份不明的开发者”（Eto）
 进入系统偏好设置，双击“安全性与隐私”，点击“仍要打开”，如下图：
 

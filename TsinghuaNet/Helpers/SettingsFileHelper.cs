@@ -7,20 +7,20 @@ namespace TsinghuaNet.Helpers
 {
     public class SettingsFileHelper
     {
-        private const string confName = ".config";
+        private readonly static string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
         public string FileFolderName { get; }
         public string FilePath { get; }
 
         private static string GetSettingsPath(string projName, string filename)
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), confName, projName, filename);
+            return Path.Combine(appDataPath, projName, filename);
         }
 
         private static void CreateSettingsFolder(string projName)
         {
-            DirectoryInfo home = new DirectoryInfo(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile));
-            home.CreateSubdirectory(Path.Combine(confName, projName));
+            DirectoryInfo home = new DirectoryInfo(appDataPath);
+            home.CreateSubdirectory(projName);
         }
 
         public SettingsFileHelper(string projName, string filename)
@@ -67,6 +67,7 @@ namespace TsinghuaNet.Helpers
 
         public void WriteDictionary(Dictionary<string, string> dict)
         {
+            CreateSettingsFolder(FileFolderName);
             using (var stream = new FileStream(FilePath, FileMode.CreateNew, FileAccess.Write))
             using (var json = new Utf8JsonWriter(stream))
             {
