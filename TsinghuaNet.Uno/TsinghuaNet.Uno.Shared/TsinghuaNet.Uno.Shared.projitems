@@ -29,12 +29,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\NavigateBackCommand.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsViewModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DetailPage.xaml.cs">
+      <DependentUpon>DetailPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)Controls\SortableDataGrid.xaml">
@@ -57,40 +63,5 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\Arc.xaml.cs">
-      <DependentUpon>Arc.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\ArcUserContent.xaml.cs">
-      <DependentUpon>ArcUserContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\LineUserContent.xaml.cs">
-      <DependentUpon>LineUserContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Contents\WaterUserContent.xaml.cs">
-      <DependentUpon>WaterUserContent.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\AboutDialog.xaml.cs">
-      <DependentUpon>AboutDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\ChangeUserDialog.xaml.cs">
-      <DependentUpon>ChangeUserDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailDialog.xaml.cs">
-      <DependentUpon>DetailDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\DetailPage.xaml.cs">
-      <DependentUpon>DetailPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="D:\Straw\Documents\GitHub\TsinghuaNetUWP\TsinghuaNet.Uno\TsinghuaNet.Uno.Shared\Views\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
 </Project>
