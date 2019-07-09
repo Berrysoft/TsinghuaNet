@@ -17,11 +17,9 @@
 
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
-    <Namespace Name="TsinghuaNet">
+    <Namespace Name="TsinghuaNet.Models">
       <Type Name="ByteSize" Dynamic="Required All" />
       <Type Name="NetDetail" Dynamic="Required All" />
-    </Namespace>
-    <Namespace Name="TsinghuaNet.Models">
       <Type Name="PackageBox" Dynamic="Required All" />
     </Namespace>
   </Application>
