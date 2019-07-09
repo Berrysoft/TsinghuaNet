@@ -1,4 +1,5 @@
 ﻿using PropertyChanged;
+using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Uno.ViewModels
@@ -6,9 +7,9 @@ namespace TsinghuaNet.Uno.ViewModels
     class SettingsViewModel : NetViewModelBase
     {
         [DoNotNotify]
-        public new TsinghuaNet.Uno.Helpers.NetSettings Settings
+        public new NetUnoSettings Settings
         {
-            get => (TsinghuaNet.Uno.Helpers.NetSettings)base.Settings;
+            get => (NetUnoSettings)base.Settings;
             set => base.Settings = value;
         }
     }

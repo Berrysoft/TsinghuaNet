@@ -4,8 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PropertyChanged;
-using TsinghuaNet.Helpers;
-using tm = TsinghuaNet.Models;
+using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
 using TsinghuaNet.Uno.Views;
 using TsinghuaNet.Uno.Models;
@@ -24,9 +23,9 @@ namespace TsinghuaNet.Uno.ViewModels
         private readonly DispatcherTimer mainTimer = new DispatcherTimer();
 
         [DoNotNotify]
-        public new NetSettings Settings
+        public new NetUnoSettings Settings
         {
-            get => (NetSettings)base.Settings;
+            get => (NetUnoSettings)base.Settings;
             set => base.Settings = value;
         }
 
@@ -42,7 +41,7 @@ namespace TsinghuaNet.Uno.ViewModels
         public override void LoadSettings()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Settings = new NetSettings();
+            Settings = new NetUnoSettings();
 #if WINDOWS_UWP
             Settings.PropertyChanged += OnSettingsPropertyChanged;
 #endif

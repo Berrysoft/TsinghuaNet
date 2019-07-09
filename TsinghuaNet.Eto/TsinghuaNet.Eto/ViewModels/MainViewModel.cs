@@ -5,7 +5,7 @@ using Eto.Forms;
 using PropertyChanged;
 using TsinghuaNet.Eto.Models;
 using TsinghuaNet.ViewModels;
-using tm = TsinghuaNet.Models;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Eto.ViewModels
 {
@@ -13,7 +13,7 @@ namespace TsinghuaNet.Eto.ViewModels
     {
         public MainViewModel() : base()
         {
-            Status = new tm.NetPingStatus();
+            Status = new NetPingStatus();
             ReceivedResponse += Model_ReceivedResponse;
             timer = new UITimer(OnlineTimerTick);
             timer.Interval = 1;
@@ -24,15 +24,15 @@ namespace TsinghuaNet.Eto.ViewModels
         }
 
         [DoNotNotify]
-        public new NetSettings Settings
+        public new NetEtoSettings Settings
         {
-            get => (NetSettings)base.Settings;
+            get => (NetEtoSettings)base.Settings;
             set => base.Settings = value;
         }
 
         public override void LoadSettings()
         {
-            Settings = SettingsHelper.Helper.ReadSettings<NetSettings>() ?? new NetSettings();
+            Settings = SettingsHelper.Helper.ReadSettings<NetEtoSettings>() ?? new NetEtoSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
         }

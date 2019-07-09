@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
-using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.ViewModels

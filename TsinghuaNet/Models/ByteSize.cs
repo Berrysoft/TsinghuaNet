@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TsinghuaNet
+namespace TsinghuaNet.Models
 {
     public struct ByteSize : IComparable, IComparable<ByteSize>, IEquatable<ByteSize>, IFormattable
     {

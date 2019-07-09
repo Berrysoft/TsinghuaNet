@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace TsinghuaNet.Helpers
+namespace TsinghuaNet
 {
     public static class StringHelper
     {
@@ -10,17 +10,13 @@ namespace TsinghuaNet.Helpers
 
         public static string GetNetStateString(NetState state)
         {
-            switch (state)
+            return state switch
             {
-                case NetState.Net:
-                    return "Net";
-                case NetState.Auth4:
-                    return "Auth4";
-                case NetState.Auth6:
-                    return "Auth6";
-                default:
-                    return "不登录";
-            }
+                NetState.Net => "Net",
+                NetState.Auth4 => "Auth4",
+                NetState.Auth6 => "Auth6",
+                _ => "不登录",
+            };
         }
     }
 }

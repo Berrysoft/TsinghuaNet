@@ -2,7 +2,6 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using TsinghuaNet.Helpers;
 using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Models

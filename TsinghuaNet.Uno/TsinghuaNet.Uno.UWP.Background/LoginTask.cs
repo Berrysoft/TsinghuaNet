@@ -1,4 +1,4 @@
-﻿using TsinghuaNet.Helpers;
+﻿using TsinghuaNet.Models;
 using TsinghuaNet.Uno.Helpers;
 using Windows.ApplicationModel.Background;
 
@@ -12,7 +12,7 @@ namespace TsinghuaNet.Uno.UWP.Background
             try
             {
                 InternetStatus status = new InternetStatus();
-                NetSettings settings = new NetSettings();
+                NetUnoSettings settings = new NetUnoSettings();
                 settings.LoadSettings();
                 await status.RefreshAsync();
                 var un = settings.StoredUsername;

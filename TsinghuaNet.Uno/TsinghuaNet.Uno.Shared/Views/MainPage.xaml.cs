@@ -6,8 +6,8 @@ using Windows.UI;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using TsinghuaNet.Helpers;
 using wux = Windows.UI.Xaml;
+using TsinghuaNet.Models;
 
 #if WINDOWS_UWP
 using Microsoft.Toolkit.Uwp.Connectivity;

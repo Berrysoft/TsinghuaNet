@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
       xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
-      xmlns:helper="clr-namespace:TsinghuaNet.Helpers;assembly:TsinghuaNet"
+      xmlns:net="clr-namespace:TsinghuaNet;assembly:TsinghuaNet"
       Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White" Closed="MainForm_Closed">
   <Form.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -27,7 +27,7 @@
     </On>
   </Form.Menu>
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
-    <EnumRadioButtonList x:TypeArguments="helper:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0"/>
+    <EnumRadioButtonList x:TypeArguments="net:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0"/>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>
       <TextBox Width="160" Text="{Binding Credential.Username,Mode=TwoWay}"/>

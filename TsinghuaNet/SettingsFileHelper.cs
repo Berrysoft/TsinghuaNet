@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace TsinghuaNet.Helpers
+namespace TsinghuaNet
 {
     public class SettingsFileHelper
     {

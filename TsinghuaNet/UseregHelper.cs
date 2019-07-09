@@ -6,67 +6,11 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet
 {
-    public struct NetUser
-    {
-        public NetUser(IPAddress address, DateTime loginTime, string client)
-        {
-            Address = address;
-            LoginTime = loginTime;
-            Client = client;
-        }
-
-        public IPAddress Address { get; }
-
-        public DateTime LoginTime { get; }
-
-        public string Client { get; }
-
-        public static bool operator ==(NetUser u1, NetUser u2) => u1.Address.Equals(u2.Address) && u1.LoginTime == u2.LoginTime && u1.Client == u2.Client;
-
-        public static bool operator !=(NetUser u1, NetUser u2) => !(u1 == u2);
-
-        public override bool Equals(object obj)
-            => obj is NetUser user && this == user;
-
-        public override int GetHashCode() => (Address?.GetHashCode() ?? 0) ^ LoginTime.GetHashCode() ^ (Client?.GetHashCode() ?? 0);
-    }
-
-    public struct NetDetail
-    {
-        public NetDetail(DateTime login, DateTime logout, ByteSize flux)
-        {
-            LoginTime = login;
-            LogoutTime = logout;
-            Flux = flux;
-        }
-
-        public DateTime LoginTime { get; }
-
-        public DateTime LogoutTime { get; }
-
-        public ByteSize Flux { get; }
-
-        public static bool operator ==(NetDetail d1, NetDetail d2) => d1.LoginTime == d2.LoginTime && d1.LogoutTime == d2.LogoutTime && d1.Flux == d2.Flux;
-
-        public static bool operator !=(NetDetail d1, NetDetail d2) => !(d1 == d2);
-
-        public override bool Equals(object obj)
-            => obj is NetDetail other && this == other;
-
-        public override int GetHashCode() => LoginTime.GetHashCode() ^ LogoutTime.GetHashCode() ^ Flux.GetHashCode();
-    }
-
-    public enum NetDetailOrder
-    {
-        LoginTime,
-        LogoutTime,
-        Flux
-    }
-
-    public class UseregHelper : NetHelperBase, ILog
+    internal class UseregHelper : NetHelperBase, IUsereg
     {
         private const string LogUri = "http://usereg.tsinghua.edu.cn/do.php";
         private const string InfoUri = "http://usereg.tsinghua.edu.cn/online_user_ipv4.php";

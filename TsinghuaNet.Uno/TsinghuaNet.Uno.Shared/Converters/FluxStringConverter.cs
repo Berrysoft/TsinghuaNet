@@ -1,4 +1,5 @@
 ﻿using System;
+using TsinghuaNet.Models;
 using Windows.UI.Xaml.Data;
 
 namespace TsinghuaNet.Uno.Converters

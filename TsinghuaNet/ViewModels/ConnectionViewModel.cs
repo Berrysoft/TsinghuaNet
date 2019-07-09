@@ -42,7 +42,7 @@ namespace TsinghuaNet.ViewModels
             }
         }
 
-        public async Task RefreshNetUsersAsync(UseregHelper helper)
+        private async Task RefreshNetUsersAsync(IUsereg helper)
         {
             var users = await helper.GetUsersAsync().ToListAsync();
             var usersmodel = NetUsers;

@@ -1,6 +1,7 @@
 ﻿using System;
+using TsinghuaNet.Models;
 
-namespace TsinghuaNet.Helpers
+namespace TsinghuaNet
 {
     public static class FluxHelper
     {

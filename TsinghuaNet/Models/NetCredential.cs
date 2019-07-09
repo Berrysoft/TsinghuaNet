@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Net.Http;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {
@@ -18,6 +17,6 @@ namespace TsinghuaNet.Models
 
         public IConnect GetHelper() => ConnectHelper.GetHelper(State, Username, Password, Client);
 
-        public UseregHelper GetUseregHelper() => new UseregHelper(Username, Password, Client);
+        public IUsereg GetUseregHelper() => new UseregHelper(Username, Password, Client);
     }
 }

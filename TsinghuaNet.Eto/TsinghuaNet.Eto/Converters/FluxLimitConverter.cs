@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using Eto.Forms;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Eto.Converters
 {

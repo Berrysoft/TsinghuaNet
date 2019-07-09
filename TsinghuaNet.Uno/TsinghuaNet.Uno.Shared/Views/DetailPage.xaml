@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:TsinghuaNet.Uno.Views"
-    xmlns:net="using:TsinghuaNet"
+    xmlns:netms="using:TsinghuaNet.Models"
     xmlns:netvms="using:TsinghuaNet.ViewModels"
     xmlns:ms="using:TsinghuaNet.Uno.Models"
     xmlns:vms="using:TsinghuaNet.Uno.ViewModels"
@@ -63,7 +63,7 @@
                             <mtuuc:DataGridTextColumn Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
                             <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
                                 <mtuuc:DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate x:DataType="net:NetDetail">
+                                    <DataTemplate x:DataType="netms:NetDetail">
                                         <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
                                     </DataTemplate>
                                 </mtuuc:DataGridTemplateColumn.CellTemplate>

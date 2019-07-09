@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using PropertyChanged;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Models
 {

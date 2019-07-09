@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet
 {
@@ -18,7 +20,14 @@ namespace TsinghuaNet
         Task<FluxUser> GetFluxAsync();
     }
 
-    public abstract class NetHelperBase : IDisposable
+    public interface IUsereg : ILog
+    {
+        Task<LogResponse> LogoutAsync(IPAddress ip);
+        IAsyncEnumerable<NetUser> GetUsersAsync();
+        IAsyncEnumerable<NetDetail> GetDetailsAsync(NetDetailOrder order, bool descending);
+    }
+
+    internal abstract class NetHelperBase : IDisposable
     {
         private readonly HttpClient client;
 

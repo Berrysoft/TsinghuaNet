@@ -3,7 +3,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using Eto.Forms;
 using MvvmHelpers;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Eto.Controls
 {

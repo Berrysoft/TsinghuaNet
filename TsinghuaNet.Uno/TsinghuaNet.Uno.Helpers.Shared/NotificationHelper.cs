@@ -1,5 +1,5 @@
 ﻿using System;
-using TsinghuaNet.Helpers;
+using TsinghuaNet.Models;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 

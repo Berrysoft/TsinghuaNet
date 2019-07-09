@@ -1,6 +1,6 @@
 ﻿using System.Net.Http;
 
-namespace TsinghuaNet.Helpers
+namespace TsinghuaNet
 {
     public enum NetState
     {

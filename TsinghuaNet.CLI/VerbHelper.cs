@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TsinghuaNet.Helpers;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.CLI
@@ -20,7 +19,7 @@ namespace TsinghuaNet.CLI
             return cred.GetHelper();
         }
 
-        public static UseregHelper GetUseregHelper(this VerbBase opts)
+        public static IUsereg GetUseregHelper(this VerbBase opts)
         {
             var cred = Credential;
             return cred.GetUseregHelper();

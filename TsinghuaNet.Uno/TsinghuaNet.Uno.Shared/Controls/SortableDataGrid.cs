@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.Linq;
 using Microsoft.Toolkit.Uwp.UI.Controls;
-using TsinghuaNet.Helpers;
 
 namespace TsinghuaNet.Uno.Controls
 {

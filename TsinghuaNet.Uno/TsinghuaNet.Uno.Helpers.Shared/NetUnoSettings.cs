@@ -1,9 +1,10 @@
 ﻿using Windows.Foundation.Collections;
 using Windows.Storage;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Uno.Helpers
 {
-    public class NetSettings : TsinghuaNet.Models.NetSettings
+    public class NetUnoSettings : NetSettings
     {
         public string StoredUsername { get; set; }
 

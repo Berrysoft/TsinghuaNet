@@ -2,6 +2,7 @@
 using System.Linq;
 using Eto.Forms;
 using Eto.Serialization.Xaml;
+using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.Eto.Views

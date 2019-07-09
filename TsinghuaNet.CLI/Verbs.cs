@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
-using TsinghuaNet.Helpers;
+using TsinghuaNet.Models;
 
 namespace TsinghuaNet.CLI
 {

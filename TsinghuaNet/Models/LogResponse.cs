@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace TsinghuaNet
+namespace TsinghuaNet.Models
 {
     public readonly struct LogResponse
     {
