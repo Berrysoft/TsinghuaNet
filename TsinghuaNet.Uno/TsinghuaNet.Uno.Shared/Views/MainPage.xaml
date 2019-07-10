@@ -12,7 +12,11 @@
     xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:xamarin="http://uno.ui/xamarin"
     mc:Ignorable="d xamarin" d:DesignWidth="600" d:DesignHeight="800"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" NavigationCacheMode="Enabled" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
+    NavigationCacheMode="Enabled" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
+    <Page.Background>
+        <win:AcrylicBrush BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeAltHighColor}" TintOpacity="0.5"/>
+        <xamarin:SolidColorBrush Color="{ThemeResource SystemChromeAltHighColor}"/>
+    </Page.Background>
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>
     </Page.DataContext>
