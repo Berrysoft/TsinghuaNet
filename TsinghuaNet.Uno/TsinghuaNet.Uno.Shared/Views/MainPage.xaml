@@ -15,7 +15,7 @@
     NavigationCacheMode="Enabled" Loaded="PageLoaded" SizeChanged="PageSizeChanged">
     <Page.Background>
         <win:AcrylicBrush BackgroundSource="HostBackdrop" TintColor="{ThemeResource SystemChromeAltHighColor}" TintOpacity="0.5"/>
-        <xamarin:SolidColorBrush Color="{ThemeResource SystemChromeAltHighColor}"/>
+        <xamarin:SolidColorBrush Color="{ThemeResource SystemColorWindowColor}"/>
     </Page.Background>
     <Page.DataContext>
         <vms:MainViewModel x:Name="Model" ReceivedResponse="Model_ReceivedResponse"/>

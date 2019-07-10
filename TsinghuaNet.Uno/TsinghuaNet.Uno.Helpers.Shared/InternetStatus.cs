@@ -50,7 +50,7 @@ namespace TsinghuaNet.Uno.Helpers
             if (wifiManager != null)
             {
                 Status = NetStatus.Wlan;
-                Ssid = wifiManager.ConnectionInfo.SSID;
+                Ssid = wifiManager.ConnectionInfo.SSID.Trim('\"');
             }
             else
             {
