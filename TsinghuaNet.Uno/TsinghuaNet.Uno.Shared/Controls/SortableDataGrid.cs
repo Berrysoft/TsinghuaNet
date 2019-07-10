@@ -5,6 +5,7 @@ using Microsoft.Toolkit.Uwp.UI.Controls;
 
 namespace TsinghuaNet.Uno.Controls
 {
+#if WINDOWS_UWP
     public partial class SortableDataGrid : DataGrid
     {
         public SortableDataGrid() : base()
@@ -72,4 +73,5 @@ namespace TsinghuaNet.Uno.Controls
             }
         }
     }
+#endif
 }

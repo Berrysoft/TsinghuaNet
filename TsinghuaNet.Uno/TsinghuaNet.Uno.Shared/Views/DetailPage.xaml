@@ -35,21 +35,6 @@
             </Button>
             <TextBlock Margin="8,0" VerticalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}">明细</TextBlock>
         </StackPanel>
-        <xamarin:ScrollViewer Grid.Row="1" Margin="8" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled">
-            <controls:SortableDataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
-                <controls:SortableDataGrid.Columns>
-                    <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
-                    <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
-                    <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
-                        <mtuuc:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate x:DataType="net:NetDetail">
-                                <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
-                            </DataTemplate>
-                        </mtuuc:DataGridTemplateColumn.CellTemplate>
-                    </mtuuc:DataGridTemplateColumn>
-                </controls:SortableDataGrid.Columns>
-            </controls:SortableDataGrid>
-        </xamarin:ScrollViewer>
         <win:Grid Grid.Row="1" Margin="8">
             <mtuuc:TabView TabWidthBehavior="Equal" CanCloseTabs="False" IsCloseButtonOverlay="False" CanDragItems="False" CanReorderItems="False" AllowDrop="False">
                 <mtuuc:TabViewItem Header="按连接统计">
@@ -91,5 +76,20 @@
                 </mtuuc:TabViewItem>
             </mtuuc:TabView>
         </win:Grid>
+        <xamarin:ScrollViewer Grid.Row="1" Margin="8" HorizontalScrollMode="Enabled" VerticalScrollMode="Enabled">
+            <mtuuc:DataGrid x:Name="DetailsView" ItemsSource="{x:Bind Model.InitialDetails,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" CanUserResizeColumns="False" CanUserSortColumns="True" RowDetailsVisibilityMode="Collapsed">
+                <mtuuc:DataGrid.Columns>
+                    <mtuuc:DataGridTextColumn Header="登录时间" Binding="{Binding LoginTime}" Tag="LoginTime"/>
+                    <mtuuc:DataGridTextColumn x:Name="LogoutColumn" Header="注销时间" Binding="{Binding LogoutTime}" Tag="LogoutTime"/>
+                    <mtuuc:DataGridTemplateColumn Header="使用流量" Tag="Flux">
+                        <mtuuc:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate x:DataType="net:NetDetail">
+                                <TextBlock Margin="0,0,16,0" VerticalAlignment="Center" HorizontalTextAlignment="Right" Text="{x:Bind Flux}"/>
+                            </DataTemplate>
+                        </mtuuc:DataGridTemplateColumn.CellTemplate>
+                    </mtuuc:DataGridTemplateColumn>
+                </mtuuc:DataGrid.Columns>
+            </mtuuc:DataGrid>
+        </xamarin:ScrollViewer>
     </Grid>
 </Page>

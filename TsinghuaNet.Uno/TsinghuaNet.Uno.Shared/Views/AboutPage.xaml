@@ -10,7 +10,9 @@
     xmlns:controls="using:TsinghuaNet.Uno.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
+    xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:xamarin="http://uno.ui/xamarin"
+    mc:Ignorable="d xamarin"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Loaded="PageLoaded">
     <Page.DataContext>
         <vms:AboutViewModel x:Name="Model"/>
@@ -39,12 +41,22 @@
                 </StackPanel>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">版权所有 © 2018-2019 Berrysoft</TextBlock>
                 <TextBlock Margin="8" Style="{ThemeResource BaseTextBlockStyle}">第三方开源库</TextBlock>
-                <controls:SortableDataGrid Margin="8" ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
-                    <controls:SortableDataGrid.Columns>
-                        <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
-                        <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
-                    </controls:SortableDataGrid.Columns>
-                </controls:SortableDataGrid>
+                <win:Grid Margin="8">
+                    <controls:SortableDataGrid ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
+                        <controls:SortableDataGrid.Columns>
+                            <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
+                            <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
+                        </controls:SortableDataGrid.Columns>
+                    </controls:SortableDataGrid>
+                </win:Grid>
+                <xamarin:Grid Margin="8">
+                    <mtuuc:DataGrid ItemsSource="{x:Bind Model.Packages,Mode=OneWay}" IsReadOnly="True" AutoGenerateColumns="False" RowDetailsVisibilityMode="Collapsed">
+                        <mtuuc:DataGrid.Columns>
+                            <mtuuc:DataGridTextColumn Header="名称" Binding="{Binding Name}" Tag="Name"/>
+                            <mtuuc:DataGridTextColumn Header="许可证" Binding="{Binding License}" Tag="License"/>
+                        </mtuuc:DataGrid.Columns>
+                    </mtuuc:DataGrid>
+                </xamarin:Grid>
             </StackPanel>
         </ScrollViewer>
     </Grid>
