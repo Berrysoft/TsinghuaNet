@@ -31,7 +31,6 @@
             <DoubleAnimation x:Name="FreeAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FreeOffset" EnableDependentAnimation="True" From="1.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
             <DoubleAnimation x:Name="FluxAnimation" Storyboard.TargetName="Self" Storyboard.TargetProperty="FluxOffset" EnableDependentAnimation="True" From="0.0" Duration="0:0:1" EasingFunction="{StaticResource ShowAnimationEase}"/>
         </win:Storyboard>
-        <converters:CurrencyStringConverter x:Key="CurrencyStringConverter"/>
     </Page.Resources>
     <mtuuc:UniformGrid x:Name="MainGrid" Grid.Row="0">
         <VisualStateManager.VisualStateGroups>
@@ -98,7 +97,7 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{ThemeResource BodyTextBlockStyle}">余额：</TextBlock>
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Balance,Mode=OneWay,Converter={StaticResource CurrencyStringConverter}}"/>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind Model.OnlineUser.Balance,Mode=OneWay,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterLanguage=zh-CN}"/>
                     </StackPanel>
                 </mtuuc:UniformGrid>
             </Viewbox>

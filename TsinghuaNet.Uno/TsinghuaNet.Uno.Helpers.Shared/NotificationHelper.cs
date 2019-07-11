@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using TsinghuaNet.Models;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -20,19 +21,19 @@ namespace TsinghuaNet.Uno.Helpers
         <binding template=""TileMedium"">
             <text hint-style=""base"">{0}</text>
             <text hint-style=""bodySubtle"">{1}</text>
-            <text hint-style=""bodySubtle"">{3}</text>
+            <text hint-style=""bodySubtle"">{3:C2}</text>
         </binding>
         <binding template=""TileWide"">
             <text hint-style=""subtitle"">{0}</text>
             <text hint-style=""bodySubtle"">流量：{1}</text>
-            <text hint-style=""bodySubtle"">余额：{3}</text>
+            <text hint-style=""bodySubtle"">余额：{3:C2}</text>
         </binding>
         <binding template=""TileLarge"">
             <text hint-style=""title"">{0}</text>
             <text hint-style=""subtitleSubtle"">流量：{1}</text>
             <text hint-style=""subtitleSubtle"">剩余：{4}</text>
             <text hint-style=""subtitleSubtle"">时长：{2}</text>
-            <text hint-style=""subtitleSubtle"">余额：{3}</text>
+            <text hint-style=""subtitleSubtle"">余额：{3:C2}</text>
         </binding>
     </visual>
 </tile>";
@@ -42,7 +43,7 @@ namespace TsinghuaNet.Uno.Helpers
         <binding template=""ToastGeneric"">
             <text hint-maxLines=""1"">登录成功：{0}</text>
             <text>流量：{1}</text>
-            <text>余额：{2}</text>
+            <text>余额：{2:C2}</text>
         </binding>
     </visual>
 </toast>";
@@ -58,10 +59,12 @@ namespace TsinghuaNet.Uno.Helpers
 </toast>";
         }
 
+        private static readonly CultureInfo zhCulture = CultureInfo.GetCultureInfo("zh-CN");
+
         public static void UpdateTile(FluxUser user)
         {
             XmlDocument dom = new XmlDocument();
-            dom.LoadXml(string.Format(tileText, user.Username, user.Flux, user.OnlineTime.ToString(), StringHelper.GetCurrencyString(user.Balance), FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux));
+            dom.LoadXml(string.Format(tileText, user.Username, user.Flux, user.OnlineTime, user.Balance, FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux));
             TileNotification notification = new TileNotification(dom);
             notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(15);
             TileUpdateManager.CreateTileUpdaterForApplication().Update(notification);
@@ -70,7 +73,7 @@ namespace TsinghuaNet.Uno.Helpers
         public static void SendToast(FluxUser user)
         {
             XmlDocument dom = new XmlDocument();
-            dom.LoadXml(string.Format(toastText, user.Username, user.Flux, StringHelper.GetCurrencyString(user.Balance)));
+            dom.LoadXml(string.Format(zhCulture, toastText, user.Username, user.Flux, user.Balance));
             ToastNotification notification = new ToastNotification(dom);
             notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1);
             ToastNotificationManager.CreateToastNotifier().Show(notification);
@@ -81,7 +84,7 @@ namespace TsinghuaNet.Uno.Helpers
             if (user.Flux > limit)
             {
                 XmlDocument dom = new XmlDocument();
-                dom.LoadXml(string.Format(toastWarningText, user.Username, user.Flux, FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux));
+                dom.LoadXml(string.Format(zhCulture, toastWarningText, user.Username, user.Flux, FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux));
                 ToastNotification notification = new ToastNotification(dom);
                 notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1);
                 ToastNotificationManager.CreateToastNotifier().Show(notification);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI.Xaml.Data;
 
 namespace TsinghuaNet.Uno.Converters
@@ -7,16 +8,12 @@ namespace TsinghuaNet.Uno.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter == null)
-                return value.ToString();
+            var format = parameter?.ToString();
+            var culture = CultureInfo.GetCultureInfo(language);
+            if (string.IsNullOrEmpty(format))
+                return string.Format(culture, "{0}", value);
             else
-            {
-                var format = parameter.ToString();
-                if (string.IsNullOrEmpty(format))
-                    return value.ToString();
-                else
-                    return string.Format(format, value);
-            }
+                return string.Format(culture, format, value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

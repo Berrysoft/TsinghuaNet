@@ -2,6 +2,7 @@
 using System.Linq;
 using Eto.Forms;
 using Eto.Serialization.Xaml;
+using TsinghuaNet.Eto.Controls;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 
@@ -12,7 +13,7 @@ namespace TsinghuaNet.Eto.Views
         private ConnectionViewModel Model;
 
 #pragma warning disable 0649
-        private GridView ConnectionView;
+        private SortableGridView ConnectionView;
 #pragma warning restore 0649
 
         public ConnectionDialog()

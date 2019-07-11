@@ -9,7 +9,7 @@
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
   <Panel Padding="8">
-    <controls:SortableGridView AllowMultipleSelection="True" DataStore="{Binding NetUsers}">
+    <controls:SortableGridView x:Name="ConnectionView" AllowMultipleSelection="True" DataStore="{Binding NetUsers}">
       <controls:SortableGridView.Columns>
         <controls:SortableGridColumn Sortable="True" HeaderText="IP地址" Tag="Address">
           <TextBoxCell Binding="{Binding Address,Converter={StaticResource StringFormatConverter}}"/>

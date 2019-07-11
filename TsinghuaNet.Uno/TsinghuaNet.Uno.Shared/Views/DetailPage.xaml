@@ -19,9 +19,6 @@
     <Page.DataContext>
         <netvms:DetailViewModel x:Name="Model"/>
     </Page.DataContext>
-    <Page.Resources>
-        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
-    </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="48"/>

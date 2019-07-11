@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -110,7 +111,7 @@ namespace TsinghuaNet.CLI
                 Console.WriteLine("用户：{0}", flux.Username);
                 Console.WriteLine("流量：{0}", flux.Flux);
                 Console.WriteLine("时长：{0}", flux.OnlineTime);
-                Console.WriteLine("流量：{0}", StringHelper.GetCurrencyString(flux.Balance));
+                Console.WriteLine(string.Format(CultureInfo.GetCultureInfo("zh-CN"), "流量：{0:C2}", flux.Balance));
             }
         }
     }
@@ -231,9 +232,20 @@ namespace TsinghuaNet.CLI
     [Verb("suggestion", HelpText = "获取建议的连接方式")]
     class SuggestionVerb : VerbBase
     {
+        private static string GetNetStateString(NetState state)
+        {
+            return state switch
+            {
+                NetState.Net => "Net",
+                NetState.Auth4 => "Auth4",
+                NetState.Auth6 => "Auth6",
+                _ => "不登录",
+            };
+        }
+
         public override async Task RunAsync()
         {
-            Console.WriteLine(StringHelper.GetNetStateString(await VerbHelper.Status.SuggestAsync()));
+            Console.WriteLine(GetNetStateString(await VerbHelper.Status.SuggestAsync()));
         }
     }
 

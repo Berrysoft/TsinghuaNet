@@ -27,7 +27,7 @@
     </On>
   </Form.Menu>
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
-    <EnumRadioButtonList x:TypeArguments="net:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0"/>
+    <EnumRadioButtonList x:TypeArguments="net:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0" AddValue="NetStateList_AddValue" SelectedValue="{Binding Credential.State}"/>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>
       <TextBox Width="160" Text="{Binding Credential.Username,Mode=TwoWay}"/>
@@ -47,7 +47,7 @@
         <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
         <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
         <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
-        <Label x:Name="OnlineUserBalanceLabel" VerticalAlignment="Center"/>
+        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterCulture=zh-CN}"/>
       </TableRow>
     </TableLayout>
     <StackLayoutItem HorizontalAlignment="Stretch">

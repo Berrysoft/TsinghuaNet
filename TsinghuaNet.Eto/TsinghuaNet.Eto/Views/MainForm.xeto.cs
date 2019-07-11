@@ -9,21 +9,10 @@ namespace TsinghuaNet.Eto.Views
     {
         private MainViewModel Model;
 
-#pragma warning disable 0649
-        private EnumRadioButtonList<NetState> NetStateList;
-        private Label OnlineUserBalanceLabel;
-#pragma warning restore 0649
-
         public MainForm()
         {
             XamlReader.Load(this);
             DataContext = Model = new MainViewModel();
-            NetStateList.AddValue += NetStateList_AddValue;
-            NetStateList.SelectedValueBinding.
-                BindDataContext(Binding.Property((MainViewModel m) => m.Credential.State));
-            OnlineUserBalanceLabel.TextBinding.
-                BindDataContext(Binding.Property((MainViewModel m) => m.OnlineUser.Balance).
-                Convert(StringHelper.GetCurrencyString));
         }
 
         private void NetStateList_AddValue(object sender, AddValueEventArgs<NetState> e)
