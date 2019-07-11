@@ -25,7 +25,9 @@ namespace TsinghuaNet.Models
 
     public class NetPingStatus : INetStatus
     {
+#pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
 
         [DoNotNotify]
         public NetStatus Status { get; set; }
@@ -68,7 +70,9 @@ namespace TsinghuaNet.Models
 
     public abstract class NetMapStatus : INetStatus
     {
+#pragma warning disable 0067
         public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
 
         public NetStatus Status { get; set; }
 

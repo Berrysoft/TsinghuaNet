@@ -9,8 +9,10 @@ namespace TsinghuaNet.Eto.Views
     {
         private MainViewModel Model;
 
+#pragma warning disable 0649
         private EnumRadioButtonList<NetState> NetStateList;
         private Label OnlineUserBalanceLabel;
+#pragma warning restore 0649
 
         public MainForm()
         {

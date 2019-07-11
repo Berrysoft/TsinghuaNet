@@ -11,7 +11,9 @@ namespace TsinghuaNet.Eto.Views
     {
         private ConnectionViewModel Model;
 
+#pragma warning disable 0649
         private GridView ConnectionView;
+#pragma warning restore 0649
 
         public ConnectionDialog()
         {

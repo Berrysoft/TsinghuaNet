@@ -12,7 +12,9 @@ namespace TsinghuaNet.Eto.Views
     {
         private SettingsViewModel Model;
 
+#pragma warning disable 0649
         private TabControl SettingsTab;
+#pragma warning restore 0649
 
         public SettingsDialog(int page = 0)
         {

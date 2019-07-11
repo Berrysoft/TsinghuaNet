@@ -83,7 +83,7 @@
     <PackageReference Include="Uno.SourceGenerationTasks">
       <Version>1.32.0-dev.288</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2119" />
+    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2135" />
     <PackageReference Include="Uno.UniversalImageLoader" Version="1.9.32" />
   </ItemGroup>
   <ItemGroup>

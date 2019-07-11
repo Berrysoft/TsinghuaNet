@@ -144,7 +144,7 @@
     <PackageReference Include="Uno.SourceGenerationTasks">
       <Version>1.32.0-dev.288</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2119" />
+    <PackageReference Include="Uno.UI" Version="1.46.0-dev.2135" />
     <PackageReference Include="Refractored.MvvmHelpers">
       <Version>1.4.1-beta</Version>
     </PackageReference>
