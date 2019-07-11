@@ -180,7 +180,7 @@
     <Content Include="Assets\square44x44logo.targetsize-24_altform-unplated.png" />
     <Content Include="Assets\storelogo.png" />
     <Content Include="Assets\wide310x150logo.scale-200.png" />
-    <Content Include="FodyWeavers.xml" />
+    <None Include="FodyWeavers.xml" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <Import Project="..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems')" />

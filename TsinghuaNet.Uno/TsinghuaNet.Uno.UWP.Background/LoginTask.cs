@@ -20,12 +20,15 @@ namespace TsinghuaNet.Uno.UWP.Background
                 var helper = ConnectHelper.GetHelper(await status.SuggestAsync(), un, pw);
                 if (helper != null)
                 {
-                    await helper.LoginAsync();
-                    FluxUser user = await helper.GetFluxAsync();
-                    NotificationHelper.UpdateTile(user);
-                    NotificationHelper.SendToast(user);
-                    if (settings.EnableFluxLimit)
-                        NotificationHelper.SendWarningToast(user, settings.FluxLimit);
+                    using (helper)
+                    {
+                        await helper.LoginAsync();
+                        FluxUser user = await helper.GetFluxAsync();
+                        NotificationHelper.UpdateTile(user);
+                        NotificationHelper.SendToast(user);
+                        if (settings.EnableFluxLimit)
+                            NotificationHelper.SendWarningToast(user, settings.FluxLimit);
+                    }
                 }
             }
             finally

@@ -18,10 +18,13 @@ namespace TsinghuaNet.Uno.UWP.Background
                 var helper = ConnectHelper.GetHelper(await status.SuggestAsync());
                 if (helper != null)
                 {
-                    FluxUser user = await helper.GetFluxAsync();
-                    NotificationHelper.UpdateTile(user);
-                    if (settings.EnableFluxLimit)
-                        NotificationHelper.SendWarningToast(user, settings.FluxLimit);
+                    using (helper)
+                    {
+                        FluxUser user = await helper.GetFluxAsync();
+                        NotificationHelper.UpdateTile(user);
+                        if (settings.EnableFluxLimit)
+                            NotificationHelper.SendWarningToast(user, settings.FluxLimit);
+                    }
                 }
             }
             finally
