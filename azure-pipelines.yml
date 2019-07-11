@@ -45,6 +45,9 @@ jobs:
   - script: rm build/linux-x64/*.pdb
     displayName: 'Remove PDBs'
 
+  - script: rm build/linux-x64/*.json
+    displayName: 'Remove JSONs'
+
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
@@ -85,6 +88,9 @@ jobs:
   - script: rm build/osx-x64/*.pdb
     displayName: 'Remove PDBs'
 
+  - script: rm build/osx-x64/*.json
+    displayName: 'Remove JSONs'
+
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
@@ -120,6 +126,9 @@ jobs:
 
   - script: del build\win-x64\*.pdb
     displayName: 'Remove PDBs'
+
+  - script: del build\win-x64\*.json
+    displayName: 'Remove JSONs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
