@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '3.0.100-preview6-012264'
+  sdkVersion: '3.0.100-preview8-012998'
   unoSolution: 'TsinghuaNet.Uno.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
