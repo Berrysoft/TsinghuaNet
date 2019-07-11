@@ -100,7 +100,7 @@ namespace TsinghuaNet.Uno
         /// </summary>
         /// <param name="sender">The source of the suspend request.</param>
         /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending(object sender, SuspendingEventArgs e)
+        private async void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
             try
@@ -109,7 +109,7 @@ namespace TsinghuaNet.Uno
                 {
                     if (rootFrame.Content is MainPage mainPage)
                     {
-                        mainPage.SaveSettings();
+                        await mainPage.SaveSettingsAsync();
                     }
                 }
             }

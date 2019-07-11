@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace TsinghuaNet
 {
@@ -29,22 +30,28 @@ namespace TsinghuaNet
             FilePath = GetSettingsPath(projName, filename);
         }
 
-        public T ReadSettings<T>()
+        public async ValueTask<T> ReadSettingsAsync<T>()
             where T : class
         {
             if (File.Exists(FilePath))
             {
-                byte[] json = File.ReadAllBytes(FilePath);
-                return JsonSerializer.Deserialize<T>(json);
+                using (var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    return await JsonSerializer.DeserializeAsync<T>(stream);
+                }
             }
             return null;
         }
 
-        public void WriteSettings<T>(T settings)
+        public async Task WriteSettingsAsync<T>(T settings)
             where T : class
         {
             CreateSettingsFolder(FileFolderName);
-            File.WriteAllBytes(FilePath, JsonSerializer.SerializeToUtf8Bytes(settings));
+            //File.WriteAllBytes(FilePath, JsonSerializer.SerializeToUtf8Bytes(settings));
+            using (var stream = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                await JsonSerializer.SerializeAsync(stream, settings);
+            }
         }
 
         public Dictionary<string, string> ReadDictionary()

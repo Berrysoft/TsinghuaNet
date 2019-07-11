@@ -53,9 +53,10 @@ namespace TsinghuaNet.Eto.Views
             }
         }
 
-        private void MainForm_Closed(object sender, EventArgs e)
+        private async void MainForm_Closed(object sender, EventArgs e)
         {
-            Model.SaveSettings();
+            if (Model != null)
+                await Model.SaveSettingsAsync();
             Application.Instance.Quit();
         }
     }

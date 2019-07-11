@@ -11,17 +11,7 @@ namespace TsinghuaNet.Eto.ViewModels
 {
     public class MainViewModel : MainViewModelBase
     {
-        public MainViewModel() : base()
-        {
-            Status = new NetPingStatus();
-            ReceivedResponse += Model_ReceivedResponse;
-            timer = new UITimer(OnlineTimerTick);
-            timer.Interval = 1;
-            if (Settings.AutoLogin)
-                Login();
-            else
-                Refresh();
-        }
+        public MainViewModel() : base() { }
 
         [DoNotNotify]
         public new NetEtoSettings Settings
@@ -30,14 +20,23 @@ namespace TsinghuaNet.Eto.ViewModels
             set => base.Settings = value;
         }
 
-        public override void LoadSettings()
+        public override async Task LoadSettingsAsync()
         {
-            Settings = SettingsHelper.Helper.ReadSettings<NetEtoSettings>() ?? new NetEtoSettings();
+            Settings = (await SettingsHelper.Helper.ReadSettingsAsync<NetEtoSettings>()) ?? new NetEtoSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
+
+            Status = new NetPingStatus();
+            ReceivedResponse += Model_ReceivedResponse;
+            timer = new UITimer(OnlineTimerTick);
+            timer.Interval = 1;
+            if (Settings.AutoLogin)
+                await LoginAsync();
+            else
+                await RefreshAsync();
         }
 
-        public override void SaveSettings()
+        public override async Task SaveSettingsAsync()
         {
             if (Settings.DeleteSettingsOnExit)
             {
@@ -47,11 +46,11 @@ namespace TsinghuaNet.Eto.ViewModels
             {
                 Settings.Username = Credential.Username;
                 Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
-                SettingsHelper.Helper.WriteSettings(Settings);
+                await SettingsHelper.Helper.WriteSettingsAsync(Settings);
             }
         }
 
-        private readonly UITimer timer;
+        private UITimer timer;
         private void OnlineTimerTick(object sender, EventArgs e)
         {
             OnlineTime += TimeSpan.FromSeconds(1);

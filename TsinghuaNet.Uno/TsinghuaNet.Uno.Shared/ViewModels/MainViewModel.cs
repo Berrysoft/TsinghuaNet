@@ -31,14 +31,12 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public MainViewModel() : base()
         {
-            Status = new InternetStatus();
             ChangeStateCommand = new ChangeEnumCommand<NetState>(s => Credential.State = s);
-            // 设置计时器
             mainTimer.Interval = TimeSpan.FromSeconds(1);
             mainTimer.Tick += MainTimerTick;
         }
 
-        public override void LoadSettings()
+        public override Task LoadSettingsAsync()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Settings = new NetUnoSettings();
@@ -51,6 +49,9 @@ namespace TsinghuaNet.Uno.ViewModels
             // 设置为当前用户名并获取密码
             Credential.Username = un;
             Credential.Password = CredentialHelper.GetCredential(un);
+
+            Status = new InternetStatus();
+            return Task.CompletedTask;
         }
 
 #if WINDOWS_UWP
@@ -70,10 +71,11 @@ namespace TsinghuaNet.Uno.ViewModels
         }
 #endif
 
-        public override void SaveSettings()
+        public override Task SaveSettingsAsync()
         {
             Settings.StoredUsername = Credential.Username;
             Settings.SaveSettings();
+            return Task.CompletedTask;
         }
 
         public ICommand ChangeStateCommand { get; }

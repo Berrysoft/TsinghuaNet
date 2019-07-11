@@ -30,7 +30,7 @@ namespace TsinghuaNet.Uno.Views
         /// <summary>
         /// 保存设置
         /// </summary>
-        internal void SaveSettings() => Model.SaveSettings();
+        internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
 
 #if WINDOWS_UWP
         public static readonly wux.DependencyProperty FreeOffsetProperty = wux.DependencyProperty.Register(nameof(FreeOffset), typeof(double), typeof(MainPage), new wux.PropertyMetadata(0.0));
