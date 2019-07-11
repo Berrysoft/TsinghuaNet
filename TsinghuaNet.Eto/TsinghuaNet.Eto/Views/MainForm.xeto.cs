@@ -17,41 +17,35 @@ namespace TsinghuaNet.Eto.Views
 
         private void NetStateList_AddValue(object sender, AddValueEventArgs<NetState> e)
         {
-            if (e.Value == NetState.Unknown)
-                e.ShouldAdd = false;
+            e.ShouldAdd = e.Value != NetState.Unknown;
+        }
+
+        private void ShowDialog<T>(T dialog)
+            where T : Dialog
+        {
+            using (dialog)
+            {
+                dialog.ShowModal(this);
+            }
+        }
+
+        private void ShowDialog<T>()
+            where T : Dialog, new()
+        {
+            ShowDialog(new T());
         }
 
         private void ShowConnection(object sender, EventArgs e)
-        {
-            using (ConnectionDialog dialog = new ConnectionDialog())
-            {
-                dialog.ShowModal(this);
-            }
-        }
+            => ShowDialog<ConnectionDialog>();
 
         private void ShowDetails(object sender, EventArgs e)
-        {
-            using (DetailsDialog dialog = new DetailsDialog())
-            {
-                dialog.ShowModal(this);
-            }
-        }
+            => ShowDialog<DetailsDialog>();
 
         private void ShowAbout(object sender, EventArgs e)
-        {
-            using (SettingsDialog dialog = new SettingsDialog(1))
-            {
-                dialog.ShowModal(this);
-            }
-        }
+            => ShowDialog(new SettingsDialog(1));
 
         private void ShowSettings(object sender, EventArgs e)
-        {
-            using (SettingsDialog dialog = new SettingsDialog())
-            {
-                dialog.ShowModal(this);
-            }
-        }
+            => ShowDialog(new SettingsDialog(0));
 
         private async void MainForm_Closed(object sender, EventArgs e)
         {

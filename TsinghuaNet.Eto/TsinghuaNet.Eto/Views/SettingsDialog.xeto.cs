@@ -16,7 +16,7 @@ namespace TsinghuaNet.Eto.Views
         private TabControl SettingsTab;
 #pragma warning restore 0649
 
-        public SettingsDialog(int page = 0)
+        public SettingsDialog(int page)
         {
             XamlReader.Load(this);
             DataContext = Model = new SettingsViewModel();
