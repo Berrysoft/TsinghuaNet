@@ -64,12 +64,11 @@ namespace TsinghuaNet.CLI
                 var settings = SettingsHelper.Helper.ReadDictionary();
                 if (settings != null)
                 {
-                    NetCredential cred = new NetCredential
+                    return new NetCredential
                     {
                         Username = settings["username"],
                         Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings["password"]))
                     };
-                    return cred;
                 }
                 else
                 {
