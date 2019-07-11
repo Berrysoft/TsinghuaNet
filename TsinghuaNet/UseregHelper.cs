@@ -14,7 +14,7 @@ namespace TsinghuaNet
     {
         private const string LogUri = "http://usereg.tsinghua.edu.cn/do.php";
         private const string InfoUri = "http://usereg.tsinghua.edu.cn/online_user_ipv4.php";
-        private const string DetailUri = "http://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1}-01&end_time={0}-{1}-{2}&page={3}&offset={4}";
+        private const string DetailUri = "http://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1:D2}-01&end_time={0}-{1:D2}-{2:D2}&page={3}&offset={4}";
         private const string LogoutData = "action=logout";
         private const string DropData = "action=drop&user_ip={0}";
 
@@ -39,7 +39,7 @@ namespace TsinghuaNet
             var doc = new HtmlDocument();
             doc.LoadHtml(userhtml);
             foreach (var u in
-                from tr in doc.DocumentNode.Element("html").Element("body").Element("table").Element("tr").Elements("td").Last().Elements("table").ElementAt(1).Elements("tr").Skip(1)
+                from tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1)
                 let tds = (from td in tr.Elements("td").Skip(1)
                            select td.FirstChild?.InnerText).ToArray()
                 select new NetUser(
@@ -64,12 +64,12 @@ namespace TsinghuaNet
             DateTime now = DateTime.Now;
             for (int i = 1; ; i++)
             {
-                string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month.ToString().PadLeft(2, '0'), now.Day, i, offset, OrderQueryMap[order], descending ? "DESC" : string.Empty));
+                string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month, now.Day, i, offset, OrderQueryMap[order], descending ? "DESC" : string.Empty));
                 var doc = new HtmlDocument();
                 doc.LoadHtml(detailhtml);
                 bool cont = false;
                 foreach (var d in
-                    from tr in doc.DocumentNode.Element("html").Element("body").Element("table").Element("tr").Elements("td").Last().Elements("table").Last().Elements("tr").Skip(1)
+                    from tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1)
                     let tds = (from td in tr.Elements("td").Skip(1)
                                select td.FirstChild?.InnerText).ToArray()
                     select new NetDetail(

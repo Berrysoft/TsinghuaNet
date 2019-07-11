@@ -26,7 +26,7 @@ namespace TsinghuaNet.Models
 
         internal static LogResponse ParseFromNet(string response)
         {
-            return new LogResponse(response == "Login is successful.", response);
+            return new LogResponse(response == "Login is successful." || response == "IP has been online, please logout.", response);
         }
 
         internal static LogResponse ParseFromAuth(byte[] response)
