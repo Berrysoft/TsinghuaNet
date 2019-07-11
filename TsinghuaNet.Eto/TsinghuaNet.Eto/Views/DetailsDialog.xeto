@@ -14,10 +14,10 @@
         <controls:SortableGridView DataStore="{Binding InitialDetails}">
           <controls:SortableGridView.Columns>
             <controls:SortableGridColumn Sortable="True" HeaderText="登录时间" Tag="LoginTime">
-              <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter},ConverterCulture=zh-CN}"/>
+              <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
             </controls:SortableGridColumn>
             <controls:SortableGridColumn Sortable="True" HeaderText="注销时间" Tag="LogoutTime">
-              <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter},ConverterCulture=zh-CN}"/>
+              <TextBoxCell Binding="{Binding LogoutTime,Converter={StaticResource StringFormatConverter}}"/>
             </controls:SortableGridColumn>
             <controls:SortableGridColumn Sortable="True" HeaderText="使用流量" Tag="Flux">
               <TextBoxCell TextAlignment="Right" Binding="{Binding Flux,Converter={StaticResource StringFormatConverter}}"/>
@@ -29,7 +29,7 @@
         <controls:SortableGridView DataStore="{Binding GroupedDetails}">
           <controls:SortableGridView.Columns>
             <controls:SortableGridColumn Sortable="True" HeaderText="登录日期" Tag="Key">
-              <TextBoxCell Binding="{Binding Key,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:d\},ConverterCulture=zh-CN}"/>
+              <TextBoxCell Binding="{Binding Key,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:d\}}"/>
             </controls:SortableGridColumn>
             <controls:SortableGridColumn Sortable="True" HeaderText="使用流量" Tag="Value">
               <TextBoxCell TextAlignment="Right" Binding="{Binding Value,Converter={StaticResource StringFormatConverter}}"/>

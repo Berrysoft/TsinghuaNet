@@ -15,7 +15,7 @@
           <TextBoxCell Binding="{Binding Address,Converter={StaticResource StringFormatConverter}}"/>
         </controls:SortableGridColumn>
         <controls:SortableGridColumn Sortable="True" HeaderText="登录时间" Tag="LoginTime">
-          <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter},ConverterCulture=zh-CN}"/>
+          <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
         </controls:SortableGridColumn>
         <controls:SortableGridColumn Sortable="True" HeaderText="客户端" Tag="Client">
           <TextBoxCell Binding="{Binding Client}"/>

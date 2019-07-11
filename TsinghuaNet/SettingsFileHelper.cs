@@ -47,7 +47,6 @@ namespace TsinghuaNet
             where T : class
         {
             CreateSettingsFolder(FileFolderName);
-            //File.WriteAllBytes(FilePath, JsonSerializer.SerializeToUtf8Bytes(settings));
             using (var stream = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write))
             {
                 await JsonSerializer.SerializeAsync(stream, settings);
