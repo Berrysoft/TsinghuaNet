@@ -13,6 +13,7 @@ namespace TsinghuaNet.Uno.Views
             InitializeComponent();
         }
 
+#pragma warning disable 1998
         private async void PageLoaded(object sender, RoutedEventArgs e)
         {
 #if !WINDOWS_UWP
@@ -36,5 +37,6 @@ namespace TsinghuaNet.Uno.Views
 #endif
             };
         }
+#pragma warning restore 1998
     }
 }
