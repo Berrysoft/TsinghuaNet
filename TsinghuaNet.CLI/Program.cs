@@ -15,10 +15,20 @@ namespace TsinghuaNet.CLI
             using (Parser p = new Parser(settings =>
             {
                 settings.HelpWriter = Console.Error;
+                settings.CaseSensitive = false;
                 settings.CaseInsensitiveEnumValues = true;
             }))
             {
-                return p.ParseArguments<LoginVerb, LogoutVerb, StatusVerb, OnlineVerb, DropVerb, DetailVerb, SuggestionVerb, SaveCredentialVerb, DeleteCredentialVerb>(args).MapResult(RunVerb, RunError);
+                return p.ParseArguments<LoginVerb,
+                                        LogoutVerb,
+                                        StatusVerb,
+                                        OnlineVerb,
+                                        DropVerb,
+                                        DetailVerb,
+                                        SuggestionVerb,
+                                        SaveCredentialVerb,
+                                        DeleteCredentialVerb>(args).
+                         MapResult(RunVerb, RunError);
             }
         }
 
