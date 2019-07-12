@@ -67,7 +67,7 @@ namespace TsinghuaNet
                 string detailhtml = await GetAsync(string.Format(DetailUri, now.Year, now.Month, now.Day, i, offset, OrderQueryMap[order], descending ? "DESC" : string.Empty));
                 var doc = new HtmlDocument();
                 doc.LoadHtml(detailhtml);
-                bool cont = false;
+                int count = 0;
                 foreach (var d in
                     from tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1)
                     let tds = (from td in tr.Elements("td").Skip(1)
@@ -77,10 +77,10 @@ namespace TsinghuaNet
                         DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
                         ByteSize.Parse(tds[4])))
                 {
-                    cont = true;
+                    count++;
                     yield return d;
                 }
-                if (!cont) break;
+                if (count < offset) break;
             }
         }
     }

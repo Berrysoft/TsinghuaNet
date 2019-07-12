@@ -204,28 +204,42 @@ namespace TsinghuaNet.CLI
             var res = await helper.LoginAsync();
             if (res.Succeed)
             {
+                ByteSize totalFlux = default;
                 if (Grouping)
                 {
                     var details = helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false);
                     var now = DateTime.Now;
-                    Console.WriteLine("|    日期    |    流量    |");
-                    Console.WriteLine(new string('=', 27));
-                    var query = from d in details group d.Flux by d.LogoutTime.Day into g select new { Day = g.Key, TotalFlux = g.SumAsync().GetAwaiter().GetResult() };
+                    var query = details.GroupBy(d => d.LoginTime.Day, d => d.Flux).SelectAwait(async (g) => new { Day = g.Key, TotalFlux = await g.SumAsync() });
                     var orderedQuery = (int)Order == (int)NetDetailOrder.Flux ? query.OrderBy(d => d.TotalFlux, Descending) : query.OrderBy(d => d.Day, Descending);
+                    Console.WriteLine("|    日期    |    流量    |");
+                    string separater = new string('=', 27);
+                    Console.WriteLine(separater);
                     await foreach (var p in orderedQuery)
+                    {
                         Console.WriteLine("| {0,-10} | {1,10} |", new DateTime(now.Year, now.Month, p.Day).ToString(DateFormat), p.TotalFlux);
+                        totalFlux += p.TotalFlux;
+                    }
+                    Console.WriteLine(separater);
                 }
                 else
                 {
                     var details = helper.GetDetailsAsync((NetDetailOrder)Order, Descending);
                     Console.WriteLine("|       登录时间       |       注销时间       |    流量    |");
-                    Console.WriteLine(new string('=', 60));
+                    string separater = new string('=', 60);
+                    Console.WriteLine(separater);
                     await foreach (var d in details)
+                    {
                         Console.WriteLine("| {0,-20} | {1,-20} | {2,10} |", d.LoginTime.ToString(DateTimeFormat), d.LogoutTime.ToString(DateTimeFormat), d.Flux);
+                        totalFlux += d.Flux;
+                    }
+                    Console.WriteLine(separater);
                 }
+                Console.WriteLine("总流量：{0}", totalFlux);
             }
             else
+            {
                 Console.WriteLine(res.Message);
+            }
         }
     }
 
