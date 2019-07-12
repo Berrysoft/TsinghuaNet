@@ -98,6 +98,7 @@
     <AndroidAsset Include="Assets\Fonts\segmdl2.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
@@ -116,9 +117,6 @@
       <Project>{198a7897-55a9-43dc-9455-84270a46960f}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="FodyWeavers.xml" />
   </ItemGroup>
   <Import Project="..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems" Label="Shared" Condition="Exists('..\TsinghuaNet.Uno.Shared\TsinghuaNet.Uno.Shared.projitems')" />
   <Import Project="..\TsinghuaNet.Uno.Helpers.Shared\TsinghuaNet.Uno.Helpers.Shared.projitems" Label="Shared" />

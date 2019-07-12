@@ -315,12 +315,12 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
-  - task: MSBuild@1
+  - task: VSBuild@1
     displayName: 'Build apk'
     inputs:
       solution: '$(droidProject)'
       configuration: 'Release'
-      msbuildArguments: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+      msbuildArgs: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
 
   - task: CopyFiles@2
     displayName: 'Publish Android Binaries'
