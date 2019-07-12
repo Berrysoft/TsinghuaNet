@@ -322,6 +322,7 @@ jobs:
 
   - script: |
       'cd TsinghuaNet.Uno\TsinghuaNet.Uno.Droid'
+      'set MSBuildSDKsPath "C:\Program Files\dotnet\sdk\$(sdkVersion)\Sdks"'
       '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" TsinghuaNet.Uno.Droid.csproj /p:Configuration=Release /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
     displayName: 'Build apk'
 
