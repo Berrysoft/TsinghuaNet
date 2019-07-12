@@ -303,6 +303,11 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
+  - task: DotNetCoreInstaller@0
+    displayName: 'Install .NET Core SDK 3.0'
+    inputs:
+      version: '$(sdkVersion)'
+
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5.1.0'
     inputs:
@@ -315,7 +320,9 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
-  - script: '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" TsinghuaNet.Uno\TsinghuaNet.Uno.Droid\TsinghuaNet.Uno.Droid.csproj /p:Configuration=Release /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+  - script: |
+      'cd TsinghuaNet.Uno\TsinghuaNet.Uno.Droid'
+      '"C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\msbuild.exe" TsinghuaNet.Uno.Droid.csproj /p:Configuration=Release /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
     displayName: 'Build apk'
 
   - task: CopyFiles@2
