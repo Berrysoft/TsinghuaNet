@@ -1,8 +1,9 @@
 ﻿using Android.App;
-using Android.Widget;
-using Android.OS;
 using Android.Content.PM;
+using Android.OS;
 using Android.Views;
+using Java.Util;
+using Windows.UI.Xaml;
 
 namespace TsinghuaNet.Uno.Droid
 {
@@ -10,8 +11,8 @@ namespace TsinghuaNet.Uno.Droid
             MainLauncher = true,
             ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize,
             WindowSoftInputMode = SoftInput.AdjustPan | SoftInput.StateHidden
-        )]
-    public class MainActivity : Windows.UI.Xaml.ApplicationActivity
+    )]
+    public class MainActivity : ApplicationActivity
     {
     }
 }

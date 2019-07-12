@@ -10,10 +10,10 @@ namespace TsinghuaNet.Uno.Converters
         {
 #if WINDOWS_UWP
             PackageVersion ver = (PackageVersion)value;
-#else
-            PackageVersion ver = new PackageVersion() { Major = 4, Minor = 0, Build = 73, Revision = 0 };
-#endif
             return $"版本 {ver.Major}.{ver.Minor}.{ver.Build}.{ver.Revision}";
+#else
+            return value.ToString();
+#endif
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using TsinghuaNet.Uno.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -21,6 +22,7 @@ namespace TsinghuaNet.Uno
         {
             InitializeComponent();
             Suspending += OnSuspending;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         /// <summary>

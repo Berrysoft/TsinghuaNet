@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using PropertyChanged;
@@ -38,7 +37,6 @@ namespace TsinghuaNet.Uno.ViewModels
 
         public override Task LoadSettingsAsync()
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Settings = new NetUnoSettings();
 #if WINDOWS_UWP
             Settings.PropertyChanged += OnSettingsPropertyChanged;

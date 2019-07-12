@@ -173,7 +173,8 @@ namespace TsinghuaNet.Uno.Views
 
         private void ShowSettings(object sender, wux.RoutedEventArgs e) => NavigateToType<SettingsPage>();
 
-        private void NavigateToType<T>() where T : Page
+        private void NavigateToType<T>()
+            where T : Page
         {
             if (wux.Window.Current.Content is Frame rootFrame)
             {
@@ -182,8 +183,10 @@ namespace TsinghuaNet.Uno.Views
         }
     }
 
+#if WINDOWS_UWP
     static class UserContentHelper
     {
         public static double Max(double d1, double d2) => Math.Max(d1, d2);
     }
+#endif
 }

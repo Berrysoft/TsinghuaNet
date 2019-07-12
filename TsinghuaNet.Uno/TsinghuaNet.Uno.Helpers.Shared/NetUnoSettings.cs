@@ -14,7 +14,12 @@ namespace TsinghuaNet.Uno.Helpers
         public bool BackgroundLiveTile { get; set; }
 #endif
 
-        private IPropertySet values;
+        private readonly IPropertySet values;
+
+        public NetUnoSettings() : base()
+        {
+            values = ApplicationData.Current.LocalSettings.Values;
+        }
 
         private T GetValue<T>(string key, T def = default)
         {
@@ -43,7 +48,6 @@ namespace TsinghuaNet.Uno.Helpers
 
         public void LoadSettings()
         {
-            values = ApplicationData.Current.LocalSettings.Values;
             StoredUsername = GetValue(StoredUsernameKey, string.Empty);
             AutoLogin = GetValue(AutoLoginKey, true);
 #if WINDOWS_UWP
@@ -51,8 +55,7 @@ namespace TsinghuaNet.Uno.Helpers
             BackgroundLiveTile = GetValue(BackgroundLiveTileKey, true);
 #endif
             EnableFluxLimit = GetValue<bool>(EnableFluxLimitKey);
-            var limit = GetValue<double>(FluxLimitKey);
-            FluxLimit = ByteSize.FromGigaBytes(limit);
+            FluxLimit = ByteSize.FromGigaBytes(GetValue<double>(FluxLimitKey));
         }
 
         public void SaveSettings()
