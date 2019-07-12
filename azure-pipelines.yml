@@ -9,8 +9,8 @@ variables:
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
-  # uwpProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
-  # droidProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
+  uwpProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
+  droidProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
 
 jobs:
 - job: Linux_CLI
@@ -260,84 +260,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-# - job: Windows_UWP
-#   pool:
-#     vmImage: 'windows-2019'
-#   steps:
-#   - task: NuGetToolInstaller@0
-#     displayName: 'Install NuGet 5.1.0'
-#     inputs:
-#       versionSpec: '5.1.0'
-  
-#   - task: NuGetCommand@2
-#     displayName: 'Restore solution'
-#     inputs:
-#       restoreSolution: '$(unoSolution)'
-#       feedsToUse: config
-#       nugetConfigPath: 'NuGet.Config'
-
-#   - task: MSBuild@1
-#     displayName: 'Build app bundle'
-#     inputs:
-#       solution: '$(uwpProject)'
-#       configuration: 'Release'
-#       msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
-
-#   - pwsh: rm build/uwp/AppxPackages/*/*/ARM* -Force -Recurse
-#     displayName: 'Remove ARM/ARM64 dependencies'
-
-#   - task: ArchiveFiles@2
-#     displayName: 'Archive'
-#     inputs:
-#       rootFolderOrFile: 'build\uwp\AppxPackages'
-#       includeRootFolder: false
-#       archiveType: 'zip'
-#       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Uno.UWP.zip'
-
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish'
-#     inputs:
-#       artifactName: 'publish'
-
-# - job: Windows_Android
-#   pool:
-#     vmImage: 'windows-2019'
-#   steps:
-#   - task: NuGetToolInstaller@0
-#     displayName: 'Install NuGet 5.1.0'
-#     inputs:
-#       versionSpec: '5.1.0'
-  
-#   - task: NuGetCommand@2
-#     displayName: 'Restore solution'
-#     inputs:
-#       restoreSolution: '$(unoSolution)'
-#       feedsToUse: config
-#       nugetConfigPath: 'NuGet.Config'
-
-#   - task: VSBuild@1
-#     displayName: 'Build apk'
-#     inputs:
-#       solution: '$(droidProject)'
-#       configuration: 'Release'
-#       msbuildArgs: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
-
-#   - task: CopyFiles@2
-#     displayName: 'Publish Android Binaries'
-#     inputs:
-#       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
-#       Contents: '**/*.apk'
-#       TargetFolder: $(build.artifactstagingdirectory)/android
-#       CleanTargetFolder: false
-#       OverWrite: false
-#       flattenFolders: false
-
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish'
-#     inputs:
-#       artifactName: 'publish'
-
-- job: Windows_Uno
+- job: Windows_UWP
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -353,22 +276,12 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
-  - task: VSBuild@1
-    displayName: 'Build all'
+  - task: MSBuild@1
+    displayName: 'Build app bundle'
     inputs:
-      solution: '$(unoSolution)'
+      solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArgs: '/p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password) /p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
-
-  - task: CopyFiles@2
-    displayName: 'Publish Android Binaries'
-    inputs:
-      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
-      Contents: '**/*.apk'
-      TargetFolder: $(build.artifactstagingdirectory)/android
-      CleanTargetFolder: false
-      OverWrite: false
-      flattenFolders: false
+      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - pwsh: rm build/uwp/AppxPackages/*/*/ARM* -Force -Recurse
     displayName: 'Remove ARM/ARM64 dependencies'
@@ -380,6 +293,40 @@ jobs:
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Uno.UWP.zip'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
+
+- job: Windows_Android
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet 5.1.0'
+    inputs:
+      versionSpec: '5.1.0'
+  
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(unoSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
+
+  - script: msbuild TsinghuaNet.Uno\TsinghuaNet.Uno.Droid\TsinghuaNet.Uno.Droid.csproj /p:Configuration=Release /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)
+    displayName: 'Build apk'
+
+  - task: CopyFiles@2
+    displayName: 'Publish Android Binaries'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
+      Contents: '**/*.apk'
+      TargetFolder: $(build.artifactstagingdirectory)/android
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
