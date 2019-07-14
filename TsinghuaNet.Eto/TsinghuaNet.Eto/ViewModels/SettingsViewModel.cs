@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using Eto;
 using PropertyChanged;
+using TsinghuaNet.Eto.Models;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 
@@ -11,9 +12,9 @@ namespace TsinghuaNet.Eto.ViewModels
     public class SettingsViewModel : NetViewModelBase
     {
         [DoNotNotify]
-        public new NetSettings Settings
+        public new NetEtoSettings Settings
         {
-            get => (NetSettings)base.Settings;
+            get => (NetEtoSettings)base.Settings;
             set => base.Settings = value;
         }
 

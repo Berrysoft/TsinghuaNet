@@ -12,9 +12,9 @@ namespace TsinghuaNet.ViewModels
         private static readonly NetCredential credential = new NetCredential();
         public NetCredential Credential => credential;
 
-        private static NetSettings settings;
+        private static INetSettings settings;
 
-        public NetSettings Settings
+        public INetSettings Settings
         {
             get => settings;
             protected set => settings = value;

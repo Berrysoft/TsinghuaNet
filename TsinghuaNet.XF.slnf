@@ -1,0 +1,12 @@
+{
+  "solution": {
+    "path": "TsinghuaNet.sln",
+    "projects": [
+      "TsinghuaNet.XF\\TsinghuaNet.XF\\TsinghuaNet.XF.csproj",
+      "TsinghuaNet.XF\\TsinghuaNet.XF.iOS\\TsinghuaNet.XF.iOS.csproj",
+      "TsinghuaNet.XF\\TsinghuaNet.XF.Android\\TsinghuaNet.XF.Android.csproj",
+      "TsinghuaNet.XF\\TsinghuaNet.XF.UWP\\TsinghuaNet.XF.UWP.csproj",
+      "TsinghuaNet\\TsinghuaNet.csproj"
+    ]
+  }
+}

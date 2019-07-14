@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="6ac6bc7e-cfc9-4128-9549-8cbb8a3759d9"
-    Publisher="CN=b5d946c5-8139-4c8b-9f62-31d4fa326559"
-    Version="1.0.0.0" />
+    Name="TsinghuaNet.UWP"
+    Publisher="CN=Straw"
+    Version="4.0.73.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>TsinghuaNet.XF.UWP</DisplayName>
-    <PublisherDisplayName>b5d946c5-8139-4c8b-9f62-31d4fa326559</PublisherDisplayName>
+    <PublisherDisplayName>Berrysoft</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -35,9 +35,9 @@
         DisplayName="TsinghuaNet.XF.UWP"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
-        Description="TsinghuaNet.XF.UWP"
+        Description="清华大学校园网客户端"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square310x310Logo="Assets\LargeTile.png" >
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo" />
             <uap:ShowOn Tile="wide310x150Logo" />

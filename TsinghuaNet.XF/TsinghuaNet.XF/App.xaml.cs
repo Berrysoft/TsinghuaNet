@@ -1,4 +1,6 @@
-﻿using TsinghuaNet.XF.Views;
+﻿using TsinghuaNet.Models;
+using TsinghuaNet.XF.Services;
+using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF
@@ -8,7 +10,9 @@ namespace TsinghuaNet.XF
         public App()
         {
             InitializeComponent();
-
+            DependencyService.Register<INetXFSettings>();
+            DependencyService.Register<INetStatus>();
+            DependencyService.Register<ICredentialStore>();
             MainPage = new MainPage();
         }
 
