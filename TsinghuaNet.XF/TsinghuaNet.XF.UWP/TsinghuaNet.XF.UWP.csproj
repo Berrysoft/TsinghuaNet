@@ -97,6 +97,8 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CredentialStore.cs" />
+    <Compile Include="Services\InternetStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -131,6 +133,10 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0-pre" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
+      <Project>{198a7897-55a9-43dc-9455-84270a46960f}</Project>
+      <Name>TsinghuaNet</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.XF\TsinghuaNet.XF.csproj">
       <Project>{E70838B5-7B0C-40F9-80F3-68BA3C26F781}</Project>
       <Name>TsinghuaNet.XF</Name>

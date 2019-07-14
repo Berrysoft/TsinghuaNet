@@ -6,6 +6,6 @@ namespace TsinghuaNet.XF.Services
     {
         bool CredentialExists();
         void SaveCredential(NetCredential credential);
-        NetCredential LoadCredential();
+        void LoadCredential(NetCredential credential);
     }
 }
