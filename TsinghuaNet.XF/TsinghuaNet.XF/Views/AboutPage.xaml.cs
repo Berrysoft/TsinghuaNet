@@ -4,9 +4,9 @@ using Xamarin.Forms.Xaml;
 namespace TsinghuaNet.XF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class InfoPage : ContentPage
+    public partial class AboutPage : ContentPage
     {
-        public InfoPage()
+        public AboutPage()
         {
             InitializeComponent();
         }

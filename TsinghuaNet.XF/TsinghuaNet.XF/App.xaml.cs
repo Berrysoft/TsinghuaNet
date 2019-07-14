@@ -2,6 +2,7 @@
 using TsinghuaNet.XF.Services;
 using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
+using Xamarin.Forms.DataGrid;
 
 namespace TsinghuaNet.XF
 {
@@ -13,6 +14,7 @@ namespace TsinghuaNet.XF
             DependencyService.Register<INetXFSettings>();
             DependencyService.Register<INetStatus>();
             DependencyService.Register<ICredentialStore>();
+            DataGridComponent.Init();
             MainPage = new MainPage();
         }
 

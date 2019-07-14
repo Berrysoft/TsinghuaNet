@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="TsinghuaNet.XF.Views.AboutPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="using:TsinghuaNet.XF.Controls"
+    xmlns:vms="using:TsinghuaNet.XF.ViewModels"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Title="关于">
+    <ContentPage.BindingContext>
+        <vms:AboutViewModel x:Name="Model"/>
+    </ContentPage.BindingContext>
+    <StackLayout Margin="8">
+        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">清华大学校园网客户端</Label>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8" Text="{Binding Version,Mode=OneTime,StringFormat='{0}'}"/>
+            <controls:HyperlinkLabel Margin="8" NavigateUri="https://github.com/Berrysoft/TsinghuaNet">项目地址</controls:HyperlinkLabel>
+        </StackLayout>
+        <Label Margin="8">版权所有 © 2018-2019 Berrysoft</Label>
+        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">第三方开源库</Label>
+        <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}">
+            <dg:DataGrid.RowsBackgroundColorPalette>
+                <dg:PaletteCollection>
+                    <Color>#F2F2F2</Color>
+                    <Color>#FFFFFF</Color>
+                </dg:PaletteCollection>
+            </dg:DataGrid.RowsBackgroundColorPalette>
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="名称" PropertyName="Name"/>
+                <dg:DataGridColumn Title="许可证" PropertyName="License"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </StackLayout>
+</ContentPage>

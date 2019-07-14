@@ -38,37 +38,39 @@
             <ScrollView x:Name="ResponseViewer" Grid.Row="1" Margin="8" VerticalOptions="End" HorizontalOptions="Fill" Opacity="0">
                 <Label VerticalOptions="End" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
             </ScrollView>
-            <controls:Viewbox Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center">
-                <Grid ColumnSpacing="4" RowSpacing="4">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <Label>用户：</Label>
-                        <Label Text="{Binding OnlineUser.Username,Mode=OneWay}"/>
-                    </StackLayout>
-                    <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                        <Label>流量：</Label>
-                        <Label Text="{Binding OnlineUser.Flux,Mode=OneWay}"/>
-                    </StackLayout>
-                    <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                        <Label>时长：</Label>
-                        <Label Text="{Binding OnlineTime,Mode=OneWay}"/>
-                    </StackLayout>
-                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                        <Label>余额：</Label>
-                        <Label Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
-                    </StackLayout>
-                </Grid>
-            </controls:Viewbox>
+            <Grid Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="4" RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                    <Label Style="{DynamicResource ListItemTextStyle}">用户：</Label>
+                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Username,Mode=OneWay}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                    <Label Style="{DynamicResource ListItemTextStyle}">流量：</Label>
+                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Flux,Mode=OneWay}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                    <Label Style="{DynamicResource ListItemTextStyle}">时长：</Label>
+                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineTime,Mode=OneWay}"/>
+                </StackLayout>
+                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                    <Label Style="{DynamicResource ListItemTextStyle}">余额：</Label>
+                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
+                </StackLayout>
+            </Grid>
         </Grid>
         <Grid>
-            <Picker SelectedIndex="{Binding Credential.State,Mode=TwoWay}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay}">
                 <Picker.Items>
                     <x:String>不登录</x:String>
                     <x:String>Net</x:String>
@@ -76,50 +78,16 @@
                     <x:String>Auth6</x:String>
                 </Picker.Items>
             </Picker>
-            <!--<Grid x:Name="StateGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
-                <RadioButton x:Name="UnknownStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
-                <RadioButton x:Name="NetStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
-                <RadioButton x:Name="Auth4StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
-                <RadioButton x:Name="Auth6StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
-            </Grid>-->
-            <!--<Grid x:Name="CommandGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="登录" Command="{Binding LoginCommand}">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Upload"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11C;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="注销" Command="{Binding LogoutCommand}">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Download"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE118;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="刷新" Command="{Binding RefreshCommand}">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Refresh"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="明细" Click="ShowDetail">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="List"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE14C;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="设置" Click="ShowSettings">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Setting"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE115;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="关于" Click="ShowAbout">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Help"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11B;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </Grid>-->
+            <Grid Grid.Row="1" Margin="8" HorizontalOptions="Fill" VerticalOptions="Center" ColumnSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Text="登录" Command="{Binding LoginCommand}"/>
+                <Button Grid.Column="1" Text="注销" Command="{Binding LogoutCommand}"/>
+                <Button Grid.Column="2" Text="刷新" Command="{Binding RefreshCommand}"/>
+            </Grid>
         </Grid>
     </StackLayout>
 </ContentPage>
