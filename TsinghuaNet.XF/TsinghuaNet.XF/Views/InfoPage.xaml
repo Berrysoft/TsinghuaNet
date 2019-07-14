@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="TsinghuaNet.XF.Views.InfoPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="using:TsinghuaNet.XF.Controls"
+    xmlns:vms="using:TsinghuaNet.XF.ViewModels"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Title="主页">
+    <ContentPage.BindingContext>
+        <vms:MainViewModel x:Name="Model"/>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="48"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <!--<Grid Grid.Row="0">
+                <controls:Viewbox Margin="8">
+                    <Grid>
+                        <Label Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
+                            <Label.Foreground>
+                                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
+                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
+                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
+                                </LinearGradientBrush>
+                            </Label.Foreground>
+                        </Label>
+                        <ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsBusy,Mode=OneWay}"/>
+                    </Grid>
+                </controls:Viewbox>
+            </Grid>-->
+            <ScrollView x:Name="ResponseViewer" Grid.Row="1" Margin="8" VerticalOptions="End" HorizontalOptions="Fill" Opacity="0">
+                <Label VerticalOptions="End" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
+            </ScrollView>
+            <controls:Viewbox Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center">
+                <Grid ColumnSpacing="4" RowSpacing="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <Label>用户：</Label>
+                        <Label Text="{Binding OnlineUser.Username,Mode=OneWay}"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                        <Label>流量：</Label>
+                        <Label Text="{Binding OnlineUser.Flux,Mode=OneWay}"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                        <Label>时长：</Label>
+                        <Label Text="{Binding OnlineTime,Mode=OneWay}"/>
+                    </StackLayout>
+                    <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                        <Label>余额：</Label>
+                        <Label Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
+                    </StackLayout>
+                </Grid>
+            </controls:Viewbox>
+        </Grid>
+        <Grid>
+            <Picker SelectedIndex="{Binding Credential.State,Mode=TwoWay}">
+                <Picker.Items>
+                    <x:String>不登录</x:String>
+                    <x:String>Net</x:String>
+                    <x:String>Auth4</x:String>
+                    <x:String>Auth6</x:String>
+                </Picker.Items>
+            </Picker>
+            <!--<Grid x:Name="StateGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" RowSpacing="8">
+                <RadioButton x:Name="UnknownStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Unknown">不登录</RadioButton>
+                <RadioButton x:Name="NetStateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Net">Net</RadioButton>
+                <RadioButton x:Name="Auth4StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Auth4">Auth4</RadioButton>
+                <RadioButton x:Name="Auth6StateButton" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding ChangeStateCommand}" CommandParameter="Auth6">Auth6</RadioButton>
+            </Grid>-->
+            <!--<Grid x:Name="CommandGrid" Margin="8" Rows="2" HorizontalAlignment="Center" VerticalAlignment="Center" ColumnSpacing="8" RowSpacing="8">
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="登录" Command="{Binding LoginCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Upload"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11C;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="注销" Command="{Binding LogoutCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Download"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE118;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="刷新" Command="{Binding RefreshCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Refresh"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="明细" Click="ShowDetail">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="List"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE14C;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="设置" Click="ShowSettings">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Setting"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE115;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+                <AppBarButton HorizontalAlignment="Center" VerticalAlignment="Center" Label="关于" Click="ShowAbout">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Help"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE11B;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </Grid>-->
+        </Grid>
+    </StackLayout>
+</ContentPage>
