@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="TsinghuaNet.XF.Views.SettingsPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vms="using:TsinghuaNet.XF.ViewModels"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Title="设置">
+    <ContentPage.BindingContext>
+        <vms:SettingsViewModel x:Name="Model"/>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8" VerticalOptions="Center">当前用户</Label>
+            <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
+            <Label Margin="8" VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8">前台自动登录</Label>
+            <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8">后台自动登录</Label>
+            <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8">后台磁贴刷新</Label>
+            <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal">
+            <Label Margin="8">流量不足警告</Label>
+            <Switch Margin="8,0" IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
+        </StackLayout>
+        <!--<mtuuc:DockPanel Margin="8" LastChildFill="True" Visibility="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
+            <TextBlock Margin="8" VerticalAlignment="Center" mtuuc:DockPanel.Dock="Right" Text="{Binding Settings.FluxLimit,Mode=OneWay,Converter={StaticResource FluxStringConverter}}"/>
+            <Slider Margin="8" VerticalAlignment="Center" Minimum="5" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+        </mtuuc:DockPanel>-->
+        <!--<StackPanel Orientation="Vertical">
+            <StackPanel.DataContext>
+                <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
+            </StackPanel.DataContext>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
+                <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}">
+                    <AppBarButton.Icon>
+                        <win:SymbolIcon Symbol="Refresh"/>
+                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
+                    </AppBarButton.Icon>
+                </AppBarButton>
+            </StackPanel>
+            <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
+                <ListView.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition/>
+                    </TransitionCollection>
+                </ListView.ItemContainerTransitions>
+            </ListView>
+        </StackPanel>-->
+    </StackLayout>
+</ContentPage>

@@ -13,19 +13,10 @@ namespace TsinghuaNet.XF
             MainPage = new MainPage();
         }
 
-        protected override void OnStart()
+        protected override async void OnSleep()
         {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
+            await ((MainPage)MainPage).SaveSettingsAsync();
+            base.OnSleep();
         }
     }
 }

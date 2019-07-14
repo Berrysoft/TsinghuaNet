@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
-using TsinghuaNet.XF.Services;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -13,6 +13,7 @@ namespace TsinghuaNet.XF.ViewModels
     {
         private readonly Timer mainTimer = new Timer();
 
+        [DoNotNotify]
         public new NetXFSettings Settings
         {
             get => (NetXFSettings)base.Settings;
@@ -23,24 +24,27 @@ namespace TsinghuaNet.XF.ViewModels
         {
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
+            ReceivedResponse += MainViewModel_ReceivedResponse;
         }
 
-        public override Task LoadSettingsAsync()
+        public override async Task LoadSettingsAsync()
         {
             Settings = new NetXFSettings();
             Settings.LoadSettings();
-            var store = DependencyService.Get<ICredentialStore>();
+            var store = new CredentialStore();
             if (store.CredentialExists())
-                store.LoadCredential(Credential);
+                await store.LoadCredentialAsync(Credential);
             Status = DependencyService.Get<INetStatus>();
-            return Task.CompletedTask;
         }
 
-        public override Task SaveSettingsAsync()
+        public override async Task SaveSettingsAsync()
         {
             Settings.SaveSettings();
-            DependencyService.Get<ICredentialStore>().SaveCredential(Credential);
-            return Task.CompletedTask;
+            if (!string.IsNullOrEmpty(Credential.Username))
+            {
+                var store = new CredentialStore();
+                await store.SaveCredentialAsync(Credential);
+            }
         }
 
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
@@ -68,6 +72,11 @@ namespace TsinghuaNet.XF.ViewModels
         private void MainTimerTick(object sender, ElapsedEventArgs e)
         {
             OnlineTime += TimeSpan.FromSeconds(1);
+        }
+
+        private void MainViewModel_ReceivedResponse(object sender, LogResponse e)
+        {
+            Response = e.Message;
         }
     }
 }

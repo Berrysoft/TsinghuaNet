@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using TsinghuaNet.Models;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace TsinghuaNet.XF.Models
 {
-    class NetXFSettings : INetSettings
+    public class NetXFSettings : INetSettings
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -15,29 +14,6 @@ namespace TsinghuaNet.XF.Models
         public bool BackgroundAutoLogin { get; set; }
         public bool BackgroundLiveTile { get; set; }
 
-        private readonly IDictionary<string, object> values;
-
-        public NetXFSettings()
-        {
-            values = Application.Current.Properties;
-        }
-
-        private T GetValue<T>(string key, T def = default)
-        {
-            if (values.ContainsKey(key))
-                return (T)values[key];
-            else
-                return def;
-        }
-
-        private void SetValue<T>(string key, T value)
-        {
-            if (values.ContainsKey(key))
-                values[key] = value;
-            else
-                values.Add(key, value);
-        }
-
         private const string AutoLoginKey = "AutoLogin";
         private const string BackgroundAutoLoginKey = "BackgroundAutoLogin";
         private const string BackgroundLiveTileKey = "BackgroundLiveTile";
@@ -46,20 +22,20 @@ namespace TsinghuaNet.XF.Models
 
         public void LoadSettings()
         {
-            AutoLogin = GetValue(AutoLoginKey, true);
-            BackgroundAutoLogin = GetValue(BackgroundAutoLoginKey, true);
-            BackgroundLiveTile = GetValue(BackgroundLiveTileKey, true);
-            EnableFluxLimit = GetValue<bool>(EnableFluxLimitKey);
-            FluxLimit = ByteSize.FromGigaBytes(GetValue<double>(FluxLimitKey));
+            AutoLogin = Preferences.Get(AutoLoginKey, true);
+            BackgroundAutoLogin = Preferences.Get(BackgroundAutoLoginKey, true);
+            BackgroundLiveTile = Preferences.Get(BackgroundLiveTileKey, true);
+            EnableFluxLimit = Preferences.Get(EnableFluxLimitKey, false);
+            FluxLimit = ByteSize.FromGigaBytes(Preferences.Get(FluxLimitKey, 20.0));
         }
 
         public void SaveSettings()
         {
-            SetValue(AutoLoginKey, AutoLogin);
-            SetValue(BackgroundAutoLoginKey, BackgroundAutoLogin);
-            SetValue(BackgroundLiveTileKey, BackgroundLiveTile);
-            SetValue(EnableFluxLimitKey, EnableFluxLimit);
-            SetValue(FluxLimitKey, FluxLimit.GigaBytes);
+            Preferences.Set(AutoLoginKey, AutoLogin);
+            Preferences.Set(BackgroundAutoLoginKey, BackgroundAutoLogin);
+            Preferences.Set(BackgroundLiveTileKey, BackgroundLiveTile);
+            Preferences.Set(EnableFluxLimitKey, EnableFluxLimit);
+            Preferences.Set(FluxLimitKey, FluxLimit.GigaBytes);
         }
     }
 }

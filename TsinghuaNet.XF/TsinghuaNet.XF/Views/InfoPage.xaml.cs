@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System.Threading.Tasks;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace TsinghuaNet.XF.Views
@@ -10,5 +11,7 @@ namespace TsinghuaNet.XF.Views
         {
             InitializeComponent();
         }
+
+        internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
     }
 }

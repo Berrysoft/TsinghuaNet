@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Views
@@ -9,6 +11,12 @@ namespace TsinghuaNet.XF.Views
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        internal Task SaveSettingsAsync()
+        {
+            var p = (InfoPage)Children.First();
+            return p.SaveSettingsAsync();
         }
     }
 }

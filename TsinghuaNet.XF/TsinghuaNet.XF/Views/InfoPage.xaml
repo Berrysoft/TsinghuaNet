@@ -35,9 +35,7 @@
                     </Grid>
                 </controls:Viewbox>
             </Grid>-->
-            <ScrollView x:Name="ResponseViewer" Grid.Row="1" Margin="8" VerticalOptions="End" HorizontalOptions="Fill" Opacity="0">
-                <Label VerticalOptions="End" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
-            </ScrollView>
+            <Label Grid.Row="1" Margin="8" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
             <Grid Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="4" RowSpacing="4">
                 <Grid.RowDefinitions>
                     <RowDefinition/>

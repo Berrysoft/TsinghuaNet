@@ -1,4 +1,5 @@
 ﻿using System;
+using Rg.Plugins.Popup;
 using TsinghuaNet.XF.UWP.Services;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -41,8 +42,8 @@ namespace TsinghuaNet.XF.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
+                Popup.Init();
                 Xamarin.Forms.Forms.Init(e);
-                Xamarin.Forms.DependencyService.Register<CredentialStore>();
                 Xamarin.Forms.DependencyService.Register<InternetStatus>();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
