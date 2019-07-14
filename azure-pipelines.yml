@@ -3,14 +3,13 @@ trigger:
 
 variables:
   sdkVersion: '3.0.100-preview8-012998'
-  unoSolution: 'TsinghuaNet.Uno.sln'
+  solution: 'TsinghuaNet.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
-  uwpProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.UWP/TsinghuaNet.Uno.UWP.csproj'
-  droidProject: 'TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/TsinghuaNet.Uno.Droid.csproj'
+  uwpProject: 'TsinghuaNet.XF/TsinghuaNet.XF.UWP/TsinghuaNet.XF.UWP.csproj'
 
 jobs:
 - job: Linux_CLI
@@ -260,7 +259,7 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows_UWP
+- job: Windows_XF
   pool:
     vmImage: 'windows-2019'
   steps:
@@ -272,7 +271,7 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'Restore solution'
     inputs:
-      restoreSolution: '$(unoSolution)'
+      restoreSolution: '$(solution)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
@@ -292,7 +291,7 @@ jobs:
       rootFolderOrFile: 'build\uwp\AppxPackages'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Uno.UWP.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.XF.UWP.zip'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
