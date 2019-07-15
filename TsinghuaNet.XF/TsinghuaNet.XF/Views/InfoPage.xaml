@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="using:TsinghuaNet.XF.Controls"
+    xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,6 +12,9 @@
     <ContentPage.BindingContext>
         <vms:MainViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <converters:EnumInt32Converter x:Key="EnumInt32Converter"/>
+    </ContentPage.Resources>
     <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
@@ -68,7 +72,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay}">
+            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource EnumInt32Converter}}">
                 <Picker.Items>
                     <x:String>不登录</x:String>
                     <x:String>Net</x:String>

@@ -44,14 +44,17 @@
             <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
         </StackLayout>
         <StackLayout Orientation="Vertical">
-            <StackLayout Orientation="Horizontal">
-                <Label Margin="8" VerticalOptions="Center">管理连接</Label>
-                <OnPlatform x:TypeArguments="Button">
-                    <On Platform="UWP">
+            <OnPlatform x:TypeArguments="View">
+                <On Platform="UWP">
+                    <StackLayout Orientation="Horizontal">
+                        <Label Margin="8" VerticalOptions="Center">管理连接</Label>
                         <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
-                    </On>
-                </OnPlatform>
-            </StackLayout>
+                    </StackLayout>
+                </On>
+                <On Platform="Android,iOS">
+                    <Label Margin="8" VerticalOptions="Center">管理连接</Label>
+                </On>
+            </OnPlatform>
             <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
