@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Rg.Plugins.Popup;
 using TsinghuaNet.XF.UWP.Services;
 using Windows.ApplicationModel;
@@ -20,8 +21,9 @@ namespace TsinghuaNet.XF.UWP
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         /// <summary>

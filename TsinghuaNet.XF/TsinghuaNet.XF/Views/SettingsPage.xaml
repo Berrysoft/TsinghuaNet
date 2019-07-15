@@ -3,6 +3,9 @@
     x:Class="TsinghuaNet.XF.Views.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet"
+    xmlns:converters="using:TsinghuaNet.XF.Converters"
+    xmlns:ms="using:TsinghuaNet.XF.Models"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,6 +13,10 @@
     <ContentPage.BindingContext>
         <vms:SettingsViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <ms:DropCommand x:Key="DropCommand" DropUser="DropUser"/>
+        <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
+    </ContentPage.Resources>
     <StackLayout>
         <StackLayout Orientation="Horizontal">
             <Label Margin="8" VerticalOptions="Center">当前用户</Label>
@@ -32,30 +39,35 @@
             <Label Margin="8">流量不足警告</Label>
             <Switch Margin="8,0" IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
         </StackLayout>
-        <!--<mtuuc:DockPanel Margin="8" LastChildFill="True" Visibility="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
-            <TextBlock Margin="8" VerticalAlignment="Center" mtuuc:DockPanel.Dock="Right" Text="{Binding Settings.FluxLimit,Mode=OneWay,Converter={StaticResource FluxStringConverter}}"/>
-            <Slider Margin="8" VerticalAlignment="Center" Minimum="5" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
-        </mtuuc:DockPanel>-->
-        <!--<StackPanel Orientation="Vertical">
-            <StackPanel.DataContext>
-                <netvms:ConnectionViewModel x:Name="ConnectionModel"/>
-            </StackPanel.DataContext>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="8" Style="{ThemeResource SubtitleTextBlockStyle}" VerticalAlignment="Center">管理连接</TextBlock>
-                <AppBarButton Margin="8,0" Width="48" VerticalAlignment="Center" LabelPosition="Collapsed" ToolTipService.ToolTip="刷新状态" Command="{x:Bind ConnectionModel.RefreshCommand}">
-                    <AppBarButton.Icon>
-                        <win:SymbolIcon Symbol="Refresh"/>
-                        <xamarin:FontIcon FontFamily="{StaticResource SegoeMDLFont}" Glyph="&#xE149;"/>
-                    </AppBarButton.Icon>
-                </AppBarButton>
-            </StackPanel>
-            <ListView Margin="8" ItemsSource="{x:Bind ConnectionModel.NetUsers,Mode=OneTime}" ItemTemplate="{StaticResource NetUserTemplate}">
-                <ListView.ItemContainerTransitions>
-                    <TransitionCollection>
-                        <AddDeleteThemeTransition/>
-                    </TransitionCollection>
-                </ListView.ItemContainerTransitions>
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
+            <Slider Margin="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+            <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
+        </StackLayout>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="8" VerticalOptions="Center">管理连接</Label>
+                <OnPlatform x:TypeArguments="Button">
+                    <On Platform="UWP">
+                        <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
+                    </On>
+                </OnPlatform>
+            </StackLayout>
+            <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout HorizontalOptions="FillAndExpand" Padding="16">
+                                    <Label Text="{Binding Client}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
+                                    <Label Text="{Binding Address,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding LoginTime,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                </StackLayout>
+                                <Button Margin="8" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Command="{StaticResource DropCommand}" CommandParameter="{Binding Address}" Text="下线"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>-->
+        </StackLayout>
     </StackLayout>
 </ContentPage>

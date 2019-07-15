@@ -12,5 +12,7 @@ namespace TsinghuaNet.XF.ViewModels
             get => (NetXFSettings)base.Settings;
             set => base.Settings = value;
         }
+
+        public ConnectionViewModel ConnectionModel { get; } = new ConnectionViewModel();
     }
 }
