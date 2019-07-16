@@ -5,6 +5,7 @@ using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
+using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -50,6 +51,8 @@ namespace TsinghuaNet.XF.ViewModels
         public double FluxOffset { get; set; }
         public double FreeOffset { get; set; }
 
+        public event EventHandler Refreshed;
+
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
             var res = await base.RefreshAsync(helper);
@@ -65,6 +68,7 @@ namespace TsinghuaNet.XF.ViewModels
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = OnlineUser.Flux / maxf;
             FreeOffset = Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
+            Refreshed?.Invoke(this, EventArgs.Empty);
             return res;
         }
 

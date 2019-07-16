@@ -2,6 +2,7 @@
 using System.Text;
 using Rg.Plugins.Popup;
 using TsinghuaNet.XF.UWP.Services;
+using TsinghuaNet.XF.UWP.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;

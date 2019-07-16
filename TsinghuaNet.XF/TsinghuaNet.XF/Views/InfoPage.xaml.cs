@@ -17,7 +17,7 @@ namespace TsinghuaNet.XF.Views
 
         internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
 
-        void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             var info = args.Info;
             var canvas = args.Surface.Canvas;
@@ -39,6 +39,11 @@ namespace TsinghuaNet.XF.Views
                                 SKShaderTileMode.Clamp);
                 canvas.DrawText(TEXT, xText, yText, paint);
             }
+        }
+
+        private void Model_Refreshed(object sender, EventArgs e)
+        {
+            FluxCanvas.InvalidateSurface();
         }
     }
 }

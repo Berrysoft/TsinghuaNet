@@ -11,7 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Title="主页">
     <ContentPage.BindingContext>
-        <vms:MainViewModel x:Name="Model"/>
+        <vms:MainViewModel x:Name="Model" Refreshed="Model_Refreshed"/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <converters:EnumInt32Converter x:Key="EnumInt32Converter"/>
@@ -23,7 +23,10 @@
                 <RowDefinition Height="48"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <skiaforms:SKCanvasView Grid.Row="0" Margin="8" PaintSurface="OnCanvasViewPaintSurface"/>
+            <Grid Grid.Row="0" Margin="8">
+                <skiaforms:SKCanvasView x:Name="FluxCanvas" PaintSurface="OnCanvasViewPaintSurface"/>
+                <ActivityIndicator Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
+            </Grid>
             <Label Grid.Row="1" Margin="8" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
             <Grid Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="4" RowSpacing="4">
                 <Grid.RowDefinitions>
