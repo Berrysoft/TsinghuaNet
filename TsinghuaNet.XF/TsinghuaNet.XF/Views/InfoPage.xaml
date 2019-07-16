@@ -24,19 +24,16 @@
             </Grid.RowDefinitions>
             <!--<Grid Grid.Row="0">
                 <controls:Viewbox Margin="8">
-                    <Grid>
-                        <Label Margin="20" FontFamily="{ThemeResource SymbolThemeFontFamily}" FontSize="300" Text="&#xE12B;">
-                            <Label.Foreground>
-                                <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColor}"/>
-                                    <GradientStop Offset="{x:Bind FluxOffset,Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark1}"/>
-                                    <GradientStop Offset="{x:Bind local:UserContentHelper.Max(FreeOffset,FluxOffset),Mode=OneWay}" Color="{ThemeResource SystemAccentColorDark2}"/>
-                                </LinearGradientBrush>
-                            </Label.Foreground>
-                        </Label>
-                        <ProgressRing x:Name="Progress" Height="40" Width="40" HorizontalAlignment="Center" VerticalAlignment="Center" IsActive="{Binding IsBusy,Mode=OneWay}"/>
-                    </Grid>
+                    <Label Margin="20" FontFamily="Segoe MDL2 Assets" FontSize="300" Text="&#xE12B;">
+                        <Label.Foreground>
+                            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
+                                <GradientStop Offset="{Binding FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColor}"/>
+                                <GradientStop Offset="{Binding FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark1}"/>
+                                <GradientStop Offset="{Binding FreeOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark1}"/>
+                                <GradientStop Offset="{Binding FreeOffset,FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark2}"/>
+                            </LinearGradientBrush>
+                        </Label.Foreground>
+                    </Label>
                 </controls:Viewbox>
             </Grid>-->
             <Label Grid.Row="1" Margin="8" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>

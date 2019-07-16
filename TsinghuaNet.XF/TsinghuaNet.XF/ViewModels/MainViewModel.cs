@@ -47,6 +47,9 @@ namespace TsinghuaNet.XF.ViewModels
             }
         }
 
+        public double FluxOffset { get; set; }
+        public double FreeOffset { get; set; }
+
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
             var res = await base.RefreshAsync(helper);
@@ -59,13 +62,9 @@ namespace TsinghuaNet.XF.ViewModels
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
             // 设置内容
             OnlineTime = OnlineUser.OnlineTime;
-            //if (Window.Current.Content is Frame rootFrame)
-            //{
-            //    if (rootFrame.Content is MainPage mainPage)
-            //    {
-            //        mainPage.BeginFluxAnimation();
-            //    }
-            //}
+            var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
+            FluxOffset = OnlineUser.Flux / maxf;
+            FreeOffset = Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
             return res;
         }
 
