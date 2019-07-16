@@ -19,7 +19,7 @@ namespace TsinghuaNet.Models
     {
         NetStatus Status { get; set; }
         string Ssid { get; set; }
-        Task RefreshAsync();
+        void Refresh();
         Task<NetState> SuggestAsync();
     }
 
@@ -63,7 +63,7 @@ namespace TsinghuaNet.Models
                 return NetState.Unknown;
         }
 
-        public Task RefreshAsync() => Task.CompletedTask;
+        public void Refresh() { }
 
         public Task<NetState> SuggestAsync() => GetSuggestion();
     }
@@ -78,7 +78,7 @@ namespace TsinghuaNet.Models
 
         public string Ssid { get; set; }
 
-        public abstract Task RefreshAsync();
+        public abstract void Refresh();
 
         private static readonly Dictionary<string, NetState> SsidStateMap = new Dictionary<string, NetState>()
         {
@@ -91,20 +91,11 @@ namespace TsinghuaNet.Models
 
         public Task<NetState> SuggestAsync()
         {
-            return Task.Run(() =>
+            return Task.FromResult(Status switch
             {
-                switch (Status)
-                {
-                    case NetStatus.Lan:
-                        return NetState.Auth4;
-                    case NetStatus.Wlan:
-                        if (SsidStateMap.ContainsKey(Ssid))
-                            return SsidStateMap[Ssid];
-                        else
-                            return NetState.Unknown;
-                    default:
-                        return NetState.Unknown;
-                }
+                NetStatus.Lan => NetState.Auth4,
+                NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
+                _ => NetState.Unknown
             });
         }
     }

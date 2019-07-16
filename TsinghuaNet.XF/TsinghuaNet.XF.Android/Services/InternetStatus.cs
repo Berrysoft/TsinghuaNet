@@ -11,7 +11,7 @@ namespace TsinghuaNet.XF.Droid.Services
 {
     public class InternetStatus : NetMapStatus
     {
-        public override Task RefreshAsync()
+        public override void Refresh()
         {
             WifiManager wifiManager = (WifiManager)Application.Context.GetSystemService(Context.WifiService);
             if (wifiManager != null)
@@ -22,9 +22,7 @@ namespace TsinghuaNet.XF.Droid.Services
             else
             {
                 Status = NetStatus.Unknown;
-                Ssid = string.Empty;
             }
-            return Task.CompletedTask;
         }
     }
 }

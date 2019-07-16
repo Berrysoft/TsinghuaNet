@@ -39,7 +39,7 @@ namespace TsinghuaNet.ViewModels
             try
             {
                 IsBusy = true;
-                await Status.RefreshAsync();
+                Status.Refresh();
                 Credential.State = await Status.SuggestAsync();
             }
             finally
