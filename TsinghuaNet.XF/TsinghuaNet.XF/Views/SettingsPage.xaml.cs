@@ -26,7 +26,8 @@ namespace TsinghuaNet.XF.Views
 
         protected override void OnAppearing()
         {
-            Model.ConnectionModel.RefreshNetUsers();
+            if (Model.ConnectionModel.NetUsers == null || Model.ConnectionModel.NetUsers.Count == 0)
+                Model.ConnectionModel.RefreshNetUsers();
             base.OnAppearing();
         }
     }

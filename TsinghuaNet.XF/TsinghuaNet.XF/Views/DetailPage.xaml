@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="TsinghuaNet.XF.Views.DetailPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Title="明细">
+    <ContentPage.BindingContext>
+        <netvms:DetailViewModel x:Name="Model"/>
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <OnPlatform x:TypeArguments="Button">
+            <On Platform="UWP">
+                <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
+            </On>
+        </OnPlatform>
+        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
+            <dg:DataGrid.RowsBackgroundColorPalette>
+                <dg:PaletteCollection>
+                    <Color>#F2F2F2</Color>
+                    <Color>#FFFFFF</Color>
+                </dg:PaletteCollection>
+            </dg:DataGrid.RowsBackgroundColorPalette>
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
+                <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
+                <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </StackLayout>
+</ContentPage>

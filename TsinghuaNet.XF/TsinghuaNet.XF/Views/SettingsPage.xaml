@@ -18,6 +18,7 @@
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
     </ContentPage.Resources>
     <StackLayout>
+        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
         <StackLayout Orientation="Horizontal">
             <Label Margin="8" VerticalOptions="Center">当前用户</Label>
             <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
@@ -47,15 +48,15 @@
             <OnPlatform x:TypeArguments="View">
                 <On Platform="UWP">
                     <StackLayout Orientation="Horizontal">
-                        <Label Margin="8" VerticalOptions="Center">管理连接</Label>
+                        <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                         <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
                     </StackLayout>
                 </On>
                 <On Platform="Android,iOS">
-                    <Label Margin="8" VerticalOptions="Center">管理连接</Label>
+                    <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                 </On>
             </OnPlatform>
-            <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" VerticalOptions="FillAndExpand" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
+            <ListView Margin="8" VerticalOptions="FillAndExpand" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

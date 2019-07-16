@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <local:InfoPage/>
+    <local:DetailPage/>
     <local:SettingsPage/>
     <local:AboutPage/>
 </TabbedPage>

@@ -15,14 +15,15 @@ namespace TsinghuaNet.ViewModels
 
         public DetailViewModel()
         {
-            InitializeDetails();
-            RefreshCommand = new Command(this, InitializeDetails);
+            RefreshDetails();
+            RefreshCommand = new Command(this, RefreshDetails);
         }
 
-        private async void InitializeDetails()
+        public async void RefreshDetails()
         {
             try
             {
+                IsBusy = true;
                 var helper = Credential.GetUseregHelper();
                 await helper.LoginAsync();
                 InitialDetails = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false).ToListAsync();
@@ -32,6 +33,10 @@ namespace TsinghuaNet.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
