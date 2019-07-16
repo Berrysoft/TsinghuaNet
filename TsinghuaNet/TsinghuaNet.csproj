@@ -17,12 +17,12 @@
     <PackageReference Include="HtmlAgilityPack" Version="1.11.9" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
     <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.6.build.801" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0-preview8.19360.8" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.6.0-preview8.19365.13" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
     <PackageReference Include="System.Memory" Version="4.5.3" />
-    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19360.8" />
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19365.13" />
   </ItemGroup>
 
 </Project>

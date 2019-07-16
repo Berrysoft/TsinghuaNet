@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19360.8" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19365.13" />
   </ItemGroup>
 
   <ItemGroup>
