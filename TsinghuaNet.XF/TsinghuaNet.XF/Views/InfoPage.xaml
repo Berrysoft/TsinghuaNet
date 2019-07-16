@@ -14,7 +14,7 @@
         <vms:MainViewModel x:Name="Model" Refreshed="Model_Refreshed"/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
-        <converters:EnumInt32Converter x:Key="EnumInt32Converter"/>
+        <converters:NetStateInt32Converter x:Key="NetStateInt32Converter"/>
     </ContentPage.Resources>
     <StackLayout>
         <Grid>
@@ -60,7 +60,7 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource EnumInt32Converter}}">
+            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource NetStateInt32Converter}}">
                 <Picker.Items>
                     <x:String>不登录</x:String>
                     <x:String>Net</x:String>
