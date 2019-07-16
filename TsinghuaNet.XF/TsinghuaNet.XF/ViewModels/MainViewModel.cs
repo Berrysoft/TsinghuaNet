@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Timers;
+using Plugin.Connectivity;
+using Plugin.Connectivity.Abstractions;
 using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
-using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -26,6 +27,7 @@ namespace TsinghuaNet.XF.ViewModels
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
             ReceivedResponse += MainViewModel_ReceivedResponse;
+            CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
         }
 
         public override async Task LoadSettingsAsync()
@@ -46,6 +48,15 @@ namespace TsinghuaNet.XF.ViewModels
                 var store = new CredentialStore();
                 await store.SaveCredentialAsync(Credential);
             }
+        }
+
+        private async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
+        {
+            await RefreshStatusAsync();
+            if (!string.IsNullOrEmpty(Credential.Username))
+                await LoginAsync();
+            else
+                await RefreshAsync();
         }
 
         public double FluxOffset { get; set; }
