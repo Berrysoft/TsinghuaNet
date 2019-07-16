@@ -3,10 +3,15 @@
     x:Class="TsinghuaNet.XF.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     <Application.Resources>
         <Color x:Key="SystemAccentColor">#FF0078D7</Color>
+        <dg:PaletteCollection x:Key="DataGridPalette">
+            <Color>#F2F2F2</Color>
+            <Color>#FFFFFF</Color>
+        </dg:PaletteCollection>
     </Application.Resources>
 </Application>
