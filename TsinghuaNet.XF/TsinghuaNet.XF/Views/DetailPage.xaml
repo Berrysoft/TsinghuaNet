@@ -12,11 +12,7 @@
         <netvms:DetailViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
     <StackLayout>
-        <OnPlatform x:TypeArguments="Button">
-            <On Platform="UWP">
-                <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
-            </On>
-        </OnPlatform>
+        <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
         <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}">
             <dg:DataGrid.RowsBackgroundColorPalette>
                 <dg:PaletteCollection>

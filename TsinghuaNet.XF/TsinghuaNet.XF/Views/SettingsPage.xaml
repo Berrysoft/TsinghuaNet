@@ -45,17 +45,10 @@
             <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
         </StackLayout>
         <StackLayout Orientation="Vertical">
-            <OnPlatform x:TypeArguments="View">
-                <On Platform="UWP">
-                    <StackLayout Orientation="Horizontal">
-                        <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
-                        <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
-                    </StackLayout>
-                </On>
-                <On Platform="Android,iOS">
-                    <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
-                </On>
-            </OnPlatform>
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
+                <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
+            </StackLayout>
             <ListView Margin="8" VerticalOptions="FillAndExpand" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>

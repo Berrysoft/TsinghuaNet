@@ -130,7 +130,7 @@
     <PackageReference Include="System.Text.Encoding.CodePages">
       <Version>4.6.0-preview8.19360.8</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="4.1.0.581479" />
+    <PackageReference Include="Xamarin.Forms" Version="4.2.0.608146-pre1" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0-pre" />
   </ItemGroup>
