@@ -13,7 +13,7 @@ namespace TsinghuaNet.XF.Views
 
         protected override void OnAppearing()
         {
-            if (Model.InitialDetails == null || Model.InitialDetails.Count == 0)
+            if (!Model.IsBusy && (Model.InitialDetails == null || Model.InitialDetails.Count == 0))
                 Model.RefreshDetails();
             base.OnAppearing();
         }

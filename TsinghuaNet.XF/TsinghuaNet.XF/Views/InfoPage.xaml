@@ -6,6 +6,7 @@
     xmlns:controls="using:TsinghuaNet.XF.Controls"
     xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
+    xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" Title="主页">
@@ -18,24 +19,11 @@
     <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.5*"/>
+                <RowDefinition Height="4*"/>
                 <RowDefinition Height="48"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <!--<Grid Grid.Row="0">
-                <controls:Viewbox Margin="8">
-                    <Label Margin="20" FontFamily="Segoe MDL2 Assets" FontSize="300" Text="&#xE12B;">
-                        <Label.Foreground>
-                            <LinearGradientBrush StartPoint="0.5,1" EndPoint="0.5,0">
-                                <GradientStop Offset="{Binding FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColor}"/>
-                                <GradientStop Offset="{Binding FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark1}"/>
-                                <GradientStop Offset="{Binding FreeOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark1}"/>
-                                <GradientStop Offset="{Binding FreeOffset,FluxOffset,Mode=OneWay}" Color="{StaticResource SystemAccentColorDark2}"/>
-                            </LinearGradientBrush>
-                        </Label.Foreground>
-                    </Label>
-                </controls:Viewbox>
-            </Grid>-->
+            <skiaforms:SKCanvasView Grid.Row="0" Margin="8" PaintSurface="OnCanvasViewPaintSurface"/>
             <Label Grid.Row="1" Margin="8" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
             <Grid Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="4" RowSpacing="4">
                 <Grid.RowDefinitions>

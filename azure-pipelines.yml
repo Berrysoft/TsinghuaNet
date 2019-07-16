@@ -276,7 +276,7 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'Restore solution'
     inputs:
-      restoreSolution: '$(solution)'
+      restoreSolution: '$(uwpProject)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
