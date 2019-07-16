@@ -15,7 +15,7 @@ namespace TsinghuaNet.XF.Controls
 
         public HyperlinkLabel() : base()
         {
-            TextColor = Color.SkyBlue;
+            TextColor = Color.FromUint(0xFF0078D7);
             GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => Device.OpenUri(new Uri(NavigateUri))) });
         }
     }
