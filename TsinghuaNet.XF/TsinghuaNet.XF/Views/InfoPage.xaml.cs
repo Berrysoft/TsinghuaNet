@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,7 +18,7 @@ namespace TsinghuaNet.XF.Views
 
         internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
 
-        private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        private async void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {
             var info = args.Info;
             var canvas = args.Surface.Canvas;
@@ -25,7 +26,18 @@ namespace TsinghuaNet.XF.Views
             using (var paint = new SKPaint())
             {
                 paint.TextSize = Math.Min(info.Width, info.Height);
-                paint.Typeface = SKTypeface.FromFamilyName("Segoe MDL2 Assets", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
+                switch (Device.RuntimePlatform)
+                {
+                    case Device.UWP:
+                        paint.Typeface = SKTypeface.FromFamilyName("Segoe MDL2 Assets", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
+                        break;
+                    default:
+                        using (var stream = await FileSystem.OpenAppPackageFileAsync("segmdl2.ttf"))
+                        {
+                            paint.Typeface = SKTypeface.FromStream(stream);
+                        }
+                        break;
+                }
                 SKRect textBounds = new SKRect();
                 paint.MeasureText(TEXT, ref textBounds);
                 float xText = info.Width / 2 - textBounds.MidX;
