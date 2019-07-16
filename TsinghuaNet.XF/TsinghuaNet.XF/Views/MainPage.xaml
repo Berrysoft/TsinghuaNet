@@ -7,8 +7,31 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <local:InfoPage/>
-    <local:DetailPage/>
-    <local:SettingsPage/>
-    <local:AboutPage/>
+    <TabbedPage.Resources>
+        <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
+            <On Platform="UWP">Segoe MDL2 Assets</On>
+            <On Platform="Android">segmdl2.ttf#Segoe MDL2 Assets</On>
+            <On Platform="iOS">segmdl2.ttf</On>
+        </OnPlatform>
+    </TabbedPage.Resources>
+    <local:InfoPage>
+        <local:InfoPage.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;"/>
+        </local:InfoPage.IconImageSource>
+    </local:InfoPage>
+    <local:DetailPage>
+        <local:DetailPage.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE14C;"/>
+        </local:DetailPage.IconImageSource>
+    </local:DetailPage>
+    <local:SettingsPage>
+        <local:SettingsPage.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE115;"/>
+        </local:SettingsPage.IconImageSource>
+    </local:SettingsPage>
+    <local:AboutPage>
+        <local:AboutPage.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE11B;"/>
+        </local:AboutPage.IconImageSource>
+    </local:AboutPage>
 </TabbedPage>
