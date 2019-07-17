@@ -3,7 +3,7 @@
     x:Class="TsinghuaNet.XF.Views.DetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet"
+    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet.Standard"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

@@ -3,7 +3,6 @@
     x:Class="TsinghuaNet.XF.Views.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet"
     xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:ms="using:TsinghuaNet.XF.Models"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
