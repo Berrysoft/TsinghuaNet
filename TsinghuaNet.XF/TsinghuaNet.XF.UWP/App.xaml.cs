@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using Rg.Plugins.Popup;
+using TsinghuaNet.XF.UWP.Helpers;
 using TsinghuaNet.XF.UWP.Services;
 using TsinghuaNet.XF.UWP.Views;
 using Windows.ApplicationModel;
@@ -34,11 +35,9 @@ namespace TsinghuaNet.XF.UWP
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (rootFrame == null)
+            if (!(Window.Current.Content is Frame rootFrame))
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
@@ -48,6 +47,7 @@ namespace TsinghuaNet.XF.UWP
                 Popup.Init();
                 Xamarin.Forms.Forms.Init(e);
                 Xamarin.Forms.DependencyService.Register<InternetStatus>();
+                Xamarin.Forms.DependencyService.Register<BackgroundManager>();
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

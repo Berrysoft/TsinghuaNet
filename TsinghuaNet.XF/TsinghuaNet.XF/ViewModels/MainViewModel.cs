@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Timers;
 using Plugin.Connectivity;
@@ -7,6 +8,7 @@ using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
+using TsinghuaNet.XF.Services;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -33,6 +35,7 @@ namespace TsinghuaNet.XF.ViewModels
         public override async Task LoadSettingsAsync()
         {
             Settings = new NetXFSettings();
+            Settings.PropertyChanged += OnSettingsPropertyChanged;
             Settings.LoadSettings();
             var store = new CredentialStore();
             if (store.CredentialExists())
@@ -50,6 +53,22 @@ namespace TsinghuaNet.XF.ViewModels
             }
         }
 
+        private async void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var helper = DependencyService.Get<IBackgroundManager>();
+            switch (e.PropertyName)
+            {
+                case "BackgroundAutoLogin":
+                    if (await helper.RequestAccessAsync())
+                        helper.RegisterLogin(Settings.BackgroundAutoLogin);
+                    break;
+                case "BackgroundLiveTile":
+                    if (await helper.RequestAccessAsync())
+                        helper.RegisterLiveTile(Settings.BackgroundLiveTile);
+                    break;
+            }
+        }
+
         private async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             await RefreshStatusAsync();
@@ -59,8 +78,8 @@ namespace TsinghuaNet.XF.ViewModels
                 await RefreshAsync();
         }
 
-        public double FluxOffset { get; set; }
-        public double FreeOffset { get; set; }
+        public float FluxOffset { get; set; }
+        public float FreeOffset { get; set; }
 
         public event EventHandler Refreshed;
 
@@ -68,29 +87,20 @@ namespace TsinghuaNet.XF.ViewModels
         {
             var res = await base.RefreshAsync(helper);
             mainTimer.Stop();
-            // 更新磁贴
-            //NotificationHelper.UpdateTile(OnlineUser);
             if (!string.IsNullOrEmpty(OnlineUser.Username))
                 mainTimer.Start();
             if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
-            // 设置内容
             OnlineTime = OnlineUser.OnlineTime;
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
-            FluxOffset = OnlineUser.Flux / maxf;
-            FreeOffset = Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
+            FluxOffset = (float)(OnlineUser.Flux / maxf);
+            FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
             Refreshed?.Invoke(this, EventArgs.Empty);
             return res;
         }
 
-        private void MainTimerTick(object sender, ElapsedEventArgs e)
-        {
-            OnlineTime += TimeSpan.FromSeconds(1);
-        }
+        private void MainTimerTick(object sender, ElapsedEventArgs e) => OnlineTime += TimeSpan.FromSeconds(1);
 
-        private void MainViewModel_ReceivedResponse(object sender, LogResponse e)
-        {
-            Response = e.Message;
-        }
+        private void MainViewModel_ReceivedResponse(object sender, LogResponse e) => Response = e.Message;
     }
 }

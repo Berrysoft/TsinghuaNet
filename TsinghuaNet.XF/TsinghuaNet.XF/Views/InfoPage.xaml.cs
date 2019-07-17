@@ -46,16 +46,13 @@ namespace TsinghuaNet.XF.Views
                 paint.Shader = SKShader.CreateLinearGradient(
                                 new SKPoint((textBounds.Left + textBounds.Right) / 2, textBounds.Bottom),
                                 new SKPoint((textBounds.Left + textBounds.Right) / 2, textBounds.Top),
-                                new SKColor[] { new SKColor(0xFF0078D7), new SKColor(0xFF005A9E), new SKColor(0xFF005A9E), new SKColor(0xFF004275) },
-                                new float[] { (float)Model.FluxOffset, (float)Model.FluxOffset, (float)Model.FreeOffset, (float)Model.FreeOffset },
+                                new SKColor[] { App.SystemAccentColor.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark2.ToSKColor() },
+                                new float[] { Model.FluxOffset, Model.FluxOffset, Model.FreeOffset, Model.FreeOffset },
                                 SKShaderTileMode.Clamp);
                 canvas.DrawText(TEXT, xText, yText, paint);
             }
         }
 
-        private void Model_Refreshed(object sender, EventArgs e)
-        {
-            FluxCanvas.InvalidateSurface();
-        }
+        private void Model_Refreshed(object sender, EventArgs e) => FluxCanvas.InvalidateSurface();
     }
 }
