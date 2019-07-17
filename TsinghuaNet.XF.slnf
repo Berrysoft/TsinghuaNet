@@ -8,7 +8,7 @@
       "TsinghuaNet.XF\\TsinghuaNet.XF.UWP\\TsinghuaNet.XF.UWP.csproj",
       "TsinghuaNet.XF\\TsinghuaNet.XF.UWP.Background\\TsinghuaNet.XF.UWP.Background.csproj",
       "TsinghuaNet.XF\\TsinghuaNet.XF.UWP.Helpers\\TsinghuaNet.XF.UWP.Helpers.csproj",
-      "TsinghuaNet\\TsinghuaNet.csproj"
+      "TsinghuaNet\\TsinghuaNet.Standard.csproj"
     ]
   }
 }
