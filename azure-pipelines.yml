@@ -263,11 +263,6 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Install .NET Core SDK 3.0'
-    inputs:
-      version: '$(sdkVersion)'
-
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5.1.0'
     inputs:
