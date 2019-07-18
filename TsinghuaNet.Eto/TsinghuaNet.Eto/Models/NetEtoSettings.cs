@@ -8,6 +8,10 @@ namespace TsinghuaNet.Eto.Models
 {
     public class NetEtoSettings : INetSettings
     {
+#pragma warning disable 0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
+
         public bool AutoLogin { get; set; }
         public bool EnableFluxLimit { get; set; }
         [JsonConverter(typeof(JsonConverterByteSize))]
@@ -18,8 +22,6 @@ namespace TsinghuaNet.Eto.Models
 
         [JsonIgnore]
         public bool DeleteSettingsOnExit { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 
     internal static class SettingsHelper
