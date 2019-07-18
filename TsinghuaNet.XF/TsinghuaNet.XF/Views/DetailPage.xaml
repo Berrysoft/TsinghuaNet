@@ -13,7 +13,7 @@
     </ContentPage.BindingContext>
     <StackLayout>
         <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
-        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridPalette}" HeaderBackground="Transparent">
+        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
                 <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>

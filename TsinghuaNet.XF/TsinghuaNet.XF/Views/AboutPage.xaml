@@ -20,7 +20,7 @@
         </StackLayout>
         <Label Margin="8">版权所有 © 2018-2019 Berrysoft</Label>
         <Label Margin="8" Style="{DynamicResource SubtitleStyle}">第三方开源库</Label>
-        <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}" RowsBackgroundColorPalette="{StaticResource DataGridPalette}" HeaderBackground="Transparent">
+        <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="名称" PropertyName="Name"/>
                 <dg:DataGridColumn Title="许可证" PropertyName="License"/>

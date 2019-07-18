@@ -3,7 +3,6 @@
     x:Class="TsinghuaNet.XF.Views.InfoPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="using:TsinghuaNet.XF.Controls"
     xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
     xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
@@ -16,68 +15,55 @@
     <ContentPage.Resources>
         <converters:NetStateInt32Converter x:Key="NetStateInt32Converter"/>
     </ContentPage.Resources>
-    <StackLayout>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="4*"/>
-                <RowDefinition Height="48"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="8">
-                <skiaforms:SKCanvasView x:Name="FluxCanvas" PaintSurface="OnCanvasViewPaintSurface"/>
-                <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
-            </Grid>
-            <Label Grid.Row="1" Margin="8" VerticalOptions="Center" HorizontalTextAlignment="Center" Text="{Binding Response,Mode=OneWay}"/>
-            <Grid Grid.Row="2" Margin="8" HorizontalOptions="Center" VerticalOptions="Center" ColumnSpacing="4" RowSpacing="4">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                    <Label Style="{DynamicResource ListItemTextStyle}">用户：</Label>
-                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Username,Mode=OneWay}"/>
-                </StackLayout>
-                <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
-                    <Label Style="{DynamicResource ListItemTextStyle}">流量：</Label>
-                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Flux,Mode=OneWay,StringFormat='{0}'}"/>
-                </StackLayout>
-                <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
-                    <Label Style="{DynamicResource ListItemTextStyle}">时长：</Label>
-                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineTime,Mode=OneWay,StringFormat='{0}'}"/>
-                </StackLayout>
-                <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                    <Label Style="{DynamicResource ListItemTextStyle}">余额：</Label>
-                    <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
-                </StackLayout>
-            </Grid>
+    <StackLayout Margin="8" Spacing="16">
+        <Grid Margin="16" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+            <skiaforms:SKCanvasView x:Name="FluxCanvas" PaintSurface="OnCanvasViewPaintSurface"/>
+            <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
         </Grid>
-        <Grid>
+        <Label HorizontalTextAlignment="Center" HeightRequest="48" Text="{Binding Response,Mode=OneWay}"/>
+        <Grid HorizontalOptions="Center" ColumnSpacing="4" RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Picker Grid.Row="0" Margin="8" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource NetStateInt32Converter}}">
-                <Picker.Items>
-                    <x:String>不登录</x:String>
-                    <x:String>Net</x:String>
-                    <x:String>Auth4</x:String>
-                    <x:String>Auth6</x:String>
-                </Picker.Items>
-            </Picker>
-            <Grid Grid.Row="1" Margin="8" HorizontalOptions="Fill" VerticalOptions="Center" ColumnSpacing="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Text="登录" Command="{Binding LoginCommand}"/>
-                <Button Grid.Column="1" Text="注销" Command="{Binding LogoutCommand}"/>
-                <Button Grid.Column="2" Text="刷新" Command="{Binding RefreshCommand}"/>
-            </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                <Label Style="{DynamicResource ListItemTextStyle}">用户：</Label>
+                <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Username,Mode=OneWay}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                <Label Style="{DynamicResource ListItemTextStyle}">流量：</Label>
+                <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Flux,Mode=OneWay,StringFormat='{0}'}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="0" Orientation="Horizontal">
+                <Label Style="{DynamicResource ListItemTextStyle}">时长：</Label>
+                <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineTime,Mode=OneWay,StringFormat='{0}'}"/>
+            </StackLayout>
+            <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <Label Style="{DynamicResource ListItemTextStyle}">余额：</Label>
+                <Label Style="{DynamicResource ListItemTextStyle}" Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
+            </StackLayout>
+        </Grid>
+        <Picker HorizontalOptions="Fill" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource NetStateInt32Converter}}">
+            <Picker.Items>
+                <x:String>不登录</x:String>
+                <x:String>Net</x:String>
+                <x:String>Auth4</x:String>
+                <x:String>Auth6</x:String>
+            </Picker.Items>
+        </Picker>
+        <Grid HorizontalOptions="Fill" ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Text="登录" Command="{Binding LoginCommand}"/>
+            <Button Grid.Column="1" Text="注销" Command="{Binding LogoutCommand}"/>
+            <Button Grid.Column="2" Text="刷新" Command="{Binding RefreshCommand}"/>
         </Grid>
     </StackLayout>
 </ContentPage>

@@ -14,6 +14,18 @@
             <On Platform="iOS">segmdl2.ttf</On>
         </OnPlatform>
     </TabbedPage.Resources>
+    <TabbedPage.BarBackgroundColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="UWP" Value="{StaticResource SystemAccentColorDark2}"/>
+            <On Platform="Android,iOS" Value="Default"/>
+        </OnPlatform>
+    </TabbedPage.BarBackgroundColor>
+    <TabbedPage.BarTextColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="UWP" Value="White"/>
+            <On Platform="Android,iOS" Value="Default"/>
+        </OnPlatform>
+    </TabbedPage.BarTextColor>
     <local:InfoPage>
         <local:InfoPage.IconImageSource>
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;"/>

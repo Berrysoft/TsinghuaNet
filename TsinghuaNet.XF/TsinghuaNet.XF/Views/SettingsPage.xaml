@@ -17,12 +17,12 @@
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
     </ContentPage.Resources>
     <StackLayout>
-        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
         <StackLayout Orientation="Horizontal">
-            <Label Margin="8" VerticalOptions="Center">当前用户</Label>
+            <Label Margin="8" Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
             <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
             <Label Margin="8" VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
         </StackLayout>
+        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
         <StackLayout Orientation="Horizontal">
             <Label Margin="8">前台自动登录</Label>
             <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
