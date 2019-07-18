@@ -16,11 +16,11 @@
         <converters:NetStateInt32Converter x:Key="NetStateInt32Converter"/>
     </ContentPage.Resources>
     <StackLayout Margin="8" Spacing="16">
-        <Grid Margin="16" HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
+        <Grid HorizontalOptions="Fill" VerticalOptions="FillAndExpand">
             <skiaforms:SKCanvasView x:Name="FluxCanvas" PaintSurface="OnCanvasViewPaintSurface"/>
             <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
         </Grid>
-        <Label HorizontalTextAlignment="Center" HeightRequest="48" Text="{Binding Response,Mode=OneWay}"/>
+        <Label HorizontalTextAlignment="Center" HeightRequest="32" Text="{Binding Response,Mode=OneWay}"/>
         <Grid HorizontalOptions="Center" ColumnSpacing="4" RowSpacing="4">
             <Grid.RowDefinitions>
                 <RowDefinition/>

@@ -16,39 +16,39 @@
         <ms:DropCommand x:Key="DropCommand" DropUser="DropUser"/>
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
     </ContentPage.Resources>
-    <StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Margin="8" Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
-            <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
-            <Label Margin="8" VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
-        </StackLayout>
-        <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
-        <StackLayout Orientation="Horizontal">
-            <Label Margin="8">前台自动登录</Label>
-            <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
-            <Label Margin="8">后台自动登录</Label>
-            <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
-            <Label Margin="8">后台磁贴刷新</Label>
-            <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Margin="8">流量不足警告</Label>
-            <Switch Margin="8,0" IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
-            <Slider Margin="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
-            <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
-        </StackLayout>
-        <StackLayout Orientation="Vertical">
+    <ScrollView>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="8" Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
+                <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
+                <Label Margin="8" VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
+            </StackLayout>
+            <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="8">前台自动登录</Label>
+                <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+                <Label Margin="8">后台自动登录</Label>
+                <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+                <Label Margin="8">后台磁贴刷新</Label>
+                <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="8">流量不足警告</Label>
+                <Switch Margin="8,0" IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
+                <Slider Margin="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+                <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
+            </StackLayout>
             <StackLayout Orientation="Horizontal">
                 <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                 <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
             </StackLayout>
-            <ListView Margin="8" VerticalOptions="FillAndExpand" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
+            <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -65,5 +65,5 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackLayout>
-    </StackLayout>
+    </ScrollView>
 </ContentPage>
