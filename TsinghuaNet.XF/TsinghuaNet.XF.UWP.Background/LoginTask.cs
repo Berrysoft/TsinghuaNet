@@ -19,6 +19,7 @@ namespace TsinghuaNet.XF.UWP.Background
                 CredentialStore store = new CredentialStore();
                 NetCredential credential = new NetCredential();
                 await store.LoadCredentialAsync(credential);
+                credential.State = await status.SuggestAsync();
                 var helper = credential.GetHelper();
                 if (helper != null)
                 {

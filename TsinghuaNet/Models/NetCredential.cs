@@ -17,7 +17,16 @@ namespace TsinghuaNet.Models
 
         private static readonly HttpClient Client = new HttpClient();
 
-        public IConnect GetHelper() => ConnectHelper.GetHelper(State, Username, Password, Client);
+        public IConnect GetHelper()
+        {
+            return State switch
+            {
+                NetState.Net => new NetHelper(Username, Password, Client),
+                NetState.Auth4 => new Auth4Helper(Username, Password, Client),
+                NetState.Auth6 => new Auth6Helper(Username, Password, Client),
+                _ => (IConnect)null,
+            };
+        }
 
         public IUsereg GetUseregHelper() => new UseregHelper(Username, Password, Client);
     }

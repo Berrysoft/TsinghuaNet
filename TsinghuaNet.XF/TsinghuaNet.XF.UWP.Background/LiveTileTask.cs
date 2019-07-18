@@ -16,16 +16,15 @@ namespace TsinghuaNet.XF.UWP.Background
                 NetXFSettings settings = new NetXFSettings();
                 settings.LoadSettings();
                 status.Refresh();
-                var helper = ConnectHelper.GetHelper(await status.SuggestAsync());
+                NetCredential credential = new NetCredential();
+                credential.State = await status.SuggestAsync();
+                var helper = credential.GetHelper();
                 if (helper != null)
                 {
-                    using (helper)
-                    {
-                        FluxUser user = await helper.GetFluxAsync();
-                        NotificationHelper.UpdateTile(user);
-                        if (settings.EnableFluxLimit)
-                            NotificationHelper.SendWarningToast(user, settings.FluxLimit);
-                    }
+                    FluxUser user = await helper.GetFluxAsync();
+                    NotificationHelper.UpdateTile(user);
+                    if (settings.EnableFluxLimit)
+                        NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                 }
             }
             finally

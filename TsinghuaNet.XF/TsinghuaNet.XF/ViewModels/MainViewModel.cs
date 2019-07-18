@@ -26,9 +26,6 @@ namespace TsinghuaNet.XF.ViewModels
 
         public MainViewModel() : base()
         {
-            mainTimer.Interval = 1000;
-            mainTimer.Elapsed += MainTimerTick;
-            ReceivedResponse += MainViewModel_ReceivedResponse;
             CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
         }
 
@@ -41,6 +38,13 @@ namespace TsinghuaNet.XF.ViewModels
             if (store.CredentialExists())
                 await store.LoadCredentialAsync(Credential);
             Status = DependencyService.Get<INetStatus>();
+            ReceivedResponse += MainViewModel_ReceivedResponse;
+            mainTimer.Interval = 1000;
+            mainTimer.Elapsed += MainTimerTick;
+            if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
+                await LoginAsync();
+            else
+                await RefreshAsync();
         }
 
         public override async Task SaveSettingsAsync()
