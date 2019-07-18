@@ -38,16 +38,13 @@ namespace TsinghuaNet
             string userhtml = await GetAsync(InfoUri);
             var doc = new HtmlDocument();
             doc.LoadHtml(userhtml);
-            foreach (var u in
-                from tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1)
-                let tds = (from td in tr.Elements("td").Skip(1)
-                           select td.FirstChild?.InnerText).ToArray()
-                select new NetUser(
+            foreach (var tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1))
+            {
+                var tds = tr.Elements("td").Skip(1).Select(td => td.FirstChild?.InnerText).ToArray();
+                yield return new NetUser(
                     IPAddress.Parse(tds[0]),
                     DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                    tds[10]))
-            {
-                yield return u;
+                    tds[10]);
             }
         }
 
@@ -68,17 +65,14 @@ namespace TsinghuaNet
                 var doc = new HtmlDocument();
                 doc.LoadHtml(detailhtml);
                 int count = 0;
-                foreach (var d in
-                    from tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1)
-                    let tds = (from td in tr.Elements("td").Skip(1)
-                               select td.FirstChild?.InnerText).ToArray()
-                    select new NetDetail(
-                        DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                        DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                        ByteSize.Parse(tds[4])))
+                foreach (var tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1))
                 {
                     count++;
-                    yield return d;
+                    var tds = tr.Elements("td").Skip(1).Select(td => td.FirstChild?.InnerText).ToArray();
+                    yield return new NetDetail(
+                        DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+                        DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+                        ByteSize.Parse(tds[4]));
                 }
                 if (count < offset) break;
             }
