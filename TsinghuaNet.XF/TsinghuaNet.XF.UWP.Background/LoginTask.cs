@@ -13,8 +13,6 @@ namespace TsinghuaNet.XF.UWP.Background
             try
             {
                 InternetStatus status = new InternetStatus();
-                NetXFSettings settings = new NetXFSettings();
-                settings.LoadSettings();
                 status.Refresh();
                 CredentialStore store = new CredentialStore();
                 NetCredential credential = new NetCredential();
@@ -27,6 +25,8 @@ namespace TsinghuaNet.XF.UWP.Background
                     FluxUser user = await helper.GetFluxAsync();
                     NotificationHelper.UpdateTile(user);
                     NotificationHelper.SendToast(user);
+                    NetXFSettings settings = new NetXFSettings();
+                    settings.LoadSettings();
                     if (settings.EnableFluxLimit)
                         NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                 }

@@ -74,6 +74,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0-pre" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Background\AppWidget.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,6 +90,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Tabbar.xml" />
     <AndroidResource Include="Resources\layout\Toolbar.xml" />
+    <AndroidResource Include="Resources\layout\Widget.xml" />
+    <AndroidResource Include="Resources\xml\appwidgetprovider.xml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\drawable\icon.png" />
@@ -98,7 +101,6 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
       <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>

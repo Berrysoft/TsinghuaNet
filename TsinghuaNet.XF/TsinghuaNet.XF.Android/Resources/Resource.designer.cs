@@ -6796,8 +6796,8 @@ namespace TsinghuaNet.XF.Droid
 			// aapt resource value: 0x7f0900f5
 			public const int main_toolbar = 2131296501;
 			
-			// aapt resource value: 0x7f0900fe
-			public const int masked = 2131296510;
+			// aapt resource value: 0x7f090102
+			public const int masked = 2131296514;
 			
 			// aapt resource value: 0x7f0900e7
 			public const int media_actions = 2131296487;
@@ -7237,11 +7237,23 @@ namespace TsinghuaNet.XF.Droid
 			// aapt resource value: 0x7f09001b
 			public const int view_offset_helper = 2131296283;
 			
-			// aapt resource value: 0x7f0900fd
-			public const int visible = 2131296509;
+			// aapt resource value: 0x7f090101
+			public const int visible = 2131296513;
 			
 			// aapt resource value: 0x7f0900d4
 			public const int volume_item_container = 2131296468;
+			
+			// aapt resource value: 0x7f0900fd
+			public const int widgetBackground = 2131296509;
+			
+			// aapt resource value: 0x7f090100
+			public const int widgetBalance = 2131296512;
+			
+			// aapt resource value: 0x7f0900ff
+			public const int widgetFlux = 2131296511;
+			
+			// aapt resource value: 0x7f0900fe
+			public const int widgetTitle = 2131296510;
 			
 			// aapt resource value: 0x7f090043
 			public const int withText = 2131296323;
@@ -7617,6 +7629,9 @@ namespace TsinghuaNet.XF.Droid
 			
 			// aapt resource value: 0x7f030054
 			public const int Toolbar = 2130903124;
+			
+			// aapt resource value: 0x7f030055
+			public const int Widget = 2130903125;
 			
 			static Layout()
 			{
@@ -9434,7 +9449,10 @@ namespace TsinghuaNet.XF.Droid
 		{
 			
 			// aapt resource value: 0x7f070000
-			public const int xamarin_essentials_fileprovider_file_paths = 2131165184;
+			public const int appwidgetprovider = 2131165184;
+			
+			// aapt resource value: 0x7f070001
+			public const int xamarin_essentials_fileprovider_file_paths = 2131165185;
 			
 			static Xml()
 			{
