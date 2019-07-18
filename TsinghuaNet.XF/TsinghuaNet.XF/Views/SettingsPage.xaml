@@ -27,11 +27,11 @@
             <Label Margin="8">前台自动登录</Label>
             <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
             <Label Margin="8">后台自动登录</Label>
             <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
             <Label Margin="8">后台磁贴刷新</Label>
             <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
         </StackLayout>
