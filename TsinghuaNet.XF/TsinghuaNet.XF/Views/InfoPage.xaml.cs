@@ -16,6 +16,13 @@ namespace TsinghuaNet.XF.Views
             InitializeComponent();
         }
 
+        private void AdjustVisualState()
+        {
+            VisualStateManager.GoToState(InfoLayout, Width > Height ? "HorizontalState" : "VerticalState");
+        }
+        private void InfoPage_SizeChanged(object sender, EventArgs e) => AdjustVisualState();
+
+
         internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
 
         private async void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
