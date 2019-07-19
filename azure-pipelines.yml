@@ -189,7 +189,7 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dependent.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0\self
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0\self /p:LinkDuringPublish=true /p:ShowLinkerSizeComparison=true
     displayName: 'Publish project as netcoreapp3.0 SCE'
 
   - script: del build\eto.wpf\netcoreapp3.0\self\*.pdb
@@ -240,7 +240,7 @@ jobs:
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Dependent.tar.gz'
 
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk/self
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk/self /p:LinkDuringPublish=true /p:ShowLinkerSizeComparison=true
     displayName: 'Publish project as SCE'
 
   - script: rm build/eto.gtk/self/*.pdb
