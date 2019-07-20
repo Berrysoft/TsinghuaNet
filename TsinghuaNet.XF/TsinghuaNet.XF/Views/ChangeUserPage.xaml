@@ -11,7 +11,7 @@
     <pages:PopupPage.BindingContext>
         <vms:ChangeUserViewModel x:Name="Model"/>
     </pages:PopupPage.BindingContext>
-    <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center">
+    <StackLayout Orientation="Vertical" HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource DefaultPageBackground}" Padding="8">
         <StackLayout Orientation="Horizontal">
             <Label HorizontalTextAlignment="End" VerticalOptions="Center" WidthRequest="60">用户名：</Label>
             <Entry Margin="8" WidthRequest="200" Text="{Binding NewUsername,Mode=TwoWay}"/>

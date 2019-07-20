@@ -10,19 +10,20 @@ namespace TsinghuaNet.XF.UWP.Views
         {
             InitializeComponent();
             var xfApp = new TsinghuaNet.XF.App();
-            SetDataGridForeground(xfApp);
+            SetColorResource(xfApp);
             LoadApplication(xfApp);
         }
 
         private void WindowsPage_ActualThemeChanged(Windows.UI.Xaml.FrameworkElement sender, object args)
         {
-            SetDataGridForeground(Application.Current);
+            SetColorResource(Application.Current);
         }
 
-        private void SetDataGridForeground(Application app)
+        private void SetColorResource(Application app)
         {
             ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.Black : Color.White;
             ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.White : Color.Black;
+            app.Resources["DefaultPageBackground"] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.Black : Color.White;
         }
     }
 }
