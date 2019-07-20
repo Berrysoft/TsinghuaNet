@@ -91,11 +91,11 @@ namespace TsinghuaNet.XF.ViewModels
         {
             var res = await base.RefreshAsync(helper);
             mainTimer.Stop();
+            OnlineTime = OnlineUser.OnlineTime;
             if (!string.IsNullOrEmpty(OnlineUser.Username))
                 mainTimer.Start();
             if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
                 res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
-            OnlineTime = OnlineUser.OnlineTime;
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = (float)(OnlineUser.Flux / maxf);
             FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
