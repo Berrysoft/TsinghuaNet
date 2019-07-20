@@ -4,6 +4,7 @@
       xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
       xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
       xmlns:net="clr-namespace:TsinghuaNet;assembly:TsinghuaNet"
+      xmlns:skia="clr-namespace:Eto.Forms.Controls.SkiaSharp;assembly:Eto.Forms.Controls.SkiaSharp"
       Resizable="False" Maximizable="False" Title="清华大学校园网客户端" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}" BackgroundColor="White" Closed="MainForm_Closed">
   <Form.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
@@ -36,23 +37,28 @@
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</Label>
       <PasswordBox Width="160" Text="{Binding Credential.Password,Mode=TwoWay}"/>
     </StackLayout>
-    <TableLayout Padding="8" Spacing="4,4">
-      <TableRow>
-        <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
-        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
-        <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
-        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource StringFormatConverter}}"/>
-      </TableRow>
-      <TableRow>
-        <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
-        <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
-        <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
-        <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterCulture=zh-CN}"/>
-      </TableRow>
-    </TableLayout>
-    <StackLayoutItem HorizontalAlignment="Stretch">
-      <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
-    </StackLayoutItem>
+    <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center">
+      <skia:SKControl x:Name="FluxCanvas" Width="60" Height="60"/>
+      <StackLayout Orientation="Vertical">
+        <TableLayout Padding="8" Spacing="4,4">
+          <TableRow>
+            <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
+            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
+            <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
+            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource StringFormatConverter}}"/>
+          </TableRow>
+          <TableRow>
+            <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
+            <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
+            <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
+            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterCulture=zh-CN}"/>
+          </TableRow>
+        </TableLayout>
+        <StackLayoutItem HorizontalAlignment="Stretch">
+          <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
+        </StackLayoutItem>
+      </StackLayout>
+    </StackLayout>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
         <Button Command="{Binding LoginCommand}">登录</Button>

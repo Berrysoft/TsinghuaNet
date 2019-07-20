@@ -6,6 +6,7 @@
     <AssemblyVersion>4.0.73.0</AssemblyVersion>
     <FileVersion>4.0.73.0</FileVersion>
     <Version>4.0.73.0</Version>
+    <NoWarn>NU1701;$(NoWarn)</NoWarn>
     <ApplicationIcon>Logo.ico</ApplicationIcon>
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <UseWPF>true</UseWPF>
@@ -20,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Eto.Forms.Controls.SkiaSharp.WPF" Version="1.0.0" />
     <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0-beta.1" />
   </ItemGroup>
 

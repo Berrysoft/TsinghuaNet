@@ -1,11 +1,16 @@
 ﻿using Eto;
 using Eto.Forms;
+using SkiaSharp;
 using TsinghuaNet.Eto.Views;
 
 namespace TsinghuaNet.Eto
 {
     public class App : Application
     {
+        internal static readonly SKColor SystemAccentColor = new SKColor(0xFF0078D7);
+        internal static readonly SKColor SystemAccentColorDark1 = new SKColor(0xFF005A9E);
+        internal static readonly SKColor SystemAccentColorDark2 = new SKColor(0xFF004275);
+
         public App(Platform platform) : base(platform)
         {
             InitializeComponent();
