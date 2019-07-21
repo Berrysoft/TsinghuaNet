@@ -17,9 +17,9 @@ namespace TsinghuaNet.XF
             MainPage = new MainPage();
         }
 
-        protected override async void OnSleep()
+        protected override void OnSleep()
         {
-            await ((MainPage)MainPage).SaveSettingsAsync();
+            ((MainPage)MainPage).SaveSettings();
             base.OnSleep();
         }
     }

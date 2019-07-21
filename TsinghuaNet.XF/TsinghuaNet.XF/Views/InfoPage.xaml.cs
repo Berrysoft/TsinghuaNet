@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
@@ -23,7 +22,7 @@ namespace TsinghuaNet.XF.Views
         private void InfoPage_SizeChanged(object sender, EventArgs e) => AdjustVisualState();
 
 
-        internal Task SaveSettingsAsync() => Model.SaveSettingsAsync();
+        internal void SaveSettings() => Model.SaveSettings();
 
         private async void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
         {

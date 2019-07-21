@@ -26,10 +26,15 @@ namespace TsinghuaNet.XF.ViewModels
 
         public MainViewModel() : base()
         {
+            Status = DependencyService.Get<INetStatus>();
+            ReceivedResponse += MainViewModel_ReceivedResponse;
+            mainTimer.Interval = 1000;
+            mainTimer.Elapsed += MainTimerTick;
             CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+            LoadSettings();
         }
 
-        public override async Task LoadSettingsAsync()
+        public override async void LoadSettings()
         {
             Settings = new NetXFSettings();
             Settings.PropertyChanged += OnSettingsPropertyChanged;
@@ -37,17 +42,11 @@ namespace TsinghuaNet.XF.ViewModels
             var store = new CredentialStore();
             if (store.CredentialExists())
                 await store.LoadCredentialAsync(Credential);
-            Status = DependencyService.Get<INetStatus>();
-            ReceivedResponse += MainViewModel_ReceivedResponse;
-            mainTimer.Interval = 1000;
-            mainTimer.Elapsed += MainTimerTick;
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
-            else
-                await RefreshAsync();
         }
 
-        public override async Task SaveSettingsAsync()
+        public override async void SaveSettings()
         {
             Settings.SaveSettings();
             if (!string.IsNullOrEmpty(Credential.Username))
