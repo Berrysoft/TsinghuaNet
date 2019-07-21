@@ -15,13 +15,10 @@ namespace TsinghuaNet.ViewModels
             LogoutCommand = new NetCommand(this, LogoutAsync);
             RefreshCommand = new NetCommand(this, RefreshAsync);
             Credential.PropertyChanged += OnCredentialStateChanged;
-            LoadSettings();
         }
 
-        public async void LoadSettings() => await LoadSettingsAsync();
-        public abstract Task LoadSettingsAsync();
-        public async void SaveSettings() => await SaveSettingsAsync();
-        public abstract Task SaveSettingsAsync();
+        public abstract void LoadSettings();
+        public abstract void SaveSettings();
 
         private void OnCredentialStateChanged(object sender, PropertyChangedEventArgs e)
         {

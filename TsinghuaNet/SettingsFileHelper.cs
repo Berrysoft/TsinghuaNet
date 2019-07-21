@@ -35,22 +35,26 @@ namespace TsinghuaNet
         {
             if (File.Exists(FilePath))
             {
-                using (var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                try
                 {
-                    return await JsonSerializer.DeserializeAsync<T>(stream);
+                    using (var stream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
+                    {
+                        return await JsonSerializer.DeserializeAsync<T>(stream);
+                    }
+                }
+                catch (Exception)
+                {
+                    return null;
                 }
             }
             return null;
         }
 
-        public async Task WriteSettingsAsync<T>(T settings)
+        public void WriteSettings<T>(T settings)
             where T : class
         {
             CreateSettingsFolder(FileFolderName);
-            using (var stream = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.Write))
-            {
-                await JsonSerializer.SerializeAsync(stream, settings);
-            }
+            File.WriteAllBytes(FilePath, JsonSerializer.SerializeToUtf8Bytes(settings));
         }
 
         public Dictionary<string, string> ReadDictionary()

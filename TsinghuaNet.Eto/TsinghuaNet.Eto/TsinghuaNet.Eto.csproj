@@ -5,6 +5,7 @@
     <AssemblyVersion>4.0.73.0</AssemblyVersion>
     <FileVersion>4.0.73.0</FileVersion>
     <Version>4.0.73.0</Version>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
   <ItemGroup>
@@ -34,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19365.13" />
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19370.4" />
   </ItemGroup>
 
   <ItemGroup>

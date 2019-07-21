@@ -1,4 +1,5 @@
 ﻿using System;
+using Eto;
 using Eto.Forms;
 using Eto.Forms.Controls.SkiaSharp;
 using Eto.Serialization.Xaml;
@@ -67,11 +68,12 @@ namespace TsinghuaNet.Eto.Views
         private void ShowSettings(object sender, EventArgs e)
             => ShowDialog(new SettingsDialog(0));
 
-        private async void MainForm_Closed(object sender, EventArgs e)
+        private void MainForm_Closed(object sender, EventArgs e)
         {
             if (Model != null)
-                await Model.SaveSettingsAsync();
-            Application.Instance.Quit();
+                Model.SaveSettings();
+            if (EtoEnvironment.Platform.IsMac)
+                Application.Instance.Quit();
         }
     }
 

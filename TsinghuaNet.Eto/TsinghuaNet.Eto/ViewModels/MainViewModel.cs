@@ -11,7 +11,14 @@ namespace TsinghuaNet.Eto.ViewModels
 {
     public class MainViewModel : MainViewModelBase
     {
-        public MainViewModel() : base() { }
+        public MainViewModel() : base()
+        {
+            Status = new NetPingStatus();
+            ReceivedResponse += Model_ReceivedResponse;
+            timer = new UITimer(OnlineTimerTick);
+            timer.Interval = 1;
+            LoadSettings();
+        }
 
         [DoNotNotify]
         public new NetEtoSettings Settings
@@ -20,23 +27,17 @@ namespace TsinghuaNet.Eto.ViewModels
             set => base.Settings = value;
         }
 
-        public override async Task LoadSettingsAsync()
+        public override async void LoadSettings()
         {
             Settings = (await SettingsHelper.Helper.ReadSettingsAsync<NetEtoSettings>()) ?? new NetEtoSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
 
-            Status = new NetPingStatus();
-            ReceivedResponse += Model_ReceivedResponse;
-            timer = new UITimer(OnlineTimerTick);
-            timer.Interval = 1;
             if (Settings.AutoLogin)
                 await LoginAsync();
-            else
-                await RefreshAsync();
         }
 
-        public override async Task SaveSettingsAsync()
+        public override void SaveSettings()
         {
             if (Settings.DeleteSettingsOnExit)
             {
@@ -46,7 +47,7 @@ namespace TsinghuaNet.Eto.ViewModels
             {
                 Settings.Username = Credential.Username;
                 Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
-                await SettingsHelper.Helper.WriteSettingsAsync(Settings);
+                SettingsHelper.Helper.WriteSettings(Settings);
             }
         }
 

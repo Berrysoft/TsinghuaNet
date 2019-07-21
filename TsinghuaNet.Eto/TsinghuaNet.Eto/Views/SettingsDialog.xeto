@@ -17,7 +17,7 @@
           <CheckBox Checked="{Binding Settings.UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
           <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center" Spacing="4">
             <CheckBox Checked="{Binding Settings.EnableFluxLimit,Mode=TwoWay}">流量不足预警，当流量超过</CheckBox>
-            <NumericUpDown Enabled="{Binding Settings.EnableFluxLimit}" MinValue="5" MaxValue="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+            <NumericStepper Enabled="{Binding Settings.EnableFluxLimit}" MinValue="0" MaxValue="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
             <Label>GB</Label>
           </StackLayout>
           <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center" Spacing="4">
