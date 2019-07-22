@@ -3,9 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <AssemblyVersion>4.0.73.0</AssemblyVersion>
-    <FileVersion>4.0.73.0</FileVersion>
-    <Version>4.0.73.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -28,11 +25,13 @@
     <PackageReference Include="CommandLineParser" Version="2.5.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
     <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.6.build.801" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19365.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19370.4" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>
+
+  <Import Project="../ver.props" />
 
 </Project>

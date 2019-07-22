@@ -29,6 +29,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TsinghuaNet.XF.UWP.Helpers"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TsinghuaNet.Standard", "TsinghuaNet\TsinghuaNet.Standard.csproj", "{4845EBCF-2090-499D-91B0-6E653BEA37C4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{9F32BE92-EBC1-4F35-9171-3DC1B848815C}"
+	ProjectSection(SolutionItems) = preProject
+		ver.props = ver.props
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

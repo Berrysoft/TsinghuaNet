@@ -128,7 +128,7 @@
       <Version>5.1.1</Version>
     </PackageReference>
     <PackageReference Include="System.Text.Encoding.CodePages">
-      <Version>4.6.0-preview8.19365.13</Version>
+      <Version>4.6.0-preview8.19370.4</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.608146-pre1" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.8" />

@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <AssemblyVersion>4.0.73.0</AssemblyVersion>
-    <FileVersion>4.0.73.0</FileVersion>
-    <Version>4.0.73.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
@@ -24,5 +21,7 @@
     <PackageReference Include="System.Memory" Version="4.5.3" />
     <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19370.4" />
   </ItemGroup>
+
+  <Import Project="../ver.props" />
 
 </Project>

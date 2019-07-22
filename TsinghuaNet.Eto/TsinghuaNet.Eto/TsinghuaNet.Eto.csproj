@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netcoreapp3.0</TargetFrameworks>
-    <AssemblyVersion>4.0.73.0</AssemblyVersion>
-    <FileVersion>4.0.73.0</FileVersion>
-    <Version>4.0.73.0</Version>
     <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 
@@ -41,5 +38,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>
+
+  <Import Project="../../ver.props" />
 
 </Project>
