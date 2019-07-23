@@ -37,27 +37,24 @@
       <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</Label>
       <PasswordBox Width="160" Text="{Binding Credential.Password,Mode=TwoWay}"/>
     </StackLayout>
-    <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center">
-      <skia:SKControl x:Name="FluxCanvas" Width="60" Height="60"/>
-      <StackLayout Orientation="Vertical">
-        <TableLayout Padding="8" Spacing="4,4">
-          <TableRow>
-            <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
-            <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource StringFormatConverter}}"/>
-          </TableRow>
-          <TableRow>
-            <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
-            <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
-            <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterCulture=zh-CN}"/>
-          </TableRow>
-        </TableLayout>
-        <StackLayoutItem HorizontalAlignment="Stretch">
-          <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
-        </StackLayoutItem>
-      </StackLayout>
+    <StackLayout Orientation="Vertical">
+      <TableLayout Padding="8" Spacing="4,4">
+        <TableRow>
+          <Label TextAlignment="Right" VerticalAlignment="Center">用户：</Label>
+          <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Username}"/>
+          <Label TextAlignment="Right" VerticalAlignment="Center">流量：</Label>
+          <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Flux,Converter={StaticResource StringFormatConverter}}"/>
+        </TableRow>
+        <TableRow>
+          <Label TextAlignment="Right" VerticalAlignment="Center">时长：</Label>
+          <Label VerticalAlignment="Center" Text="{Binding OnlineTime,Converter={StaticResource StringFormatConverter}}"/>
+          <Label TextAlignment="Right" VerticalAlignment="Center">余额：</Label>
+          <Label VerticalAlignment="Center" Text="{Binding OnlineUser.Balance,Converter={StaticResource StringFormatConverter},ConverterParameter=\{0:C2\},ConverterCulture=zh-CN}"/>
+        </TableRow>
+      </TableLayout>
+      <StackLayoutItem HorizontalAlignment="Stretch">
+        <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
+      </StackLayoutItem>
     </StackLayout>
     <TableLayout Padding="8" Spacing="8,8">
       <TableRow>
