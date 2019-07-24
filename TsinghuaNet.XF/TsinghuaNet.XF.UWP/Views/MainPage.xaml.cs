@@ -1,7 +1,7 @@
-﻿using xf=Xamarin.Forms;
+﻿using Windows.UI.Xaml;
 using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.UWP;
-using Windows.UI.Xaml;
+using xf = Xamarin.Forms;
 
 namespace TsinghuaNet.XF.UWP.Views
 {
