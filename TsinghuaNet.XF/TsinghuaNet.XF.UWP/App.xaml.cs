@@ -13,13 +13,13 @@ using Windows.UI.Xaml.Navigation;
 namespace TsinghuaNet.XF.UWP
 {
     /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
+    /// 提供特定于应用程序的行为，以补充默认的应用程序类。
     /// </summary>
     sealed partial class App : Application
     {
         /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// 初始化单一实例应用程序对象。这是执行的创作代码的第一行，
+        /// 已执行，逻辑上等同于 main() 或 WinMain()。
         /// </summary>
         public App()
         {
@@ -28,51 +28,51 @@ namespace TsinghuaNet.XF.UWP
         }
 
         /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
+        /// 在应用程序由最终用户正常启动时进行调用。
+        /// 将在启动应用程序以打开特定文件等情况下使用。
         /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
+        /// <param name="e">有关启动请求和过程的详细信息。</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
+            OnActivated(e);
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            // 不要在窗口已包含内容时重复应用程序初始化，
+            // 只需确保窗口处于活动状态
             if (!(Window.Current.Content is Frame rootFrame))
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
+                // 创建要充当导航上下文的框架，并导航到第一页
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Popup.Init();
-                Xamarin.Forms.Forms.Init(e, Popup.GetExtraAssemblies());
+                Xamarin.Forms.Forms.Init(args, Popup.GetExtraAssemblies());
                 Xamarin.Forms.DependencyService.Register<InternetStatus>();
                 Xamarin.Forms.DependencyService.Register<BackgroundManager>();
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
-                // Place the frame in the current Window
+                // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
             }
 
             if (rootFrame.Content == null)
             {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                // 当导航堆栈尚未还原时，导航到第一页，
+                // 并通过将所需信息作为导航参数传入来配置
+                // 参数
+                rootFrame.Navigate(typeof(MainPage));
             }
-            // Ensure the current window is active
+            // 确保当前窗口处于活动状态
             Window.Current.Activate();
         }
 
         /// <summary>
-        /// Invoked when Navigation to a certain page fails
+        /// 导航到特定页失败时调用
         /// </summary>
-        /// <param name="sender">The Frame which failed navigation</param>
-        /// <param name="e">Details about the navigation failure</param>
+        /// <param name="sender">导航失败的框架</param>
+        /// <param name="e">有关导航失败的详细信息</param>
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);

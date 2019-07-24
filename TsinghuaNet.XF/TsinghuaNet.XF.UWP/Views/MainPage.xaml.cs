@@ -1,6 +1,7 @@
-﻿using Xamarin.Forms;
+﻿using xf=Xamarin.Forms;
 using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.UWP;
+using Windows.UI.Xaml;
 
 namespace TsinghuaNet.XF.UWP.Views
 {
@@ -14,16 +15,16 @@ namespace TsinghuaNet.XF.UWP.Views
             LoadApplication(xfApp);
         }
 
-        private void WindowsPage_ActualThemeChanged(Windows.UI.Xaml.FrameworkElement sender, object args)
+        private void WindowsPage_ActualThemeChanged(FrameworkElement sender, object args)
         {
-            SetColorResource(Application.Current);
+            SetColorResource(xf.Application.Current);
         }
 
-        private void SetColorResource(Application app)
+        private void SetColorResource(xf.Application app)
         {
-            ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.Black : Color.White;
-            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.White : Color.Black;
-            app.Resources["DefaultPageBackground"] = ActualTheme == Windows.UI.Xaml.ElementTheme.Dark ? Color.Black : Color.White;
+            ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
+            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
+            app.Resources["DefaultPageBackground"] = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
         }
     }
 }
