@@ -141,8 +141,13 @@
       <Name>TsinghuaNet.Standard</Name>
     </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.XF\TsinghuaNet.XF.csproj">
-      <Project>{E70838B5-7B0C-40F9-80F3-68BA3C26F781}</Project>
+      <Project>{7EE8356F-FE16-4CDC-82D0-02D10804DCDC}</Project>
       <Name>TsinghuaNet.XF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\segmdl2.ttf">
+      <LogicalName>segmdl2.ttf</LogicalName>
+    </BundleResource>
   </ItemGroup>
 </Project>
