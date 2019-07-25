@@ -9,9 +9,8 @@
     mc:Ignorable="d">
     <TabbedPage.Resources>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
-            <On Platform="UWP">Segoe MDL2 Assets</On>
+            <On Platform="UWP,iOS">Segoe MDL2 Assets</On>
             <On Platform="Android">segmdl2.ttf#Segoe MDL2 Assets</On>
-            <On Platform="iOS">segmdl2.ttf</On>
         </OnPlatform>
     </TabbedPage.Resources>
     <TabbedPage.BarBackgroundColor>
