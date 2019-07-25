@@ -21,7 +21,6 @@ namespace TsinghuaNet.Eto.ViewModels
         public List<PackageBox> Packages { get; } = new List<PackageBox>()
         {
             new PackageBox("Eto.Forms", "BSD-3"),
-            new PackageBox("Eto.Forms.Controls.SkiaSharp","MIT"),
             new PackageBox("Eto.Serialization.Xaml", "BSD-3"),
             new PackageBox("Fody", "MIT"),
             new PackageBox("HtmlAgilityPack", "MIT"),
