@@ -320,7 +320,7 @@ jobs:
     inputs:
       solution: '$(droidProject)'
       configuration: 'Release'
-      msbuildArguments: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+      msbuildArguments: '/r /t:SignAndroidPackage /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
 
   - task: CopyFiles@2
     displayName: 'Publish Android Binaries'
