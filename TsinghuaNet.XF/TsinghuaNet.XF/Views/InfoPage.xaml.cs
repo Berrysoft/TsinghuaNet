@@ -55,6 +55,7 @@ namespace TsinghuaNet.XF.Views
                                 new SKColor[] { App.SystemAccentColor.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark2.ToSKColor() },
                                 new float[] { Model.FluxOffset, Model.FluxOffset, Model.FreeOffset, Model.FreeOffset },
                                 SKShaderTileMode.Clamp);
+                canvas.Clear();
                 canvas.DrawText(TEXT, xText, yText, paint);
             }
         }
