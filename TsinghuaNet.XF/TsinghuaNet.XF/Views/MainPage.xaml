@@ -6,6 +6,8 @@
     xmlns:local="using:TsinghuaNet.XF.Views"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
     mc:Ignorable="d">
     <TabbedPage.Resources>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
