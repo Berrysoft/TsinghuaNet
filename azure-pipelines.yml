@@ -325,7 +325,7 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Publish Android Binaries'
     inputs:
-      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
+      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.XF/TsinghuaNet.XF.Android/bin/Release
       Contents: '**/*.apk'
       TargetFolder: $(build.artifactstagingdirectory)/android
       CleanTargetFolder: false
