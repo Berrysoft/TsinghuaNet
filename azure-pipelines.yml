@@ -299,40 +299,40 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-# - job: Windows_XF_Android
-#   pool:
-#     vmImage: 'windows-2019'
-#   steps:
-#   - task: NuGetToolInstaller@0
-#     displayName: 'Install NuGet 5.1.0'
-#     inputs:
-#       versionSpec: '5.1.0'
+- job: Windows_XF_Android
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet 5.1.0'
+    inputs:
+      versionSpec: '5.1.0'
 
-#   - task: NuGetCommand@2
-#     displayName: 'Restore solution'
-#     inputs:
-#       restoreSolution: '$(xfSolution)'
-#       feedsToUse: config
-#       nugetConfigPath: 'NuGet.Config'
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(xfSolution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
 
-#   - task: MSBuild@1
-#     displayName: 'Build apk'
-#     inputs:
-#       solution: '$(droidProject)'
-#       configuration: 'Release'
-#       msbuildArguments: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+  - task: MSBuild@1
+    displayName: 'Build apk'
+    inputs:
+      solution: '$(droidProject)'
+      configuration: 'Release'
+      msbuildArguments: '/r /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
 
-#   - task: CopyFiles@2
-#     displayName: 'Publish Android Binaries'
-#     inputs:
-#       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
-#       Contents: '**/*.apk'
-#       TargetFolder: $(build.artifactstagingdirectory)/android
-#       CleanTargetFolder: false
-#       OverWrite: false
-#       flattenFolders: false
+  - task: CopyFiles@2
+    displayName: 'Publish Android Binaries'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Uno/TsinghuaNet.Uno.Droid/bin/Release
+      Contents: '**/*.apk'
+      TargetFolder: $(build.artifactstagingdirectory)/android
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
 
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish'
-#     inputs:
-#       artifactName: 'publish'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
