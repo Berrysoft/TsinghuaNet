@@ -330,8 +330,8 @@ jobs:
     displayName: 'Publish Android Binaries'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.XF/TsinghuaNet.XF.Android/bin/Release
-      Contents: '**/*.apk'
-      TargetFolder: $(build.artifactstagingdirectory)/android
+      Contents: '**/*-Signed.apk'
+      TargetFolder: $(build.artifactstagingdirectory)
       CleanTargetFolder: false
       OverWrite: false
       flattenFolders: false

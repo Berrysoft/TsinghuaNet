@@ -91,7 +91,7 @@ Xamarin.Forms版本。支持UWP、Android与iOS平台。
 ## 我可以使用这里的源代码吗？
 可以。这个项目使用[MIT许可证](./LICENSE)开源。
 ## 这个程序能卸载干净吗？
-卸载时，除了凭据，所有个人配置都会被删除。（XF）
+卸载时，所有个人配置都会被删除。（XF）
 
 CLI版本的用户名和密码保存在[SpecialFolder.ApplicationData](https://docs.microsoft.com/zh-cn/dotnet/api/system.environment.specialfolder)下的`TsinghuaNet.CLI/settings.json`，仅在运行`savecred`后创建，可使用`deletecred`删除。
 
