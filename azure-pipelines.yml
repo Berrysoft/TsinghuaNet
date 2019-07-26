@@ -270,15 +270,13 @@ jobs:
     inputs:
       version: '$(sdkVersion)'
 
-  # - task: DotNetCoreCLI@2
-  #   displayName: 'Restore project'
-  #   inputs:
-  #     projects: '$(macProject)'
-  #     command: restore
-  #     feedsToUse: config
-  #     nugetConfigPath: NuGet.Config
-  - script: dotnet build $(etoProject) -c Release
-    displayName: 'Build standard project'
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project'
+    inputs:
+      projects: '$(macProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
 
   - script: dotnet build $(macProject) -c Release
     displayName: 'Build project'

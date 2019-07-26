@@ -35,6 +35,8 @@
 
   <ItemGroup Condition="'$(OS)' != 'Windows_NT' AND '$(TargetFramework)'== 'net472'">
     <PackageReference Include="Microsoft.TargetingPack.NETFramework.v4.7.2" Version="1.0.0" ExcludeAssets="All" PrivateAssets="All" />
+    <Reference Include="netstandard">
+    <Reference Include="System.Runtime">
   </ItemGroup>
 
 </Project>
