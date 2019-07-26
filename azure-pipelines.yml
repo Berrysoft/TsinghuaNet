@@ -278,7 +278,7 @@ jobs:
   #     feedsToUse: config
   #     nugetConfigPath: NuGet.Config
   - script: dotnet build $(etoProject) -c Release
-    displatName: 'Build standard project'
+    displayName: 'Build standard project'
 
   - script: dotnet build $(macProject) -c Release
     displayName: 'Build project'
