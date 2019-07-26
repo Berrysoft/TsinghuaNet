@@ -8,6 +8,8 @@
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="设置">
     <ContentPage.BindingContext>
         <vms:SettingsViewModel x:Name="Model"/>
