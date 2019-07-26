@@ -6,6 +6,7 @@ variables:
   xfSolution: 'TsinghuaNet.XF.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
+  etoProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto/TsinghuaNet.Eto.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
@@ -269,13 +270,15 @@ jobs:
     inputs:
       version: '$(sdkVersion)'
 
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(macProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
+  # - task: DotNetCoreCLI@2
+  #   displayName: 'Restore project'
+  #   inputs:
+  #     projects: '$(macProject)'
+  #     command: restore
+  #     feedsToUse: config
+  #     nugetConfigPath: NuGet.Config
+  - script: dotnet build $(etoProject) -c Release
+    displatName: 'Build standard project'
 
   - script: dotnet build $(macProject) -c Release
     displayName: 'Build project'
