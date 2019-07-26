@@ -260,6 +260,39 @@ jobs:
     inputs:
       artifactName: 'publish'
 
+- job: MacOS_Eto
+  pool:
+    vmImage: 'macOS-10.14'
+  steps:
+  - task: DotNetCoreInstaller@0
+    displayName: 'Install .NET Core SDK 3.0'
+    inputs:
+      version: '$(sdkVersion)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project'
+    inputs:
+      projects: '$(macProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+
+  - script: dotnet build $(macProject) -c Release
+    displayName: 'Build project'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net472/TsinghuaNet.Eto.Mac.app/'
+      includeRootFolder: true
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
+
 - job: Windows_XF_UWP
   pool:
     vmImage: 'windows-2019'
