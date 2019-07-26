@@ -269,16 +269,16 @@ jobs:
     inputs:
       version: '$(sdkVersion)'
 
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet 5.1.0'
     inputs:
-      projects: '$(macProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
+      versionSpec: '5.1.0'
 
-  - script: dotnet build $(macProject) -c Release
+  - task: msbuild@1
     displayName: 'Build project'
+    inputs:
+      solution: $(macProject)
+      configuration: 'Release'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
