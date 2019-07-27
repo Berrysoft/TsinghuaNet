@@ -8,6 +8,8 @@
     xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="主页" SizeChanged="InfoPage_SizeChanged">
     <ContentPage.BindingContext>
         <vms:MainViewModel x:Name="Model" Refreshed="Model_Refreshed"/>
