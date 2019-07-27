@@ -14,6 +14,45 @@ variables:
   droidProject: 'TsinghuaNet.XF/TsinghuaNet.XF.Android/TsinghuaNet.XF.Android.csproj'
 
 jobs:
+- job: Windows_CLI
+  pool:
+    vmImage: 'windows-2019'
+  steps:
+  - task: DotNetCoreInstaller@0
+    displayName: 'Install .NET Core SDK 3.0'
+    inputs:
+      version: '$(sdkVersion)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project'
+    inputs:
+      projects: '$(cliProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release -o build\win-x64
+    displayName: 'Publish project'
+
+  - script: del build\win-x64\*.pdb
+    displayName: 'Remove PDBs'
+
+  - script: del build\win-x64\*.json
+    displayName: 'Remove JSONs'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build\win-x64'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
+
 - job: Linux_CLI
   pool:
     vmImage: 'ubuntu-16.04'
@@ -106,45 +145,6 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-- job: Windows_CLI
-  pool:
-    vmImage: 'windows-2019'
-  steps:
-  - task: DotNetCoreInstaller@0
-    displayName: 'Install .NET Core SDK 3.0'
-    inputs:
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(cliProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -o build\win-x64
-    displayName: 'Publish project'
-
-  - script: del build\win-x64\*.pdb
-    displayName: 'Remove PDBs'
-
-  - script: del build\win-x64\*.json
-    displayName: 'Remove JSONs'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build\win-x64'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
 - job: Windows_Eto
   pool:
     vmImage: 'windows-2019'
@@ -176,33 +176,19 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 --self-contained false -o build\eto.wpf\netcoreapp3.0\dep
-    displayName: 'Publish project as netcoreapp3.0 FDE'
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishTrimmed=true
+    displayName: 'Publish project as netcoreapp3.0'
 
-  - script: del build\eto.wpf\netcoreapp3.0\dep\*.pdb
+  - script: del build\eto.wpf\netcoreapp3.0\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\dep'
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dependent.zip'
-
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0\self /p:PublishTrimmed=true
-    displayName: 'Publish project as netcoreapp3.0 SCE'
-
-  - script: del build\eto.wpf\netcoreapp3.0\self\*.pdb
-    displayName: 'Remove PDBs'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0\self'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Self.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.zip'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
@@ -226,31 +212,16 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
   
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release --self-contained false -o build/eto.gtk/dep
-    displayName: 'Publish project as FDE'
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk /p:PublishTrimmed=true
+    displayName: 'Publish project'
 
-  - script: rm build/eto.gtk/dep/*.pdb
+  - script: rm build/eto.gtk/*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/eto.gtk/dep'
-      includeRootFolder: false
-      archiveType: 'tar'
-      tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Dependent.tar.gz'
-
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk/self /p:PublishTrimmed=true
-    displayName: 'Publish project as SCE'
-
-  - script: rm build/eto.gtk/self/*.pdb
-    displayName: 'Remove PDBs'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/eto.gtk/self'
+      rootFolderOrFile: 'build/eto.gtk'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -284,7 +255,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net472/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net472/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
