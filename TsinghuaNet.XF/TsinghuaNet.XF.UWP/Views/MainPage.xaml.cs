@@ -22,9 +22,11 @@ namespace TsinghuaNet.XF.UWP.Views
 
         private void SetColorResource(xf.Application app)
         {
-            ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
-            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
-            app.Resources["DefaultPageBackground"] = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
+            var foreground = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
+            var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
+            ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = background;
+            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
+            app.Resources["DefaultPageBackground"] = background;
         }
     }
 }
