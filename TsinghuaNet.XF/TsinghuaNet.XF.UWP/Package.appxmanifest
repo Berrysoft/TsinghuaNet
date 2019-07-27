@@ -9,7 +9,7 @@
   <Identity
     Name="TsinghuaNet.UWP"
     Publisher="CN=Straw"
-    Version="4.0.74.0" />
+    Version="4.0.75.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
