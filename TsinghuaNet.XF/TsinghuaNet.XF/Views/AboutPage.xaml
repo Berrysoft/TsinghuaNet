@@ -23,12 +23,9 @@
         <Label Margin="8">版权所有 © 2018-2019 Berrysoft</Label>
         <Label Margin="8" Style="{DynamicResource SubtitleStyle}">第三方开源库</Label>
         <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
-            <dg:DataGrid.HeaderTextColor>
-                <OnPlatform x:TypeArguments="Color">
-                    <On Platform="UWP,Android" Value="Default"/>
-                    <On Platform="iOS" Value="Black"/>
-                </OnPlatform>
-            </dg:DataGrid.HeaderTextColor>
+            <dg:DataGrid.HeaderFontSize>
+                <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
+            </dg:DataGrid.HeaderFontSize>
             <dg:DataGrid.Columns>
                 <dg:DataGridColumn Title="名称" PropertyName="Name"/>
                 <dg:DataGridColumn Title="许可证" PropertyName="License"/>
