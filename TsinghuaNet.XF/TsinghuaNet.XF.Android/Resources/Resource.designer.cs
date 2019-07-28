@@ -26,6 +26,7 @@ namespace TsinghuaNet.XF.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microcharts.Droid.Resource.String.library_name = global::TsinghuaNet.XF.Droid.Resource.String.library_name;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::TsinghuaNet.XF.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::TsinghuaNet.XF.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::TsinghuaNet.XF.Droid.Resource.Attribute.font;
@@ -7762,100 +7763,103 @@ namespace TsinghuaNet.XF.Droid
 			public const int hide_bottom_view_on_scroll_behavior = 2131492909;
 			
 			// aapt resource value: 0x7F0C002E
-			public const int mr_button_content_description = 2131492910;
+			public const int library_name = 2131492910;
 			
 			// aapt resource value: 0x7F0C002F
-			public const int mr_cast_button_connected = 2131492911;
+			public const int mr_button_content_description = 2131492911;
 			
 			// aapt resource value: 0x7F0C0030
-			public const int mr_cast_button_connecting = 2131492912;
+			public const int mr_cast_button_connected = 2131492912;
 			
 			// aapt resource value: 0x7F0C0031
-			public const int mr_cast_button_disconnected = 2131492913;
+			public const int mr_cast_button_connecting = 2131492913;
 			
 			// aapt resource value: 0x7F0C0032
-			public const int mr_cast_dialog_title_view_placeholder = 2131492914;
+			public const int mr_cast_button_disconnected = 2131492914;
 			
 			// aapt resource value: 0x7F0C0033
-			public const int mr_chooser_searching = 2131492915;
+			public const int mr_cast_dialog_title_view_placeholder = 2131492915;
 			
 			// aapt resource value: 0x7F0C0034
-			public const int mr_chooser_title = 2131492916;
+			public const int mr_chooser_searching = 2131492916;
 			
 			// aapt resource value: 0x7F0C0035
-			public const int mr_controller_album_art = 2131492917;
+			public const int mr_chooser_title = 2131492917;
 			
 			// aapt resource value: 0x7F0C0036
-			public const int mr_controller_casting_screen = 2131492918;
+			public const int mr_controller_album_art = 2131492918;
 			
 			// aapt resource value: 0x7F0C0037
-			public const int mr_controller_close_description = 2131492919;
+			public const int mr_controller_casting_screen = 2131492919;
 			
 			// aapt resource value: 0x7F0C0038
-			public const int mr_controller_collapse_group = 2131492920;
+			public const int mr_controller_close_description = 2131492920;
 			
 			// aapt resource value: 0x7F0C0039
-			public const int mr_controller_disconnect = 2131492921;
+			public const int mr_controller_collapse_group = 2131492921;
 			
 			// aapt resource value: 0x7F0C003A
-			public const int mr_controller_expand_group = 2131492922;
+			public const int mr_controller_disconnect = 2131492922;
 			
 			// aapt resource value: 0x7F0C003B
-			public const int mr_controller_no_info_available = 2131492923;
+			public const int mr_controller_expand_group = 2131492923;
 			
 			// aapt resource value: 0x7F0C003C
-			public const int mr_controller_no_media_selected = 2131492924;
+			public const int mr_controller_no_info_available = 2131492924;
 			
 			// aapt resource value: 0x7F0C003D
-			public const int mr_controller_pause = 2131492925;
+			public const int mr_controller_no_media_selected = 2131492925;
 			
 			// aapt resource value: 0x7F0C003E
-			public const int mr_controller_play = 2131492926;
+			public const int mr_controller_pause = 2131492926;
 			
 			// aapt resource value: 0x7F0C003F
-			public const int mr_controller_stop = 2131492927;
+			public const int mr_controller_play = 2131492927;
 			
 			// aapt resource value: 0x7F0C0040
-			public const int mr_controller_stop_casting = 2131492928;
+			public const int mr_controller_stop = 2131492928;
 			
 			// aapt resource value: 0x7F0C0041
-			public const int mr_controller_volume_slider = 2131492929;
+			public const int mr_controller_stop_casting = 2131492929;
 			
 			// aapt resource value: 0x7F0C0042
-			public const int mr_dialog_device_header = 2131492930;
+			public const int mr_controller_volume_slider = 2131492930;
 			
 			// aapt resource value: 0x7F0C0043
-			public const int mr_dialog_route_header = 2131492931;
+			public const int mr_dialog_device_header = 2131492931;
 			
 			// aapt resource value: 0x7F0C0044
-			public const int mr_system_route_name = 2131492932;
+			public const int mr_dialog_route_header = 2131492932;
 			
 			// aapt resource value: 0x7F0C0045
-			public const int mr_user_route_category_name = 2131492933;
+			public const int mr_system_route_name = 2131492933;
 			
 			// aapt resource value: 0x7F0C0046
-			public const int mtrl_chip_close_icon_content_description = 2131492934;
+			public const int mr_user_route_category_name = 2131492934;
 			
 			// aapt resource value: 0x7F0C0047
-			public const int password_toggle_content_description = 2131492935;
+			public const int mtrl_chip_close_icon_content_description = 2131492935;
 			
 			// aapt resource value: 0x7F0C0048
-			public const int path_password_eye = 2131492936;
+			public const int password_toggle_content_description = 2131492936;
 			
 			// aapt resource value: 0x7F0C0049
-			public const int path_password_eye_mask_strike_through = 2131492937;
+			public const int path_password_eye = 2131492937;
 			
 			// aapt resource value: 0x7F0C004A
-			public const int path_password_eye_mask_visible = 2131492938;
+			public const int path_password_eye_mask_strike_through = 2131492938;
 			
 			// aapt resource value: 0x7F0C004B
-			public const int path_password_strike_through = 2131492939;
+			public const int path_password_eye_mask_visible = 2131492939;
 			
 			// aapt resource value: 0x7F0C004C
-			public const int search_menu_title = 2131492940;
+			public const int path_password_strike_through = 2131492940;
 			
 			// aapt resource value: 0x7F0C004D
-			public const int status_bar_notification_info_overflow = 2131492941;
+			public const int search_menu_title = 2131492941;
+			
+			// aapt resource value: 0x7F0C004E
+			public const int status_bar_notification_info_overflow = 2131492942;
 			
 			static String()
 			{

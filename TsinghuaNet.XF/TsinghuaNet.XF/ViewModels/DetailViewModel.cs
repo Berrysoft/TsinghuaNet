@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microcharts;
-using MvvmHelpers;
-using PropertyChanged;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using TsinghuaNet.Models;
@@ -17,27 +15,16 @@ namespace TsinghuaNet.XF.ViewModels
         {
             Chart = new LineChart
             {
-                Entries = ChartEntries,
                 BackgroundColor = SKColors.Transparent,
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
                 IsAnimated = true
             };
         }
-
-        [DoNotNotify]
-        public ObservableRangeCollection<ChartEntry> ChartEntries { get; set; } = new ObservableRangeCollection<ChartEntry>();
 
         public LineChart Chart { get; set; }
 
         public override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
-            ChartEntries.ReplaceRange(source.GetTotalDetails().Select(p => new ChartEntry((float)p.Value.GigaBytes)
-            {
-                Label = p.Key.Day.ToString(),
-                ValueLabel = p.Value.ToString(),
-                Color = App.SystemAccentColor.ToSKColor()
-            }));
+            Chart.Entries = source.GetTotalDetails().Select(DetailsHelper.GetChartEntry);
         }
     }
 
@@ -52,5 +39,12 @@ namespace TsinghuaNet.XF.ViewModels
                 yield return new KeyValuePair<DateTime, ByteSize>(p.Key, total);
             }
         }
+
+        public static ChartEntry GetChartEntry(KeyValuePair<DateTime, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
+        {
+            Label = p.Key.Day.ToString(),
+            ValueLabel = p.Value.ToString(),
+            Color = App.SystemAccentColor.ToSKColor()
+        };
     }
 }
