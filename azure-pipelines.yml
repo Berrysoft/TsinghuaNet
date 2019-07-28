@@ -225,7 +225,7 @@ jobs:
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Self.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
