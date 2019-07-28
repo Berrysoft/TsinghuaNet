@@ -3,27 +3,36 @@
     x:Class="TsinghuaNet.XF.Views.DetailPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:netvms="clr-namespace:TsinghuaNet.ViewModels;assembly=TsinghuaNet.Standard"
+    xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:microcharts="clr-namespace:Microcharts;assembly=Microcharts"
+    xmlns:microchartsforms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="明细">
     <ContentPage.BindingContext>
-        <netvms:DetailViewModel x:Name="Model"/>
+        <vms:DetailChartViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
     <StackLayout>
         <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
-        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
-            <dg:DataGrid.HeaderFontSize>
-                <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
-            </dg:DataGrid.HeaderFontSize>
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
-                <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
-                <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
-            </dg:DataGrid.Columns>
-        </dg:DataGrid>
+        <Grid Margin="8">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <microchartsforms:ChartView Chart="{Binding Chart}"/>
+            <dg:DataGrid Grid.Row="1" VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
+                <dg:DataGrid.HeaderFontSize>
+                    <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
+                </dg:DataGrid.HeaderFontSize>
+                <dg:DataGrid.Columns>
+                    <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
+                    <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
+                    <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
+                </dg:DataGrid.Columns>
+            </dg:DataGrid>
+        </Grid>
     </StackLayout>
 </ContentPage>

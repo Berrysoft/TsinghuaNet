@@ -7,11 +7,11 @@ using TsinghuaNet.Models;
 
 namespace TsinghuaNet.ViewModels
 {
-    public class DetailViewModel : NetViewModelBase
+    public abstract class DetailViewModel : NetViewModelBase
     {
         public List<NetDetail> InitialDetails { get; set; }
 
-        public List<KeyValuePair<DateTime, ByteSize>> GroupedDetails { get; set; }
+        public abstract void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source);
 
         public DetailViewModel()
         {
@@ -28,7 +28,7 @@ namespace TsinghuaNet.ViewModels
                 await helper.LoginAsync();
                 InitialDetails = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false).ToListAsync();
                 DateTime now = DateTime.Now;
-                GroupedDetails = (from d in InitialDetails group d.Flux by d.LogoutTime.Day into g select new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, g.Key), g.Sum())).ToList();
+                SetGroupedDetails(from d in InitialDetails group d.Flux by d.LogoutTime.Day into g select new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, g.Key), g.Sum()));
             }
             catch (Exception ex)
             {
