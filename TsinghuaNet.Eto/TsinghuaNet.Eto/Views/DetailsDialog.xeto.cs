@@ -1,6 +1,6 @@
 ﻿using Eto.Forms;
 using Eto.Serialization.Xaml;
-using TsinghuaNet.ViewModels;
+using TsinghuaNet.Eto.ViewModels;
 
 namespace TsinghuaNet.Eto.Views
 {

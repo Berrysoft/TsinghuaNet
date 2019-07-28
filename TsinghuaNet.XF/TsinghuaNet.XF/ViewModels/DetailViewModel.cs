@@ -11,9 +11,9 @@ using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.XF.ViewModels
 {
-    class DetailChartViewModel : DetailViewModel
+    class DetailViewModel : DetailViewModelBase
     {
-        public DetailChartViewModel() : base()
+        public DetailViewModel() : base()
         {
             Chart = new LineChart
             {

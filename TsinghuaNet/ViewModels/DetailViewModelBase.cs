@@ -7,13 +7,13 @@ using TsinghuaNet.Models;
 
 namespace TsinghuaNet.ViewModels
 {
-    public abstract class DetailViewModel : NetViewModelBase
+    public abstract class DetailViewModelBase : NetViewModelBase
     {
         public List<NetDetail> InitialDetails { get; set; }
 
         public abstract void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source);
 
-        public DetailViewModel()
+        public DetailViewModelBase()
         {
             RefreshDetails();
             RefreshCommand = new Command(this, RefreshDetails);

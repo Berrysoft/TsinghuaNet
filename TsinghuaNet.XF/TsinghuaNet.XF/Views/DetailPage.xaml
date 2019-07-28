@@ -13,7 +13,7 @@
     ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="明细">
     <ContentPage.BindingContext>
-        <vms:DetailChartViewModel x:Name="Model"/>
+        <vms:DetailViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
     <StackLayout>
         <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
