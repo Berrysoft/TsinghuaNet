@@ -176,7 +176,7 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishTrimmed=true
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0
     displayName: 'Publish project as netcoreapp3.0'
 
   - script: del build\eto.wpf\netcoreapp3.0\*.pdb
