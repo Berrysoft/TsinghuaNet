@@ -30,19 +30,25 @@ namespace TsinghuaNet.XF.ViewModels
 
     static class DetailsHelper
     {
-        public static IEnumerable<KeyValuePair<DateTime, ByteSize>> GetTotalDetails(this IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
+        public static IEnumerable<KeyValuePair<int, ByteSize>> GetTotalDetails(this IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             ByteSize total = default;
+            int current_day = 0;
             foreach (var p in source)
             {
+                for (; p.Key.Day - current_day > 1; current_day++)
+                {
+                    yield return new KeyValuePair<int, ByteSize>(current_day, total);
+                }
                 total += p.Value;
-                yield return new KeyValuePair<DateTime, ByteSize>(p.Key, total);
+                current_day = p.Key.Day;
+                yield return new KeyValuePair<int, ByteSize>(p.Key.Day, total);
             }
         }
 
-        public static ChartEntry GetChartEntry(KeyValuePair<DateTime, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
+        public static ChartEntry GetChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
         {
-            Label = p.Key.Day.ToString(),
+            Label = p.Key.ToString(),
             ValueLabel = p.Value.ToString(),
             Color = App.SystemAccentColor.ToSKColor()
         };
