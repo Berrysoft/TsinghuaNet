@@ -49,7 +49,7 @@ namespace TsinghuaNet.XF.ViewModels
         public static ChartEntry GetChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
         {
             Label = p.Key.ToString(),
-            ValueLabel = p.Value.ToString(),
+            ValueLabel = " ",
             Color = App.SystemAccentColor.ToSKColor()
         };
     }

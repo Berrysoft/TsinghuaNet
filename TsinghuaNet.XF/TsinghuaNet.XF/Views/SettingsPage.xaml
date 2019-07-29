@@ -66,7 +66,7 @@
                 <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                 <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
             </StackLayout>
-            <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
+            <ListView Margin="8" HeightRequest="300" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

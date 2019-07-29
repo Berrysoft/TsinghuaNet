@@ -5,7 +5,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
-    xmlns:microcharts="clr-namespace:Microcharts;assembly=Microcharts"
     xmlns:microchartsforms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,15 +14,11 @@
     <ContentPage.BindingContext>
         <vms:DetailViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
-    <StackLayout>
-        <Button Margin="8" VerticalOptions="FillAndExpand" Command="{Binding RefreshCommand}" Text="刷新"/>
-        <Grid Margin="8">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <microchartsforms:ChartView Chart="{Binding Chart}"/>
-            <dg:DataGrid Grid.Row="1" VerticalOptions="FillAndExpand" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
+    <ScrollView Margin="8">
+        <StackLayout Spacing="8">
+            <Button Command="{Binding RefreshCommand}" Text="刷新"/>
+            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding Chart}"/>
+            <dg:DataGrid HeightRequest="300" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
                 <dg:DataGrid.HeaderFontSize>
                     <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
                 </dg:DataGrid.HeaderFontSize>
@@ -33,6 +28,6 @@
                     <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>
-        </Grid>
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </ContentPage>
