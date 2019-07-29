@@ -17,6 +17,7 @@
     <ContentPage.Resources>
         <ms:DropCommand x:Key="DropCommand" DropUser="DropUser"/>
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
+        <converters:NetStatusStringConverter x:Key="NetStatusStringConverter"/>
     </ContentPage.Resources>
     <ScrollView>
         <StackLayout>
@@ -46,6 +47,21 @@
                 <Slider Margin="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
                 <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
             </StackLayout>
+            <Label Margin="8" Style="{DynamicResource SubtitleStyle}">网络状态</Label>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0" Margin="8">配置</Label>
+                <Label Grid.Column="1" Grid.Row="0" Margin="8" Text="{Binding Status.Status,Mode=OneWay,Converter={StaticResource NetStatusStringConverter}}"/>
+                <Label Grid.Column="0" Grid.Row="1" Margin="8">SSID</Label>
+                <Label Grid.Column="1" Grid.Row="1" Margin="8" Text="{Binding Status.Ssid,Mode=OneWay}"/>
+            </Grid>
             <StackLayout Orientation="Horizontal">
                 <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                 <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>

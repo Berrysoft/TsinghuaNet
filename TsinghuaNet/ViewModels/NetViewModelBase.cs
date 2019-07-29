@@ -20,6 +20,15 @@ namespace TsinghuaNet.ViewModels
             protected set => settings = value;
         }
 
+        private static INetStatus status;
+
+        public INetStatus Status
+        {
+            get => status;
+            protected set => status = value;
+        }
+        protected virtual void OnStatusChanged() { }
+
         public bool IsBusy { get; set; }
     }
 }

@@ -26,8 +26,7 @@ namespace TsinghuaNet.ViewModels
                 Refresh();
         }
 
-        public INetStatus Status { get; set; }
-        private void OnStatusChanged() => RefreshStatus();
+        protected override void OnStatusChanged() => RefreshStatus();
 
         public ICommand RefreshStatusCommand { get; }
         public async void RefreshStatus() => await RefreshStatusAsync();
