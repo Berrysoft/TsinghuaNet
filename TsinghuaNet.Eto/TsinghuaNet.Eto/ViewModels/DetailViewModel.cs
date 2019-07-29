@@ -12,9 +12,11 @@ namespace TsinghuaNet.Eto.ViewModels
 
         public List<KeyValuePair<DateTime, ByteSize>> GroupedDetails { get; set; }
 
-        public override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
+        protected override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             GroupedDetails = source.ToList();
         }
+
+        protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source) { }
     }
 }
