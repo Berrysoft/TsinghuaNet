@@ -13,18 +13,32 @@ namespace TsinghuaNet.XF.ViewModels
     {
         public DetailViewModel() : base()
         {
-            Chart = new LineChart
+            DailyChart = new LineChart
             {
                 BackgroundColor = SKColors.Transparent,
                 IsAnimated = true
             };
+            TimeChart = new BarChart
+            {
+                BackgroundColor = SKColors.Transparent,
+                LabelOrientation = Orientation.Horizontal,
+                ValueLabelOrientation = Orientation.Horizontal,
+                IsAnimated = true
+            };
         }
 
-        public LineChart Chart { get; set; }
+        public BarChart TimeChart { get; set; }
 
-        public override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
+        protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source)
         {
-            Chart.Entries = source.GetTotalDetails().Select(DetailsHelper.GetChartEntry);
+            TimeChart.Entries = (from p in source group p.Value by p.Key / 6 into g orderby g.Key select new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).Select(DetailsHelper.GetTimeChartEntry);
+        }
+
+        public LineChart DailyChart { get; set; }
+
+        protected override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
+        {
+            DailyChart.Entries = source.GetTotalDetails().Select(DetailsHelper.GetDailyChartEntry);
         }
     }
 
@@ -46,10 +60,17 @@ namespace TsinghuaNet.XF.ViewModels
             }
         }
 
-        public static ChartEntry GetChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
+        public static ChartEntry GetDailyChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
         {
             Label = p.Key.ToString(),
             ValueLabel = " ",
+            Color = App.SystemAccentColor.ToSKColor()
+        };
+
+        public static ChartEntry GetTimeChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
+        {
+            Label = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1}",
+            ValueLabel = p.Value.ToString(),
             Color = App.SystemAccentColor.ToSKColor()
         };
     }

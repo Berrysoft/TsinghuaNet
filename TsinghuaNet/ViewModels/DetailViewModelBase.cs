@@ -11,7 +11,9 @@ namespace TsinghuaNet.ViewModels
     {
         public List<NetDetail> InitialDetails { get; set; }
 
-        public abstract void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source);
+        protected abstract void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source);
+
+        protected abstract void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source);
 
         public DetailViewModelBase()
         {
@@ -29,6 +31,7 @@ namespace TsinghuaNet.ViewModels
                 InitialDetails = await helper.GetDetailsAsync(NetDetailOrder.LogoutTime, false).ToListAsync();
                 DateTime now = DateTime.Now;
                 SetGroupedDetails(from d in InitialDetails group d.Flux by d.LogoutTime.Day into g select new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, g.Key), g.Sum()));
+                SetTimeDetails(from d in InitialDetails group d.Flux by d.LogoutTime.Hour into g select new KeyValuePair<int, ByteSize>(g.Key, g.Sum()));
             }
             catch (Exception ex)
             {
