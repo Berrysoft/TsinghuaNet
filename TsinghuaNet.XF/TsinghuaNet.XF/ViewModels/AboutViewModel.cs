@@ -18,7 +18,6 @@ namespace TsinghuaNet.XF.ViewModels
             new PackageBox("PropertyChanged.Fody", "MIT"),
             new PackageBox("Rg.Plugins.Popup", "MIT"),
             new PackageBox("System.Linq.Async","Apache-2.0"),
-            new PackageBox("Xam.Plugin.Connectivity", "MIT"),
             new PackageBox("Xamarin.Forms.DataGrid", "MIT")
         };
 

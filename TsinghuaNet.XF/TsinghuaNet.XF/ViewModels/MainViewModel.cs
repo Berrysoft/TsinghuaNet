@@ -2,13 +2,12 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Timers;
-using Plugin.Connectivity;
-using Plugin.Connectivity.Abstractions;
 using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
 using TsinghuaNet.XF.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -30,7 +29,7 @@ namespace TsinghuaNet.XF.ViewModels
             ReceivedResponse += MainViewModel_ReceivedResponse;
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
-            CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
             LoadSettings();
         }
 
