@@ -18,7 +18,6 @@ namespace TsinghuaNet.XF.Droid.Background
             var me = new ComponentName(context, Java.Lang.Class.FromType(typeof(AppWidget)).Name);
             var widgetView = new RemoteViews(context.PackageName, Resource.Layout.Widget);
             InternetStatus status = new InternetStatus();
-            status.Refresh();
             NetCredential credential = new NetCredential();
             credential.State = await status.SuggestAsync();
             var helper = credential.GetHelper();
