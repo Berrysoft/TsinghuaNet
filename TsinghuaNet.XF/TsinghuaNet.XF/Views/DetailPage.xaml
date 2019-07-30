@@ -22,13 +22,13 @@
             <Label HorizontalOptions="Center">按时段统计</Label>
             <microchartsforms:ChartView HeightRequest="300" Chart="{Binding TimeChart}"/>
             <Label HorizontalOptions="Center">详细数据</Label>
-            <dg:DataGrid HeightRequest="300" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
+            <dg:DataGrid HeightRequest="300" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
                 <dg:DataGrid.HeaderFontSize>
                     <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
                 </dg:DataGrid.HeaderFontSize>
                 <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime"/>
-                    <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime"/>
+                    <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime" StringFormat="{}{0}"/>
+                    <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime" StringFormat="{}{0}"/>
                     <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
                 </dg:DataGrid.Columns>
             </dg:DataGrid>

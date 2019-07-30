@@ -22,7 +22,7 @@
         </StackLayout>
         <Label Margin="8">版权所有 © 2018-2019 Berrysoft</Label>
         <Label Margin="8" Style="{DynamicResource SubtitleStyle}">第三方开源库</Label>
-        <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}" RowsBackgroundColorPalette="{StaticResource DataGridBackgroundPalette}" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
+        <dg:DataGrid Margin="8" ItemsSource="{Binding Packages}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
             <dg:DataGrid.HeaderFontSize>
                 <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
             </dg:DataGrid.HeaderFontSize>

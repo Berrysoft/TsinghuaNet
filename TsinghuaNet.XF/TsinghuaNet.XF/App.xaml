@@ -12,9 +12,6 @@
         <Color x:Key="SystemAccentColorDark1">#FF005A9E</Color>
         <Color x:Key="SystemAccentColorDark2">#FF004275</Color>
         <Color x:Key="DefaultPageBackground">#FFFFFFFF</Color>
-        <dg:PaletteCollection x:Key="DataGridBackgroundPalette">
-            <Color>#FFFFFFFF</Color>
-        </dg:PaletteCollection>
         <dg:PaletteCollection x:Key="DataGridForegroundPalette">
             <Color>#FF000000</Color>
         </dg:PaletteCollection>
