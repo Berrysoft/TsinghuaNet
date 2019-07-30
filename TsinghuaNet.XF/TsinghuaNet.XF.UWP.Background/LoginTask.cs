@@ -12,9 +12,8 @@ namespace TsinghuaNet.XF.UWP.Background
             var deferral = taskInstance.GetDeferral();
             try
             {
-                CredentialStore store = new CredentialStore();
                 NetCredential credential = new NetCredential();
-                await store.LoadCredentialAsync(credential);
+                (credential.Username, credential.Password) = await CredentialStore.LoadCredentialAsync();
                 InternetStatus status = new InternetStatus();
                 credential.State = await status.SuggestAsync();
                 var helper = credential.GetHelper();

@@ -38,9 +38,7 @@ namespace TsinghuaNet.XF.ViewModels
             Settings = new NetXFSettings();
             Settings.PropertyChanged += OnSettingsPropertyChanged;
             Settings.LoadSettings();
-            var store = new CredentialStore();
-            if (store.CredentialExists())
-                await store.LoadCredentialAsync(Credential);
+            (Credential.Username, Credential.Password) = await CredentialStore.LoadCredentialAsync();
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
         }
@@ -50,8 +48,7 @@ namespace TsinghuaNet.XF.ViewModels
             Settings.SaveSettings();
             if (!string.IsNullOrEmpty(Credential.Username))
             {
-                var store = new CredentialStore();
-                await store.SaveCredentialAsync(Credential);
+                await CredentialStore.SaveCredentialAsync((Credential.Username, Credential.Password));
             }
         }
 
