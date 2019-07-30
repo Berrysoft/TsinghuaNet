@@ -101,6 +101,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderers\ScrollViewFocusRenderer.cs" />
     <Compile Include="Services\BackgroundManager.cs" />
     <Compile Include="Services\InternetStatus.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
