@@ -21,7 +21,7 @@ namespace TsinghuaNet.XF.iOS.Services
             }
         }
 
-        public override void Refresh()
+        protected override void Refresh()
         {
             var profiles = Connectivity.ConnectionProfiles;
             if (profiles.Contains(ConnectionProfile.Cellular))

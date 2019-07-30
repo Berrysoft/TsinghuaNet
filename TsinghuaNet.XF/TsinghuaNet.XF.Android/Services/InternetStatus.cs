@@ -12,7 +12,7 @@ namespace TsinghuaNet.XF.Droid.Services
 {
     public class InternetStatus : NetMapStatus
     {
-        public override void Refresh()
+        protected override void Refresh()
         {
             var profiles = Connectivity.ConnectionProfiles;
             if (profiles.Contains(ConnectionProfile.Cellular))
