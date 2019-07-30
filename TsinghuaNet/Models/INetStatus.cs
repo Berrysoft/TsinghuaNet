@@ -53,14 +53,16 @@ namespace TsinghuaNet.Models
 
         private static async Task<NetState> GetSuggestion()
         {
-            if (await CanConnectTo("auth4.tsinghua.edu.cn"))
-                return NetState.Auth4;
-            else if (await CanConnectTo("net.tsinghua.edu.cn"))
-                return NetState.Net;
-            else if (await CanConnectTo("auth6.tsinghua.edu.cn"))
-                return NetState.Auth6;
-            else
-                return NetState.Unknown;
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                if (await CanConnectTo("auth4.tsinghua.edu.cn"))
+                    return NetState.Auth4;
+                else if (await CanConnectTo("net.tsinghua.edu.cn"))
+                    return NetState.Net;
+                else if (await CanConnectTo("auth6.tsinghua.edu.cn"))
+                    return NetState.Auth6;
+            }
+            return NetState.Unknown;
         }
 
         public void Refresh() { }
