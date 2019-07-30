@@ -19,5 +19,21 @@ namespace TsinghuaNet
 
         public async static ValueTask<ByteSize> SumAsync(this IAsyncEnumerable<ByteSize> source)
             => new ByteSize(await source.SumAsync(s => s.Bytes));
+
+        public static IEnumerable<T> Supplement<T>(this IEnumerable<T> source, int startIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
+            => SupplementIterator(source ?? throw new ArgumentNullException(nameof(source)), startIndex, intSelector, valueSelector);
+
+        private static IEnumerable<T> SupplementIterator<T>(IEnumerable<T> source, int startIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
+        {
+            int lastInt = startIndex - 1;
+            foreach (T value in source)
+            {
+                int currentInt = intSelector(value);
+                while (currentInt - lastInt > 1)
+                    yield return valueSelector(++lastInt);
+                lastInt = currentInt;
+                yield return value;
+            }
+        }
     }
 }

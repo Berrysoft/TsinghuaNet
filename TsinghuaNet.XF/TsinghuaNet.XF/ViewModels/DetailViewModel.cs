@@ -16,6 +16,7 @@ namespace TsinghuaNet.XF.ViewModels
             DailyChart = new LineChart
             {
                 BackgroundColor = SKColors.Transparent,
+                LineMode = LineMode.Straight,
                 IsAnimated = true
             };
             TimeChart = new BarChart
@@ -31,14 +32,23 @@ namespace TsinghuaNet.XF.ViewModels
 
         protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source)
         {
-            TimeChart.Entries = (from p in source group p.Value by p.Key / 6 into g orderby g.Key select new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).Select(DetailsHelper.GetTimeChartEntry);
+            TimeChart.Entries = (from p in source
+                                 group p.Value by p.Key / 6 into g
+                                 orderby g.Key
+                                 select new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
+                                 Supplement(0, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
+                                 Select(DetailsHelper.GetTimeChartEntry);
         }
 
         public LineChart DailyChart { get; set; }
 
         protected override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
-            DailyChart.Entries = source.GetTotalDetails().Select(DetailsHelper.GetDailyChartEntry);
+            DateTime now = DateTime.Now;
+            DailyChart.Entries = source.
+                                 Supplement(1, p => p.Key.Day, d => new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, d), default)).
+                                 GetTotalDetails().
+                                 Select(DetailsHelper.GetDailyChartEntry);
         }
     }
 
@@ -47,15 +57,9 @@ namespace TsinghuaNet.XF.ViewModels
         public static IEnumerable<KeyValuePair<int, ByteSize>> GetTotalDetails(this IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             ByteSize total = default;
-            int current_day = 0;
             foreach (var p in source)
             {
-                for (; p.Key.Day - current_day > 1; current_day++)
-                {
-                    yield return new KeyValuePair<int, ByteSize>(current_day, total);
-                }
                 total += p.Value;
-                current_day = p.Key.Day;
                 yield return new KeyValuePair<int, ByteSize>(p.Key.Day, total);
             }
         }
@@ -69,7 +73,7 @@ namespace TsinghuaNet.XF.ViewModels
 
         public static ChartEntry GetTimeChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
         {
-            Label = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1}",
+            Label = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1} h",
             ValueLabel = p.Value.ToString(),
             Color = App.SystemAccentColor.ToSKColor()
         };
