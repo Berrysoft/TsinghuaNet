@@ -21,9 +21,12 @@ namespace TsinghuaNet
             => new ByteSize(await source.SumAsync(s => s.Bytes));
 
         public static IEnumerable<T> Supplement<T>(this IEnumerable<T> source, int startIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
-            => SupplementIterator(source ?? throw new ArgumentNullException(nameof(source)), startIndex, intSelector, valueSelector);
+            => SupplementIterator(source ?? throw new ArgumentNullException(nameof(source)), startIndex, int.MinValue, intSelector, valueSelector);
 
-        private static IEnumerable<T> SupplementIterator<T>(IEnumerable<T> source, int startIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
+        public static IEnumerable<T> Supplement<T>(this IEnumerable<T> source, int startIndex, int endIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
+            => SupplementIterator(source ?? throw new ArgumentNullException(nameof(source)), startIndex, endIndex, intSelector, valueSelector);
+
+        private static IEnumerable<T> SupplementIterator<T>(IEnumerable<T> source, int startIndex, int endIndex, Func<T, int> intSelector, Func<int, T> valueSelector)
         {
             int lastInt = startIndex - 1;
             foreach (T value in source)
@@ -34,6 +37,8 @@ namespace TsinghuaNet
                 lastInt = currentInt;
                 yield return value;
             }
+            while (lastInt < endIndex)
+                yield return valueSelector(++lastInt);
         }
     }
 }

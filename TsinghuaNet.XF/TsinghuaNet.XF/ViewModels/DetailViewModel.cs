@@ -32,12 +32,12 @@ namespace TsinghuaNet.XF.ViewModels
 
         protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source)
         {
-            TimeChart.Entries = (from p in source
-                                 group p.Value by p.Key / 6 into g
-                                 orderby g.Key
-                                 select new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
-                                 Supplement(0, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
-                                 Select(DetailsHelper.GetTimeChartEntry);
+            TimeChart.Entries = source.
+                                GroupBy(p => p.Key / 6, p => p.Value).
+                                OrderBy(g => g.Key).
+                                Select(g => new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
+                                Supplement(0, 3, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
+                                Select(DetailsHelper.GetTimeChartEntry);
         }
 
         public LineChart DailyChart { get; set; }
