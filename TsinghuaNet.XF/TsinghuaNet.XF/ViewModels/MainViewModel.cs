@@ -30,8 +30,10 @@ namespace TsinghuaNet.XF.ViewModels
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
-            LoadSettings();
         }
+
+        public event EventHandler SettingsLoaded;
+        protected void OnSettingsLoaded(EventArgs e) => SettingsLoaded?.Invoke(this, e);
 
         public override async void LoadSettings()
         {
@@ -41,6 +43,7 @@ namespace TsinghuaNet.XF.ViewModels
             (Credential.Username, Credential.Password) = await CredentialStore.LoadCredentialAsync();
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
+            OnSettingsLoaded(EventArgs.Empty);
         }
 
         public override async void SaveSettings()
@@ -81,6 +84,7 @@ namespace TsinghuaNet.XF.ViewModels
         public float FreeOffset { get; set; }
 
         public event EventHandler Refreshed;
+        protected void OnRefreshed(EventArgs e) => Refreshed?.Invoke(this, e);
 
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
@@ -94,7 +98,7 @@ namespace TsinghuaNet.XF.ViewModels
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = (float)(OnlineUser.Flux / maxf);
             FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
-            Refreshed?.Invoke(this, EventArgs.Empty);
+            OnRefreshed(EventArgs.Empty);
             return res;
         }
 

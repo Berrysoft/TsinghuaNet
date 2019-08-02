@@ -14,25 +14,12 @@ namespace TsinghuaNet.XF.Views
         public InfoPage()
         {
             InitializeComponent();
+            Model.LoadSettings();
         }
 
         private void InfoPage_SizeChanged(object sender, EventArgs e)
         {
             VisualStateManager.GoToState(InfoLayout, Width > Height ? "HorizontalState" : "VerticalState");
-        }
-
-        bool firstAppeared;
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-            if (!firstAppeared)
-            {
-                if (string.IsNullOrEmpty(Model.Credential.Username))
-                {
-                    await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
-                }
-                firstAppeared = true;
-            }
         }
 
         internal void SaveSettings() => Model.SaveSettings();
@@ -74,5 +61,13 @@ namespace TsinghuaNet.XF.Views
         }
 
         private void Model_Refreshed(object sender, EventArgs e) => FluxCanvas.InvalidateSurface();
+
+        private async void Model_SettingsLoaded(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Model.Credential.Username))
+            {
+                await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
+            }
+        }
     }
 }
