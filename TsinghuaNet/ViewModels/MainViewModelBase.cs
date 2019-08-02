@@ -64,6 +64,7 @@ namespace TsinghuaNet.ViewModels
             catch (Exception ex)
             {
                 OnReceivedResponse(new LogResponse(false, ex.Message));
+                Console.WriteLine(ex);
             }
             finally
             {
