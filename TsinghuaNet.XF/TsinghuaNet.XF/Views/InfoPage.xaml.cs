@@ -1,4 +1,5 @@
 ﻿using System;
+using Rg.Plugins.Popup.Services;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
@@ -15,12 +16,24 @@ namespace TsinghuaNet.XF.Views
             InitializeComponent();
         }
 
-        private void AdjustVisualState()
+        private void InfoPage_SizeChanged(object sender, EventArgs e)
         {
             VisualStateManager.GoToState(InfoLayout, Width > Height ? "HorizontalState" : "VerticalState");
         }
-        private void InfoPage_SizeChanged(object sender, EventArgs e) => AdjustVisualState();
 
+        bool firstAppeared;
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            if (!firstAppeared)
+            {
+                if (string.IsNullOrEmpty(Model.Credential.Username))
+                {
+                    await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
+                }
+                firstAppeared = true;
+            }
+        }
 
         internal void SaveSettings() => Model.SaveSettings();
 
