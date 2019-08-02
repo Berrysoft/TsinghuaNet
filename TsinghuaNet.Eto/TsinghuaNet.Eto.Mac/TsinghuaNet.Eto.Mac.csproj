@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <MkBundleArgs>$(MkBundleArgs) --i18n CJK --config $(MonoPath)etc/mono/config --machine-config $(MonoPath)etc/mono/4.5/machine.config</MkBundleArgs>
+    <MonoPath Condition="$(MonoPath) == '' AND $(IsMac) == 'True' AND Exists('/Library/Frameworks/Mono.framework/Versions/Current/')">/Library/Frameworks/Mono.framework/Versions/Current/</MonoPath>
+    <MkBundleArgs Condition="$(MonoPath) != ''">$(MkBundleArgs) --i18n CJK --config $(MonoPath)etc/mono/config --machine-config $(MonoPath)etc/mono/4.5/machine.config</MkBundleArgs>
+    <MkBundleArgs Condition="$(MonoPath) == ''">$(MkBundleArgs) --i18n CJK</MkBundleArgs>
   </PropertyGroup>
 
   <ItemGroup>
