@@ -45,13 +45,14 @@
     <AotAssemblies>true</AotAssemblies>
     <EnableLLVM>true</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <MandroidI18n>CJK</MandroidI18n>
+    <AndroidLinkSkip>SkiaSharp;SkiaSharp.Views.Android;SkiaSharp.Views.Forms;Xamarin.Forms.Core;Xamarin.Forms.DataGrid;Xamarin.Forms.Platform;Xamarin.Forms.Platform.Android;Xamarin.Forms.Xaml;TsinghuaNet.Standard;TsinghuaNet.XF;TsinghuaNet.XF.Android</AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
