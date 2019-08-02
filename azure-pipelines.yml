@@ -258,7 +258,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net472/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
