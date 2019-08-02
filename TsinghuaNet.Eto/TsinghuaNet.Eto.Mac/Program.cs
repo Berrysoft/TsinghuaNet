@@ -10,12 +10,6 @@ namespace TsinghuaNet.Eto.Mac
     {
         static void Main()
         {
-            // https://forums.xamarin.com/discussion/comment/263758/#comment_263758
-            try
-            {
-                Assembly.Load("System.Configuration")?.GetType("System.Configuration.ConfigurationManager")?.GetMethod("GetSection", BindingFlags.Static | BindingFlags.Public)?.Invoke(null, new[] { "configuration" });
-            }
-            catch { }
             var platform = new Platform();
             platform.Add<SortableGridColumn.IHandler>(() => new SortableGridColumnHandler());
             using (App app = new App(platform))
