@@ -12,7 +12,7 @@
     ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="主页" SizeChanged="InfoPage_SizeChanged">
     <ContentPage.BindingContext>
-        <vms:MainViewModel x:Name="Model" Refreshed="Model_Refreshed"/>
+        <vms:MainViewModel x:Name="Model" Refreshed="Model_Refreshed" SettingsLoaded="Model_SettingsLoaded"/>
     </ContentPage.BindingContext>
     <ContentPage.Resources>
         <converters:NetStateInt32Converter x:Key="NetStateInt32Converter"/>

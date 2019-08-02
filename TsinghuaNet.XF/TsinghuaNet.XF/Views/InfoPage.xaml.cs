@@ -1,4 +1,5 @@
 ﻿using System;
+using Rg.Plugins.Popup.Services;
 using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using Xamarin.Essentials;
@@ -13,14 +14,13 @@ namespace TsinghuaNet.XF.Views
         public InfoPage()
         {
             InitializeComponent();
+            Model.LoadSettings();
         }
 
-        private void AdjustVisualState()
+        private void InfoPage_SizeChanged(object sender, EventArgs e)
         {
             VisualStateManager.GoToState(InfoLayout, Width > Height ? "HorizontalState" : "VerticalState");
         }
-        private void InfoPage_SizeChanged(object sender, EventArgs e) => AdjustVisualState();
-
 
         internal void SaveSettings() => Model.SaveSettings();
 
@@ -61,5 +61,13 @@ namespace TsinghuaNet.XF.Views
         }
 
         private void Model_Refreshed(object sender, EventArgs e) => FluxCanvas.InvalidateSurface();
+
+        private async void Model_SettingsLoaded(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Model.Credential.Username))
+            {
+                await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
+            }
+        }
     }
 }

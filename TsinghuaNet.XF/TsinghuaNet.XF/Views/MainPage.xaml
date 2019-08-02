@@ -15,7 +15,7 @@
     </TabbedPage.Resources>
     <TabbedPage.BarBackgroundColor>
         <OnPlatform x:TypeArguments="Color">
-            <On Platform="UWP" Value="{StaticResource SystemAccentColorDark2}"/>
+            <On Platform="UWP" Value="{StaticResource SystemAccentColorDark1}"/>
             <On Platform="Android,iOS" Value="Default"/>
         </OnPlatform>
     </TabbedPage.BarBackgroundColor>

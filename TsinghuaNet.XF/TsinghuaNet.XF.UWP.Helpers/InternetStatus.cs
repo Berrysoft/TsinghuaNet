@@ -5,7 +5,7 @@ namespace TsinghuaNet.XF.UWP.Helpers
 {
     public class InternetStatus : NetMapStatus
     {
-        public override void Refresh()
+        protected override void Refresh()
         {
             var profile = NetworkInformation.GetInternetConnectionProfile();
             if (profile == null)

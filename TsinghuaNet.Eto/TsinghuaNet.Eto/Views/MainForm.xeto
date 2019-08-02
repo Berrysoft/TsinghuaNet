@@ -53,7 +53,7 @@
         </TableRow>
       </TableLayout>
       <StackLayoutItem HorizontalAlignment="Stretch">
-        <TextBox TextAlignment="Center" ReadOnly="True" ShowBorder="False" Text="{Binding Response}"/>
+        <TextBox TextAlignment="Center" ReadOnly="True" BackgroundColor="Transparent" ShowBorder="False" Text="{Binding Response}"/>
       </StackLayoutItem>
     </StackLayout>
     <TableLayout Padding="8" Spacing="8,8">

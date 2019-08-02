@@ -19,7 +19,6 @@ namespace TsinghuaNet.Models
     {
         NetStatus Status { get; set; }
         string Ssid { get; set; }
-        void Refresh();
         Task<NetState> SuggestAsync();
     }
 
@@ -53,17 +52,17 @@ namespace TsinghuaNet.Models
 
         private static async Task<NetState> GetSuggestion()
         {
-            if (await CanConnectTo("auth4.tsinghua.edu.cn"))
-                return NetState.Auth4;
-            else if (await CanConnectTo("net.tsinghua.edu.cn"))
-                return NetState.Net;
-            else if (await CanConnectTo("auth6.tsinghua.edu.cn"))
-                return NetState.Auth6;
-            else
-                return NetState.Unknown;
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                if (await CanConnectTo("auth4.tsinghua.edu.cn"))
+                    return NetState.Auth4;
+                else if (await CanConnectTo("net.tsinghua.edu.cn"))
+                    return NetState.Net;
+                else if (await CanConnectTo("auth6.tsinghua.edu.cn"))
+                    return NetState.Auth6;
+            }
+            return NetState.Unknown;
         }
-
-        public void Refresh() { }
 
         public Task<NetState> SuggestAsync() => GetSuggestion();
     }
@@ -78,7 +77,7 @@ namespace TsinghuaNet.Models
 
         public string Ssid { get; set; }
 
-        public abstract void Refresh();
+        protected abstract void Refresh();
 
         private static readonly Dictionary<string, NetState> SsidStateMap = new Dictionary<string, NetState>()
         {
@@ -91,11 +90,15 @@ namespace TsinghuaNet.Models
 
         public Task<NetState> SuggestAsync()
         {
-            return Task.FromResult(Status switch
+            return Task.Run(() =>
             {
-                NetStatus.Lan => NetState.Auth4,
-                NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
-                _ => NetState.Unknown
+                Refresh();
+                return Status switch
+                {
+                    NetStatus.Lan => NetState.Auth4,
+                    NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
+                    _ => NetState.Unknown
+                };
             });
         }
     }

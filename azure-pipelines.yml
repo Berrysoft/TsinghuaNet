@@ -176,11 +176,14 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishTrimmed=true
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0
     displayName: 'Publish project as netcoreapp3.0'
 
   - script: del build\eto.wpf\netcoreapp3.0\*.pdb
     displayName: 'Remove PDBs'
+
+  - pwsh: ls build\eto.wpf\netcoreapp3.0\ -Exclude zh-Hans -Attributes Directory | rm -Recurse -Force
+    displayName: 'Remove other locale resources'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
@@ -225,7 +228,7 @@ jobs:
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Self.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
@@ -286,15 +289,18 @@ jobs:
     inputs:
       solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp\AppxPackages" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
 
-  - pwsh: rm build/uwp/AppxPackages/*/*/ARM* -Force -Recurse
+  - pwsh: rm build\uwp\*\Dependencies\ARM* -Force -Recurse
     displayName: 'Remove ARM/ARM64 dependencies'
+
+  - pwsh: ls build\uwp\*\Add-AppDevPackage.resources\ -Exclude zh-CN -Attributes Directory | rm -Recurse -Force
+    displayName: 'Remove other locale resources for install script'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\uwp\AppxPackages'
+      rootFolderOrFile: 'build\uwp'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.XF.UWP.zip'

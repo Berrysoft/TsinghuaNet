@@ -2,13 +2,12 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Timers;
-using Plugin.Connectivity;
-using Plugin.Connectivity.Abstractions;
 using PropertyChanged;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
 using TsinghuaNet.XF.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
@@ -30,20 +29,21 @@ namespace TsinghuaNet.XF.ViewModels
             ReceivedResponse += MainViewModel_ReceivedResponse;
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
-            CrossConnectivity.Current.ConnectivityChanged += OnConnectivityChanged;
-            LoadSettings();
+            Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
+
+        public event EventHandler SettingsLoaded;
+        protected void OnSettingsLoaded(EventArgs e) => SettingsLoaded?.Invoke(this, e);
 
         public override async void LoadSettings()
         {
             Settings = new NetXFSettings();
             Settings.PropertyChanged += OnSettingsPropertyChanged;
             Settings.LoadSettings();
-            var store = new CredentialStore();
-            if (store.CredentialExists())
-                await store.LoadCredentialAsync(Credential);
+            (Credential.Username, Credential.Password) = await CredentialStore.LoadCredentialAsync();
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
+            OnSettingsLoaded(EventArgs.Empty);
         }
 
         public override async void SaveSettings()
@@ -51,8 +51,7 @@ namespace TsinghuaNet.XF.ViewModels
             Settings.SaveSettings();
             if (!string.IsNullOrEmpty(Credential.Username))
             {
-                var store = new CredentialStore();
-                await store.SaveCredentialAsync(Credential);
+                await CredentialStore.SaveCredentialAsync((Credential.Username, Credential.Password));
             }
         }
 
@@ -85,6 +84,7 @@ namespace TsinghuaNet.XF.ViewModels
         public float FreeOffset { get; set; }
 
         public event EventHandler Refreshed;
+        protected void OnRefreshed(EventArgs e) => Refreshed?.Invoke(this, e);
 
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
@@ -98,7 +98,7 @@ namespace TsinghuaNet.XF.ViewModels
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = (float)(OnlineUser.Flux / maxf);
             FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
-            Refreshed?.Invoke(this, EventArgs.Empty);
+            OnRefreshed(EventArgs.Empty);
             return res;
         }
 

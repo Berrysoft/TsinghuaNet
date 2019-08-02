@@ -26,8 +26,7 @@ namespace TsinghuaNet.ViewModels
                 Refresh();
         }
 
-        public INetStatus Status { get; set; }
-        private void OnStatusChanged() => RefreshStatus();
+        protected override void OnStatusChanged() => RefreshStatus();
 
         public ICommand RefreshStatusCommand { get; }
         public async void RefreshStatus() => await RefreshStatusAsync();
@@ -36,7 +35,6 @@ namespace TsinghuaNet.ViewModels
             try
             {
                 IsBusy = true;
-                Status.Refresh();
                 Credential.State = await Status.SuggestAsync();
             }
             finally

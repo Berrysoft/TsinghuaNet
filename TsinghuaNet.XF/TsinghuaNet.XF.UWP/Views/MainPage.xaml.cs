@@ -24,7 +24,6 @@ namespace TsinghuaNet.XF.UWP.Views
         {
             var foreground = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
             var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.White;
-            ((PaletteCollection)app.Resources["DataGridBackgroundPalette"])[0] = background;
             ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
             app.Resources["DefaultPageBackground"] = background;
         }

@@ -30,15 +30,23 @@ namespace TsinghuaNet.ViewModels
 
         public async Task RefreshNetUsersAsync()
         {
-            try
+            if (!string.IsNullOrEmpty(Credential.Username))
             {
-                var helper = Credential.GetUseregHelper();
-                await helper.LoginAsync();
-                await RefreshNetUsersAsync(helper);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
+                try
+                {
+                    IsBusy = true;
+                    var helper = Credential.GetUseregHelper();
+                    await helper.LoginAsync();
+                    await RefreshNetUsersAsync(helper);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+                finally
+                {
+                    IsBusy = false;
+                }
             }
         }
 
@@ -78,6 +86,7 @@ namespace TsinghuaNet.ViewModels
         {
             try
             {
+                IsBusy = true;
                 var helper = Credential.GetUseregHelper();
                 await helper.LoginAsync();
                 foreach (var ip in ips)
@@ -87,6 +96,10 @@ namespace TsinghuaNet.ViewModels
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
     }

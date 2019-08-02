@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
+using System.Linq;
 using Foundation;
 using SystemConfiguration;
 using TsinghuaNet.Models;
 using TsinghuaNet.XF.iOS.Services;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 [assembly: Dependency(typeof(InternetStatus))]
@@ -12,25 +13,49 @@ namespace TsinghuaNet.XF.iOS.Services
 {
     public class InternetStatus : NetMapStatus
     {
-        public override void Refresh()
+        private static void CheckStatus(StatusCode code)
         {
-            try
+            if (code != StatusCode.OK || code != StatusCode.KeyExists)
             {
-                var status = CaptiveNetwork.TryCopyCurrentNetworkInfo("en0", out NSDictionary dict);
-                using (dict)
+                throw new SystemException(code.ToString());
+            }
+        }
+
+        protected override void Refresh()
+        {
+            var profiles = Connectivity.ConnectionProfiles;
+            if (profiles.Contains(ConnectionProfile.Cellular))
+            {
+                Status = NetStatus.Wwan;
+            }
+            else if (profiles.Contains(ConnectionProfile.WiFi))
+            {
+                try
                 {
-                    if (status == StatusCode.NoKey)
+                    CheckStatus(CaptiveNetwork.TryGetSupportedInterfaces(out string[] interfaces));
+                    foreach (string name in interfaces)
                     {
-                        Status = NetStatus.Unknown;
-                    }
-                    else
-                    {
-                        Status = NetStatus.Wlan;
-                        Ssid = dict[CaptiveNetwork.NetworkInfoKeySSID].ToString();
+                        CheckStatus(CaptiveNetwork.TryCopyCurrentNetworkInfo("en0", out NSDictionary dict));
+                        using (dict)
+                        {
+                            if (dict.TryGetValue(CaptiveNetwork.NetworkInfoKeySSID, out NSObject ssid))
+                            {
+                                Status = NetStatus.Wlan;
+                                Ssid = ssid.ToString();
+                            }
+                        }
                     }
                 }
+                catch (Exception)
+                {
+                    Status = NetStatus.Unknown;
+                }
             }
-            catch (Exception)
+            else if (profiles.Contains(ConnectionProfile.Ethernet))
+            {
+                Status = NetStatus.Lan;
+            }
+            else
             {
                 Status = NetStatus.Unknown;
             }

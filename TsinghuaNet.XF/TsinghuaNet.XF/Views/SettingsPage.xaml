@@ -17,40 +17,56 @@
     <ContentPage.Resources>
         <ms:DropCommand x:Key="DropCommand" DropUser="DropUser"/>
         <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
+        <converters:NetStatusStringConverter x:Key="NetStatusStringConverter"/>
     </ContentPage.Resources>
-    <ScrollView>
-        <StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Margin="8" Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
-                <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
-                <Label Margin="8" VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
+    <ScrollView Margin="8" IsTabStop="True">
+        <StackLayout Spacing="8">
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <Label Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
+                <Button WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
+                <Label VerticalOptions="Center" Text="{Binding Credential.Username,Mode=OneWay}"/>
             </StackLayout>
-            <Label Margin="8" Style="{DynamicResource SubtitleStyle}">通用设置</Label>
-            <StackLayout Orientation="Horizontal">
-                <Label Margin="8">前台自动登录</Label>
-                <Switch Margin="8,0" IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
+            <Label Style="{DynamicResource SubtitleStyle}">通用设置</Label>
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <Label VerticalOptions="Center">前台自动登录</Label>
+                <Switch IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
-                <Label Margin="8">后台自动登录</Label>
-                <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
+            <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+                <Label VerticalOptions="Center">后台自动登录</Label>
+                <Switch IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding IsUWP}">
-                <Label Margin="8">后台磁贴刷新</Label>
-                <Switch Margin="8,0" IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
+            <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+                <Label VerticalOptions="Center">后台磁贴刷新</Label>
+                <Switch IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Margin="8">流量不足警告</Label>
-                <Switch Margin="8,0" IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <Label VerticalOptions="Center">流量不足警告</Label>
+                <Switch IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
-                <Slider Margin="8" VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
-                <Label Margin="8" VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
+            <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
+                <Slider VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+                <Label VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <Label Margin="8" VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
-                <Button Margin="8,0" WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
+            <Label Style="{DynamicResource SubtitleStyle}">网络状态</Label>
+            <Grid ColumnSpacing="8" RowSpacing="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0">配置</Label>
+                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Status.Status,Mode=OneWay,Converter={StaticResource NetStatusStringConverter}}"/>
+                <Label Grid.Column="0" Grid.Row="1">SSID</Label>
+                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Status.Ssid,Mode=OneWay}"/>
+            </Grid>
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <Label VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
+                <Button WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
             </StackLayout>
-            <ListView Margin="8" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
+            <ListView HeightRequest="320" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
