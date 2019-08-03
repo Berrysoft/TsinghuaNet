@@ -105,7 +105,6 @@
     <Compile Include="Renderers\ScrollViewFocusRenderer.cs" />
     <Compile Include="Renderers\StepSliderRenderer.cs" />
     <Compile Include="Services\BackgroundManager.cs" />
-    <Compile Include="Services\InternetStatus.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

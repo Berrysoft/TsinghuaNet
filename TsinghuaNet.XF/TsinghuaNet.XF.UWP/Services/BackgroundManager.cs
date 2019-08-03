@@ -3,11 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Toolkit.Uwp.Helpers;
 using TsinghuaNet.XF.Services;
 using TsinghuaNet.XF.UWP.Background;
-using TsinghuaNet.XF.UWP.Services;
 using Windows.ApplicationModel.Background;
-using Xamarin.Forms;
-
-[assembly: Dependency(typeof(BackgroundManager))]
 
 namespace TsinghuaNet.XF.UWP.Services
 {

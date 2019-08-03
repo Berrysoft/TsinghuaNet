@@ -8,6 +8,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using xf = Xamarin.Forms;
 
 namespace TsinghuaNet.XF.UWP
 {
@@ -48,9 +49,9 @@ namespace TsinghuaNet.XF.UWP
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Popup.Init();
-                Xamarin.Forms.Forms.Init(args, Popup.GetExtraAssemblies());
-                Xamarin.Forms.DependencyService.Register<InternetStatus>();
-                Xamarin.Forms.DependencyService.Register<BackgroundManager>();
+                xf.Forms.Init(args, Popup.GetExtraAssemblies());
+                xf.DependencyService.Register<InternetStatus>();
+                xf.DependencyService.Register<BackgroundManager>();
 
                 // 将框架放在当前窗口中
                 Window.Current.Content = rootFrame;
