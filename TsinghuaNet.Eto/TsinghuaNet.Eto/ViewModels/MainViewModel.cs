@@ -69,8 +69,9 @@ namespace TsinghuaNet.Eto.ViewModels
             OnlineTime = OnlineUser.OnlineTime;
             if (Settings.UseTimer && !string.IsNullOrEmpty(OnlineUser.Username))
                 timer.Start();
-            if (Settings.EnableFluxLimit && OnlineUser.Flux > Settings.FluxLimit)
-                res = new LogResponse(false, $"流量已使用超过{Settings.FluxLimit}");
+            var remainFlux = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance) - OnlineUser.Flux;
+            if (Settings.EnableFluxLimit && remainFlux < Settings.FluxLimit)
+                res = new LogResponse(false, $"流量仅剩余{remainFlux}");
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = (float)(OnlineUser.Flux / maxf);
             FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
