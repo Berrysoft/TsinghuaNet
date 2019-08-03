@@ -26,7 +26,6 @@ namespace TsinghuaNet.XF.ViewModels
         public MainViewModel() : base()
         {
             Status = DependencyService.Get<INetStatus>();
-            ReceivedResponse += MainViewModel_ReceivedResponse;
             mainTimer.Interval = 1000;
             mainTimer.Elapsed += MainTimerTick;
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
@@ -93,9 +92,6 @@ namespace TsinghuaNet.XF.ViewModels
             OnlineTime = OnlineUser.OnlineTime;
             if (!string.IsNullOrEmpty(OnlineUser.Username))
                 mainTimer.Start();
-            var remainFlux = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance) - OnlineUser.Flux;
-            if (Settings.EnableFluxLimit && remainFlux < Settings.FluxLimit)
-                res = new LogResponse(false, $"流量仅剩余{remainFlux}");
             var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
             FluxOffset = (float)(OnlineUser.Flux / maxf);
             FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
@@ -104,7 +100,5 @@ namespace TsinghuaNet.XF.ViewModels
         }
 
         private void MainTimerTick(object sender, ElapsedEventArgs e) => OnlineTime += TimeSpan.FromSeconds(1);
-
-        private void MainViewModel_ReceivedResponse(object sender, LogResponse e) => Response = e.Message;
     }
 }

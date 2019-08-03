@@ -14,7 +14,6 @@ namespace TsinghuaNet.Eto.ViewModels
         public MainViewModel() : base()
         {
             Status = new NetPingStatus();
-            ReceivedResponse += Model_ReceivedResponse;
             timer = new UITimer(OnlineTimerTick);
             timer.Interval = 1;
             LoadSettings();
@@ -64,12 +63,7 @@ namespace TsinghuaNet.Eto.ViewModels
             OnlineTime = OnlineUser.OnlineTime;
             if (Settings.UseTimer && !string.IsNullOrEmpty(OnlineUser.Username))
                 timer.Start();
-            var remainFlux = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance) - OnlineUser.Flux;
-            if (Settings.EnableFluxLimit && remainFlux < Settings.FluxLimit)
-                res = new LogResponse(false, $"流量仅剩余{remainFlux}");
             return res;
         }
-
-        private void Model_ReceivedResponse(object sender, LogResponse res) => Response = res.Message;
     }
 }

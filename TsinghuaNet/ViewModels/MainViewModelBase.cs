@@ -49,21 +49,17 @@ namespace TsinghuaNet.ViewModels
 
         public string Response { get; set; }
 
-        public event EventHandler<LogResponse> ReceivedResponse;
-
-        protected virtual void OnReceivedResponse(LogResponse res) => ReceivedResponse?.Invoke(this, res);
-
         internal async Task NetCommandExecuteAsync(Func<IConnect, Task<LogResponse>> executor)
         {
             try
             {
                 IsBusy = true;
                 var helper = Credential.GetHelper();
-                OnReceivedResponse(await executor(helper));
+                Response = (await executor(helper)).Message;
             }
             catch (Exception ex)
             {
-                OnReceivedResponse(new LogResponse(false, ex.Message));
+                Response = ex.Message;
                 Console.WriteLine(ex);
             }
             finally
@@ -111,7 +107,11 @@ namespace TsinghuaNet.ViewModels
             if (helper != null)
                 user = await helper.GetFluxAsync();
             OnlineUser = user;
-            return new LogResponse(true, string.Empty);
+            var remainFlux = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance) - OnlineUser.Flux;
+            if (Settings.EnableFluxLimit && remainFlux < Settings.FluxLimit)
+                return new LogResponse(false, $"流量仅剩余{remainFlux}");
+            else
+                return new LogResponse(true, string.Empty);
         }
         public Task RefreshAsync() => NetCommandExecuteAsync(RefreshAsync);
         public async void Refresh() => await RefreshAsync();
