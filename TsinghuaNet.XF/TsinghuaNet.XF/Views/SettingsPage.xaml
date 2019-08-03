@@ -44,8 +44,10 @@
                 <Switch IsToggled="{Binding Settings.EnableFluxLimit,Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
+                <Label VerticalOptions="Center">在流量不足</Label>
                 <Slider VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
                 <Label VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
+                <Label VerticalOptions="Center">后警告</Label>
             </StackLayout>
             <Label Style="{DynamicResource SubtitleStyle}">网络状态</Label>
             <Grid ColumnSpacing="8" RowSpacing="8">

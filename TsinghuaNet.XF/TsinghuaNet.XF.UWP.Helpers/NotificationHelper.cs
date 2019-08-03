@@ -80,10 +80,11 @@ namespace TsinghuaNet.XF.UWP.Helpers
 
         public static void SendWarningToast(FluxUser user, ByteSize limit)
         {
-            if (user.Flux > limit)
+            var remainFlux = FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux;
+            if (remainFlux < limit)
             {
                 XmlDocument dom = new XmlDocument();
-                dom.LoadXml(string.Format(zhCulture, toastWarningText, user.Username, user.Flux, FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux));
+                dom.LoadXml(string.Format(zhCulture, toastWarningText, user.Username, user.Flux, remainFlux));
                 ToastNotification notification = new ToastNotification(dom);
                 notification.ExpirationTime = DateTimeOffset.Now + TimeSpan.FromMinutes(1);
                 ToastNotificationManager.CreateToastNotifier().Show(notification);
