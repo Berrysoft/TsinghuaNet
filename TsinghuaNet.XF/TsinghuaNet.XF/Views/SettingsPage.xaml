@@ -3,6 +3,7 @@
     x:Class="TsinghuaNet.XF.Views.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:TsinghuaNet.XF.Controls"
     xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:ms="using:TsinghuaNet.XF.Models"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
@@ -45,8 +46,8 @@
             </StackLayout>
             <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding Settings.EnableFluxLimit,Mode=OneWay}">
                 <Label VerticalOptions="Center">在流量不足</Label>
-                <Slider VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
-                <Label VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F2}'}"/>
+                <controls:StepSlider VerticalOptions="Center" HorizontalOptions="FillAndExpand" Minimum="0" Maximum="30" Steps="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
+                <Label VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F0}'}"/>
                 <Label VerticalOptions="Center">后警告</Label>
             </StackLayout>
             <Label Style="{DynamicResource SubtitleStyle}">网络状态</Label>

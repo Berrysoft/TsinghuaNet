@@ -78,6 +78,7 @@
     <Compile Include="Background\AppWidget.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Renderers\ListViewRefreshingRenderer.cs" />
+    <Compile Include="Renderers\StepSliderRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\BackgroundManager.cs" />
