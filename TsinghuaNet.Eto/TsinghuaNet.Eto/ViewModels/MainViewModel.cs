@@ -57,11 +57,6 @@ namespace TsinghuaNet.Eto.ViewModels
             OnlineTime += TimeSpan.FromSeconds(1);
         }
 
-        public float FluxOffset { get; set; }
-        public float FreeOffset { get; set; }
-
-        public event EventHandler Refreshed;
-
         protected override async Task<LogResponse> RefreshAsync(IConnect helper)
         {
             var res = await base.RefreshAsync(helper);
@@ -72,10 +67,6 @@ namespace TsinghuaNet.Eto.ViewModels
             var remainFlux = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance) - OnlineUser.Flux;
             if (Settings.EnableFluxLimit && remainFlux < Settings.FluxLimit)
                 res = new LogResponse(false, $"流量仅剩余{remainFlux}");
-            var maxf = FluxHelper.GetMaxFlux(OnlineUser.Flux, OnlineUser.Balance);
-            FluxOffset = (float)(OnlineUser.Flux / maxf);
-            FreeOffset = (float)Math.Max(FluxHelper.BaseFlux / maxf, FluxOffset);
-            Refreshed?.Invoke(this, EventArgs.Empty);
             return res;
         }
 
