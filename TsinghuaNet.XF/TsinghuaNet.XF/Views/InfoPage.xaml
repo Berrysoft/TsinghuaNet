@@ -34,7 +34,7 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <skiaforms:SKCanvasView x:Name="FluxCanvas" PaintSurface="OnCanvasViewPaintSurface"/>
+                <skiaforms:SKCanvasView x:Name="FluxCanvas" Margin="8" PaintSurface="OnCanvasViewPaintSurface"/>
                 <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
             </Grid>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical" Spacing="8">
