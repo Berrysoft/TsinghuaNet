@@ -27,8 +27,7 @@ namespace TsinghuaNet.Eto.ViewModels
             new PackageBox("Portable.Xaml", "MIT"),
             new PackageBox("PropertyChanged.Fody", "MIT"),
             new PackageBox("Refractored.MvvmHelpers", "MIT"),
-            new PackageBox("SkiaSharp","MIT"),
-            new PackageBox("System.Linq.Async","Apache-2.0")
+            new PackageBox("System.Linq.Async", "Apache-2.0")
         };
 
         public Version Version => Assembly.GetExecutingAssembly().GetName().Version;

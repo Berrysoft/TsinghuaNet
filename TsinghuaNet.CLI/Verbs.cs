@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using CommandLine;
 using CommandLine.Text;
@@ -282,6 +283,34 @@ namespace TsinghuaNet.CLI
                 {
                     Console.WriteLine("已删除");
                 }
+            }
+        });
+    }
+
+    [Verb("about", HelpText = "关于本客户端")]
+    class AboutVerb : VerbBase
+    {
+        private static readonly List<PackageBox> Packages = new List<PackageBox>
+        {
+            new PackageBox("CommandLineParser", "MIT"),
+            new PackageBox("Fody", "MIT"),
+            new PackageBox("HtmlAgilityPack", "MIT"),
+            new PackageBox("PropertyChanged.Fody", "MIT"),
+            new PackageBox("System.Linq.Async", "Apache-2.0")
+        };
+
+        public override Task RunAsync() => Task.Run(() =>
+        {
+            Console.WriteLine("清华大学校园网客户端");
+            Console.WriteLine("TsinghuaNet.CLI");
+            Console.WriteLine(Assembly.GetExecutingAssembly().GetCustomAttribute<AssemblyCopyrightAttribute>().Copyright);
+            Console.WriteLine();
+            Console.WriteLine("使用的开源库：");
+            Console.WriteLine("|         名称         |  开源许可  |");
+            Console.WriteLine(new string('=', 37));
+            foreach (var p in Packages)
+            {
+                Console.WriteLine("| {0,-20} | {1,-10} |", p.Name, p.License);
             }
         });
     }

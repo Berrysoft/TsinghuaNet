@@ -36,7 +36,7 @@
                 <Label Text="{Binding Version,Converter={StaticResource StringFormatConverter}}"/>
                 <LinkButton Click="ShowRepo">项目地址</LinkButton>
               </StackLayout>
-              <Label>第三方开源库：</Label>
+              <Label>使用的开源库：</Label>
             </StackLayout>
           </TableRow>
           <TableRow>
