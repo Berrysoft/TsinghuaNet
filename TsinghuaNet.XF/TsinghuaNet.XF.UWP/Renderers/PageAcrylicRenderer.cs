@@ -1,4 +1,5 @@
 ﻿using TsinghuaNet.XF.UWP.Renderers;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
@@ -29,18 +30,21 @@ namespace TsinghuaNet.XF.UWP.Renderers
 
     public class TabbedPageAcrylicRenderer : TabbedPageRenderer
     {
-        bool eventAdded;
-
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
         {
             base.OnElementChanged(e);
-            if (!eventAdded)
+            if (e.NewElement != null)
             {
-                Control.ActualThemeChanged += (sender, args) => ChangeBackground();
-                eventAdded = true;
+                Control.ActualThemeChanged += OnActualThemeChanged;
+            }
+            else
+            {
+                Control.ActualThemeChanged -= OnActualThemeChanged;
             }
             ChangeBackground();
         }
+
+        private void OnActualThemeChanged(FrameworkElement sender, object e) => ChangeBackground();
 
         private void ChangeBackground()
         {
