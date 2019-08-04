@@ -22,7 +22,7 @@
                 <controls:HyperlinkLabel NavigateUri="https://github.com/Berrysoft/TsinghuaNet">项目地址</controls:HyperlinkLabel>
             </StackLayout>
             <Label>版权所有 © 2018-2019 Berrysoft</Label>
-            <Label Style="{DynamicResource SubtitleStyle}">第三方开源库</Label>
+            <Label Style="{DynamicResource SubtitleStyle}">使用的开源库</Label>
             <dg:DataGrid ItemsSource="{Binding Packages}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
                 <dg:DataGrid.HeaderFontSize>
                     <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>

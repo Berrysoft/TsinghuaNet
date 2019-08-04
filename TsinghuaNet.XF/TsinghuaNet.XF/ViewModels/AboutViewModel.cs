@@ -17,6 +17,7 @@ namespace TsinghuaNet.XF.ViewModels
             new PackageBox("Microcharts", "MIT"),
             new PackageBox("PropertyChanged.Fody", "MIT"),
             new PackageBox("Rg.Plugins.Popup", "MIT"),
+            new PackageBox("SkiaSharp", "MIT"),
             new PackageBox("System.Linq.Async","Apache-2.0"),
             new PackageBox("Xamarin.Forms.DataGrid", "MIT")
         };
