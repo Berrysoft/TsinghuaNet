@@ -21,7 +21,7 @@
         <converters:NetStatusStringConverter x:Key="NetStatusStringConverter"/>
     </ContentPage.Resources>
     <ScrollView Margin="8" IsTabStop="True">
-        <StackLayout Spacing="8">
+        <StackLayout Spacing="16">
             <StackLayout Spacing="8" Orientation="Horizontal">
                 <Label Style="{DynamicResource SubtitleStyle}" VerticalOptions="Center">当前用户</Label>
                 <Button WidthRequest="100" VerticalOptions="Center" Clicked="ShowChangeUser" Text="更改用户"/>
@@ -51,7 +51,7 @@
                 <Label VerticalOptions="Center">后警告</Label>
             </StackLayout>
             <Label Style="{DynamicResource SubtitleStyle}">网络状态</Label>
-            <Grid ColumnSpacing="8" RowSpacing="8">
+            <Grid ColumnSpacing="8" RowSpacing="16">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition/>
