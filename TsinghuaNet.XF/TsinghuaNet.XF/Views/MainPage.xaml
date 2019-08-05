@@ -6,25 +6,14 @@
     xmlns:local="using:TsinghuaNet.XF.Views"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
+    mc:Ignorable="d" windows:TabbedPage.HeaderIconsEnabled="False">
     <TabbedPage.Resources>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
             <On Platform="UWP,iOS">Segoe MDL2 Assets</On>
             <On Platform="Android">segmdl2.ttf#Segoe MDL2 Assets</On>
         </OnPlatform>
     </TabbedPage.Resources>
-    <TabbedPage.BarBackgroundColor>
-        <OnPlatform x:TypeArguments="Color">
-            <On Platform="UWP" Value="{StaticResource SystemAccentColorDark1}"/>
-            <On Platform="Android,iOS" Value="Default"/>
-        </OnPlatform>
-    </TabbedPage.BarBackgroundColor>
-    <TabbedPage.BarTextColor>
-        <OnPlatform x:TypeArguments="Color">
-            <On Platform="UWP" Value="White"/>
-            <On Platform="Android,iOS" Value="Default"/>
-        </OnPlatform>
-    </TabbedPage.BarTextColor>
     <local:InfoPage>
         <local:InfoPage.IconImageSource>
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;"/>
