@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
         xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
         xmlns:controls="clr-namespace:TsinghuaNet.Eto.Controls"
-        Width="400" Height="360" Resizable="True" Title="设置" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
+        Width="440" Height="360" Resizable="True" Title="设置" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <converters:FluxLimitConverter x:Key="FluxLimitConverter"/>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>

@@ -30,11 +30,11 @@
   <StackLayout Orientation="Vertical" HorizontalContentAlignment="Center" Padding="16">
     <EnumRadioButtonList x:TypeArguments="net:NetState" x:Name="NetStateList" Orientation="Horizontal" Padding="8" Spacing="16,0" AddValue="NetStateList_AddValue" SelectedValue="{Binding Credential.State}"/>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
-      <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">用户名：</Label>
+      <Label TextAlignment="Right" VerticalAlignment="Center" Width="80">用户名：</Label>
       <TextBox Width="160" Text="{Binding Credential.Username,Mode=TwoWay}"/>
     </StackLayout>
     <StackLayout Orientation="Horizontal" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="8">
-      <Label TextAlignment="Right" VerticalAlignment="Center" Width="60">密码：</Label>
+      <Label TextAlignment="Right" VerticalAlignment="Center" Width="80">密码：</Label>
       <PasswordBox Width="160" Text="{Binding Credential.Password,Mode=TwoWay}"/>
     </StackLayout>
     <StackLayout Orientation="Vertical">

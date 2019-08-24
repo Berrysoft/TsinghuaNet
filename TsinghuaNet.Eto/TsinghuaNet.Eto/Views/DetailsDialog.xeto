@@ -4,7 +4,7 @@
         xmlns:local="clr-namespace:TsinghuaNet.Eto.Views"
         xmlns:converters="clr-namespace:TsinghuaNet.Eto.Converters"
         xmlns:controls="clr-namespace:TsinghuaNet.Eto.Controls"
-        Width="440" Height="400" Resizable="True" Title="流量明细" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
+        Width="480" Height="400" Resizable="True" Title="流量明细" Icon="{Resource TsinghuaNet.Eto.SmallLogo.ico}">
   <Dialog.Properties>
     <converters:StringFormatConverter x:Key="StringFormatConverter"/>
   </Dialog.Properties>
