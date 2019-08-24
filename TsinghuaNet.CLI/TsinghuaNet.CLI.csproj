@@ -24,8 +24,8 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-    <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.6.build.801" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19370.4" />
+    <PackageReference Include="System.Linq.Async" Version="4.0.0-preview.8.build.9" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19405.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0-beta.1" />
+    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.0-rc.4" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19370.4" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0-preview8.19405.3" />
   </ItemGroup>
 
   <ItemGroup>

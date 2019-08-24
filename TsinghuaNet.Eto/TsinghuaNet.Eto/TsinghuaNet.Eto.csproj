@@ -20,18 +20,18 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Forms" Version="2.5.0-beta.1" />
-    <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.0-beta.1" />
-    <PackageReference Include="Fody" Version="5.1.1">
+    <PackageReference Include="Eto.Forms" Version="2.5.0-rc.4" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.0-rc.4" />
+    <PackageReference Include="Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
-    <PackageReference Include="Refractored.MvvmHelpers" Version="1.4.1-beta" />
+    <PackageReference Include="PropertyChanged.Fody" Version="3.1.0" />
+    <PackageReference Include="Refractored.MvvmHelpers" Version="1.5.0-beta" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19370.4" />
+    <PackageReference Include="System.Text.Json" Version="4.6.0-preview8.19405.3" />
   </ItemGroup>
 
   <ItemGroup>
