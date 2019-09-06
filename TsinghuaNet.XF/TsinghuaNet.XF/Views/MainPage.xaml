@@ -19,6 +19,11 @@
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;"/>
         </local:InfoPage.IconImageSource>
     </local:InfoPage>
+    <local:ChartPage>
+        <local:ChartPage.IconImageSource>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE14C;"/>
+        </local:ChartPage.IconImageSource>
+    </local:ChartPage>
     <local:DetailPage>
         <local:DetailPage.IconImageSource>
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE14C;"/>

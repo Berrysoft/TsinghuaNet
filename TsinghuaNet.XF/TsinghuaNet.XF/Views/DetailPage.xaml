@@ -5,33 +5,26 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
     xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
-    xmlns:microchartsforms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     ios:Page.UseSafeArea="true"
     mc:Ignorable="d" Title="明细">
     <ContentPage.BindingContext>
-        <vms:DetailViewModel x:Name="Model"/>
+        <vms:SeparateDetailViewModel x:Name="Model"/>
     </ContentPage.BindingContext>
-    <ScrollView Margin="8" IsTabStop="True">
-        <StackLayout Spacing="8">
-            <Button Command="{Binding RefreshCommand}" Text="刷新"/>
-            <Label HorizontalOptions="Center">按日统计</Label>
-            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding DailyChart}"/>
-            <Label HorizontalOptions="Center">按时段统计</Label>
-            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding TimeChart}"/>
-            <Label HorizontalOptions="Center">详细数据</Label>
-            <dg:DataGrid HeightRequest="300" ItemsSource="{Binding InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding RefreshCommand}" IsRefreshing="{Binding IsBusy, Mode=OneWay}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
-                <dg:DataGrid.HeaderFontSize>
-                    <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
-                </dg:DataGrid.HeaderFontSize>
-                <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime" StringFormat="{}{0}"/>
-                    <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime" StringFormat="{}{0}"/>
-                    <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
-                </dg:DataGrid.Columns>
-            </dg:DataGrid>
-        </StackLayout>
-    </ScrollView>
+    <StackLayout Spacing="8">
+        <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
+        <Label HorizontalOptions="Center">详细数据</Label>
+        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding ViewModel.InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding ViewModel.RefreshCommand}" IsRefreshing="{Binding ViewModel.IsBusy, Mode=OneWay}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
+            <dg:DataGrid.HeaderFontSize>
+                <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
+            </dg:DataGrid.HeaderFontSize>
+            <dg:DataGrid.Columns>
+                <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime" StringFormat="{}{0}"/>
+                <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime" StringFormat="{}{0}"/>
+                <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </StackLayout>
 </ContentPage>

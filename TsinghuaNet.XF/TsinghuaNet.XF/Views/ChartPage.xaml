@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    x:Class="TsinghuaNet.XF.Views.ChartPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
+    xmlns:microchartsforms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    ios:Page.UseSafeArea="true"
+    mc:Ignorable="d" Title="统计">
+    <ContentPage.BindingContext>
+        <vms:SeparateDetailViewModel x:Name="Model"/>
+    </ContentPage.BindingContext>
+    <ScrollView Margin="8" IsTabStop="True">
+        <StackLayout Spacing="8">
+            <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
+            <Label HorizontalOptions="Center">按日统计</Label>
+            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding ViewModel.DailyChart}"/>
+            <Label HorizontalOptions="Center">按时段统计</Label>
+            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding ViewModel.TimeChart}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
