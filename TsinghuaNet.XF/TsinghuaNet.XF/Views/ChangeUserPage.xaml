@@ -15,7 +15,7 @@
     <pages:PopupPage.Animation>
         <animations:ScaleAnimation PositionIn="Center" PositionOut="Center" ScaleIn="0.8" ScaleOut="0.8" EasingIn="CubicIn" EasingOut="CubicOut" HasBackgroundAnimation="True"/>
     </pages:PopupPage.Animation>
-    <Frame HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{StaticResource DefaultPageBackground}">
+    <Frame HorizontalOptions="Center" VerticalOptions="Center">
         <StackLayout Orientation="Vertical" Padding="8">
             <Entry Margin="8" WidthRequest="200" Placeholder="用户名" Text="{Binding NewUsername,Mode=TwoWay}"/>
             <Entry Margin="8" WidthRequest="200" Placeholder="密码" IsPassword="true" Text="{Binding NewPassword,Mode=TwoWay}"/>
