@@ -21,7 +21,7 @@
     </local:InfoPage>
     <local:ChartPage>
         <local:ChartPage.IconImageSource>
-            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE14C;"/>
+            <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE9D2;"/>
         </local:ChartPage.IconImageSource>
     </local:ChartPage>
     <local:DetailPage>

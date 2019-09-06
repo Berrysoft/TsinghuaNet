@@ -15,7 +15,6 @@
     </ContentPage.BindingContext>
     <StackLayout Spacing="8">
         <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
-        <Label HorizontalOptions="Center">详细数据</Label>
         <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding ViewModel.InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding ViewModel.RefreshCommand}" IsRefreshing="{Binding ViewModel.IsBusy, Mode=OneWay}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
             <dg:DataGrid.HeaderFontSize>
                 <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
