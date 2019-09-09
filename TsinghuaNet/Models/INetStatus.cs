@@ -85,6 +85,7 @@ namespace TsinghuaNet.Models
             ["Tsinghua-5G"] = NetState.Net,
             ["Tsinghua-IPv4"] = NetState.Auth4,
             ["Tsinghua-IPv6"] = NetState.Auth6,
+            ["Tsinghua-Secure"] = NetState.Net,
             ["Wifi.郑裕彤讲堂"] = NetState.Net
         };
 
