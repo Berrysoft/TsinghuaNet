@@ -297,7 +297,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
     env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/3.0.100-rc1-014190/Sdks
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: MSBuild@1
     displayName: 'Build app bundle'
@@ -305,6 +305,8 @@ jobs:
       solution: '$(uwpProject)'
       configuration: 'Release'
       msbuildArguments: '/p:AppxBundlePlatforms="x86|x64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - pwsh: rm build\uwp\*\Dependencies\ARM* -Force -Recurse
     displayName: 'Remove ARM/ARM64 dependencies'
@@ -351,7 +353,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
     env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/3.0.100-rc1-014190/Sdks
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: MSBuild@1
     displayName: 'Build apk'
@@ -359,6 +361,8 @@ jobs:
       solution: '$(droidProject)'
       configuration: 'Release'
       msbuildArguments: '/r /t:SignAndroidPackage /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: CopyFiles@2
     displayName: 'Publish Android Binaries'
