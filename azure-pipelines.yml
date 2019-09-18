@@ -279,9 +279,9 @@ jobs:
     vmImage: 'windows-2019'
   steps:
   - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet 5.1.0'
+    displayName: 'Install NuGet 5.2.0'
     inputs:
-      versionSpec: '5.1.0'
+      versionSpec: '5.2.0'
   
   - task: NuGetCommand@2
     displayName: 'Restore solution'
@@ -325,9 +325,9 @@ jobs:
     AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r16b
   steps:
   - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet 5.1.0'
+    displayName: 'Install NuGet 5.2.0'
     inputs:
-      versionSpec: '5.1.0'
+      versionSpec: '5.2.0'
 
   - task: NuGetCommand@2
     displayName: 'Restore solution'
