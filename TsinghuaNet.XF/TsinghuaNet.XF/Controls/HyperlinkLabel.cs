@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Controls
@@ -16,7 +17,7 @@ namespace TsinghuaNet.XF.Controls
         public HyperlinkLabel() : base()
         {
             TextColor = App.SystemAccentColor;
-            GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(() => Device.OpenUri(new Uri(NavigateUri))) });
+            GestureRecognizers.Add(new TapGestureRecognizer { Command = new Command(async () => await Launcher.OpenAsync(new Uri(NavigateUri))) });
         }
     }
 }

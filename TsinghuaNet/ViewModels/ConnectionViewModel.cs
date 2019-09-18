@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using MvvmHelpers;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.ViewModels
@@ -14,12 +14,12 @@ namespace TsinghuaNet.ViewModels
     {
         public ConnectionViewModel()
         {
-            NetUsers = new ObservableCollection<NetUser>();
+            NetUsers = new ObservableRangeCollection<NetUser>();
             RefreshCommand = new Command(this, RefreshNetUsers);
             RefreshNetUsers();
         }
 
-        public ObservableCollection<NetUser> NetUsers { get; }
+        public ObservableRangeCollection<NetUser> NetUsers { get; }
 
         public ICommand RefreshCommand { get; }
 
@@ -75,9 +75,7 @@ namespace TsinghuaNet.ViewModels
                 continue_while:;
             }
             // 最后添加新增元素
-            // 判断大小以防止索引错误
-            foreach (var user in users)
-                usersmodel.Add(user);
+            usersmodel.AddRange(users);
         }
 
         public Task DropAsync(params IPAddress[] ips) => DropAsync(ips.AsEnumerable());
