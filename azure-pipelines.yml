@@ -3,6 +3,7 @@ trigger:
 
 variables:
   sdkVersion: '3.0.100-rc1-014190'
+  solution: 'TsinghuaNet.sln'
   xfSolution: 'TsinghuaNet.XF.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
@@ -286,7 +287,7 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'Restore solution'
     inputs:
-      restoreSolution: '$(xfSolution)'
+      restoreSolution: '$(solution)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
@@ -332,7 +333,7 @@ jobs:
   - task: NuGetCommand@2
     displayName: 'Restore solution'
     inputs:
-      restoreSolution: '$(xfSolution)'
+      restoreSolution: '$(solution)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
 
