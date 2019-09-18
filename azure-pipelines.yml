@@ -18,9 +18,10 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
@@ -57,9 +58,10 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
@@ -107,9 +109,10 @@ jobs:
   pool:
     vmImage: 'macOS-10.14'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
@@ -149,9 +152,10 @@ jobs:
   pool:
     vmImage: 'windows-2019'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
@@ -202,9 +206,10 @@ jobs:
   pool:
     vmImage: 'ubuntu-16.04'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
@@ -239,9 +244,10 @@ jobs:
   pool:
     vmImage: 'macOS-10.14'
   steps:
-  - task: DotNetCoreInstaller@0
+  - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
     inputs:
+      packageType: sdk
       version: '$(sdkVersion)'
 
   - task: DotNetCoreCLI@2
