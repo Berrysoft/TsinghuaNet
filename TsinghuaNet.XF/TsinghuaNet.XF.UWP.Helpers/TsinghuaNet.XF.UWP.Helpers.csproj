@@ -131,9 +131,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
       <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>
-      <Name>TsinghuaNet.Standard</Name>
+      <Name>TsinghuaNet</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

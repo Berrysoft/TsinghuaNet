@@ -4,7 +4,6 @@ trigger:
 variables:
   sdkVersion: '3.0.100-rc1-014190'
   solution: 'TsinghuaNet.sln'
-  xfSolution: 'TsinghuaNet.XF.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   etoProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto/TsinghuaNet.Eto.csproj'

@@ -146,9 +146,9 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
       <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>
-      <Name>TsinghuaNet.Standard</Name>
+      <Name>TsinghuaNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.XF.UWP.Background\TsinghuaNet.XF.UWP.Background.csproj">
       <Project>{ee8d2350-dbf1-4f68-8c6f-4009144ef402}</Project>

@@ -52,7 +52,7 @@
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
     <AndroidSupportedAbis>armeabi-v7a;arm64-v8a</AndroidSupportedAbis>
     <MandroidI18n>CJK</MandroidI18n>
-    <AndroidLinkSkip>SkiaSharp;SkiaSharp.Views.Android;SkiaSharp.Views.Forms;Xamarin.Forms.Core;Xamarin.Forms.DataGrid;Xamarin.Forms.Platform;Xamarin.Forms.Platform.Android;Xamarin.Forms.Xaml;TsinghuaNet.Standard;TsinghuaNet.XF;TsinghuaNet.XF.Android</AndroidLinkSkip>
+    <AndroidLinkSkip>SkiaSharp;SkiaSharp.Views.Android;SkiaSharp.Views.Forms;Xamarin.Forms.Core;Xamarin.Forms.DataGrid;Xamarin.Forms.Platform;Xamarin.Forms.Platform.Android;Xamarin.Forms.Xaml;TsinghuaNet;TsinghuaNet.XF;TsinghuaNet.XF.Android</AndroidLinkSkip>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
@@ -104,9 +104,9 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
       <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>
-      <Name>TsinghuaNet.Standard</Name>
+      <Name>TsinghuaNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.XF\TsinghuaNet.XF.csproj">
       <Project>{E70838B5-7B0C-40F9-80F3-68BA3C26F781}</Project>

@@ -145,9 +145,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.Standard.csproj">
+    <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
       <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>
-      <Name>TsinghuaNet.Standard</Name>
+      <Name>TsinghuaNet</Name>
     </ProjectReference>
     <ProjectReference Include="..\TsinghuaNet.XF\TsinghuaNet.XF.csproj">
       <Project>{7EE8356F-FE16-4CDC-82D0-02D10804DCDC}</Project>

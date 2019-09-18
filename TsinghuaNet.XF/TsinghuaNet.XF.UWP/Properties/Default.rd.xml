@@ -8,7 +8,7 @@
     <Assembly Name="Xamarin.Forms.Platform" Dynamic="Required All" />
     <Assembly Name="Xamarin.Forms.Platform.UAP" Dynamic="Required All" />
     <Assembly Name="Xamarin.Forms.Xaml" Dynamic="Required All" />
-    <Assembly Name="TsinghuaNet.Standard">
+    <Assembly Name="TsinghuaNet">
       <Namespace Name="TsinghuaNet.Models" Dynamic="Required All" />
       <Namespace Name="TsinghuaNet.ViewModels" Dynamic="Required All" />
     </Assembly>
