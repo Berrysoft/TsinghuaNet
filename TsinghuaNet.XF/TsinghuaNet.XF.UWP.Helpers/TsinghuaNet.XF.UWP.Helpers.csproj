@@ -132,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\TsinghuaNet\TsinghuaNet.csproj">
-      <Project>{4845ebcf-2090-499d-91b0-6e653bea37c4}</Project>
+      <Project>{198A7897-55A9-43DC-9455-84270A46960F}</Project>
       <Name>TsinghuaNet</Name>
     </ProjectReference>
   </ItemGroup>
