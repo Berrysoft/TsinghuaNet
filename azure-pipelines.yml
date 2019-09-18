@@ -296,6 +296,8 @@ jobs:
       restoreSolution: '$(solution)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/3.0.100-rc1-014190/Sdks
 
   - task: MSBuild@1
     displayName: 'Build app bundle'
@@ -348,6 +350,8 @@ jobs:
       restoreSolution: '$(solution)'
       feedsToUse: config
       nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/3.0.100-rc1-014190/Sdks
 
   - task: MSBuild@1
     displayName: 'Build apk'
