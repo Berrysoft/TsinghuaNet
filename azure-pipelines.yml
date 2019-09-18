@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '3.0.100-preview9-014004'
+  sdkVersion: '3.0.100-rc1-014190'
   xfSolution: 'TsinghuaNet.XF.sln'
   libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
