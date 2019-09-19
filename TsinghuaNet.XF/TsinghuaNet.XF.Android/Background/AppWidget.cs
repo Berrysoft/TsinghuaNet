@@ -28,9 +28,13 @@ namespace TsinghuaNet.XF.Droid.Background
                 widgetView.SetTextViewText(Resource.Id.widgetFlux, $"流量：{user.Flux}");
                 widgetView.SetTextViewText(Resource.Id.widgetBalance, string.Format(CultureInfo.GetCultureInfo("zh-CN"), "余额：{0:C2}", user.Balance));
             }
+            else
+            {
+                widgetView.SetTextViewText(Resource.Id.widgetTitle, "暂无流量信息");
+            }
             var intent = new Intent(context, typeof(AppWidget));
             intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
-            intent.PutExtra(AppWidgetManager.ExtraAppwidgetId, appWidgetIds);
+            intent.PutExtra(AppWidgetManager.ExtraAppwidgetIds, appWidgetIds);
             var piBackground = PendingIntent.GetBroadcast(context, 0, intent, PendingIntentFlags.UpdateCurrent);
             widgetView.SetOnClickPendingIntent(Resource.Id.widgetBackground, piBackground);
             appWidgetManager.UpdateAppWidget(me, widgetView);
