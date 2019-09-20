@@ -180,14 +180,11 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishTrimmed=true /p:PublishSingleFile=true
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishSingleFile=true
     displayName: 'Publish project as netcoreapp3.0'
 
   - script: del build\eto.wpf\netcoreapp3.0\*.pdb
     displayName: 'Remove PDBs'
-
-  - pwsh: ls build\eto.wpf\netcoreapp3.0\ -Exclude zh-Hans -Attributes Directory | rm -Recurse -Force
-    displayName: 'Remove other locale resources'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
@@ -196,6 +193,20 @@ jobs:
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.zip'
+
+  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0.dep /p:PublishSingleFile=true --self-contained false
+    displayName: 'Publish project as netcoreapp3.0 fx dependent'
+
+  - script: del build\eto.wpf\netcoreapp3.0.dep\*.pdb
+    displayName: 'Remove PDBs'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0.dep'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dep.zip'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
@@ -234,6 +245,21 @@ jobs:
       archiveType: 'tar'
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.tar.gz'
+
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk.dep /p:PublishTrimmed=true /p:PublishSingleFile=true --self-contained false
+    displayName: 'Publish project fx dependent'
+
+  - script: rm build/eto.gtk.dep/*.pdb
+    displayName: 'Remove PDBs'
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build/eto.gtk.dep'
+      includeRootFolder: false
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Dep.tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
