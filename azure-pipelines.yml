@@ -246,7 +246,7 @@ jobs:
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.tar.gz'
 
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk.dep /p:PublishTrimmed=true /p:PublishSingleFile=true --self-contained false
+  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk.dep /p:PublishSingleFile=true --self-contained false
     displayName: 'Publish project fx dependent'
 
   - script: rm build/eto.gtk.dep/*.pdb
