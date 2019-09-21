@@ -1,7 +1,6 @@
 ﻿using PropertyChanged;
 using TsinghuaNet.ViewModels;
 using TsinghuaNet.XF.Models;
-using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
 {
@@ -15,7 +14,5 @@ namespace TsinghuaNet.XF.ViewModels
         }
 
         public ConnectionViewModel ConnectionModel { get; } = new ConnectionViewModel();
-
-        public bool IsUWP => Device.RuntimePlatform == Device.UWP;
     }
 }

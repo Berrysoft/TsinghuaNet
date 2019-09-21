@@ -32,11 +32,23 @@
                 <Label VerticalOptions="Center">前台自动登录</Label>
                 <Switch IsToggled="{Binding Settings.AutoLogin,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <StackLayout.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="UWP,Android">true</On>
+                        <On Platform="iOS">false</On>
+                    </OnPlatform>
+                </StackLayout.IsVisible>
                 <Label VerticalOptions="Center">后台自动登录</Label>
                 <Switch IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
             </StackLayout>
-            <StackLayout Spacing="8" Orientation="Horizontal" IsVisible="{Binding IsUWP}">
+            <StackLayout Spacing="8" Orientation="Horizontal">
+                <StackLayout.IsVisible>
+                    <OnPlatform x:TypeArguments="x:Boolean">
+                        <On Platform="UWP">true</On>
+                        <On Platform="Android,iOS">false</On>
+                    </OnPlatform>
+                </StackLayout.IsVisible>
                 <Label VerticalOptions="Center">后台磁贴刷新</Label>
                 <Switch IsToggled="{Binding Settings.BackgroundLiveTile,Mode=TwoWay}"/>
             </StackLayout>

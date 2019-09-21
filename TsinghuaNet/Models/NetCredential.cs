@@ -24,7 +24,7 @@ namespace TsinghuaNet.Models
                 NetState.Net => new NetHelper(Username, Password, Client),
                 NetState.Auth4 => new Auth4Helper(Username, Password, Client),
                 NetState.Auth6 => new Auth6Helper(Username, Password, Client),
-                _ => (IConnect)null,
+                _ => null,
             };
         }
 

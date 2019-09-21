@@ -5,6 +5,7 @@ using Android.Content;
 using Android.Widget;
 using TsinghuaNet.Models;
 using TsinghuaNet.XF.Droid.Services;
+using TsinghuaNet.XF.Models;
 
 namespace TsinghuaNet.XF.Droid.Background
 {
@@ -19,10 +20,17 @@ namespace TsinghuaNet.XF.Droid.Background
             var widgetView = new RemoteViews(context.PackageName, Resource.Layout.Widget);
             InternetStatus status = new InternetStatus();
             NetCredential credential = new NetCredential();
+            (credential.Username, credential.Password) = await CredentialStore.LoadCredentialAsync();
             credential.State = await status.SuggestAsync();
             var helper = credential.GetHelper();
             if (helper != null)
             {
+                NetXFSettings settings = new NetXFSettings();
+                settings.LoadSettings();
+                if (settings.BackgroundAutoLogin && !string.IsNullOrEmpty(credential.Username))
+                {
+                    await helper.LoginAsync();
+                }
                 FluxUser user = await helper.GetFluxAsync();
                 var remainFlux = FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux;
                 widgetView.SetTextViewText(Resource.Id.widgetTitle, $"用户：{user.Username}");
