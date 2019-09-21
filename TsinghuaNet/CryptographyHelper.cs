@@ -40,68 +40,72 @@ namespace TsinghuaNet
                 return GetHexString(data);
             }
         }
-        private static uint[] S(byte[] a, bool b)
+        private static uint[] ToUInt32Array(byte[] data, bool includeLength)
         {
-            int c = a.Length;
-            int n = (c + 3) / 4;
-            uint[] v;
-            if (b)
+            int length = data.Length;
+            int n = (length + 3) / 4;
+            uint[] result;
+            if (includeLength)
             {
-                v = new uint[n + 1];
-                v[n] = (uint)c;
+                result = new uint[n + 1];
+                result[n] = (uint)length;
             }
             else
             {
-                v = new uint[Math.Max(n, 4)];
+                result = new uint[Math.Max(n, 4)];
             }
-            Unsafe.CopyBlock(ref Unsafe.As<uint, byte>(ref v[0]), ref a[0], (uint)c);
-            return v;
+            Unsafe.CopyBlock(ref Unsafe.As<uint, byte>(ref result[0]), ref data[0], (uint)length);
+            return result;
         }
-        private static byte[] L(uint[] a, bool b)
+        private static byte[] ToByteArray(uint[] data, bool includeLength)
         {
-            int d = a.Length;
-            uint c = ((uint)(d - 1)) << 2;
-            if (b)
+            int d = data.Length;
+            uint n = (uint)(d << 2);
+            if (includeLength)
             {
-                uint m = a[d - 1];
-                if (m < c - 3 || m > c)
+                uint m = data[d - 1];
+                n -= 4;
+                if (m < n - 3 || m > n)
                 {
                     return Array.Empty<byte>();
                 }
-                c = m;
+                n = m;
             }
-            uint n = b ? c : (uint)(d << 2);
-            byte[] aa = new byte[n];
-            Unsafe.CopyBlock(ref aa[0], ref Unsafe.As<uint, byte>(ref a[0]), n);
-            return aa;
+            byte[] result = new byte[n];
+            Unsafe.CopyBlock(ref result[0], ref Unsafe.As<uint, byte>(ref data[0]), n);
+            return result;
         }
-        public static byte[] XEncode(string str, string key)
+        private static uint MX(uint sum, uint y, uint z, int p, uint e, uint[] k)
+        {
+            return ((z >> 5) ^ (y << 2)) + ((y >> 3) ^ (z << 4) ^ (sum ^ y)) + (k[(p & 3) ^ (int)e] ^ z);
+        }
+        public static byte[] XXTeaEncrypt(string str, string key)
         {
             if (str.Length == 0)
             {
                 return Array.Empty<byte>();
             }
-            uint[] v = S(Encoding.UTF8.GetBytes(str), true);
-            uint[] k = S(Encoding.UTF8.GetBytes(key), false);
+            uint[] v = ToUInt32Array(Encoding.UTF8.GetBytes(str), true);
+            uint[] k = ToUInt32Array(Encoding.UTF8.GetBytes(key), false);
             int n = v.Length - 1;
             uint z = v[n];
             uint y;
             int q = 6 + 52 / (n + 1);
-            uint d = 0;
-            while (q-- > 0)
+            uint sum = 0;
+            unchecked
             {
-                d += 0x9E3779B9;
-                uint e = (d >> 2) & 3;
-                for (int p = 0; p <= n; p++)
+                while (q-- > 0)
                 {
-                    y = v[(p + 1) % (n + 1)];
-                    uint m = (z >> 5) ^ (y << 2);
-                    m += (y >> 3) ^ (z << 4) ^ (d ^ y);
-                    m += k[(p & 3) ^ (int)e] ^ z;
-                    z = v[p] += m;
+                    sum += 0x9E3779B9;
+                    uint e = (sum >> 2) & 3;
+                    for (int p = 0; p <= n; p++)
+                    {
+                        y = v[(p + 1) % (n + 1)];
+                        z = v[p] += MX(sum, y, z, p, e, k);
+                    }
                 }
             }
-            return L(v, false);
+            return ToByteArray(v, false);
         }
 
         private static readonly string Base64N = "LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";

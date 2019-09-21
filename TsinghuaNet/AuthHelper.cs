@@ -53,7 +53,7 @@ namespace TsinghuaNet
         {
             string token = await GetChallengeAsync();
             string passwordMD5 = CryptographyHelper.GetHMACMD5(token);
-            string info = "{SRBX1}" + CryptographyHelper.Base64Encode(CryptographyHelper.XEncode(string.Format(LoginInfoJson, Username, Password, ac_id), token));
+            string info = "{SRBX1}" + CryptographyHelper.Base64Encode(CryptographyHelper.XXTeaEncrypt(string.Format(LoginInfoJson, Username, Password, ac_id), token));
             return new Dictionary<string, string>
             {
                 ["action"] = "login",
@@ -74,7 +74,7 @@ namespace TsinghuaNet
         private async Task<Dictionary<string, string>> GetLogoutDataAsync(int ac_id)
         {
             string token = await GetChallengeAsync();
-            string info = "{SRBX1}" + CryptographyHelper.Base64Encode(CryptographyHelper.XEncode(string.Format(LogoutInfoJson, Username, ac_id), token));
+            string info = "{SRBX1}" + CryptographyHelper.Base64Encode(CryptographyHelper.XXTeaEncrypt(string.Format(LogoutInfoJson, Username, ac_id), token));
             return new Dictionary<string, string>
             {
                 ["action"] = "logout",
