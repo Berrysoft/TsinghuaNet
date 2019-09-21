@@ -7230,13 +7230,16 @@ namespace TsinghuaNet.XF.Droid
 			public const int widgetFlux = 2131230974;
 			
 			// aapt resource value: 0x7F0800FF
-			public const int widgetTitle = 2131230975;
+			public const int widgetRemain = 2131230975;
 			
 			// aapt resource value: 0x7F080100
-			public const int withText = 2131230976;
+			public const int widgetTitle = 2131230976;
 			
 			// aapt resource value: 0x7F080101
-			public const int wrap_content = 2131230977;
+			public const int withText = 2131230977;
+			
+			// aapt resource value: 0x7F080102
+			public const int wrap_content = 2131230978;
 			
 			static Id()
 			{

@@ -5,31 +5,46 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:orientation="vertical"
-    android:background="#FFFFFFFF"
+    android:background="#77002642"
     android:id="@+id/widgetBackground">
     <TextView
         android:id="@+id/widgetTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFFFF"
         android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"/>
     <TextView
         android:id="@+id/widgetFlux"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFFFF"
+        android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"/>
+    <TextView
+        android:id="@+id/widgetRemain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFFFF"
+        android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"/>
     <TextView
         android:id="@+id/widgetBalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColor="#FFFFFFFF"
+        android:textAppearance="@android:style/TextAppearance.DialogWindowTitle"/>
 </LinearLayout>

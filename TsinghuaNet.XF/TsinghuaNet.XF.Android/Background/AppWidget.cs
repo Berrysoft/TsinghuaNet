@@ -24,13 +24,18 @@ namespace TsinghuaNet.XF.Droid.Background
             if (helper != null)
             {
                 FluxUser user = await helper.GetFluxAsync();
-                widgetView.SetTextViewText(Resource.Id.widgetTitle, user.Username);
+                var remainFlux = FluxHelper.GetMaxFlux(user.Flux, user.Balance) - user.Flux;
+                widgetView.SetTextViewText(Resource.Id.widgetTitle, $"用户：{user.Username}");
                 widgetView.SetTextViewText(Resource.Id.widgetFlux, $"流量：{user.Flux}");
+                widgetView.SetTextViewText(Resource.Id.widgetRemain, $"剩余：{remainFlux}");
                 widgetView.SetTextViewText(Resource.Id.widgetBalance, string.Format(CultureInfo.GetCultureInfo("zh-CN"), "余额：{0:C2}", user.Balance));
             }
             else
             {
                 widgetView.SetTextViewText(Resource.Id.widgetTitle, "暂无流量信息");
+                widgetView.SetTextViewText(Resource.Id.widgetFlux, string.Empty);
+                widgetView.SetTextViewText(Resource.Id.widgetRemain, string.Empty);
+                widgetView.SetTextViewText(Resource.Id.widgetBalance, string.Empty);
             }
             var intent = new Intent(context, typeof(AppWidget));
             intent.SetAction(AppWidgetManager.ActionAppwidgetUpdate);
