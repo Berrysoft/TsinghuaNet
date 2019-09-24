@@ -29,6 +29,7 @@ namespace TsinghuaNet.XF.ViewModels
             {
                 case Device.UWP:
                     Packages.Add(new PackageBox("Microsoft.Toolkit.Uwp", "MIT"));
+                    Packages.Add(new PackageBox("Microsoft.UI.Xaml", "MIT"));
                     break;
             }
         }
