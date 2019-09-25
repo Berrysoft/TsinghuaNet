@@ -83,6 +83,9 @@ namespace TsinghuaNet.XF.UWP.Renderers
                     element.LayoutUpdated -= SetInitialRtlPosition;
                 }
             }
+
+            if (_currentView != null)
+                _currentView.Cleanup();
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<ScrollView> e)
