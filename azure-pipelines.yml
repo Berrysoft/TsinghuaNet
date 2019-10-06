@@ -4,9 +4,7 @@ trigger:
 variables:
   sdkVersion: '3.0.100'
   solution: 'TsinghuaNet.sln'
-  libProject: 'TsinghuaNet/TsinghuaNet.csproj'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  etoProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto/TsinghuaNet.Eto.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
@@ -180,7 +178,7 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishSingleFile=true
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishSingleFile=true
     displayName: 'Publish project as netcoreapp3.0'
 
   - script: del build\eto.wpf\netcoreapp3.0\*.pdb
@@ -194,7 +192,7 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0.dep /p:PublishSingleFile=true --self-contained false
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0.dep /p:PublishSingleFile=true --self-contained false
     displayName: 'Publish project as netcoreapp3.0 fx dependent'
 
   - script: del build\eto.wpf\netcoreapp3.0.dep\*.pdb
