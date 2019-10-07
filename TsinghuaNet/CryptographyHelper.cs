@@ -16,6 +16,7 @@ namespace TsinghuaNet
             }
             return sBuilder.ToString();
         }
+
         public static string GetMD5(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -28,6 +29,7 @@ namespace TsinghuaNet
                 return GetHexString(data);
             }
         }
+
         public static string GetSHA1(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -42,7 +44,6 @@ namespace TsinghuaNet
         }
 
         private static readonly XXTeaCryptor XXTea = new XXTeaCryptor();
-
         public static byte[] XXTeaEncrypt(string data, string key)
         {
             XXTea.ConsumeKey(key);
@@ -54,7 +55,18 @@ namespace TsinghuaNet
         {
             int a = t.Length;
             int len = (a + 2) / 3 * 4;
-            char* u = stackalloc char[len];
+#if NETCOREAPP3_0
+            return string.Create(len, t, Base64EncodeInternal);
+#else
+            Span<char> u = stackalloc char[len];
+            Base64EncodeInternal(u, t);
+            return u.ToString();
+#endif
+        }
+
+        private static void Base64EncodeInternal(Span<char> u, byte[] t)
+        {
+            int a = t.Length;
             char r = '=';
             int ui = 0;
             for (int o = 0; o < a; o += 3)
@@ -72,8 +84,8 @@ namespace TsinghuaNet
                     }
                 }
             }
-            return new string(u, 0, len);
         }
+
         public static string GetHMACMD5(string key)
         {
             if (string.IsNullOrEmpty(key))
