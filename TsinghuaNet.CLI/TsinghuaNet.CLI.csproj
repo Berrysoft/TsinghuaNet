@@ -2,7 +2,12 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
+    <PublishNative>true</PublishNative>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -10,11 +15,11 @@
     <Copyright>Copyright (c) 2018-2019 Berrysoft</Copyright>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(PublishNative)'=='true'">
     <RdXmlFile Include="Properties\Default.rd.xml" />
   </ItemGroup>
 
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(PublishNative)'=='true'">
     <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
     <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
     <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
@@ -23,9 +28,15 @@
 
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
     <PackageReference Include="System.Linq.Async" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(PublishNative)'=='true'">
+    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,7 +14,7 @@ variables:
 jobs:
 - job: Windows_CLI
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -30,19 +30,33 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -o build\win-x64
-    displayName: 'Publish project'
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f net48 -o build\win-x64\net48
+    displayName: 'Publish project as net48'
 
-  - script: del build\win-x64\*.pdb
+  - script: del build\win-x64\net48\*.pdb
     displayName: 'Remove PDBs'
 
-  - script: del build\win-x64\*.json
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build\win-x64\net48'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Fx.zip'
+
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\win-x64\netcoreapp3.0
+    displayName: 'Publish project as netcoreapp3.0'
+
+  - script: del build\win-x64\netcoreapp3.0\*.pdb
+    displayName: 'Remove PDBs'
+
+  - script: del build\win-x64\netcoreapp3.0\*.json
     displayName: 'Remove JSONs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64'
+      rootFolderOrFile: 'build\win-x64\netcoreapp3.0'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
@@ -54,7 +68,7 @@ jobs:
 
 - job: Linux_CLI
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -77,7 +91,7 @@ jobs:
       sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
     displayName: 'Install clang-3.7'
 
-  - script: dotnet publish $(cliProject) -r linux-x64 -c Release -o build/linux-x64
+  - script: dotnet publish $(cliProject) -r linux-x64 -c Release -f netcoreapp3.0 -o build/linux-x64
     displayName: 'Publish project'
 
   - script: strip build/linux-x64/TsinghuaNet.CLI
@@ -105,7 +119,7 @@ jobs:
 
 - job: MacOS_CLI
   pool:
-    vmImage: 'macOS-10.14'
+    vmImage: 'macOS-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -121,7 +135,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r osx-x64 -c Release -o build/osx-x64
+  - script: dotnet publish $(cliProject) -r osx-x64 -c Release -f netcoreapp3.0 -o build/osx-x64
     displayName: 'Publish project'
   
   - script: strip build/osx-x64/TsinghuaNet.CLI
@@ -148,7 +162,7 @@ jobs:
 
 - job: Windows_Eto
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -213,7 +227,7 @@ jobs:
 
 - job: Linux_Eto
   pool:
-    vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -266,7 +280,7 @@ jobs:
 
 - job: MacOS_Eto
   pool:
-    vmImage: 'macOS-10.14'
+    vmImage: 'macOS-latest'
   steps:
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 3.0'
@@ -300,7 +314,7 @@ jobs:
 
 - job: Windows_XF_UWP
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5.2.0'
@@ -352,7 +366,7 @@ jobs:
 
 - job: Windows_XF_Android
   pool:
-    vmImage: 'windows-2019'
+    vmImage: 'windows-latest'
   variables:
     ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
     ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r16b
