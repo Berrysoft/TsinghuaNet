@@ -43,12 +43,8 @@ namespace TsinghuaNet
             }
         }
 
-        private static readonly XXTeaCryptor XXTea = new XXTeaCryptor();
-        public static byte[] XXTeaEncrypt(string data, string key)
-        {
-            XXTea.ConsumeKey(key);
-            return XXTea.EncryptString(data);
-        }
+        private static readonly TeaCryptorBase XXTea = new AuthTeaCryptor();
+        public static byte[] XXTeaEncrypt(string data, string key) => XXTea.EncryptString(data, key);
 
         private static readonly string Base64N = "LVoJPiCN2R8G90yg+hmFHuacZ1OWMnrsSTXkYpUq/3dlbfKwv6xztjI7DeBE45QA";
         public unsafe static string Base64Encode(byte[] t)
