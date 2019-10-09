@@ -7,7 +7,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
-    mc:Ignorable="d" windows:TabbedPage.HeaderIconsEnabled="False">
+    mc:Ignorable="d" Title="TsinghuaNet.XF.UWP" windows:TabbedPage.HeaderIconsEnabled="False">
     <TabbedPage.Resources>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
             <On Platform="UWP,iOS">Segoe MDL2 Assets</On>

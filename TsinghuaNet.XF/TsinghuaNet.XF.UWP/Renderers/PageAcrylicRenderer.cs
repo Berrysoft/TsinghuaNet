@@ -1,4 +1,5 @@
 ﻿using TsinghuaNet.XF.UWP.Renderers;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
@@ -36,6 +37,8 @@ namespace TsinghuaNet.XF.UWP.Renderers
             if (e.NewElement != null)
             {
                 Control.ActualThemeChanged += OnActualThemeChanged;
+                Control.Title = Element.Title;
+                Control.TitleVisibility = Visibility.Visible;
             }
             else
             {
@@ -48,7 +51,9 @@ namespace TsinghuaNet.XF.UWP.Renderers
 
         private void ChangeBackground()
         {
+            var foreground = Control.ActualTheme == ElementTheme.Dark ? Colors.WhiteSmoke : Colors.Black;
             Control.Background = (Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
+            Control.ToolbarForeground = new SolidColorBrush(foreground);
         }
     }
 }

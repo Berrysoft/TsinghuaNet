@@ -1,4 +1,7 @@
-﻿using Windows.UI.Xaml;
+﻿using Windows.ApplicationModel.Core;
+using Windows.UI;
+using Windows.UI.ViewManagement;
+using Windows.UI.Xaml;
 using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.UWP;
 using xf = Xamarin.Forms;
@@ -10,6 +13,10 @@ namespace TsinghuaNet.XF.UWP.Views
         public MainPage()
         {
             InitializeComponent();
+            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            titleBar.ButtonBackgroundColor = Colors.Transparent;
+            titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             var xfApp = new TsinghuaNet.XF.App();
             SetColorResource(xfApp);
             LoadApplication(xfApp);
