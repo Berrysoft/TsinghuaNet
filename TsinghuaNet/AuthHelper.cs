@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TsinghuaNet.Models;
 
@@ -31,14 +33,38 @@ namespace TsinghuaNet
                 if (response.Succeed)
                     break;
             }
-            return response;
+            if (response.Succeed)
+                return response;
+            else
+            {
+                int ac_id = await GetAcId();
+                if (ac_id > 0)
+                    return LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
+                else
+                    return response;
+            }
         }
 
         public Task<LogResponse> LoginAsync() => LogAsync(GetLoginDataAsync);
 
         public Task<LogResponse> LogoutAsync() => LogAsync(GetLogoutDataAsync);
 
-        public async Task<FluxUser> GetFluxAsync() => FluxUser.Parse(await PostAsync(string.Format(FluxUri, version)));
+        private static readonly Regex AcIdRegex = new Regex(@"/index_([0-9]+)\.html");
+        private async Task<int> GetAcId()
+        {
+            var response = await client.GetAsync("http://net.tsinghua.edu.cn/");
+            if (response.StatusCode == HttpStatusCode.TemporaryRedirect)
+            {
+                var match = AcIdRegex.Match(response.Headers.Location.LocalPath);
+                if (match.Success)
+                {
+                    return int.Parse(match.Groups[1].Value);
+                }
+            }
+            return -1;
+        }
+
+        public async Task<FluxUser> GetFluxAsync() => FluxUser.Parse(await PostAsync(string.Format(FluxUri, version)), 2);
 
         private async Task<string> GetChallengeAsync()
         {

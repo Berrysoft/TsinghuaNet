@@ -28,7 +28,7 @@ namespace TsinghuaNet.Models
 
         public override int GetHashCode() => Username?.GetHashCode() ?? 0;
 
-        internal static FluxUser Parse(string fluxstr)
+        internal static FluxUser Parse(string fluxstr, double secondPrefix = 0.0)
         {
             string[] r = fluxstr.Split(',');
             if (string.IsNullOrWhiteSpace(r[0]))
@@ -40,7 +40,7 @@ namespace TsinghuaNet.Models
                 return new FluxUser(
                     r[0],
                     ByteSize.FromBytes(long.Parse(r[6])),
-                    TimeSpan.FromSeconds(long.Parse(r[2]) - long.Parse(r[1])),
+                    TimeSpan.FromSeconds(long.Parse(r[2]) - long.Parse(r[1]) + secondPrefix),
                     decimal.Parse(r[11]));
             }
         }

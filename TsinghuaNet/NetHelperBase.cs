@@ -29,7 +29,7 @@ namespace TsinghuaNet
 
     internal abstract class NetHelperBase : IDisposable
     {
-        private readonly HttpClient client;
+        protected readonly HttpClient client;
 
         public string Username { get; set; }
 
