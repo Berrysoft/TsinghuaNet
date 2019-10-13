@@ -53,9 +53,10 @@ namespace TsinghuaNet
         private async Task<int> GetAcId()
         {
             var response = await client.GetAsync("http://net.tsinghua.edu.cn/");
-            if (response.StatusCode == HttpStatusCode.TemporaryRedirect)
+            // It may not be redirected.
+            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.TemporaryRedirect)
             {
-                var match = AcIdRegex.Match(response.Headers.Location.LocalPath);
+                var match = AcIdRegex.Match((response.StatusCode == HttpStatusCode.TemporaryRedirect ? response.Headers.Location : response.RequestMessage.RequestUri).LocalPath);
                 if (match.Success)
                 {
                     return int.Parse(match.Groups[1].Value);

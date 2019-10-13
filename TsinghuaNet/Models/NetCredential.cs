@@ -15,7 +15,7 @@ namespace TsinghuaNet.Models
 
         public string Password { get; set; }
 
-        private static readonly HttpClient Client = new HttpClient(new HttpClientHandler() { AllowAutoRedirect = false });
+        private static readonly HttpClient Client = new HttpClient();
 
         public IConnect GetHelper()
         {
