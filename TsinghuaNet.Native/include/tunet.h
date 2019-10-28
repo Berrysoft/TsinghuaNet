@@ -32,12 +32,13 @@ extern "C"
         double balance;
     } net_flux;
 
-    int tunet_login(net_credential* cred, char* message, int len);
-    int tunet_logout(net_credential* cred, char* message, int len);
+    int tunet_last_err(char* message, int32_t len);
+    int tunet_login(net_credential* cred, char* message, int32_t len);
+    int tunet_logout(net_credential* cred, char* message, int32_t len);
     int tunet_status(net_credential* cred, net_flux* flux);
-    int tunet_usereg_login(net_credential* cred, char* message, int len);
-    int tunet_usereg_logout(net_credential* cred, char* message, int len);
-    int tunet_usereg_drop(net_credential* cred, int32_t addr, char* message, int len);
+    int tunet_usereg_login(net_credential* cred, char* message, int32_t len);
+    int tunet_usereg_logout(net_credential* cred, char* message, int32_t len);
+    int tunet_usereg_drop(net_credential* cred, int32_t addr, char* message, int32_t len);
 
 #ifdef __cplusplus
 }

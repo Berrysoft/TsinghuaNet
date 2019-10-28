@@ -30,29 +30,47 @@ namespace TsinghuaNet.Native
             return new UseregHelper(username, password, Http);
         }
 
-        private static void WriteString(string message, IntPtr pout, int len)
+        private static int WriteString(string message, IntPtr pout, int len)
         {
             if (pout != null && len > 0)
             {
-                var msgdata = Encoding.UTF8.GetBytes(message);
-                Marshal.Copy(msgdata, 0, pout, Math.Min(len, msgdata.Length));
+                return Encoding.UTF8.GetBytes(message, new Span<byte>(pout.ToPointer(), len));
             }
+            return 0;
+        }
+
+        private static string LastError;
+
+        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_last_err")]
+        public static int GetLastError(IntPtr message, int len)
+        {
+            if (LastError != null)
+            {
+                return WriteString(LastError, message, len);
+            }
+            return 0;
         }
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_login")]
         public static int Login(NetCredential* cred, IntPtr message, int len)
         {
-            IConnect helper = GetHelper(cred);
-            if (helper != null)
+            try
             {
-                var task = helper.LoginAsync();
-                task.Wait();
-                var response = task.Result;
-                if (response.Succeed)
+                IConnect helper = GetHelper(cred);
+                if (helper != null)
                 {
-                    WriteString(response.Message, message, len);
-                    return 0;
+                    var task = helper.LoginAsync();
+                    task.Wait();
+                    var response = task.Result;
+                    if (response.Succeed)
+                    {
+                        return WriteString(response.Message, message, len);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
@@ -60,17 +78,23 @@ namespace TsinghuaNet.Native
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_logout")]
         public static int Logout(NetCredential* cred, IntPtr message, int len)
         {
-            IConnect helper = GetHelper(cred);
-            if (helper != null)
+            try
             {
-                var task = helper.LogoutAsync();
-                task.Wait();
-                var response = task.Result;
-                if (response.Succeed)
+                IConnect helper = GetHelper(cred);
+                if (helper != null)
                 {
-                    WriteString(response.Message, message, len);
-                    return 0;
+                    var task = helper.LogoutAsync();
+                    task.Wait();
+                    var response = task.Result;
+                    if (response.Succeed)
+                    {
+                        return WriteString(response.Message, message, len);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
@@ -78,20 +102,27 @@ namespace TsinghuaNet.Native
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_status")]
         public static int Status(NetCredential* cred, NetFlux* flux)
         {
-            IConnect helper = GetHelper(cred);
-            if (helper != null)
+            try
             {
-                var task = helper.GetFluxAsync();
-                task.Wait();
-                var response = task.Result;
-                if (flux != null)
+                IConnect helper = GetHelper(cred);
+                if (helper != null)
                 {
-                    WriteString(response.Username, flux->Username, flux->UsernameLength);
-                    flux->Flux = response.Flux.Bytes;
-                    flux->OnlineTime = (long)response.OnlineTime.TotalSeconds;
-                    flux->Balance = (double)response.Balance;
+                    var task = helper.GetFluxAsync();
+                    task.Wait();
+                    var response = task.Result;
+                    if (flux != null)
+                    {
+                        flux->Flux = response.Flux.Bytes;
+                        flux->OnlineTime = (long)response.OnlineTime.TotalSeconds;
+                        flux->Balance = (double)response.Balance;
+                        return WriteString(response.Username, flux->Username, flux->UsernameLength);
+                    }
+                    return 0;
                 }
-                return 0;
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
@@ -99,14 +130,20 @@ namespace TsinghuaNet.Native
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_login")]
         public static int UseregLogin(NetCredential* cred, IntPtr message, int len)
         {
-            IUsereg helper = GetUseregHelper(cred);
-            var task = helper.LoginAsync();
-            task.Wait();
-            var response = task.Result;
-            if (response.Succeed)
+            try
             {
-                WriteString(response.Message, message, len);
-                return 0;
+                IUsereg helper = GetUseregHelper(cred);
+                var task = helper.LoginAsync();
+                task.Wait();
+                var response = task.Result;
+                if (response.Succeed)
+                {
+                    return WriteString(response.Message, message, len);
+                }
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
@@ -114,14 +151,20 @@ namespace TsinghuaNet.Native
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_logout")]
         public static int UseregLogout(NetCredential* cred, IntPtr message, int len)
         {
-            IUsereg helper = GetUseregHelper(cred);
-            var task = helper.LogoutAsync();
-            task.Wait();
-            var response = task.Result;
-            if (response.Succeed)
+            try
             {
-                WriteString(response.Message, message, len);
-                return 0;
+                IUsereg helper = GetUseregHelper(cred);
+                var task = helper.LogoutAsync();
+                task.Wait();
+                var response = task.Result;
+                if (response.Succeed)
+                {
+                    return WriteString(response.Message, message, len);
+                }
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
@@ -129,14 +172,20 @@ namespace TsinghuaNet.Native
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_drop")]
         public static int UseregDrop(NetCredential* cred, int addr, IntPtr message, int len)
         {
-            IUsereg helper = GetUseregHelper(cred);
-            var task = helper.LogoutAsync(new IPAddress(addr));
-            task.Wait();
-            var response = task.Result;
-            if (response.Succeed)
+            try
             {
-                WriteString(response.Message, message, len);
-                return 0;
+                IUsereg helper = GetUseregHelper(cred);
+                var task = helper.LogoutAsync(new IPAddress(addr));
+                task.Wait();
+                var response = task.Result;
+                if (response.Succeed)
+                {
+                    return WriteString(response.Message, message, len);
+                }
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
             }
             return -1;
         }
