@@ -21,4 +21,6 @@
     <ProjectReference Include="..\TsinghuaNet\TsinghuaNet.csproj" />
   </ItemGroup>
 
+  <Import Project="../ver.props" />
+
 </Project>
