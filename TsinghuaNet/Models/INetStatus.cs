@@ -91,15 +91,12 @@ namespace TsinghuaNet.Models
 
         public Task<NetState> SuggestAsync()
         {
-            return Task.Run(() =>
+            Refresh();
+            return Task.FromResult(Status switch
             {
-                Refresh();
-                return Status switch
-                {
-                    NetStatus.Lan => NetState.Auth4,
-                    NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
-                    _ => NetState.Unknown
-                };
+                NetStatus.Lan => NetState.Auth4,
+                NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
+                _ => NetState.Unknown
             });
         }
     }
