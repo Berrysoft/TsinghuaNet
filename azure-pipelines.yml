@@ -182,10 +182,10 @@ jobs:
   - script: dotnet publish $(nativeProject) -r win-x64 -c Release -o build\win-x64\lib
     displayName: 'Publish project as netcoreapp3.0'
 
-  - script: del build\win-x64\lib
+  - script: del build\win-x64\lib\*.pdb
     displayName: 'Remove PDBs'
 
-  - script: del build\win-x64\lib
+  - script: del build\win-x64\lib\*.json
     displayName: 'Remove JSONs'
 
   - task: CopyFiles@2
