@@ -243,12 +243,69 @@ namespace TsinghuaNet.Native
         {
             try
             {
-                if (!NetUsersEnumerator.MoveNextAsync().GetAwaiter().GetResult())
+                if (NetUsersEnumerator == null || !NetUsersEnumerator.MoveNextAsync().GetAwaiter().GetResult())
                     return -1;
                 var u = NetUsersEnumerator.Current;
                 user->Address = u.Address.Address;
                 user->LoginTime = u.LoginTime.Ticks;
                 return WriteString(u.Client, user->Client, user->ClientLength);
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
+            }
+            return -1;
+        }
+
+        private static IAsyncEnumerable<Models.NetDetail> NetDetails;
+        private static IAsyncEnumerator<Models.NetDetail> NetDetailsEnumerator;
+
+        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details")]
+        public static int UseregDetails(NetCredential* cred, Models.NetDetailOrder order, int descending)
+        {
+            try
+            {
+                IUsereg helper = GetUseregHelper(cred);
+                NetDetails = helper.GetDetailsAsync(order, descending != 0);
+                NetDetailsEnumerator = NetDetails.GetAsyncEnumerator();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
+            }
+            return -1;
+        }
+
+        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details_destory")]
+        public static int UseregDetailsDestory()
+        {
+            try
+            {
+                NetDetailsEnumerator.DisposeAsync().GetAwaiter().GetResult();
+                NetDetailsEnumerator = null;
+                NetDetails = null;
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                LastError = ex.Message;
+            }
+            return -1;
+        }
+
+        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details_fetch")]
+        public static int UseregDetailsFetch(NetDetail* detail)
+        {
+            try
+            {
+                if (NetDetailsEnumerator == null || !NetDetailsEnumerator.MoveNextAsync().GetAwaiter().GetResult())
+                    return -1;
+                var d = NetDetailsEnumerator.Current;
+                detail->LoginTime = d.LoginTime.Ticks;
+                detail->LogoutTime = d.LogoutTime.Ticks;
+                detail->Flux = d.Flux.Bytes;
+                return 0;
             }
             catch (Exception ex)
             {

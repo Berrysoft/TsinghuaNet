@@ -50,6 +50,13 @@ extern "C"
         int32_t client_length;
     } tunet_user;
 
+    typedef struct tunet_detail
+    {
+        int64_t login_time;
+        int64_t logout_time;
+        int64_t flux;
+    } tunet_detail;
+
     int32_t TUNET_API tunet_last_err(char* message, int32_t len);
 
     int32_t TUNET_API tunet_login(const tunet_credential* cred);
@@ -63,6 +70,10 @@ extern "C"
     int32_t TUNET_API tunet_usereg_users(const tunet_credential* cred);
     int32_t TUNET_API tunet_usereg_users_destory();
     int32_t TUNET_API tunet_usereg_users_fetch(tunet_user* user);
+
+    int32_t TUNET_API tunet_usereg_details(const tunet_credential* cred);
+    int32_t TUNET_API tunet_usereg_details_destory();
+    int32_t TUNET_API tunet_usereg_details_fetch(tunet_detail* detail);
 
 #ifdef __cplusplus
 }

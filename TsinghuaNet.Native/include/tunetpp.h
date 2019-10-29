@@ -4,7 +4,9 @@
 #include "tunet.h"
 #include <chrono>
 #include <exception>
+#include <functional>
 #include <string>
+#include <vector>
 
 #ifdef USE_INET_ADDR
 #ifdef _WIN32
@@ -35,6 +37,20 @@ namespace tunet
         double balance;
     };
 
+    struct user
+    {
+        std::int64_t address;
+        std::chrono::system_clock::time_point login_time;
+        std::string client;
+    };
+
+    struct detail
+    {
+        std::chrono::system_clock::time_point login_time;
+        std::chrono::system_clock::time_point logout_time;
+        std::int64_t bytes;
+    };
+
     class helper
     {
     private:
@@ -58,30 +74,38 @@ namespace tunet
         }
 
         template <typename F, typename... Args>
-        void invoke(F&& f, Args&&... args) const
+        std::int32_t invoke(F&& f, Args&&... args) const
         {
-            std::int32_t len = f(&cred, std::forward<Args>(args)...);
+            std::int32_t len = f(std::forward<Args>(args)...);
             if (len < 0)
                 throw last_error();
+            return len;
         }
 
-    public:
-        void login() const { invoke(tunet_login); }
+        struct invoke_guard
+        {
+            std::function<void()> fd;
+            invoke_guard(std::function<void()> fc, std::function<void()> fd) : fd(std::move(fd)) { fc(); }
+            ~invoke_guard() { fd(); }
+        };
 
-        void logout() const { invoke(tunet_logout); }
+    public:
+        void login() const { invoke(tunet_login, &cred); }
+
+        void logout() const { invoke(tunet_logout, &cred); }
 
         flux status() const
         {
             tunet_flux f;
-            std::int32_t len = tunet_status(&cred, &f);
+            std::int32_t len = invoke(tunet_status, &cred, &f);
             return { std::string(f.username, len), f.flux, std::chrono::seconds(f.online_time), f.balance };
         }
 
-        void usereg_login() const { invoke(tunet_usereg_login); }
+        void usereg_login() const { invoke(tunet_usereg_login, &cred); }
 
-        void usereg_logout() const { invoke(tunet_usereg_logout); }
+        void usereg_logout() const { invoke(tunet_usereg_logout, &cred); }
 
-        void usereg_drop(std::int64_t addr) const { invoke(tunet_usereg_drop, addr); }
+        void usereg_drop(std::int64_t addr) const { invoke(tunet_usereg_drop, &cred, addr); }
 
 #ifdef USE_INET_ADDR
 
@@ -91,6 +115,32 @@ namespace tunet
         }
 
 #endif // USE_INET_ADDR
+
+        std::vector<user> usereg_users() const
+        {
+            invoke_guard guard([this]() { invoke(tunet_usereg_users, &cred); }, [this]() { invoke(tunet_usereg_users_destory); });
+            std::vector<user> result;
+            tunet_user user;
+            while (true)
+            {
+                std::int32_t len = invoke(tunet_usereg_users_fetch, &user);
+                result.push_back({ user.address, std::chrono::system_clock::from_time_t(user.login_time), std::string(user.client, len) });
+            }
+            return result;
+        }
+
+        std::vector<detail> usereg_details() const
+        {
+            invoke_guard guard([this]() { invoke(tunet_usereg_details, &cred); }, [this]() { invoke(tunet_usereg_details_destory); });
+            std::vector<detail> result;
+            tunet_detail detail;
+            while (true)
+            {
+                invoke(tunet_usereg_details_fetch, &detail);
+                result.push_back({ std::chrono::system_clock::from_time_t(detail.login_time), std::chrono::system_clock::from_time_t(detail.logout_time), detail.flux });
+            }
+            return result;
+        }
     };
 } // namespace tunet
 
