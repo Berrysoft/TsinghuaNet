@@ -186,7 +186,7 @@ jobs:
     displayName: 'Remove JSONs'
 
   - task: CopyFiles@2
-    displayName: 'Publish Android Binaries'
+    displayName: 'Copy headers'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
       Contents: '*'
@@ -247,7 +247,7 @@ jobs:
     displayName: 'Remove JSONs'
 
   - task: CopyFiles@2
-    displayName: 'Publish Android Binaries'
+    displayName: 'Copy headers'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
       Contents: '*'
@@ -302,7 +302,7 @@ jobs:
     displayName: 'Remove JSONs'
 
   - task: CopyFiles@2
-    displayName: 'Publish Android Binaries'
+    displayName: 'Copy headers'
     inputs:
       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
       Contents: '*'
