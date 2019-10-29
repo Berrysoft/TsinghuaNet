@@ -182,9 +182,6 @@ jobs:
   - script: dotnet publish $(nativeProject) -r win-x64 -c Release -o build\win-x64\lib
     displayName: 'Publish project as netcoreapp3.0'
 
-  - script: del build\win-x64\lib\*.pdb
-    displayName: 'Remove PDBs'
-
   - script: del build\win-x64\lib\*.json
     displayName: 'Remove JSONs'
 
@@ -240,8 +237,7 @@ jobs:
     displayName: 'Publish project'
 
   - script: |
-      strip build/linux-x64/lib/TsinghuaNet.Native.so
-      mv TsinghuaNet.Native.so libtunet_native.so
+      mv build/linux-x64/lib/TsinghuaNet.Native.so build/linux-x64/lib/libtunet_native.so
     displayName: 'Strip'
 
   - script: rm build/linux-x64/lib/*.pdb
@@ -296,8 +292,7 @@ jobs:
     displayName: 'Publish project'
   
   - script: |
-      strip build/osx-x64/lib/TsinghuaNet.Native.dylib
-      mv TsinghuaNet.Native.dylib libtunet_native.dylib
+      mv build/osx-x64/lib/TsinghuaNet.Native.dylib build/osx-x64/lib/libtunet_native.dylib
     displayName: 'Strip'
 
   - script: rm build/osx-x64/lib/*.pdb
