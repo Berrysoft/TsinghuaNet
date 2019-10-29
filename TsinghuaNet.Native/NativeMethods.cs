@@ -11,6 +11,11 @@ namespace TsinghuaNet.Native
     {
         private static readonly HttpClient Http = new HttpClient();
 
+        static NativeMethods()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
+
         private static IConnect GetHelper(NetCredential* cred)
         {
             string username = cred->Username == null ? null : Marshal.PtrToStringUTF8(cred->Username);

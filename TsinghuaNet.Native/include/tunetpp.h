@@ -62,7 +62,7 @@ namespace tunet
         helper(const std::string& username = {}, const std::string& password = {}, tunet_state state = tunet_unknown)
             : username(username), password(password)
         {
-            cred = { username.c_str(), password.c_str(), state };
+            cred = { this->username.c_str(), this->password.c_str(), state };
         }
 
     private:
@@ -84,7 +84,10 @@ namespace tunet
 
         struct invoke_guard
         {
+        private:
             std::function<void()> fd;
+
+        public:
             invoke_guard(std::function<void()> fc, std::function<void()> fd) : fd(std::move(fd)) { fc(); }
             ~invoke_guard() { fd(); }
         };
@@ -96,7 +99,7 @@ namespace tunet
 
         flux status() const
         {
-            tunet_flux f;
+            tunet_flux f = {};
             std::int32_t len = invoke(tunet_status, &cred, &f);
             return { std::string(f.username, len), f.flux, std::chrono::seconds(f.online_time), f.balance };
         }
@@ -129,11 +132,11 @@ namespace tunet
             return result;
         }
 
-        std::vector<detail> usereg_details() const
+        std::vector<detail> usereg_details(tunet_detail_order order = tunet_detail_logout_time, bool descending = false) const
         {
-            invoke_guard guard([this]() { invoke(tunet_usereg_details, &cred); }, [this]() { invoke(tunet_usereg_details_destory); });
+            invoke_guard guard([this, order, descending]() { invoke(tunet_usereg_details, &cred, order, descending ? 1 : 0); }, [this]() { invoke(tunet_usereg_details_destory); });
             std::vector<detail> result;
-            tunet_detail detail;
+            tunet_detail detail = {};
             while (true)
             {
                 invoke(tunet_usereg_details_fetch, &detail);
