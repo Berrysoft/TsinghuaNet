@@ -76,11 +76,11 @@ extern "C"
 
     int32_t TUNET_API tunet_usereg_users(const tunet_credential* cred);
     int32_t TUNET_API tunet_usereg_users_destory();
-    int32_t TUNET_API tunet_usereg_users_fetch(tunet_user* user);
+    int32_t TUNET_API tunet_usereg_users_fetch(int32_t index, tunet_user* user);
 
     int32_t TUNET_API tunet_usereg_details(const tunet_credential* cred, tunet_detail_order order, int descending);
     int32_t TUNET_API tunet_usereg_details_destory();
-    int32_t TUNET_API tunet_usereg_details_fetch(tunet_detail* detail);
+    int32_t TUNET_API tunet_usereg_details_fetch(int32_t index, tunet_detail* detail);
 
 #ifdef __cplusplus
 }

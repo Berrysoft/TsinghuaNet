@@ -88,7 +88,7 @@ namespace tunet
             std::function<void()> fd;
 
         public:
-            invoke_guard(std::function<void()> fc, std::function<void()> fd) : fd(std::move(fd)) { fc(); }
+            invoke_guard(std::function<void()>&& fd) : fd(std::move(fd)) {}
             ~invoke_guard() { fd(); }
         };
 
@@ -100,6 +100,9 @@ namespace tunet
         flux status() const
         {
             tunet_flux f = {};
+            char username[32];
+            f.username = username;
+            f.username_length = sizeof(username);
             std::int32_t len = invoke(tunet_status, &cred, &f);
             return { std::string(f.username, len), f.flux, std::chrono::seconds(f.online_time), f.balance };
         }
@@ -121,26 +124,31 @@ namespace tunet
 
         std::vector<user> usereg_users() const
         {
-            invoke_guard guard([this]() { invoke(tunet_usereg_users, &cred); }, [this]() { invoke(tunet_usereg_users_destory); });
+            invoke_guard guard([this]() { invoke(tunet_usereg_users_destory); });
+            std::int32_t count = invoke(tunet_usereg_users, &cred);
             std::vector<user> result;
-            tunet_user user;
-            while (true)
+            tunet_user user = {};
+            char client[64];
+            user.client = client;
+            user.client_length = sizeof(client);
+            for (std::int32_t i = 0; i < count; i++)
             {
-                std::int32_t len = invoke(tunet_usereg_users_fetch, &user);
-                result.push_back({ user.address, std::chrono::system_clock::from_time_t(user.login_time), std::string(user.client, len) });
+                std::int32_t len = invoke(tunet_usereg_users_fetch, i, &user);
+                result.push_back({ user.address, std::chrono::system_clock::time_point(std::chrono::seconds(user.login_time)), std::string(user.client, len) });
             }
             return result;
         }
 
         std::vector<detail> usereg_details(tunet_detail_order order = tunet_detail_logout_time, bool descending = false) const
         {
-            invoke_guard guard([this, order, descending]() { invoke(tunet_usereg_details, &cred, order, descending ? 1 : 0); }, [this]() { invoke(tunet_usereg_details_destory); });
+            invoke_guard guard([this]() { invoke(tunet_usereg_details_destory); });
+            std::int32_t count = invoke(tunet_usereg_details, &cred, order, descending ? 1 : 0);
             std::vector<detail> result;
             tunet_detail detail = {};
-            while (true)
+            for (std::int32_t i = 0; i < count; i++)
             {
-                invoke(tunet_usereg_details_fetch, &detail);
-                result.push_back({ std::chrono::system_clock::from_time_t(detail.login_time), std::chrono::system_clock::from_time_t(detail.logout_time), detail.flux });
+                invoke(tunet_usereg_details_fetch, i, &detail);
+                result.push_back({ std::chrono::system_clock::time_point(std::chrono::seconds(detail.login_time)), std::chrono::system_clock::time_point(std::chrono::seconds(detail.logout_time)), detail.flux });
             }
             return result;
         }

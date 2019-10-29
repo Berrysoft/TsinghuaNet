@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.InteropServices;
@@ -206,8 +206,7 @@ namespace TsinghuaNet.Native
             return -1;
         }
 
-        private static IAsyncEnumerable<Models.NetUser> NetUsers;
-        private static IAsyncEnumerator<Models.NetUser> NetUsersEnumerator;
+        private static Models.NetUser[] NetUsers;
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users")]
         public static int UseregUsers(NetCredential* cred)
@@ -215,9 +214,9 @@ namespace TsinghuaNet.Native
             try
             {
                 IUsereg helper = GetUseregHelper(cred);
-                NetUsers = helper.GetUsersAsync();
-                NetUsersEnumerator = NetUsers.GetAsyncEnumerator();
-                return 0;
+                var task = helper.GetUsersAsync().ToArrayAsync();
+                NetUsers = task.GetAwaiter().GetResult();
+                return NetUsers.Length;
             }
             catch (Exception ex)
             {
@@ -231,8 +230,6 @@ namespace TsinghuaNet.Native
         {
             try
             {
-                NetUsersEnumerator.DisposeAsync().GetAwaiter().GetResult();
-                NetUsersEnumerator = null;
                 NetUsers = null;
                 return 0;
             }
@@ -244,15 +241,15 @@ namespace TsinghuaNet.Native
         }
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users_fetch")]
-        public static int UseregUsersFetch(NetUser* user)
+        public static int UseregUsersFetch(int index, NetUser* user)
         {
             try
             {
-                if (NetUsersEnumerator == null || !NetUsersEnumerator.MoveNextAsync().GetAwaiter().GetResult())
+                if (NetUsers == null)
                     return -1;
-                var u = NetUsersEnumerator.Current;
+                ref var u = ref NetUsers[index];
                 user->Address = u.Address.Address;
-                user->LoginTime = u.LoginTime.Ticks;
+                user->LoginTime = new DateTimeOffset(u.LoginTime).ToUnixTimeSeconds();
                 return WriteString(u.Client, user->Client, user->ClientLength);
             }
             catch (Exception ex)
@@ -262,8 +259,7 @@ namespace TsinghuaNet.Native
             return -1;
         }
 
-        private static IAsyncEnumerable<Models.NetDetail> NetDetails;
-        private static IAsyncEnumerator<Models.NetDetail> NetDetailsEnumerator;
+        private static Models.NetDetail[] NetDetails;
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details")]
         public static int UseregDetails(NetCredential* cred, Models.NetDetailOrder order, int descending)
@@ -271,9 +267,9 @@ namespace TsinghuaNet.Native
             try
             {
                 IUsereg helper = GetUseregHelper(cred);
-                NetDetails = helper.GetDetailsAsync(order, descending != 0);
-                NetDetailsEnumerator = NetDetails.GetAsyncEnumerator();
-                return 0;
+                var task = helper.GetDetailsAsync(order, descending != 0).ToArrayAsync();
+                NetDetails = task.GetAwaiter().GetResult();
+                return NetDetails.Length;
             }
             catch (Exception ex)
             {
@@ -287,8 +283,6 @@ namespace TsinghuaNet.Native
         {
             try
             {
-                NetDetailsEnumerator.DisposeAsync().GetAwaiter().GetResult();
-                NetDetailsEnumerator = null;
                 NetDetails = null;
                 return 0;
             }
@@ -300,15 +294,15 @@ namespace TsinghuaNet.Native
         }
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details_fetch")]
-        public static int UseregDetailsFetch(NetDetail* detail)
+        public static int UseregDetailsFetch(int index, NetDetail* detail)
         {
             try
             {
-                if (NetDetailsEnumerator == null || !NetDetailsEnumerator.MoveNextAsync().GetAwaiter().GetResult())
+                if (NetDetails == null)
                     return -1;
-                var d = NetDetailsEnumerator.Current;
-                detail->LoginTime = d.LoginTime.Ticks;
-                detail->LogoutTime = d.LogoutTime.Ticks;
+                ref var d = ref NetDetails[index];
+                detail->LoginTime = new DateTimeOffset(d.LoginTime).ToUnixTimeSeconds();
+                detail->LogoutTime = new DateTimeOffset(d.LogoutTime).ToUnixTimeSeconds();
                 detail->Flux = d.Flux.Bytes;
                 return 0;
             }
