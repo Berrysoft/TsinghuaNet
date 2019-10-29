@@ -170,7 +170,7 @@ namespace TsinghuaNet.Native
         }
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_drop")]
-        public static int UseregDrop(NetCredential* cred, int addr, IntPtr message, int len)
+        public static int UseregDrop(NetCredential* cred, long addr, IntPtr message, int len)
         {
             try
             {
