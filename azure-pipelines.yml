@@ -5,6 +5,7 @@ variables:
   sdkVersion: '3.0.100'
   solution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
+  nativeProject: 'TsinghuaNet.Native/TsinghuaNet.Native.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
@@ -154,6 +155,56 @@ jobs:
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.OSX64.zip'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
+
+- job: Windows_Native
+  pool:
+    vmImage: 'windows-latest'
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK 3.0'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project'
+    inputs:
+      projects: '$(nativeProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
+
+  - script: dotnet publish $(nativeProject) -r win-x64 -c Release -o build\win-x64\lib
+    displayName: 'Publish project as netcoreapp3.0'
+
+  - script: del build\win-x64\lib
+    displayName: 'Remove PDBs'
+
+  - script: del build\win-x64\lib
+    displayName: 'Remove JSONs'
+
+  - task: CopyFiles@2
+    displayName: 'Publish Android Binaries'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
+      Contents: '*'
+      TargetFolder: $(build.artifactstagingdirectory)/include
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
+
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build\win-x64
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Native.Win64.zip'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
