@@ -1,6 +1,16 @@
 #ifndef TUNET_H
 #define TUNET_H
 
+#ifndef TUNET_API
+#ifdef _MSC_VER
+#define TUNET_API __cdecl
+#elif defined(__GNUC__)
+#define TUNET_API __attribute__((__cdecl__))
+#else
+#define TUNET_API
+#endif
+#endif // !TUNET_API
+
 #ifdef __cplusplus
 extern "C"
 {
@@ -8,37 +18,51 @@ extern "C"
 
 #include <stdint.h>
 
-    enum net_state
+    enum tunet_state
     {
-        net_unknown,
-        net_net,
-        net_auth4,
-        net_auth6
+        tunet_unknown,
+        tunet_net,
+        tunet_auth4,
+        tunet_auth6
     };
 
-    typedef struct net_credential
+    typedef struct tunet_credential
     {
         const char* username;
         const char* password;
-        net_state state;
-    } net_credential;
+        tunet_state state;
+    } tunet_credential;
 
-    typedef struct net_flux
+    typedef struct tunet_flux
     {
         char* username;
         int32_t username_length;
         int64_t flux;
         int64_t online_time;
         double balance;
-    } net_flux;
+    } tunet_flux;
 
-    int32_t tunet_last_err(char* message, int32_t len);
-    int32_t tunet_login(const net_credential* cred, char* message, int32_t len);
-    int32_t tunet_logout(const net_credential* cred, char* message, int32_t len);
-    int32_t tunet_status(const net_credential* cred, net_flux* flux);
-    int32_t tunet_usereg_login(const net_credential* cred, char* message, int32_t len);
-    int32_t tunet_usereg_logout(const net_credential* cred, char* message, int32_t len);
-    int32_t tunet_usereg_drop(const net_credential* cred, int64_t addr, char* message, int32_t len);
+    typedef struct tunet_user
+    {
+        int64_t address;
+        int64_t login_time;
+        char* client;
+        int32_t client_length;
+    } tunet_user;
+
+    int32_t TUNET_API tunet_last_err(char* message, int32_t len);
+
+    int32_t TUNET_API tunet_login(const tunet_credential* cred);
+    int32_t TUNET_API tunet_logout(const tunet_credential* cred);
+    int32_t TUNET_API tunet_status(const tunet_credential* cred, tunet_flux* flux);
+
+    int32_t TUNET_API tunet_usereg_login(const tunet_credential* cred);
+    int32_t TUNET_API tunet_usereg_logout(const tunet_credential* cred);
+    int32_t TUNET_API tunet_usereg_drop(const tunet_credential* cred, int64_t addr);
+
+    int32_t TUNET_API tunet_usereg_users(const tunet_credential* cred);
+    int32_t TUNET_API tunet_usereg_users_destory();
+    int32_t TUNET_API tunet_usereg_users_fetch(tunet_user* user);
 
 #ifdef __cplusplus
 }

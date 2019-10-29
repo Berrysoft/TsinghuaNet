@@ -40,10 +40,10 @@ namespace tunet
     private:
         std::string username;
         std::string password;
-        net_credential cred;
+        tunet_credential cred;
 
     public:
-        helper(const std::string& username = {}, const std::string& password = {}, net_state state = net_unknown)
+        helper(const std::string& username = {}, const std::string& password = {}, tunet_state state = tunet_unknown)
             : username(username), password(password)
         {
             cred = { username.c_str(), password.c_str(), state };
@@ -52,44 +52,42 @@ namespace tunet
     private:
         tunet_exception last_error() const
         {
-            char message[128];
-            std::int32_t len = tunet_last_err(message, sizeof(message) - 1);
+            char message[256];
+            std::int32_t len = tunet_last_err(message, sizeof(message));
             return tunet_exception(message, len);
         }
 
         template <typename F, typename... Args>
-        std::string invoke(F&& f, Args&&... args) const
+        void invoke(F&& f, Args&&... args) const
         {
-            char message[128];
-            std::int32_t len = f(&cred, std::forward<Args>(args)..., message, sizeof(message) - 1);
+            std::int32_t len = f(&cred, std::forward<Args>(args)...);
             if (len < 0)
                 throw last_error();
-            return std::string(message, len);
         }
 
     public:
-        std::string login() const { return invoke(tunet_login); }
+        void login() const { invoke(tunet_login); }
 
-        std::string logout() const { return invoke(tunet_logout); }
+        void logout() const { invoke(tunet_logout); }
 
         flux status() const
         {
-            net_flux f;
+            tunet_flux f;
             std::int32_t len = tunet_status(&cred, &f);
             return { std::string(f.username, len), f.flux, std::chrono::seconds(f.online_time), f.balance };
         }
 
-        std::string usereg_login() const { return invoke(tunet_usereg_login); }
+        void usereg_login() const { invoke(tunet_usereg_login); }
 
-        std::string usereg_logout() const { return invoke(tunet_usereg_logout); }
+        void usereg_logout() const { invoke(tunet_usereg_logout); }
 
-        std::string usereg_drop(std::int64_t addr) const { return invoke(tunet_usereg_drop, addr); }
+        void usereg_drop(std::int64_t addr) const { invoke(tunet_usereg_drop, addr); }
 
 #ifdef USE_INET_ADDR
 
-        std::string usereg_drop(const char* addr) const
+        void usereg_drop(const char* addr) const
         {
-            return usereg_drop(::inet_addr(addr));
+            usereg_drop(::inet_addr(addr));
         }
 
 #endif // USE_INET_ADDR
