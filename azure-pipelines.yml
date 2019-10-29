@@ -201,7 +201,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64
+      rootFolderOrFile: 'build\win-x64'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Native.Win64.zip'
