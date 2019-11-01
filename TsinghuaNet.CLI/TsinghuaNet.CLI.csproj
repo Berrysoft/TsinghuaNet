@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.0;net48</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net48</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
+  <PropertyGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
     <PublishNative>true</PublishNative>
   </PropertyGroup>
 
@@ -31,8 +31,8 @@
     <PackageReference Include="System.Linq.Async" Version="4.0.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.6.0" />
+  <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0-preview1.19504.10" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(PublishNative)'=='true'">

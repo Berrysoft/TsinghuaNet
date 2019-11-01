@@ -51,7 +51,7 @@ namespace TsinghuaNet
         {
             int a = t.Length;
             int len = (a + 2) / 3 * 4;
-#if NETCOREAPP3_0 || NETSTANDARD2_1
+#if !NETSTANDARD2_0
             return string.Create(len, t, Base64EncodeInternal);
 #else
             Span<char> u = stackalloc char[len];

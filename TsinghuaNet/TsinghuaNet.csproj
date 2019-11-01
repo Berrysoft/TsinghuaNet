@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;netcoreapp3.1</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Berrysoft.XXTea" Version="4.0.9" />
-    <PackageReference Include="Fody" Version="6.0.2">
+    <PackageReference Include="Fody" Version="6.0.4-beta.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'!='netcoreapp3.0'">
-    <PackageReference Include="System.Text.Json" Version="4.6.0" />
+    <PackageReference Include="System.Text.Json" Version="4.7.0-preview1.19504.10" />
   </ItemGroup>
 
   <Import Project="../ver.props" />
