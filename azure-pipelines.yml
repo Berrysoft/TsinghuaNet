@@ -45,19 +45,19 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Fx.zip'
 
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\win-x64\netcoreapp3.0
-    displayName: 'Publish project as netcoreapp3.0'
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\win-x64\netcoreapp3.1
+    displayName: 'Publish project as netcoreapp3.1'
 
-  - script: del build\win-x64\netcoreapp3.0\*.pdb
+  - script: del build\win-x64\netcoreapp3.1\*.pdb
     displayName: 'Remove PDBs'
 
-  - script: del build\win-x64\netcoreapp3.0\*.json
+  - script: del build\win-x64\netcoreapp3.1\*.json
     displayName: 'Remove JSONs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64\netcoreapp3.0'
+      rootFolderOrFile: 'build\win-x64\netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
@@ -92,7 +92,7 @@ jobs:
       sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
     displayName: 'Install clang-3.7'
 
-  - script: dotnet publish $(cliProject) -r linux-x64 -c Release -f netcoreapp3.0 -o build/linux-x64
+  - script: dotnet publish $(cliProject) -r linux-x64 -c Release -f netcoreapp3.1 -o build/linux-x64
     displayName: 'Publish project'
 
   - script: strip build/linux-x64/TsinghuaNet.CLI
@@ -136,7 +136,7 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r osx-x64 -c Release -f netcoreapp3.0 -o build/osx-x64
+  - script: dotnet publish $(cliProject) -r osx-x64 -c Release -f netcoreapp3.1 -o build/osx-x64
     displayName: 'Publish project'
   
   - script: strip build/osx-x64/TsinghuaNet.CLI
@@ -180,7 +180,7 @@ jobs:
       nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(nativeProject) -r win-x64 -c Release -o build\win-x64\lib
-    displayName: 'Publish project as netcoreapp3.0'
+    displayName: 'Publish project as netcoreapp3.1'
 
   - script: del build\win-x64\lib\*.json
     displayName: 'Remove JSONs'
@@ -356,30 +356,30 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0 /p:PublishSingleFile=true
-    displayName: 'Publish project as netcoreapp3.0'
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\eto.wpf\netcoreapp3.1 /p:PublishSingleFile=true
+    displayName: 'Publish project as netcoreapp3.1'
 
-  - script: del build\eto.wpf\netcoreapp3.0\*.pdb
+  - script: del build\eto.wpf\netcoreapp3.1\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0'
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.0 -o build\eto.wpf\netcoreapp3.0.dep /p:PublishSingleFile=true --self-contained false
-    displayName: 'Publish project as netcoreapp3.0 fx dependent'
+  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\eto.wpf\netcoreapp3.1.dep /p:PublishSingleFile=true --self-contained false
+    displayName: 'Publish project as netcoreapp3.1 fx dependent'
 
-  - script: del build\eto.wpf\netcoreapp3.0.dep\*.pdb
+  - script: del build\eto.wpf\netcoreapp3.1.dep\*.pdb
     displayName: 'Remove PDBs'
 
   - task: ArchiveFiles@2
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.0.dep'
+      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.1.dep'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dep.zip'
