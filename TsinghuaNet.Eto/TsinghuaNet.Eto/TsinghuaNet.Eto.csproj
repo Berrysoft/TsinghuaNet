@@ -23,7 +23,7 @@
   <ItemGroup>
     <PackageReference Include="Eto.Forms" Version="2.5.0-rc.4" />
     <PackageReference Include="Eto.Serialization.Xaml" Version="2.5.0-rc.4" />
-    <PackageReference Include="Fody" Version="6.0.4-beta.2">
+    <PackageReference Include="Fody" Version="6.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netstandard2.0'">
-    <PackageReference Include="System.Text.Json" Version="4.7.0-preview1.19504.10" />
+    <PackageReference Include="System.Text.Json" Version="4.7.0-preview2.19523.17" />
   </ItemGroup>
 
   <ItemGroup>

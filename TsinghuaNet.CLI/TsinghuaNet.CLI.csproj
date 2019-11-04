@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='netcoreapp3.1'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0-preview1.19504.10" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0-preview2.19523.17" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(PublishNative)'=='true'">
