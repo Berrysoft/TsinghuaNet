@@ -40,6 +40,7 @@ namespace TsinghuaNet.XF.ViewModels
             Settings.PropertyChanged += OnSettingsPropertyChanged;
             Settings.LoadSettings();
             (Credential.Username, Credential.Password) = await CredentialStore.LoadCredentialAsync();
+            Credential.UseProxy = Settings.UseProxy;
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
             OnSettingsLoaded(EventArgs.Empty);
@@ -47,6 +48,7 @@ namespace TsinghuaNet.XF.ViewModels
 
         public override async void SaveSettings()
         {
+            Settings.UseProxy = Credential.UseProxy;
             Settings.SaveSettings();
             if (!string.IsNullOrEmpty(Credential.Username))
             {

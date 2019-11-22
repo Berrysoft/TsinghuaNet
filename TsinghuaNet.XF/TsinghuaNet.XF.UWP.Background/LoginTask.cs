@@ -16,6 +16,9 @@ namespace TsinghuaNet.XF.UWP.Background
                 (credential.Username, credential.Password) = await CredentialStore.LoadCredentialAsync();
                 InternetStatus status = new InternetStatus();
                 credential.State = await status.SuggestAsync();
+                NetXFSettings settings = new NetXFSettings();
+                settings.LoadSettings();
+                credential.UseProxy = settings.UseProxy;
                 var helper = credential.GetHelper();
                 if (helper != null)
                 {
@@ -23,8 +26,6 @@ namespace TsinghuaNet.XF.UWP.Background
                     FluxUser user = await helper.GetFluxAsync();
                     NotificationHelper.UpdateTile(user);
                     NotificationHelper.SendToast(user);
-                    NetXFSettings settings = new NetXFSettings();
-                    settings.LoadSettings();
                     if (settings.EnableFluxLimit)
                         NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                 }

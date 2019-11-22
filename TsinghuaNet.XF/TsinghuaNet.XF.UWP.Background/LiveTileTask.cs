@@ -15,13 +15,14 @@ namespace TsinghuaNet.XF.UWP.Background
                 NetCredential credential = new NetCredential();
                 InternetStatus status = new InternetStatus();
                 credential.State = await status.SuggestAsync();
+                NetXFSettings settings = new NetXFSettings();
+                settings.LoadSettings();
+                credential.UseProxy = settings.UseProxy;
                 var helper = credential.GetHelper();
                 if (helper != null)
                 {
                     FluxUser user = await helper.GetFluxAsync();
                     NotificationHelper.UpdateTile(user);
-                    NetXFSettings settings = new NetXFSettings();
-                    settings.LoadSettings();
                     if (settings.EnableFluxLimit)
                         NotificationHelper.SendWarningToast(user, settings.FluxLimit);
                 }
