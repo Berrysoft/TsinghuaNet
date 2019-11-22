@@ -19,6 +19,7 @@ namespace TsinghuaNet.Eto.Models
         public string Username { get; set; }
         public string Password { get; set; }
         public bool UseTimer { get; set; }
+        public bool UseProxy { get; set; }
 
         [JsonIgnore]
         public bool DeleteSettingsOnExit { get; set; }

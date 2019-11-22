@@ -31,7 +31,7 @@ namespace TsinghuaNet.Eto.ViewModels
             Settings = (await SettingsHelper.Helper.ReadSettingsAsync<NetEtoSettings>()) ?? new NetEtoSettings();
             Credential.Username = Settings.Username ?? string.Empty;
             Credential.Password = Encoding.UTF8.GetString(Convert.FromBase64String(Settings.Password ?? string.Empty));
-
+            Credential.UseProxy = Settings.UseProxy;
             if (Settings.AutoLogin)
                 await LoginAsync();
         }
@@ -46,6 +46,7 @@ namespace TsinghuaNet.Eto.ViewModels
             {
                 Settings.Username = Credential.Username;
                 Settings.Password = Convert.ToBase64String(Encoding.UTF8.GetBytes(Credential.Password));
+                Settings.UseProxy = Credential.UseProxy;
                 SettingsHelper.Helper.WriteSettings(Settings);
             }
         }

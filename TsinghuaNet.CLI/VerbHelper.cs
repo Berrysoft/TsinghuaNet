@@ -16,12 +16,14 @@ namespace TsinghuaNet.CLI
                 opts.Host = (OptionNetState)await Status.SuggestAsync();
             var cred = Credential;
             cred.State = (NetState)opts.Host;
+            cred.UseProxy = opts.UseProxy;
             return cred.GetHelper();
         }
 
-        public static IUsereg GetUseregHelper(this VerbBase opts)
+        public static IUsereg GetUseregHelper(this WebVerbBase opts)
         {
             var cred = Credential;
+            cred.UseProxy = opts.UseProxy;
             return cred.GetUseregHelper();
         }
 

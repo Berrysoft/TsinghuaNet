@@ -20,6 +20,7 @@
             <NumericStepper Enabled="{Binding Settings.EnableFluxLimit}" MinValue="0" MaxValue="30" Value="{Binding Settings.FluxLimit,Mode=TwoWay,Converter={StaticResource FluxLimitConverter}}"/>
             <Label>GB</Label>
           </StackLayout>
+          <CheckBox Checked="{Binding Credential.UseProxy,Mode=TwoWay}">使用系统代理</CheckBox>
           <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center" Spacing="4">
             <CheckBox Checked="{Binding Settings.DeleteSettingsOnExit,Mode=TwoWay}">程序退出时删除设置文件</CheckBox>
             <Button Click="OpenSettingsFile">打开设置文件</Button>

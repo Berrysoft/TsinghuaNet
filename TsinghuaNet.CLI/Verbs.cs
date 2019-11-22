@@ -36,7 +36,13 @@ namespace TsinghuaNet.CLI
         public abstract Task RunAsync();
     }
 
-    abstract class NetVerbBase : VerbBase
+    abstract class WebVerbBase : VerbBase
+    {
+        [Option('p', "proxy", Required = false, Default = false, HelpText = "使用系统代理")]
+        public bool UseProxy { get; set; }
+    }
+
+    abstract class NetVerbBase : WebVerbBase
     {
         [Option('s', "host", Required = false, Default = OptionNetState.Auto, HelpText = "连接方式：[auto], net, auth4, auth6")]
         public OptionNetState Host { get; set; }
@@ -118,7 +124,7 @@ namespace TsinghuaNet.CLI
     }
 
     [Verb("online", HelpText = "查询在线IP")]
-    class OnlineVerb : VerbBase
+    class OnlineVerb : WebVerbBase
     {
         [Usage()]
         public static IEnumerable<Example> Examples
@@ -147,7 +153,7 @@ namespace TsinghuaNet.CLI
     }
 
     [Verb("drop", HelpText = "下线IP")]
-    class DropVerb : VerbBase
+    class DropVerb : WebVerbBase
     {
         [Usage()]
         public static IEnumerable<Example> Examples
@@ -178,7 +184,7 @@ namespace TsinghuaNet.CLI
     }
 
     [Verb("detail", HelpText = "流量明细")]
-    class DetailVerb : VerbBase
+    class DetailVerb : WebVerbBase
     {
         [Usage()]
         public static IEnumerable<Example> Examples
