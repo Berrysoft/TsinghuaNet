@@ -39,6 +39,7 @@ extern "C"
         const char* username;
         const char* password;
         tunet_state state;
+        int32_t use_proxy;
     } tunet_credential;
 
     typedef struct tunet_flux

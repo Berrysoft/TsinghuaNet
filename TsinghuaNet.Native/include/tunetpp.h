@@ -59,10 +59,10 @@ namespace tunet
         tunet_credential cred;
 
     public:
-        helper(const std::string& username = {}, const std::string& password = {}, tunet_state state = tunet_unknown)
+        helper(const std::string& username = {}, const std::string& password = {}, tunet_state state = tunet_unknown, bool proxy = false)
             : username(username), password(password)
         {
-            cred = { this->username.c_str(), this->password.c_str(), state };
+            cred = { this->username.c_str(), this->password.c_str(), state, proxy ? 1 : 0 };
         }
 
     private:

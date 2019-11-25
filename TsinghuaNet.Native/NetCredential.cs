@@ -9,5 +9,6 @@ namespace TsinghuaNet.Native
         public IntPtr Username;
         public IntPtr Password;
         public NetState State;
+        public int UseProxy;
     }
 }
