@@ -90,7 +90,7 @@ jobs:
       sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
       sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
       sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
-    displayName: 'Install clang-3.7'
+    displayName: 'Install clang-3.9'
 
   - script: dotnet publish $(cliProject) -r linux-x64 -c Release -f netcoreapp3.1 -o build/linux-x64
     displayName: 'Publish project'
@@ -231,14 +231,13 @@ jobs:
       sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
       sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
       sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
-    displayName: 'Install clang-3.7'
+    displayName: 'Install clang-3.9'
 
   - script: dotnet publish $(nativeProject) -r linux-x64 -c Release -o build/linux-x64/lib
     displayName: 'Publish project'
 
-  - script: |
-      mv build/linux-x64/lib/TsinghuaNet.Native.so build/linux-x64/lib/libtunet_native.so
-    displayName: 'Strip'
+  - script: mv build/linux-x64/lib/TsinghuaNet.Native.so build/linux-x64/lib/libtunet_native.so
+    displayName: 'Rename'
 
   - script: rm build/linux-x64/lib/*.pdb
     displayName: 'Remove PDBs'
@@ -270,59 +269,58 @@ jobs:
     inputs:
       artifactName: 'publish'
 
-# - job: MacOS_Native
-#   pool:
-#     vmImage: 'macOS-latest'
-#   steps:
-#   - task: UseDotNet@2
-#     displayName: 'Install .NET Core SDK 3.1'
-#     inputs:
-#       packageType: sdk
-#       version: '$(sdkVersion)'
+- job: MacOS_Native
+  pool:
+    vmImage: 'macOS-latest'
+  steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK 3.1'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
 
-#   - task: DotNetCoreCLI@2
-#     displayName: 'Restore project'
-#     inputs:
-#       projects: '$(nativeProject)'
-#       command: restore
-#       feedsToUse: config
-#       nugetConfigPath: NuGet.Config
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore project'
+    inputs:
+      projects: '$(nativeProject)'
+      command: restore
+      feedsToUse: config
+      nugetConfigPath: NuGet.Config
 
-#   - script: dotnet publish $(nativeProject) -r osx-x64 -c Release -o build/osx-x64/lib
-#     displayName: 'Publish project'
+  - script: dotnet publish $(nativeProject) -r osx-x64 -c Release -o build/osx-x64/lib
+    displayName: 'Publish project'
   
-#   - script: |
-#       mv build/osx-x64/lib/TsinghuaNet.Native.dylib build/osx-x64/lib/libtunet_native.dylib
-#     displayName: 'Strip'
+  - script: mv build/osx-x64/lib/TsinghuaNet.Native.dylib build/osx-x64/lib/libtunet_native.dylib
+    displayName: 'Strip'
 
-#   - script: rm build/osx-x64/lib/*.pdb
-#     displayName: 'Remove PDBs'
+  - script: rm build/osx-x64/lib/*.pdb
+    displayName: 'Remove PDBs'
 
-#   - script: rm build/osx-x64/lib/*.json
-#     displayName: 'Remove JSONs'
+  - script: rm build/osx-x64/lib/*.json
+    displayName: 'Remove JSONs'
 
-#   - task: CopyFiles@2
-#     displayName: 'Copy headers'
-#     inputs:
-#       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
-#       Contents: '*'
-#       TargetFolder: build/osx-x64/include
-#       CleanTargetFolder: false
-#       OverWrite: false
-#       flattenFolders: false
+  - task: CopyFiles@2
+    displayName: 'Copy headers'
+    inputs:
+      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
+      Contents: '*'
+      TargetFolder: build/osx-x64/include
+      CleanTargetFolder: false
+      OverWrite: false
+      flattenFolders: false
 
-#   - task: ArchiveFiles@2
-#     displayName: 'Archive'
-#     inputs:
-#       rootFolderOrFile: 'build/osx-x64'
-#       includeRootFolder: false
-#       archiveType: 'zip'
-#       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.OSX64.zip'
+  - task: ArchiveFiles@2
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build/osx-x64'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.OSX64.zip'
 
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish'
-#     inputs:
-#       artifactName: 'publish'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
 
 - job: Windows_Eto
   pool:
