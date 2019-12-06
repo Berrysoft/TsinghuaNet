@@ -32,6 +32,12 @@ jobs:
     vmImage: $(imageName)
   
   steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK 3.1'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
@@ -119,6 +125,12 @@ jobs:
     vmImage: $(imageName)
 
   steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK 3.1'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
@@ -194,6 +206,12 @@ jobs:
     vmImage: $(imageName)
   
   steps:
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK 3.1'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
