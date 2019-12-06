@@ -125,10 +125,10 @@ jobs:
         imageName: 'ubuntu-latest'
         rid: linux-x64
         suffix: Linux64
-      mac:
-        imageName: 'macos-latest'
-        rid: osx-x64
-        suffix: OSX64
+      # mac:
+      #   imageName: 'macos-latest'
+      #   rid: osx-x64
+      #   suffix: OSX64
   pool:
     vmImage: $(imageName)
 
