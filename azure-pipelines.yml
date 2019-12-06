@@ -38,6 +38,14 @@ jobs:
       packageType: sdk
       version: '$(sdkVersion)'
 
+  - script: |
+      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
+      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+    condition: eq(variables.rid, 'linux-x64')
+    displayName: 'Install clang-3.9'
+
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
@@ -117,10 +125,10 @@ jobs:
         imageName: 'ubuntu-latest'
         rid: linux-x64
         suffix: Linux64
-      # mac:
-      #   imageName: 'macos-latest'
-      #   rid: osx-x64
-      #   suffix: OSX64
+      mac:
+        imageName: 'macos-latest'
+        rid: osx-x64
+        suffix: OSX64
   pool:
     vmImage: $(imageName)
 
@@ -130,6 +138,14 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+
+  - script: |
+      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
+      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+    condition: eq(variables.rid, 'linux-x64')
+    displayName: 'Install clang-3.9'
 
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
@@ -164,7 +180,7 @@ jobs:
     condition: ne(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/lib/netcoreapp3.1'
+      rootFolderOrFile: 'build/lib'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.$(suffix).zip'
@@ -173,7 +189,7 @@ jobs:
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/lib/netcoreapp3.1'
+      rootFolderOrFile: 'build/lib'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -256,7 +272,7 @@ jobs:
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.tar.gz'
 
-  - script: dotnet publish $(wpfProject) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1.dep -p:PublishSingleFile=true --self-contained false
+  - script: dotnet publish $(project) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1.dep -p:PublishSingleFile=true --self-contained false
     condition: ne(variables.rid, 'osx-x64')
     displayName: 'Publish project as netcoreapp3.1 fx dependent'
 
@@ -287,7 +303,7 @@ jobs:
     condition: eq(variables.rid, 'osx-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/$(rid)/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
