@@ -13,16 +13,25 @@ variables:
   droidProject: 'TsinghuaNet.XF/TsinghuaNet.XF.Android/TsinghuaNet.XF.Android.csproj'
 
 jobs:
-- job: Windows_CLI
+- job: CLI
+  strategy:
+    matrix:
+      windows:
+        imageName: 'windows-latest'
+        rid: win-x64
+        suffix: Win64
+      linux:
+        imageName: 'ubuntu-latest'
+        rid: linux-x64
+        suffix: Linux64
+      mac:
+        imageName: 'macos-latest'
+        rid: osx-x64
+        suffix: OSX64
   pool:
-    vmImage: 'windows-latest'
+    vmImage: $(imageName)
+  
   steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
@@ -31,146 +40,85 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f net48 -o build\win-x64\net48
+  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f net48 -o build\net48
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Publish project as net48'
 
-  - script: del build\win-x64\net48\*.pdb
-    displayName: 'Remove PDBs'
-
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64\net48'
+      rootFolderOrFile: 'build\net48'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Fx.zip'
 
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\win-x64\netcoreapp3.1
+  - script: dotnet publish $(cliProject) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1
     displayName: 'Publish project as netcoreapp3.1'
 
-  - script: del build\win-x64\netcoreapp3.1\*.pdb
+  - script: del build\netcoreapp3.1\*.pdb
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Remove PDBs'
 
-  - script: del build\win-x64\netcoreapp3.1\*.json
+  - script: del build\netcoreapp3.1\*.json
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Remove JSONs'
 
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build\win-x64\netcoreapp3.1'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Win64.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Linux_CLI
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(cliProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-      
-  - script: |
-      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
-    displayName: 'Install clang-3.9'
-
-  - script: dotnet publish $(cliProject) -r linux-x64 -c Release -f netcoreapp3.1 -o build/linux-x64
-    displayName: 'Publish project'
-
-  - script: strip build/linux-x64/TsinghuaNet.CLI
+  - script: strip build/netcoreapp3.1/TsinghuaNet.CLI
+    condition: ne(variables.rid, 'win-x64')
     displayName: 'Strip'
 
-  - script: rm build/linux-x64/*.pdb
+  - script: rm build/netcoreapp3.1/*.pdb
+    condition: ne(variables.rid, 'win-x64')
     displayName: 'Remove PDBs'
 
-  - script: rm build/linux-x64/*.json
+  - script: rm build/netcoreapp3.1/*.json
+    condition: ne(variables.rid, 'win-x64')
     displayName: 'Remove JSONs'
 
   - task: ArchiveFiles@2
+    condition: ne(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/linux-x64'
+      rootFolderOrFile: 'build/netcoreapp3.1'
+      includeRootFolder: false
+      archiveType: 'zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).zip'
+
+  - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'linux-x64')
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build/netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.Linux64.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
     inputs:
       artifactName: 'publish'
 
-- job: MacOS_CLI
+- job: Native
+  strategy:
+    matrix:
+      windows:
+        imageName: 'windows-latest'
+        rid: win-x64
+        suffix: Win64
+      linux:
+        imageName: 'ubuntu-latest'
+        rid: linux-x64
+        suffix: Linux64
+      # mac:
+      #   imageName: 'macos-latest'
+      #   rid: osx-x64
+      #   suffix: OSX64
   pool:
-    vmImage: 'macOS-latest'
+    vmImage: $(imageName)
+
   steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(cliProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-
-  - script: dotnet publish $(cliProject) -r osx-x64 -c Release -f netcoreapp3.1 -o build/osx-x64
-    displayName: 'Publish project'
-  
-  - script: strip build/osx-x64/TsinghuaNet.CLI
-    displayName: 'Strip'
-
-  - script: rm build/osx-x64/*.pdb
-    displayName: 'Remove PDBs'
-
-  - script: rm build/osx-x64/*.json
-    displayName: 'Remove JSONs'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/osx-x64'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.OSX64.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Windows_Native
-  pool:
-    vmImage: 'windows-latest'
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
@@ -179,10 +127,15 @@ jobs:
       feedsToUse: config
       nugetConfigPath: NuGet.Config
 
-  - script: dotnet publish $(nativeProject) -r win-x64 -c Release -o build\win-x64\lib
+  - script: dotnet publish $(nativeProject) -r $(rid) -c Release -o build/lib
     displayName: 'Publish project'
 
-  - script: del build\win-x64\lib\*.json
+  - script: del build\lib\*.json
+    condition: eq(variables.rid, 'win-x64')
+    displayName: 'Remove JSONs'
+
+  - script: rm build/lib/*.json
+    condition: ne(variables.rid, 'win-x64')
     displayName: 'Remove JSONs'
 
   - task: CopyFiles@2
@@ -190,278 +143,130 @@ jobs:
     inputs:
       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
       Contents: '*'
-      TargetFolder: build\win-x64\include
+      TargetFolder: build/lib/include
       CleanTargetFolder: false
       OverWrite: false
       flattenFolders: false
 
   - task: ArchiveFiles@2
+    condition: ne(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\win-x64'
+      rootFolderOrFile: 'build/lib/netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Native.Win64.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Linux_Native
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(nativeProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-      
-  - script: |
-      wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
-    displayName: 'Install clang-3.9'
-
-  - script: dotnet publish $(nativeProject) -r linux-x64 -c Release -o build/linux-x64/lib
-    displayName: 'Publish project'
-
-  - script: mv build/linux-x64/lib/TsinghuaNet.Native.so build/linux-x64/lib/libtunet_native.so
-    displayName: 'Rename'
-
-  - script: rm build/linux-x64/lib/*.pdb
-    displayName: 'Remove PDBs'
-
-  - script: rm build/linux-x64/lib/*.json
-    displayName: 'Remove JSONs'
-
-  - task: CopyFiles@2
-    displayName: 'Copy headers'
-    inputs:
-      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
-      Contents: '*'
-      TargetFolder: build/linux-x64/include
-      CleanTargetFolder: false
-      OverWrite: false
-      flattenFolders: false
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.$(suffix).zip'
 
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/linux-x64'
+      rootFolderOrFile: 'build/lib/netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.Linux64.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.$(suffix).tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
     inputs:
       artifactName: 'publish'
 
-# - job: MacOS_Native
-#   pool:
-#     vmImage: 'macOS-latest'
-#   steps:
-#   - task: UseDotNet@2
-#     displayName: 'Install .NET Core SDK 3.1'
-#     inputs:
-#       packageType: sdk
-#       version: '$(sdkVersion)'
-
-#   - task: DotNetCoreCLI@2
-#     displayName: 'Restore project'
-#     inputs:
-#       projects: '$(nativeProject)'
-#       command: restore
-#       feedsToUse: config
-#       nugetConfigPath: NuGet.Config
-
-#   - script: dotnet publish $(nativeProject) -r osx-x64 -c Release -o build/osx-x64/lib
-#     displayName: 'Publish project'
-  
-#   - script: mv build/osx-x64/lib/TsinghuaNet.Native.dylib build/osx-x64/lib/libtunet_native.dylib
-#     displayName: 'Strip'
-
-#   - script: rm build/osx-x64/lib/*.pdb
-#     displayName: 'Remove PDBs'
-
-#   - script: rm build/osx-x64/lib/*.json
-#     displayName: 'Remove JSONs'
-
-#   - task: CopyFiles@2
-#     displayName: 'Copy headers'
-#     inputs:
-#       SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
-#       Contents: '*'
-#       TargetFolder: build/osx-x64/include
-#       CleanTargetFolder: false
-#       OverWrite: false
-#       flattenFolders: false
-
-#   - task: ArchiveFiles@2
-#     displayName: 'Archive'
-#     inputs:
-#       rootFolderOrFile: 'build/osx-x64'
-#       includeRootFolder: false
-#       archiveType: 'zip'
-#       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.OSX64.zip'
-
-#   - task: PublishBuildArtifacts@1
-#     displayName: 'Publish'
-#     inputs:
-#       artifactName: 'publish'
-
-- job: Windows_Eto
+- job: Eto
+  strategy:
+    matrix:
+      windows:
+        imageName: 'windows-latest'
+        rid: win-x64
+        suffix: Wpf
+        project: $(wpfProject)
+      linux:
+        imageName: 'ubuntu-latest'
+        rid: linux-x64
+        suffix: Gtk
+        project: $(gtkProject)
+      mac:
+        imageName: 'macos-latest'
+        rid: osx-x64
+        suffix: Mac
+        project: $(macProject)
   pool:
-    vmImage: 'windows-latest'
+    vmImage: $(imageName)
+  
   steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
     inputs:
-      projects: '$(wpfProject)'
+      projects: '$(project)'
       command: restore
       feedsToUse: config
       nugetConfigPath: NuGet.Config
-  
-  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f net48 -o build\eto.wpf\net48
+
+  - script: dotnet publish $(project) -r $(rid) -c Release -f net48 -o build/net48
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Publish project as net48'
 
-  - script: del build\eto.wpf\net48\*.pdb
-    displayName: 'Remove PDBs'
-
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\net48'
+      rootFolderOrFile: 'build/net48'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.Fx.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).Fx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\eto.wpf\netcoreapp3.1 /p:PublishSingleFile=true
+  - script: dotnet publish $(project) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1 -p:PublishSingleFile=true
+    condition: ne(variables.rid, 'osx-x64')
     displayName: 'Publish project as netcoreapp3.1'
 
-  - script: del build\eto.wpf\netcoreapp3.1\*.pdb
-    displayName: 'Remove PDBs'
-
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.1'
+      rootFolderOrFile: 'build/netcoreapp3.1'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.zip'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.zip'
 
-  - script: dotnet publish $(wpfProject) -r win-x64 -c Release -f netcoreapp3.1 -o build\eto.wpf\netcoreapp3.1.dep /p:PublishSingleFile=true --self-contained false
+  - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'linux-x64')
+    displayName: 'Archive'
+    inputs:
+      rootFolderOrFile: 'build/netcoreapp3.1'
+      includeRootFolder: false
+      archiveType: 'tar'
+      tarCompression: 'gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.tar.gz'
+
+  - script: dotnet publish $(wpfProject) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1.dep -p:PublishSingleFile=true --self-contained false
+    condition: ne(variables.rid, 'osx-x64')
     displayName: 'Publish project as netcoreapp3.1 fx dependent'
 
-  - script: del build\eto.wpf\netcoreapp3.1.dep\*.pdb
-    displayName: 'Remove PDBs'
-
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build\eto.wpf\netcoreapp3.1.dep'
+      rootFolderOrFile: 'build/netcoreapp3.1.dep'
       includeRootFolder: false
       archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.Eto.Wpf.CoreFx.Dep.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Linux_Eto
-  pool:
-    vmImage: 'ubuntu-latest'
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(gtkProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-  
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk /p:PublishTrimmed=true /p:PublishSingleFile=true
-    displayName: 'Publish project'
-
-  - script: rm build/eto.gtk/*.pdb
-    displayName: 'Remove PDBs'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.Dep.zip'
 
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/eto.gtk'
+      rootFolderOrFile: 'build/netcoreapp3.1.dep'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.tar.gz'
+      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.Dep.tar.gz'
 
-  - script: dotnet publish $(gtkProject) -r linux-x64 -c Release -o build/eto.gtk.dep /p:PublishSingleFile=true --self-contained false
-    displayName: 'Publish project fx dependent'
-
-  - script: rm build/eto.gtk.dep/*.pdb
-    displayName: 'Remove PDBs'
-
-  - task: ArchiveFiles@2
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/eto.gtk.dep'
-      includeRootFolder: false
-      archiveType: 'tar'
-      tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Gtk.Dep.tar.gz'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: MacOS_Eto
-  pool:
-    vmImage: 'macOS-latest'
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(macProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-
-  - script: dotnet build $(macProject) -c Release
+  - script: dotnet build $(project) -r $(rid) -c Release
+    condition: eq(variables.rid, 'osx-x64')
     displayName: 'Build project'
 
   - task: ArchiveFiles@2
+    condition: eq(variables.rid, 'osx-x64')
     displayName: 'Archive'
     inputs:
       rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/TsinghuaNet.Eto.Mac.app/'
