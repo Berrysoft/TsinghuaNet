@@ -10,10 +10,8 @@
 #endif // !TUNET_API
 
 #ifndef TUNET_RESTRICT
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__GNUC__)
 #define TUNET_RESTRICT __restrict
-#elif defined(__GNUC__)
-#define TUNET_RESTRICT __restrict__
 #else
 #define TUNET_RESTRICT
 #endif
@@ -59,12 +57,16 @@ extern "C"
         int32_t client_length;
     } tunet_user;
 
+    typedef int (*tunet_usereg_users_callback)(const tunet_user* user, int32_t write_count, void* data);
+
     typedef struct tunet_detail
     {
         int64_t login_time;
         int64_t logout_time;
         int64_t flux;
     } tunet_detail;
+
+    typedef int (*tunet_usereg_details_callback)(const tunet_detail* detail, void* data);
 
     enum tunet_detail_order
     {
@@ -83,13 +85,9 @@ extern "C"
     int32_t TUNET_API tunet_usereg_logout(const tunet_credential* cred);
     int32_t TUNET_API tunet_usereg_drop(const tunet_credential* cred, int64_t addr);
 
-    int32_t TUNET_API tunet_usereg_users(const tunet_credential* cred);
-    int32_t TUNET_API tunet_usereg_users_destory(void);
-    int32_t TUNET_API tunet_usereg_users_fetch(int32_t index, tunet_user* user);
+    int32_t TUNET_API tunet_usereg_users(const tunet_credential* TUNET_RESTRICT cred, tunet_user* TUNET_RESTRICT user, tunet_usereg_users_callback callback, void* data);
 
-    int32_t TUNET_API tunet_usereg_details(const tunet_credential* cred, tunet_detail_order order, int descending);
-    int32_t TUNET_API tunet_usereg_details_destory(void);
-    int32_t TUNET_API tunet_usereg_details_fetch(int32_t index, tunet_detail* detail);
+    int32_t TUNET_API tunet_usereg_details(const tunet_credential* TUNET_RESTRICT cred, tunet_detail_order order, int descending, tunet_usereg_details_callback callback, void* data);
 
 #ifdef __cplusplus
 }

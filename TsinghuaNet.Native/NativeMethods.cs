@@ -211,57 +211,34 @@ namespace TsinghuaNet.Native
             return -1;
         }
 
-        private static Models.NetUser[] NetUsers;
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate int UseregUsersCallback(in NetUser user, int writeCount, IntPtr data);
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users")]
-        public static int UseregUsers(in NetCredential cred)
+        public static int UseregUsers(in NetCredential cred, ref NetUser user, UseregUsersCallback callback, IntPtr data)
         {
             try
             {
                 IUsereg helper = GetUseregHelper(cred);
                 var task = helper.GetUsersAsync().ToArrayAsync();
-                NetUsers = task.GetAwaiter().GetResult();
-                return NetUsers.Length;
-            }
-            catch (Exception ex)
-            {
-                LastError = ex.Message;
-            }
-            return -1;
-        }
-
-        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users_destory")]
-        public static int UseregUsersDestory()
-        {
-            try
-            {
-                NetUsers = null;
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                LastError = ex.Message;
-            }
-            return -1;
-        }
-
-        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users_fetch")]
-        public static int UseregUsersFetch(int index, ref NetUser user)
-        {
-            try
-            {
-                if (NetUsers == null)
-                    return -1;
-                if (Unsafe.AsPointer(ref user) != null)
+                var users = task.GetAwaiter().GetResult();
+                if (callback != null)
                 {
-                    ref var u = ref NetUsers[index];
+                    for (int i = 0; i < users.Length; i++)
+                    {
+                        ref var u = ref users[i];
 #pragma warning disable 0618
-                    user.Address = u.Address.Address;
+                        user.Address = u.Address.Address;
 #pragma warning restore 0618
-                    user.LoginTime = new DateTimeOffset(u.LoginTime).ToUnixTimeSeconds();
-                    return WriteString(u.Client, user.Client, user.ClientLength);
+                        user.LoginTime = new DateTimeOffset(u.LoginTime).ToUnixTimeSeconds();
+                        int count = WriteString(u.Client, user.Client, user.ClientLength);
+                        if (callback(in user, count, data) == 0)
+                        {
+                            break;
+                        }
+                    }
                 }
-                return 0;
+                return users.Length;
             }
             catch (Exception ex)
             {
@@ -270,55 +247,32 @@ namespace TsinghuaNet.Native
             return -1;
         }
 
-        private static Models.NetDetail[] NetDetails;
+        public delegate int UseregDetailsCallback(in NetDetail detail, IntPtr data);
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details")]
-        public static int UseregDetails(in NetCredential cred, Models.NetDetailOrder order, int descending)
+        public static int UseregDetails(in NetCredential cred, Models.NetDetailOrder order, int descending, UseregDetailsCallback callback, IntPtr data)
         {
             try
             {
                 IUsereg helper = GetUseregHelper(cred);
                 var task = helper.GetDetailsAsync(order, descending != 0).ToArrayAsync();
-                NetDetails = task.GetAwaiter().GetResult();
-                return NetDetails.Length;
-            }
-            catch (Exception ex)
-            {
-                LastError = ex.Message;
-            }
-            return -1;
-        }
-
-        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details_destory")]
-        public static int UseregDetailsDestory()
-        {
-            try
-            {
-                NetDetails = null;
-                return 0;
-            }
-            catch (Exception ex)
-            {
-                LastError = ex.Message;
-            }
-            return -1;
-        }
-
-        [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details_fetch")]
-        public static int UseregDetailsFetch(int index, ref NetDetail detail)
-        {
-            try
-            {
-                if (NetDetails == null)
-                    return -1;
-                if (Unsafe.AsPointer(ref detail) != null)
+                var details = task.GetAwaiter().GetResult();
+                if (callback != null)
                 {
-                    ref var d = ref NetDetails[index];
-                    detail.LoginTime = new DateTimeOffset(d.LoginTime).ToUnixTimeSeconds();
-                    detail.LogoutTime = new DateTimeOffset(d.LogoutTime).ToUnixTimeSeconds();
-                    detail.Flux = d.Flux.Bytes;
+                    for (int i = 0; i < details.Length; i++)
+                    {
+                        ref var d = ref details[i];
+                        NetDetail detail;
+                        detail.LoginTime = new DateTimeOffset(d.LoginTime).ToUnixTimeSeconds();
+                        detail.LogoutTime = new DateTimeOffset(d.LogoutTime).ToUnixTimeSeconds();
+                        detail.Flux = d.Flux.Bytes;
+                        if (callback(in detail, data) == 0)
+                        {
+                            break;
+                        }
+                    }
                 }
-                return 0;
+                return details.Length;
             }
             catch (Exception ex)
             {

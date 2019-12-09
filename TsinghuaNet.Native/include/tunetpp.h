@@ -4,7 +4,6 @@
 #include "tunet.h"
 #include <chrono>
 #include <exception>
-#include <functional>
 #include <string>
 #include <vector>
 
@@ -82,16 +81,6 @@ namespace tunet
             return len;
         }
 
-        struct invoke_guard
-        {
-        private:
-            std::function<void()> fd;
-
-        public:
-            invoke_guard(std::function<void()>&& fd) : fd(std::move(fd)) {}
-            ~invoke_guard() { fd(); }
-        };
-
     public:
         void login() const { invoke(tunet_login, &cred); }
 
@@ -122,35 +111,42 @@ namespace tunet
 
 #endif // USE_INET_ADDR
 
+    private:
+        std::vector<user> users_cache;
+
+        static int usereg_users_callback(const tunet_user* user, int32_t write_count, void* data)
+        {
+            helper* ph = (helper*)data;
+            ph->users_cache.push_back({ user->address, std::chrono::system_clock::time_point(std::chrono::seconds(user->login_time)), std::string(user->client, write_count) });
+            return 1;
+        }
+
+    public:
         std::vector<user> usereg_users() const
         {
-            invoke_guard guard([this]() { invoke(tunet_usereg_users_destory); });
-            std::int32_t count = invoke(tunet_usereg_users, &cred);
-            std::vector<user> result;
             tunet_user user = {};
             char client[64];
             user.client = client;
             user.client_length = sizeof(client);
-            for (std::int32_t i = 0; i < count; i++)
-            {
-                std::int32_t len = invoke(tunet_usereg_users_fetch, i, &user);
-                result.push_back({ user.address, std::chrono::system_clock::time_point(std::chrono::seconds(user.login_time)), std::string(user.client, len) });
-            }
-            return result;
+            invoke(tunet_usereg_users, &cred, &user, &helper::usereg_users_callback, this);
+            return std::move(users_cache);
         }
 
+    private:
+        std::vector<detail> details_cache;
+
+        static int usereg_details_callback(const tunet_detail* detail, void* data)
+        {
+            helper* ph = (helper*)data;
+            ph->details_cache.push_back({ std::chrono::system_clock::time_point(std::chrono::seconds(detail->login_time)), std::chrono::system_clock::time_point(std::chrono::seconds(detail->logout_time)), detail->flux });
+            return 1;
+        }
+
+    public:
         std::vector<detail> usereg_details(tunet_detail_order order = tunet_detail_logout_time, bool descending = false) const
         {
-            invoke_guard guard([this]() { invoke(tunet_usereg_details_destory); });
-            std::int32_t count = invoke(tunet_usereg_details, &cred, order, descending ? 1 : 0);
-            std::vector<detail> result;
-            tunet_detail detail = {};
-            for (std::int32_t i = 0; i < count; i++)
-            {
-                invoke(tunet_usereg_details_fetch, i, &detail);
-                result.push_back({ std::chrono::system_clock::time_point(std::chrono::seconds(detail.login_time)), std::chrono::system_clock::time_point(std::chrono::seconds(detail.logout_time)), detail.flux });
-            }
-            return result;
+            invoke(tunet_usereg_details, &cred, order, descending ? 1 : 0, &helper::usereg_details_callback, this);
+            return std::move(details_cache);
         }
     };
 } // namespace tunet
