@@ -67,12 +67,16 @@ namespace TsinghuaNet
                 int count = 0;
                 foreach (var tr in doc.DocumentNode.SelectNodes("//tr[@align='center']").Skip(1))
                 {
-                    count++;
                     var tds = tr.Elements("td").Skip(1).Select(td => td.FirstChild?.InnerText).ToArray();
-                    yield return new NetDetail(
-                        DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                        DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                        ByteSize.Parse(tds[4]));
+                    var loginTime = DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture);
+                    if (loginTime.Month == now.Month)
+                    {
+                        count++;
+                        yield return new NetDetail(
+                            loginTime,
+                            DateTime.ParseExact(tds[2], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
+                            ByteSize.Parse(tds[4]));
+                    }
                 }
                 if (count < offset) break;
             }
