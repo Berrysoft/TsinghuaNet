@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TsinghuaNet.XF.Android")]
-[assembly: AssemblyCopyright("Copyright (C) 2019 Berrysoft")]
+[assembly: AssemblyCopyright("Copyright (C) 2019-2020 Berrysoft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
@@ -24,5 +24,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.2.78.0")]
-[assembly: AssemblyFileVersion("4.2.78.0")]
+[assembly: AssemblyVersion("4.2.79.0")]
+[assembly: AssemblyFileVersion("4.2.79.0")]
