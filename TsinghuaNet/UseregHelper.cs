@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using HtmlAgilityPack;
 using TsinghuaNet.Models;
@@ -44,7 +45,7 @@ namespace TsinghuaNet
                 yield return new NetUser(
                     IPAddress.Parse(tds[0]),
                     DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                    tds[10]);
+                    string.IsNullOrEmpty(tds[6]) ? PhysicalAddress.None : PhysicalAddress.Parse(tds[6].Replace(".", "").ToUpperInvariant()));
             }
         }
 

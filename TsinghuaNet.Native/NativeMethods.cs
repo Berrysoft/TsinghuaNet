@@ -212,10 +212,10 @@ namespace TsinghuaNet.Native
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate int UseregUsersCallback(in NetUser user, int writeCount, IntPtr data);
+        public delegate int UseregUsersCallback(in NetUser user, IntPtr data);
 
         [NativeCallable(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users")]
-        public static int UseregUsers(in NetCredential cred, ref NetUser user, UseregUsersCallback callback, IntPtr data)
+        public static int UseregUsers(in NetCredential cred, UseregUsersCallback callback, IntPtr data)
         {
             try
             {
@@ -227,12 +227,16 @@ namespace TsinghuaNet.Native
                     for (int i = 0; i < users.Length; i++)
                     {
                         ref var u = ref users[i];
+                        NetUser user;
 #pragma warning disable 0618
                         user.Address = u.Address.Address;
 #pragma warning restore 0618
                         user.LoginTime = new DateTimeOffset(u.LoginTime).ToUnixTimeSeconds();
-                        int count = WriteString(u.Client, user.Client, user.ClientLength);
-                        if (callback(in user, count, data) == 0)
+                        fixed (byte* ps = u.MacAddress.GetAddressBytes())
+                        {
+                            Unsafe.CopyBlock(user.MacAddress, ps, 6);
+                        }
+                        if (callback(in user, data) == 0)
                         {
                             break;
                         }

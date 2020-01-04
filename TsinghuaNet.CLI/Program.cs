@@ -11,7 +11,7 @@ namespace TsinghuaNet.CLI
     {
         public static Task<int> Main(string[] args)
         {
-#if NETCOREAPP3_0
+#if NETCOREAPP
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 #endif
             using (Parser p = new Parser(settings =>

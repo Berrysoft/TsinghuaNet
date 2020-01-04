@@ -53,11 +53,10 @@ extern "C"
     {
         int64_t address;
         int64_t login_time;
-        char* client;
-        int32_t client_length;
+        uint8_t mac_address[6];
     } tunet_user;
 
-    typedef int (*tunet_usereg_users_callback)(const tunet_user* user, int32_t write_count, void* data);
+    typedef int (*tunet_usereg_users_callback)(const tunet_user* user, void* data);
 
     typedef struct tunet_detail
     {
@@ -85,9 +84,9 @@ extern "C"
     int32_t TUNET_API tunet_usereg_logout(const tunet_credential* cred);
     int32_t TUNET_API tunet_usereg_drop(const tunet_credential* cred, int64_t addr);
 
-    int32_t TUNET_API tunet_usereg_users(const tunet_credential* TUNET_RESTRICT cred, tunet_user* TUNET_RESTRICT user, tunet_usereg_users_callback callback, void* data);
+    int32_t TUNET_API tunet_usereg_users(const tunet_credential* cred, tunet_usereg_users_callback callback, void* data);
 
-    int32_t TUNET_API tunet_usereg_details(const tunet_credential* TUNET_RESTRICT cred, tunet_detail_order order, int descending, tunet_usereg_details_callback callback, void* data);
+    int32_t TUNET_API tunet_usereg_details(const tunet_credential* cred, tunet_detail_order order, int descending, tunet_usereg_details_callback callback, void* data);
 
 #ifdef __cplusplus
 }

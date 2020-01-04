@@ -1,14 +1,12 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace TsinghuaNet.Native
 {
     [StructLayout(LayoutKind.Sequential)]
-    public struct NetUser
+    public unsafe struct NetUser
     {
         public long Address;
         public long LoginTime;
-        public IntPtr Client;
-        public int ClientLength;
+        public fixed byte MacAddress[6];
     }
 }

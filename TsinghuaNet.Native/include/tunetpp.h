@@ -40,7 +40,7 @@ namespace tunet
     {
         std::int64_t address;
         std::chrono::system_clock::time_point login_time;
-        std::string client;
+        std::uint8_t mac_address[6];
     };
 
     struct detail
@@ -114,21 +114,19 @@ namespace tunet
     private:
         std::vector<user> users_cache;
 
-        static int usereg_users_callback(const tunet_user* user, int32_t write_count, void* data)
+        static int usereg_users_callback(const tunet_user* user, void* data)
         {
             helper* ph = (helper*)data;
-            ph->users_cache.push_back({ user->address, std::chrono::system_clock::time_point(std::chrono::seconds(user->login_time)), std::string(user->client, write_count) });
+            tunet::user u = { user->address, std::chrono::system_clock::time_point(std::chrono::seconds(user->login_time)) };
+            std::copy(std::begin(user->mac_address), std::end(user->mac_address), u.mac_address);
+            ph->users_cache.push_back(std::move(u));
             return 1;
         }
 
     public:
         std::vector<user> usereg_users() const
         {
-            tunet_user user = {};
-            char client[64];
-            user.client = client;
-            user.client_length = sizeof(client);
-            invoke(tunet_usereg_users, &cred, &user, &helper::usereg_users_callback, this);
+            invoke(tunet_usereg_users, &cred, &helper::usereg_users_callback, this);
             return std::move(users_cache);
         }
 
