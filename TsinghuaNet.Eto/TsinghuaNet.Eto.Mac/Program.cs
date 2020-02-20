@@ -1,4 +1,4 @@
-﻿using System.Reflection;
+﻿using System.Text;
 using Eto.Mac;
 using Eto.Mac.Forms;
 using TsinghuaNet.Eto.Controls;
@@ -10,6 +10,7 @@ namespace TsinghuaNet.Eto.Mac
     {
         static void Main()
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             var platform = new Platform();
             platform.Add<SortableGridColumn.IHandler>(() => new SortableGridColumnHandler());
             using (App app = new App(platform))

@@ -1,16 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net48</TargetFramework>
-    <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <IsMac Condition="$(OS) == 'Unix' and Exists('/usr/lib/libc.dylib')">True</IsMac>
-    <MonoPath Condition="$(MonoPath) == '' AND $(IsMac) == 'True' AND Exists('/Library/Frameworks/Mono.framework/Versions/Current/')">/Library/Frameworks/Mono.framework/Versions/Current/</MonoPath>
-    <MkBundleArgs Condition="$(MonoPath) != ''">$(MkBundleArgs) --i18n CJK --config $(MonoPath)etc/mono/config --machine-config $(MonoPath)etc/mono/4.5/machine.config</MkBundleArgs>
-    <MkBundleArgs Condition="$(MonoPath) == ''">$(MkBundleArgs) --i18n CJK</MkBundleArgs>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Platform.Mac64" Version="2.5.0-rc.4" />
+    <PackageReference Include="Eto.Platform.Mac64" Version="2.5.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,12 +24,5 @@
   </ItemGroup>
 
   <Import Project="../../ver.props" />
-
-  <ItemGroup Condition="'$(OS)' != 'Windows_NT'">
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0-preview.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
 
 </Project>
