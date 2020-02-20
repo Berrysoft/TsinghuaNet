@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '3.1.200-preview-014883'
+  sdkVersion: '3.1.100'
   solution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   nativeProject: 'TsinghuaNet.Native/TsinghuaNet.Native.csproj'
