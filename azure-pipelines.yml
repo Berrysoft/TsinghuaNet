@@ -40,8 +40,7 @@ jobs:
       includePreviewVersions: true
 
   - script: |
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 libgssapi-krb5-2
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 build-essential symlinks libicu-dev liblttng-ust-dev libunwind8-dev libcurl4-openssl-dev libkrb5-dev libssl-dev zlib1g-dev
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Install clang-3.9'
 
@@ -140,8 +139,7 @@ jobs:
       includePreviewVersions: true
 
   - script: |
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 libgssapi-krb5-2
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 build-essential symlinks libicu-dev liblttng-ust-dev libunwind8-dev libcurl4-openssl-dev libkrb5-dev libssl-dev zlib1g-dev
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Install clang-3.9'
 
