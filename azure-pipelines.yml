@@ -41,9 +41,9 @@ jobs:
 
   - script: |
       wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+      sudo apt-add-repository "deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.9 main"
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 krb5-multidev
+      sudo ln /usr/lib/x86_64-linux-gnu/mit-krb5/libgssapi_krb5.so /usr/lib/libgssapi_krb5.so
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Install clang-3.9'
 
@@ -143,9 +143,9 @@ jobs:
 
   - script: |
       wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
-      sudo apt-add-repository "deb https://apt.llvm.org/xenial/ llvm-toolchain-xenial-3.9 main"
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 comerr-dev krb5-multidev libgssrpc4 libkadm5clnt-mit9 libkadm5srv-mit9 libkdb5-8 libkrb5-dev
-      sudo ln /usr/lib/x86_64-linux-gnu/libgssapi_krb5.so.2 /usr/lib/libgssapi_krb5.so
+      sudo apt-add-repository "deb https://apt.llvm.org/bionic/ llvm-toolchain-bionic-3.9 main"
+      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 krb5-multidev
+      sudo ln /usr/lib/x86_64-linux-gnu/mit-krb5/libgssapi_krb5.so /usr/lib/libgssapi_krb5.so
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Install clang-3.9'
 
