@@ -37,6 +37,7 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+      includePreviewVersions: true
 
   - script: |
       wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -138,6 +139,7 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+      includePreviewVersions: true
 
   - script: |
       wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
@@ -227,6 +229,7 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+      includePreviewVersions: true
 
   - task: DotNetCoreCLI@2
     displayName: 'Restore project'
@@ -303,7 +306,7 @@ jobs:
     condition: eq(variables.rid, 'osx-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net48/$(rid)/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/netcoreapp3.1/$(rid)/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
@@ -327,6 +330,7 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+      includePreviewVersions: true
 
   - task: NuGetCommand@2
     displayName: 'Restore solution'
@@ -383,6 +387,7 @@ jobs:
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
+      includePreviewVersions: true
 
   - task: NuGetCommand@2
     displayName: 'Restore solution'
