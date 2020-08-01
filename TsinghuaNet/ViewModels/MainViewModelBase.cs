@@ -60,7 +60,7 @@ namespace TsinghuaNet.ViewModels
             catch (Exception ex)
             {
                 Response = ex.Message;
-                Console.WriteLine(ex);
+                Console.Error.WriteLine(ex);
             }
             finally
             {
