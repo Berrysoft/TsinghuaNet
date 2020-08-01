@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 using Android.Content;
-using Android.Support.V4.Widget;
+using AndroidX.SwipeRefreshLayout.Widget;
 using TsinghuaNet.XF.Droid.Renderers;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
