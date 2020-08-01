@@ -1,7 +1,6 @@
 ﻿using TsinghuaNet.XF.UWP.Renderers;
 using Windows.UI;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
@@ -25,7 +24,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
 
         private void ChangeBackground()
         {
-            Background = (Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
+            Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
         }
     }
 
@@ -52,8 +51,8 @@ namespace TsinghuaNet.XF.UWP.Renderers
         private void ChangeBackground()
         {
             var foreground = Control.ActualTheme == ElementTheme.Dark ? Colors.WhiteSmoke : Colors.Black;
-            Control.Background = (Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
-            Control.ToolbarForeground = new SolidColorBrush(foreground);
+            Control.Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
+            Control.ToolbarForeground = new Windows.UI.Xaml.Media.SolidColorBrush(foreground);
         }
     }
 }

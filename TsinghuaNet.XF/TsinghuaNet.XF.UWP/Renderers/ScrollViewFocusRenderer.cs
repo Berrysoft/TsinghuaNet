@@ -4,7 +4,6 @@ using System;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using TsinghuaNet.XF.UWP.Renderers;
-using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Xamarin.Forms;
@@ -43,7 +42,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
 
             Element.IsInNativeLayout = true;
 
-            Control?.Arrange(new Rect(0, 0, finalSize.Width, finalSize.Height));
+            Control?.Arrange(new Windows.Foundation.Rect(0, 0, finalSize.Width, finalSize.Height));
 
             Element.IsInNativeLayout = false;
 

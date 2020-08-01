@@ -1,5 +1,4 @@
 ﻿using TsinghuaNet.XF.UWP.Renderers;
-using Windows.UI.Xaml.Media;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.UWP;
 
@@ -13,7 +12,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
         {
             base.UpdateBackgroundColor();
             if (Control != null)
-                Control.Background = (Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicElementBrush"];
+                Control.Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicElementBrush"];
         }
     }
 }
