@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '3.1.100'
+  sdkVersion: '5.0.100-preview.7.20366.6'
   solution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   nativeProject: 'TsinghuaNet.Native/TsinghuaNet.Native.csproj'
@@ -33,7 +33,7 @@ jobs:
   
   steps:
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
+    displayName: 'Install .NET Core SDK 5'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
@@ -65,26 +65,26 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Fx.zip'
 
-  - script: dotnet publish $(cliProject) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1
-    displayName: 'Publish project as netcoreapp3.1'
+  - script: dotnet publish $(cliProject) -r $(rid) -c Release -f net5.0 -o build/net5.0
+    displayName: 'Publish project as net5.0'
 
-  - script: del build\netcoreapp3.1\*.pdb
+  - script: del build\net5.0\*.pdb
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Remove PDBs'
 
-  - script: del build\netcoreapp3.1\*.json
+  - script: del build\net5.0\*.json
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Remove JSONs'
 
-  - script: strip build/netcoreapp3.1/TsinghuaNet.CLI
+  - script: strip build/net5.0/TsinghuaNet.CLI
     condition: ne(variables.rid, 'win-x64')
     displayName: 'Strip'
 
-  - script: rm build/netcoreapp3.1/*.pdb
+  - script: rm build/net5.0/*.pdb
     condition: ne(variables.rid, 'win-x64')
     displayName: 'Remove PDBs'
 
-  - script: rm build/netcoreapp3.1/*.json
+  - script: rm build/net5.0/*.json
     condition: ne(variables.rid, 'win-x64')
     displayName: 'Remove JSONs'
 
@@ -92,7 +92,7 @@ jobs:
     condition: ne(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1'
+      rootFolderOrFile: 'build/net5.0'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).zip'
@@ -101,7 +101,7 @@ jobs:
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1'
+      rootFolderOrFile: 'build/net5.0'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -132,7 +132,7 @@ jobs:
 
   steps:
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
+    displayName: 'Install .NET Core SDK 5'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
@@ -219,7 +219,7 @@ jobs:
   
   steps:
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
+    displayName: 'Install .NET Core SDK 5'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
@@ -246,15 +246,15 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).Fx.zip'
 
-  - script: dotnet publish $(project) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1 -p:PublishSingleFile=true
+  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0 -o build/net5.0 -p:PublishSingleFile=true
     condition: ne(variables.rid, 'osx-x64')
-    displayName: 'Publish project as netcoreapp3.1'
+    displayName: 'Publish project as net5.0'
 
   - task: ArchiveFiles@2
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1'
+      rootFolderOrFile: 'build/net5.0'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.zip'
@@ -263,21 +263,21 @@ jobs:
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1'
+      rootFolderOrFile: 'build/net5.0'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.tar.gz'
 
-  - script: dotnet publish $(project) -r $(rid) -c Release -f netcoreapp3.1 -o build/netcoreapp3.1.dep -p:PublishSingleFile=true --self-contained false
+  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0 -o build/net5.0.dep -p:PublishSingleFile=true --self-contained false
     condition: ne(variables.rid, 'osx-x64')
-    displayName: 'Publish project as netcoreapp3.1 fx dependent'
+    displayName: 'Publish project as net5.0 fx dependent'
 
   - task: ArchiveFiles@2
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1.dep'
+      rootFolderOrFile: 'build/net5.0.dep'
       includeRootFolder: false
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.Dep.zip'
@@ -286,7 +286,7 @@ jobs:
     condition: eq(variables.rid, 'linux-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: 'build/netcoreapp3.1.dep'
+      rootFolderOrFile: 'build/net5.0.dep'
       includeRootFolder: false
       archiveType: 'tar'
       tarCompression: 'gz'
@@ -300,7 +300,7 @@ jobs:
     condition: eq(variables.rid, 'osx-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/netcoreapp3.1/$(rid)/$(rid)/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net5.0/$(rid)/$(rid)/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
@@ -320,7 +320,7 @@ jobs:
       versionSpec: '5.2.0'
 
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
+    displayName: 'Install .NET Core SDK 5'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
@@ -377,7 +377,7 @@ jobs:
       versionSpec: '5.2.0'
 
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 3.1'
+    displayName: 'Install .NET Core SDK 5'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
