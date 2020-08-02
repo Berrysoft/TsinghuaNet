@@ -7,7 +7,6 @@ namespace TsinghuaNet.Native
     public struct NetFlux
     {
         public IntPtr Username;
-        public int UsernameLength;
         public long Flux;
         public long OnlineTime;
         public double Balance;

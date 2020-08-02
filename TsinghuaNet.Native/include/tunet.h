@@ -2,19 +2,19 @@
 #define TUNET_H
 
 #ifndef TUNET_API
-#ifdef _MSC_VER
-#define TUNET_API __cdecl
-#else
-#define TUNET_API
-#endif
+    #ifdef _MSC_VER
+        #define TUNET_API __cdecl
+    #else
+        #define TUNET_API
+    #endif
 #endif // !TUNET_API
 
 #ifndef TUNET_RESTRICT
-#if defined(_MSC_VER) || defined(__GNUC__)
-#define TUNET_RESTRICT __restrict
-#else
-#define TUNET_RESTRICT
-#endif
+    #if defined(_MSC_VER) || defined(__GNUC__)
+        #define TUNET_RESTRICT __restrict
+    #else
+        #define TUNET_RESTRICT
+    #endif
 #endif // !TUNET_RESTRICT
 
 #ifdef __cplusplus
@@ -43,7 +43,6 @@ extern "C"
     typedef struct tunet_flux
     {
         char* username;
-        int32_t username_length;
         int64_t flux;
         int64_t online_time;
         double balance;
@@ -74,7 +73,8 @@ extern "C"
         tunet_detail_flux
     };
 
-    int32_t TUNET_API tunet_last_err(char* message, int32_t len);
+    char* TUNET_API tunet_last_err(void);
+    void TUNET_API tunet_string_free(const char* message);
 
     int32_t TUNET_API tunet_login(const tunet_credential* cred);
     int32_t TUNET_API tunet_logout(const tunet_credential* cred);
