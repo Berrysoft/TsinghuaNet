@@ -4,6 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
     <RuntimeIdentifiers>osx-x64</RuntimeIdentifiers>
+    <!--Eto.Platform.Mac64 doesn't recognize net5.0-->
+    <MacUseDotNetCore>True</MacUseDotNetCore>
   </PropertyGroup>
 
   <ItemGroup>
