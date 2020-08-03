@@ -14,7 +14,7 @@ namespace TsinghuaNet
         private const string LogUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/srun_portal";
         private const string FluxUri = "https://auth{0}.tsinghua.edu.cn/rad_user_info.php";
         private const string ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={1}&double_stack=1&ip&callback=callback";
-        private static readonly int[] AcIds = new int[] { 1, 25, 33, 35, 37 };
+        private static readonly int[] AcIds = new int[] { 1, 25, 33, 35, 37, 159 };
         private readonly int version;
 
         public AuthHelper(string username, string password, HttpClient client, int version)
