@@ -3,9 +3,9 @@
     x:Class="TsinghuaNet.XF.Views.InfoPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="using:TsinghuaNet.XF.Controls"
     xmlns:converters="using:TsinghuaNet.XF.Converters"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
-    xmlns:skiaforms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
@@ -34,7 +34,9 @@
                 </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
             <Grid HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                <skiaforms:SKCanvasView x:Name="FluxCanvas" Margin="8" PaintSurface="OnCanvasViewPaintSurface"/>
+                <controls:ViewBox VerticalOptions="Fill">
+                    <controls:BrushLabel x:Name="FluxLabel" FontFamily="{StaticResource SymbolFont}" FontSize="200">&#xE12B;</controls:BrushLabel>
+                </controls:ViewBox>
                 <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
             </Grid>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical" Spacing="8">
@@ -75,7 +77,7 @@
             </StackLayout>
         </StackLayout>
         <Label HorizontalTextAlignment="Center" HeightRequest="32" Text="{Binding Response,Mode=OneWay}"/>
-        <Grid HorizontalOptions="Fill" ColumnSpacing="8">
+        <Grid HorizontalOptions="Fill" VerticalOptions="Fill" ColumnSpacing="8">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>

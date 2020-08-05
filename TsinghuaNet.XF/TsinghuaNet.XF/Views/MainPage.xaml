@@ -9,12 +9,6 @@
     xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
     mc:Ignorable="d" Title="TsinghuaNet.XF.UWP" windows:TabbedPage.HeaderIconsEnabled="False" android:TabbedPage.ToolbarPlacement="Bottom">
-    <TabbedPage.Resources>
-        <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
-            <On Platform="UWP,iOS">Segoe MDL2 Assets</On>
-            <On Platform="Android">segmdl2.ttf#Segoe MDL2 Assets</On>
-        </OnPlatform>
-    </TabbedPage.Resources>
     <local:InfoPage>
         <local:InfoPage.IconImageSource>
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;" Size="1,1"/>

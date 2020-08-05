@@ -24,43 +24,16 @@ namespace TsinghuaNet.XF.Views
 
         internal void SaveSettings() => Model.SaveSettings();
 
-        private async void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs args)
+        private void Model_Refreshed(object sender, EventArgs e)
         {
-            var info = args.Info;
-            var canvas = args.Surface.Canvas;
-            const string TEXT = "\xE12B";
-            using (var paint = new SKPaint())
+            FluxLabel.Foreground = new LinearGradientBrush(new GradientStopCollection()
             {
-                paint.TextSize = Math.Min(info.Width, info.Height);
-                switch (Device.RuntimePlatform)
-                {
-                    case Device.UWP:
-                        paint.Typeface = SKTypeface.FromFamilyName("Segoe MDL2 Assets", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright);
-                        break;
-                    default:
-                        using (var stream = await FileSystem.OpenAppPackageFileAsync("segmdl2.ttf"))
-                        {
-                            paint.Typeface = SKTypeface.FromStream(stream);
-                        }
-                        break;
-                }
-                SKRect textBounds = new SKRect();
-                paint.MeasureText(TEXT, ref textBounds);
-                float xText = info.Width / 2 - textBounds.MidX;
-                float yText = info.Height / 2 - textBounds.MidY;
-                textBounds.Offset(xText, yText);
-                paint.Shader = SKShader.CreateLinearGradient(
-                                new SKPoint((textBounds.Left + textBounds.Right) / 2, textBounds.Bottom),
-                                new SKPoint((textBounds.Left + textBounds.Right) / 2, textBounds.Top),
-                                new SKColor[] { App.SystemAccentColor.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark1.ToSKColor(), App.SystemAccentColorDark2.ToSKColor() },
-                                new float[] { Model.FluxOffset, Model.FluxOffset, Model.FreeOffset, Model.FreeOffset },
-                                SKShaderTileMode.Clamp);
-                canvas.Clear();
-                canvas.DrawText(TEXT, xText, yText, paint);
-            }
+                new GradientStop(App.SystemAccentColor, Model.FluxOffset),
+                new GradientStop(App.SystemAccentColorDark1, Model.FluxOffset),
+                new GradientStop(App.SystemAccentColorDark1, Model.FreeOffset),
+                new GradientStop(App.SystemAccentColorDark2, Model.FreeOffset)
+            }, new Point(0.5, 1), new Point(0.5, 0));
         }
-
-        private void Model_Refreshed(object sender, EventArgs e) => FluxCanvas.InvalidateSurface();
 
         private async void Model_SettingsLoaded(object sender, EventArgs e)
         {

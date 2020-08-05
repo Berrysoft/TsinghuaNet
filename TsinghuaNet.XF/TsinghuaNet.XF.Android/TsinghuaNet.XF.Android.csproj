@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Background\AppWidget.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\BrushLabelRenderer.cs" />
     <Compile Include="Renderers\ListViewRefreshingRenderer.cs" />
     <Compile Include="Renderers\StepSliderRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
