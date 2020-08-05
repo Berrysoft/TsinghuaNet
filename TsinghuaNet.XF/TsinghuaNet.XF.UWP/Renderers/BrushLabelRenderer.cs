@@ -35,7 +35,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
                     collections.Add(new Windows.UI.Xaml.Media.GradientStop() { Color = stop.Color.ToWindowsColor(), Offset = stop.Offset });
                 }
                 var vec = oriBrush.EndPoint.ToWindows().ToVector2() - oriBrush.StartPoint.ToWindows().ToVector2();
-                var brush = new Windows.UI.Xaml.Media.LinearGradientBrush(collections, Math.Atan2(vec.Y, vec.X));
+                var brush = new Windows.UI.Xaml.Media.LinearGradientBrush(collections, Math.Atan2(vec.Y, vec.X) / Math.PI * 180);
                 Control.Foreground = brush;
             }
         }
