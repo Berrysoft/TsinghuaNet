@@ -119,10 +119,10 @@ jobs:
         imageName: 'windows-latest'
         rid: win-x64
         suffix: Win64
-      linux:
-        imageName: 'ubuntu-latest'
-        rid: linux-x64
-        suffix: Linux64
+      # linux:
+      #   imageName: 'ubuntu-latest'
+      #   rid: linux-x64
+      #   suffix: Linux64
       # mac:
       #   imageName: 'macos-latest'
       #   rid: osx-x64
