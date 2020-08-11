@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using PropertyChanged;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.ViewModels
@@ -20,6 +21,7 @@ namespace TsinghuaNet.ViewModels
         public abstract void LoadSettings();
         public abstract void SaveSettings();
 
+        [SuppressPropertyChangedWarnings]
         private void OnCredentialStateChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "State")

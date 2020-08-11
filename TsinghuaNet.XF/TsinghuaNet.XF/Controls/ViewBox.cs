@@ -1,13 +1,14 @@
 ﻿using System;
+using PropertyChanged;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Controls
 {
+    [DoNotNotify]
     [ContentProperty(nameof(Content))]
     public class ViewBox : Layout<View>
     {
-        public static readonly BindableProperty ContentProperty = BindableProperty.Create(
-            propertyName: nameof(Content), returnType: typeof(View), declaringType: typeof(ViewBox), propertyChanged: OnContentChanged);
+        public static readonly BindableProperty ContentProperty = BindableProperty.Create(nameof(Content), typeof(View), typeof(ViewBox), propertyChanged: OnContentChanged);
 
         public static void OnContentChanged(BindableObject bindable, object oldVal, object newVal)
         {
@@ -21,8 +22,8 @@ namespace TsinghuaNet.XF.Controls
 
         public View Content
         {
-            get { return (View)GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
+            get => (View)GetValue(ContentProperty);
+            set => SetValue(ContentProperty, value);
         }
 
         protected override void OnAdded(View view)

@@ -56,6 +56,7 @@ namespace TsinghuaNet.XF.ViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         private async void OnSettingsPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var helper = DependencyService.Get<IBackgroundManager>();
@@ -72,6 +73,7 @@ namespace TsinghuaNet.XF.ViewModels
             }
         }
 
+        [SuppressPropertyChangedWarnings]
         private async void OnConnectivityChanged(object sender, ConnectivityChangedEventArgs e)
         {
             await RefreshStatusAsync();

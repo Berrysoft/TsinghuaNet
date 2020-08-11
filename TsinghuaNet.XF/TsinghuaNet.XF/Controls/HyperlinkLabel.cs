@@ -1,9 +1,11 @@
 ﻿using System;
+using PropertyChanged;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Controls
 {
+    [DoNotNotify]
     [ContentProperty(nameof(Text))]
     public class HyperlinkLabel : Label
     {

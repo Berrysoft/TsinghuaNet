@@ -1,10 +1,12 @@
 ﻿// https://xamarin.azureedge.net/developer/xamarin-forms-book/XamarinFormsBook-Ch27-Apr2016.pdf
 
 using System;
+using PropertyChanged;
 using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Controls
 {
+    [DoNotNotify]
     public class StepSlider : View
     {
         public event EventHandler<ValueChangedEventArgs> ValueChanged;
@@ -89,4 +91,5 @@ namespace TsinghuaNet.XF.Controls
 
         double Coerce(double value, double min, double max)
             => Math.Max(min, Math.Min(value, max));
-    }}
+    }
+}
