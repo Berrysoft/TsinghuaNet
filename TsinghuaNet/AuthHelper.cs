@@ -52,15 +52,11 @@ namespace TsinghuaNet
         private static readonly Regex AcIdRegex = new Regex(@"/index_([0-9]+)\.html");
         private async Task<int> GetAcId()
         {
-            var response = await client.GetAsync("http://net.tsinghua.edu.cn/");
-            // It may not be redirected.
-            if (response.IsSuccessStatusCode || response.StatusCode == HttpStatusCode.TemporaryRedirect)
+            var response = await client.GetAsync(version == 4 ? "http://3.3.3.3/" : "http://[333::3]");
+            var match = AcIdRegex.Match(await response.Content.ReadAsStringAsync());
+            if (match.Success)
             {
-                var match = AcIdRegex.Match((response.StatusCode == HttpStatusCode.TemporaryRedirect ? response.Headers.Location : response.RequestMessage.RequestUri).LocalPath);
-                if (match.Success)
-                {
-                    return int.Parse(match.Groups[1].Value);
-                }
+                return int.Parse(match.Groups[1].Value);
             }
             return -1;
         }
