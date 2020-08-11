@@ -32,6 +32,6 @@ Xamarin.Forms版本。支持UWP、Android与iOS平台。
 
 |平台|UWP|Android|iOS|
 |-|:-:|:-:|:-:|
-|最低版本|10.0.16299(1709)|7.0(Nougat)|8.0|
+|最低版本|10.0.17763(1809)|7.0(Nougat)|8.0|
 |屏幕截图（竖）|![UWP](./Screenshots/XF.UWP.v.png)|![Android](./Screenshots/XF.Android.v.png)|![iOS](./Screenshots/XF.iOS.v.png)|
 |屏幕截图（横）|![UWP](./Screenshots/XF.UWP.h.png)|![Android](./Screenshots/XF.Android.h.png)|![iOS](./Screenshots/XF.iOS.h.png)|
