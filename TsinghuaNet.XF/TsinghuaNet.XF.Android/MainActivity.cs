@@ -24,6 +24,7 @@ namespace TsinghuaNet.XF.Droid
 
             Popup.Init(this, savedInstanceState);
 
+            Forms.SetFlags("Brush_Experimental");
             Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

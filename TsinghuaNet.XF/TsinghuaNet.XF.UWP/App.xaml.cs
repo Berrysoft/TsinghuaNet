@@ -48,8 +48,8 @@ namespace TsinghuaNet.XF.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                xf.Forms.SetFlags("Brush_Experimental");
                 Popup.Init();
+                xf.Forms.SetFlags("Brush_Experimental");
                 xf.Forms.Init(args, Popup.GetExtraAssemblies());
                 xf.DependencyService.Register<InternetStatus>();
                 xf.DependencyService.Register<BackgroundManager>();

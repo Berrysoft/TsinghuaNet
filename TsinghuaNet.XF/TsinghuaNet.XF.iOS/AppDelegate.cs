@@ -21,6 +21,7 @@ namespace TsinghuaNet.XF.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             Popup.Init();
+            Forms.SetFlags("Brush_Experimental");
             Forms.Init();
             LoadApplication(new App());
 
