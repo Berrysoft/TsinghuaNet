@@ -1,21 +1,16 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using TsinghuaNet.Models;
 
 namespace TsinghuaNet.Eto.Models
 {
-    public class NetEtoSettings : INetSettings
+    public class NetEtoSettings : NetSettingsBase
     {
-#pragma warning disable 0067
-        public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 0067
-
-        public bool AutoLogin { get; set; }
-        public bool EnableFluxLimit { get; set; }
+        public override bool AutoLogin { get; set; }
+        public override bool EnableFluxLimit { get; set; }
         [JsonConverter(typeof(JsonConverterByteSize))]
-        public ByteSize FluxLimit { get; set; }
+        public override ByteSize FluxLimit { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public bool UseTimer { get; set; }
@@ -33,7 +28,7 @@ namespace TsinghuaNet.Eto.Models
         public static readonly SettingsFileHelper Helper = new SettingsFileHelper(ProjectName, SettingsFilename);
     }
 
-    internal class JsonConverterByteSize : JsonConverter<ByteSize>
+    public class JsonConverterByteSize : JsonConverter<ByteSize>
     {
         public override ByteSize Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {

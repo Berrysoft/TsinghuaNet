@@ -273,7 +273,7 @@ namespace TsinghuaNet.CLI
     [Verb("savecred", HelpText = "保存用户名和密码")]
     class SaveCredentialVerb : VerbBase
     {
-        public override Task RunAsync() => Task.Run(() => VerbHelper.Credential = VerbHelper.ReadCredential());
+        public override Task RunAsync() => Task.Run(() => VerbHelper.Settings = VerbHelper.ReadCredential());
     }
 
     [Verb("deletecred", HelpText = "删除已保存的用户名和密码")]

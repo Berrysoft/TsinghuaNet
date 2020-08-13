@@ -31,13 +31,13 @@ namespace TsinghuaNet.Models
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private HttpClient GetClient() => UseProxy ? Client : NoProxyClient;
 
-        public IConnect GetHelper()
+        public IConnect GetHelper(NetSettingsBase settings = null)
         {
             return State switch
             {
                 NetState.Net => new NetHelper(Username, Password, GetClient()),
-                NetState.Auth4 => new Auth4Helper(Username, Password, GetClient()),
-                NetState.Auth6 => new Auth6Helper(Username, Password, GetClient()),
+                NetState.Auth4 => new Auth4Helper(Username, Password, GetClient(), settings),
+                NetState.Auth6 => new Auth6Helper(Username, Password, GetClient(), settings),
                 _ => null,
             };
         }

@@ -40,6 +40,7 @@ namespace TsinghuaNet.CLI
             try
             {
                 await ((VerbBase)opts).RunAsync();
+                VerbHelper.SaveSettings();
                 return 0;
             }
             catch (Exception ex)

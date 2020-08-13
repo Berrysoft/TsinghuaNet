@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -13,34 +14,43 @@ namespace TsinghuaNet
         private const string LogUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/srun_portal";
         private const string FluxUri = "https://auth{0}.tsinghua.edu.cn/rad_user_info.php";
         private const string ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={1}&double_stack=1&ip&callback=callback";
-        private static readonly int[] AcIds = new int[] { 1, 25, 33, 35, 37, 159 };
+        private static readonly int[] PredefinedAcIds = new int[] { 1, 25, 33, 35, 37, 159 };
         private readonly int version;
+        private readonly NetSettingsBase settings;
 
-        public AuthHelper(string username, string password, HttpClient client, int version)
+        public AuthHelper(string username, string password, HttpClient client, int version, NetSettingsBase settings = null)
             : base(username, password, client)
         {
             this.version = version;
+            this.settings = settings;
         }
 
         private async Task<LogResponse> LogAsync(Func<int, Task<Dictionary<string, string>>> f)
         {
             LogResponse response = default;
             string uri = string.Format(LogUri, version);
-            foreach (int ac_id in AcIds)
+            foreach (int ac_id in settings != null ? settings.AcIds.AsEnumerable() : PredefinedAcIds)
             {
                 response = LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
                 if (response.Succeed)
                     break;
             }
             if (response.Succeed)
+            {
                 return response;
+            }
             else
             {
                 int ac_id = await GetAcId();
                 if (ac_id > 0)
+                {
+                    if (settings != null) settings.AcIds.Add(ac_id);
                     return LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
+                }
                 else
+                {
                     return response;
+                }
             }
         }
 
@@ -114,15 +124,15 @@ namespace TsinghuaNet
 
     internal class Auth4Helper : AuthHelper
     {
-        public Auth4Helper(string username, string password, HttpClient client)
-            : base(username, password, client, 4)
+        public Auth4Helper(string username, string password, HttpClient client, NetSettingsBase settings = null)
+            : base(username, password, client, 4, settings)
         { }
     }
 
     internal class Auth6Helper : AuthHelper
     {
-        public Auth6Helper(string username, string password, HttpClient client)
-            : base(username, password, client, 6)
+        public Auth6Helper(string username, string password, HttpClient client, NetSettingsBase settings = null)
+            : base(username, password, client, 6, settings)
         { }
     }
 }

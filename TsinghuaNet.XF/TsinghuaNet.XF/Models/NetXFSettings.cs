@@ -1,18 +1,14 @@
-﻿using System.ComponentModel;
+﻿using System.Linq;
 using TsinghuaNet.Models;
 using Xamarin.Essentials;
 
 namespace TsinghuaNet.XF.Models
 {
-    public class NetXFSettings : INetSettings
+    public class NetXFSettings : NetSettingsBase
     {
-#pragma warning disable 0067
-        public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 0067
-
-        public bool AutoLogin { get; set; }
-        public bool EnableFluxLimit { get; set; }
-        public ByteSize FluxLimit { get; set; }
+        public override bool AutoLogin { get; set; }
+        public override bool EnableFluxLimit { get; set; }
+        public override ByteSize FluxLimit { get; set; }
         public bool BackgroundAutoLogin { get; set; }
         public bool BackgroundLiveTile { get; set; }
         public bool UseProxy { get; set; }
@@ -23,6 +19,7 @@ namespace TsinghuaNet.XF.Models
         private const string EnableFluxLimitKey = "EnableFluxLimit";
         private const string FluxLimitKey = "FluxLimit";
         private const string UseProxyKey = "UseProxy";
+        private const string AcIdsKey = "AcIds";
 
         public void LoadSettings()
         {
@@ -32,6 +29,13 @@ namespace TsinghuaNet.XF.Models
             EnableFluxLimit = Preferences.Get(EnableFluxLimitKey, false);
             FluxLimit = ByteSize.FromGigaBytes(Preferences.Get(FluxLimitKey, 20.0));
             UseProxy = Preferences.Get(UseProxyKey, false);
+            AcIds = Preferences.Get(AcIdsKey, string.Join(
+#if NETSTANDARD2_0
+                ";"
+#else
+                ';'
+#endif
+                , PredefinedAcIds)).Split(';').Select(s => int.Parse(s)).ToList();
         }
 
         public void SaveSettings()
@@ -42,6 +46,13 @@ namespace TsinghuaNet.XF.Models
             Preferences.Set(EnableFluxLimitKey, EnableFluxLimit);
             Preferences.Set(FluxLimitKey, FluxLimit.GigaBytes);
             Preferences.Set(UseProxyKey, UseProxy);
+            Preferences.Set(AcIdsKey, string.Join(
+#if NETSTANDARD2_0
+                ";"
+#else
+                ';'
+#endif
+                , AcIds));
         }
     }
 }

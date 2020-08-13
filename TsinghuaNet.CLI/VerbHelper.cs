@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using TsinghuaNet.Models;
@@ -14,15 +13,17 @@ namespace TsinghuaNet.CLI
         {
             if (opts.Host == OptionNetState.Auto)
                 opts.Host = (OptionNetState)await Status.SuggestAsync();
-            var cred = Credential;
+            var settings = Settings;
+            var cred = new NetCredential { Username = settings.Username, Password = settings.Password };
             cred.State = (NetState)opts.Host;
             cred.UseProxy = opts.UseProxy;
-            return cred.GetHelper();
+            return cred.GetHelper(settings);
         }
 
         public static IUsereg GetUseregHelper(this WebVerbBase opts)
         {
-            var cred = Credential;
+            var settings = Settings;
+            var cred = new NetCredential { Username = settings.Username, Password = settings.Password };
             cred.UseProxy = opts.UseProxy;
             return cred.GetUseregHelper();
         }
@@ -30,7 +31,7 @@ namespace TsinghuaNet.CLI
         private static string ReadPassword()
         {
             StringBuilder builder = new StringBuilder();
-            do
+            while (true)
             {
                 var c = Console.ReadKey(true);
                 if (c.Key == ConsoleKey.Enter)
@@ -45,47 +46,30 @@ namespace TsinghuaNet.CLI
                         break;
                 }
             }
-            while (true);
             Console.WriteLine();
             return builder.ToString();
         }
 
-        public static NetCredential ReadCredential()
+        public static NetCLISettings ReadCredential()
         {
             Console.Write("请输入用户名：");
             var u = Console.ReadLine();
             Console.Write("请输入密码：");
             var p = ReadPassword();
-            return new NetCredential() { Username = u, Password = p };
+            return new NetCLISettings() { Username = u, Password = p };
         }
 
-        public static NetCredential Credential
+        private static NetCLISettings settingsCache;
+
+        public static NetCLISettings Settings
         {
-            get
-            {
-                var settings = SettingsHelper.Helper.ReadDictionary();
-                if (settings != null)
-                {
-                    return new NetCredential
-                    {
-                        Username = settings["username"],
-                        Password = Encoding.UTF8.GetString(Convert.FromBase64String(settings["password"]))
-                    };
-                }
-                else
-                {
-                    return ReadCredential();
-                }
-            }
-            set
-            {
-                var settings = new Dictionary<string, string>()
-                {
-                    ["username"] = value.Username ?? string.Empty,
-                    ["password"] = Convert.ToBase64String(Encoding.UTF8.GetBytes(value.Password ?? string.Empty))
-                };
-                SettingsHelper.Helper.WriteDictionary(settings);
-            }
+            get => settingsCache ??= (SettingsHelper.Helper.ReadSettings<NetCLISettings>() ?? ReadCredential());
+            set => SettingsHelper.Helper.WriteSettings(value);
+        }
+
+        public static void SaveSettings()
+        {
+            Settings = settingsCache;
         }
     }
 
