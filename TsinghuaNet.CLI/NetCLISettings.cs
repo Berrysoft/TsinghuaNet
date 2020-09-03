@@ -8,6 +8,8 @@ namespace TsinghuaNet.CLI
         [JsonIgnore]
         public override bool AutoLogin { get; set; }
         [JsonIgnore]
+        public override bool EnableRelogin { get; set; }
+        [JsonIgnore]
         public override bool EnableFluxLimit { get; set; }
         [JsonIgnore]
         public override ByteSize FluxLimit { get; set; }
