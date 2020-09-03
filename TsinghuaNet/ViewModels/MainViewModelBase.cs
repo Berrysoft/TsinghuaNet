@@ -76,6 +76,7 @@ namespace TsinghuaNet.ViewModels
             LogResponse res = new LogResponse(true, "登录成功");
             if (helper != null)
             {
+                if (Settings.EnableRelogin) await helper.LogoutAsync();
                 var r = await helper.LoginAsync();
                 if (!r.Succeed)
                     res = r;

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
+using PropertyChanged;
 
 namespace TsinghuaNet.Models
 {
@@ -11,10 +12,16 @@ namespace TsinghuaNet.Models
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 0067
 
+        [SuppressPropertyChangedWarnings]
         public abstract bool AutoLogin { get; set; }
 
+        [SuppressPropertyChangedWarnings]
+        public abstract bool EnableRelogin { get; set; }
+
+        [SuppressPropertyChangedWarnings]
         public abstract bool EnableFluxLimit { get; set; }
 
+        [SuppressPropertyChangedWarnings]
         public abstract ByteSize FluxLimit { get; set; }
 
         public List<int> AcIds { get; set; } = new List<int>(PredefinedAcIds);

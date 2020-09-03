@@ -8,6 +8,7 @@ namespace TsinghuaNet.Eto.Models
     public class NetEtoSettings : NetSettingsBase
     {
         public override bool AutoLogin { get; set; }
+        public override bool EnableRelogin { get; set; }
         public override bool EnableFluxLimit { get; set; }
         [JsonConverter(typeof(JsonConverterByteSize))]
         public override ByteSize FluxLimit { get; set; }

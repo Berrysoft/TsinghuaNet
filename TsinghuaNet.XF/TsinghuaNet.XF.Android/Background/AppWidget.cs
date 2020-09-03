@@ -29,6 +29,7 @@ namespace TsinghuaNet.XF.Droid.Background
                 settings.LoadSettings();
                 if (settings.BackgroundAutoLogin && !string.IsNullOrEmpty(credential.Username))
                 {
+                    if (settings.EnableRelogin) await helper.LogoutAsync();
                     await helper.LoginAsync();
                 }
                 FluxUser user = await helper.GetFluxAsync();

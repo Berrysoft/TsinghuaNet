@@ -22,6 +22,7 @@ namespace TsinghuaNet
 
     public interface IUsereg : ILog
     {
+        Task<LogResponse> LoginAsync(IPAddress ip);
         Task<LogResponse> LogoutAsync(IPAddress ip);
         IAsyncEnumerable<NetUser> GetUsersAsync();
         IAsyncEnumerable<NetDetail> GetDetailsAsync(NetDetailOrder order, bool descending);

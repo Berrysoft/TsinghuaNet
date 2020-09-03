@@ -22,6 +22,7 @@ namespace TsinghuaNet.XF.UWP.Background
                 var helper = credential.GetHelper();
                 if (helper != null)
                 {
+                    if (settings.EnableRelogin) await helper.LogoutAsync();
                     await helper.LoginAsync();
                     FluxUser user = await helper.GetFluxAsync();
                     NotificationHelper.UpdateTile(user);

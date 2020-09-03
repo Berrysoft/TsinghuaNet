@@ -61,11 +61,15 @@ namespace TsinghuaNet.CLI
             }
         }
 
+        [Option('r', "relog", Required = false, Default = false, HelpText = "重新登录")]
+        public bool Relog { get; set; }
+
         public override async Task RunAsync()
         {
             var helper = await this.GetHelperAsync();
             if (helper != null)
             {
+                if (Relog) await helper.LogoutAsync();
                 var res = await helper.LoginAsync();
                 Console.WriteLine(res.Message);
             }

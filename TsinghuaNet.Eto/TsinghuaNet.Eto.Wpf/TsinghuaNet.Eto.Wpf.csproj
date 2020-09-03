@@ -17,11 +17,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.3" />
+    <PackageReference Include="Eto.Platform.Wpf" Version="2.5.5" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-preview.7.20364.11" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-preview.8.20407.11" />
   </ItemGroup>
 
   <ItemGroup>

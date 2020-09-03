@@ -7,23 +7,26 @@ namespace TsinghuaNet.XF.Models
     public class NetXFSettings : NetSettingsBase
     {
         public override bool AutoLogin { get; set; }
+        public override bool EnableRelogin { get; set; }
         public override bool EnableFluxLimit { get; set; }
         public override ByteSize FluxLimit { get; set; }
         public bool BackgroundAutoLogin { get; set; }
         public bool BackgroundLiveTile { get; set; }
         public bool UseProxy { get; set; }
 
-        private const string AutoLoginKey = "AutoLogin";
-        private const string BackgroundAutoLoginKey = "BackgroundAutoLogin";
-        private const string BackgroundLiveTileKey = "BackgroundLiveTile";
-        private const string EnableFluxLimitKey = "EnableFluxLimit";
-        private const string FluxLimitKey = "FluxLimit";
-        private const string UseProxyKey = "UseProxy";
-        private const string AcIdsKey = "AcIds";
+        private const string AutoLoginKey = nameof(AutoLogin);
+        private const string EnableReloginKey = nameof(EnableRelogin);
+        private const string BackgroundAutoLoginKey = nameof(BackgroundAutoLogin);
+        private const string BackgroundLiveTileKey = nameof(BackgroundLiveTile);
+        private const string EnableFluxLimitKey = nameof(EnableFluxLimit);
+        private const string FluxLimitKey = nameof(FluxLimit);
+        private const string UseProxyKey = nameof(UseProxy);
+        private const string AcIdsKey = nameof(AcIds);
 
         public void LoadSettings()
         {
             AutoLogin = Preferences.Get(AutoLoginKey, true);
+            EnableRelogin = Preferences.Get(EnableReloginKey, false);
             BackgroundAutoLogin = Preferences.Get(BackgroundAutoLoginKey, true);
             BackgroundLiveTile = Preferences.Get(BackgroundLiveTileKey, true);
             EnableFluxLimit = Preferences.Get(EnableFluxLimitKey, false);
@@ -41,6 +44,7 @@ namespace TsinghuaNet.XF.Models
         public void SaveSettings()
         {
             Preferences.Set(AutoLoginKey, AutoLogin);
+            Preferences.Set(EnableReloginKey, EnableRelogin);
             Preferences.Set(BackgroundAutoLoginKey, BackgroundAutoLogin);
             Preferences.Set(BackgroundLiveTileKey, BackgroundLiveTile);
             Preferences.Set(EnableFluxLimitKey, EnableFluxLimit);

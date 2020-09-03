@@ -14,6 +14,7 @@
       <TabPage Text="通用" Padding="8">
         <StackLayout Orientation="Vertical" Spacing="8">
           <CheckBox Checked="{Binding Settings.AutoLogin,Mode=TwoWay}">自动登录</CheckBox>
+          <CheckBox Checked="{Binding Settings.EnableRelogin,Mode=TwoWay}">启用重新登录</CheckBox>
           <CheckBox Checked="{Binding Settings.UseTimer,Mode=TwoWay}">使用计时器递增在线时间</CheckBox>
           <StackLayout Orientation="Horizontal" VerticalContentAlignment="Center" Spacing="4">
             <CheckBox Checked="{Binding Settings.EnableFluxLimit,Mode=TwoWay}">流量不足预警，当流量不足</CheckBox>

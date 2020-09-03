@@ -13,9 +13,11 @@ namespace TsinghuaNet
 {
     internal class UseregHelper : NetHelperBase, IUsereg
     {
-        private const string LogUri = "http://usereg.tsinghua.edu.cn/do.php";
-        private const string InfoUri = "http://usereg.tsinghua.edu.cn/online_user_ipv4.php";
-        private const string DetailUri = "http://usereg.tsinghua.edu.cn/user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1:D2}-01&end_time={0}-{1:D2}-{2:D2}&page={3}&offset={4}";
+        private const string BaseUri = "http://usereg.tsinghua.edu.cn/";
+        private const string LogUri = BaseUri + "do.php";
+        private const string InfoUri = BaseUri + "online_user_ipv4.php";
+        private const string DetailUri = BaseUri + "user_detail_list.php?action=query&desc={6}&order={5}&start_time={0}-{1:D2}-01&end_time={0}-{1:D2}-{2:D2}&page={3}&offset={4}";
+        private const string ConnectUri = BaseUri + "ip_login.php";
         private const string LogoutData = "action=logout";
         private const string DropData = "action=drop&user_ip={0}";
 
@@ -28,6 +30,12 @@ namespace TsinghuaNet
             ["action"] = "login",
             ["user_login_name"] = Username,
             ["user_password"] = CryptographyHelper.GetMD5(Password)
+        }));
+
+        public async Task<LogResponse> LoginAsync(IPAddress ip) => LogResponse.ParseFromUsereg(await PostAsync(ConnectUri, new Dictionary<string, string>
+        {
+            ["user_ip"] = ip.ToString(),
+            ["drop"] = "0"
         }));
 
         public async Task<LogResponse> LogoutAsync() => LogResponse.ParseFromUsereg(await PostAsync(LogUri, LogoutData));

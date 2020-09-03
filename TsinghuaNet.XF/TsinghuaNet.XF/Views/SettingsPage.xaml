@@ -43,6 +43,10 @@
                 <Switch IsToggled="{Binding Settings.BackgroundAutoLogin,Mode=TwoWay}"/>
             </StackLayout>
             <StackLayout Spacing="8" Orientation="Horizontal">
+                <Label VerticalOptions="Center">启用重新登录</Label>
+                <Switch IsToggled="{Binding Settings.EnableRelogin,Mode=TwoWay}"/>
+            </StackLayout>
+            <StackLayout Spacing="8" Orientation="Horizontal">
                 <StackLayout.IsVisible>
                     <OnPlatform x:TypeArguments="x:Boolean">
                         <On Platform="UWP">true</On>
