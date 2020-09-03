@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Numerics;
+﻿using System.ComponentModel;
 using TsinghuaNet.XF.Controls;
 using TsinghuaNet.XF.UWP.Renderers;
 using Xamarin.Forms;
@@ -34,8 +32,12 @@ namespace TsinghuaNet.XF.UWP.Renderers
                 {
                     collections.Add(new Windows.UI.Xaml.Media.GradientStop() { Color = stop.Color.ToWindowsColor(), Offset = stop.Offset });
                 }
-                var vec = oriBrush.EndPoint.ToWindows().ToVector2() - oriBrush.StartPoint.ToWindows().ToVector2();
-                var brush = new Windows.UI.Xaml.Media.LinearGradientBrush(collections, Math.Atan2(vec.Y, vec.X) / Math.PI * 180);
+                var brush = new Windows.UI.Xaml.Media.LinearGradientBrush
+                {
+                    GradientStops = collections,
+                    StartPoint = oriBrush.StartPoint.ToWindows(),
+                    EndPoint = oriBrush.EndPoint.ToWindows()
+                };
                 Control.Foreground = brush;
             }
         }
