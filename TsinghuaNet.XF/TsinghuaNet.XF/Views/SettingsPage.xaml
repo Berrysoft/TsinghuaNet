@@ -88,6 +88,7 @@
             <StackLayout Spacing="8" Orientation="Horizontal">
                 <Label VerticalOptions="Center" Style="{DynamicResource SubtitleStyle}">管理连接</Label>
                 <Button WidthRequest="100" VerticalOptions="Center" Command="{Binding ConnectionModel.RefreshCommand}" Text="刷新"/>
+                <Button WidthRequest="100" VerticalOptions="Center" Clicked="ShowConnectIP" Text="添加"/>
             </StackLayout>
             <ListView HeightRequest="320" ItemsSource="{Binding ConnectionModel.NetUsers}" HasUnevenRows="true" RefreshCommand="{Binding ConnectionModel.RefreshCommand}" IsPullToRefreshEnabled="true" IsRefreshing="{Binding ConnectionModel.IsBusy, Mode=OneWay}" CachingStrategy="RecycleElement">
                 <ListView.ItemTemplate>

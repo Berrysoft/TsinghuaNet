@@ -19,6 +19,11 @@ namespace TsinghuaNet.XF.Views
             await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
         }
 
+        private async void ShowConnectIP(object sender, EventArgs e)
+        {
+            await PopupNavigation.Instance.PushAsync(new ConnectIPPage(Model.ConnectionModel));
+        }
+
         private async void DropUser(object sender, IPAddress e)
         {
             await Model.ConnectionModel.DropAsync(e);

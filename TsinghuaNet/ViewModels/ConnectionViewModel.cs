@@ -72,7 +72,7 @@ namespace TsinghuaNet.ViewModels
                 }
                 // 反之移除旧元素
                 usersmodel.RemoveAt(i);
-                continue_while:;
+            continue_while:;
             }
             // 最后添加新增元素
             usersmodel.AddRange(users);
@@ -89,6 +89,29 @@ namespace TsinghuaNet.ViewModels
                 await helper.LoginAsync();
                 foreach (var ip in ips)
                     await helper.LogoutAsync(ip);
+                await RefreshNetUsersAsync(helper);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        public Task ConnectAsync(params IPAddress[] ips) => ConnectAsync(ips.AsEnumerable());
+
+        public async Task ConnectAsync(IEnumerable<IPAddress> ips)
+        {
+            try
+            {
+                IsBusy = true;
+                var helper = Credential.GetUseregHelper();
+                await helper.LoginAsync();
+                foreach (var ip in ips)
+                    await helper.LoginAsync(ip);
                 await RefreshNetUsersAsync(helper);
             }
             catch (Exception ex)

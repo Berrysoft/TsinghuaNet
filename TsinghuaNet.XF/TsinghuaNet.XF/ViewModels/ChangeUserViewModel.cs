@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TsinghuaNet.ViewModels;
+﻿using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.XF.ViewModels
 {
