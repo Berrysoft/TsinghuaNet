@@ -14,6 +14,7 @@
         <dg:PaletteCollection x:Key="DataGridForegroundPalette">
             <Color>#FF000000</Color>
         </dg:PaletteCollection>
+        <Color x:Key="PopupBackground">#FFFFFFFF</Color>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
             <On Platform="UWP,iOS">Segoe MDL2 Assets</On>
             <On Platform="Android">segmdl2.ttf#Segoe MDL2 Assets</On>

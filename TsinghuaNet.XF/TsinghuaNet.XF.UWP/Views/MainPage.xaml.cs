@@ -30,7 +30,9 @@ namespace TsinghuaNet.XF.UWP.Views
         private void SetColorResource(xf.Application app)
         {
             var foreground = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
+            var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.WhiteSmoke;
             ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
+            app.Resources["PopupBackground"] = background;
         }
     }
 }

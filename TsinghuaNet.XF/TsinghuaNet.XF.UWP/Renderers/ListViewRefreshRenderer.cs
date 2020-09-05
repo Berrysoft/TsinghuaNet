@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using TsinghuaNet.XF.UWP.Renderers;
 using Windows.Foundation;
 using Xamarin.Forms;
