@@ -20,7 +20,7 @@
         <StackLayout Orientation="Vertical" Padding="8">
             <Entry Margin="8" WidthRequest="200" Text="{Binding IP,Mode=TwoWay}" Keyboard="Numeric">
                 <Entry.Behaviors>
-                    <ms:MaskedBehavior Mask="XXX.XXX.XXX.XXX"/>
+                    <ms:IPMaskedBehavior/>
                 </Entry.Behaviors>
             </Entry>
             <Button Margin="8" HorizontalOptions="Fill" Clicked="ConfirmConnectIP" Text="确定"/>
