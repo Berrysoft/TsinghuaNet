@@ -156,6 +156,37 @@ namespace TsinghuaNet.CLI
         }
     }
 
+    [Verb("connect", HelpText = "连线IP")]
+    class ConnectVerb : WebVerbBase
+    {
+        [Usage()]
+        public static IEnumerable<Example> Examples
+        {
+            get
+            {
+                yield return new Example("连线一个IP", new ConnectVerb() { Address = "IP地址" });
+            }
+        }
+
+        [Option('a', "address", Required = true, HelpText = "IP地址")]
+        public string Address { get; set; }
+
+        public override async Task RunAsync()
+        {
+            var ip = IPAddress.Parse(Address);
+            var helper = this.GetUseregHelper();
+            var res = await helper.LoginAsync();
+            if (res.Succeed)
+            {
+                res = await helper.LoginAsync(ip);
+                if (!res.Succeed)
+                    Console.WriteLine(res.Message);
+            }
+            else
+                Console.WriteLine(res.Message);
+        }
+    }
+
     [Verb("drop", HelpText = "下线IP")]
     class DropVerb : WebVerbBase
     {
