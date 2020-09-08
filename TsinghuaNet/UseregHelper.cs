@@ -53,7 +53,14 @@ namespace TsinghuaNet
                 yield return new NetUser(
                     IPAddress.Parse(tds[0]),
                     DateTime.ParseExact(tds[1], "yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture),
-                    string.IsNullOrEmpty(tds[6]) ? PhysicalAddress.None : PhysicalAddress.Parse(tds[6].Replace(".", "").ToUpperInvariant()));
+                    string.IsNullOrEmpty(tds[6]) ?
+                        PhysicalAddress.None :
+                        PhysicalAddress.Parse(
+                            tds[6].
+                            Replace(".", "").
+                            Replace("-", "").
+                            Replace(":", "").
+                            ToUpperInvariant()));
             }
         }
 
