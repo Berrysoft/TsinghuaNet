@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-preview.8.20407.11" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-rc.1.20451.14" />
   </ItemGroup>
 
   <ItemGroup>
