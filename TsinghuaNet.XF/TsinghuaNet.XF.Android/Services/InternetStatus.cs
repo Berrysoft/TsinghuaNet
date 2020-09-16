@@ -15,14 +15,14 @@ namespace TsinghuaNet.XF.Droid.Services
         protected override void Refresh()
         {
             var profiles = Connectivity.ConnectionProfiles;
-            if (profiles.Contains(ConnectionProfile.Cellular))
-            {
-                Status = NetStatus.Wwan;
-            }
-            else if (profiles.Contains(ConnectionProfile.WiFi) && Application.Context.GetSystemService(Context.WifiService) is WifiManager wifiManager)
+            if (profiles.Contains(ConnectionProfile.WiFi) && Application.Context.GetSystemService(Context.WifiService) is WifiManager wifiManager)
             {
                 Status = NetStatus.Wlan;
                 Ssid = wifiManager.ConnectionInfo.SSID.Trim('\"');
+            }
+            else if (profiles.Contains(ConnectionProfile.Cellular))
+            {
+                Status = NetStatus.Wwan;
             }
             else if (profiles.Contains(ConnectionProfile.Ethernet))
             {

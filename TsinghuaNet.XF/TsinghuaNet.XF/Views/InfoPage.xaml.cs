@@ -1,8 +1,5 @@
 ﻿using System;
 using Rg.Plugins.Popup.Services;
-using SkiaSharp;
-using SkiaSharp.Views.Forms;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 

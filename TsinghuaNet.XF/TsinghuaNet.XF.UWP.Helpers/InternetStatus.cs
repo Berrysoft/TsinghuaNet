@@ -15,13 +15,13 @@ namespace TsinghuaNet.XF.UWP.Helpers
                 var cl = profile.GetNetworkConnectivityLevel();
                 if (cl == NetworkConnectivityLevel.None)
                     Status = NetStatus.Unknown;
-                else if (profile.IsWwanConnectionProfile)
-                    Status = NetStatus.Wwan;
                 else if (profile.IsWlanConnectionProfile)
                 {
                     Status = NetStatus.Wlan;
                     Ssid = profile.WlanConnectionProfileDetails.GetConnectedSsid();
                 }
+                else if (profile.IsWwanConnectionProfile)
+                    Status = NetStatus.Wwan;
                 else
                     Status = NetStatus.Lan;
             }
