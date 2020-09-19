@@ -28,7 +28,6 @@ namespace TsinghuaNet.CLI
                                         DropVerb,
                                         DetailVerb,
                                         SuggestionVerb,
-                                        SaveCredentialVerb,
                                         DeleteCredentialVerb,
                                         AboutVerb>(args).
                          MapResult(RunVerb, RunError);
