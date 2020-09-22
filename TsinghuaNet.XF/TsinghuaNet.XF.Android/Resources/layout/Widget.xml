@@ -10,24 +10,28 @@
         android:id="@+id/widgetTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dip"
         android:padding="5dip"
         android:textColor="#FFFFFFFF"/>
     <TextView
         android:id="@+id/widgetFlux"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dip"
         android:padding="5dip"
         android:textColor="#FFFFFFFF"/>
     <TextView
         android:id="@+id/widgetRemain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dip"
         android:padding="5dip"
         android:textColor="#FFFFFFFF"/>
     <TextView
         android:id="@+id/widgetBalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dip"
         android:padding="5dip"
         android:textColor="#FFFFFFFF"/>
 </LinearLayout>
