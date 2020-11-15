@@ -22,18 +22,8 @@ namespace TsinghuaNet.Models
         Task<NetState> SuggestAsync();
     }
 
-    public class NetPingStatus : INetStatus
+    internal static class NetPingStatusHelper
     {
-#pragma warning disable 0067
-        public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 0067
-
-        [DoNotNotify]
-        public NetStatus Status { get; set; }
-
-        [DoNotNotify]
-        public string Ssid { get; set; }
-
         private static async Task<bool> CanConnectTo(string uri)
         {
             try
@@ -50,7 +40,7 @@ namespace TsinghuaNet.Models
             }
         }
 
-        private static async Task<NetState> GetSuggestion()
+        public static async Task<NetState> GetSuggestion()
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
@@ -63,8 +53,21 @@ namespace TsinghuaNet.Models
             }
             return NetState.Unknown;
         }
+    }
 
-        public Task<NetState> SuggestAsync() => GetSuggestion();
+    public class NetPingStatus : INetStatus
+    {
+#pragma warning disable 0067
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 0067
+
+        [DoNotNotify]
+        public NetStatus Status { get; set; }
+
+        [DoNotNotify]
+        public string Ssid { get; set; }
+
+        public Task<NetState> SuggestAsync() => NetPingStatusHelper.GetSuggestion();
     }
 
     public abstract class NetMapStatus : INetStatus
@@ -92,12 +95,13 @@ namespace TsinghuaNet.Models
         public Task<NetState> SuggestAsync()
         {
             Refresh();
-            return Task.FromResult(Status switch
+            NetState state = Status switch
             {
                 NetStatus.Lan => NetState.Auth4,
                 NetStatus.Wlan => SsidStateMap.ContainsKey(Ssid) ? SsidStateMap[Ssid] : NetState.Unknown,
                 _ => NetState.Unknown
-            });
+            };
+            return state != NetState.Unknown ? Task.FromResult(state) : NetPingStatusHelper.GetSuggestion();
         }
     }
 }
