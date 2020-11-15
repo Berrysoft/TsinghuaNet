@@ -82,6 +82,7 @@ namespace TsinghuaNet.Models
         private static readonly Dictionary<string, NetState> SsidStateMap = new Dictionary<string, NetState>()
         {
             ["Tsinghua"] = NetState.Auth4,
+            ["Tsinghua-5G"] = NetState.Auth4,
             ["Tsinghua-IPv4"] = NetState.Auth4,
             ["Tsinghua-IPv6"] = NetState.Auth6,
             ["Tsinghua-Secure"] = NetState.Net,
