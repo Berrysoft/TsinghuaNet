@@ -246,7 +246,7 @@ jobs:
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).Fx.zip'
 
-  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0 -o build/net5.0-windows -p:PublishSingleFile=true
+  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0-windows -o build/net5.0 -p:PublishSingleFile=true
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Publish project as net5.0'
 
