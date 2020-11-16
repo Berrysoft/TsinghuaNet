@@ -41,7 +41,7 @@ namespace TsinghuaNet.Native
             return new UseregHelper(username, password, GetClient(cred.UseProxy));
         }
 
-        private static IntPtr WriteString(string? message)
+        private static nint WriteString(string? message)
         {
             try
             {
@@ -54,19 +54,19 @@ namespace TsinghuaNet.Native
             {
                 Console.Error.WriteLine(ex);
             }
-            return IntPtr.Zero;
+            return 0;
         }
 
         private static string? LastError;
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_last_err")]
-        public static IntPtr GetLastError()
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_last_err")]
+        public static nint GetLastError()
         {
             return WriteString(LastError);
         }
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_string_free")]
-        public static void StringFree(IntPtr str)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_string_free")]
+        public static void StringFree(nint str)
         {
             Marshal.ZeroFreeCoTaskMemUTF8(str);
         }
@@ -105,7 +105,7 @@ namespace TsinghuaNet.Native
             return -1;
         }
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_login")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_login")]
         public static int Login(in NetCredential cred) => UseHelper(in cred, helper =>
         {
             var task = helper.LoginAsync();
@@ -119,7 +119,7 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_logout")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_logout")]
         public static int Logout(in NetCredential cred) => UseHelper(in cred, helper =>
         {
             var task = helper.LogoutAsync();
@@ -133,7 +133,7 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_status")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_status")]
         public static int Status(in NetCredential cred, NetFlux* flux) => UseHelper(in cred, helper =>
         {
             var task = helper.GetFluxAsync();
@@ -149,7 +149,7 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_login")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_usereg_login")]
         public static int UseregLogin(in NetCredential cred) => UseUseregHelper(in cred, helper =>
         {
             var task = helper.LoginAsync();
@@ -163,7 +163,7 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_logout")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_usereg_logout")]
         public static int UseregLogout(in NetCredential cred) => UseUseregHelper(in cred, helper =>
         {
             var task = helper.LogoutAsync();
@@ -177,7 +177,7 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_drop")]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_usereg_drop")]
         public static int UseregDrop(in NetCredential cred, long addr) => UseUseregHelper(in cred, helper =>
         {
             var task = helper.LogoutAsync(new IPAddress(addr));
@@ -191,8 +191,8 @@ namespace TsinghuaNet.Native
             return 0;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_users")]
-        public static int UseregUsers(in NetCredential cred, delegate* cdecl<in NetUser, IntPtr, int> callback, IntPtr data) => UseUseregHelper(in cred, helper =>
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_usereg_users")]
+        public static int UseregUsers(in NetCredential cred, delegate* unmanaged[Cdecl]<in NetUser, nint, int> callback, nint data) => UseUseregHelper(in cred, helper =>
         {
             var task = helper.GetUsersAsync().ToArrayAsync();
             var users = task.GetAwaiter().GetResult();
@@ -219,8 +219,8 @@ namespace TsinghuaNet.Native
             return users.Length;
         });
 
-        [UnmanagedCallersOnly(CallingConvention = CallingConvention.Cdecl, EntryPoint = "tunet_usereg_details")]
-        public static int UseregDetails(in NetCredential cred, Models.NetDetailOrder order, int descending, delegate* cdecl<in NetDetail, IntPtr, int> callback, IntPtr data) => UseUseregHelper(in cred, helper =>
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) }, EntryPoint = "tunet_usereg_details")]
+        public static int UseregDetails(in NetCredential cred, Models.NetDetailOrder order, int descending, delegate* unmanaged[Cdecl]<in NetDetail, nint, int> callback, nint data) => UseUseregHelper(in cred, helper =>
         {
             var task = helper.GetDetailsAsync(order, descending != 0).ToArrayAsync();
             var details = task.GetAwaiter().GetResult();
