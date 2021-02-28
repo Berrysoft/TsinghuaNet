@@ -6,10 +6,6 @@
     <LangVersion>8.0</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <PublishNative>true</PublishNative>
-  </PropertyGroup>
-
   <PropertyGroup>
     <Authors>Berrysoft</Authors>
     <Copyright>Copyright (c) 2018-2020 Berrysoft</Copyright>
@@ -19,13 +15,6 @@
     <RdXmlFile Include="Properties\Default.rd.xml" />
   </ItemGroup>
 
-  <PropertyGroup Condition="'$(PublishNative)'=='true'">
-    <RootAllApplicationAssemblies>false</RootAllApplicationAssemblies>
-    <IlcGenerateCompleteTypeMetadata>false</IlcGenerateCompleteTypeMetadata>
-    <IlcGenerateStackTraceData>false</IlcGenerateStackTraceData>
-    <IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
     <PackageReference Include="System.Linq.Async" Version="5.0.0" />
@@ -33,10 +22,6 @@
 
   <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(PublishNative)'=='true'">
-    <PackageReference Include="Microsoft.DotNet.ILCompiler" Version="1.0.0-alpha-*" />
   </ItemGroup>
 
   <ItemGroup>

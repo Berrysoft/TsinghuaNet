@@ -5,7 +5,6 @@ variables:
   sdkVersion: '5.0.100'
   solution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  nativeProject: 'TsinghuaNet.Native/TsinghuaNet.Native.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
   gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
   macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
@@ -106,90 +105,6 @@ jobs:
       archiveType: 'tar'
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).tar.gz'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Native
-  strategy:
-    matrix:
-      windows:
-        imageName: 'windows-latest'
-        rid: win-x64
-        suffix: Win64
-      # linux:
-      #   imageName: 'ubuntu-latest'
-      #   rid: linux-x64
-      #   suffix: Linux64
-      # mac:
-      #   imageName: 'macos-latest'
-      #   rid: osx-x64
-      #   suffix: OSX64
-  pool:
-    vmImage: $(imageName)
-
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 5'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-      includePreviewVersions: true
-
-  - script: |
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 build-essential symlinks libicu-dev liblttng-ust-dev libunwind8-dev libcurl4-openssl-dev libkrb5-dev libssl-dev zlib1g-dev
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Install clang-3.9'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(nativeProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-
-  - script: dotnet publish $(nativeProject) -r $(rid) -c Release -o build/lib
-    displayName: 'Publish project'
-
-  - script: del build\lib\*.json
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Remove JSONs'
-
-  - script: rm build/lib/*.json
-    condition: ne(variables.rid, 'win-x64')
-    displayName: 'Remove JSONs'
-
-  - task: CopyFiles@2
-    displayName: 'Copy headers'
-    inputs:
-      SourceFolder: $(build.sourcesdirectory)/TsinghuaNet.Native/include
-      Contents: '*'
-      TargetFolder: build/lib/include
-      CleanTargetFolder: false
-      OverWrite: false
-      flattenFolders: false
-
-  - task: ArchiveFiles@2
-    condition: ne(variables.rid, 'linux-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/lib'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.$(suffix).zip'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/lib'
-      includeRootFolder: false
-      archiveType: 'tar'
-      tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Native.$(suffix).tar.gz'
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
