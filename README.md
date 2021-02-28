@@ -8,6 +8,9 @@
 * [Releases](https://github.com/Berrysoft/TsinghuaNet/releases)
 * [Wiki](https://github.com/Berrysoft/TsinghuaNet/wiki)
 
+## Rust库
+[tunet-rust](https://github.com/Berrysoft/tunet-rust)
+
 ## 项目介绍
 ### TsinghuaNet
 联网库，和一些其他项目需要的辅助类。支持 .NET Standard 2.0、 .NET Standard 2.1和 .NET 5.0。
