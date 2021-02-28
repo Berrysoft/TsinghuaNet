@@ -14,7 +14,6 @@ namespace TsinghuaNet
         private const string LogUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/srun_portal";
         private const string FluxUri = "https://auth{0}.tsinghua.edu.cn/rad_user_info.php";
         private const string ChallengeUri = "https://auth{0}.tsinghua.edu.cn/cgi-bin/get_challenge?username={1}&double_stack=1&ip&callback=callback";
-        private static readonly int[] PredefinedAcIds = new int[] { 1, 25, 33, 35, 37, 159 };
         private readonly int version;
         private readonly NetSettingsBase settings;
 
@@ -29,17 +28,16 @@ namespace TsinghuaNet
         {
             LogResponse response = default;
             string uri = string.Format(LogUri, version);
-            foreach (int ac_id in settings != null ? settings.AcIds.AsEnumerable() : PredefinedAcIds)
+            if (settings != null)
             {
-                response = LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
-                if (response.Succeed)
-                    break;
+                foreach (int ac_id in settings.AcIds)
+                {
+                    response = LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
+                    if (response.Succeed)
+                        break;
+                }
             }
-            if (response.Succeed)
-            {
-                return response;
-            }
-            else
+            if (!response.Succeed)
             {
                 int ac_id = await GetAcId();
                 if (ac_id > 0)
@@ -47,11 +45,8 @@ namespace TsinghuaNet
                     if (settings != null) settings.AcIds.Add(ac_id);
                     return LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, await f(ac_id)));
                 }
-                else
-                {
-                    return response;
-                }
             }
+            return response;
         }
 
         public Task<LogResponse> LoginAsync() => LogAsync(GetLoginDataAsync);
