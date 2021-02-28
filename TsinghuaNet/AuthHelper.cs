@@ -56,8 +56,6 @@ namespace TsinghuaNet
 
         public Task<LogResponse> LoginAsync() => LogAsync(GetLoginDataAsync);
 
-        public Task<LogResponse> LogoutAsync() => LogAsync(GetLogoutDataAsync);
-
         private static readonly Regex AcIdRegex = new Regex(@"/index_([0-9]+)\.html");
         private async Task<int> GetAcId()
         {
@@ -101,24 +99,17 @@ namespace TsinghuaNet
             };
         }
 
-        private const string LogoutInfoJson = "{{\"username\": \"{0}\", \"ip\": \"\", \"acid\": \"{1}\", \"enc_ver\": \"srun_bx1\"}}";
-        private const string LogoutChkSumData = "{0}{1}{0}{3}{0}{0}200{0}1{0}{2}";
-        private async Task<Dictionary<string, string>> GetLogoutDataAsync(int ac_id)
+        public async Task<LogResponse> LogoutAsync()
         {
-            string token = await GetChallengeAsync();
-            string info = "{SRBX1}" + CryptographyHelper.Base64Encode(CryptographyHelper.XXTeaEncrypt(string.Format(LogoutInfoJson, Username, ac_id), token));
-            return new Dictionary<string, string>
+            string uri = string.Format(LogUri, version);
+            return LogResponse.ParseFromAuth(await PostReturnBytesAsync(uri, new Dictionary<string, string>
             {
                 ["action"] = "logout",
-                ["ac_id"] = ac_id.ToString(),
+                ["ac_id"] = "1",
                 ["double_stack"] = "1",
-                ["n"] = "200",
-                ["type"] = "1",
                 ["username"] = Username,
-                ["info"] = info,
-                ["chksum"] = CryptographyHelper.GetSHA1(string.Format(LogoutChkSumData, token, Username, info, ac_id)),
                 ["callback"] = "callback"
-            };
+            }));
         }
     }
 
