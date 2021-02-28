@@ -1,9 +1,0 @@
-{
-  "solution": {
-    "path": "TsinghuaNet.sln",
-    "projects": [
-      "TsinghuaNet.Native\\TsinghuaNet.Native.csproj",
-      "TsinghuaNet\\TsinghuaNet.csproj"
-    ]
-  }
-}
