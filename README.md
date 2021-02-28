@@ -12,9 +12,6 @@
 ### TsinghuaNet
 联网库，和一些其他项目需要的辅助类。支持 .NET Standard 2.0、 .NET Standard 2.1和 .NET 5.0。
 
-### TsinghuaNet.Native
-提供了C/C++接口的Native库。
-
 ### TsinghuaNet.CLI
 命令行版本，支持 .NET Core 5.0，并有针对Windows x64、Linux x64、Mac OS X x64的AOT版本。
 

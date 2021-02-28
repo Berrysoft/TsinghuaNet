@@ -38,19 +38,6 @@ jobs:
       version: '$(sdkVersion)'
       includePreviewVersions: true
 
-  - script: |
-      sudo apt -o Acquire::AllowInsecureRepositories=true update && sudo apt-get install clang-3.9 lldb-3.9 build-essential symlinks libicu-dev liblttng-ust-dev libunwind8-dev libcurl4-openssl-dev libkrb5-dev libssl-dev zlib1g-dev
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Install clang-3.9'
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(cliProject)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
-
   - script: dotnet publish $(cliProject) -r win-x64 -c Release -f net48 -o build\net48
     condition: eq(variables.rid, 'win-x64')
     displayName: 'Publish project as net48'
@@ -66,26 +53,6 @@ jobs:
 
   - script: dotnet publish $(cliProject) -r $(rid) -c Release -f net5.0 -o build/net5.0
     displayName: 'Publish project as net5.0'
-
-  - script: del build\net5.0\*.pdb
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Remove PDBs'
-
-  - script: del build\net5.0\*.json
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Remove JSONs'
-
-  - script: strip build/net5.0/TsinghuaNet.CLI
-    condition: ne(variables.rid, 'win-x64')
-    displayName: 'Strip'
-
-  - script: rm build/net5.0/*.pdb
-    condition: ne(variables.rid, 'win-x64')
-    displayName: 'Remove PDBs'
-
-  - script: rm build/net5.0/*.json
-    condition: ne(variables.rid, 'win-x64')
-    displayName: 'Remove JSONs'
 
   - task: ArchiveFiles@2
     condition: ne(variables.rid, 'linux-x64')
@@ -139,14 +106,6 @@ jobs:
       packageType: sdk
       version: '$(sdkVersion)'
       includePreviewVersions: true
-
-  - task: DotNetCoreCLI@2
-    displayName: 'Restore project'
-    inputs:
-      projects: '$(project)'
-      command: restore
-      feedsToUse: config
-      nugetConfigPath: NuGet.Config
 
   - script: dotnet publish $(project) -r $(rid) -c Release -f net48 -o build/net48
     condition: eq(variables.rid, 'win-x64')
@@ -245,15 +204,6 @@ jobs:
       version: '$(sdkVersion)'
       includePreviewVersions: true
 
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
-
   - task: MSBuild@1
     displayName: 'Build app bundle'
     inputs:
@@ -301,15 +251,6 @@ jobs:
       packageType: sdk
       version: '$(sdkVersion)'
       includePreviewVersions: true
-
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: MSBuild@1
     displayName: 'Build apk'
