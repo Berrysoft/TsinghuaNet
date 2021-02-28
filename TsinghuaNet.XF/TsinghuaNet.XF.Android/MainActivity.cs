@@ -22,7 +22,7 @@ namespace TsinghuaNet.XF.Droid
 
             Platform.Init(this, savedInstanceState);
 
-            Popup.Init(this, savedInstanceState);
+            Popup.Init(this);
 
             Forms.SetFlags("Brush_Experimental");
             Forms.Init(this, savedInstanceState);

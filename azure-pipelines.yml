@@ -147,7 +147,7 @@ jobs:
       tarCompression: 'gz'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.tar.gz'
 
-  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0 -o build/net5.0.dep -p:PublishSingleFile=true --self-contained false
+  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0-windows -o build/net5.0.dep -p:PublishSingleFile=true --self-contained false
     condition: ne(variables.rid, 'osx-x64')
     displayName: 'Publish project as net5.0 fx dependent'
 
@@ -178,7 +178,7 @@ jobs:
     condition: eq(variables.rid, 'osx-x64')
     displayName: 'Archive'
     inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net5.0/$(rid)/$(rid)/TsinghuaNet.Eto.Mac.app/'
+      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net5.0/$(rid)/TsinghuaNet.Eto.Mac.app/'
       includeRootFolder: true
       archiveType: 'zip'
       archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
@@ -203,6 +203,15 @@ jobs:
       packageType: sdk
       version: '$(sdkVersion)'
       includePreviewVersions: true
+
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: MSBuild@1
     displayName: 'Build app bundle'
@@ -251,6 +260,15 @@ jobs:
       packageType: sdk
       version: '$(sdkVersion)'
       includePreviewVersions: true
+
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: MSBuild@1
     displayName: 'Build apk'
