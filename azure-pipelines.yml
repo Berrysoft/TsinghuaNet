@@ -172,7 +172,7 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet'
     inputs:
-      versionSpec: '5.7.0'
+      versionSpec: '5.8.1'
 
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 5'
@@ -185,6 +185,8 @@ jobs:
     displayName: 'Restore solution'
     inputs:
       restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
@@ -227,7 +229,7 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5'
     inputs:
-      versionSpec: '5.7.0'
+      versionSpec: '5.8.1'
 
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK 5'
@@ -240,6 +242,8 @@ jobs:
     displayName: 'Restore solution'
     inputs:
       restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
