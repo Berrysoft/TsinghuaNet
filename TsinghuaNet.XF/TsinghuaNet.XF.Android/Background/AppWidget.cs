@@ -22,11 +22,11 @@ namespace TsinghuaNet.XF.Droid.Background
             NetCredential credential = new NetCredential();
             (credential.Username, credential.Password) = await CredentialStore.LoadCredentialAsync();
             credential.State = await status.SuggestAsync();
-            var helper = credential.GetHelper();
+            NetXFSettings settings = new NetXFSettings();
+            settings.LoadSettings();
+            var helper = credential.GetHelper(settings);
             if (helper != null)
             {
-                NetXFSettings settings = new NetXFSettings();
-                settings.LoadSettings();
                 if (settings.BackgroundAutoLogin && !string.IsNullOrEmpty(credential.Username))
                 {
                     if (settings.EnableRelogin) await helper.LogoutAsync();
