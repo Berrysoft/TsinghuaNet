@@ -31,7 +31,7 @@ namespace TsinghuaNet.Models
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private HttpClient GetClient() => UseProxy ? Client : NoProxyClient;
 
-        public IConnect GetHelper(NetSettingsBase settings = null)
+        public IConnect GetHelper(NetSettingsBase settings)
         {
             return State switch
             {

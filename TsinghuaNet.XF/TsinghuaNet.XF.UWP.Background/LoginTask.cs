@@ -19,7 +19,7 @@ namespace TsinghuaNet.XF.UWP.Background
                 NetXFSettings settings = new NetXFSettings();
                 settings.LoadSettings();
                 credential.UseProxy = settings.UseProxy;
-                var helper = credential.GetHelper();
+                var helper = credential.GetHelper(settings);
                 if (helper != null)
                 {
                     if (settings.EnableRelogin) await helper.LogoutAsync();

@@ -56,7 +56,7 @@ namespace TsinghuaNet.ViewModels
             try
             {
                 IsBusy = true;
-                var helper = Credential.GetHelper();
+                var helper = Credential.GetHelper(Settings);
                 Response = (await executor(helper)).Message;
             }
             catch (Exception ex)
