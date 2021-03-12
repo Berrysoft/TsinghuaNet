@@ -49,7 +49,8 @@
           <uap:Rotation Preference="landscape"/>
           <uap:Rotation Preference="portrait"/>
           <uap:Rotation Preference="landscapeFlipped"/>
-          <uap:Rotation Preference="portraitFlipped"/></uap:InitialRotationPreference>
+          <uap:Rotation Preference="portraitFlipped"/>
+        </uap:InitialRotationPreference>
       </uap:VisualElements>
       <Extensions>
         <Extension Category="windows.backgroundTasks" EntryPoint="TsinghuaNet.XF.UWP.Background.LiveTileTask">
