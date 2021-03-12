@@ -33,6 +33,9 @@ namespace TsinghuaNet.XF.UWP.Views
             var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.WhiteSmoke;
             ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
             app.Resources["PopupBackground"] = background;
+            app.Resources["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor();
+            app.Resources["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor();
+            app.Resources["SystemAccentColorDark2"] = ((Color)Application.Current.Resources["SystemAccentColorDark2"]).ToFormsColor();
         }
     }
 }

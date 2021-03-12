@@ -6,6 +6,7 @@ using SkiaSharp;
 using SkiaSharp.Views.Forms;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
+using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
 {
@@ -68,14 +69,14 @@ namespace TsinghuaNet.XF.ViewModels
         {
             Label = p.Key.ToString(),
             ValueLabel = " ",
-            Color = App.SystemAccentColor.ToSKColor()
+            Color = ((App)Application.Current).SystemAccentColor.ToSKColor()
         };
 
         public static ChartEntry GetTimeChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
         {
             Label = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1} h",
             ValueLabel = p.Value.ToString(),
-            Color = App.SystemAccentColor.ToSKColor()
+            Color = ((App)Application.Current).SystemAccentColor.ToSKColor()
         };
     }
 }

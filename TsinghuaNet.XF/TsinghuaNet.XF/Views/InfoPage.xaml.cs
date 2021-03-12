@@ -23,12 +23,13 @@ namespace TsinghuaNet.XF.Views
 
         private void Model_Refreshed(object sender, EventArgs e)
         {
+            App app = (App)Application.Current;
             FluxLabel.Foreground = new LinearGradientBrush(new GradientStopCollection()
             {
-                new GradientStop(App.SystemAccentColor, Model.FluxOffset),
-                new GradientStop(App.SystemAccentColorDark1, Model.FluxOffset),
-                new GradientStop(App.SystemAccentColorDark1, Model.FreeOffset),
-                new GradientStop(App.SystemAccentColorDark2, Model.FreeOffset)
+                new GradientStop(app.SystemAccentColor, Model.FluxOffset),
+                new GradientStop(app.SystemAccentColorDark1, Model.FluxOffset),
+                new GradientStop(app.SystemAccentColorDark1, Model.FreeOffset),
+                new GradientStop(app.SystemAccentColorDark2, Model.FreeOffset)
             }, new Point(0.5, 1), new Point(0.5, 0));
         }
 

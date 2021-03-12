@@ -19,7 +19,7 @@
             <Label Style="{DynamicResource SubtitleStyle}">清华大学校园网客户端</Label>
             <StackLayout Spacing="8" Orientation="Horizontal">
                 <Label Text="{Binding Version,Mode=OneTime,StringFormat='{0}'}"/>
-                <controls:HyperlinkLabel NavigateUri="https://github.com/Berrysoft/TsinghuaNet">项目地址</controls:HyperlinkLabel>
+                <controls:HyperlinkLabel NavigateUri="https://github.com/Berrysoft/TsinghuaNet" TextColor="{DynamicResource SystemAccentColor}">项目地址</controls:HyperlinkLabel>
             </StackLayout>
             <Label>版权所有 © 2018-2020 Berrysoft</Label>
             <Label Style="{DynamicResource SubtitleStyle}">使用的开源库</Label>
