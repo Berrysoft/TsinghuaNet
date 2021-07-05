@@ -24,7 +24,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
 
         private void ChangeBackground()
         {
-            Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
+            Background = new Windows.UI.Xaml.Media.SolidColorBrush(Colors.Transparent);
         }
     }
 
@@ -51,7 +51,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
         private void ChangeBackground()
         {
             var foreground = Control.ActualTheme == ElementTheme.Dark ? Colors.WhiteSmoke : Colors.Black;
-            Control.Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicWindowBrush"];
+            Microsoft.UI.Xaml.Controls.BackdropMaterial.SetApplyToRootOrPageBackground(Control, true);
             Control.ToolbarForeground = new Windows.UI.Xaml.Media.SolidColorBrush(foreground);
         }
     }

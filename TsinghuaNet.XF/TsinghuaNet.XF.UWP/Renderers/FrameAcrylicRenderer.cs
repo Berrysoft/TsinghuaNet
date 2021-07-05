@@ -12,7 +12,7 @@ namespace TsinghuaNet.XF.UWP.Renderers
         {
             base.UpdateBackgroundColor();
             if (Control != null)
-                Control.Background = (Windows.UI.Xaml.Media.Brush)Windows.UI.Xaml.Application.Current.Resources["SystemControlAcrylicElementBrush"];
+                Control.Background = new Windows.UI.Xaml.Media.SolidColorBrush(Windows.UI.Colors.Transparent);
         }
     }
 }

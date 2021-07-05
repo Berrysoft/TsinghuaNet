@@ -6,6 +6,7 @@
     xmlns:forms="using:Xamarin.Forms.Platform.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" ActualThemeChanged="WindowsPage_ActualThemeChanged">
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d" ActualThemeChanged="WindowsPage_ActualThemeChanged" muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
 </forms:WindowsPage>
