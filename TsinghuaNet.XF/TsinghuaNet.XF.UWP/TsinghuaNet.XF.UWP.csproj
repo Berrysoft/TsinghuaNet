@@ -120,12 +120,33 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\LargeTile.scale-200.png" />
-    <Content Include="Assets\lockscreenlogo.scale-200.png" />
+    <Content Include="Assets\SmallTile.scale-100.png" />
+    <Content Include="Assets\SmallTile.scale-125.png" />
+    <Content Include="Assets\SmallTile.scale-150.png" />
+    <Content Include="Assets\SmallTile.scale-200.png" />
+    <Content Include="Assets\SmallTile.scale-400.png" />
     <Content Include="Assets\splashscreen.scale-200.png" />
     <Content Include="Assets\square150x150logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\Square44x44Logo.scale-150.png" />
     <Content Include="Assets\square44x44logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-16_altform-lightunplated.png" />
+    <Content Include="Assets\square44x44logo.targetsize-16_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24.png" />
     <Content Include="Assets\Square44x44Logo.targetsize-24_altform-lightunplated.png" />
     <Content Include="Assets\square44x44logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-256_altform-lightunplated.png" />
+    <Content Include="Assets\square44x44logo.targetsize-256_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-32_altform-lightunplated.png" />
+    <Content Include="Assets\square44x44logo.targetsize-32_altform-unplated.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-48_altform-lightunplated.png" />
+    <Content Include="Assets\square44x44logo.targetsize-48_altform-unplated.png" />
     <Content Include="Assets\storelogo.png" />
     <Content Include="Assets\wide310x150logo.scale-200.png" />
     <Content Include="Properties\Default.rd.xml" />
