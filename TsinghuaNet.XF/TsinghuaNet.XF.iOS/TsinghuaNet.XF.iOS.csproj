@@ -86,6 +86,7 @@
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <BundleResource Include="Resources\SegoeIcons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -154,10 +155,5 @@
       <Project>{7EE8356F-FE16-4CDC-82D0-02D10804DCDC}</Project>
       <Name>TsinghuaNet.XF</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\segmdl2.ttf">
-      <LogicalName>segmdl2.ttf</LogicalName>
-    </BundleResource>
   </ItemGroup>
 </Project>
