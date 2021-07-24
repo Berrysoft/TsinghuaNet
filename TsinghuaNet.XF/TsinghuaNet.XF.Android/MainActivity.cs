@@ -15,9 +15,6 @@ namespace TsinghuaNet.XF.Droid
         {
             base.SetTheme(Resource.Style.MainTheme);
 
-            TabLayoutResource = Resource.Layout.Tabbar;
-            ToolbarResource = Resource.Layout.Toolbar;
-
             base.OnCreate(savedInstanceState);
 
             Platform.Init(this, savedInstanceState);
