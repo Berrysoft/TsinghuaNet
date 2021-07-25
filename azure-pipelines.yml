@@ -195,15 +195,14 @@ jobs:
     inputs:
       solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArguments: '/p:AppxBundlePlatforms="x64|arm64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64|arm64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - pwsh: |
       rm build\uwp\*\Dependencies\Win32 -Force -Recurse
-      rm build\uwp\*\Dependencies\x86 -Force -Recurse
       rm build\uwp\*\Dependencies\arm -Force -Recurse
-    displayName: 'Remove x86/ARM dependencies'
+    displayName: 'Remove ARM dependencies'
 
   - pwsh: ls build\uwp\*\Add-AppDevPackage.resources\ -Exclude zh-CN -Attributes Directory | rm -Recurse -Force
     displayName: 'Remove other locale resources for install script'
