@@ -20,8 +20,8 @@
     <PackageReference Include="Eto.Platform.Wpf" Version="2.5.11" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-rc.1.20451.14" />
+  <ItemGroup Condition="'$(TargetFramework)'=='net5.0-windows'">
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

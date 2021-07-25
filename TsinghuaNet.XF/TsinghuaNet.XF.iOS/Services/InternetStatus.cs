@@ -1,11 +1,12 @@
-﻿using System;
-using System.Linq;
-using Foundation;
+﻿using Foundation;
 using SystemConfiguration;
 using TsinghuaNet.Models;
 using TsinghuaNet.XF.iOS.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using System;
+using System.Diagnostics;
+using System.Linq;
 
 [assembly: Dependency(typeof(InternetStatus))]
 
@@ -33,9 +34,13 @@ namespace TsinghuaNet.XF.iOS.Services
                 try
                 {
                     CheckStatus(CaptiveNetwork.TryGetSupportedInterfaces(out string[] interfaces));
-                    foreach (string name in interfaces)
+                    if (interfaces.Length == 0)
                     {
-                        CheckStatus(CaptiveNetwork.TryCopyCurrentNetworkInfo("en0", out NSDictionary dict));
+                        Status = NetStatus.Unknown;
+                    }
+                    else
+                    {
+                        CheckStatus(CaptiveNetwork.TryCopyCurrentNetworkInfo(interfaces[0], out NSDictionary dict));
                         using (dict)
                         {
                             if (dict.TryGetValue(CaptiveNetwork.NetworkInfoKeySSID, out NSObject ssid))
@@ -46,8 +51,9 @@ namespace TsinghuaNet.XF.iOS.Services
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Debug.WriteLine(ex);
                     Status = NetStatus.Unknown;
                 }
             }

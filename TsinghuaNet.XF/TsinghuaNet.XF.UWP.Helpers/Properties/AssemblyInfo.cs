@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("TsinghuaNet.XF.UWP.Helpers")]
-[assembly: AssemblyCopyright("Copyright (C) 2019-2020 Berrysoft")]
+[assembly: AssemblyCopyright("Copyright (C) 2019-2021 Berrysoft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -23,6 +23,6 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.3.83.0")]
-[assembly: AssemblyFileVersion("4.3.83.0")]
+[assembly: AssemblyVersion("4.3.84.0")]
+[assembly: AssemblyFileVersion("4.3.84.0")]
 [assembly: ComVisible(false)]

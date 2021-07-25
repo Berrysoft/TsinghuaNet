@@ -3,12 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFrameworks>net5.0;net48</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <Authors>Berrysoft</Authors>
-    <Copyright>Copyright (c) 2018-2020 Berrysoft</Copyright>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(PublishNative)'=='true'">
@@ -21,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)'=='net5.0'">
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0-preview.5.21301.5" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
