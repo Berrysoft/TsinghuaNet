@@ -2,7 +2,7 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '5.0.100'
+  sdkVersion: '5.0.302'
   solution: 'TsinghuaNet.sln'
   cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
   wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
