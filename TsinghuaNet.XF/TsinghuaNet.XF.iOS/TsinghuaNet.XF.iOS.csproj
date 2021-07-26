@@ -88,7 +88,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\SegoeIcons.ttf" />
     <Compile Include="Renderers\ThemePageRenderer.cs" />
-    <BundleResource Include="Resources\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
@@ -134,6 +133,8 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\splash.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\splash.imageset\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -156,5 +157,9 @@
       <Project>{7EE8356F-FE16-4CDC-82D0-02D10804DCDC}</Project>
       <Name>TsinghuaNet.XF</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets.xcassets\slpash.imageset\" />
+    <Folder Include="Assets.xcassets\splash.imageset\" />
   </ItemGroup>
 </Project>
