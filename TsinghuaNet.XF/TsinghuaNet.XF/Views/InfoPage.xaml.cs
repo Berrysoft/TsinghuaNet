@@ -26,10 +26,12 @@ namespace TsinghuaNet.XF.Views
             App app = (App)Application.Current;
             FluxLabel.Foreground = new LinearGradientBrush(new GradientStopCollection()
             {
+                new GradientStop(app.SystemAccentColor, 0),
                 new GradientStop(app.SystemAccentColor, Model.FluxOffset),
                 new GradientStop(app.SystemAccentColorDark1, Model.FluxOffset),
                 new GradientStop(app.SystemAccentColorDark1, Model.FreeOffset),
-                new GradientStop(app.SystemAccentColorDark2, Model.FreeOffset)
+                new GradientStop(app.SystemAccentColorDark2, Model.FreeOffset),
+                new GradientStop(app.SystemAccentColorDark2, 1)
             }, new Point(0.5, 1), new Point(0.5, 0));
         }
 
