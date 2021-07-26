@@ -3,9 +3,12 @@
 using System;
 using System.ComponentModel;
 using TsinghuaNet.XF.Controls;
+using TsinghuaNet.XF.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+
+[assembly: ExportRenderer(typeof(StepSlider), typeof(StepSliderRenderer))]
 
 namespace TsinghuaNet.XF.iOS.Renderers
 {
@@ -17,6 +20,8 @@ namespace TsinghuaNet.XF.iOS.Renderers
             if (Control == null)
             {
                 SetNativeControl(new UISlider());
+                Control.SizeToFit();
+                Element.WidthRequest = 100;
             }
             if (args.NewElement != null)
             {

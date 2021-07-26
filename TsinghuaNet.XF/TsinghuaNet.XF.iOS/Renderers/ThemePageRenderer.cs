@@ -5,6 +5,7 @@ using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.iOS;
+using xf = Xamarin.Forms;
 
 [assembly: ExportRenderer(typeof(ContentPage), typeof(ThemePageRenderer))]
 
@@ -41,8 +42,11 @@ namespace TsinghuaNet.XF.iOS.Renderers
 
         private void SetAppTheme()
         {
+            var app = xf.Application.Current;
             var foreground = TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark ? Color.White : Color.Black;
-            ((PaletteCollection)App.Current.Resources["DataGridForegroundPalette"])[0] = foreground;
+            var background = TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark ? Color.Black : Color.White;
+            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
+            app.Resources["PopupBackground"] = background;
         }
     }
 }
