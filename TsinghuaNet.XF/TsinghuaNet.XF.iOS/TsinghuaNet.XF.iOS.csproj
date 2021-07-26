@@ -88,6 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <BundleResource Include="Resources\SegoeIcons.ttf" />
     <Compile Include="Renderers\ThemePageRenderer.cs" />
+    <BundleResource Include="Resources\Default.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
