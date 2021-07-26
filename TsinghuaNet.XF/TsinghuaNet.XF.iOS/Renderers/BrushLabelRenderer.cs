@@ -62,9 +62,11 @@ namespace TsinghuaNet.XF.iOS.Renderers
                     var start = oriBrush.StartPoint.ToPointF();
                     start.X *= size.Width;
                     start.Y *= size.Height;
+                    start.Y = size.Height - start.Y;
                     var end = oriBrush.EndPoint.ToPointF();
                     end.X *= size.Width;
                     end.Y *= size.Height;
+                    end.Y = size.Height - end.Y;
                     context.DrawLinearGradient(gradient, start, end, CGGradientDrawingOptions.DrawsAfterEndLocation);
                     var img = UIGraphics.GetImageFromCurrentImageContext();
                     UIGraphics.EndImageContext();

@@ -25,9 +25,9 @@
 	<key>CFBundleDisplayName</key>
 	<string>TsinghuaNet.XF</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.TsinghuaNet.XF</string>
+	<string>com.berrysoft.TsinghuaNet.XF</string>
 	<key>CFBundleVersion</key>
-	<string>4.1.76</string>
+	<string>4.3.84</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
@@ -36,7 +36,7 @@
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>segmdl2.ttf</string>
+		<string>SegoeIcons.ttf</string>
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

@@ -16,7 +16,7 @@ namespace TsinghuaNet.XF.iOS.Services
     {
         private static void CheckStatus(StatusCode code)
         {
-            if (code != StatusCode.OK || code != StatusCode.KeyExists)
+            if (code != StatusCode.OK && code != StatusCode.KeyExists)
             {
                 throw new SystemException(code.ToString());
             }
@@ -31,12 +31,13 @@ namespace TsinghuaNet.XF.iOS.Services
             }
             else if (profiles.Contains(ConnectionProfile.WiFi))
             {
+                Status = NetStatus.Wlan;
                 try
                 {
                     CheckStatus(CaptiveNetwork.TryGetSupportedInterfaces(out string[] interfaces));
                     if (interfaces.Length == 0)
                     {
-                        Status = NetStatus.Unknown;
+                        Ssid = string.Empty;
                     }
                     else
                     {
@@ -54,7 +55,7 @@ namespace TsinghuaNet.XF.iOS.Services
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
-                    Status = NetStatus.Unknown;
+                    Ssid = string.Empty;
                 }
             }
             else if (profiles.Contains(ConnectionProfile.Ethernet))
