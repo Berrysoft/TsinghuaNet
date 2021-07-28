@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
-    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:dg="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
@@ -15,15 +15,12 @@
     </ContentPage.BindingContext>
     <StackLayout Spacing="8">
         <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
-        <dg:DataGrid VerticalOptions="FillAndExpand" ItemsSource="{Binding ViewModel.InitialDetails,Mode=OneWay}" PullToRefreshCommand="{Binding ViewModel.RefreshCommand}" IsRefreshing="{Binding ViewModel.IsBusy, Mode=OneWay}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
-            <dg:DataGrid.HeaderFontSize>
-                <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
-            </dg:DataGrid.HeaderFontSize>
-            <dg:DataGrid.Columns>
-                <dg:DataGridColumn Title="登录时间" PropertyName="LoginTime" StringFormat="{}{0}"/>
-                <dg:DataGridColumn Title="注销时间" PropertyName="LogoutTime" StringFormat="{}{0}"/>
-                <dg:DataGridColumn Title="使用流量" PropertyName="Flux" StringFormat="{}{0}"/>
-            </dg:DataGrid.Columns>
-        </dg:DataGrid>
+        <dg:SfDataGrid ColumnSizer="Star" ItemsSource="{Binding ViewModel.InitialDetails,Mode=OneWay}" AllowPullToRefresh="True" PullToRefreshCommand="{Binding ViewModel.RefreshCommand}" IsBusy="{Binding ViewModel.IsBusy, Mode=OneWay}" AllowSorting="True" AllowTriStateSorting="True">
+            <dg:SfDataGrid.Columns>
+                <dg:GridDateTimeColumn HeaderText="登录时间" MappingName="LoginTime"/>
+                <dg:GridDateTimeColumn HeaderText="注销时间" MappingName="LogoutTime"/>
+                <dg:GridTextColumn HeaderText="使用流量" MappingName="Flux"/>
+            </dg:SfDataGrid.Columns>
+        </dg:SfDataGrid>
     </StackLayout>
 </ContentPage>

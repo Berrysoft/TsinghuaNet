@@ -17,9 +17,9 @@
     </PackageReference>
     <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
     <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.2.0.49" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.2.0.49" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2083" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
-    <PackageReference Include="Xamarin.Forms.DataGrid" Version="4.8.0" />
   </ItemGroup>
 
   <ItemGroup>

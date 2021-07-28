@@ -2,7 +2,6 @@
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.UWP;
 using xf = Xamarin.Forms;
 
@@ -31,7 +30,6 @@ namespace TsinghuaNet.XF.UWP.Views
         {
             var foreground = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
             var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.WhiteSmoke;
-            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
             app.Resources["PopupBackground"] = background;
             app.Resources["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor();
             app.Resources["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor();

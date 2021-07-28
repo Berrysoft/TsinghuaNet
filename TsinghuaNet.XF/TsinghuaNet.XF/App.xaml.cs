@@ -1,6 +1,5 @@
 ﻿using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
-using Xamarin.Forms.DataGrid;
 using Syncfusion.Licensing;
 
 namespace TsinghuaNet.XF
@@ -15,7 +14,6 @@ namespace TsinghuaNet.XF
         {
             SyncfusionLicenseProvider.RegisterLicense("NDgwNzY2QDMxMzkyZTMyMmUzMERkRzJrcXZwd1pSWnhIOGRUTUQ0TWhkY0R5Y01ZUHhGY1Z5VEloVmJkSjQ9");
             InitializeComponent();
-            DataGridComponent.Init();
             MainPage = new MainPage();
         }
 

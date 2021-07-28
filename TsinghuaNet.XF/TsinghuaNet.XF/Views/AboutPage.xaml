@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="using:TsinghuaNet.XF.Controls"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
-    xmlns:dg="clr-namespace:Xamarin.Forms.DataGrid;assembly=Xamarin.Forms.DataGrid"
+    xmlns:dg="clr-namespace:Syncfusion.SfDataGrid.XForms;assembly=Syncfusion.SfDataGrid.XForms"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
@@ -23,15 +23,12 @@
             </StackLayout>
             <Label>版权所有 © 2018-2021 Berrysoft</Label>
             <Label Style="{DynamicResource TitleStyle}">使用的开源库</Label>
-            <dg:DataGrid ItemsSource="{Binding Packages}" BorderColor="Transparent" ActiveRowColor="Transparent" RowsTextColorPalette="{StaticResource DataGridForegroundPalette}" HeaderBackground="Transparent">
-                <dg:DataGrid.HeaderFontSize>
-                    <OnIdiom x:TypeArguments="x:Double" Tablet="15" Phone="13"/>
-                </dg:DataGrid.HeaderFontSize>
-                <dg:DataGrid.Columns>
-                    <dg:DataGridColumn Title="名称" PropertyName="Name"/>
-                    <dg:DataGridColumn Title="许可证" PropertyName="License"/>
-                </dg:DataGrid.Columns>
-            </dg:DataGrid>
+            <dg:SfDataGrid ItemsSource="{Binding Packages}" ColumnSizer="Star" AllowSorting="True" AllowTriStateSorting="True">
+                <dg:SfDataGrid.Columns>
+                    <dg:GridTextColumn HeaderText="名称" MappingName="Name"/>
+                    <dg:GridTextColumn HeaderText="许可证" MappingName="License"/>
+                </dg:SfDataGrid.Columns>
+            </dg:SfDataGrid>
         </StackLayout>
     </ScrollView>
 </ContentPage>

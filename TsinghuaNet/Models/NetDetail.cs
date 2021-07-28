@@ -2,7 +2,7 @@
 
 namespace TsinghuaNet.Models
 {
-    public struct NetDetail
+    public class NetDetail
     {
         public NetDetail(DateTime login, DateTime logout, ByteSize flux)
         {

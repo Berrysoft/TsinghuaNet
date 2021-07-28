@@ -1,6 +1,6 @@
 ﻿namespace TsinghuaNet.Models
 {
-    public struct PackageBox
+    public class PackageBox
     {
         public PackageBox(string name, string license)
         {
