@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
-    <Assembly Name="*Application*" Dynamic="Required All" />
+    <Assembly Name="Xamarin.Forms.Core" Dynamic="Required All" />
+    <Assembly Name="Xamarin.Forms.Platform" Dynamic="Required All" />
+    <Assembly Name="Xamarin.Forms.Platform.UAP" Dynamic="Required All" />
+    <Assembly Name="Xamarin.Forms.Xaml" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.Core.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.Core.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfChart.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfChart.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfChart.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfDataGrid.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfDataGrid.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfInput.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfComboBox.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfComboBox.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfNumericTextBox.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfNumericTextBox.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfPopupLayout.XForms" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfPopupLayout.XForms.UWP" Dynamic="Required All" />
+    <Assembly Name="Syncfusion.SfShared.UWP" Dynamic="Required All" />
+    <Assembly Name="TsinghuaNet">
+      <Namespace Name="TsinghuaNet.Models" Dynamic="Required All" />
+      <Namespace Name="TsinghuaNet.ViewModels" Dynamic="Required All" />
+    </Assembly>
+    <Assembly Name="TsinghuaNet.XF">
+      <Namespace Name="TsinghuaNet.XF.Models" Dynamic="Required All" />
+      <Namespace Name="TsinghuaNet.XF.ViewModels" Dynamic="Required All" />
+    </Assembly>
   </Application>
 </Directives>

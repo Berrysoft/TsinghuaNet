@@ -1,6 +1,5 @@
 ﻿// https://www.xamarinhelp.com/masked-entry-in-xamarin-forms/
 
-using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using PropertyChanged;
