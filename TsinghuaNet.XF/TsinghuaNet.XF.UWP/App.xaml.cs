@@ -2,11 +2,11 @@
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using Rg.Plugins.Popup;
 using Syncfusion.SfChart.XForms.UWP;
 using Syncfusion.SfDataGrid.XForms.UWP;
 using Syncfusion.SfNumericTextBox.XForms.UWP;
 using Syncfusion.XForms.UWP.ComboBox;
+using Syncfusion.XForms.UWP.PopupLayout;
 using TsinghuaNet.XF.UWP.Helpers;
 using TsinghuaNet.XF.UWP.Services;
 using TsinghuaNet.XF.UWP.Views;
@@ -54,15 +54,16 @@ namespace TsinghuaNet.XF.UWP
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Popup.Init();
                 xf.Forms.SetFlags("Brush_Experimental");
                 SfDataGridRenderer.Init();
-                xf.Forms.Init(args, Popup.GetExtraAssemblies().Concat(new Assembly[] {
+                SfPopupLayoutRenderer.Init();
+                xf.Forms.Init(args, new Assembly[] {
                     typeof(SfChartRenderer).GetTypeInfo().Assembly,
                     typeof(SfDataGridRenderer).GetTypeInfo().Assembly,
                     typeof(SfNumericTextBoxRenderer).GetTypeInfo().Assembly,
-                    typeof(SfComboBoxRenderer).GetTypeInfo().Assembly
-                }));
+                    typeof(SfComboBoxRenderer).GetTypeInfo().Assembly,
+                    typeof(SfPopupLayoutRenderer).GetTypeInfo().Assembly
+                });
                 xf.DependencyService.Register<InternetStatus>();
                 xf.DependencyService.Register<BackgroundManager>();
 

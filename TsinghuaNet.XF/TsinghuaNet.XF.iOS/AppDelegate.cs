@@ -1,7 +1,7 @@
 ﻿using Foundation;
-using Rg.Plugins.Popup;
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
+using Syncfusion.XForms.iOS.PopupLayout;
 using UIKit;
 using Xamarin.Forms;
 
@@ -22,11 +22,11 @@ namespace TsinghuaNet.XF.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
-            Popup.Init();
             Forms.SetFlags("Brush_Experimental");
             Forms.Init();
             SfChartRenderer.Init();
             SfDataGridRenderer.Init();
+            SfPopupLayoutRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

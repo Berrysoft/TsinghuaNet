@@ -1,29 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage  
+<sfPopup:PopupView  
     x:Class="TsinghuaNet.XF.Views.ConnectIPPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:sfPopup="clr-namespace:Syncfusion.XForms.PopupLayout;assembly=Syncfusion.SfPopupLayout.XForms"
     xmlns:ms="using:TsinghuaNet.XF.Models"
     xmlns:vms="using:TsinghuaNet.XF.ViewModels"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
-    <pages:PopupPage.BindingContext>
+    mc:Ignorable="d" HeaderTitle="连接特定IP" AcceptButtonText="确定" AcceptCommand="{Binding ConfirmCommand}">
+    <sfPopup:PopupView.BindingContext>
         <vms:ConnectIPViewModel x:Name="Model"/>
-    </pages:PopupPage.BindingContext>
-    <pages:PopupPage.Animation>
-        <animations:ScaleAnimation PositionIn="Center" PositionOut="Center" ScaleIn="0.8" ScaleOut="0.8" EasingIn="CubicIn" EasingOut="CubicOut" HasBackgroundAnimation="True"/>
-    </pages:PopupPage.Animation>
-    <Frame HorizontalOptions="Center" VerticalOptions="Center" BackgroundColor="{DynamicResource PopupBackground}">
-        <StackLayout Orientation="Vertical" Padding="8">
-            <Entry Margin="8" WidthRequest="200" Text="{Binding IP,Mode=TwoWay}" Keyboard="Numeric">
-                <Entry.Behaviors>
-                    <ms:IPMaskedBehavior/>
-                </Entry.Behaviors>
-            </Entry>
-            <Button Margin="8" HorizontalOptions="Fill" Clicked="ConfirmConnectIP" Text="确定"/>
-        </StackLayout>
-    </Frame>
-</pages:PopupPage>
+    </sfPopup:PopupView.BindingContext>
+    <sfPopup:PopupView.ContentTemplate>
+        <DataTemplate>
+            <StackLayout Orientation="Vertical" Padding="8">
+                <Entry Margin="8" WidthRequest="200" Text="{Binding IP,Mode=TwoWay}" Keyboard="Numeric">
+                    <Entry.Behaviors>
+                        <ms:IPMaskedBehavior/>
+                    </Entry.Behaviors>
+                </Entry>
+            </StackLayout>
+        </DataTemplate>
+    </sfPopup:PopupView.ContentTemplate>
+</sfPopup:PopupView>

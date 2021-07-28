@@ -1,24 +1,16 @@
-﻿using System;
-using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
+﻿using Syncfusion.XForms.PopupLayout;
 using TsinghuaNet.ViewModels;
 using Xamarin.Forms.Xaml;
 
 namespace TsinghuaNet.XF.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConnectIPPage : PopupPage
+    public partial class ConnectIPPage : PopupView
     {
         public ConnectIPPage(ConnectionViewModel viewModel)
         {
             InitializeComponent();
             Model.ConnectionModel = viewModel;
-        }
-
-        private async void ConfirmConnectIP(object sender, EventArgs e)
-        {
-            await Model.ConfirmAsync();
-            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

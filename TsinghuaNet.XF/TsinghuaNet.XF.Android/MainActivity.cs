@@ -2,7 +2,7 @@
 using Android.Content.PM;
 using Android.OS;
 using Android.Runtime;
-using Rg.Plugins.Popup;
+using Syncfusion.XForms.Android.PopupLayout;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -19,7 +19,7 @@ namespace TsinghuaNet.XF.Droid
 
             Platform.Init(this, savedInstanceState);
 
-            Popup.Init(this);
+            SfPopupLayoutRenderer.Init();
 
             Forms.SetFlags("Brush_Experimental");
             Forms.Init(this, savedInstanceState);
@@ -30,10 +30,6 @@ namespace TsinghuaNet.XF.Droid
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-        public override void OnBackPressed()
-        {
-            Popup.SendBackPressed(base.OnBackPressed);
         }
     }
 }

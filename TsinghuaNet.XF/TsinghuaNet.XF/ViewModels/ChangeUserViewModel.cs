@@ -1,4 +1,6 @@
-﻿using TsinghuaNet.ViewModels;
+﻿using System.Windows.Input;
+using TsinghuaNet.Models;
+using TsinghuaNet.ViewModels;
 
 namespace TsinghuaNet.XF.ViewModels
 {
@@ -8,6 +10,7 @@ namespace TsinghuaNet.XF.ViewModels
         {
             NewUsername = Credential.Username;
             NewPassword = Credential.Password;
+            ConfirmCommand = new Command(this, Confirm);
         }
 
         public string NewUsername { get; set; }
@@ -18,5 +21,7 @@ namespace TsinghuaNet.XF.ViewModels
             Credential.Username = NewUsername;
             Credential.Password = NewPassword;
         }
+
+        public ICommand ConfirmCommand { get; }
     }
 }

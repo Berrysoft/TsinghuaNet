@@ -1,5 +1,5 @@
-﻿using System;
-using Rg.Plugins.Popup.Services;
+﻿using Syncfusion.XForms.PopupLayout;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +8,7 @@ namespace TsinghuaNet.XF.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InfoPage : ContentPage
     {
+        private SfPopupLayout layout = new SfPopupLayout();
         public InfoPage()
         {
             InitializeComponent();
@@ -35,11 +36,12 @@ namespace TsinghuaNet.XF.Views
             }, new Point(0.5, 1), new Point(0.5, 0));
         }
 
-        private async void Model_SettingsLoaded(object sender, EventArgs e)
+        private void Model_SettingsLoaded(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Model.Credential.Username))
             {
-                await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
+                layout.SetValue(SfPopupLayout.PopupViewProperty, new ChangeUserPage());
+                layout.Show();
             }
         }
     }

@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Syncfusion.XForms.PopupLayout;
+using System;
 using System.Net;
-using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,19 +9,23 @@ namespace TsinghuaNet.XF.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        private SfPopupLayout layout = new SfPopupLayout();
+
         public SettingsPage()
         {
             InitializeComponent();
         }
 
-        private async void ShowChangeUser(object sender, EventArgs e)
+        private void ShowChangeUser(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new ChangeUserPage());
+            layout.SetValue(SfPopupLayout.PopupViewProperty, new ChangeUserPage());
+            layout.Show();
         }
 
-        private async void ShowConnectIP(object sender, EventArgs e)
+        private void ShowConnectIP(object sender, EventArgs e)
         {
-            await PopupNavigation.Instance.PushAsync(new ConnectIPPage(Model.ConnectionModel));
+            layout.SetValue(SfPopupLayout.PopupViewProperty, new ConnectIPPage(Model.ConnectionModel));
+            layout.Show();
         }
 
         private async void DropUser(object sender, IPAddress e)
