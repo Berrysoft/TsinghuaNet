@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using Rg.Plugins.Popup;
+using Syncfusion.SfChart.XForms.UWP;
 using TsinghuaNet.XF.UWP.Helpers;
 using TsinghuaNet.XF.UWP.Services;
 using TsinghuaNet.XF.UWP.Views;
@@ -50,7 +53,7 @@ namespace TsinghuaNet.XF.UWP
 
                 Popup.Init();
                 xf.Forms.SetFlags("Brush_Experimental");
-                xf.Forms.Init(args, Popup.GetExtraAssemblies());
+                xf.Forms.Init(args, Popup.GetExtraAssemblies().Append(typeof(SfChartRenderer).GetTypeInfo().Assembly));
                 xf.DependencyService.Register<InternetStatus>();
                 xf.DependencyService.Register<BackgroundManager>();
 

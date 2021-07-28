@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microcharts;
-using SkiaSharp;
-using SkiaSharp.Views.Forms;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
-using Xamarin.Forms;
 
 namespace TsinghuaNet.XF.ViewModels
 {
@@ -14,69 +10,55 @@ namespace TsinghuaNet.XF.ViewModels
     {
         public DetailViewModel() : base()
         {
-            DailyChart = new LineChart
-            {
-                BackgroundColor = SKColors.Transparent,
-                LineMode = LineMode.Straight,
-                IsAnimated = true
-            };
-            TimeChart = new BarChart
-            {
-                BackgroundColor = SKColors.Transparent,
-                LabelOrientation = Orientation.Horizontal,
-                ValueLabelOrientation = Orientation.Horizontal,
-                IsAnimated = true
-            };
         }
 
-        public BarChart TimeChart { get; set; }
+        public List<TimeChartData> TimeChart { get; set; }
 
         protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source)
         {
-            TimeChart.Entries = source.
-                                GroupBy(p => p.Key / 6, p => p.Value).
-                                OrderBy(g => g.Key).
-                                Select(g => new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
-                                Supplement(0, 3, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
-                                Select(DetailsHelper.GetTimeChartEntry);
+            TimeChart = source.
+                        GroupBy(p => p.Key / 6, p => p.Value).
+                        OrderBy(g => g.Key).
+                        Select(g => new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
+                        Supplement(0, 3, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
+                        Select(p => new TimeChartData { Time = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1}", Flux = p.Value.GigaBytes }).
+                        ToList();
         }
 
-        public LineChart DailyChart { get; set; }
+        public List<DailyChartData> DailyChart { get; set; }
 
         protected override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             DateTime now = DateTime.Now;
-            DailyChart.Entries = source.
-                                 Supplement(1, p => p.Key.Day, d => new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, d), default)).
-                                 GetTotalDetails().
-                                 Select(DetailsHelper.GetDailyChartEntry);
+            DailyChart = source.
+                         Supplement(1, p => p.Key.Day, d => new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, d), default)).
+                         GetTotalDetails().
+                         ToList();
         }
+    }
+
+    class TimeChartData
+    {
+        public string Time { get; set; }
+        public double Flux { get; set; }
+    }
+
+    class DailyChartData
+    {
+        public DateTime Date { get; set; }
+        public double Flux { get; set; }
     }
 
     static class DetailsHelper
     {
-        public static IEnumerable<KeyValuePair<int, ByteSize>> GetTotalDetails(this IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
+        public static IEnumerable<DailyChartData> GetTotalDetails(this IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             ByteSize total = default;
             foreach (var p in source)
             {
                 total += p.Value;
-                yield return new KeyValuePair<int, ByteSize>(p.Key.Day, total);
+                yield return new DailyChartData { Date = p.Key, Flux = total.GigaBytes };
             }
         }
-
-        public static ChartEntry GetDailyChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
-        {
-            Label = p.Key.ToString(),
-            ValueLabel = " ",
-            Color = ((App)Application.Current).SystemAccentColor.ToSKColor()
-        };
-
-        public static ChartEntry GetTimeChartEntry(KeyValuePair<int, ByteSize> p) => new ChartEntry((float)p.Value.GigaBytes)
-        {
-            Label = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1} h",
-            ValueLabel = p.Value.ToString(),
-            Color = ((App)Application.Current).SystemAccentColor.ToSKColor()
-        };
     }
 }

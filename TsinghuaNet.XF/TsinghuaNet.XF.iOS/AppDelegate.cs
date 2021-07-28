@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using Rg.Plugins.Popup;
+using Syncfusion.SfChart.XForms.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
 
@@ -23,6 +24,7 @@ namespace TsinghuaNet.XF.iOS
             Popup.Init();
             Forms.SetFlags("Brush_Experimental");
             Forms.Init();
+            SfChartRenderer.Init();
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

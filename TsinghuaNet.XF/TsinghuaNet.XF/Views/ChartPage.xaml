@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
-    xmlns:microchartsforms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
+    xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     ios:Page.UseSafeArea="true"
@@ -16,10 +16,50 @@
     <ScrollView Margin="8" IsTabStop="True">
         <StackLayout Spacing="8">
             <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
-            <Label HorizontalOptions="Center">按日统计</Label>
-            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding ViewModel.DailyChart}"/>
-            <Label HorizontalOptions="Center">按时段统计</Label>
-            <microchartsforms:ChartView HeightRequest="300" Chart="{Binding ViewModel.TimeChart}"/>
+            <chart:SfChart HeightRequest="300">
+                <chart:SfChart.Title>
+                    <chart:ChartTitle Text="按日统计"/>
+                </chart:SfChart.Title>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:DateTimeAxis>
+                        <chart:DateTimeAxis.Title>
+                            <chart:ChartAxisTitle Text="日期"/>
+                        </chart:DateTimeAxis.Title>
+                    </chart:DateTimeAxis>
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="流量（GB）"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfChart.SecondaryAxis>
+                <chart:SfChart.Series>
+                    <chart:LineSeries ItemsSource="{Binding ViewModel.DailyChart}" XBindingPath="Date" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}"/>
+                </chart:SfChart.Series>
+            </chart:SfChart>
+            <chart:SfChart HeightRequest="300">
+                <chart:SfChart.Title>
+                    <chart:ChartTitle Text="按时段统计"/>
+                </chart:SfChart.Title>
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis>
+                        <chart:CategoryAxis.Title>
+                            <chart:ChartAxisTitle Text="时间段（h）"/>
+                        </chart:CategoryAxis.Title>
+                    </chart:CategoryAxis>
+                </chart:SfChart.PrimaryAxis>
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis>
+                        <chart:NumericalAxis.Title>
+                            <chart:ChartAxisTitle Text="流量（GB）"/>
+                        </chart:NumericalAxis.Title>
+                    </chart:NumericalAxis>
+                </chart:SfChart.SecondaryAxis>
+                <chart:SfChart.Series>
+                    <chart:ColumnSeries ItemsSource="{Binding ViewModel.TimeChart}" XBindingPath="Time" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}"/>
+                </chart:SfChart.Series>
+            </chart:SfChart>
         </StackLayout>
     </ScrollView>
 </ContentPage>
