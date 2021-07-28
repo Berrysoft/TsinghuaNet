@@ -23,14 +23,14 @@
                 <chart:SfChart.PrimaryAxis>
                     <chart:DateTimeAxis>
                         <chart:DateTimeAxis.Title>
-                            <chart:ChartAxisTitle Text="日期"/>
+                            <chart:ChartAxisTitle Text="日期" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:DateTimeAxis.Title>
                     </chart:DateTimeAxis>
                 </chart:SfChart.PrimaryAxis>
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="流量（GB）"/>
+                            <chart:ChartAxisTitle Text="流量（GB）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:NumericalAxis.Title>
                     </chart:NumericalAxis>
                 </chart:SfChart.SecondaryAxis>
@@ -45,14 +45,14 @@
                 <chart:SfChart.PrimaryAxis>
                     <chart:CategoryAxis>
                         <chart:CategoryAxis.Title>
-                            <chart:ChartAxisTitle Text="时间段（h）"/>
+                            <chart:ChartAxisTitle Text="时间段（h）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:CategoryAxis.Title>
                     </chart:CategoryAxis>
                 </chart:SfChart.PrimaryAxis>
                 <chart:SfChart.SecondaryAxis>
                     <chart:NumericalAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="流量（GB）"/>
+                            <chart:ChartAxisTitle Text="流量（GB）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:NumericalAxis.Title>
                     </chart:NumericalAxis>
                 </chart:SfChart.SecondaryAxis>

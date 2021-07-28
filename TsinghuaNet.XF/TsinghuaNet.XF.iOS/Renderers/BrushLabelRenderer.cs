@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 using System.Linq;
 using CoreAnimation;
 using CoreGraphics;
@@ -18,8 +15,8 @@ namespace TsinghuaNet.XF.iOS.Renderers
 {
     public class BrushLabelRenderer : LabelRenderer
     {
-        private CAGradientLayer gradient = new CAGradientLayer();
-        private UILabel realLabel = new UILabel();
+        private readonly CAGradientLayer gradient = new CAGradientLayer();
+        private readonly UILabel realLabel = new UILabel();
 
         public BrushLabelRenderer() : base()
         {
@@ -66,41 +63,6 @@ namespace TsinghuaNet.XF.iOS.Renderers
                 gradient.StartPoint = oriBrush.StartPoint.ToPointF();
                 gradient.EndPoint = oriBrush.EndPoint.ToPointF();
             }
-        }
-
-        private UIImage GetGradientImage(CGSize size)
-        {
-            var oriBrush = (Element as BrushLabel)?.Foreground as LinearGradientBrush;
-            if (oriBrush != null)
-            {
-                UIGraphics.BeginImageContextWithOptions(size, false, 0);
-                var context = UIGraphics.GetCurrentContext();
-                if (context != null)
-                {
-                    context.SetFillColor(UIColor.White.CGColor);
-                    context.FillRect(new RectangleF(new PointF(0, 0), new SizeF((float)size.Width, (float)size.Height)));
-                    var colorspace = CGColorSpace.CreateDeviceRGB();
-                    var colors = new List<CGColor>();
-                    var locations = new List<nfloat>();
-                    foreach (var stop in oriBrush.GradientStops)
-                    {
-                        colors.Add(stop.Color.ToCGColor());
-                        locations.Add(stop.Offset);
-                    }
-                    var gradient = new CGGradient(colorspace, colors.ToArray(), locations.ToArray());
-                    var start = oriBrush.StartPoint.ToPointF();
-                    start.X *= size.Width;
-                    start.Y *= size.Height;
-                    var end = oriBrush.EndPoint.ToPointF();
-                    end.X *= size.Width;
-                    end.Y *= size.Height;
-                    context.DrawLinearGradient(gradient, start, end, CGGradientDrawingOptions.None);
-                    var img = UIGraphics.GetImageFromCurrentImageContext();
-                    UIGraphics.EndImageContext();
-                    return img;
-                }
-            }
-            return null;
         }
     }
 }

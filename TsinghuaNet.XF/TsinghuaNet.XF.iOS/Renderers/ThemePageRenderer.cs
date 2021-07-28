@@ -43,9 +43,6 @@ namespace TsinghuaNet.XF.iOS.Renderers
         private void SetAppTheme()
         {
             var app = xf.Application.Current;
-            var background = TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark ? Color.Black : Color.White;
-            app.Resources["PopupBackground"] = background;
-
             var mergedDictionaries = app.Resources.MergedDictionaries;
             if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
             {

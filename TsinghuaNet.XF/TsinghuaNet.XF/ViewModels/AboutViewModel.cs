@@ -20,6 +20,7 @@ namespace TsinghuaNet.XF.ViewModels
             new PackageBox("HtmlAgilityPack", "MIT"),
             new PackageBox("PropertyChanged.Fody", "MIT"),
             new PackageBox("Refractored.MvvmHelpers", "MIT"),
+            new PackageBox("Syncfusion.Xamarin", "Community License"),
             new PackageBox("System.Linq.Async","Apache-2.0"),
         };
 
