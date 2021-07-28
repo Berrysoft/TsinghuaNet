@@ -162,7 +162,4 @@
       <Name>TsinghuaNet.XF</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets.xcassets\slpash.imageset\" />
-  </ItemGroup>
 </Project>

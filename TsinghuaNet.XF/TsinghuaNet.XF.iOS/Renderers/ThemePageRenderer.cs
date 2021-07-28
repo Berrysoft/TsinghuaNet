@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Syncfusion.XForms.Themes;
+using System;
 using System.Diagnostics;
 using TsinghuaNet.XF.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
-using Xamarin.Forms.DataGrid;
 using Xamarin.Forms.Platform.iOS;
 using xf = Xamarin.Forms;
 
@@ -43,10 +43,20 @@ namespace TsinghuaNet.XF.iOS.Renderers
         private void SetAppTheme()
         {
             var app = xf.Application.Current;
-            var foreground = TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark ? Color.White : Color.Black;
             var background = TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark ? Color.Black : Color.White;
-            ((PaletteCollection)app.Resources["DataGridForegroundPalette"])[0] = foreground;
             app.Resources["PopupBackground"] = background;
+
+            var mergedDictionaries = app.Resources.MergedDictionaries;
+            if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+            {
+                mergedDictionaries.Clear();
+                mergedDictionaries.Add(new DarkTheme());
+            }
+            else
+            {
+                mergedDictionaries.Clear();
+                mergedDictionaries.Add(new LightTheme());
+            }
         }
     }
 }

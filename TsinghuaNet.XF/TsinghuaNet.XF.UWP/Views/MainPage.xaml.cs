@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using Syncfusion.XForms.Themes;
+using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -28,12 +29,23 @@ namespace TsinghuaNet.XF.UWP.Views
 
         private void SetColorResource(xf.Application app)
         {
-            var foreground = ActualTheme == ElementTheme.Dark ? xf.Color.White : xf.Color.Black;
             var background = ActualTheme == ElementTheme.Dark ? xf.Color.Black : xf.Color.WhiteSmoke;
             app.Resources["PopupBackground"] = background;
             app.Resources["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor();
             app.Resources["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor();
             app.Resources["SystemAccentColorDark2"] = ((Color)Application.Current.Resources["SystemAccentColorDark2"]).ToFormsColor();
+
+            var mergedDictionaries = app.Resources.MergedDictionaries;
+            if (ActualTheme == ElementTheme.Dark)
+            {
+                mergedDictionaries.Clear();
+                mergedDictionaries.Add(new DarkTheme());
+            }
+            else
+            {
+                mergedDictionaries.Clear();
+                mergedDictionaries.Add(new LightTheme());
+            }
         }
     }
 }
