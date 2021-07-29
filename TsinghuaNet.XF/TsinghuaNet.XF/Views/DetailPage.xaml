@@ -17,8 +17,8 @@
         <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
         <dg:SfDataGrid ColumnSizer="Star" ItemsSource="{Binding ViewModel.InitialDetails,Mode=OneWay}" AllowPullToRefresh="True" PullToRefreshCommand="{Binding ViewModel.RefreshCommand}" IsBusy="{Binding ViewModel.IsBusy, Mode=OneWay}" AllowSorting="True" AllowTriStateSorting="True" EnableDataVirtualization="True">
             <dg:SfDataGrid.Columns>
-                <dg:GridDateTimeColumn HeaderText="登录时间" MappingName="LoginTime"/>
-                <dg:GridDateTimeColumn HeaderText="注销时间" MappingName="LogoutTime"/>
+                <dg:GridDateTimeColumn HeaderText="登录时间" MappingName="LoginTime" Format="g"/>
+                <dg:GridDateTimeColumn HeaderText="注销时间" MappingName="LogoutTime" Format="g"/>
                 <dg:GridTextColumn HeaderText="使用流量" MappingName="Flux" DisplayBinding="{Binding Flux}"/>
             </dg:SfDataGrid.Columns>
         </dg:SfDataGrid>

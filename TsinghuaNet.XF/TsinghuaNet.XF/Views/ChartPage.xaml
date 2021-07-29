@@ -4,6 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:controls="clr-namespace:TsinghuaNet.XF.Controls"
     xmlns:vms="clr-namespace:TsinghuaNet.XF.ViewModels"
     xmlns:chart="clr-namespace:Syncfusion.SfChart.XForms;assembly=Syncfusion.SfChart.XForms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -28,14 +29,14 @@
                     </chart:DateTimeAxis>
                 </chart:SfChart.PrimaryAxis>
                 <chart:SfChart.SecondaryAxis>
-                    <chart:NumericalAxis>
+                    <controls:FluxAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="流量（GB）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
+                            <chart:ChartAxisTitle Text="流量" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:NumericalAxis.Title>
-                    </chart:NumericalAxis>
+                    </controls:FluxAxis>
                 </chart:SfChart.SecondaryAxis>
                 <chart:SfChart.Series>
-                    <chart:LineSeries ItemsSource="{Binding ViewModel.DailyChart}" XBindingPath="Date" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}"/>
+                    <chart:LineSeries ItemsSource="{Binding ViewModel.DailyChart}" XBindingPath="Date" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}" EnableAnimation="True"/>
                 </chart:SfChart.Series>
             </chart:SfChart>
             <chart:SfChart HeightRequest="300">
@@ -45,19 +46,19 @@
                 <chart:SfChart.PrimaryAxis>
                     <chart:CategoryAxis>
                         <chart:CategoryAxis.Title>
-                            <chart:ChartAxisTitle Text="时间段（h）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
+                            <chart:ChartAxisTitle Text="时间段" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:CategoryAxis.Title>
                     </chart:CategoryAxis>
                 </chart:SfChart.PrimaryAxis>
                 <chart:SfChart.SecondaryAxis>
-                    <chart:NumericalAxis>
+                    <controls:FluxAxis>
                         <chart:NumericalAxis.Title>
-                            <chart:ChartAxisTitle Text="流量（GB）" TextColor="{DynamicResource SfChartTitleTextColor}"/>
+                            <chart:ChartAxisTitle Text="流量" TextColor="{DynamicResource SfChartTitleTextColor}"/>
                         </chart:NumericalAxis.Title>
-                    </chart:NumericalAxis>
+                    </controls:FluxAxis>
                 </chart:SfChart.SecondaryAxis>
                 <chart:SfChart.Series>
-                    <chart:ColumnSeries ItemsSource="{Binding ViewModel.TimeChart}" XBindingPath="Time" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}"/>
+                    <chart:ColumnSeries ItemsSource="{Binding ViewModel.TimeChart}" XBindingPath="Time" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}" EnableAnimation="True"/>
                 </chart:SfChart.Series>
             </chart:SfChart>
         </StackLayout>

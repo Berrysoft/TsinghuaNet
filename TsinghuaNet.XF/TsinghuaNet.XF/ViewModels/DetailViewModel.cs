@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MvvmHelpers;
 using TsinghuaNet.Models;
 using TsinghuaNet.ViewModels;
 
@@ -12,28 +13,26 @@ namespace TsinghuaNet.XF.ViewModels
         {
         }
 
-        public List<TimeChartData> TimeChart { get; set; }
+        public ObservableRangeCollection<TimeChartData> TimeChart { get; } = new ObservableRangeCollection<TimeChartData>();
 
         protected override void SetTimeDetails(IEnumerable<KeyValuePair<int, ByteSize>> source)
         {
-            TimeChart = source.
-                        GroupBy(p => p.Key / 6, p => p.Value).
-                        OrderBy(g => g.Key).
-                        Select(g => new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
-                        Supplement(0, 3, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
-                        Select(p => new TimeChartData { Time = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1}", Flux = p.Value.GigaBytes }).
-                        ToList();
+            TimeChart.ReplaceRange(source.
+                                   GroupBy(p => p.Key / 6, p => p.Value).
+                                   OrderBy(g => g.Key).
+                                   Select(g => new KeyValuePair<int, ByteSize>(g.Key, g.Sum())).
+                                   Supplement(0, 3, p => p.Key, h => new KeyValuePair<int, ByteSize>(h, default)).
+                                   Select(p => new TimeChartData { Time = $"{p.Key * 6} ~ {(p.Key + 1) * 6 - 1} h", Flux = p.Value.GigaBytes }));
         }
 
-        public List<DailyChartData> DailyChart { get; set; }
+        public ObservableRangeCollection<DailyChartData> DailyChart { get; } = new ObservableRangeCollection<DailyChartData>();
 
         protected override void SetGroupedDetails(IEnumerable<KeyValuePair<DateTime, ByteSize>> source)
         {
             DateTime now = DateTime.Now;
-            DailyChart = source.
-                         Supplement(1, p => p.Key.Day, d => new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, d), default)).
-                         GetTotalDetails().
-                         ToList();
+            DailyChart.ReplaceRange(source.
+                                    Supplement(1, p => p.Key.Day, d => new KeyValuePair<DateTime, ByteSize>(new DateTime(now.Year, now.Month, d), default)).
+                                    GetTotalDetails());
         }
     }
 
