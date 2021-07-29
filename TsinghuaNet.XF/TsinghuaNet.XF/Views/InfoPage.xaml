@@ -37,7 +37,7 @@
                 <controls:ViewBox VerticalOptions="Fill">
                     <controls:BrushLabel x:Name="FluxLabel" FontFamily="{StaticResource SymbolFont}" FontSize="200">&#xE12B;</controls:BrushLabel>
                 </controls:ViewBox>
-                <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{StaticResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
+                <ActivityIndicator HorizontalOptions="Center" VerticalOptions="Center" Color="{DynamicResource SystemAccentColor}" IsRunning="{Binding IsBusy}"/>
             </Grid>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" Orientation="Vertical" Spacing="8">
                 <Grid ColumnSpacing="4" RowSpacing="4">
