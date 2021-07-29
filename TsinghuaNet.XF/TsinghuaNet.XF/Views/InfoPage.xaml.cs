@@ -1,5 +1,5 @@
-﻿using Syncfusion.XForms.PopupLayout;
-using System;
+﻿using System;
+using Syncfusion.XForms.PopupLayout;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,7 +8,7 @@ namespace TsinghuaNet.XF.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class InfoPage : ContentPage
     {
-        private SfPopupLayout layout = new SfPopupLayout();
+        private readonly SfPopupLayout layout = new SfPopupLayout() { OverlayMode = OverlayMode.Blur };
         public InfoPage()
         {
             InitializeComponent();

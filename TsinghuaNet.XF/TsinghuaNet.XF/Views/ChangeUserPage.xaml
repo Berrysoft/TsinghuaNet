@@ -11,6 +11,9 @@
     <sfPopup:PopupView.BindingContext>
         <vms:ChangeUserViewModel x:Name="Model"/>
     </sfPopup:PopupView.BindingContext>
+    <sfPopup:PopupView.PopupStyle>
+        <sfPopup:PopupStyle BorderColor="{DynamicResource SystemAccentColor}"/>
+    </sfPopup:PopupView.PopupStyle>
     <sfPopup:PopupView.ContentTemplate>
         <DataTemplate>
             <StackLayout Orientation="Vertical" Padding="8">
