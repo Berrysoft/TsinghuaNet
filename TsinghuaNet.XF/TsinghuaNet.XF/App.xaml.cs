@@ -1,6 +1,6 @@
-﻿using TsinghuaNet.XF.Views;
+﻿using Syncfusion.Licensing;
+using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
-using Syncfusion.Licensing;
 
 namespace TsinghuaNet.XF
 {
@@ -10,10 +10,11 @@ namespace TsinghuaNet.XF
         internal Color SystemAccentColorDark1 => (Color)Resources["SystemAccentColorDark1"];
         internal Color SystemAccentColorDark2 => (Color)Resources["SystemAccentColorDark2"];
 
-        public App()
+        public App(ResourceDictionary res) : base()
         {
             SyncfusionLicenseProvider.RegisterLicense("NDgwNzY2QDMxMzkyZTMyMmUzMERkRzJrcXZwd1pSWnhIOGRUTUQ0TWhkY0R5Y01ZUHhGY1Z5VEloVmJkSjQ9");
             InitializeComponent();
+            Resources.MergedDictionaries.Add(res);
             MainPage = new MainPage();
         }
 

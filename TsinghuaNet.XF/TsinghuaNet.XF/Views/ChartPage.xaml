@@ -17,7 +17,7 @@
     <ScrollView Margin="8" IsTabStop="True">
         <StackLayout Spacing="8">
             <Button Command="{Binding ViewModel.RefreshCommand}" Text="刷新"/>
-            <chart:SfChart HeightRequest="300">
+            <chart:SfChart HeightRequest="300" BackgroundColor="Transparent">
                 <chart:SfChart.Title>
                     <chart:ChartTitle Text="按日统计"/>
                 </chart:SfChart.Title>
@@ -39,7 +39,7 @@
                     <chart:LineSeries ItemsSource="{Binding ViewModel.DailyChart}" XBindingPath="Date" YBindingPath="Flux" Color="{DynamicResource SystemAccentColor}" EnableAnimation="True"/>
                 </chart:SfChart.Series>
             </chart:SfChart>
-            <chart:SfChart HeightRequest="300">
+            <chart:SfChart HeightRequest="300" BackgroundColor="Transparent">
                 <chart:SfChart.Title>
                     <chart:ChartTitle Text="按时段统计"/>
                 </chart:SfChart.Title>

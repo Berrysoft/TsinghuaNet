@@ -3,7 +3,7 @@
 
   <style name="MainTheme" parent="MainTheme.Base">
   </style>
-  <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+  <style name="MainTheme.Base" parent="Theme.AppCompat.DayNight">
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
     <item name="colorPrimary">#2196F3</item>
@@ -13,11 +13,11 @@
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
-  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+  <style name="AppCompatDialogStyle" parent="Theme.AppCompat.DayNight.Dialog">
     <item name="colorAccent">#FF4081</item>
   </style>
 
-  <style name="splashscreen" parent="Theme.AppCompat.Light">
+  <style name="splashscreen" parent="Theme.AppCompat.DayNight">
     <item name="android:windowBackground">@drawable/splashscreen</item>
     <item name="android:windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
