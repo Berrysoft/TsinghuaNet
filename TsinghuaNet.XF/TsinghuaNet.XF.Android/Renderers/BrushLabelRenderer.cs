@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+using System.Linq;
 using Android.Content;
 using Android.Graphics;
 using TsinghuaNet.XF.Controls;
@@ -32,19 +32,14 @@ namespace TsinghuaNet.XF.Droid.Renderers
             var oriBrush = (Element as BrushLabel)?.Foreground as LinearGradientBrush;
             if (oriBrush != null)
             {
-                var colors = new List<int>();
-                var positions = new List<float>();
-                foreach (var stop in oriBrush.GradientStops)
-                {
-                    colors.Add(stop.Color.ToAndroid());
-                    positions.Add(stop.Offset);
-                }
+                var colors = oriBrush.GradientStops.Select(stop => (int)stop.Color.ToAndroid()).ToArray();
+                var positions = oriBrush.GradientStops.Select(stop => stop.Offset).ToArray();
                 var width = Control.MeasuredWidth;
                 var height = Control.MeasuredHeight;
                 Shader shader = new LinearGradient(
                     (float)oriBrush.StartPoint.X * width, (float)oriBrush.StartPoint.Y * height,
                     (float)oriBrush.EndPoint.X * width, (float)oriBrush.EndPoint.Y * height,
-                    colors.ToArray(), positions.ToArray(), Shader.TileMode.Clamp);
+                    colors, positions, Shader.TileMode.Clamp);
                 Control.Paint.SetShader(shader);
                 Control.Invalidate();
             }
