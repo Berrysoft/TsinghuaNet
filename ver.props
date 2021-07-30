@@ -1,9 +1,9 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <AssemblyVersion>4.3.84.0</AssemblyVersion>
-    <FileVersion>4.3.84.0</FileVersion>
-    <Version>4.3.84.0</Version>
+    <AssemblyVersion>4.4.85.0</AssemblyVersion>
+    <FileVersion>4.4.85.0</FileVersion>
+    <Version>4.4.85.0</Version>
     <Authors>Berrysoft</Authors>
     <Copyright>Copyright (c) 2018-2021 Berrysoft</Copyright>
   </PropertyGroup>

@@ -27,7 +27,7 @@
 	<key>CFBundleIdentifier</key>
 	<string>com.berrysoft.TsinghuaNet.XF</string>
 	<key>CFBundleVersion</key>
-	<string>4.3.84</string>
+	<string>4.4.85</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
