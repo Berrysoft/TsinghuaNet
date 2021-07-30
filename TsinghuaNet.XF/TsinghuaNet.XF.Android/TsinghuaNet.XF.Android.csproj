@@ -50,17 +50,16 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AotAssemblies>true</AotAssemblies>
-    <EnableLLVM>false</EnableLLVM>
+    <EnableLLVM>true</EnableLLVM>
     <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
-    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
     <AndroidDexTool>d8</AndroidDexTool>
     <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidCreatePackagePerAbi>true</AndroidCreatePackagePerAbi>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>x86_64;arm64-v8a</AndroidSupportedAbis>
+    <AndroidSupportedAbis>x86;arm64-v8a</AndroidSupportedAbis>
     <MandroidI18n>CJK</MandroidI18n>
-    <AndroidLinkSkip>
-    </AndroidLinkSkip>
+    <AndroidLinkSkip>Xamarin.Forms.Core;Xamarin.Forms.Platform;Xamarin.Forms.Platform.Android;Xamarin.Forms.Xaml;Syncfusion.Core.XForms;Syncfusion.SfChart.XForms;Syncfusion.SfComboBox.XForms;Syncfusion.SfDataGrid.XForms;Syncfusion.SfNumericTextBox.XForms;Syncfusion.SfPopupLayout.XForms;TsinghuaNet;TsinghuaNet.XF;TsinghuaNet.XF.Android</AndroidLinkSkip>
     <AndroidPackageFormat>apk</AndroidPackageFormat>
     <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>

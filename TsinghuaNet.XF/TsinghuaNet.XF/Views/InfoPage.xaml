@@ -63,7 +63,7 @@
                     </StackLayout>
                     <StackLayout Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
                         <Label VerticalOptions="Start">余额：</Label>
-                        <Label VerticalOptions="Start" Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='{0:C2}'}"/>
+                        <Label VerticalOptions="Start" Text="{Binding OnlineUser.Balance,Mode=OneWay,StringFormat='￥{0:F2}'}"/>
                     </StackLayout>
                 </Grid>
                 <Picker HorizontalOptions="Fill" Title="连接方式" SelectedIndex="{Binding Credential.State,Mode=TwoWay,Converter={StaticResource NetStateInt32Converter}}">

@@ -122,7 +122,7 @@ namespace TsinghuaNet.CLI
                 Console.WriteLine("用户：{0}", flux.Username);
                 Console.WriteLine("流量：{0}", flux.Flux);
                 Console.WriteLine("时长：{0}", flux.OnlineTime);
-                Console.WriteLine(string.Format(CultureInfo.GetCultureInfo("zh-CN"), "流量：{0:C2}", flux.Balance));
+                Console.WriteLine(string.Format(CultureInfo.GetCultureInfo("zh-CN"), "流量：￥{0:F2}", flux.Balance));
             }
         }
     }
