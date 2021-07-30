@@ -1,4 +1,5 @@
-﻿using Syncfusion.XForms.Themes;
+﻿using System.Collections.Generic;
+using Syncfusion.XForms.Themes;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -17,8 +18,7 @@ namespace TsinghuaNet.XF.UWP.Views
             var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.ButtonBackgroundColor = Colors.Transparent;
             titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            var xfApp = new TsinghuaNet.XF.App();
-            SetColorResource(xfApp);
+            var xfApp = new TsinghuaNet.XF.App(GetColorTheme(), GetOtherResources());
             LoadApplication(xfApp);
         }
 
@@ -29,21 +29,33 @@ namespace TsinghuaNet.XF.UWP.Views
 
         private void SetColorResource(xf.Application app)
         {
-            app.Resources["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor();
-            app.Resources["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor();
-            app.Resources["SystemAccentColorDark2"] = ((Color)Application.Current.Resources["SystemAccentColorDark2"]).ToFormsColor();
+            ((TsinghuaNet.XF.App)app).UpdateResources(GetOtherResources());
 
             var mergedDictionaries = app.Resources.MergedDictionaries;
+            mergedDictionaries.Clear();
+            mergedDictionaries.Add(GetColorTheme());
+        }
+
+        private xf.ResourceDictionary GetColorTheme()
+        {
             if (ActualTheme == ElementTheme.Dark)
             {
-                mergedDictionaries.Clear();
-                mergedDictionaries.Add(new DarkTheme());
+                return new DarkTheme();
             }
             else
             {
-                mergedDictionaries.Clear();
-                mergedDictionaries.Add(new LightTheme());
+                return new LightTheme();
             }
+        }
+
+        private Dictionary<string, object> GetOtherResources()
+        {
+            return new Dictionary<string, object>
+            {
+                ["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor(),
+                ["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor(),
+                ["SystemAccentColorDark2"] = ((Color)Application.Current.Resources["SystemAccentColorDark2"]).ToFormsColor()
+            };
         }
     }
 }

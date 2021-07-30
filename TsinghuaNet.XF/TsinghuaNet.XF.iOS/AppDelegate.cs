@@ -2,6 +2,7 @@
 using Syncfusion.SfChart.XForms.iOS.Renderers;
 using Syncfusion.SfDataGrid.XForms.iOS;
 using Syncfusion.XForms.iOS.PopupLayout;
+using TsinghuaNet.XF.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
 
@@ -27,7 +28,7 @@ namespace TsinghuaNet.XF.iOS
             SfChartRenderer.Init();
             SfDataGridRenderer.Init();
             SfPopupLayoutRenderer.Init();
-            LoadApplication(new App());
+            LoadApplication(new App(UIScreen.MainScreen.TraitCollection.GetColorTheme()));
 
             return base.FinishedLaunching(app, options);
         }

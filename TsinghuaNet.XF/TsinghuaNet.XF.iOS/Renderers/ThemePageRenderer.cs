@@ -1,6 +1,6 @@
-﻿using Syncfusion.XForms.Themes;
-using System;
+﻿using System;
 using System.Diagnostics;
+using Syncfusion.XForms.Themes;
 using TsinghuaNet.XF.iOS.Renderers;
 using UIKit;
 using Xamarin.Forms;
@@ -44,15 +44,22 @@ namespace TsinghuaNet.XF.iOS.Renderers
         {
             var app = xf.Application.Current;
             var mergedDictionaries = app.Resources.MergedDictionaries;
-            if (TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
+            mergedDictionaries.Clear();
+            mergedDictionaries.Add(TraitCollection.GetColorTheme());
+        }
+    }
+
+    static class TraitCollectionEx
+    {
+        public static ResourceDictionary GetColorTheme(this UITraitCollection tc)
+        {
+            if (tc.UserInterfaceStyle == UIUserInterfaceStyle.Dark)
             {
-                mergedDictionaries.Clear();
-                mergedDictionaries.Add(new DarkTheme());
+                return new DarkTheme();
             }
             else
             {
-                mergedDictionaries.Clear();
-                mergedDictionaries.Add(new LightTheme());
+                return new LightTheme();
             }
         }
     }
