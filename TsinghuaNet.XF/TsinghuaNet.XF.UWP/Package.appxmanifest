@@ -14,7 +14,7 @@
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>TsinghuaNet.XF.UWP</DisplayName>
+    <DisplayName>清华校园网</DisplayName>
     <PublisherDisplayName>Berrysoft</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -32,7 +32,7 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="TsinghuaNet.XF.UWP.App">
       <uap:VisualElements
-        DisplayName="TsinghuaNet.XF.UWP"
+        DisplayName="清华校园网"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png"
         Description="清华大学校园网客户端"

@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>TsinghuaNet.XF</string>
+	<string>清华校园网</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.berrysoft.TsinghuaNet.XF</string>
 	<key>CFBundleVersion</key>

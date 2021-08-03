@@ -8,11 +8,10 @@ using Syncfusion.XForms.Themes;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using xe = Xamarin.Essentials;
-using xf = Xamarin.Forms;
 
 namespace TsinghuaNet.XF.Droid
 {
-    [Activity(Label = "TsinghuaNet.XF", Icon = "@drawable/icon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, LaunchMode = LaunchMode.SingleTop)]
+    [Activity(Label = "清华校园网", Icon = "@drawable/icon", Theme = "@style/splashscreen", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation, LaunchMode = LaunchMode.SingleTop)]
     public class MainActivity : FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
