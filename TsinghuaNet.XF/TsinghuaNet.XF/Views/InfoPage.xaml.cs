@@ -36,13 +36,10 @@ namespace TsinghuaNet.XF.Views
             }, new Point(0.5, 1), new Point(0.5, 0));
         }
 
-        private void Model_SettingsLoaded(object sender, EventArgs e)
+        private void Model_AskCredential(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(Model.Credential.Username))
-            {
-                layout.SetValue(SfPopupLayout.PopupViewProperty, new ChangeUserPage());
-                layout.Show();
-            }
+            layout.SetValue(SfPopupLayout.PopupViewProperty, new ChangeUserPage());
+            layout.Show();
         }
     }
 }

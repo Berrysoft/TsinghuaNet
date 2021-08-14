@@ -51,11 +51,19 @@ namespace TsinghuaNet.ViewModels
 
         public string Response { get; set; }
 
+        public event EventHandler AskCredential;
+
+        internal void OnAskCredential(EventArgs e) => AskCredential?.Invoke(this, e);
+
         internal async Task NetCommandExecuteAsync(Func<IConnect, Task<LogResponse>> executor)
         {
             try
             {
                 IsBusy = true;
+                if (string.IsNullOrEmpty(Credential.Username))
+                {
+                    OnAskCredential(EventArgs.Empty);
+                }
                 var helper = Credential.GetHelper(Settings);
                 Response = (await executor(helper)).Message;
             }

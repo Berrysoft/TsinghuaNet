@@ -31,9 +31,6 @@ namespace TsinghuaNet.XF.ViewModels
             Connectivity.ConnectivityChanged += OnConnectivityChanged;
         }
 
-        public event EventHandler SettingsLoaded;
-        protected void OnSettingsLoaded(EventArgs e) => SettingsLoaded?.Invoke(this, e);
-
         public override async void LoadSettings()
         {
             Settings = new NetXFSettings();
@@ -43,7 +40,6 @@ namespace TsinghuaNet.XF.ViewModels
             Credential.UseProxy = Settings.UseProxy;
             if (Settings.AutoLogin && !string.IsNullOrEmpty(Credential.Username))
                 await LoginAsync();
-            OnSettingsLoaded(EventArgs.Empty);
         }
 
         public override async void SaveSettings()
