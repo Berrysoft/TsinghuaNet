@@ -7,7 +7,7 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-    mc:Ignorable="d" Title="TsinghuaNet.XF.UWP" android:TabbedPage.ToolbarPlacement="Bottom">
+    mc:Ignorable="d" Title="清华校园网" android:TabbedPage.ToolbarPlacement="Bottom">
     <local:InfoPage>
         <local:InfoPage.IconImageSource>
             <FontImageSource FontFamily="{StaticResource SymbolFont}" Glyph="&#xE10F;" Size="1,1"/>
