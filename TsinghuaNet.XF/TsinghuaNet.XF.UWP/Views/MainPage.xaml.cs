@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Toolkit.Uwp.Helpers;
 using Syncfusion.XForms.Themes;
 using Windows.ApplicationModel.Core;
 using Windows.UI;
@@ -50,12 +51,17 @@ namespace TsinghuaNet.XF.UWP.Views
 
         private Dictionary<string, object> GetOtherResources()
         {
-            return new Dictionary<string, object>
+            var res = new Dictionary<string, object>
             {
                 ["SystemAccentColor"] = ((Color)Application.Current.Resources["SystemAccentColor"]).ToFormsColor(),
                 ["SystemAccentColorDark1"] = ((Color)Application.Current.Resources["SystemAccentColorDark1"]).ToFormsColor(),
                 ["SystemAccentColorDark2"] = ((Color)Application.Current.Resources["SystemAccentColorDark2"]).ToFormsColor()
             };
+            if (SystemInformation.Instance.OperatingSystemVersion.Build < 22000)
+            {
+                res.Add("SymbolFont", "Segoe MDL2 Assets");
+            }
+            return res;
         }
     }
 }

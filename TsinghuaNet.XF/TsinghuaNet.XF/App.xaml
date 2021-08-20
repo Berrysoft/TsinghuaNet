@@ -12,7 +12,7 @@
         <Color x:Key="SystemAccentColorDark2">#FF004275</Color>
         <OnPlatform x:Key="SymbolFont" x:TypeArguments="x:String">
             <On Platform="UWP,iOS">Segoe Fluent Icons</On>
-            <On Platform="Android">SegoeIcons.ttf#Segoe MDL2 Assets</On>
+            <On Platform="Android">SegoeIcons.ttf#Segoe Fluent Icons</On>
         </OnPlatform>
     </Application.Resources>
 </Application>
