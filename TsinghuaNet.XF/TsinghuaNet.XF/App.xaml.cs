@@ -1,5 +1,5 @@
-﻿using Syncfusion.Licensing;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Syncfusion.Licensing;
 using TsinghuaNet.XF.Views;
 using Xamarin.Forms;
 
@@ -13,7 +13,7 @@ namespace TsinghuaNet.XF
 
         public App(ResourceDictionary dict, IDictionary<string, object> res = null) : base()
         {
-            SyncfusionLicenseProvider.RegisterLicense("NDgwNzY2QDMxMzkyZTMyMmUzMERkRzJrcXZwd1pSWnhIOGRUTUQ0TWhkY0R5Y01ZUHhGY1Z5VEloVmJkSjQ9");
+            SyncfusionLicenseProvider.RegisterLicense("NTI0MzE4QDMxMzkyZTMzMmUzME4zQXdDNUtBQlJEZUhNL001V05jZGFWcHVMNVNiRCtPNGN3MmU5VjVtVlE9;NTI0MzE5QDMxMzkyZTMzMmUzMEZDOGNrVDdCRXZ4aXRpbUlMR1EwM1Y5Z081YmFtc2lucEg5ZGUzVDlFdjQ9;NTI0MzIwQDMxMzkyZTMzMmUzMEhtQVVmaFFSbW84bjlsK3hlRlRETUdFQWEzNmNSejFPYlhVc0JZTEtaVmc9;NTI0MzIxQDMxMzkyZTMzMmUzMGtFVzJHTXc5UlE4YlZyVDBtbVRYV093SFpZS0Fra0RnYmt0ZllJL1RJQXM9;NTI0MzIyQDMxMzkyZTMzMmUzMGZzOWFBY0phSnRDYTlEbndSOVUxdGNOSW9Fd01GeHhXNHZzaVpwNG5VVGc9");
             InitializeComponent();
             Resources.MergedDictionaries.Add(dict);
             if (res != null)
