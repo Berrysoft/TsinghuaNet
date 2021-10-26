@@ -146,10 +146,10 @@ namespace TsinghuaNet.CLI
             if (res.Succeed)
             {
                 var users = helper.GetUsersAsync();
-                Console.WriteLine("|       IP       |       登录时间       |   Mac 地址   |");
+                Console.WriteLine("|       IP       |       登录时间       |    流量    |   Mac 地址   |");
                 Console.WriteLine(new string('=', 56));
                 await foreach (var user in users)
-                    Console.WriteLine("| {0,-14} | {1,-20} | {2,-12} |", user.Address, user.LoginTime.ToString(DateTimeFormat), user.MacAddress);
+                    Console.WriteLine("| {0,-14} | {1,-20} | {1,10} | {2,-12} |", user.Address, user.LoginTime.ToString(DateTimeFormat), user.Flux, user.MacAddress);
             }
             else
                 Console.WriteLine(res.Message);

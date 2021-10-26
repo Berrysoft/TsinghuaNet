@@ -6,16 +6,19 @@ namespace TsinghuaNet.Models
 {
     public struct NetUser
     {
-        public NetUser(IPAddress address, DateTime loginTime, PhysicalAddress mac)
+        public NetUser(IPAddress address, DateTime loginTime, ByteSize flux, PhysicalAddress mac)
         {
             Address = address;
             LoginTime = loginTime;
+            Flux = flux;
             MacAddress = mac;
         }
 
         public IPAddress Address { get; }
 
         public DateTime LoginTime { get; }
+
+        public ByteSize Flux { get; }
 
         public PhysicalAddress MacAddress { get; }
 

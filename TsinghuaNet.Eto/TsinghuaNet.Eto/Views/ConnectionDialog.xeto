@@ -17,6 +17,9 @@
         <controls:SortableGridColumn Sortable="True" HeaderText="登录时间" Tag="LoginTime">
           <TextBoxCell Binding="{Binding LoginTime,Converter={StaticResource StringFormatConverter}}"/>
         </controls:SortableGridColumn>
+        <controls:SortableGridColumn Sortable="True" HeaderText="使用流量" Tag="Flux">
+          <TextBoxCell TextAlignment="Right" Binding="{Binding Flux,Converter={StaticResource StringFormatConverter}}"/>
+        </controls:SortableGridColumn>
         <controls:SortableGridColumn Sortable="True" HeaderText="Mac地址" Tag="MacAddress">
           <TextBoxCell Binding="{Binding MacAddress,Converter={StaticResource StringFormatConverter}}"/>
         </controls:SortableGridColumn>

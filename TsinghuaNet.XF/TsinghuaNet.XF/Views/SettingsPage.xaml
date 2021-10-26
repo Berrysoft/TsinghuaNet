@@ -96,9 +96,10 @@
                         <ViewCell>
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout HorizontalOptions="FillAndExpand" Padding="16">
-                                    <Label Text="{Binding MacAddress,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
-                                    <Label Text="{Binding Address,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding Address,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}"/>
                                     <Label Text="{Binding LoginTime,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding Flux,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
+                                    <Label Text="{Binding MacAddress,StringFormat='{0}'}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}"/>
                                 </StackLayout>
                                 <Button Margin="8" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" Command="{StaticResource DropCommand}" CommandParameter="{Binding Address}" Text="下线"/>
                             </StackLayout>
