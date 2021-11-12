@@ -121,6 +121,7 @@ jobs:
     inputs:
       solution: '$(iosProject)'
       configuration: 'Release'
+      platform: 'iPhone'
       msbuildArguments: '/r /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory) /p:CodesignEntitlements=""'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
