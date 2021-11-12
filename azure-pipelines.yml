@@ -2,7 +2,8 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '6.0.100'
+  sdkVersion: '5.0.402'
+  nugetVersion: '6.0.0'
   solution: 'TsinghuaNet.sln'
   uwpProject: 'TsinghuaNet.XF/TsinghuaNet.XF.UWP/TsinghuaNet.XF.UWP.csproj'
   droidProject: 'TsinghuaNet.XF/TsinghuaNet.XF.Android/TsinghuaNet.XF.Android.csproj'
@@ -16,7 +17,7 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet'
     inputs:
-      versionSpec: '6.0.0'
+      versionSpec: '$(nugetVersion)'
 
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
@@ -75,7 +76,7 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet'
     inputs:
-      versionSpec: '6.0.0'
+      versionSpec: '$(nugetVersion)'
 
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
@@ -98,7 +99,7 @@ jobs:
     inputs:
       solution: '$(droidProject)'
       configuration: 'Release'
-      msbuildArguments: '/r /t:SignAndroidPackage /p:JavaSdkDirectory="%JAVA_HOME%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
+      msbuildArguments: '/r /t:SignAndroidPackage /p:JavaSdkDirectory="%JAVA_HOME_11_X64%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
@@ -124,7 +125,7 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5'
     inputs:
-      versionSpec: '6.0.0'
+      versionSpec: '$(nugetVersion)'
 
   - task: UseDotNet@2
     displayName: 'Install .NET Core SDK'
@@ -167,7 +168,7 @@ jobs:
     displayName: 'Build ipa'
     inputs:
       solutionFile: '$(iosProject)'
-      configuration: 'Ad-Hoc'
+      configuration: 'Release'
       msbuildArguments: /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory)
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
