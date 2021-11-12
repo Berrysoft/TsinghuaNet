@@ -68,12 +68,12 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   variables:
-    ANDROID_NDK_HOME: C:\Android\android-sdk\ndk-bundle
-    ANDROID_NDK_PATH: C:\Android\android-sdk\ndk-bundle
-    AndroidNdkDirectory: C:\Android\android-sdk\ndk-bundle
+    ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+    ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+    AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r16b
   steps:
   - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet 5'
+    displayName: 'Install NuGet'
     inputs:
       versionSpec: '6.0.0'
 
@@ -143,7 +143,7 @@ jobs:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet 5'
+    displayName: 'Install NuGet'
     inputs:
       versionSpec: '6.0.0'
 
@@ -163,14 +163,12 @@ jobs:
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
-  - task: XamariniOS@2
+  - task: MSBuild@1
     displayName: 'Build ipa'
     inputs:
       solutionFile: '$(iosProject)'
-      configuration: 'Release'
-      packageApp: true
-      runNugetRestore: false
-      args: /p:IpaPackageDir=$(build.artifactstagingdirectory)
+      configuration: 'Ad-Hoc'
+      msbuildArguments: /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory)
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
