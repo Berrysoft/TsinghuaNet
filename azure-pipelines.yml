@@ -6,6 +6,7 @@ variables:
   solution: 'TsinghuaNet.sln'
   uwpProject: 'TsinghuaNet.XF/TsinghuaNet.XF.UWP/TsinghuaNet.XF.UWP.csproj'
   droidProject: 'TsinghuaNet.XF/TsinghuaNet.XF.Android/TsinghuaNet.XF.Android.csproj'
+  iosProject: 'TsinghuaNet.XF/TsinghuaNet.XF.iOS/TsinghuaNet.XF.iOS.csproj'
 
 jobs:
 - job: Windows_XF_UWP
@@ -110,6 +111,68 @@ jobs:
       CleanTargetFolder: false
       OverWrite: false
       flattenFolders: false
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish'
+    inputs:
+      artifactName: 'publish'
+
+- job: Windows_XF_iOS
+  pool:
+    vmImage: 'macos-latest'
+  steps:
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet 5'
+    inputs:
+      versionSpec: '6.0.0'
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+      includePreviewVersions: true
+
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
+
+  - task: NuGetToolInstaller@0
+    displayName: 'Install NuGet 5'
+    inputs:
+      versionSpec: '6.0.0'
+
+  - task: UseDotNet@2
+    displayName: 'Install .NET Core SDK'
+    inputs:
+      packageType: sdk
+      version: '$(sdkVersion)'
+      includePreviewVersions: true
+
+  - task: NuGetCommand@2
+    displayName: 'Restore solution'
+    inputs:
+      restoreSolution: '$(solution)'
+      feedsToUse: config
+      nugetConfigPath: 'NuGet.Config'
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
+
+  - task: XamariniOS@2
+    displayName: 'Build ipa'
+    inputs:
+      solutionFile: '$(iosProject)'
+      configuration: 'Release'
+      packageApp: true
+      runNugetRestore: false
+      args: /p:IpaPackageDir=$(build.artifactstagingdirectory)
+    env:
+      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish'
