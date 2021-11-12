@@ -2,169 +2,12 @@ trigger:
 - master
 
 variables:
-  sdkVersion: '5.0.302'
+  sdkVersion: '6.0.100'
   solution: 'TsinghuaNet.sln'
-  cliProject: 'TsinghuaNet.CLI/TsinghuaNet.CLI.csproj'
-  wpfProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Wpf/TsinghuaNet.Eto.Wpf.csproj'
-  gtkProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Gtk/TsinghuaNet.Eto.Gtk.csproj'
-  macProject: 'TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/TsinghuaNet.Eto.Mac.csproj'
   uwpProject: 'TsinghuaNet.XF/TsinghuaNet.XF.UWP/TsinghuaNet.XF.UWP.csproj'
   droidProject: 'TsinghuaNet.XF/TsinghuaNet.XF.Android/TsinghuaNet.XF.Android.csproj'
 
 jobs:
-- job: CLI
-  strategy:
-    matrix:
-      windows:
-        imageName: 'windows-latest'
-        rid: win-x64
-        suffix: Win64
-      linux:
-        imageName: 'ubuntu-latest'
-        rid: linux-x64
-        suffix: Linux64
-      mac:
-        imageName: 'macos-latest'
-        rid: osx-x64
-        suffix: OSX64
-  pool:
-    vmImage: $(imageName)
-  
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 5'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-      includePreviewVersions: true
-
-  - script: dotnet publish $(cliProject) -r win-x64 -c Release -f net48 -o build\net48
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Publish project as net48'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build\net48'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)\TsinghuaNet.CLI.Fx.zip'
-
-  - script: dotnet publish $(cliProject) -r $(rid) -c Release -f net5.0 -o build/net5.0
-    displayName: 'Publish project as net5.0'
-
-  - task: ArchiveFiles@2
-    condition: ne(variables.rid, 'linux-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/net5.0'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).zip'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/net5.0'
-      includeRootFolder: false
-      archiveType: 'tar'
-      tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.CLI.$(suffix).tar.gz'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
-- job: Eto
-  strategy:
-    matrix:
-      windows:
-        imageName: 'windows-latest'
-        rid: win-x64
-        suffix: Wpf
-        project: $(wpfProject)
-      linux:
-        imageName: 'ubuntu-latest'
-        rid: linux-x64
-        suffix: Gtk
-        project: $(gtkProject)
-      mac:
-        imageName: 'macos-latest'
-        rid: osx-x64
-        suffix: Mac
-        project: $(macProject)
-  pool:
-    vmImage: $(imageName)
-  
-  steps:
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 5'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-      includePreviewVersions: true
-
-  - script: dotnet publish $(project) -r $(rid) -c Release -f net48 -o build/net48
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Publish project as net48'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/net48'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).Fx.zip'
-
-  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0-windows -o build/net5.0 -p:PublishSingleFile=true
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Publish project as net5.0'
-
-  - script: dotnet publish $(project) -r $(rid) -c Release -f net5.0 -o build/net5.0 -p:PublishSingleFile=true
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Publish project as net5.0'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'win-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/net5.0'
-      includeRootFolder: false
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.zip'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'linux-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: 'build/net5.0'
-      includeRootFolder: false
-      archiveType: 'tar'
-      tarCompression: 'gz'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.$(suffix).CoreFx.tar.gz'
-
-  - script: dotnet build $(project) -r $(rid) -c Release
-    condition: eq(variables.rid, 'osx-x64')
-    displayName: 'Build project'
-
-  - task: ArchiveFiles@2
-    condition: eq(variables.rid, 'osx-x64')
-    displayName: 'Archive'
-    inputs:
-      rootFolderOrFile: '$(build.sourcesdirectory)/TsinghuaNet.Eto/TsinghuaNet.Eto.Mac/bin/Release/net5.0/$(rid)/TsinghuaNet.Eto.Mac.app/'
-      includeRootFolder: true
-      archiveType: 'zip'
-      archiveFile: '$(Build.ArtifactStagingDirectory)/TsinghuaNet.Eto.Mac.app.zip'
-
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish'
-    inputs:
-      artifactName: 'publish'
-
 - job: Windows_XF_UWP
   pool:
     vmImage: 'windows-latest'
@@ -172,10 +15,10 @@ jobs:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet'
     inputs:
-      versionSpec: '5.8.1'
+      versionSpec: '6.0.0'
 
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 5'
+    displayName: 'Install .NET Core SDK'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
@@ -224,17 +67,17 @@ jobs:
   pool:
     vmImage: 'windows-latest'
   variables:
-    ANDROID_NDK_HOME: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-    ANDROID_NDK_PATH: C:\Microsoft\AndroidNDK64\android-ndk-r16b
-    AndroidNdkDirectory: C:\Microsoft\AndroidNDK64\android-ndk-r16b
+    ANDROID_NDK_HOME: C:\Android\android-sdk\ndk-bundle
+    ANDROID_NDK_PATH: C:\Android\android-sdk\ndk-bundle
+    AndroidNdkDirectory: C:\Android\android-sdk\ndk-bundle
   steps:
   - task: NuGetToolInstaller@0
     displayName: 'Install NuGet 5'
     inputs:
-      versionSpec: '5.8.1'
+      versionSpec: '6.0.0'
 
   - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK 5'
+    displayName: 'Install .NET Core SDK'
     inputs:
       packageType: sdk
       version: '$(sdkVersion)'
