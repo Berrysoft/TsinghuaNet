@@ -26,21 +26,12 @@ jobs:
       version: '$(sdkVersion)'
       includePreviewVersions: true
 
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
-
   - task: MSBuild@1
     displayName: 'Build app bundle'
     inputs:
       solution: '$(uwpProject)'
       configuration: 'Release'
-      msbuildArguments: '/p:AppxBundlePlatforms="x86|x64|arm64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
+      msbuildArguments: '/r /p:AppxBundlePlatforms="x86|x64|arm64" /p:AppxPackageDir="..\..\build\uwp" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=SideloadOnly'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
@@ -85,15 +76,6 @@ jobs:
       version: '$(sdkVersion)'
       includePreviewVersions: true
 
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
-
   - task: MSBuild@1
     displayName: 'Build apk'
     inputs:
@@ -123,7 +105,7 @@ jobs:
     vmImage: 'macos-latest'
   steps:
   - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet 5'
+    displayName: 'Install NuGet'
     inputs:
       versionSpec: '$(nugetVersion)'
 
@@ -134,42 +116,12 @@ jobs:
       version: '$(sdkVersion)'
       includePreviewVersions: true
 
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
-
-  - task: NuGetToolInstaller@0
-    displayName: 'Install NuGet'
-    inputs:
-      versionSpec: '6.0.0'
-
-  - task: UseDotNet@2
-    displayName: 'Install .NET Core SDK'
-    inputs:
-      packageType: sdk
-      version: '$(sdkVersion)'
-      includePreviewVersions: true
-
-  - task: NuGetCommand@2
-    displayName: 'Restore solution'
-    inputs:
-      restoreSolution: '$(solution)'
-      feedsToUse: config
-      nugetConfigPath: 'NuGet.Config'
-    env:
-      MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
-
   - task: MSBuild@1
     displayName: 'Build ipa'
     inputs:
       solutionFile: '$(iosProject)'
       configuration: 'Release'
-      msbuildArguments: /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory) /p:CodesignEntitlements=""
+      msbuildArguments: '/r /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory) /p:CodesignEntitlements=""'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
 
