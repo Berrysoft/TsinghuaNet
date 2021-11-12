@@ -119,7 +119,7 @@ jobs:
   - task: MSBuild@1
     displayName: 'Build ipa'
     inputs:
-      solutionFile: '$(iosProject)'
+      solution: '$(iosProject)'
       configuration: 'Release'
       msbuildArguments: '/r /p:BuildIpa=true /p:IpaPackageDir=$(build.artifactstagingdirectory) /p:CodesignEntitlements=""'
     env:
