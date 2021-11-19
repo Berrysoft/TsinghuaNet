@@ -54,7 +54,6 @@
     <CodesignKey>Apple Development: strawberry_str@hotmail.com (MBF6HUAPAZ)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchI18n>cjk</MtouchI18n>
-    <CodesignProvision>iOS Team Provisioning Profile: com.berrysoft.TsinghuaNet.XF</CodesignProvision>
     <CodesignExtraArgs />
     <CodesignResourceRules />
     <MtouchLink>None</MtouchLink>
@@ -75,6 +74,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchFloat32>true</MtouchFloat32>
     <MtouchExtraArgs>--linkskip=Xamarin.Forms.Core --linkskip=Xamarin.Forms.Platform --linkskip=Xamarin.Forms.Platform.iOS --linkskip=Xamarin.Forms.Xaml --linkskip=Syncfusion.Core.XForms --linkskip=Syncfusion.SfChart.XForms --linkskip=Syncfusion.SfComboBox.XForms --linkskip=Syncfusion.SfDataGrid.XForms --linkskip=Syncfusion.SfNumericTextBox.XForms --linkskip=Syncfusion.SfPopupLayout.XForms --linkskip=TsinghuaNet --linkskip=TsinghuaNet.XF --linkskip=TsinghuaNet.XF.iOS</MtouchExtraArgs>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
