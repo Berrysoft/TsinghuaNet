@@ -14,10 +14,10 @@
     <PackageReference Include="PropertyChanged.Fody" Version="3.4.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.53" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.53" />
-    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.53" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2196" />
+    <PackageReference Include="Syncfusion.Xamarin.SfChart" Version="19.3.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataGrid" Version="19.3.0.55" />
+    <PackageReference Include="Syncfusion.Xamarin.SfPopupLayout" Version="19.3.0.55" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
 

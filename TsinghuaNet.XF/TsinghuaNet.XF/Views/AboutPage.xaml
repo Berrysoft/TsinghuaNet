@@ -22,6 +22,10 @@
                 <controls:HyperlinkLabel NavigateUri="https://github.com/Berrysoft/TsinghuaNet" TextColor="{DynamicResource SystemAccentColor}">项目地址</controls:HyperlinkLabel>
             </StackLayout>
             <Label>版权所有 © 2018-2021 Berrysoft</Label>
+            <StackLayout Orientation="Horizontal">
+                <Label>服务热线（8:00~20:00）</Label>
+                <controls:HyperlinkLabel NavigateUri="tel:010-62784859" TextColor="{DynamicResource SystemAccentColor}">010-62784859</controls:HyperlinkLabel>
+            </StackLayout>
             <Label Style="{DynamicResource TitleStyle}">使用的库</Label>
             <dg:SfDataGrid ItemsSource="{Binding Packages}" ColumnSizer="Star" AllowSorting="True" AllowTriStateSorting="True">
                 <dg:SfDataGrid.Columns>
