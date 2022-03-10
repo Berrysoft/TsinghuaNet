@@ -17,7 +17,6 @@ namespace TsinghuaNet.XF.UWP.Background
                 credential.State = await status.SuggestAsync();
                 NetXFSettings settings = new NetXFSettings();
                 settings.LoadSettings();
-                credential.UseProxy = settings.UseProxy;
                 var helper = credential.GetHelper(settings);
                 if (helper != null)
                 {

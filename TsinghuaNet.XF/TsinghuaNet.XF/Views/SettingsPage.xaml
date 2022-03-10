@@ -66,10 +66,6 @@
                 <Label VerticalOptions="Center" Text="{Binding Settings.FluxLimit,Mode=OneWay,StringFormat='{0:F0}'}"/>
                 <Label VerticalOptions="Center">后警告</Label>
             </StackLayout>
-            <StackLayout Spacing="8" Orientation="Horizontal">
-                <Label VerticalOptions="Center">使用系统代理</Label>
-                <Switch IsToggled="{Binding Credential.UseProxy,Mode=TwoWay}"/>
-            </StackLayout>
             <Label Style="{DynamicResource SubtitleStyle}">网络状态</Label>
             <Grid ColumnSpacing="8" RowSpacing="16">
                 <Grid.ColumnDefinitions>
