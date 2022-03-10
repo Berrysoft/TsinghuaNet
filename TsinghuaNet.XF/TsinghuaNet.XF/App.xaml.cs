@@ -13,7 +13,7 @@ namespace TsinghuaNet.XF
 
         public App(ResourceDictionary dict, IDictionary<string, object> res = null) : base()
         {
-            SyncfusionLicenseProvider.RegisterLicense("NTI0MzE4QDMxMzkyZTMzMmUzME4zQXdDNUtBQlJEZUhNL001V05jZGFWcHVMNVNiRCtPNGN3MmU5VjVtVlE9;NTI0MzE5QDMxMzkyZTMzMmUzMEZDOGNrVDdCRXZ4aXRpbUlMR1EwM1Y5Z081YmFtc2lucEg5ZGUzVDlFdjQ9;NTI0MzIwQDMxMzkyZTMzMmUzMEhtQVVmaFFSbW84bjlsK3hlRlRETUdFQWEzNmNSejFPYlhVc0JZTEtaVmc9;NTI0MzIxQDMxMzkyZTMzMmUzMGtFVzJHTXc5UlE4YlZyVDBtbVRYV093SFpZS0Fra0RnYmt0ZllJL1RJQXM9;NTI0MzIyQDMxMzkyZTMzMmUzMGZzOWFBY0phSnRDYTlEbndSOVUxdGNOSW9Fd01GeHhXNHZzaVpwNG5VVGc9");
+            SyncfusionLicenseProvider.RegisterLicense("NTkzOTk3QDMxMzkyZTM0MmUzMGNJY3BIN2F0L1dCMVZmOWZObUgwNHYwd1pQbUNVbGRSYXUzNURaMk1mcmc9;NTkzOTk4QDMxMzkyZTM0MmUzMFBpRWdZTnJUWUxyVENRUU41RzYyTHIvZTcrUXh1TVBqZmpuays1UWRRREU9;NTkzOTk5QDMxMzkyZTM0MmUzMEt2TnQvajVjekFtM0JvMjUwRS9LQk9JdVVDeTBSTXZ1NWY2Z1FkemdVUzQ9");
             InitializeComponent();
             Resources.MergedDictionaries.Add(dict);
             if (res != null)
