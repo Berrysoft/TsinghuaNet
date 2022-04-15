@@ -13,7 +13,7 @@ namespace TsinghuaNet.XF
 
         public App(ResourceDictionary dict, IDictionary<string, object> res = null) : base()
         {
-            SyncfusionLicenseProvider.RegisterLicense("NTkzOTk3QDMxMzkyZTM0MmUzMGNJY3BIN2F0L1dCMVZmOWZObUgwNHYwd1pQbUNVbGRSYXUzNURaMk1mcmc9;NTkzOTk4QDMxMzkyZTM0MmUzMFBpRWdZTnJUWUxyVENRUU41RzYyTHIvZTcrUXh1TVBqZmpuays1UWRRREU9;NTkzOTk5QDMxMzkyZTM0MmUzMEt2TnQvajVjekFtM0JvMjUwRS9LQk9JdVVDeTBSTXZ1NWY2Z1FkemdVUzQ9");
+            SyncfusionLicenseProvider.RegisterLicense("NjE2NjMyQDMyMzAyZTMxMmUzMEYvR3dQOUszZTN2bTVwalZVdVhXWTZpYjloQ1c3SHRMWVl5RjFGcVVBbDg9;NjE2NjMzQDMyMzAyZTMxMmUzMFlTOEpqRzNETHpMMllRYTdTc3YxMkF3Qlo5eXlOb2c0OUxYckFFQk1GK2M9;NjE2NjM0QDMyMzAyZTMxMmUzMEJYaFBJb0phMDFCTFZHamRXSXdlVVdYbjFiWnlsZ2dlRHdFRlVJTkd6YTg9");
             InitializeComponent();
             Resources.MergedDictionaries.Add(dict);
             if (res != null)
