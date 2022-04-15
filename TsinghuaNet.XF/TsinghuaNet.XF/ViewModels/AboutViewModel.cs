@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using PropertyChanged;
 using TsinghuaNet.Models;
@@ -12,6 +13,9 @@ namespace TsinghuaNet.XF.ViewModels
     {
         [DoNotNotify]
         public Version Version => Assembly.GetExecutingAssembly().GetName().Version;
+
+        [DoNotNotify]
+        public string Copyright => Assembly.GetExecutingAssembly().GetCustomAttributes<AssemblyCopyrightAttribute>().FirstOrDefault()?.Copyright;
 
         [DoNotNotify]
         public List<PackageBox> Packages { get; } = new List<PackageBox>

@@ -21,7 +21,7 @@
                 <Label Text="{Binding Version,Mode=OneTime,StringFormat='{0}'}"/>
                 <controls:HyperlinkLabel NavigateUri="https://github.com/Berrysoft/TsinghuaNet" TextColor="{DynamicResource SystemAccentColor}">项目地址</controls:HyperlinkLabel>
             </StackLayout>
-            <Label>版权所有 © 2018-2021 Berrysoft</Label>
+            <Label Text="{Binding Copyright,Mode=OneTime}"/>
             <StackLayout Orientation="Horizontal">
                 <Label>服务热线（8:00~20:00）</Label>
                 <controls:HyperlinkLabel NavigateUri="tel:010-62784859" TextColor="{DynamicResource SystemAccentColor}">010-62784859</controls:HyperlinkLabel>
