@@ -9,7 +9,7 @@ using TsinghuaNet.XF.Models;
 
 namespace TsinghuaNet.XF.Droid.Background
 {
-    [BroadcastReceiver(Label = "TsinghuaNet.Widget")]
+    [BroadcastReceiver(Label = "TsinghuaNet.Widget", Exported = true)]
     [IntentFilter(new string[] { "android.appwidget.action.APPWIDGET_UPDATE" })]
     [MetaData("android.appwidget.provider", Resource = "@xml/appwidgetprovider")]
     public class AppWidget : AppWidgetProvider

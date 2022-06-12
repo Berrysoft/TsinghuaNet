@@ -81,6 +81,7 @@ jobs:
     inputs:
       solution: '$(droidProject)'
       configuration: 'Release'
+      platform: 'AnyCPU'
       msbuildArguments: '/r /t:SignAndroidPackage /p:JavaSdkDirectory="%JAVA_HOME_11_X64%" /p:AndroidSigningKeyPass=$(key-password) /p:AndroidSigningStorePass=$(keystore-password)'
     env:
       MSBuildSDKsPath: $(Agent.ToolsDirectory)/dotnet/sdk/$(sdkVersion)/Sdks
